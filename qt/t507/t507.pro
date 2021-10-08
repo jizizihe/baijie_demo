@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = t507
+TARGET = main
 TEMPLATE = app
 
 
@@ -28,10 +28,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    voice.cpp \
+    udev.cpp \
+    backlight.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    voice.h \
+    udev.h \
+    backlight.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    voice.ui \
+    udev.ui \
+    backlight.ui
