@@ -5,6 +5,7 @@
 #include "voice.h"
 #include "udev.h"
 #include "backlight.h"
+#include "gpio.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,6 +24,7 @@ private:
     backlight backlight_w;
     voice voice_w;
     udev udev_w;
+    gpio gpio_w;
 
 private slots:
     void show_main();
@@ -35,6 +37,7 @@ private slots:
     void on_backlight_clicked();
     void on_vf_clicked();
     void on_udev_clicked();
+    void on_gpio_clicked();
 };
 
 #endif // MAINWINDOW_H

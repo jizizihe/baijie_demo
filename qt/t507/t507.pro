@@ -31,16 +31,21 @@ SOURCES += \
         mainwindow.cpp \
     voice.cpp \
     udev.cpp \
-    backlight.cpp
+    backlight.cpp \
+    gpio_test.c \
+    gpio.cpp
 
 HEADERS += \
         mainwindow.h \
     voice.h \
     udev.h \
-    backlight.h
+    backlight.h \
+    gpio_test.h \
+    gpio.h
 
 FORMS += \
         mainwindow.ui \
     voice.ui \
     udev.ui \
-    backlight.ui
+    backlight.ui \
+    gpio.ui
