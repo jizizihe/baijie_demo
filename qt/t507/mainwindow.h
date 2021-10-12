@@ -17,12 +17,13 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
-private:
-    Ui::MainWindow *ui;
     backlight backlight_w;
     voice voice_w;
     udev udev_w;
+
+private:
+    Ui::MainWindow *ui;
+
 
 private slots:
     void show_main();

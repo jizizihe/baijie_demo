@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>1024</width>
     <height>600</height>
    </rect>
   </property>
@@ -35,7 +35,7 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>timing</string>
+          <string>Sleep time</string>
          </property>
         </widget>
        </item>
@@ -162,7 +162,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1024</width>
      <height>23</height>
     </rect>
    </property>
