@@ -33,7 +33,9 @@ SOURCES += \
     udev.cpp \
     backlight.cpp \
     gpio_test.c \
-    gpio.cpp
+    gpio.cpp \
+    touchscreen.cpp \
+    ctouchbutton.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -41,11 +43,14 @@ HEADERS += \
     udev.h \
     backlight.h \
     gpio_test.h \
-    gpio.h
+    gpio.h \
+    touchscreen.h \
+    ctouchbutton.h
 
 FORMS += \
         mainwindow.ui \
     voice.ui \
     udev.ui \
     backlight.ui \
-    gpio.ui
+    gpio.ui \
+    touchscreen.ui
