@@ -26,7 +26,6 @@ public:
     gpio gpio_w;
     timeset timeset_w;
     touchscreen touch_w;
-    timeset timeset_w;
 
 private:
     Ui::MainWindow *ui;
@@ -46,6 +45,7 @@ private slots:
     void on_vf_clicked();
     void on_udev_clicked();
     void on_gpio_clicked();
+    void on_touchca_clicked();
 };
 
 #endif // MAINWINDOW_H
