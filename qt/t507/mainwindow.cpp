@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&backlight_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&voice_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&udev_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+    connect(&gpio_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+    connect(&touch_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
 }
 
 MainWindow::~MainWindow()
@@ -31,6 +33,16 @@ void MainWindow::show_udev()
     udev_w.show();
 }
 
+void MainWindow::show_gpio()
+{
+    gpio_w.show();
+}
+
+void MainWindow::show_touch()
+{
+    touch_w.show();
+}
+
 void MainWindow::on_rtc_clicked()
 {
 
@@ -41,6 +53,8 @@ void MainWindow::show_main()
     backlight_w.hide();
     voice_w.hide();
     udev_w.hide();
+    gpio_w.hide();
+    touch_w.hide();
     this->show();
 }
 
@@ -60,4 +74,18 @@ void MainWindow::on_udev_clicked()
 {
     this->hide();
     udev_w.show();
+}
+
+
+
+void MainWindow::on_gpio_clicked()
+{
+    this->hide();
+    gpio_w.show();
+}
+
+void MainWindow::on_touchca_clicked()
+{
+    this->hide();
+    touch_w.show();
 }
