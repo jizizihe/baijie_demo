@@ -7,6 +7,7 @@
 #include "backlight.h"
 #include "gpio.h"
 #include "touchscreen.h"
+#include "timeset.h"
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +25,7 @@ public:
     udev udev_w;
     gpio gpio_w;
     touchscreen touch_w;
+    timeset timeset_w;
 
 private:
     Ui::MainWindow *ui;

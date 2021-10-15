@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&udev_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&gpio_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&touch_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+    connect(&timeset_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
 }
 
 MainWindow::~MainWindow()
@@ -45,7 +46,8 @@ void MainWindow::show_touch()
 
 void MainWindow::on_rtc_clicked()
 {
-
+    this->hide();
+    timeset_w.show();
 }
 
 void MainWindow::show_main()
@@ -55,6 +57,7 @@ void MainWindow::show_main()
     udev_w.hide();
     gpio_w.hide();
     touch_w.hide();
+    timeset_w.hide();
     this->show();
 }
 
