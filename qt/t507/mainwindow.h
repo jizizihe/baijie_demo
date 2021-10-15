@@ -19,14 +19,16 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
-private:
-    Ui::MainWindow *ui;
     backlight backlight_w;
     voice voice_w;
     udev udev_w;
     gpio gpio_w;
     timeset timeset_w;
+    touchscreen touch_w;
+
+private:
+    Ui::MainWindow *ui;
+
 
 private slots:
     void show_main();
@@ -34,6 +36,8 @@ private slots:
     void show_rtc();
     void show_voice();
     void show_udev();
+    void show_gpio();
+    void show_touch();
 
     void on_rtc_clicked();
     void on_backlight_clicked();

@@ -32,6 +32,7 @@ SOURCES += \
     voice.cpp \
     udev.cpp \
     backlight.cpp \
+    interface_gpio.cpp \
     gpio_test.c \
     gpio.cpp \
     touchscreen.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
     voice.h \
     udev.h \
     backlight.h \
+    interface_gpio.h \
     gpio_test.h \
     gpio.h \
     touchscreen.h \

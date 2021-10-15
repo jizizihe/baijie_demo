@@ -2,8 +2,15 @@
 #define VOICE_H
 
 #include <QMainWindow>
-#include <QProcess>
 #include <QDebug>
+#include <QFileInfoList>
+#include <QFile>
+#include <QFileDialog>
+#include <QDateTime>
+#include <QTime>
+#include <QTimer>
+#include <qfileinfo.h>
+#include <QProcess>
 
 namespace Ui {
 class voice;
@@ -18,11 +25,16 @@ public:
     ~voice();
 
 private slots:
-    void on_pushButton_clicked();
 
-    void on_play_clicked();
 
     void on_return_2_clicked();
+
+
+    void on_choose_3_clicked();
+
+    void on_begin_clicked();
+
+    void on_play_clicked();
 
 signals:
     void Mysignal();
