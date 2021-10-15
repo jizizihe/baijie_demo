@@ -2,7 +2,7 @@
 #define UDEV_H
 
 #include <QMainWindow>
-#include <QDebug>
+#include <QProcess>
 
 namespace Ui {
 class udev;
@@ -17,16 +17,24 @@ public:
     ~udev();
 
 private slots:
-    void on_pushButton_3_clicked();
 
-    void on_usbdete_clicked();
+    void on_usb_detection_clicked();
 
-    void on_simdete_clicked();
+    void on_sd_detection_clicked();
+
+    void on_sim_detection_clicked();
+
+    void readoutput();
+
+    void on_return_2_clicked();
 
 signals:
     void Mysignal();
 private:
     Ui::udev *ui;
+    QProcess *proc;
+    QString file_name;
+    QString array;
 };
 
 #endif // UDEV_H

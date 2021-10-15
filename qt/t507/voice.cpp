@@ -144,9 +144,9 @@ void voice::on_begin_clicked()
         ui->begin->setText("begin");
         qDebug() << "In end s_time:" << file_name;
 
-        QMessageBox::StandardButton reply;
+/*        QMessageBox::StandardButton reply;
 
-        reply = QMessageBox::information(this, file_name, file_name);
+        reply =*/ QMessageBox::information(this, file_name, file_name);
 
         ui->combox->addItem(QString("%1").arg(file_name));
 
@@ -167,7 +167,7 @@ void voice::on_play_clicked()
     dir.setNameFilters(filters);
     QFileInfoList list = dir.entryInfoList();
     QString str[100];
-    int len;
+    int len = 0;
 
     if(!refresh_flag)
     {
