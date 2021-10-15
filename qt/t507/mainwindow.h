@@ -6,7 +6,7 @@
 #include "udev.h"
 #include "backlight.h"
 #include "gpio.h"
-#include "touchscreen.h"
+#include "timeset.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,7 +26,7 @@ private:
     voice voice_w;
     udev udev_w;
     gpio gpio_w;
-    touchscreen touchscreen_w;
+    timeset timeset_w;
 
 private slots:
     void show_main();
@@ -40,7 +40,6 @@ private slots:
     void on_vf_clicked();
     void on_udev_clicked();
     void on_gpio_clicked();
-    void on_touchca_clicked();
 };
 
 #endif // MAINWINDOW_H

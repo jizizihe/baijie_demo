@@ -35,7 +35,8 @@ SOURCES += \
     gpio_test.c \
     gpio.cpp \
     touchscreen.cpp \
-    ctouchbutton.cpp
+    ctouchbutton.cpp \
+    timeset.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -45,7 +46,8 @@ HEADERS += \
     gpio_test.h \
     gpio.h \
     touchscreen.h \
-    ctouchbutton.h
+    ctouchbutton.h \
+    timeset.h
 
 FORMS += \
         mainwindow.ui \
@@ -53,4 +55,5 @@ FORMS += \
     udev.ui \
     backlight.ui \
     gpio.ui \
-    touchscreen.ui
+    touchscreen.ui \
+    timeset.ui
