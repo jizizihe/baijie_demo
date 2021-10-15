@@ -24,6 +24,7 @@ public:
     voice voice_w;
     udev udev_w;
     gpio gpio_w;
+    timeset timeset_w;
     touchscreen touch_w;
     timeset timeset_w;
 
@@ -45,7 +46,6 @@ private slots:
     void on_vf_clicked();
     void on_udev_clicked();
     void on_gpio_clicked();
-    void on_touchca_clicked();
 };
 
 #endif // MAINWINDOW_H

@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&voice_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&udev_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&gpio_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+    connect(&timeset_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+
     connect(&touch_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&timeset_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
 }
@@ -56,8 +58,8 @@ void MainWindow::show_main()
     voice_w.hide();
     udev_w.hide();
     gpio_w.hide();
-    touch_w.hide();
     timeset_w.hide();
+    touch_w.hide();
     this->show();
 }
 

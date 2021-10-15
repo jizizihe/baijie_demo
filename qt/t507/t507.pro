@@ -47,8 +47,8 @@ HEADERS += \
     interface_gpio.h \
     gpio_test.h \
     gpio.h \
-    ctouchbutton.h \
     touchscreen.h \
+    ctouchbutton.h \
     timeset.h
 
 FORMS += \
