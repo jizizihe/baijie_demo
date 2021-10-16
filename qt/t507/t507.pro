@@ -37,7 +37,10 @@ SOURCES += \
     gpio.cpp \
     touchscreen.cpp \
     ctouchbutton.cpp \
-    timeset.cpp
+    timeset.cpp \
+    wifi.cpp \
+    wificonnect.cpp \
+    hotspot.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -49,7 +52,10 @@ HEADERS += \
     gpio.h \
     touchscreen.h \
     ctouchbutton.h \
-    timeset.h
+    timeset.h \
+    wifi.h \
+    wificonnect.h \
+    hotspot.h
 
 FORMS += \
         mainwindow.ui \
@@ -58,4 +64,7 @@ FORMS += \
     backlight.ui \
     gpio.ui \
     touchscreen.ui \
-    timeset.ui
+    timeset.ui \
+    wifi.ui \
+    wificonnect.ui \
+    hotspot.ui
