@@ -30,13 +30,13 @@ voice::voice(QWidget *parent) :
     for(int i = 0; i != list.size(); i++)
     {
         QString name = list.at(i).fileName();
-        qDebug() << "file name:" << name;
-        qDebug() << "fileName="<<list.at(i).fileName() ;
-        qDebug() << "absoluteFilePath=" << list.at(i).absoluteFilePath() ;
+//        qDebug() << "file name:" << name;
+//        qDebug() << "fileName="<<list.at(i).fileName() ;
+//        qDebug() << "absoluteFilePath=" << list.at(i).absoluteFilePath() ;
 
         str[i] = name;
         len = i;
-        qDebug() << "str[" << i <<"]" << str[i] ;
+//        qDebug() << "str[" << i <<"]" << str[i] ;
     }
     ui->combox->clear();
     for(int i = 0; i <= len; i++)
@@ -45,7 +45,7 @@ voice::voice(QWidget *parent) :
         {
             continue;
         }
-        qDebug() << "IN FOR str[" << i <<"]" << str[i] ;
+//        qDebug() << "IN FOR str[" << i <<"]" << str[i] ;
         ui->combox->addItem(str[i]);
     }
     len = -1;

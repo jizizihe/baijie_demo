@@ -80,20 +80,20 @@ void backlight::on_sure_clicked()
     case fifteen_se :
         if(index_number != index_number_flag)
         {
-                index_number_flag = index_number;
-             qDebug() << "fifteen_se  begin";
-//             connect(timer,SIGNAL(timeout()),this,SLOT(timerUpDate(int)));
-//             timer->start(1000);
-             timerUpDate(15);
-             set_backlight(0);
-             qDebug() << "-------fifteen_se   end";
+            index_number_flag = index_number;
+            qDebug() << "fifteen_se  begin";
+            //             connect(timer,SIGNAL(timeout()),this,SLOT(timerUpDate(int)));
+            //             timer->start(1000);
+            timerUpDate(15);
+            set_backlight(0);
+            qDebug() << "-------fifteen_se   end";
         }
         break;
 
     case thirty_se :
         if(index_number != index_number_flag)
         {
-                index_number_flag = index_number;
+            index_number_flag = index_number;
             qDebug() << "thirty_se begin";
             timerUpDate(30);
             set_backlight(0);
@@ -105,7 +105,7 @@ void backlight::on_sure_clicked()
     case one_minute :
         if(index_number != index_number_flag)
         {
-                index_number_flag = index_number;
+            index_number_flag = index_number;
             qDebug() << "one_minute  begin";
             timerUpDate(60);
             set_backlight(0);
@@ -116,7 +116,7 @@ void backlight::on_sure_clicked()
     case two_minute:
         if(index_number != index_number_flag)
         {
-                index_number_flag = index_number;
+            index_number_flag = index_number;
             qDebug() << "two_minute begin";
             timerUpDate(120);
             set_backlight(0);
@@ -127,7 +127,7 @@ void backlight::on_sure_clicked()
     case five_minute:
         if(index_number != index_number_flag)
         {
-                index_number_flag = index_number;
+            index_number_flag = index_number;
             qDebug() << "five_minute begin";
             timerUpDate(300);
             set_backlight(0);
@@ -138,7 +138,7 @@ void backlight::on_sure_clicked()
     case ten_minute:
         if(index_number != index_number_flag)
         {
-                index_number_flag = index_number;
+            index_number_flag = index_number;
             qDebug() << "ten_minute begin";
             timerUpDate(600);
             set_backlight(0);

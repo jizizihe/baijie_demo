@@ -4,6 +4,18 @@
 #include <QMainWindow>
 #include <QProcess>
 
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#include <sys/mman.h>
+#include <sys/types.h>
+#include <ctype.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <QDebug>
+
 namespace Ui {
 class udev;
 }
@@ -15,6 +27,7 @@ class udev : public QMainWindow
 public:
     explicit udev(QWidget *parent = 0);
     ~udev();
+    void interface_gpio(int val);
 
 private slots:
 
