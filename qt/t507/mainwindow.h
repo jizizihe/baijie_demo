@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "globalapp.h"
 #include "voice.h"
 #include "udev.h"
 #include "backlight.h"

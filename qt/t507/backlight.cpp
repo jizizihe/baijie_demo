@@ -1,9 +1,11 @@
 #include "backlight.h"
 #include "ui_backlight.h"
 
+static int global_secs = 6;
+static int light_value;
 static int index_number;
 static int index_number_flag = -1;
-static int array[6] = {15,30,60,120,300,600};
+static int array[7] = {15,30,60,120,300,600,99999};
 
 enum index_value
 {
@@ -15,24 +17,46 @@ enum index_value
     ten_minute,
 };
 
-void set_backlight(int value)
+int set_backlight(int value)
 {
     int fd;
+    int source_value;
     unsigned long args[2] = {0} ;
     fd = open("/dev/disp", O_RDWR, 0);
     if(fd < 0)
     {
         qDebug() << "open /dev/disp failed.\n";
-        return ;
+        return -1;
     }
 
     args[0] = 0;
     args[1] = value;
-    qDebug() << "the old lcd" << args[1] << "brightness is" << ioctl(fd,DISP_LCD_GET_BRIGHTNESS,args) << endl;
+//    qDebug() << "the old lcd" << args[1] << "brightness is" << ioctl(fd,DISP_LCD_GET_BRIGHTNESS,args) << endl;
+    source_value = ioctl(fd,DISP_LCD_GET_BRIGHTNESS,args);
+
     ioctl(fd,DISP_LCD_SET_BRIGHTNESS,args);
-    qDebug() << "the new lcd" << args[1] << "brightness is" << ioctl(fd,DISP_LCD_GET_BRIGHTNESS,args) << endl;
+//    qDebug() << "the new lcd" << args[1] << "brightness is" << ioctl(fd,DISP_LCD_GET_BRIGHTNESS,args) << endl;
     close(fd);
-    return ;
+    return source_value;
+}
+
+int get_backlight()
+{
+    int fd;
+    int source_value;
+    unsigned long args[2] = {0} ;
+    fd = open("/dev/disp", O_RDWR, 0);
+    if(fd < 0)
+    {
+        qDebug() << "open /dev/disp failed.\n";
+        return -1;
+    }
+//    qDebug() << "the old lcd" << args[1] << "brightness is" << ioctl(fd,DISP_LCD_GET_BRIGHTNESS,args) << endl;
+    source_value = ioctl(fd,DISP_LCD_GET_BRIGHTNESS,args);
+//    qDebug() <<"get_backlight:" << source_value;
+
+    close(fd);
+    return source_value;
 }
 
 
@@ -40,13 +64,25 @@ backlight::backlight(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::backlight)
 {
+    extern bool touch_flag;
     ui->setupUi(this);
     ui->return_2->setGeometry(10,10,200,30);
     ui->horizontalSlider->setRange(140,255);
     ui->horizontalSlider->setValue(200);
+    light_value = 200;
     int str ;
     str = ui->comboBox->currentIndex();
     qDebug() << str;
+
+    timing = new QTimer(this);
+    timing->start(1);
+    connect(timing,SIGNAL(timeout()),this,SLOT(light_screen()));
+
+    QTimer *timeUp = new QTimer(this);
+    timeUp->start(3);
+    connect(timeUp,SIGNAL(timeout()),this,SLOT(timerUp()));
+
+
 }
 
 backlight::~backlight()
@@ -54,10 +90,36 @@ backlight::~backlight()
     delete ui;
 }
 
+void backlight::light_screen()
+{
+    int now_value = get_backlight();
+
+    if(now_value == 0 && touch_flag)
+    {
+        set_backlight(light_value);
+    }
+}
+
+void backlight::timerUp()
+{
+    QTime now = QTime::currentTime().addSecs(array[global_secs]);
+
+    while(QTime::currentTime() < now)
+    {
+        if(touch_flag)
+        {
+            now = QTime::currentTime().addSecs(array[global_secs]);
+            touch_flag = false;
+        }
+        QCoreApplication::processEvents(QEventLoop::AllEvents,100);
+    }
+    set_backlight(0);
+}
+
 void backlight::on_horizontalSlider_valueChanged(int value)
 {
-    qDebug() << value;
-    set_backlight(value);
+//    qDebug() << value;
+    light_value = set_backlight(value);
 }
 
 void backlight::on_normal_clicked()
@@ -68,25 +130,26 @@ void backlight::on_normal_clicked()
 void backlight::on_comboBox_currentIndexChanged(int index)
 {
     index_number = index;
-    qDebug() << "11111 from comboBox" << index_number;
+//    qDebug() << "11111 from comboBox" << index_number;
 }
 
 void backlight::on_sure_clicked()
 {
-    timer = new QTimer(this);
-    qDebug() << "22222 get comboBox index" << index_number;
+
+//    qDebug() << "22222 get comboBox index" << index_number;
+    global_secs = index_number;
     switch(index_number)
     {
     case fifteen_se :
         if(index_number != index_number_flag)
         {
             index_number_flag = index_number;
-            qDebug() << "fifteen_se  begin";
+//            qDebug() << "fifteen_se  begin";
             //             connect(timer,SIGNAL(timeout()),this,SLOT(timerUpDate(int)));
             //             timer->start(1000);
             timerUpDate(15);
             set_backlight(0);
-            qDebug() << "-------fifteen_se   end";
+//            qDebug() << "-------fifteen_se   end";
         }
         break;
 
@@ -94,10 +157,10 @@ void backlight::on_sure_clicked()
         if(index_number != index_number_flag)
         {
             index_number_flag = index_number;
-            qDebug() << "thirty_se begin";
+//            qDebug() << "thirty_se begin";
             timerUpDate(30);
             set_backlight(0);
-            qDebug() << "----------thirty_se  end";
+//            qDebug() << "----------thirty_se  end";
 
         }
         break;
@@ -106,10 +169,10 @@ void backlight::on_sure_clicked()
         if(index_number != index_number_flag)
         {
             index_number_flag = index_number;
-            qDebug() << "one_minute  begin";
+//            qDebug() << "one_minute  begin";
             timerUpDate(60);
             set_backlight(0);
-            qDebug() << "-------one_minute  end";
+//            qDebug() << "-------one_minute  end";
         }
         break;
 
@@ -117,10 +180,10 @@ void backlight::on_sure_clicked()
         if(index_number != index_number_flag)
         {
             index_number_flag = index_number;
-            qDebug() << "two_minute begin";
+//            qDebug() << "two_minute begin";
             timerUpDate(120);
             set_backlight(0);
-            qDebug() << "two_minute end";
+//            qDebug() << "two_minute end";
         }
         break;
 
@@ -128,10 +191,10 @@ void backlight::on_sure_clicked()
         if(index_number != index_number_flag)
         {
             index_number_flag = index_number;
-            qDebug() << "five_minute begin";
+//            qDebug() << "five_minute begin";
             timerUpDate(300);
             set_backlight(0);
-            qDebug() << "five_minute end";
+//            qDebug() << "five_minute end";
         }
         break;
 
@@ -139,10 +202,10 @@ void backlight::on_sure_clicked()
         if(index_number != index_number_flag)
         {
             index_number_flag = index_number;
-            qDebug() << "ten_minute begin";
+//            qDebug() << "ten_minute begin";
             timerUpDate(600);
             set_backlight(0);
-            qDebug() << "ten_minute end";
+//            qDebug() << "ten_minute end";
         }
         break;
 

@@ -113,8 +113,8 @@
    <widget class="QSplitter" name="splitter">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>420</y>
+      <x>641</x>
+      <y>410</y>
       <width>250</width>
       <height>75</height>
      </rect>
@@ -127,7 +127,7 @@
       <bool>true</bool>
      </property>
      <property name="text">
-      <string>13</string>
+      <string>14</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_key_6">
@@ -495,6 +495,32 @@
     <property name="alignment">
      <set>Qt::AlignCenter</set>
     </property>
+   </widget>
+   <widget class="QSplitter" name="splitter_10">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>410</y>
+      <width>241</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>13</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Language</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

@@ -32,7 +32,6 @@ SOURCES += \
     voice.cpp \
     udev.cpp \
     backlight.cpp \
-
     gpio.cpp \
     touchscreen.cpp \
     ctouchbutton.cpp \
@@ -43,7 +42,8 @@ SOURCES += \
     gpio_interface.c \
     eth0set.cpp \
     speedtest.c \
-    eth0_popup.cpp
+    eth0_popup.cpp \
+    globalapp.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -60,7 +60,8 @@ HEADERS += \
     gpio_interface.h \
     eth0set.h \
     speedtest.h \
-    eth0_popup.h
+    eth0_popup.h \
+    globalapp.h
 
 FORMS += \
         mainwindow.ui \

@@ -22,7 +22,10 @@
 #define	DISP_LCD_BACKLIGHT_ENABLE   0x104
 #define	DISP_LCD_BACKLIGHT_DISABLE  0x105
 
-void set_backlight(int value);
+#include "globalapp.h"
+
+int set_backlight(int value);
+int get_backlight();
 
 namespace Ui {
 class backlight;
@@ -36,10 +39,11 @@ public:
     explicit backlight(QWidget *parent = 0);
     ~backlight();
     void timerUpDate(int secs);
-    QTimer *timer;
+    QTimer *timing;
 
 private:
     Ui::backlight *ui;
+
 
 signals:
     void Mysignal();
@@ -50,6 +54,12 @@ private slots:
     void on_comboBox_currentIndexChanged(int index);
     void on_sure_clicked();
     void on_return_2_clicked();
+
+    void light_screen();
+
+    void timerUp();
+
+
 };
 
 #endif // BACKLIGHT_H
