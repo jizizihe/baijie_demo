@@ -1,6 +1,10 @@
 #include "udev.h"
 #include "ui_udev.h"
-#include "interface_gpio.h"
+//#include "interface_gpio.h"
+extern "C"
+{
+    #include "gpio_interface.h"
+}
 
 #include <QDebug>
 #include <QDir>
@@ -195,19 +199,26 @@ void udev::on_sim_detection_clicked()
 
     QString temp = ui->sim_lineEdit->text();
     qDebug() << "temp:" << temp;
-    if(temp == "No new SIM card found")
+    if(temp == "New SIM card is not found")
     {
         QMessageBox::information(NULL,NULL, QString("Please note the 4G LED on the board when it appears fast flashing!!"));
         file_name = "";
         qDebug() << "OH No!!!";
-        interface_gpio(0);
+        //interface_gpio(0);
+        int gpio_port = calc_port_num('h',12);
+        gpio_export(gpio_port);
+        gpio_set_state(gpio_port,"out");
+        gpio_set_value(gpio_port,0);
         qDebug() << "interface_gpio set : 0";
         proc->start("nmcli connection delete ppp0");
         proc->waitForStarted(-1);
         proc->waitForFinished(-1);
         sleep(2);
-        interface_gpio(1);
+        //interface_gpio(1);
+        gpio_set_value(gpio_port,1);
         sleep(1);
+        //gpio_unexport(gpio_port);
+
         proc->start("nmcli connection add con-name ppp0 ifname ttyUSB2 autoconnect yes \
                     type gsm apn 3gnet user uninet password uninet");
         proc->waitForStarted(-1);

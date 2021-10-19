@@ -32,14 +32,13 @@ SOURCES += \
     voice.cpp \
     udev.cpp \
     backlight.cpp \
-    interface_gpio.cpp \
     gpio.cpp \
     touchscreen.cpp \
     ctouchbutton.cpp \
     timeset.cpp \
     wifi.cpp \
     wificonnect.cpp \
-    hotspot.cpp
+    hotspot.cpp \
     gpio_interface.c \
     eth0set.cpp \
     speedtest.c \
@@ -50,15 +49,13 @@ HEADERS += \
     voice.h \
     udev.h \
     backlight.h \
-    interface_gpio.h \
-    gpio_test.h \
     gpio.h \
     touchscreen.h \
     ctouchbutton.h \
     timeset.h \
     wifi.h \
     wificonnect.h \
-    hotspot.h
+    hotspot.h \
     gpio_interface.h \
     eth0set.h \
     speedtest.h \
@@ -74,5 +71,6 @@ FORMS += \
     timeset.ui \
     wifi.ui \
     wificonnect.ui \
-    hotspot.ui
+    hotspot.ui \
+    eth0set.ui
     eth0set.ui
