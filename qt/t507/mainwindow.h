@@ -30,6 +30,7 @@ public:
     touchscreen touch_w;
     wifi wifi_w;
     eth0set eth0_w;
+
 private:
     Ui::MainWindow *ui;
 

@@ -32,6 +32,7 @@ SOURCES += \
     voice.cpp \
     udev.cpp \
     backlight.cpp \
+
     gpio.cpp \
     touchscreen.cpp \
     ctouchbutton.cpp \
@@ -72,5 +73,4 @@ FORMS += \
     wifi.ui \
     wificonnect.ui \
     hotspot.ui \
-    eth0set.ui
     eth0set.ui

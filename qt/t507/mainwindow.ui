@@ -71,7 +71,7 @@
       </size>
      </property>
      <property name="text">
-      <string>4G</string>
+      <string>All Interface Test</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -127,7 +127,7 @@
       <bool>true</bool>
      </property>
      <property name="text">
-      <string>atoumatic</string>
+      <string>13</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_key_6">
@@ -138,7 +138,7 @@
       </size>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Key Test&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;About Board&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
