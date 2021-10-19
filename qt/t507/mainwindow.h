@@ -8,11 +8,8 @@
 #include "gpio.h"
 #include "touchscreen.h"
 #include "timeset.h"
-<<<<<<< HEAD
 #include "wifi.h"
-=======
 #include "eth0set.h"
->>>>>>> ly
 
 namespace Ui {
 class MainWindow;
