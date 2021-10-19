@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-
+QT       += network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = main
@@ -33,11 +33,14 @@ SOURCES += \
     udev.cpp \
     backlight.cpp \
     interface_gpio.cpp \
-    gpio_test.c \
     gpio.cpp \
     touchscreen.cpp \
     ctouchbutton.cpp \
-    timeset.cpp
+    timeset.cpp \
+    gpio_interface.c \
+    eth0set.cpp \
+    speedtest.c \
+    eth0_popup.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -49,7 +52,11 @@ HEADERS += \
     gpio.h \
     touchscreen.h \
     ctouchbutton.h \
-    timeset.h
+    timeset.h \
+    gpio_interface.h \
+    eth0set.h \
+    speedtest.h \
+    eth0_popup.h
 
 FORMS += \
         mainwindow.ui \
@@ -58,4 +65,5 @@ FORMS += \
     backlight.ui \
     gpio.ui \
     touchscreen.ui \
-    timeset.ui
+    timeset.ui \
+    eth0set.ui

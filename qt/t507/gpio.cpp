@@ -2,7 +2,7 @@
 #include "ui_gpio.h"
 extern "C"
 {
-    #include "gpio_test.h"
+    #include "gpio_interface.h"
 }
 
 gpio::gpio(QWidget *parent) :

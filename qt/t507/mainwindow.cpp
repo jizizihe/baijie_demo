@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(&touch_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&timeset_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+    connect(&eth0_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
 }
 
 MainWindow::~MainWindow()
@@ -60,6 +61,7 @@ void MainWindow::show_main()
     gpio_w.hide();
     timeset_w.hide();
     touch_w.hide();
+    eth0_w.hide();
     this->show();
 }
 
@@ -93,4 +95,10 @@ void MainWindow::on_touchca_clicked()
 {
     this->hide();
     touch_w.show();
+}
+
+void MainWindow::on_ethernet_clicked()
+{
+    this->hide();
+    eth0_w.show();
 }
