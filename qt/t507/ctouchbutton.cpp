@@ -1,5 +1,4 @@
 #include "ctouchbutton.h"
-
 CTouchButton::CTouchButton(QWidget *parent)
     : QPushButton(parent)
 {

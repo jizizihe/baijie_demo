@@ -8,7 +8,11 @@
 #include "gpio.h"
 #include "touchscreen.h"
 #include "timeset.h"
+<<<<<<< HEAD
 #include "wifi.h"
+=======
+#include "eth0set.h"
+>>>>>>> ly
 
 namespace Ui {
 class MainWindow;
@@ -28,7 +32,7 @@ public:
     timeset timeset_w;
     touchscreen touch_w;
     wifi wifi_w;
-
+    eth0set eth0_w;
 private:
     Ui::MainWindow *ui;
 
@@ -49,6 +53,7 @@ private slots:
     void on_gpio_clicked();
     void on_touchca_clicked();
     void on_wifi_clicked();
+    void on_ethernet_clicked();
 };
 
 #endif // MAINWINDOW_H
