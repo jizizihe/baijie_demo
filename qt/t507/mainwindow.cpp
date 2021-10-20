@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(&wifi_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&eth0_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+    connect(&board_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
 }
 
 MainWindow::~MainWindow()
@@ -65,6 +66,7 @@ void MainWindow::show_main()
     touch_w.hide();
     wifi_w.hide();
     eth0_w.hide();
+    board_w.hide();
     this->show();
 }
 
@@ -109,4 +111,10 @@ void MainWindow::on_ethernet_clicked()
 {
     this->hide();
     eth0_w.show();
+}
+
+void MainWindow::on_auto_2_clicked()
+{
+    this->hide();
+    board_w.show();
 }

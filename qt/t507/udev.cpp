@@ -6,9 +6,6 @@ extern "C"
     #include "gpio_interface.h"
 }
 
-
-
-
 #include <QDebug>
 #include <QDir>
 #include <QFileDialog>

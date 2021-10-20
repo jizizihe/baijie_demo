@@ -6,6 +6,11 @@
 
 QT       += core gui
 QT       += network
+#DEFINES += QT_NO_WARNING_OUTPUT\
+ #    QT_NO_DEBUG_OUTPUT
+RANSLATIONS  +=  resources/tr_zh.ts  \
+        resources/tr_en.ts
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = main
@@ -43,7 +48,9 @@ SOURCES += \
     eth0set.cpp \
     speedtest.c \
     eth0_popup.cpp \
-    globalapp.cpp
+    globalapp.cpp \
+    battery_interface.c \
+    about_board.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -61,7 +68,9 @@ HEADERS += \
     eth0set.h \
     speedtest.h \
     eth0_popup.h \
-    globalapp.h
+    globalapp.h \
+    battery_interface.h \
+    about_board.h
 
 FORMS += \
         mainwindow.ui \
@@ -74,4 +83,5 @@ FORMS += \
     wifi.ui \
     wificonnect.ui \
     hotspot.ui \
-    eth0set.ui
+    eth0set.ui \
+    about_board.ui
