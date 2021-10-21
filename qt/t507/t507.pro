@@ -43,7 +43,9 @@ SOURCES += \
     eth0set.cpp \
     speedtest.c \
     eth0_popup.cpp \
-    globalapp.cpp
+    globalapp.cpp \
+    keytest.cpp \
+    keythread.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -61,7 +63,9 @@ HEADERS += \
     eth0set.h \
     speedtest.h \
     eth0_popup.h \
-    globalapp.h
+    globalapp.h \
+    keytest.h \
+    keythread.h
 
 FORMS += \
         mainwindow.ui \
@@ -74,4 +78,5 @@ FORMS += \
     wifi.ui \
     wificonnect.ui \
     hotspot.ui \
-    eth0set.ui
+    eth0set.ui \
+    keytest.ui

@@ -11,6 +11,7 @@
 #include "timeset.h"
 #include "wifi.h"
 #include "eth0set.h"
+#include "keytest.h"
 
 namespace Ui {
 class MainWindow;
@@ -31,6 +32,7 @@ public:
     touchscreen touch_w;
     wifi wifi_w;
     eth0set eth0_w;
+    keytest keytest_w;
 
 private:
     Ui::MainWindow *ui;
@@ -53,6 +55,7 @@ private slots:
     void on_touchca_clicked();
     void on_wifi_clicked();
     void on_ethernet_clicked();
+    void on_keytest_clicked();
 };
 
 #endif // MAINWINDOW_H
