@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <unistd.h>
 #include "eth0_popup.h"
+#include <QTimer>
 
 namespace Ui {
 class eth0set;

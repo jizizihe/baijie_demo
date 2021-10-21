@@ -72,7 +72,7 @@ backlight::backlight(QWidget *parent) :
     light_value = 200;
     int str ;
     str = ui->comboBox->currentIndex();
-    qDebug() << str;
+//    qDebug() << str;
 
     timing = new QTimer(this);
     timing->start(1);
