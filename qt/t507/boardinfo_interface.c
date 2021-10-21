@@ -1,4 +1,4 @@
-#include "battery_interface.h"
+#include "boardinfo_interface.h"
 
 int get_battery_level()
 {

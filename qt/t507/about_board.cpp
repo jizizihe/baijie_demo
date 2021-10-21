@@ -1,13 +1,9 @@
 #include "about_board.h"
 #include "ui_about_board.h"
 
-#include <QScrollArea>
-#include <QHBoxLayout>
-#include <QProcess>
-#include <QDebug>
 extern "C"
 {
-    #include "battery_interface.h"
+    #include "boardinfo_interface.h"
 }
 
 about_board::about_board(QWidget *parent) :

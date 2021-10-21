@@ -30,6 +30,14 @@ eth0_popup::eth0_popup(QWidget *parent) :
     QRegExp b("\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
     line_gateway->setValidator(new QRegExpValidator(b,this));
 
+
+    QPalette pe;
+    pe.setColor(QPalette::WindowText, Qt::red);
+    QLabel *label = new QLabel(this);
+    label->setPalette(pe);
+    label->setGeometry(20,545,860,50);
+    label->setText("Please do not have spaces in the name, otherwise the operation will fail!");
+
     connect(remainmenu,SIGNAL(clicked(bool)),this,SLOT(remain()));
     connect(this,SIGNAL(addip()),this,SLOT(getaddipinforma()));
     connect(this,SIGNAL(modip()),this,SLOT(getmodipinforma()));

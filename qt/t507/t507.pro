@@ -6,8 +6,8 @@
 
 QT       += core gui
 QT       += network
-#DEFINES += QT_NO_WARNING_OUTPUT\
- #    QT_NO_DEBUG_OUTPUT
+DEFINES += QT_NO_WARNING_OUTPUT\
+     QT_NO_DEBUG_OUTPUT
 RANSLATIONS  +=  resources/tr_zh.ts  \
         resources/tr_en.ts
 
@@ -49,8 +49,8 @@ SOURCES += \
     speedtest.c \
     eth0_popup.cpp \
     globalapp.cpp \
-    battery_interface.c \
-    about_board.cpp
+    about_board.cpp \
+    boardinfo_interface.c
 
 HEADERS += \
         mainwindow.h \
@@ -69,8 +69,8 @@ HEADERS += \
     speedtest.h \
     eth0_popup.h \
     globalapp.h \
-    battery_interface.h \
-    about_board.h
+    about_board.h \
+    boardinfo_interface.h
 
 FORMS += \
         mainwindow.ui \

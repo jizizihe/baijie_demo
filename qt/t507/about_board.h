@@ -4,6 +4,11 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QTimer>
+#include <QScrollArea>
+#include <QHBoxLayout>
+#include <QProcess>
+#include <QDebug>
+
 namespace Ui {
 class about_board;
 }
