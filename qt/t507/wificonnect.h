@@ -24,7 +24,7 @@ public:
     explicit WifiConnect(QWidget *parent = 0);
     ~WifiConnect();
 
-
+    void language_reload();
 
 private slots:
     void WifiScanBt_clicked();

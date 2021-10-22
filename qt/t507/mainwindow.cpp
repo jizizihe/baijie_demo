@@ -118,3 +118,31 @@ void MainWindow::on_auto_2_clicked()
     this->hide();
     board_w.show();
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+    static bool languageflag = 0;
+    if(languageflag)
+    {
+        qApp->removeTranslator(translator);
+        delete translator;
+        translator = NULL;
+    }
+    else
+    {
+        translator = new QTranslator();
+        translator->load(":/chinese");
+        qApp->installTranslator(translator);
+    }
+    languageflag = !languageflag;
+    ui->retranslateUi(this);
+    wifi_w.language_reload();
+    eth0_w.language_reload();
+    timeset_w.language_reload();
+    backlight_w.language_reload();
+    gpio_w.language_reload();
+    voice_w.language_reload();
+    touch_w.language_reload();
+    udev_w.language_reload();
+    board_w.language_reload();
+}

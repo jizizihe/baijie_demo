@@ -11,7 +11,7 @@
 #include <QRadioButton>
 #include <QComboBox>
 #include <QGroupBox>
-
+#include <QValidator>
 namespace Ui {
 class gpio;
 }
@@ -24,22 +24,28 @@ public:
     explicit gpio(QWidget *parent = 0);
     ~gpio();
 
+    void language_reload();
+
 private slots:
     void on_pushButton_clicked();
     void on_lineedit1_1_editingFinished();
     void rBtnout_clicked();
     void rBtnin_clicked();
-    void rBtnhigh_clicked();
-    void rBtnlow_clicked();
     void ret_clicked();
-
+    void srceenclear();
 signals:
     void Mysignal();
 private:
     Ui::gpio *ui;
+    QGroupBox *stateGroup;
+    QGroupBox *valueGroup;
+    QPushButton *ret;
+
     QTextEdit *display;
-    char *gpio_state;
-    int gpio_val;
+    QRadioButton *rBtnhigh;
+    QRadioButton *rBtnlow ;
+    QRadioButton *rBtnout;
+    QRadioButton *rBtnin ;
     int port_num;
 };
 

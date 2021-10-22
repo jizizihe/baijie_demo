@@ -8,14 +8,14 @@ WifiConnect::WifiConnect(QWidget *parent) :
     ui->setupUi(this);
 
     WifiSsidLab = new QLabel(this);
-    WifiSsidLab->resize(60,50);
+    WifiSsidLab->resize(100,50);
     WifiSsidLab->move(20,50);
-    WifiSsidLab->setText("ssid");
+    WifiSsidLab->setText(tr("ssid"));
 
     WifiSsidLab = new QLabel(this);
     WifiSsidLab->resize(100,50);
     WifiSsidLab->move(20,150);
-    WifiSsidLab->setText("passwd");
+    WifiSsidLab->setText(tr("passwd"));
 
     WifiPasswdLine = new QLineEdit(this);
     WifiPasswdLine->setMaxLength(8);
@@ -30,19 +30,19 @@ WifiConnect::WifiConnect(QWidget *parent) :
     qDebug() << "Now there are " << WifiNameBox->count() << "Items";
     qDebug() << "The current item is" << WifiNameBox->currentText();
 
-    WifiScanBt = new QPushButton("scan",this);
+    WifiScanBt = new QPushButton(tr("scan"),this);
     WifiScanBt->resize(100,50);
     WifiScanBt->move(350,50);
 
-    WifiCleanBt = new QPushButton("clean",this);
+    WifiCleanBt = new QPushButton(tr("clean"),this);
     WifiCleanBt->resize(100,50);
     WifiCleanBt->move(350,150);
 
-    WifiConnectBt = new QPushButton("connect",this);
+    WifiConnectBt = new QPushButton(tr("connect"),this);
     WifiConnectBt->resize(150,50);
     WifiConnectBt->move(80,250);
 
-    WifiCloseBt = new QPushButton("close",this);
+    WifiCloseBt = new QPushButton(tr("close"),this);
     WifiCloseBt->resize(150,50);
     WifiCloseBt->move(250,250);
 
@@ -143,4 +143,15 @@ void WifiConnect::WifiConnectBt_clicked()
 void WifiConnect::WifiCloseBt_clicked()
 {
     this->close();
+}
+
+void WifiConnect::language_reload()
+{
+    ui->retranslateUi(this);
+    WifiSsidLab->setText(tr("ssid"));
+    WifiSsidLab->setText(tr("passwd"));
+    WifiScanBt->setText(tr("scan"));
+    WifiCleanBt->setText(tr("clean"));
+    WifiConnectBt->setText(tr("connect"));
+    WifiCloseBt->setText(tr("close"));
 }

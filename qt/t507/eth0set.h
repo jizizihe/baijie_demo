@@ -20,7 +20,9 @@ class eth0set : public QWidget
 public:
     explicit eth0set(QWidget *parent = 0);
     ~eth0set();
-     eth0_popup popup;
+
+    eth0_popup popup;
+    void language_reload();
 
 private slots:
     void on_pushButton_clicked();

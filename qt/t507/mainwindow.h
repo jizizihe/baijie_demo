@@ -12,6 +12,7 @@
 #include "wifi.h"
 #include "eth0set.h"
 #include "about_board.h"
+#include <QTranslator>
 
 namespace Ui {
 class MainWindow;
@@ -36,7 +37,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-
+    QTranslator *translator;
 
 private slots:
     void show_main();
@@ -56,6 +57,7 @@ private slots:
     void on_wifi_clicked();
     void on_ethernet_clicked();
     void on_auto_2_clicked();
+    void on_pushButton_clicked();
 };
 
 #endif // MAINWINDOW_H

@@ -6,10 +6,9 @@
 
 QT       += core gui
 QT       += network
-DEFINES += QT_NO_WARNING_OUTPUT\
-     QT_NO_DEBUG_OUTPUT
-RANSLATIONS  +=  resources/tr_zh.ts  \
-        resources/tr_en.ts
+#DEFINES += QT_NO_WARNING_OUTPUT\
+#     QT_NO_DEBUG_OUTPUT
+TRANSLATIONS += chinese.ts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -85,3 +84,6 @@ FORMS += \
     hotspot.ui \
     eth0set.ui \
     about_board.ui
+
+RESOURCES += \
+    translation.qrc

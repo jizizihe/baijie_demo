@@ -163,3 +163,9 @@ void eth0set::deleteip(QString ip_name)
     cmd_addsip.waitForFinished();
     ui->textEdit->setText(QString::fromLocal8Bit( cmd_addsip.readAllStandardOutput().data()));
 }
+
+void eth0set::language_reload()
+{
+    ui->retranslateUi(this);
+    popup.language_reload();
+}

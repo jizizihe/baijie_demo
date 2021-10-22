@@ -24,6 +24,8 @@ public:
     explicit voice(QWidget *parent = 0);
     ~voice();
 
+    void language_reload();
+
 private slots:
 
 

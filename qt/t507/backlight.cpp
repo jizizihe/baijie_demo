@@ -237,3 +237,8 @@ void backlight::on_return_2_clicked()
 {
     emit Mysignal();
 }
+
+void backlight::language_reload()
+{
+    ui->retranslateUi(this);
+}

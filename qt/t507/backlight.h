@@ -40,6 +40,7 @@ public:
     ~backlight();
     void timerUpDate(int secs);
     QTimer *timing;
+    void language_reload();
 
 private:
     Ui::backlight *ui;

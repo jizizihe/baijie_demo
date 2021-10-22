@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.5.2, 2021-10-20T17:32:04. -->
+<!-- Written by QtCreator 4.5.2, 2021-10-21T20:35:33. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -476,6 +476,7 @@
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedFiles">
        <value type="QString">/home/szbaijie/workspace/a133_qt/baijie_interface/qt/build-t507-helperboard_a133-Debug/main</value>
        <value type="QString">/home/szbaijie/workspace/qtcreator/main</value>
+       <value type="QString">/home/szbaijie/workspace/qtcreator/main</value>
        <value type="QString">/home/szbaijie/workspace/a133_qt/baijie_interface/qt/build-t507-helperboard_a133-Debug/main</value>
        <value type="QString">/home/szbaijie/workspace/a133_qt/baijie_interface/qt/build-t507-helperboard_a133-Debug/main</value>
        <value type="QString">/home/szbaijie/workspace/a133_qt/baijie_interface/qt/build-t507-helperboard_a133-Profile/main</value>
@@ -483,11 +484,13 @@
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedHosts">
        <value type="QString">192.168.0.164</value>
        <value type="QString">192.168.0.122</value>
+       <value type="QString">192.168.0.105</value>
        <value type="QString">192.168.0.122</value>
        <value type="QString">192.168.0.123</value>
        <value type="QString">192.168.0.122</value>
       </valuelist>
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedRemotePaths">
+       <value type="QString">/</value>
        <value type="QString">/</value>
        <value type="QString">/</value>
        <value type="QString">/</value>
@@ -500,10 +503,12 @@
        <value type="QString"></value>
        <value type="QString"></value>
        <value type="QString"></value>
+       <value type="QString"></value>
       </valuelist>
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedTimes">
        <value type="QDateTime">2021-10-19T14:31:03</value>
-       <value type="QDateTime">2021-10-20T17:19:44</value>
+       <value type="QDateTime">2021-10-21T20:29:17</value>
+       <value type="QDateTime">2021-10-21T20:33:52</value>
        <value type="QDateTime">2021-10-19T16:02:00</value>
        <value type="QDateTime">2021-10-16T20:02:27</value>
        <value type="QDateTime">2021-10-16T14:10:33</value>

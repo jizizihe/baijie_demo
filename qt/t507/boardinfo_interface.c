@@ -30,7 +30,7 @@ char *get_battery_status()
 		return "false";
 	}
 
-    status = malloc(sizeof(char) * 10);
+    status = malloc(sizeof(char) * 255);
 
     fscanf(fd, "%s", status);
     //printf("battery status is %s\n", buf);
@@ -94,7 +94,7 @@ char *get_boardname()
         return "false";
     }
 
-    name = malloc(sizeof(char) * 10);
+    name = malloc(sizeof(char) * 255);
 
     fscanf(fd, "%s", name);
     //printf("battery status is %s\n", buf);
@@ -114,7 +114,7 @@ char *get_OSname()
         printf("open %s failed !\n",path);
         return "false";
     }
-    OS = malloc(sizeof(char) * 10);
+    OS = malloc(sizeof(char) * 255);
 
     fscanf(fd, "%[^\n]", OS);
 

@@ -25,6 +25,8 @@ public:
     explicit wifi(QWidget *parent = 0);
     ~wifi();
 
+    void language_reload();
+
 signals:
     void Mysignal();
 
@@ -48,7 +50,8 @@ private:
     QPushButton * StatusBt;
 
     QTextEdit * WifiMsgText;
-
+    WifiConnect * ConnectWin;
+    HotSpot * HotSpotSetWin;
 };
 
 #endif // WIFI_H
