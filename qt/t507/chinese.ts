@@ -270,76 +270,74 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="29"/>
-        <location filename="about_board.cpp" line="37"/>
-        <location filename="about_board.cpp" line="45"/>
+        <location filename="about_board.cpp" line="83"/>
+        <location filename="about_board.cpp" line="91"/>
+        <location filename="about_board.cpp" line="99"/>
         <source>kernel: Unknown</source>
         <translation>内核： 未知</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="50"/>
+        <location filename="about_board.cpp" line="104"/>
         <source>kernel: %1 %2 %3</source>
         <translation>内核： %1 %2 %3</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="53"/>
+        <location filename="about_board.cpp" line="111"/>
         <source>OS: %1</source>
         <translation>操作系统: %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="56"/>
+        <location filename="about_board.cpp" line="74"/>
         <source>Board name: %1</source>
         <translation>开发板名称: %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="60"/>
+        <location filename="about_board.cpp" line="118"/>
         <source>resolution: %1 * %2</source>
         <translation>分辨率: %1 * %2</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="68"/>
-        <location filename="about_board.cpp" line="116"/>
+        <location filename="about_board.cpp" line="127"/>
         <source>QT version: Unknown</source>
         <translation>QT版本： 未知</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="72"/>
-        <location filename="about_board.cpp" line="120"/>
+        <location filename="about_board.cpp" line="131"/>
         <source>QT version: %1</source>
         <translation>QT版本: %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="96"/>
+        <location filename="about_board.cpp" line="58"/>
         <source>Unknown</source>
         <translation>未知</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="96"/>
+        <location filename="about_board.cpp" line="58"/>
         <source>Uncharged</source>
         <translation>未充电</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="96"/>
+        <location filename="about_board.cpp" line="58"/>
         <source>charge</source>
         <translation>充电</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="96"/>
+        <location filename="about_board.cpp" line="58"/>
         <source>Full</source>
         <translation>满电</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="98"/>
+        <location filename="about_board.cpp" line="60"/>
         <source>battery level: %1</source>
         <translation>电池电量： %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="100"/>
+        <location filename="about_board.cpp" line="62"/>
         <source>battery status: %1</source>
         <translation>电池状态: %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="106"/>
+        <location filename="about_board.cpp" line="68"/>
         <source>CPU temp: %1</source>
         <translation>CPU温度： %1</translation>
     </message>
@@ -602,6 +600,53 @@
         <location filename="gpio.cpp" line="223"/>
         <source>Please input true GPIO!</source>
         <translation type="unfinished">请输入正确的GPIO口！</translation>
+    </message>
+</context>
+<context>
+    <name>keytest</name>
+    <message>
+        <location filename="keytest.ui" line="16"/>
+        <source>MainWindow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keytest.cpp" line="12"/>
+        <location filename="keytest.cpp" line="76"/>
+        <source>return</source>
+        <translation>返回</translation>
+    </message>
+    <message>
+        <location filename="keytest.cpp" line="16"/>
+        <location filename="keytest.cpp" line="77"/>
+        <source>key Test</source>
+        <translation>按键测试</translation>
+    </message>
+    <message>
+        <location filename="keytest.cpp" line="24"/>
+        <location filename="keytest.cpp" line="78"/>
+        <source>start</source>
+        <translation>开始</translation>
+    </message>
+    <message>
+        <location filename="keytest.cpp" line="29"/>
+        <location filename="keytest.cpp" line="79"/>
+        <source>stop</source>
+        <translation>停止</translation>
+    </message>
+    <message>
+        <location filename="keytest.cpp" line="56"/>
+        <source>start test!</source>
+        <translation>开始测试！</translation>
+    </message>
+    <message>
+        <location filename="keytest.cpp" line="63"/>
+        <source>stop test!</source>
+        <translation>停止测试！</translation>
+    </message>
+    <message>
+        <location filename="keytest.cpp" line="71"/>
+        <source>key pressed!</source>
+        <translation>按键按下！</translation>
     </message>
 </context>
 <context>

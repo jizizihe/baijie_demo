@@ -10,11 +10,14 @@ QT       += network
 #     QT_NO_DEBUG_OUTPUT
 TRANSLATIONS += chinese.ts
 
+#DEFINES += QT_NO_WARNING_OUTPUT\
+#     QT_NO_DEBUG_OUTPUT
+
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = main
 TEMPLATE = app
-
 
 target.path = /
 INSTALLS += target
@@ -49,7 +52,9 @@ SOURCES += \
     eth0_popup.cpp \
     globalapp.cpp \
     about_board.cpp \
-    boardinfo_interface.c
+    boardinfo_interface.c \
+    keytest.cpp \
+    keythread.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -69,7 +74,9 @@ HEADERS += \
     eth0_popup.h \
     globalapp.h \
     about_board.h \
-    boardinfo_interface.h
+    boardinfo_interface.h \
+    keytest.h \
+    keythread.h
 
 FORMS += \
         mainwindow.ui \
@@ -83,7 +90,8 @@ FORMS += \
     wificonnect.ui \
     hotspot.ui \
     eth0set.ui \
-    about_board.ui
+    about_board.ui \
+    keytest.ui
 
 RESOURCES += \
     translation.qrc
