@@ -24,30 +24,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-void MainWindow::show_rtc()
-{
-    backlight_w.show();
-}
 
-void MainWindow::show_voice()
-{
-    voice_w.show();
-}
-
-void MainWindow::show_udev()
-{
-    udev_w.show();
-}
-
-void MainWindow::show_gpio()
-{
-    gpio_w.show();
-}
-
-void MainWindow::show_touch()
-{
-    touch_w.show();
-}
 
 void MainWindow::on_rtc_clicked()
 {
@@ -71,7 +48,7 @@ void MainWindow::show_main()
 void MainWindow::on_backlight_clicked()
 {
     this->hide();
-    show_rtc();
+    backlight_w.show();
 }
 
 void MainWindow::on_vf_clicked()

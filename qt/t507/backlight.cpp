@@ -5,7 +5,9 @@ static int global_secs = 6;
 static int light_value;
 static int index_number;
 static int index_number_flag = -1;
-static int array[7] = {15,30,60,120,300,600,99999};
+static int array[7] = {15,30,60,120,300,600,-1};
+
+QTimer *timeUp;
 
 enum index_value
 {
@@ -78,9 +80,9 @@ backlight::backlight(QWidget *parent) :
     timing->start(1);
     connect(timing,SIGNAL(timeout()),this,SLOT(light_screen()));
 
-    QTimer *timeUp = new QTimer(this);
-    timeUp->start(3);
-    connect(timeUp,SIGNAL(timeout()),this,SLOT(timerUp()));
+//    QTimer *timeUp = new QTimer(this);
+//    timeUp->start(3000);
+//    connect(timeUp,SIGNAL(timeout()),this,SLOT(timerUp()));
 
 
 }
@@ -96,7 +98,9 @@ void backlight::light_screen()
 
     if(now_value == 0 && touch_flag)
     {
+        timeUp->start(3000);
         set_backlight(light_value);
+
     }
 }
 
@@ -114,6 +118,7 @@ void backlight::timerUp()
         QCoreApplication::processEvents(QEventLoop::AllEvents,100);
     }
     set_backlight(0);
+    timeUp->stop();
 }
 
 void backlight::on_horizontalSlider_valueChanged(int value)
@@ -125,6 +130,7 @@ void backlight::on_horizontalSlider_valueChanged(int value)
 void backlight::on_normal_clicked()
 {
      ui->horizontalSlider->setValue(180);
+     light_value = 180;
 }
 
 void backlight::on_comboBox_currentIndexChanged(int index)
@@ -135,8 +141,10 @@ void backlight::on_comboBox_currentIndexChanged(int index)
 
 void backlight::on_sure_clicked()
 {
+    timeUp = new QTimer(this);
+    timeUp->start(3000);
+    connect(timeUp,SIGNAL(timeout()),this,SLOT(timerUp()));
 
-//    qDebug() << "22222 get comboBox index" << index_number;
     global_secs = index_number;
     switch(index_number)
     {

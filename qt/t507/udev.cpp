@@ -17,11 +17,14 @@ extern "C"
 #include <QPalette>
 
 
+static int sim_flag;
+
 
 udev::udev(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::udev)
 {
+    sim_flag = 0;
     ui->setupUi(this);
     proc = new QProcess;
 
@@ -38,7 +41,7 @@ udev::~udev()
 
 void udev::readoutput()
 {
-    qDebug() << "<<<<<-------------------"<< file_name <<"-------------------->>>>>>";
+//    qDebug() << "<<<<<-------------------"<< file_name <<"-------------------->>>>>>";
     array = proc->readAllStandardOutput().data();
 
     ui->message->setText(array);
@@ -53,7 +56,7 @@ void udev::readoutput()
 
     static bool flag = false;
 
-    QString out_f = QString("******************************************************************************************");
+    QString out_f = QString("*****************************************************************");
 
 
 
@@ -100,12 +103,12 @@ void udev::readoutput()
 //            m_textline->setTextColor(cur_text_color);
 
             ui->message->append(QString("%1\nThe New USB device is:\n%2%3").arg(out_f).arg(temp.data()).arg(out_f));
-            ui->usb_lineEdit->setText("Find the New USB device");
+            ui->usb_label->setText("Find the New USB device");
         }
         else
-            ui->usb_lineEdit->setText("New USB device is not found");
+            ui->usb_label->setText("New USB device is not found");
 
-        qDebug() << "lsusb***********>>>";
+//        qDebug() << "lsusb***********>>>";
     }
     else if(file_name == "/data/2.txt")
     {
@@ -122,7 +125,7 @@ void udev::readoutput()
 
         for(int x = i - 2; x < i; x++)
         {
-            qDebug() << "---<<>>---array:" <<array[x];
+//            qDebug() << "---<<>>---array:" <<array[x];
             if("/dev/mmcblk1p1" == array[x].left(14))
             {
                 flag = true;
@@ -138,16 +141,17 @@ void udev::readoutput()
 //            pale.setColor(QPalette::Text,Qt::red);
 //            ui->message->setPalette(pale);
             ui->message->append(QString("%1\nThe New SD card is :\n%2%3\n").arg(out_f).arg(array[i].data()).arg(out_f));
-            ui->sd_lineEdit->setText("Find the New Sd card");
+            ui->sd_label->setText("Find the New Sd card");
         }
         else
-            ui->sd_lineEdit->setText("New SD card is not found");
+            ui->sd_label->setText("New SD card is not found");
 
-        qDebug() << "fdisk -l ***********>>>";
+//        qDebug() << "fdisk -l ***********>>>";
     }
     else if(file_name == "/data/3.txt")
     {
         flag = false;
+
         file.open(QIODevice::ReadOnly);
         QByteArray array[35];
         int i;
@@ -164,27 +168,29 @@ void udev::readoutput()
                 continue;
             }
             array[x] = array[x].left(4);
-            qDebug() << "---<<>>---array:" <<array[x];
+//            qDebug() << "---<<>>---array:" <<array[x];
             if(array[x] == "ppp0")
             {
                 flag = true;
+                sim_flag = 0;
                 i = x;
                 break;
             }
         }
-        qDebug() << "******************* 4G IP :"<<array[i+1].remove(0,8);
+//        qDebug() << "******************* 4G IP :"<<array[i+1].remove(0,8);
 
         if(flag)
         {
-//            QPalette pale = ui->message->palette();
-//            pale.setColor(QPalette::Text,Qt::red);
-//            ui->message->setPalette(pale);
             ui->message->append(QString("%1\nThe New SIM card is:\n4G_IP:%2%3").arg(out_f).arg(array[i+1].data()).arg(out_f));
-            ui->sim_lineEdit->setText("Find the New SIM card");
+            ui->sim_label->setText("Find the New SIM card");
         }
         else
-            ui->sim_lineEdit->setText("New SIM card is not found");
-        qDebug() << "ifconfig***********>>>";
+        {
+            ++sim_flag;
+            ui->sim_label->setText("New SIM card is not found");
+        }
+
+//        qDebug() << "ifconfig***********>>>";
     }
     file.flush();
     file.close();
@@ -212,13 +218,13 @@ void udev::interface_gpio(int val)
     p = fopen(str,"w");
     fprintf(p,"%d",val>0 ? 1 : 0);
     fclose(p);
-    qDebug() << "gpio port ph12: set to" << val;
+//    qDebug() << "gpio port ph12: set to" << val;
 }
 
 
 void udev::on_usb_detection_clicked()
 {
-    ui->usb_lineEdit->setText("");
+    ui->usb_label->setText("");
 
     file_name = QString("/data/1.txt");
 
@@ -235,7 +241,7 @@ void udev::on_usb_detection_clicked()
 
 void udev::on_sd_detection_clicked()
 {
-    ui->sd_lineEdit->setText("");
+    ui->sd_label->setText("");
 
     file_name = QString("/data/2.txt");
 
@@ -253,7 +259,7 @@ void udev::on_sd_detection_clicked()
 void udev::on_sim_detection_clicked()
 {
 
-    ui->sim_lineEdit->setText(" ");
+    ui->sim_label->setText(" ");
 
     file_name = QString("/data/3.txt");
 
@@ -270,13 +276,14 @@ void udev::on_sim_detection_clicked()
     proc->waitForFinished(-1);
 
 
-    QString temp = ui->sim_lineEdit->text();
-    qDebug() << "temp:" << temp;
-    if(temp == "New SIM card is not found")
+    QString temp = ui->sim_label->text();
+//    qDebug() << "temp:" << temp;
+    if(1 == sim_flag && temp == "New SIM card is not found")
     {
+//        qDebug() << "sim_flag:" << sim_flag;
         QMessageBox::information(NULL,NULL, QString("That may be a long time!!Please note the 4G LED on the board when it appears fast flashing!!"));
         file_name = "";
-        qDebug() << "OH No!!!";
+//        qDebug() << "OH No!!!";
 
         //interface_gpio(0);
         int gpio_port = calc_port_num('h',12);
@@ -291,11 +298,11 @@ void udev::on_sim_detection_clicked()
 //        gpio_set_value(gpio_num,0);
 
 
-        qDebug() << "interface_gpio set : 0";
+//        qDebug() << "interface_gpio set : 0";
         proc->start("nmcli connection delete ppp0");
         proc->waitForStarted(-1);
         proc->waitForFinished(-1);
-        sleep(2);
+        sleep(1);
 
         //interface_gpio(1);
         gpio_set_value(gpio_port,1);
@@ -310,7 +317,7 @@ void udev::on_sim_detection_clicked()
                     type gsm apn 3gnet user uninet password uninet");
         proc->waitForStarted(-1);
         proc->waitForFinished(-1);
-        qDebug() << "interface_gpio set : 1";
+//        qDebug() << "interface_gpio set : 1";
 
 //        sleep(20);  //block exec
         QTime add = QTime::currentTime().addSecs(20);

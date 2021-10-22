@@ -27,24 +27,11 @@
      <string>return</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="sd_lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>370</y>
-      <width>571</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>370</y>
+      <y>430</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -61,7 +48,7 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>230</x>
       <y>30</y>
       <width>531</width>
       <height>41</height>
@@ -75,25 +62,15 @@
     <property name="text">
      <string>USB SD SIM status check</string>
     </property>
-   </widget>
-   <widget class="QLineEdit" name="sim_lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>424</y>
-      <width>571</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QPushButton" name="usb_detection">
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>314</y>
+      <y>374</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -102,24 +79,11 @@
      <string>detection</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="usb_lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>314</y>
-      <width>571</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>314</y>
+      <y>374</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -130,14 +94,14 @@
      </font>
     </property>
     <property name="text">
-     <string>Usb</string>
+     <string>USB:</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>424</y>
+      <y>494</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -148,14 +112,14 @@
      </font>
     </property>
     <property name="text">
-     <string>Sim</string>
+     <string>SIM:</string>
     </property>
    </widget>
    <widget class="QPushButton" name="sim_detection">
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>424</y>
+      <y>494</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -168,7 +132,7 @@
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>370</y>
+      <y>430</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -181,9 +145,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>107</y>
+      <y>100</y>
       <width>1001</width>
-      <height>201</height>
+      <height>251</height>
      </rect>
     </property>
     <property name="palette">
@@ -269,8 +233,95 @@
      </font>
     </property>
     <property name="text">
-     <string>Status Message</string>
+     <string>Status Message:</string>
     </property>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>360</y>
+      <width>581</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="usb_label">
+     <property name="geometry">
+      <rect>
+       <x>3</x>
+       <y>5</y>
+       <width>571</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frame_2">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>430</y>
+      <width>581</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="sd_label">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>6</y>
+       <width>571</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frame_3">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>494</y>
+      <width>581</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="sim_label">
+     <property name="geometry">
+      <rect>
+       <x>3</x>
+       <y>3</y>
+       <width>571</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

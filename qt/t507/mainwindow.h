@@ -39,11 +39,6 @@ private:
 private slots:
     void show_main();
 
-    void show_rtc();
-    void show_voice();
-    void show_udev();
-    void show_gpio();
-    void show_touch();
 
     void on_rtc_clicked();
     void on_backlight_clicked();

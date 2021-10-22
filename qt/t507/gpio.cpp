@@ -94,7 +94,7 @@ void gpio::on_pushButton_clicked()
     gpio_export(port_num);
     gpio_set_state(port_num, gpio_state);
     value = gpio_get_value(port_num);
-    qDebug() << value;
+//    qDebug() << value;
     if(gpio_state == "in")
     {
         display->insertPlainText("gpio_port: ");

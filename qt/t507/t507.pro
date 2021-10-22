@@ -11,7 +11,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = main
 TEMPLATE = app
 
-
 target.path = /
 INSTALLS += target
 # The following define makes your compiler emit warnings if you use
@@ -24,7 +23,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
-
 
 SOURCES += \
         main.cpp \
@@ -43,7 +41,8 @@ SOURCES += \
     eth0set.cpp \
     speedtest.c \
     eth0_popup.cpp \
-    globalapp.cpp
+    globalapp.cpp \
+    keyBoard.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -61,7 +60,8 @@ HEADERS += \
     eth0set.h \
     speedtest.h \
     eth0_popup.h \
-    globalapp.h
+    globalapp.h \
+    keyBoard.h
 
 FORMS += \
         mainwindow.ui \

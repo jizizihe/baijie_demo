@@ -39,6 +39,9 @@
     <property name="text">
      <string/>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QWidget" name="function" native="true">
     <property name="geometry">
@@ -175,6 +178,9 @@
     <property name="text">
      <string>FUNCTION:</string>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
@@ -205,6 +211,9 @@
     </property>
     <property name="text">
      <string>The recording setting</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>
