@@ -11,11 +11,11 @@ wifi::wifi(QWidget *parent) :
 
     retBt = new QPushButton(this);
     retBt->setFixedSize(100,40);
-    retBt->setText("return");
+    retBt->setText(tr("return"));
     retBt->move(10,10);
 
     pLabel = new QLabel(this);
-    pLabel->setText("Wifi Test");
+    pLabel->setText(tr("Wifi Test"));
     pLabel->resize(200,100);
     pLabel->move(400,20);
     QFont ft;
@@ -23,27 +23,27 @@ wifi::wifi(QWidget *parent) :
     pLabel->setFont(ft);
 
     WifiConnectBt = new QPushButton(this);
-    WifiConnectBt->setText("wifi connect");
+    WifiConnectBt->setText(tr("wifi connect"));
     WifiConnectBt->resize(250,50);
     WifiConnectBt->move(50,150);
 
     WifiDisconnectBt = new QPushButton(this);
-    WifiDisconnectBt->setText("wifi disconnect");
+    WifiDisconnectBt->setText(tr("wifi disconnect"));
     WifiDisconnectBt->resize(250,50);
     WifiDisconnectBt->move(50,230);
 
     HotSpotBt = new QPushButton(this);
-    HotSpotBt->setText("hot spot");
+    HotSpotBt->setText(tr("hot spot"));
     HotSpotBt->resize(250,50);
     HotSpotBt->move(50,310);
 
     SignalQualityBt = new QPushButton(this);
-    SignalQualityBt->setText("signal quality");
+    SignalQualityBt->setText(tr("signal quality"));
     SignalQualityBt->resize(250,50);
     SignalQualityBt->move(50,390);
 
     StatusBt = new QPushButton(this);
-    StatusBt->setText("connection status");
+    StatusBt->setText(tr("connection status"));
     StatusBt->resize(250,50);
     StatusBt->move(50,470);
 
@@ -75,7 +75,7 @@ void wifi::retBt_clicked()
 
 void wifi::WifiConnectBt_clicked()
 {
-    WifiConnect * ConnectWin = new WifiConnect;
+    ConnectWin = new WifiConnect;
     ConnectWin->setGeometry(200,150,600,400);
     //this->hide();
     ConnectWin->show();
@@ -108,7 +108,7 @@ void wifi::HotSpotBt_clicked()
     //this->hide();
 
     //HotSpotWin_w.show();
-    HotSpot * HotSpotSetWin = new HotSpot;
+    HotSpotSetWin = new HotSpot;
     HotSpotSetWin->setGeometry(200,150,600,400);
     HotSpotSetWin->show();
 
@@ -190,3 +190,15 @@ void wifi::StatusBt_clicked()
     this->WifiMsgText->setText(strResult);
 }
 
+void wifi::language_reload()
+{
+    ui->retranslateUi(this);
+    retBt->setText(tr("return"));
+    pLabel->setText(tr("Wifi Test"));
+    WifiConnectBt->setText(tr("wifi connect"));
+    WifiDisconnectBt->setText(tr("wifi disconnect"));
+    HotSpotBt->setText(tr("hot spot"));
+    SignalQualityBt->setText(tr("signal quality"));
+    StatusBt->setText(tr("connection status"));
+
+}

@@ -21,6 +21,8 @@ public:
     explicit timeset(QWidget *parent = 0);
     ~timeset();
 
+    void language_reload();
+
 signals:
     void Mysignal();
 

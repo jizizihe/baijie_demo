@@ -201,3 +201,9 @@ void voice::on_play_clicked()
 //    qDebug() << "name:" << str[0];
     proc->start(str[0]);
 }
+
+void voice::language_reload()
+{
+    ui->retranslateUi(this);
+    ui->label_5->move(470,10);
+}

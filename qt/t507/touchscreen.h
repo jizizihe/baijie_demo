@@ -12,6 +12,7 @@
 #include <QPoint>
 #include <QPushButton>
 #include <QDebug>
+#include "ctouchbutton.h"
 
 namespace Ui {
 class touchscreen;
@@ -27,6 +28,7 @@ public:
 
     bool openImage(const QString &fileName);
     bool saveImage(const QString &fileName, const char *fileFormat);
+    void language_reload();
 
 signals:
     void Mysignal();
@@ -47,6 +49,8 @@ private:
     bool modified;
     QList<QColor> myPenColors;
     QImage image;
+    CTouchButton *btnclear;
+    CTouchButton *btnreturn;
     Ui::touchscreen *ui;
 
 };

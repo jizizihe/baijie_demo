@@ -20,6 +20,8 @@ public:
     explicit HotSpot(QWidget *parent = 0);
     ~HotSpot();
 
+    void language_reload();
+
 private slots:
     void HotSpotUpBt_clicked();
     void HotSpotDownBt_clicked();

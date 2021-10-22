@@ -11,11 +11,11 @@ timeset::timeset(QWidget *parent) :
 
     retBt = new QPushButton(this);
     retBt->setFixedSize(100,40);
-    retBt->setText("return");
+    retBt->setText(tr("return"));
     retBt->move(10,10);
 
     pLabel = new QLabel(this);
-    pLabel->setText("Time Settings");
+    pLabel->setText(tr("Time Settings"));
     pLabel->resize(200,100);
     pLabel->move(350,20);
 
@@ -26,11 +26,11 @@ timeset::timeset(QWidget *parent) :
     datetime->setTime(QTime::currentTime());
     datetime->setDate(QDate::currentDate());
 
-    SystimeSetBt = new QPushButton("SystimeSetBt", this);
+    SystimeSetBt = new QPushButton(tr("SystimeSetBt"), this);
     SystimeSetBt->resize(200,50);
     SystimeSetBt->move(300,300);
 
-    RTCSetBt = new QPushButton("RTCSetBt", this);
+    RTCSetBt = new QPushButton(tr("RTCSetBt"), this);
     RTCSetBt->resize(200,50);
     RTCSetBt->move(510,300);
 
@@ -86,4 +86,13 @@ void timeset::RTCSetBt_clicked()
     qDebug() << "text === " << datetext;
 
     RTCSet(datetext);
+}
+
+void timeset::language_reload()
+{
+    ui->retranslateUi(this);
+    retBt->setText(tr("return"));
+    pLabel->setText(tr("Time Settings"));
+    SystimeSetBt->setText(tr("SystimeSetBt"));
+    RTCSetBt->setText(tr("RTCSetBt"));
 }

@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(&wifi_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&eth0_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+    connect(&keytest_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+    connect(&board_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
 }
 
 MainWindow::~MainWindow()
@@ -42,6 +44,8 @@ void MainWindow::show_main()
     touch_w.hide();
     wifi_w.hide();
     eth0_w.hide();
+    keytest_w.hide();
+    board_w.hide();
     this->show();
 }
 
@@ -86,4 +90,46 @@ void MainWindow::on_ethernet_clicked()
 {
     this->hide();
     eth0_w.show();
+}
+
+
+void MainWindow::on_keytest_clicked()
+{
+    this->hide();
+    keytest_w.show();
+}
+
+void MainWindow::on_auto_2_clicked()
+{
+    this->hide();
+    board_w.show();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    static bool languageflag = 0;
+    if(languageflag)
+    {
+        qApp->removeTranslator(translator);
+        delete translator;
+        translator = NULL;
+    }
+    else
+    {
+        translator = new QTranslator();
+        translator->load(":/chinese");
+        qApp->installTranslator(translator);
+    }
+    languageflag = !languageflag;
+    ui->retranslateUi(this);
+    wifi_w.language_reload();
+    eth0_w.language_reload();
+    timeset_w.language_reload();
+    backlight_w.language_reload();
+    gpio_w.language_reload();
+    voice_w.language_reload();
+    touch_w.language_reload();
+    udev_w.language_reload();
+    board_w.language_reload();
+    keytest_w.language_reload();
 }

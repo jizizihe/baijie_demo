@@ -1,6 +1,6 @@
 #include "touchscreen.h"
 #include "ui_touchscreen.h"
-#include "ctouchbutton.h"
+
 static const qreal MinimumDiameter = 3.0;
 static const qreal MaximumDiameter = 50.0;
 
@@ -12,12 +12,12 @@ touchscreen::touchscreen(QWidget *parent) :
     setAttribute(Qt::WA_AcceptTouchEvents);
     setAttribute(Qt::WA_StaticContents);
 
-    CTouchButton *btnclear = new CTouchButton(this);
-    btnclear->setText("clear");
+    btnclear = new CTouchButton(this);
+    btnclear->setText(tr("clear"));
     btnclear->setGeometry(780,480,100,50);
 
-    CTouchButton *btnreturn = new CTouchButton(this);
-    btnreturn->setText("return");
+    btnreturn = new CTouchButton(this);
+    btnreturn->setText(tr("return"));
     btnreturn->setGeometry(900,480,100,50);
 
     connect(btnclear,SIGNAL(clicked()),this,SLOT(screenclear()));
@@ -171,3 +171,8 @@ void touchscreen::screenclear()
     this->clearImage();
 }
 
+void touchscreen::language_reload()
+{
+    btnclear->setText(tr("clear"));
+    btnreturn->setText(tr("return"));
+}

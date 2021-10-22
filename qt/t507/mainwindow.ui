@@ -515,7 +515,7 @@
     </widget>
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>Language</string>
+      <string>Chiese/English</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -529,7 +529,7 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>23</height>
+     <height>28</height>
     </rect>
    </property>
   </widget>

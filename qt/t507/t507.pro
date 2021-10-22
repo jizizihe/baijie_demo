@@ -6,6 +6,14 @@
 
 QT       += core gui
 QT       += network
+#DEFINES += QT_NO_WARNING_OUTPUT\
+#     QT_NO_DEBUG_OUTPUT
+TRANSLATIONS += chinese.ts
+
+#DEFINES += QT_NO_WARNING_OUTPUT\
+#     QT_NO_DEBUG_OUTPUT
+
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = main
@@ -42,7 +50,14 @@ SOURCES += \
     speedtest.c \
     eth0_popup.cpp \
     globalapp.cpp \
+<<<<<<< HEAD
     keyBoard.cpp
+=======
+    about_board.cpp \
+    boardinfo_interface.c \
+    keytest.cpp \
+    keythread.cpp
+>>>>>>> 4f340c1430a42f76bd62369d8a77885a1f0dcd86
 
 HEADERS += \
         mainwindow.h \
@@ -61,7 +76,14 @@ HEADERS += \
     speedtest.h \
     eth0_popup.h \
     globalapp.h \
+<<<<<<< HEAD
     keyBoard.h
+=======
+    about_board.h \
+    boardinfo_interface.h \
+    keytest.h \
+    keythread.h
+>>>>>>> 4f340c1430a42f76bd62369d8a77885a1f0dcd86
 
 FORMS += \
         mainwindow.ui \
@@ -74,4 +96,9 @@ FORMS += \
     wifi.ui \
     wificonnect.ui \
     hotspot.ui \
-    eth0set.ui
+    eth0set.ui \
+    about_board.ui \
+    keytest.ui
+
+RESOURCES += \
+    translation.qrc

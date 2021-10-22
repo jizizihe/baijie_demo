@@ -6,9 +6,6 @@ extern "C"
     #include "gpio_interface.h"
 }
 
-
-
-
 #include <QDebug>
 #include <QDir>
 #include <QFileDialog>
@@ -332,4 +329,9 @@ void udev::on_sim_detection_clicked()
 void udev::on_return_2_clicked()
 {
     emit Mysignal();
+}
+
+void udev::language_reload()
+{
+    ui->retranslateUi(this);
 }

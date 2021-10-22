@@ -21,11 +21,15 @@ bool globalApp::notify(QObject *obj, QEvent *e)
     if(e->type() == QEvent::KeyPress || e->type() == QEvent::MouseButtonPress ||  e->type() == QEvent::MouseMove  || e->type() == QEvent::TouchBegin || e->type() == QEvent::TouchEnd || e->type() == QEvent::TouchUpdate )
     {
 
+<<<<<<< HEAD
 //        QDBG << e->type();
+=======
+        //QDBG << e->type();
+>>>>>>> 4f340c1430a42f76bd62369d8a77885a1f0dcd86
         if(e->type() == QEvent::TouchEnd || e->type() == QEvent::TouchBegin)
         {
             touch_flag = true;
-//            QDBG << touch_flag;
+           //QDBG << touch_flag;
         }
 
     }

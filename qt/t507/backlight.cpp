@@ -74,7 +74,7 @@ backlight::backlight(QWidget *parent) :
     light_value = 200;
     int str ;
     str = ui->comboBox->currentIndex();
-    qDebug() << str;
+//    qDebug() << str;
 
     timing = new QTimer(this);
     timing->start(1);
@@ -244,4 +244,9 @@ void backlight::timerUpDate(int secs)
 void backlight::on_return_2_clicked()
 {
     emit Mysignal();
+}
+
+void backlight::language_reload()
+{
+    ui->retranslateUi(this);
 }

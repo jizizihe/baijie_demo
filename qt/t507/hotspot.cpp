@@ -10,7 +10,7 @@ HotSpot::HotSpot(QWidget *parent) :
     HotSpotTitleLab = new QLabel( this);
     HotSpotTitleLab->resize(200,100);
     HotSpotTitleLab->move(200,10);
-    HotSpotTitleLab->setText("Hot Spot");
+    HotSpotTitleLab->setText(tr("Hot Spot"));
     QFont ft;
     ft.setPointSize(14);
     HotSpotTitleLab->setFont(ft);
@@ -18,12 +18,12 @@ HotSpot::HotSpot(QWidget *parent) :
     HotSpotNameLab = new QLabel( this);
     HotSpotNameLab->resize(100,50);
     HotSpotNameLab->move(100,100);
-    HotSpotNameLab->setText("name");
+    HotSpotNameLab->setText(tr("name"));
 
     HotSpotPasswdLab = new QLabel( this);
     HotSpotPasswdLab->resize(100,50);
     HotSpotPasswdLab->move(100,200);
-    HotSpotPasswdLab->setText("passwd");
+    HotSpotPasswdLab->setText(tr("passwd"));
 
     HotSpotNameLine = new QLineEdit(this);
     HotSpotNameLine->resize(200,50);
@@ -35,15 +35,15 @@ HotSpot::HotSpot(QWidget *parent) :
     HotSpotPasswdLine->resize(200,50);
     HotSpotPasswdLine->move(220,200);
 
-    HotSpotUpBt = new QPushButton("up",this);
+    HotSpotUpBt = new QPushButton(tr("up"),this);
     HotSpotUpBt->resize(100,50);
     HotSpotUpBt->move(100,300);
 
-    HotSpotDownBt = new QPushButton("down",this);
+    HotSpotDownBt = new QPushButton(tr("down"),this);
     HotSpotDownBt->resize(100,50);
     HotSpotDownBt->move(225,300);
 
-    HotSpotCloseBt = new QPushButton("close",this);
+    HotSpotCloseBt = new QPushButton(tr("close"),this);
     HotSpotCloseBt->resize(100,50);
     HotSpotCloseBt->move(350,300);
 
@@ -123,4 +123,15 @@ void HotSpot::HotSpotDownBt_clicked()
 void HotSpot::HotSpotCloseBt_clicked()
 {
     this->close();
+}
+
+void HotSpot::language_reload()
+{
+    ui->retranslateUi(this);
+    HotSpotTitleLab->setText(tr("Hot Spot"));
+    HotSpotNameLab->setText(tr("name"));
+    HotSpotPasswdLab->setText(tr("passwd"));
+    HotSpotUpBt->setText(tr("up"));
+    HotSpotDownBt->setText(tr("down"));
+    HotSpotCloseBt->setText(tr("close"));
 }

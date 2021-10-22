@@ -11,6 +11,9 @@
 #include "timeset.h"
 #include "wifi.h"
 #include "eth0set.h"
+#include "keytest.h"
+#include "about_board.h"
+#include <QTranslator>
 
 namespace Ui {
 class MainWindow;
@@ -31,10 +34,12 @@ public:
     touchscreen touch_w;
     wifi wifi_w;
     eth0set eth0_w;
+    keytest keytest_w;
+    about_board board_w;
 
 private:
     Ui::MainWindow *ui;
-
+    QTranslator *translator;
 
 private slots:
     void show_main();
@@ -48,6 +53,9 @@ private slots:
     void on_touchca_clicked();
     void on_wifi_clicked();
     void on_ethernet_clicked();
+    void on_keytest_clicked();
+    void on_auto_2_clicked();
+    void on_pushButton_clicked();
 };
 
 #endif // MAINWINDOW_H

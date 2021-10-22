@@ -1,8 +1,7 @@
 #include "eth0set.h"
 #include "ui_eth0set.h"
-#include <QtNetwork/QNetworkInterface>
-#include <QtNetwork>
-extern int bnttype;
+
+
 extern "C"
 {
     #include "speedtest.h"
@@ -101,15 +100,16 @@ void eth0set::speedtest()
     QCoreApplication::processEvents();
     float speed;
 
-
     getCurrentDownloadRates(&rate);
     sleep(2);
     getCurrentDownloadRates(&late_rate);
-    speed = (float)(late_rate - rate)/2;
+    speed = (float)(late_rate - rate)/1;
     QString data = QString("Current speed is %1 Bytes/s").arg(speed);
     ui->textEdit->setText(data);
     qDebug("speed: %f\n",speed);
-
+//    QTimer *timer = new QTimer(this);
+//    timer->start(2000);
+//    connect(timer, SIGNAL(timeout()),this,SLOT(speedtest()));
 }
 
 void eth0set::on_pushButton_9_clicked()
@@ -162,4 +162,10 @@ void eth0set::deleteip(QString ip_name)
     cmd_addsip.start(cmd_addstaticip);
     cmd_addsip.waitForFinished();
     ui->textEdit->setText(QString::fromLocal8Bit( cmd_addsip.readAllStandardOutput().data()));
+}
+
+void eth0set::language_reload()
+{
+    ui->retranslateUi(this);
+    popup.language_reload();
 }

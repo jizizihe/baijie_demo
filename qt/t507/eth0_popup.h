@@ -5,7 +5,8 @@
 #include <QLineEdit>
 #include <QLabel>
 #include <QDebug>
-
+#include <QRegExpValidator>
+#include <QPushButton>
 
 class eth0_popup : public QDialog
 {
@@ -14,7 +15,9 @@ class eth0_popup : public QDialog
 public:
     explicit eth0_popup(QWidget *parent = 0);
     ~eth0_popup();
+
     char *bnttype;
+    void language_reload();
 
 signals:
     void addip();
@@ -35,7 +38,8 @@ private:
     QLineEdit *line_addr;
     QLabel *label_gateway;
     QLineEdit *line_gateway;
-
+    QLabel *label;
+    QPushButton *remainmenu;
 };
 
 #endif // ETH0_POPUP_H

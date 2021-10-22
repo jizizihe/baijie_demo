@@ -28,6 +28,7 @@ public:
     explicit udev(QWidget *parent = 0);
     ~udev();
     void interface_gpio(int val);
+    void language_reload();
 
 private slots:
 
