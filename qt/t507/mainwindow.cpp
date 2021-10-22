@@ -121,6 +121,7 @@ void MainWindow::on_keytest_clicked()
     this->hide();
     keytest_w.show();
 }
+
 void MainWindow::on_auto_2_clicked()
 {
     this->hide();

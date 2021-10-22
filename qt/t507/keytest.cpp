@@ -13,7 +13,7 @@ keytest::keytest(QWidget *parent) :
     retBt->move(10,10);
 
     KeyLabel = new QLabel(this);
-    KeyLabel->setText("Wifi Test");
+    KeyLabel->setText("key Test");
     KeyLabel->resize(200,100);
     KeyLabel->move(400,20);
     QFont ft;
@@ -37,6 +37,7 @@ keytest::keytest(QWidget *parent) :
     connect(retBt,SIGNAL(clicked(bool)),this,SLOT(retBt_clicked()));
     connect(StartBt,SIGNAL(clicked(bool)),this,SLOT(startBt_clicked()));
     connect(StopBt,SIGNAL(clicked(bool)),this,SLOT(stopBt_clicked()));
+    connect(task,SIGNAL(message(QString)),this,SLOT(recvmsg(QString)));
 }
 
 keytest::~keytest()
@@ -52,13 +53,20 @@ void keytest::retBt_clicked()
 void keytest::startBt_clicked()
 {
     qDebug() << "startBt_clicked!";
-
+    this->keyText->append("start test!");
     this->task->start();
 
 }
 
 void keytest::stopBt_clicked()
 {
+    this->keyText->append("stop test!");
     this->task->terminate();
     this->task->wait();
+}
+
+void keytest::recvmsg(QString str)
+{
+    qDebug() << str;
+    this->keyText->append("key pressed!");
 }

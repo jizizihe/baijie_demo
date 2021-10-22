@@ -11,8 +11,6 @@
 
 #include <keythread.h>
 
-
-
 namespace Ui {
 class keytest;
 }
@@ -32,6 +30,7 @@ private slots:
     void retBt_clicked();
     void startBt_clicked();
     void stopBt_clicked();
+    void recvmsg(QString);
 
 private:
     Ui::keytest *ui;
@@ -43,7 +42,6 @@ private:
     QTextEdit * keyText;
 
     keythread *task=new keythread(NULL);//声明线程
-
 
 };
 

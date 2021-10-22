@@ -49,7 +49,8 @@ char * keytest_scan(char* keypath)
     return NULL;
 }
 
-void key_test(char * event)
+/*1--pressed 0--not pressed*/
+int key_test(char * event)
 {
     int buttons_fd;
     int i=0,count;
@@ -59,7 +60,7 @@ void key_test(char * event)
 
     if (buttons_fd < 0) {
         printf("open input device error\n");
-        return ;
+        return 0;
     }
 
     for (;;)
@@ -70,20 +71,24 @@ void key_test(char * event)
             if(EV_KEY==ev_key.type)
             {
                 //printf("type:%d,code:%d,value:%d\n", ev_key.type,ev_key.code-1,ev_key.value);
+                if(ev_key.value == 1)
+                {
+                    return 1;
+                }
             }
             if(EV_SYN==ev_key.type) {
                 //printf("---touch screen test ok\n");
-                qDebug() << "-------KEY PRESS------\n";
-                //return;
+                //qDebug() << "-------KEY PRESS------\n";
             }
         }
    }
    close(buttons_fd);
+
+   return 0;
 }
 
 void keythread::run()
 {
-    cout<<"开始执行线程"<<endl;
     char* path;
     char* keypath = "sunxi-keyboard";
 
@@ -94,11 +99,18 @@ void keythread::run()
     }
     else
     {
-        QString str = QString(path);
-        qDebug() << str;
+        for(;;)
+        {
+            QString str = QString(path);
+            //qDebug() << str;
 
-        key_test(path);
+            int key_status = key_test(path);
+            if(key_status == 1)
+            {
+                str = "-------KEY PRESS------";
+                //qDebug() << str;
+                emit message(str);
+            }
+        }
     }
-
-    cout<<"线程执行完毕"<<endl;
 }

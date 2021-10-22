@@ -20,7 +20,7 @@
 #include <linux/input.h>
 
 char * keytest_scan(char* keypath);
-void key_test(char * event);
+int key_test(char * event);
 
 class keythread : public QThread
 {
@@ -29,9 +29,10 @@ public:
     explicit keythread(QObject *parent = nullptr);
     ~keythread();
 
-    void run();//线程入口函数（工作线程的主函数）
+    virtual void run();//线程入口函数（工作线程的主函数）
 
 signals:
+    void message(QString);
 
 public slots:
 
