@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<TS version="2.0" language="zh_CN">
 <context>
     <name>HotSpot</name>
     <message>
@@ -174,7 +174,8 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="453"/>
-        <source>Touch Calibration</source>
+        <source>Touch Display</source>
+        <oldsource>Touch Calibration</oldsource>
         <translation type="unfinished">触摸显示</translation>
     </message>
     <message>
@@ -270,74 +271,74 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="83"/>
-        <location filename="about_board.cpp" line="91"/>
-        <location filename="about_board.cpp" line="99"/>
         <source>kernel: Unknown</source>
-        <translation>内核： 未知</translation>
+        <translation type="obsolete">架构： 未知</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="104"/>
         <source>kernel: %1 %2 %3</source>
-        <translation>内核： %1 %2 %3</translation>
+        <translation type="obsolete">架构： %1 %2 %3</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="111"/>
+        <location filename="about_board.cpp" line="86"/>
         <source>OS: %1</source>
         <translation>操作系统: %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="74"/>
+        <location filename="about_board.cpp" line="72"/>
         <source>Board name: %1</source>
         <translation>开发板名称: %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="118"/>
+        <location filename="about_board.cpp" line="79"/>
+        <source>kernel: %1</source>
+        <translation>架构： %1</translation>
+    </message>
+    <message>
+        <location filename="about_board.cpp" line="93"/>
         <source>resolution: %1 * %2</source>
         <translation>分辨率: %1 * %2</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="127"/>
         <source>QT version: Unknown</source>
-        <translation>QT版本： 未知</translation>
+        <translation type="obsolete">QT版本： 未知</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="131"/>
+        <location filename="about_board.cpp" line="100"/>
         <source>QT version: %1</source>
         <translation>QT版本: %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="58"/>
+        <location filename="about_board.cpp" line="56"/>
         <source>Unknown</source>
         <translation>未知</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="58"/>
+        <location filename="about_board.cpp" line="56"/>
         <source>Uncharged</source>
         <translation>未充电</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="58"/>
+        <location filename="about_board.cpp" line="56"/>
         <source>charge</source>
         <translation>充电</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="58"/>
+        <location filename="about_board.cpp" line="56"/>
         <source>Full</source>
         <translation>满电</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="60"/>
+        <location filename="about_board.cpp" line="58"/>
         <source>battery level: %1</source>
         <translation>电池电量： %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="62"/>
+        <location filename="about_board.cpp" line="60"/>
         <source>battery status: %1</source>
         <translation>电池状态: %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="68"/>
+        <location filename="about_board.cpp" line="66"/>
         <source>CPU temp: %1</source>
         <translation>CPU温度： %1</translation>
     </message>
@@ -413,87 +414,71 @@
 <context>
     <name>eth0_popup</name>
     <message>
-        <location filename="eth0_popup.cpp" line="8"/>
-        <location filename="eth0_popup.cpp" line="102"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location filename="eth0_popup.cpp" line="11"/>
-        <location filename="eth0_popup.cpp" line="103"/>
         <source>name:</source>
-        <translation type="unfinished">名称:</translation>
+        <translation type="obsolete">名称:</translation>
     </message>
     <message>
-        <location filename="eth0_popup.cpp" line="16"/>
-        <location filename="eth0_popup.cpp" line="104"/>
         <source>ip address:</source>
-        <translation type="unfinished">ip地址：</translation>
+        <translation type="obsolete">ip地址：</translation>
     </message>
     <message>
-        <location filename="eth0_popup.cpp" line="23"/>
-        <location filename="eth0_popup.cpp" line="105"/>
         <source>gateway:</source>
-        <translation type="unfinished">网关：</translation>
+        <translation type="obsolete">网关：</translation>
     </message>
     <message>
-        <location filename="eth0_popup.cpp" line="36"/>
-        <location filename="eth0_popup.cpp" line="101"/>
         <source>Please do not have spaces in the name, otherwise the operation will fail!</source>
-        <translation type="unfinished">名称请不要带空格，否则会导致此次操作失败</translation>
+        <translation type="obsolete">名称请不要带空格，否则会导致此次操作失败</translation>
     </message>
 </context>
 <context>
     <name>eth0set</name>
     <message>
-        <location filename="eth0set.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="eth0set.ui" line="26"/>
         <source>return</source>
-        <translation type="unfinished">返回</translation>
+        <translation type="obsolete">返回</translation>
     </message>
     <message>
-        <location filename="eth0set.ui" line="39"/>
         <source>set static ip</source>
-        <translation type="unfinished">设置静态ip</translation>
+        <translation type="obsolete">设置静态ip</translation>
     </message>
     <message>
-        <location filename="eth0set.ui" line="52"/>
         <source>set dynamic ip</source>
-        <translation type="unfinished">设置动态ip</translation>
+        <translation type="obsolete">设置动态ip</translation>
     </message>
     <message>
-        <location filename="eth0set.ui" line="65"/>
         <source>add static ip</source>
-        <translation type="unfinished">增加静态ip</translation>
+        <translation type="obsolete">增加静态ip</translation>
     </message>
     <message>
-        <location filename="eth0set.ui" line="78"/>
         <source>modify static ip</source>
-        <translation type="unfinished">修改静态ip</translation>
+        <translation type="obsolete">修改静态ip</translation>
     </message>
     <message>
-        <location filename="eth0set.ui" line="91"/>
         <source>delete static ip</source>
-        <translation type="unfinished">删除静态ip</translation>
+        <translation type="obsolete">删除静态ip</translation>
     </message>
     <message>
-        <location filename="eth0set.ui" line="104"/>
         <source>speed test</source>
-        <translation type="unfinished">网速测试</translation>
+        <translation type="obsolete">网速测试</translation>
     </message>
     <message>
-        <location filename="eth0set.ui" line="135"/>
+        <source>Show all IP </source>
+        <translation type="obsolete">显示所有ip</translation>
+    </message>
+    <message>
         <source>display all static ip</source>
-        <translation type="unfinished">显示所有的静态ip</translation>
+        <translation type="obsolete">显示所有的静态ip</translation>
     </message>
     <message>
-        <location filename="eth0set.ui" line="148"/>
         <source>ifconfig</source>
-        <translation type="unfinished">网络接口配置</translation>
+        <translation type="obsolete">网络接口配置</translation>
+    </message>
+    <message>
+        <source>Current speed is %1 Bytes/s</source>
+        <translation type="obsolete">当前网速为%1 Bytes/s</translation>
     </message>
 </context>
 <context>
@@ -505,7 +490,8 @@
     </message>
     <message>
         <location filename="gpio.ui" line="39"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;plz iput GPIO&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;please enter GPIO port&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <oldsource>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;please enter GPIO&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</oldsource>
         <translation type="unfinished">请输入GPIO口</translation>
     </message>
     <message>
@@ -519,72 +505,72 @@
         <translation type="unfinished">ok</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="25"/>
-        <location filename="gpio.cpp" line="238"/>
+        <location filename="gpio.cpp" line="22"/>
+        <location filename="gpio.cpp" line="209"/>
         <source>state</source>
         <translation type="unfinished">状态</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="28"/>
-        <location filename="gpio.cpp" line="142"/>
-        <location filename="gpio.cpp" line="241"/>
+        <location filename="gpio.cpp" line="25"/>
+        <location filename="gpio.cpp" line="121"/>
+        <location filename="gpio.cpp" line="212"/>
         <source>out</source>
         <translation type="unfinished">输出</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="29"/>
-        <location filename="gpio.cpp" line="124"/>
-        <location filename="gpio.cpp" line="242"/>
+        <location filename="gpio.cpp" line="26"/>
+        <location filename="gpio.cpp" line="114"/>
+        <location filename="gpio.cpp" line="213"/>
         <source>in</source>
         <translation type="unfinished">输入</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="38"/>
-        <location filename="gpio.cpp" line="239"/>
+        <location filename="gpio.cpp" line="35"/>
+        <location filename="gpio.cpp" line="210"/>
         <source>value</source>
         <translation type="unfinished">值</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="41"/>
-        <location filename="gpio.cpp" line="150"/>
-        <location filename="gpio.cpp" line="243"/>
+        <location filename="gpio.cpp" line="38"/>
+        <location filename="gpio.cpp" line="125"/>
+        <location filename="gpio.cpp" line="214"/>
         <source>high</source>
         <translation type="unfinished">高</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="42"/>
-        <location filename="gpio.cpp" line="157"/>
-        <location filename="gpio.cpp" line="244"/>
+        <location filename="gpio.cpp" line="39"/>
+        <location filename="gpio.cpp" line="130"/>
+        <location filename="gpio.cpp" line="215"/>
         <source>low</source>
         <translation type="unfinished">低</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="50"/>
-        <location filename="gpio.cpp" line="240"/>
+        <location filename="gpio.cpp" line="47"/>
+        <location filename="gpio.cpp" line="211"/>
         <source>return</source>
         <translation type="unfinished">返回</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="110"/>
+        <location filename="gpio.cpp" line="107"/>
         <source>The GPIO port entered is empty!</source>
         <translation type="unfinished">输入的GPIO口为空！</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="119"/>
-        <location filename="gpio.cpp" line="137"/>
+        <location filename="gpio.cpp" line="113"/>
+        <location filename="gpio.cpp" line="120"/>
         <source>gpio_port: %1</source>
         <translation type="unfinished">gpio口： %1</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="124"/>
-        <location filename="gpio.cpp" line="142"/>
+        <location filename="gpio.cpp" line="114"/>
+        <location filename="gpio.cpp" line="121"/>
         <source>state: %1</source>
         <translation type="unfinished">状态： %1</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="129"/>
-        <location filename="gpio.cpp" line="150"/>
-        <location filename="gpio.cpp" line="157"/>
+        <location filename="gpio.cpp" line="115"/>
+        <location filename="gpio.cpp" line="125"/>
+        <location filename="gpio.cpp" line="130"/>
         <source>value: %1</source>
         <translation type="unfinished">值： %1</translation>
     </message>
@@ -593,13 +579,438 @@
         <translation type="obsolete">请输入正确的GPIO口！</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="172"/>
-        <location filename="gpio.cpp" line="187"/>
-        <location filename="gpio.cpp" line="200"/>
-        <location filename="gpio.cpp" line="214"/>
-        <location filename="gpio.cpp" line="223"/>
+        <location filename="gpio.cpp" line="143"/>
+        <location filename="gpio.cpp" line="158"/>
+        <location filename="gpio.cpp" line="171"/>
+        <location filename="gpio.cpp" line="185"/>
+        <location filename="gpio.cpp" line="194"/>
         <source>Please input true GPIO!</source>
         <translation type="unfinished">请输入正确的GPIO口！</translation>
+    </message>
+</context>
+<context>
+    <name>ipset</name>
+    <message>
+        <location filename="ipset.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ipset.ui" line="26"/>
+        <source>modify static ip</source>
+        <translation type="unfinished">修改静态ip</translation>
+    </message>
+    <message>
+        <location filename="ipset.ui" line="57"/>
+        <source>speed test</source>
+        <translation type="unfinished">网速测试</translation>
+    </message>
+    <message>
+        <location filename="ipset.ui" line="70"/>
+        <source>ifconfig</source>
+        <translation type="unfinished">网络接口配置</translation>
+    </message>
+    <message>
+        <location filename="ipset.ui" line="83"/>
+        <source>return</source>
+        <translation type="unfinished">返回</translation>
+    </message>
+    <message>
+        <location filename="ipset.ui" line="96"/>
+        <source>set static ip</source>
+        <translation type="unfinished">设置静态ip</translation>
+    </message>
+    <message>
+        <location filename="ipset.ui" line="109"/>
+        <source>set dynamic ip</source>
+        <translation type="unfinished">设置动态ip</translation>
+    </message>
+    <message>
+        <location filename="ipset.ui" line="122"/>
+        <source>add static ip</source>
+        <translation type="unfinished">增加静态ip</translation>
+    </message>
+    <message>
+        <location filename="ipset.ui" line="135"/>
+        <source>delete static ip</source>
+        <translation type="unfinished">删除静态ip</translation>
+    </message>
+    <message>
+        <location filename="ipset.ui" line="148"/>
+        <source>show all IP </source>
+        <oldsource>Show all IP </oldsource>
+        <translation>显示所有ip</translation>
+    </message>
+    <message>
+        <source>display all static ip</source>
+        <translation type="obsolete">显示所有的静态ip</translation>
+    </message>
+    <message>
+        <location filename="ipset.cpp" line="92"/>
+        <source>Current speed is %1 Bytes/s</source>
+        <translation type="unfinished">当前网速为%1 Bytes/s</translation>
+    </message>
+</context>
+<context>
+    <name>ipset_popup</name>
+    <message>
+        <location filename="ipset_popup.cpp" line="6"/>
+        <location filename="ipset_popup.cpp" line="198"/>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <location filename="ipset_popup.cpp" line="9"/>
+        <location filename="ipset_popup.cpp" line="199"/>
+        <source>return</source>
+        <translation type="unfinished">返回</translation>
+    </message>
+    <message>
+        <location filename="ipset_popup.cpp" line="12"/>
+        <location filename="ipset_popup.cpp" line="200"/>
+        <source>name:</source>
+        <translation type="unfinished">名称:</translation>
+    </message>
+    <message>
+        <location filename="ipset_popup.cpp" line="17"/>
+        <location filename="ipset_popup.cpp" line="201"/>
+        <source>network card:</source>
+        <translation type="unfinished">网卡：</translation>
+    </message>
+    <message>
+        <location filename="ipset_popup.cpp" line="22"/>
+        <location filename="ipset_popup.cpp" line="202"/>
+        <source>ip address:</source>
+        <translation type="unfinished">ip地址：</translation>
+    </message>
+    <message>
+        <location filename="ipset_popup.cpp" line="29"/>
+        <location filename="ipset_popup.cpp" line="203"/>
+        <source>gateway:</source>
+        <translation type="unfinished">网关：</translation>
+    </message>
+    <message>
+        <location filename="ipset_popup.cpp" line="42"/>
+        <location filename="ipset_popup.cpp" line="197"/>
+        <source>Please do not have spaces in the name, otherwise the operation will fail!</source>
+        <translation type="unfinished">名称请不要带空格，否则会导致此次操作失败</translation>
+    </message>
+    <message>
+        <location filename="ipset_popup.cpp" line="71"/>
+        <location filename="ipset_popup.cpp" line="84"/>
+        <source>Do you want to set it to current IP?</source>
+        <translation type="unfinished">你是否想将其设为当前ip地址？</translation>
+    </message>
+    <message>
+        <location filename="ipset_popup.cpp" line="71"/>
+        <location filename="ipset_popup.cpp" line="84"/>
+        <source>yes</source>
+        <translation type="unfinished">是的</translation>
+    </message>
+    <message>
+        <location filename="ipset_popup.cpp" line="71"/>
+        <location filename="ipset_popup.cpp" line="84"/>
+        <source>no</source>
+        <translation type="unfinished">不是</translation>
+    </message>
+</context>
+<context>
+    <name>keyBoard</name>
+    <message>
+        <location filename="keyBoard.cpp" line="215"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="222"/>
+        <source>DEL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="229"/>
+        <location filename="keyBoard.cpp" line="617"/>
+        <source>LOW</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="236"/>
+        <source>style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="241"/>
+        <source>1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="246"/>
+        <source>2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="251"/>
+        <source>3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="258"/>
+        <source>4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="263"/>
+        <source>5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="268"/>
+        <source>6</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="273"/>
+        <source>7</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="278"/>
+        <source>8</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="283"/>
+        <source>9</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="288"/>
+        <source>0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="292"/>
+        <source>a</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="297"/>
+        <source>b</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="302"/>
+        <source>c</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="307"/>
+        <source>d</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="312"/>
+        <source>e</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="317"/>
+        <source>f</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="322"/>
+        <source>g</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="327"/>
+        <source>h</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="332"/>
+        <source>i</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="337"/>
+        <source>j</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="342"/>
+        <source>k</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="347"/>
+        <source>l</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="352"/>
+        <source>m</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="357"/>
+        <source>n</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="362"/>
+        <source>o</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="367"/>
+        <source>p</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="372"/>
+        <source>q</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="377"/>
+        <source>r</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="382"/>
+        <source>s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="387"/>
+        <source>t</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="392"/>
+        <source>u</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="397"/>
+        <source>v</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="402"/>
+        <source>w</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="407"/>
+        <source>x</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="414"/>
+        <source>y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="419"/>
+        <source>z</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="460"/>
+        <source>!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="465"/>
+        <source>@</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="470"/>
+        <source>#</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="475"/>
+        <source>$</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="480"/>
+        <source>%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="485"/>
+        <source>^</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="490"/>
+        <source>&amp;&amp;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="495"/>
+        <source>*</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="500"/>
+        <source>(</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="505"/>
+        <source>)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="510"/>
+        <source>,</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="515"/>
+        <source>.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="520"/>
+        <source>?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="524"/>
+        <source>tttttttttttt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="623"/>
+        <source>CAP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="628"/>
+        <source>SPE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="674"/>
+        <source>gray</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="681"/>
+        <source>blue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="keyBoard.cpp" line="688"/>
+        <source>black</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -690,13 +1101,13 @@
     </message>
     <message>
         <location filename="touchscreen.cpp" line="16"/>
-        <location filename="touchscreen.cpp" line="176"/>
+        <location filename="touchscreen.cpp" line="45"/>
         <source>clear</source>
         <translation>清屏</translation>
     </message>
     <message>
         <location filename="touchscreen.cpp" line="20"/>
-        <location filename="touchscreen.cpp" line="177"/>
+        <location filename="touchscreen.cpp" line="46"/>
         <source>return</source>
         <translation>返回</translation>
     </message>
@@ -714,36 +1125,48 @@
         <translation>返回</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="58"/>
+        <location filename="udev.ui" line="45"/>
         <source>SD:</source>
         <translation>SD:</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="76"/>
+        <location filename="udev.ui" line="63"/>
         <source>USB SD SIM status check</source>
         <translation>USB SD SIM 状态检测</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="102"/>
-        <location filename="udev.ui" line="164"/>
-        <location filename="udev.ui" line="177"/>
+        <location filename="udev.ui" line="79"/>
+        <location filename="udev.ui" line="128"/>
+        <location filename="udev.ui" line="141"/>
         <source>detection</source>
         <translation>检测</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="133"/>
-        <source>Usb</source>
-        <translation>Usb</translation>
+        <location filename="udev.ui" line="97"/>
+        <source>USB:</source>
+        <translation type="unfinished">USB：</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="151"/>
-        <source>Sim</source>
-        <translation>Sim</translation>
+        <location filename="udev.ui" line="115"/>
+        <source>SIM:</source>
+        <translation>SIM：</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="272"/>
-        <source>Status Message</source>
+        <location filename="udev.ui" line="236"/>
+        <source>Status Message:</source>
         <translation>状态信息</translation>
+    </message>
+    <message>
+        <source>Usb</source>
+        <translation type="obsolete">Usb</translation>
+    </message>
+    <message>
+        <source>Sim</source>
+        <translation type="obsolete">Sim</translation>
+    </message>
+    <message>
+        <source>Status Message</source>
+        <translation type="obsolete">状态信息</translation>
     </message>
 </context>
 <context>
@@ -759,44 +1182,51 @@
         <translation>返回</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="62"/>
+        <location filename="voice.ui" line="65"/>
         <source>play</source>
         <translation>播放</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="75"/>
+        <location filename="voice.ui" line="78"/>
+        <location filename="voice.cpp" line="144"/>
         <source>begin</source>
         <translation>开始</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="88"/>
+        <location filename="voice.ui" line="91"/>
+        <location filename="voice.cpp" line="68"/>
         <source>choose</source>
         <translation>选择文件</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="134"/>
+        <location filename="voice.ui" line="137"/>
         <source>file_path:</source>
         <translation>文件路径</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="162"/>
+        <location filename="voice.ui" line="165"/>
         <source>file_name:</source>
         <translation>文件名称</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="176"/>
+        <location filename="voice.ui" line="179"/>
         <source>FUNCTION:</source>
         <translation>功能</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="189"/>
+        <location filename="voice.ui" line="195"/>
         <source>FILE:</source>
         <translation>文件</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="207"/>
+        <location filename="voice.ui" line="213"/>
         <source>The recording setting</source>
         <translation>录音</translation>
+    </message>
+    <message>
+        <location filename="voice.cpp" line="124"/>
+        <source>end</source>
+        <translation>结束</translation>
     </message>
 </context>
 <context>

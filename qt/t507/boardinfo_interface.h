@@ -21,5 +21,7 @@ float get_CPU_temp();
 int get_resolution(int *x,int *y);
 char *get_boardname();
 char *get_OSname();
+char *get_QTversion();
+char *get_kernel();
 
 #endif

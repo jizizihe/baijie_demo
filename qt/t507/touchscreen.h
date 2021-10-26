@@ -1,7 +1,7 @@
 #ifndef TOUCHSCREEN_H
 #define TOUCHSCREEN_H
 
-#include <QWidget>
+#include <QMainWindow>
 #include <QEvent>
 #include <QPainter>
 #include <QPaintEvent>
@@ -13,12 +13,13 @@
 #include <QPushButton>
 #include <QDebug>
 #include "ctouchbutton.h"
+#include "touch_interface.h"
 
 namespace Ui {
 class touchscreen;
 }
 
-class touchscreen : public QWidget
+class touchscreen : public QMainWindow
 {
     Q_OBJECT
 
@@ -26,29 +27,19 @@ public:
     explicit touchscreen(QWidget *parent = 0);
     ~touchscreen();
 
-    bool openImage(const QString &fileName);
-    bool saveImage(const QString &fileName, const char *fileFormat);
     void language_reload();
 
 signals:
     void Mysignal();
 
 public slots:
-    void clearImage();
     void screenclear();
     void btnreturn_clicked();
-protected:
-    void paintEvent(QPaintEvent *event) override;
-    void resizeEvent(QResizeEvent *event) override;
-    bool event(QEvent *event) override;
 
 private:
-    void resizeImage(QImage *image, const QSize &newSize);
     void clear();
+    touch *scribbleArea;
 
-    bool modified;
-    QList<QColor> myPenColors;
-    QImage image;
     CTouchButton *btnclear;
     CTouchButton *btnreturn;
     Ui::touchscreen *ui;

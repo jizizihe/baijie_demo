@@ -10,7 +10,7 @@
 #include "touchscreen.h"
 #include "timeset.h"
 #include "wifi.h"
-#include "eth0set.h"
+#include "ipset.h"
 #include "keytest.h"
 #include "about_board.h"
 #include <QTranslator>
@@ -33,7 +33,7 @@ public:
     timeset timeset_w;
     touchscreen touch_w;
     wifi wifi_w;
-    eth0set eth0_w;
+    ipset eth0_w;
     keytest keytest_w;
     about_board board_w;
 

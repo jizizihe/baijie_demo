@@ -1,10 +1,7 @@
 #include "udev.h"
 #include "ui_udev.h"
+#include "gpio_interface.h"
 
-extern "C"
-{
-    #include "gpio_interface.h"
-}
 
 #include <QDebug>
 #include <QDir>

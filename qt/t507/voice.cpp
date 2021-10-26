@@ -65,7 +65,7 @@ void voice::on_return_2_clicked()
 
 void voice::on_choose_3_clicked()
 {
-    QString path = QFileDialog::getExistingDirectory(NULL,"choose","/data",QFileDialog::ShowDirsOnly);
+    QString path = QFileDialog::getExistingDirectory(NULL,tr("choose"),"/data",QFileDialog::ShowDirsOnly);
     QDir dir1(path);
     QFileInfoList list1 = dir1.entryInfoList();
 
@@ -121,7 +121,7 @@ void voice::on_begin_clicked()
 
 //        qDebug() << "str name:" << str;
 //        qDebug() << "file_name:" << file_name;
-        ui->begin->setText("end");
+        ui->begin->setText(tr("end"));
         flag = false;
         refresh_flag = false;
 //        qDebug() << "begin arecord";
@@ -141,7 +141,7 @@ void voice::on_begin_clicked()
     }
     else
     {
-        ui->begin->setText("begin");
+        ui->begin->setText(tr("begin"));
 //        qDebug() << "In end s_time:" << file_name;
 
 /*        QMessageBox::StandardButton reply;
@@ -205,5 +205,7 @@ void voice::on_play_clicked()
 void voice::language_reload()
 {
     ui->retranslateUi(this);
-    ui->label_5->move(470,10);
+    ui->label_5->move(320,10);
+    ui->pathname_2->setText("/data");
+
 }

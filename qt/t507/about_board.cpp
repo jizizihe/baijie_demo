@@ -1,10 +1,10 @@
 #include "about_board.h"
 #include "ui_about_board.h"
 
-extern "C"
-{
+//extern "C"
+//{
     #include "boardinfo_interface.h"
-}
+//}
 
 about_board::about_board(QWidget *parent) :
     QWidget(parent),
@@ -29,10 +29,8 @@ about_board::about_board(QWidget *parent) :
     battery_update();
     CPU_temp_update();
     resolution_update();
-    OSname_update();
-//    char *OSname = get_OSname();
-//    ui->OS_label->setText(QString(tr("OS: %1")).arg(OSname));
     QTversion_update();
+    OSname_update();
 
     QTimer *timer = new QTimer(this);
     timer->start(1000);
@@ -76,32 +74,9 @@ void about_board::boardname_update()
 
 void about_board::kernelname_update()
 {
-    QProcess *process = new QProcess(this);
-    process->start("uname -m");
-    if(!process->waitForFinished())
-    {
-        ui->kernel_label->setText(QString(tr("kernel: Unknown")));
-    }
-    QString hardware_name = QString::fromLocal8Bit(process->readAllStandardOutput());
-    hardware_name = hardware_name.simplified();
-
-    process->start("uname -s");
-    if(!process->waitForFinished())
-    {
-        ui->kernel_label->setText(QString(tr("kernel: Unknown")));
-    }
-    QString kernel_name = QString::fromLocal8Bit(process->readAllStandardOutput());
-    kernel_name = kernel_name.simplified();
-
-    process->start("uname -r");
-    if(!process->waitForFinished())
-    {
-        ui->kernel_label->setText(QString(tr("kernel: Unknown")));
-    }
-    QString kernel_release = QString::fromLocal8Bit(process->readAllStandardOutput());
-    kernel_release = kernel_release.simplified();
-
-    ui->kernel_label->setText(QString(tr("kernel: %1 %2 %3")).arg(hardware_name).arg(kernel_name).arg(kernel_release));
+    char *kernel;
+    kernel = get_kernel();
+    ui->kernel_label->setText(QString(tr("kernel: %1")).arg(kernel));
 
 }
 
@@ -120,21 +95,14 @@ void about_board::resolution_update()
 
 void about_board::QTversion_update()
 {
-    QProcess *QT = new QProcess(this);
-    QT->start("qmake -v | cut -d ' ' -f 4 | sed -n '2p' ");
-    if(!QT->waitForFinished())
-    {
-        QTversion->setText(QString(tr("QT version: Unknown")));
-    }
-    else
-    {
-        QTversion->setText(QString(tr("QT version: %1")).arg(QString::fromLocal8Bit(QT->readAllStandardOutput())));
-    }
+    char *vQT;
+    vQT = get_QTversion();
+    QTversion->setText(QString(tr("QT version: %1")).arg(vQT));
 }
 
 void about_board::language_reload()
 {
-    //ui->retranslateUi(this);
+    ui->retranslateUi(this);
     boardname_update();
     kernelname_update();
     battery_update();

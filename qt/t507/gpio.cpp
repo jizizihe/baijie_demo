@@ -1,9 +1,7 @@
 #include "gpio.h"
 #include "ui_gpio.h"
-extern "C"
-{
-    #include "gpio_interface.h"
-}
+#include "gpio_interface.h"
+
 
 gpio::gpio(QWidget *parent) :
     QWidget(parent),
@@ -11,10 +9,9 @@ gpio::gpio(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QRegExp regx("[a-zA-Z0-9]{4}$");  //表示只能输入数字和字母
+    QRegExp regx("[a-zA-Z0-9]{1,4}$");
     QValidator *validator = new QRegExpValidator(regx, ui->lineedit1_1);
     ui->lineedit1_1->setValidator( validator );
-
 
     display = new QTextEdit(this);
     display->setReadOnly(true);
@@ -64,6 +61,7 @@ gpio::~gpio()
 void gpio::ret_clicked()
 {
     emit Mysignal();
+    gpio_unexport(port_num);
 }
 
 void gpio::srceenclear()
@@ -104,15 +102,8 @@ void gpio::on_pushButton_clicked()
 {
     display->clear();
     gpio_export(port_num);
-<<<<<<< HEAD
-    gpio_set_state(port_num, gpio_state);
-    value = gpio_get_value(port_num);
-//    qDebug() << value;
-    if(gpio_state == "in")
-=======
 
     if(ui->lineedit1_1->text().isEmpty())
->>>>>>> 4f340c1430a42f76bd62369d8a77885a1f0dcd86
     {
         display->append(QString(tr("The GPIO port entered is empty!")));
         return;
@@ -120,58 +111,32 @@ void gpio::on_pushButton_clicked()
     if(rBtnin->isChecked())
     {
         gpio_set_state(port_num, "in");
-//        display->insertPlainText("gpio_port: ");
-//        display->insertPlainText(ui->lineedit1_1->text());
-
         display->append(QString(tr("gpio_port: %1")).arg(ui->lineedit1_1->text()));
-
-//        display->append("state: ");
-//        display->insertPlainText("in");
-
         display->append(QString(tr("state: %1")).arg(tr("in")));
-
-//        display->append("value: ");
-//        display->insertPlainText( QString("%1").arg((gpio_get_value(port_num))));
-
         display->append( QString(tr("value: %1")).arg((gpio_get_value(port_num))));
     }
     else if(rBtnout->isChecked())
     {
         gpio_set_state(port_num, "out");
-//        display->insertPlainText("gpio_port: ");
-//        display->insertPlainText(ui->lineedit1_1->text());
-
         display->append(QString(tr("gpio_port: %1")).arg(ui->lineedit1_1->text()));
-
-//        display->append("state: ");
-//        display->insertPlainText("out");
-
         display->append(QString(tr("state: %1")).arg(tr("out")));
-
-//        display->append("value: ");
         if(rBtnhigh->isChecked())
         {
             gpio_set_value(port_num, 1);
-//            display->insertPlainText("high");
-
             display->append(QString(tr("value: %1")).arg(tr("high")));
         }
         else if(rBtnlow->isChecked())
         {
             gpio_set_value(port_num, 0);
-//            display->insertPlainText("low");
-
             display->append(QString(tr("value: %1")).arg(tr("low")));
         }
     }
-    gpio_unexport(port_num);
+
 
 }
 
 void gpio::on_lineedit1_1_editingFinished()
 {
-    //QLineEdit* button = (QLineEdit*)sender();
-
     QString str = ui->lineedit1_1->text();
 
     if(str.size() < 2 && str.size() != 0)
@@ -249,7 +214,4 @@ void gpio::language_reload()
     rBtnin->setText(tr("in"));
     rBtnhigh->setText(tr("high"));
     rBtnlow->setText(tr("low"));
-    //on_lineedit1_1_editingFinished();
-    //on_pushButton_clicked();
-
 }

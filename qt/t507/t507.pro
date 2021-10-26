@@ -45,19 +45,17 @@ SOURCES += \
     wifi.cpp \
     wificonnect.cpp \
     hotspot.cpp \
-    gpio_interface.c \
-    eth0set.cpp \
-    speedtest.c \
-    eth0_popup.cpp \
     globalapp.cpp \
-<<<<<<< HEAD
-    keyBoard.cpp
-=======
+    boardinfo_interface.cpp \
+    keyBoard.cpp \
     about_board.cpp \
-    boardinfo_interface.c \
     keytest.cpp \
-    keythread.cpp
->>>>>>> 4f340c1430a42f76bd62369d8a77885a1f0dcd86
+    keythread.cpp \
+    ipset_popup.cpp \
+    ipset.cpp \
+    ipset_interface.cpp \
+    gpio_interface.cpp \
+    touch_interface.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -72,18 +70,17 @@ HEADERS += \
     wificonnect.h \
     hotspot.h \
     gpio_interface.h \
-    eth0set.h \
-    speedtest.h \
-    eth0_popup.h \
     globalapp.h \
-<<<<<<< HEAD
-    keyBoard.h
-=======
+    keyBoard.h \
     about_board.h \
     boardinfo_interface.h \
     keytest.h \
-    keythread.h
->>>>>>> 4f340c1430a42f76bd62369d8a77885a1f0dcd86
+    keythread.h \
+    ipset_popup.h \
+    ipset.h \
+    ipset_interface.h \
+    touch_interface.h
+
 
 FORMS += \
         mainwindow.ui \
@@ -96,9 +93,9 @@ FORMS += \
     wifi.ui \
     wificonnect.ui \
     hotspot.ui \
-    eth0set.ui \
     about_board.ui \
-    keytest.ui
+    keytest.ui \
+    ipset.ui
 
 RESOURCES += \
     translation.qrc

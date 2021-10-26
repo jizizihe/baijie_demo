@@ -450,7 +450,7 @@
      </size>
     </property>
     <property name="text">
-     <string>Touch Calibration</string>
+     <string>Touch Display</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

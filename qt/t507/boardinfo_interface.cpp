@@ -1,4 +1,6 @@
 #include "boardinfo_interface.h"
+#include <QProcess>
+#include <QString>
 
 int get_battery_level()
 {
@@ -30,12 +32,12 @@ char *get_battery_status()
 		return "false";
 	}
 
-    status = malloc(sizeof(char) * 255);
+    status = (char *)malloc(sizeof(char) * 255);
 
     fscanf(fd, "%s", status);
     //printf("battery status is %s\n", buf);
 	fclose(fd);
-
+    
     return status;
 }
 
@@ -94,7 +96,7 @@ char *get_boardname()
         return "false";
     }
 
-    name = malloc(sizeof(char) * 255);
+    name = (char *)malloc(sizeof(char) * 255);
 
     fscanf(fd, "%s", name);
     //printf("battery status is %s\n", buf);
@@ -114,7 +116,7 @@ char *get_OSname()
         printf("open %s failed !\n",path);
         return "false";
     }
-    OS = malloc(sizeof(char) * 255);
+    OS = (char *)malloc(sizeof(char) * 255);
 
     fscanf(fd, "%[^\n]", OS);
 
@@ -122,3 +124,60 @@ char *get_OSname()
     return OS;
 }
 
+char *get_QTversion()
+{
+    char *QTversion;
+
+    QTversion = (char *)malloc(255);
+    QProcess *QT = new QProcess();
+    QT->start("qmake -v | cut -d ' ' -f 4 | sed -n '2p' ");
+    if(!QT->waitForFinished())
+    {
+        QTversion = "Unknow";
+    }
+    else
+    {
+        QTversion = QString::fromLocal8Bit(QT->readAllStandardOutput()).toLatin1().data();
+    }
+    return QTversion;
+}
+
+char *get_kernel()
+{
+    char *kernel;
+
+    kernel = (char *)malloc(255);
+    QProcess *process = new QProcess();
+    process->start("uname -m");
+    if(!process->waitForFinished())
+    {
+//        ui->kernel_label->setText(QString(tr("kernel: Unknown")));
+        kernel = "Unknown";
+        return kernel;
+    }
+    QString hardware_name = QString::fromLocal8Bit(process->readAllStandardOutput());
+    hardware_name = hardware_name.simplified();
+
+    process->start("uname -s");
+    if(!process->waitForFinished())
+    {
+//        ui->kernel_label->setText(QString(tr("kernel: Unknown")));
+        kernel = "Unknown";
+        return kernel;
+    }
+    QString kernel_name = QString::fromLocal8Bit(process->readAllStandardOutput());
+    kernel_name = kernel_name.simplified();
+
+    process->start("uname -r");
+    if(!process->waitForFinished())
+    {
+//        ui->kernel_label->setText(QString(tr("kernel: Unknown")));
+        kernel = "Unknown";
+        return kernel;
+    }
+    QString kernel_release = QString::fromLocal8Bit(process->readAllStandardOutput());
+    kernel_release = kernel_release.simplified();
+
+    kernel = (QString("%1 %2 %3").arg(hardware_name).arg(kernel_name).arg(kernel_release)).toLatin1().data();
+    return kernel;
+}
