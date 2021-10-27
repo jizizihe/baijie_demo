@@ -3,13 +3,24 @@
 
 #include <QMessageBox>
 
+#define Dbug
+#ifdef Dbug
+#define qdebug(format, ...)  qDebug("Function:%s,Line:%d " format,__func__,__LINE__, ##__VA_ARGS__);
+#else
+#define qdebug(format, ...)
+#endif
+
+
 static bool flag = true;
 static bool refresh_flag = true;
-QString str[100];
-
-QString file_name;
-
 int len;
+
+QString str[100];
+QString file_name;
+QProcess *proc;
+
+
+
 voice::voice(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::voice)
@@ -17,6 +28,24 @@ voice::voice(QWidget *parent) :
     ui->setupUi(this);
     ui->pathname_2->setText("/data");
 
+    ui->horizontalSlider->setRange(0,31);
+    ui->horizontalSlider->setValue(15);
+
+    refresh();
+
+    QTimer *show_time = new QTimer(this);
+    show_time->start(1000);
+    connect(show_time,SIGNAL(timeout()),this,SLOT(show_time()));
+
+}
+
+voice::~voice()
+{
+    delete ui;
+}
+
+void voice::refresh()
+{
     QDir dir("/data");
 
     QStringList filters;
@@ -30,13 +59,8 @@ voice::voice(QWidget *parent) :
     for(int i = 0; i != list.size(); i++)
     {
         QString name = list.at(i).fileName();
-//        qDebug() << "file name:" << name;
-//        qDebug() << "fileName="<<list.at(i).fileName() ;
-//        qDebug() << "absoluteFilePath=" << list.at(i).absoluteFilePath() ;
-
         str[i] = name;
         len = i;
-//        qDebug() << "str[" << i <<"]" << str[i] ;
     }
     ui->combox->clear();
     for(int i = 0; i <= len; i++)
@@ -45,18 +69,29 @@ voice::voice(QWidget *parent) :
         {
             continue;
         }
-//        qDebug() << "IN FOR str[" << i <<"]" << str[i] ;
         ui->combox->addItem(str[i]);
     }
     len = -1;
-
 }
 
-voice::~voice()
+void voice::show_time()
 {
-    delete ui;
+    QString s;
+    s= QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss");
+    ui->time->setText(s);
 }
 
+void voice::on_horizontalSlider_valueChanged(int value)
+{
+    proc = new QProcess();
+    qdebug("sound_value:%d",value);
+    int sound = 31 - value;
+    proc->start(QString("amixer cset numid=6 %1").arg(sound));
+    proc->waitForStarted(-1);
+    proc->waitForFinished(-1);
+    qdebug("******************************************");
+
+}
 
 void voice::on_return_2_clicked()
 {
@@ -79,13 +114,8 @@ void voice::on_choose_3_clicked()
     for(int i = 0; i != list.size(); i++)
     {
         QString name = list.at(i).fileName();
-//        qDebug() << "file name:" << name;
-//        qDebug() << "fileName="<<list.at(i).fileName() ;
-//        qDebug() << "absoluteFilePath=" << list.at(i).absoluteFilePath() ;
-
         str[i] = name;
         len = i;
-//        qDebug() << "str[" << i <<"]" << str[i] ;
     }
     ui->combox->clear();
     for(int i = 0; i <= len; i++)
@@ -94,7 +124,6 @@ void voice::on_choose_3_clicked()
         {
             continue;
         }
-//        qDebug() << "IN FOR str[" << i <<"]" << str[i] ;
         ui->combox->addItem(str[i]);
     }
     len = -1;
@@ -107,10 +136,6 @@ void voice::on_begin_clicked()
     QString files;
     QString str ;
     QString s_time;
-
-//    qDebug() << "time name:" << s_time;
-
-
     if(flag)
     {
         s_time = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss");
@@ -128,31 +153,17 @@ void voice::on_begin_clicked()
         proc->start(str);
 
         ui->time->setText(s_time);
-        while(1)
-        {
-            QString s;
-            QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-            s= QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss");
-            ui->time->setText(s);
-        }
-
-        ui->time->setText(s_time);
-//        qDebug() << "in begin s_time:" << s_time;
     }
     else
     {
         ui->begin->setText(tr("begin"));
-//        qDebug() << "In end s_time:" << file_name;
 
-/*        QMessageBox::StandardButton reply;
-
-        reply =*/ QMessageBox::information(this, file_name, file_name);
+        QMessageBox::information(this, file_name, file_name);
 
         ui->combox->addItem(QString("%1").arg(file_name));
 
         proc->start("killall arecord");
 
-//        qDebug() << "end arecord" ;
         flag = true;
     }
 }
@@ -188,17 +199,11 @@ void voice::on_play_clicked()
             ui->combox->addItem(str[i]);
         }
         len = -1;
-//        qDebug() <<"in paly file_name" << file_name;
-//        qDebug() << "befor choose text:" << ui->combox->currentText();
         ui->combox->setCurrentText(file_name);
-//        qDebug() << "now choose text:" << ui->combox->currentText();
     }
 
-//    qDebug() << "begin play";
     QString name = ui->combox->currentText();
-//    qDebug() << "name:" << name;
     str[0] = QString("aplay %1/%2").arg(ui->pathname_2->text()).arg(name);
-//    qDebug() << "name:" << str[0];
     proc->start(str[0]);
 }
 
@@ -209,3 +214,5 @@ void voice::language_reload()
     ui->pathname_2->setText("/data");
 
 }
+
+

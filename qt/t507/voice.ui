@@ -17,46 +17,30 @@
    <widget class="QPushButton" name="return_2">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>161</width>
-      <height>31</height>
+      <x>10</x>
+      <y>10</y>
+      <width>100</width>
+      <height>40</height>
      </rect>
     </property>
     <property name="text">
      <string>return</string>
     </property>
    </widget>
-   <widget class="QLabel" name="time">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>103</y>
-      <width>861</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QWidget" name="function" native="true">
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>213</y>
+      <y>180</y>
       <width>241</width>
-      <height>191</height>
+      <height>211</height>
      </rect>
     </property>
     <widget class="QPushButton" name="play">
      <property name="geometry">
       <rect>
        <x>9</x>
-       <y>160</y>
+       <y>170</y>
        <width>221</width>
        <height>31</height>
       </rect>
@@ -69,7 +53,7 @@
      <property name="geometry">
       <rect>
        <x>9</x>
-       <y>83</y>
+       <y>90</y>
        <width>221</width>
        <height>31</height>
       </rect>
@@ -96,9 +80,9 @@
     <property name="geometry">
      <rect>
       <x>330</x>
-      <y>213</y>
+      <y>180</y>
       <width>641</width>
-      <height>101</height>
+      <height>211</height>
      </rect>
     </property>
     <widget class="QLabel" name="pathname_2">
@@ -107,7 +91,7 @@
        <x>140</x>
        <y>0</y>
        <width>491</width>
-       <height>31</height>
+       <height>41</height>
       </rect>
      </property>
      <property name="font">
@@ -125,7 +109,7 @@
        <x>0</x>
        <y>0</y>
        <width>131</width>
-       <height>31</height>
+       <height>41</height>
       </rect>
      </property>
      <property name="font">
@@ -141,7 +125,7 @@
      <property name="geometry">
       <rect>
        <x>140</x>
-       <y>51</y>
+       <y>83</y>
        <width>501</width>
        <height>41</height>
       </rect>
@@ -151,9 +135,9 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>51</y>
+       <y>83</y>
        <width>131</width>
-       <height>31</height>
+       <height>41</height>
       </rect>
      </property>
      <property name="font">
@@ -165,12 +149,46 @@
       <string>file_name:</string>
      </property>
     </widget>
+    <widget class="QLabel" name="time">
+     <property name="geometry">
+      <rect>
+       <x>138</x>
+       <y>160</y>
+       <width>500</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>160</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>time:</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>170</y>
+      <y>130</y>
       <width>211</width>
       <height>31</height>
      </rect>
@@ -186,7 +204,7 @@
     <property name="geometry">
      <rect>
       <x>330</x>
-      <y>170</y>
+      <y>130</y>
       <width>101</width>
       <height>31</height>
      </rect>
@@ -198,7 +216,7 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>300</x>
       <y>10</y>
       <width>441</width>
       <height>51</height>
@@ -216,6 +234,40 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QSlider" name="horizontalSlider">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>420</y>
+      <width>641</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>430</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>sound:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -223,7 +275,7 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>28</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>
