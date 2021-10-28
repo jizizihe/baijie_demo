@@ -133,6 +133,7 @@ void MainWindow::on_pushButton_clicked()
     udev_w.language_reload();
     board_w.language_reload();
     keytest_w.language_reload();
+    bluetooth_w.language_reload();
 }
 
 void MainWindow::on_bluetooth_clicked()

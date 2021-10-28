@@ -412,6 +412,67 @@
     </message>
 </context>
 <context>
+    <name>bluetooth</name>
+    <message>
+        <location filename="bluetooth.ui" line="16"/>
+        <source>MainWindow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="bluetooth.cpp" line="14"/>
+        <location filename="bluetooth.cpp" line="161"/>
+        <source>return</source>
+        <translation>返回</translation>
+    </message>
+    <message>
+        <location filename="bluetooth.cpp" line="20"/>
+        <location filename="bluetooth.cpp" line="162"/>
+        <source>Blue Tooth</source>
+        <translation>蓝牙</translation>
+    </message>
+    <message>
+        <location filename="bluetooth.cpp" line="25"/>
+        <location filename="bluetooth.cpp" line="163"/>
+        <source>BT scan</source>
+        <translation>扫描蓝牙</translation>
+    </message>
+    <message>
+        <location filename="bluetooth.cpp" line="29"/>
+        <location filename="bluetooth.cpp" line="164"/>
+        <source>BT pair</source>
+        <translation>蓝牙配对</translation>
+    </message>
+    <message>
+        <location filename="bluetooth.cpp" line="33"/>
+        <location filename="bluetooth.cpp" line="165"/>
+        <source>BT connect</source>
+        <translation>蓝牙连接</translation>
+    </message>
+    <message>
+        <location filename="bluetooth.cpp" line="91"/>
+        <source>Scan failed!</source>
+        <translation>扫描失败</translation>
+    </message>
+    <message>
+        <location filename="bluetooth.cpp" line="109"/>
+        <source>Start scanning! 
+Please wait a moment...</source>
+        <translation>开始扫描！请稍等一会...</translation>
+    </message>
+    <message>
+        <location filename="bluetooth.cpp" line="117"/>
+        <source>Start Pairing! 
+Please wait a moment...</source>
+        <translation>开始配对！请稍等一会...</translation>
+    </message>
+    <message>
+        <location filename="bluetooth.cpp" line="132"/>
+        <source>Start Connection! 
+Please wait a moment...</source>
+        <translation>开始连接！请稍等一会...</translation>
+    </message>
+</context>
+<context>
     <name>eth0_popup</name>
     <message>
         <source>OK</source>
@@ -668,43 +729,43 @@
     <name>ipset_popup</name>
     <message>
         <location filename="ipset_popup.cpp" line="6"/>
-        <location filename="ipset_popup.cpp" line="175"/>
+        <location filename="ipset_popup.cpp" line="177"/>
         <source>OK</source>
         <translation type="unfinished">OK</translation>
     </message>
     <message>
         <location filename="ipset_popup.cpp" line="9"/>
-        <location filename="ipset_popup.cpp" line="176"/>
+        <location filename="ipset_popup.cpp" line="178"/>
         <source>return</source>
         <translation type="unfinished">返回</translation>
     </message>
     <message>
         <location filename="ipset_popup.cpp" line="12"/>
-        <location filename="ipset_popup.cpp" line="177"/>
+        <location filename="ipset_popup.cpp" line="179"/>
         <source>name:</source>
         <translation type="unfinished">名称:</translation>
     </message>
     <message>
         <location filename="ipset_popup.cpp" line="17"/>
-        <location filename="ipset_popup.cpp" line="178"/>
+        <location filename="ipset_popup.cpp" line="180"/>
         <source>network card:</source>
         <translation type="unfinished">网卡：</translation>
     </message>
     <message>
         <location filename="ipset_popup.cpp" line="22"/>
-        <location filename="ipset_popup.cpp" line="179"/>
+        <location filename="ipset_popup.cpp" line="181"/>
         <source>ip address:</source>
         <translation type="unfinished">ip地址：</translation>
     </message>
     <message>
         <location filename="ipset_popup.cpp" line="29"/>
-        <location filename="ipset_popup.cpp" line="180"/>
+        <location filename="ipset_popup.cpp" line="182"/>
         <source>gateway:</source>
         <translation type="unfinished">网关：</translation>
     </message>
     <message>
         <location filename="ipset_popup.cpp" line="42"/>
-        <location filename="ipset_popup.cpp" line="174"/>
+        <location filename="ipset_popup.cpp" line="176"/>
         <source>Please do not have spaces in the name, otherwise the operation will fail!</source>
         <translation type="unfinished">名称请不要带空格，否则会导致此次操作失败</translation>
     </message>
@@ -1157,7 +1218,7 @@
     <message>
         <location filename="udev.ui" line="97"/>
         <source>USB:</source>
-        <translation type="unfinished">USB：</translation>
+        <translation>USB：</translation>
     </message>
     <message>
         <location filename="udev.ui" line="115"/>
@@ -1181,6 +1242,63 @@
         <source>Status Message</source>
         <translation type="obsolete">状态信息</translation>
     </message>
+    <message>
+        <location filename="udev.cpp" line="80"/>
+        <source>%1
+The New USB device is:
+%2%3</source>
+        <translation>% 有一个新的USB设备：%2%3</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="81"/>
+        <source>Find the New USB device</source>
+        <translation>识别到一个新的USB设备</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="84"/>
+        <source>New USB device is not found</source>
+        <translation>未识别到新的USB设备</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="113"/>
+        <source>%1
+The New SD card is :
+%2%3
+</source>
+        <translation>%1 有一张新的SD卡：%2%3</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="114"/>
+        <source>Find the New Sd card</source>
+        <translation>识别到一张新的SD卡</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="117"/>
+        <source>New SD card is not found</source>
+        <translation>未识别到新的SD卡</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="151"/>
+        <source>%1
+The New SIM card is:
+4G_IP:%2%3</source>
+        <translation>%1 有一张新的SIM卡：4G_IP：%2%3</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="152"/>
+        <source>Find the New SIM card</source>
+        <translation>识别到一张新的SIM卡</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="157"/>
+        <source>New SIM card is not found</source>
+        <translation>未识别到新的SIM卡</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="222"/>
+        <source>That may be a long time!!Please note the 4G LED on the board when it appears fast flashing!!</source>
+        <translation>可能会花很长时间！！请注意电路板上的4G指示灯是否快速闪烁！！</translation>
+    </message>
 </context>
 <context>
     <name>voice</name>
@@ -1195,49 +1313,59 @@
         <translation>返回</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="65"/>
+        <location filename="voice.ui" line="49"/>
         <source>play</source>
         <translation>播放</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="78"/>
-        <location filename="voice.cpp" line="144"/>
+        <location filename="voice.ui" line="62"/>
+        <location filename="voice.cpp" line="159"/>
         <source>begin</source>
         <translation>开始</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="91"/>
-        <location filename="voice.cpp" line="68"/>
+        <location filename="voice.ui" line="75"/>
+        <location filename="voice.cpp" line="103"/>
         <source>choose</source>
         <translation>选择文件</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="137"/>
+        <location filename="voice.ui" line="121"/>
         <source>file_path:</source>
         <translation>文件路径</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="165"/>
+        <location filename="voice.ui" line="149"/>
         <source>file_name:</source>
         <translation>文件名称</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="179"/>
+        <location filename="voice.ui" line="183"/>
+        <source>time:</source>
+        <translation>时间：</translation>
+    </message>
+    <message>
+        <location filename="voice.ui" line="197"/>
         <source>FUNCTION:</source>
         <translation>功能</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="195"/>
+        <location filename="voice.ui" line="213"/>
         <source>FILE:</source>
         <translation>文件</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="213"/>
+        <location filename="voice.ui" line="231"/>
         <source>The recording setting</source>
         <translation>录音</translation>
     </message>
     <message>
-        <location filename="voice.cpp" line="124"/>
+        <location filename="voice.ui" line="265"/>
+        <source>sound:</source>
+        <translation>音量：</translation>
+    </message>
+    <message>
+        <location filename="voice.cpp" line="149"/>
         <source>end</source>
         <translation>结束</translation>
     </message>

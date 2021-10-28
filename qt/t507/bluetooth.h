@@ -27,6 +27,8 @@ public:
     explicit bluetooth(QWidget *parent = 0);
     ~bluetooth();
 
+    void language_reload();
+
 private slots:
     void retBt_clicked();
     void BTScanBt_clicked();

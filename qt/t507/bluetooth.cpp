@@ -17,20 +17,20 @@ bluetooth::bluetooth(QWidget *parent) :
     BTTitleLab = new QLabel( this);
     BTTitleLab->resize(200,100);
     BTTitleLab->move(400,20);
-    BTTitleLab->setText("Blue Tooth");
+    BTTitleLab->setText(tr("Blue Tooth"));
     QFont ft;
     ft.setPointSize(18);
     BTTitleLab->setFont(ft);
 
-    BTScanBt = new QPushButton("BT scan",this);
+    BTScanBt = new QPushButton(tr("BT scan"),this);
     BTScanBt->resize(250,50);
     BTScanBt->move(100,200);
 
-    BTPairBt = new QPushButton("BT pair",this);
+    BTPairBt = new QPushButton(tr("BT pair"),this);
     BTPairBt->resize(250,50);
     BTPairBt->move(100,300);
 
-    BTConnectBt = new QPushButton("BT connect",this);
+    BTConnectBt = new QPushButton(tr("BT connect"),this);
     BTConnectBt->resize(250,50);
     BTConnectBt->move(100,400);
 
@@ -88,7 +88,7 @@ void bluetooth::setText_slot(bool flag)
 
         if(BtCount < 2)
         {
-            BTText->setText("Scan failed!");
+            BTText->setText(tr("Scan failed!"));
         }
 
         for(i = 1; i < BtCount; i++)
@@ -106,7 +106,7 @@ void bluetooth::BTScanBt_clicked()
 {
     qDebug() << "BTScanBt_clicked";
 
-    BTText->setText("Start scanning! \nPlease wait a moment...");
+    BTText->setText(tr("Start scanning! \nPlease wait a moment..."));
 
     emit bluetooth_signal(1,0);
     BtThread->start();
@@ -114,7 +114,7 @@ void bluetooth::BTScanBt_clicked()
 
 void bluetooth::BTPairBt_clicked()
 {
-    BTText->setText("Start Pairing! \nPlease wait a moment...");
+    BTText->setText(tr("Start Pairing! \nPlease wait a moment..."));
 
     int BtNameIndex = BTNameBox->currentIndex();
     QString strCmd = QString("cat /bluetooth_scan | sed -n '%1p' | awk '{print $1}'").arg(BtNameIndex+2);
@@ -129,7 +129,7 @@ void bluetooth::BTPairBt_clicked()
 
 void bluetooth::BTConnectBt_clicked()
 {
-    BTText->setText("Start Connection! \nPlease wait a moment...");
+    BTText->setText(tr("Start Connection! \nPlease wait a moment..."));
 
     QString strCmd = QString("ps -x|grep pulseaudio | grep -v grep |wc -l");
     qDebug() << "strCmd == " << strCmd;
@@ -155,3 +155,13 @@ void bluetooth::BTConnectBt_clicked()
 
 }
 
+void bluetooth::language_reload()
+{
+    ui->retranslateUi(this);
+    retBt->setText(tr("return"));
+    BTTitleLab->setText(tr("Blue Tooth"));
+    BTScanBt->setText(tr("BT scan"));
+    BTPairBt->setText(tr("BT pair"));
+    BTConnectBt->setText(tr("BT connect"));
+
+}
