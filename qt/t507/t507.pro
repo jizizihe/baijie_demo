@@ -57,7 +57,9 @@ SOURCES += \
     ipset.cpp \
     ipset_interface.cpp \
     gpio_interface.cpp \
-    touch_interface.cpp
+    touch_interface.cpp \
+    bluetooth.cpp \
+    bluetooth_thread.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -81,7 +83,9 @@ HEADERS += \
     ipset_popup.h \
     ipset.h \
     ipset_interface.h \
-    touch_interface.h
+    touch_interface.h \
+    bluetooth.h \
+    bluetooth_thread.h
 
 
 FORMS += \
@@ -97,7 +101,8 @@ FORMS += \
     hotspot.ui \
     about_board.ui \
     keytest.ui \
-    ipset.ui
+    ipset.ui \
+    bluetooth.ui
 
 RESOURCES += \
     translation.qrc
