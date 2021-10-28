@@ -5,9 +5,10 @@
 
 int main(int argc, char *argv[])
 {
-//    QApplication a(argc, argv);
-    globalApp a(argc,argv);
 
+    qputenv("QT_IM_MODULE", QByteArray("tgtsml"));
+    globalApp a(argc,argv);
+//    QApplication a(argc, argv);
     keyBoard keyBoard;
     keyBoard.hide();
 

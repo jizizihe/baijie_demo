@@ -27,6 +27,8 @@ INSTALLS += target
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
 
+#DEFINES += QT_NO_DEBUG_OUTPUT
+
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -55,7 +57,9 @@ SOURCES += \
     ipset.cpp \
     ipset_interface.cpp \
     gpio_interface.cpp \
-    touch_interface.cpp
+    touch_interface.cpp \
+    bluetooth.cpp \
+    bluetooth_thread.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -79,7 +83,9 @@ HEADERS += \
     ipset_popup.h \
     ipset.h \
     ipset_interface.h \
-    touch_interface.h
+    touch_interface.h \
+    bluetooth.h \
+    bluetooth_thread.h
 
 
 FORMS += \
@@ -95,7 +101,8 @@ FORMS += \
     hotspot.ui \
     about_board.ui \
     keytest.ui \
-    ipset.ui
+    ipset.ui \
+    bluetooth.ui
 
 RESOURCES += \
     translation.qrc

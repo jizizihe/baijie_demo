@@ -26,7 +26,7 @@ class keythread : public QThread
 {
     Q_OBJECT
 public:
-    explicit keythread(QObject *parent = nullptr);
+    explicit keythread(QObject *parent = 0);
     ~keythread();
 
     virtual void run();//线程入口函数（工作线程的主函数）

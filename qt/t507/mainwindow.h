@@ -14,6 +14,7 @@
 #include "keytest.h"
 #include "about_board.h"
 #include <QTranslator>
+#include "bluetooth.h"
 
 namespace Ui {
 class MainWindow;
@@ -36,6 +37,7 @@ public:
     ipset eth0_w;
     keytest keytest_w;
     about_board board_w;
+    bluetooth bluetooth_w;
 
 private:
     Ui::MainWindow *ui;
@@ -56,6 +58,7 @@ private slots:
     void on_keytest_clicked();
     void on_auto_2_clicked();
     void on_pushButton_clicked();
+    void on_bluetooth_clicked();
 };
 
 #endif // MAINWINDOW_H

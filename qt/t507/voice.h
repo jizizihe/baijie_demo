@@ -25,6 +25,7 @@ public:
     ~voice();
 
     void language_reload();
+    void refresh();
 
 private slots:
 
@@ -37,6 +38,10 @@ private slots:
     void on_begin_clicked();
 
     void on_play_clicked();
+
+    void show_time();
+
+    void on_horizontalSlider_valueChanged(int value);
 
 signals:
     void Mysignal();

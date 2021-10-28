@@ -38,12 +38,12 @@ class backlight : public QMainWindow
 public:
     explicit backlight(QWidget *parent = 0);
     ~backlight();
-    void timerUpDate(int secs);
     QTimer *timing;
     void language_reload();
 
 private:
     Ui::backlight *ui;
+    QString t_time;
 
 
 signals:
@@ -56,9 +56,9 @@ private slots:
     void on_sure_clicked();
     void on_return_2_clicked();
 
-    void light_screen();
+    void light_screen();  //Click on the light screen
+    void timerUp();       //check whether events are generated
 
-    void timerUp();
 
 
 };
