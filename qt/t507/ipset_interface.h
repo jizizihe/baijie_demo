@@ -7,9 +7,9 @@
 #include <unistd.h>
 #include <QProcess>
 
-#define WAIT_SECOND 3
+#define WAIT_SECOND 1.1
 
-float getspeed();
+double getspeed();
 long int getCurrentDownloadRates(long int * save_rate);
 QString getipconfig();
 QString getallip();

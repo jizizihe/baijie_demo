@@ -14,6 +14,8 @@
 #include<unistd.h>
 #include<fcntl.h>
 #include<linux/fb.h>
+#include <dirent.h>
+#include <errno.h>
 
 int get_battery_level();
 char *get_battery_status();
@@ -21,7 +23,9 @@ float get_CPU_temp();
 int get_resolution(int *x,int *y);
 char *get_boardname();
 char *get_OSname();
-char *get_QTversion();
+void get_QTversion(char *dirpath,char *filename,char *fs_file);
 char *get_kernel();
+
+
 
 #endif

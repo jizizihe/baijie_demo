@@ -1,7 +1,7 @@
 #include "boardinfo_interface.h"
 #include <QProcess>
 #include <QString>
-
+#include <QDebug>
 int get_battery_level()
 {
 	FILE *fd;
@@ -119,27 +119,49 @@ char *get_OSname()
     OS = (char *)malloc(sizeof(char) * 255);
 
     fscanf(fd, "%[^\n]", OS);
-
     fclose(fd);
+
+
     return OS;
 }
 
-char *get_QTversion()
+void get_QTversion(char *dirpath,char *filename,char *fs_file)
 {
-    char *QTversion;
+    int i = 0,j = 0;
+    char fw_file[64][64];
+    char finish_file[64] = {0};
 
-    QTversion = (char *)malloc(255);
-    QProcess *QT = new QProcess();
-    QT->start("qmake -v | cut -d ' ' -f 4 | sed -n '2p' ");
-    if(!QT->waitForFinished())
-    {
-        QTversion = "Unknow";
+    DIR *dir = opendir(dirpath);
+    if(dir == NULL) {
+        qDebug("open %s failed \n",dirpath);
+        return ;
     }
-    else
+
+    struct dirent *ent;
+    while((ent = readdir(dir)) != NULL)
     {
-        QTversion = QString::fromLocal8Bit(QT->readAllStandardOutput()).toLatin1().data();
+        if(strncmp(ent->d_name,filename ,9) == 0)
+        {
+            sprintf(fw_file[i],"%s",ent->d_name);
+            qDebug("fw: %s\n",fw_file[i]);
+            i++;
+        }
     }
-    return QTversion;
+        //qDebug("i = %d\n",i);
+    closedir(dir);
+
+    for(j = 0;j < i;j++)
+    {
+        if(strcmp(finish_file,fw_file[j]) < 0)
+        {
+            strcpy(finish_file,fw_file[j]);
+        }
+    }
+    qDebug("finish_file is %s\n",finish_file);
+
+    sscanf(finish_file,"%*[^.]%*[^1-9]%s",fs_file);
+    qDebug("fs_file is %s\n",fs_file);
+
 }
 
 char *get_kernel()

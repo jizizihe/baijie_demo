@@ -21,6 +21,7 @@ long int getCurrentDownloadRates(long int * save_rate)
     }
     buffer[bytes_read] = '\0';
     match = strstr(buffer, "eth0:");
+
     if ( match == NULL )
     {
         printf("no eth0 keyword to find!\n");
@@ -30,11 +31,11 @@ long int getCurrentDownloadRates(long int * save_rate)
     return *save_rate;
 }
 
-float getspeed()
+double getspeed()
 {
     long int start_download_rates;
     long int end_download_rates;
-    float speed,var;
+    double speed,var;
     if(getCurrentDownloadRates(&start_download_rates) == -1)
     {
         return -1;
@@ -44,7 +45,7 @@ float getspeed()
     {
         return -1;
     }
-    speed = (float)(end_download_rates-start_download_rates)/WAIT_SECOND;
+    speed = (double)(end_download_rates-start_download_rates)/WAIT_SECOND;
 
     var = (int)(speed*10+0.5);
     speed = var/10.0;
@@ -158,7 +159,9 @@ QString delstaticip(QString ipname)
 
 QString setdip(QString netcard)
 {
-    QString cmd_delstaticip = QString("dhclient %1").arg(netcard);
+//    QString cmd_delstaticip = QString("dhclient %1").arg(netcard);
+    QString cmd_delstaticip = QString("nmcli connection modify %1 ipv4.method auto").arg(netcard);
+
     QProcess cmd_delsip;
     cmd_delsip.start(cmd_delstaticip);
     if(!cmd_delsip.waitForFinished())

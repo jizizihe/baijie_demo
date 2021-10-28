@@ -33,6 +33,8 @@ private slots:
     void rBtnin_clicked();
     void ret_clicked();
     void srceenclear();
+    void on_pushButton_2_clicked();
+
 signals:
     void Mysignal();
 private:

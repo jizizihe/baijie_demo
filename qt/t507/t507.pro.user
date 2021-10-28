@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.5.2, 2021-10-26T16:48:09. -->
+<!-- Written by QtCreator 4.5.2, 2021-10-26T20:49:53. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -473,22 +473,27 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">RemoteLinux.DirectUploadStep</value>
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedFiles">
        <value type="QString">/home/szbaijie/workspace/a133_qt/baijie_interface/qt/t507/main</value>
+       <value type="QString">/home/szbaijie/workspace/a133_qt/baijie_interface/qt/t507/main</value>
        <value type="QString">/home/szbaijie/workspace/a133_qt/baijie_interface/qt/build-t507-helperboard_a133-Debug/main</value>
       </valuelist>
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedHosts">
        <value type="QString">192.168.0.122</value>
+       <value type="QString">192.168.0.164</value>
        <value type="QString">192.168.0.122</value>
       </valuelist>
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedRemotePaths">
+       <value type="QString">/</value>
        <value type="QString">/</value>
        <value type="QString">/</value>
       </valuelist>
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedSysroots">
        <value type="QString"></value>
        <value type="QString"></value>
+       <value type="QString"></value>
       </valuelist>
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedTimes">
-       <value type="QDateTime">2021-10-26T15:41:47</value>
+       <value type="QDateTime">2021-10-26T16:58:00</value>
+       <value type="QDateTime">2021-10-26T20:46:08</value>
        <value type="QDateTime">2021-10-25T11:04:06</value>
       </valuelist>
       <value type="bool" key="RemoteLinux.GenericDirectUploadStep.IgnoreMissingFiles">false</value>

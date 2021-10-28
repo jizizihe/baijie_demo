@@ -9,9 +9,9 @@ gpio::gpio(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QRegExp regx("[a-zA-Z0-9]{1,4}$");
-    QValidator *validator = new QRegExpValidator(regx, ui->lineedit1_1);
-    ui->lineedit1_1->setValidator( validator );
+//    QRegExp regx("[a-zA-Z0-9]{1,4}$");
+//    QValidator *validator = new QRegExpValidator(regx, ui->lineedit1_1);
+//    ui->lineedit1_1->setValidator( validator );
 
     display = new QTextEdit(this);
     display->setReadOnly(true);
@@ -101,7 +101,11 @@ void gpio::rBtnout_clicked()
 void gpio::on_pushButton_clicked()
 {
     display->clear();
-    gpio_export(port_num);
+    if(!getFileName(port_num))
+    {
+//        qDebug() << "test";
+        gpio_export(port_num);
+    }
 
     if(ui->lineedit1_1->text().isEmpty())
     {
@@ -150,15 +154,15 @@ void gpio::on_lineedit1_1_editingFinished()
     char gpio_port = *(temp.data());
     if(gpio_port == 'p' || gpio_port == 'P')
     {
-        QString tmp = str.at(2);
-        QByteArray ba = tmp.toLatin1();
-        char* s = ba.data();
-        while (*s && *s >= '0' && *s <= '9') s++;
-        if (*s)
-        {
-           QMessageBox::information(NULL, NULL, tr("Please input true GPIO!"), QMessageBox::Ok);
-           return;
-        }
+//        QString tmp = str.at(2);
+//        QByteArray ba = tmp.toLatin1();
+//        char* s = ba.data();
+//        while (*s && *s >= '0' && *s <= '9') s++;
+//        if (*s)
+//        {
+//           QMessageBox::information(NULL, NULL, tr("Please input true GPIO!"), QMessageBox::Ok);
+//           return;
+//        }
         port = str.mid(1,2);
         temp = port.toLatin1();
         gpio_port = *(temp.data());
@@ -177,15 +181,15 @@ void gpio::on_lineedit1_1_editingFinished()
     }
     else
     {
-        QString tmp = str.at(1);
-        QByteArray ba = tmp.toLatin1();
-        char* s = ba.data();
-        while (*s && *s >= '0' && *s <= '9') s++;
-        if (*s)
-         {
-            QMessageBox::information(NULL, NULL, tr("Please input true GPIO!"), QMessageBox::Ok);
-            return;
-         }
+//        QString tmp = str.at(1);
+//        QByteArray ba = tmp.toLatin1();
+//        char* s = ba.data();
+//        while (*s && *s >= '0' && *s <= '9') s++;
+//        if (*s)
+//         {
+//            QMessageBox::information(NULL, NULL, tr("Please input true GPIO!"), QMessageBox::Ok);
+//            return;
+//         }
         QString num = str.mid(1);
         int gpio_num = num.toInt();
         port_num = calc_port_num(gpio_port, gpio_num);
@@ -214,4 +218,17 @@ void gpio::language_reload()
     rBtnin->setText(tr("in"));
     rBtnhigh->setText(tr("high"));
     rBtnlow->setText(tr("low"));
+}
+
+void gpio::on_pushButton_2_clicked()
+{
+    struct occupied_gpio_s occupied_gpio;
+    occupied_gpio = get_debug_gpio();
+    display->clear();
+
+    for(int i = 0;i < occupied_gpio.len;i++)
+    {
+        display->append(QString("gpio-%1").arg(occupied_gpio.gpio[i]));
+    }
+
 }

@@ -43,7 +43,6 @@ ipset_popup::ipset_popup(QWidget *parent) :
 
     connect(btn_OK,SIGNAL(clicked(bool)),this,SLOT(remain()));
     connect(btn_return,SIGNAL(clicked(bool)),this,SLOT(returnmain()));
-    connect(this,SIGNAL(setsip()),this,SLOT(getsetsipinforma()));
     connect(this,SIGNAL(setdip()),this,SLOT(getsetdipinforma()));
     connect(this,SIGNAL(addip()),this,SLOT(getaddipinforma()));
     connect(this,SIGNAL(modip()),this,SLOT(getmodipinforma()));
@@ -57,12 +56,7 @@ ipset_popup::~ipset_popup()
 
 void ipset_popup::remain()
 {
-
-    if("set static ip" == this->bnttype)
-    {
-        emit setsipinfor(this->line_name->text(),this->line_netcard->text(),this->line_addr->text(),this->line_gateway->text());
-    }
-    else if("set dynamic ip" == this->bnttype)
+    if("set dynamic ip" == this->bnttype)
     {
         emit setdyninfor(this->line_netcard->text());
     }
@@ -105,30 +99,15 @@ void ipset_popup::returnmain()
     screen_clear();
 }
 
-void ipset_popup::getsetsipinforma()
-{
-    label_Name->setVisible(true);
-    label_addr->setVisible(true);
-    label_netcard->setVisible(true);
-    label_gateway->setVisible(true);
-    line_name->setVisible(true);
-    line_addr->setVisible(true);
-    line_netcard->setVisible(true);
-    line_gateway->setVisible(true);
-
-    label_Name->move(270,100);
-    line_name->move(450,100);
-    label_netcard->move(270,200);
-    line_netcard->move(450,200);
-}
-
 void ipset_popup::getsetdipinforma()
 {
     label_addr->setVisible(false);
     label_Name->setVisible(false);
+    label_netcard->setVisible(true);
     label_gateway->setVisible(false);
     line_addr->setVisible(false);
     line_name->setVisible(false);
+    line_netcard->setVisible(true);
     line_gateway->setVisible(false);
 
     label_netcard->move(270,300);

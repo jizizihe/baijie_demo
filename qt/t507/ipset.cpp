@@ -10,10 +10,16 @@ ipset::ipset(QWidget *parent) :
     ui(new Ui::ipset)
 {
     ui->setupUi(this);
+
+    timer = new QTimer();
+
+    ui->pushButton_7->installEventFilter(this);
+
+    connect(timer,SIGNAL(timeout()),this,SLOT(speedtest()));
+
     connect(this,SIGNAL(StartTestSpeed()),this,SLOT(speedtest()));
     connect(&popup,SIGNAL(go_back()),this,SLOT(gobackmenu()));
     connect(&popup,SIGNAL(setdyninfor(QString)),this,SLOT(setdynamicip(QString)));
-    connect(&popup,SIGNAL(setsipinfor(QString,QString,QString,QString)),this,SLOT(setstaticip(QString,QString,QString,QString)));
     connect(&popup,SIGNAL(addipinfor(QString,QString,QString,QString)),this,SLOT(increaseip(QString,QString,QString,QString)));
     connect(&popup,SIGNAL(modipinfor(QString,QString,QString)),this,SLOT(modifyip(QString,QString,QString)));
     connect(&popup,SIGNAL(delipinfor(QString)),this,SLOT(deleteip(QString)));
@@ -34,14 +40,6 @@ void ipset::on_pushButton_clicked()
 void ipset::on_pushButton_8_clicked()
 {
     ui->textEdit->setText(getallip());
-}
-
-void ipset::on_pushButton_2_clicked()
-{
-    popup.bnttype = "set static ip";
-    emit popup.setsip();
-    this->hide();
-    popup.show();
 }
 
 void ipset::on_pushButton_3_clicked() //set dynamic ip
@@ -82,14 +80,33 @@ void ipset::on_pushButton_6_clicked() //del static ip
 void ipset::on_pushButton_7_clicked()  //get current speed
 {
     emit StartTestSpeed();
+
 }
 
 void ipset::speedtest() //speedtest
 {
     QCoreApplication::processEvents();
-    float speed;
+    double speed;
     speed = getspeed();
-    ui->textEdit->setText(QString(tr("Current speed is %1 Bytes/s")).arg(speed));
+    if(speed > 1048576.0)
+    {
+        speed = speed/1048576.0;
+        QString str= QString::number(speed,'f',1);
+        ui->textEdit->setText(QString(tr("Current speed is %1 MBytes/s")).arg(str));
+        return;
+    }
+    if(speed > 1024.0)
+    {
+
+        speed = speed/1024.0;
+        QString str= QString::number(speed,'f',1);
+        ui->textEdit->setText(QString(tr("Current speed is %1 KBytes/s")).arg(str));
+        return;
+    }
+    QString str= QString::number(speed,'f',1);
+    ui->textEdit->setText(QString(tr("Current speed is %1 Bytes/s")).arg(str));
+
+//    ui->textEdit->setText(QString::number(speed,'f',1));
 }
 
 void ipset::on_pushButton_9_clicked()  //ifconfig
@@ -102,13 +119,6 @@ void ipset::setdynamicip(QString net_card)
     popup.hide();
     this->show();
     ui->textEdit->setText(setdip(net_card));
-}
-
-void ipset::setstaticip(QString ip_name,QString net_card,QString ip_addr,QString ip_gateway)
-{
-    popup.hide();
-    this->show();
-    ui->textEdit->setText(setsip(ip_name,net_card,ip_addr,ip_gateway));
 }
 
 void ipset::increaseip(QString ip_name,QString net_card,QString ip_addr,QString ip_gateway)
@@ -137,6 +147,25 @@ void ipset::gobackmenu()
     popup.hide();
     this->show();
 }
+bool ipset::eventFilter(QObject *watched, QEvent *event)
+{
+     if (watched==ui->pushButton_7)
+     {
+          if (event->type()==QEvent::FocusIn)
+          {
+            timer->start(1100);
+            qDebug() << "FocusIn";
+          }
+          else if (event->type()==QEvent::FocusOut)
+          {
+            timer->stop();
+            qDebug() << "FocusOut";
+          }
+     }
+
+    return QWidget::eventFilter(watched,event);
+}
+
 
 void ipset::language_reload()
 {
