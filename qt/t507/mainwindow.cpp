@@ -20,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&eth0_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&keytest_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&board_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+    connect(&all_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+
 }
 
 MainWindow::~MainWindow()
@@ -46,6 +48,7 @@ void MainWindow::show_main()
     eth0_w.hide();
     keytest_w.hide();
     board_w.hide();
+    all_w.hide();
     this->show();
 }
 
@@ -132,4 +135,11 @@ void MainWindow::on_pushButton_clicked()
     udev_w.language_reload();
     board_w.language_reload();
     keytest_w.language_reload();
+}
+
+void MainWindow::on_alltest_clicked()
+{
+    qDebug() << "touch_flag:" << touch_flag;
+    this->hide();
+    all_w.show();
 }

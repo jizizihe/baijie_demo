@@ -9,7 +9,8 @@ keytest::keytest(QWidget *parent) :
 
     retBt = new QPushButton(this);
     retBt->setFixedSize(100,40);
-    retBt->setText(tr("return"));
+//    retBt->setText(tr("return"));
+    retBt->setIcon(QIcon(":/t507_button_image/return.png"));
     retBt->move(10,10);
 
     KeyLabel = new QLabel(this);
@@ -73,7 +74,7 @@ void keytest::recvmsg(QString str)
 
 void keytest::language_reload()
 {
-    retBt->setText(tr("return"));
+//    retBt->setText(tr("return"));
     KeyLabel->setText(tr("key Test"));
     StartBt->setText(tr("start"));
     StopBt->setText(tr("stop"));

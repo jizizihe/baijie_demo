@@ -80,7 +80,11 @@
     </rect>
    </property>
    <property name="text">
-    <string>return</string>
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="translation.qrc">
+     <normaloff>:/t507_button_image/return.png</normaloff>:/t507_button_image/return.png</iconset>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_2">
@@ -149,6 +153,8 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="translation.qrc"/>
+ </resources>
  <connections/>
 </ui>

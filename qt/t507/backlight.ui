@@ -17,7 +17,7 @@
    <widget class="QFrame" name="frame_2">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>100</x>
       <y>320</y>
       <width>800</width>
       <height>70</height>
@@ -107,13 +107,18 @@
      </rect>
     </property>
     <property name="text">
-     <string>return</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>:/t507_button_image/return.png</normalon>
+     </iconset>
     </property>
    </widget>
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>100</x>
       <y>160</y>
       <width>800</width>
       <height>70</height>
@@ -172,6 +177,22 @@
     </property>
     <property name="text">
      <string>Backlight  Settings</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="time">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>90</y>
+      <width>421</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

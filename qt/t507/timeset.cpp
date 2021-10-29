@@ -11,7 +11,8 @@ timeset::timeset(QWidget *parent) :
 
     retBt = new QPushButton(this);
     retBt->setFixedSize(100,40);
-    retBt->setText(tr("return"));
+//    retBt->setText(tr("return"));
+    retBt->setIcon(QIcon(":/t507_button_image/return.png"));
     retBt->move(10,10);
 
     pLabel = new QLabel(this);
@@ -91,7 +92,7 @@ void timeset::RTCSetBt_clicked()
 void timeset::language_reload()
 {
     ui->retranslateUi(this);
-    retBt->setText(tr("return"));
+//    retBt->setText(tr("return"));
     pLabel->setText(tr("Time Settings"));
     SystimeSetBt->setText(tr("SystimeSetBt"));
     RTCSetBt->setText(tr("RTCSetBt"));

@@ -24,7 +24,12 @@
      </rect>
     </property>
     <property name="text">
-     <string>return</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>:/t507_button_image/return.png</normalon>
+     </iconset>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">

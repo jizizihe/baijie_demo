@@ -55,6 +55,7 @@ private slots:
     void on_comboBox_currentIndexChanged(int index);
     void on_sure_clicked();
     void on_return_2_clicked();
+    void show_time();
 
     void light_screen();  //Click on the light screen
     void timerUp();       //check whether events are generated

@@ -57,7 +57,9 @@ SOURCES += \
     ipset.cpp \
     ipset_interface.cpp \
     gpio_interface.cpp \
-    touch_interface.cpp
+    touch_interface.cpp \
+    all_interface_test.cpp \
+    udev_interface.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -81,7 +83,9 @@ HEADERS += \
     ipset_popup.h \
     ipset.h \
     ipset_interface.h \
-    touch_interface.h
+    touch_interface.h \
+    all_interface_test.h \
+    udev_interface.h
 
 
 FORMS += \
@@ -97,7 +101,8 @@ FORMS += \
     hotspot.ui \
     about_board.ui \
     keytest.ui \
-    ipset.ui
+    ipset.ui \
+    all_interface_test.ui
 
 RESOURCES += \
     translation.qrc

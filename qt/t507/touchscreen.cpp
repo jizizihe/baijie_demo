@@ -14,11 +14,12 @@ touchscreen::touchscreen(QWidget *parent) :
 
     btnclear = new CTouchButton(this);
     btnclear->setText(tr("clear"));
-    btnclear->setGeometry(780,480,100,50);
+    btnclear->setGeometry(900,480,100,50);
 
     btnreturn = new CTouchButton(this);
-    btnreturn->setText(tr("return"));
-    btnreturn->setGeometry(900,480,100,50);
+//    btnreturn->setText(tr("return"));
+    btnreturn->setIcon(QIcon(":/t507_button_image/return.png"));
+    btnreturn->setGeometry(10,10,100,50);
 
     connect(btnclear,SIGNAL(clicked()),this,SLOT(screenclear()));
     connect(btnreturn,SIGNAL(clicked()),this,SLOT(btnreturn_clicked()));
@@ -43,5 +44,5 @@ void touchscreen::screenclear()
 void touchscreen::language_reload()
 {
     btnclear->setText(tr("clear"));
-    btnreturn->setText(tr("return"));
+//    btnreturn->setText(tr("return"));
 }
