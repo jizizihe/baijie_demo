@@ -74,7 +74,9 @@ SOURCES       = main.cpp \
 		ipset.cpp \
 		ipset_interface.cpp \
 		gpio_interface.cpp \
-		touch_interface.cpp qrc_translation.cpp \
+		touch_interface.cpp \
+		bluetooth.cpp \
+		bluetooth_thread.cpp qrc_translation.cpp \
 		moc_mainwindow.cpp \
 		moc_voice.cpp \
 		moc_udev.cpp \
@@ -92,7 +94,9 @@ SOURCES       = main.cpp \
 		moc_keythread.cpp \
 		moc_ipset_popup.cpp \
 		moc_ipset.cpp \
-		moc_touch_interface.cpp
+		moc_touch_interface.cpp \
+		moc_bluetooth.cpp \
+		moc_bluetooth_thread.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		voice.o \
@@ -116,6 +120,8 @@ OBJECTS       = main.o \
 		ipset_interface.o \
 		gpio_interface.o \
 		touch_interface.o \
+		bluetooth.o \
+		bluetooth_thread.o \
 		qrc_translation.o \
 		moc_mainwindow.o \
 		moc_voice.o \
@@ -134,7 +140,9 @@ OBJECTS       = main.o \
 		moc_keythread.o \
 		moc_ipset_popup.o \
 		moc_ipset.o \
-		moc_touch_interface.o
+		moc_touch_interface.o \
+		moc_bluetooth.o \
+		moc_bluetooth_thread.o
 DIST          = /opt/toolchain/aarch64/mkspecs/features/spec_pre.prf \
 		/opt/toolchain/aarch64/mkspecs/common/unix.conf \
 		/opt/toolchain/aarch64/mkspecs/common/linux.conf \
@@ -280,7 +288,9 @@ DIST          = /opt/toolchain/aarch64/mkspecs/features/spec_pre.prf \
 		ipset_popup.h \
 		ipset.h \
 		ipset_interface.h \
-		touch_interface.h main.cpp \
+		touch_interface.h \
+		bluetooth.h \
+		bluetooth_thread.h main.cpp \
 		mainwindow.cpp \
 		voice.cpp \
 		udev.cpp \
@@ -302,7 +312,9 @@ DIST          = /opt/toolchain/aarch64/mkspecs/features/spec_pre.prf \
 		ipset.cpp \
 		ipset_interface.cpp \
 		gpio_interface.cpp \
-		touch_interface.cpp
+		touch_interface.cpp \
+		bluetooth.cpp \
+		bluetooth_thread.cpp
 QMAKE_TARGET  = main
 DESTDIR       = 
 TARGET        = main
@@ -311,7 +323,7 @@ TARGET        = main
 first: all
 ####### Build rules
 
-main: ui_mainwindow.h ui_voice.h ui_udev.h ui_backlight.h ui_gpio.h ui_touchscreen.h ui_timeset.h ui_wifi.h ui_wificonnect.h ui_hotspot.h ui_about_board.h ui_keytest.h ui_ipset.h $(OBJECTS)  
+main: ui_mainwindow.h ui_voice.h ui_udev.h ui_backlight.h ui_gpio.h ui_touchscreen.h ui_timeset.h ui_wifi.h ui_wificonnect.h ui_hotspot.h ui_about_board.h ui_keytest.h ui_ipset.h ui_bluetooth.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: t507.pro /opt/toolchain/aarch64/mkspecs/devices/linux-buildroot-g++/qmake.conf /opt/toolchain/aarch64/mkspecs/features/spec_pre.prf \
@@ -583,9 +595,9 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents translation.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/toolchain/aarch64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h voice.h udev.h backlight.h gpio.h touchscreen.h ctouchbutton.h timeset.h wifi.h wificonnect.h hotspot.h gpio_interface.h globalapp.h keyBoard.h about_board.h boardinfo_interface.h keytest.h keythread.h ipset_popup.h ipset.h ipset_interface.h touch_interface.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp voice.cpp udev.cpp backlight.cpp gpio.cpp touchscreen.cpp ctouchbutton.cpp timeset.cpp wifi.cpp wificonnect.cpp hotspot.cpp globalapp.cpp boardinfo_interface.cpp keyBoard.cpp about_board.cpp keytest.cpp keythread.cpp ipset_popup.cpp ipset.cpp ipset_interface.cpp gpio_interface.cpp touch_interface.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.ui voice.ui udev.ui backlight.ui gpio.ui touchscreen.ui timeset.ui wifi.ui wificonnect.ui hotspot.ui about_board.ui keytest.ui ipset.ui $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h voice.h udev.h backlight.h gpio.h touchscreen.h ctouchbutton.h timeset.h wifi.h wificonnect.h hotspot.h gpio_interface.h globalapp.h keyBoard.h about_board.h boardinfo_interface.h keytest.h keythread.h ipset_popup.h ipset.h ipset_interface.h touch_interface.h bluetooth.h bluetooth_thread.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp voice.cpp udev.cpp backlight.cpp gpio.cpp touchscreen.cpp ctouchbutton.cpp timeset.cpp wifi.cpp wificonnect.cpp hotspot.cpp globalapp.cpp boardinfo_interface.cpp keyBoard.cpp about_board.cpp keytest.cpp keythread.cpp ipset_popup.cpp ipset.cpp ipset_interface.cpp gpio_interface.cpp touch_interface.cpp bluetooth.cpp bluetooth_thread.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.ui voice.ui udev.ui backlight.ui gpio.ui touchscreen.ui timeset.ui wifi.ui wificonnect.ui hotspot.ui about_board.ui keytest.ui ipset.ui bluetooth.ui $(DISTDIR)/
 	$(COPY_FILE) --parents chinese.ts $(DISTDIR)/
 
 
@@ -624,9 +636,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /opt/toolchain/aarch64/mkspecs/features/data/dummy.cpp
 	/opt/toolchain/aarch64/bin/aarch64-szbaijie-linux-gnu-g++ -pipe -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -Os --sysroot=/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot -Wall -W -dM -E -o moc_predefs.h /opt/toolchain/aarch64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_voice.cpp moc_udev.cpp moc_backlight.cpp moc_gpio.cpp moc_touchscreen.cpp moc_ctouchbutton.cpp moc_timeset.cpp moc_wifi.cpp moc_wificonnect.cpp moc_hotspot.cpp moc_keyBoard.cpp moc_about_board.cpp moc_keytest.cpp moc_keythread.cpp moc_ipset_popup.cpp moc_ipset.cpp moc_touch_interface.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_voice.cpp moc_udev.cpp moc_backlight.cpp moc_gpio.cpp moc_touchscreen.cpp moc_ctouchbutton.cpp moc_timeset.cpp moc_wifi.cpp moc_wificonnect.cpp moc_hotspot.cpp moc_keyBoard.cpp moc_about_board.cpp moc_keytest.cpp moc_keythread.cpp moc_ipset_popup.cpp moc_ipset.cpp moc_touch_interface.cpp moc_bluetooth.cpp moc_bluetooth_thread.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_voice.cpp moc_udev.cpp moc_backlight.cpp moc_gpio.cpp moc_touchscreen.cpp moc_ctouchbutton.cpp moc_timeset.cpp moc_wifi.cpp moc_wificonnect.cpp moc_hotspot.cpp moc_keyBoard.cpp moc_about_board.cpp moc_keytest.cpp moc_keythread.cpp moc_ipset_popup.cpp moc_ipset.cpp moc_touch_interface.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_voice.cpp moc_udev.cpp moc_backlight.cpp moc_gpio.cpp moc_touchscreen.cpp moc_ctouchbutton.cpp moc_timeset.cpp moc_wifi.cpp moc_wificonnect.cpp moc_hotspot.cpp moc_keyBoard.cpp moc_about_board.cpp moc_keytest.cpp moc_keythread.cpp moc_ipset_popup.cpp moc_ipset.cpp moc_touch_interface.cpp moc_bluetooth.cpp moc_bluetooth_thread.cpp
 moc_mainwindow.cpp: mainwindow.h \
 		globalapp.h \
 		voice.h \
@@ -645,6 +657,8 @@ moc_mainwindow.cpp: mainwindow.h \
 		keytest.h \
 		keythread.h \
 		about_board.h \
+		bluetooth.h \
+		bluetooth_thread.h \
 		moc_predefs.h \
 		/opt/toolchain/aarch64/bin/moc
 	/opt/toolchain/aarch64/bin/moc $(DEFINES) --include /home/szbaijie/workspace/a133_qt/baijie_interface/qt/t507/moc_predefs.h -I/opt/toolchain/aarch64/mkspecs/devices/linux-buildroot-g++ -I/home/szbaijie/workspace/a133_qt/baijie_interface/qt/t507 -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5 -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5/QtWidgets -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5/QtGui -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5/QtNetwork -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5/QtCore -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/include/c++/8.4.0 -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/include/c++/8.4.0/aarch64-szbaijie-linux-gnu -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/include/c++/8.4.0/backward -I/opt/toolchain/aarch64/lib/gcc/aarch64-szbaijie-linux-gnu/8.4.0/include -I/opt/toolchain/aarch64/lib/gcc/aarch64-szbaijie-linux-gnu/8.4.0/include-fixed -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/include -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include mainwindow.h -o moc_mainwindow.cpp
@@ -741,13 +755,24 @@ moc_touch_interface.cpp: touch_interface.h \
 		/opt/toolchain/aarch64/bin/moc
 	/opt/toolchain/aarch64/bin/moc $(DEFINES) --include /home/szbaijie/workspace/a133_qt/baijie_interface/qt/t507/moc_predefs.h -I/opt/toolchain/aarch64/mkspecs/devices/linux-buildroot-g++ -I/home/szbaijie/workspace/a133_qt/baijie_interface/qt/t507 -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5 -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5/QtWidgets -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5/QtGui -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5/QtNetwork -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5/QtCore -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/include/c++/8.4.0 -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/include/c++/8.4.0/aarch64-szbaijie-linux-gnu -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/include/c++/8.4.0/backward -I/opt/toolchain/aarch64/lib/gcc/aarch64-szbaijie-linux-gnu/8.4.0/include -I/opt/toolchain/aarch64/lib/gcc/aarch64-szbaijie-linux-gnu/8.4.0/include-fixed -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/include -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include touch_interface.h -o moc_touch_interface.cpp
 
+moc_bluetooth.cpp: bluetooth.h \
+		bluetooth_thread.h \
+		moc_predefs.h \
+		/opt/toolchain/aarch64/bin/moc
+	/opt/toolchain/aarch64/bin/moc $(DEFINES) --include /home/szbaijie/workspace/a133_qt/baijie_interface/qt/t507/moc_predefs.h -I/opt/toolchain/aarch64/mkspecs/devices/linux-buildroot-g++ -I/home/szbaijie/workspace/a133_qt/baijie_interface/qt/t507 -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5 -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5/QtWidgets -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5/QtGui -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5/QtNetwork -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5/QtCore -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/include/c++/8.4.0 -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/include/c++/8.4.0/aarch64-szbaijie-linux-gnu -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/include/c++/8.4.0/backward -I/opt/toolchain/aarch64/lib/gcc/aarch64-szbaijie-linux-gnu/8.4.0/include -I/opt/toolchain/aarch64/lib/gcc/aarch64-szbaijie-linux-gnu/8.4.0/include-fixed -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/include -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include bluetooth.h -o moc_bluetooth.cpp
+
+moc_bluetooth_thread.cpp: bluetooth_thread.h \
+		moc_predefs.h \
+		/opt/toolchain/aarch64/bin/moc
+	/opt/toolchain/aarch64/bin/moc $(DEFINES) --include /home/szbaijie/workspace/a133_qt/baijie_interface/qt/t507/moc_predefs.h -I/opt/toolchain/aarch64/mkspecs/devices/linux-buildroot-g++ -I/home/szbaijie/workspace/a133_qt/baijie_interface/qt/t507 -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5 -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5/QtWidgets -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5/QtGui -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5/QtNetwork -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include/qt5/QtCore -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/include/c++/8.4.0 -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/include/c++/8.4.0/aarch64-szbaijie-linux-gnu -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/include/c++/8.4.0/backward -I/opt/toolchain/aarch64/lib/gcc/aarch64-szbaijie-linux-gnu/8.4.0/include -I/opt/toolchain/aarch64/lib/gcc/aarch64-szbaijie-linux-gnu/8.4.0/include-fixed -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/include -I/opt/toolchain/aarch64/aarch64-szbaijie-linux-gnu/sysroot/usr/include bluetooth_thread.h -o moc_bluetooth_thread.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_voice.h ui_udev.h ui_backlight.h ui_gpio.h ui_touchscreen.h ui_timeset.h ui_wifi.h ui_wificonnect.h ui_hotspot.h ui_about_board.h ui_keytest.h ui_ipset.h
+compiler_uic_make_all: ui_mainwindow.h ui_voice.h ui_udev.h ui_backlight.h ui_gpio.h ui_touchscreen.h ui_timeset.h ui_wifi.h ui_wificonnect.h ui_hotspot.h ui_about_board.h ui_keytest.h ui_ipset.h ui_bluetooth.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_voice.h ui_udev.h ui_backlight.h ui_gpio.h ui_touchscreen.h ui_timeset.h ui_wifi.h ui_wificonnect.h ui_hotspot.h ui_about_board.h ui_keytest.h ui_ipset.h
+	-$(DEL_FILE) ui_mainwindow.h ui_voice.h ui_udev.h ui_backlight.h ui_gpio.h ui_touchscreen.h ui_timeset.h ui_wifi.h ui_wificonnect.h ui_hotspot.h ui_about_board.h ui_keytest.h ui_ipset.h ui_bluetooth.h
 ui_mainwindow.h: mainwindow.ui \
 		/opt/toolchain/aarch64/bin/uic
 	/opt/toolchain/aarch64/bin/uic mainwindow.ui -o ui_mainwindow.h
@@ -800,6 +825,10 @@ ui_ipset.h: ipset.ui \
 		/opt/toolchain/aarch64/bin/uic
 	/opt/toolchain/aarch64/bin/uic ipset.ui -o ui_ipset.h
 
+ui_bluetooth.h: bluetooth.ui \
+		/opt/toolchain/aarch64/bin/uic
+	/opt/toolchain/aarch64/bin/uic bluetooth.ui -o ui_bluetooth.h
+
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
@@ -828,6 +857,8 @@ main.o: main.cpp mainwindow.h \
 		keytest.h \
 		keythread.h \
 		about_board.h \
+		bluetooth.h \
+		bluetooth_thread.h \
 		keyBoard.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
@@ -849,6 +880,8 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		keytest.h \
 		keythread.h \
 		about_board.h \
+		bluetooth.h \
+		bluetooth_thread.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
@@ -938,6 +971,14 @@ gpio_interface.o: gpio_interface.cpp gpio_interface.h
 touch_interface.o: touch_interface.cpp touch_interface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o touch_interface.o touch_interface.cpp
 
+bluetooth.o: bluetooth.cpp bluetooth.h \
+		bluetooth_thread.h \
+		ui_bluetooth.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bluetooth.o bluetooth.cpp
+
+bluetooth_thread.o: bluetooth_thread.cpp bluetooth_thread.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bluetooth_thread.o bluetooth_thread.cpp
+
 qrc_translation.o: qrc_translation.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_translation.o qrc_translation.cpp
 
@@ -994,6 +1035,12 @@ moc_ipset.o: moc_ipset.cpp
 
 moc_touch_interface.o: moc_touch_interface.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_touch_interface.o moc_touch_interface.cpp
+
+moc_bluetooth.o: moc_bluetooth.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_bluetooth.o moc_bluetooth.cpp
+
+moc_bluetooth_thread.o: moc_bluetooth_thread.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_bluetooth_thread.o moc_bluetooth_thread.cpp
 
 ####### Install
 

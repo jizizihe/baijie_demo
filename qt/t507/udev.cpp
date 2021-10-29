@@ -79,11 +79,11 @@ void udev::readoutput()
         }
         if(flag)
         {
-            ui->message->append(QString("%1\nThe New USB device is:\n%2%3").arg(out_f).arg(temp.data()).arg(out_f));
-            ui->usb_label->setText("Find the New USB device");
+            ui->message->append(QString(tr("%1\nThe New USB device is:\n%2%3")).arg(out_f).arg(temp.data()).arg(out_f));
+            ui->usb_label->setText(tr("Find the New USB device"));
         }
         else
-            ui->usb_label->setText("New USB device is not found");
+            ui->usb_label->setText(tr("New USB device is not found"));
 
     }
     else if(file_name == "/data/2.txt")
@@ -112,11 +112,11 @@ void udev::readoutput()
 
         if(flag)
         {
-            ui->message->append(QString("%1\nThe New SD card is :\n%2%3\n").arg(out_f).arg(array[i].data()).arg(out_f));
-            ui->sd_label->setText("Find the New Sd card");
+            ui->message->append(QString(tr("%1\nThe New SD card is :\n%2%3\n")).arg(out_f).arg(array[i].data()).arg(out_f));
+            ui->sd_label->setText(tr("Find the New Sd card"));
         }
         else
-            ui->sd_label->setText("New SD card is not found");
+            ui->sd_label->setText(tr("New SD card is not found"));
 
     }
     else if(file_name == "/data/3.txt")
@@ -150,13 +150,13 @@ void udev::readoutput()
 
         if(flag)
         {
-            ui->message->append(QString("%1\nThe New SIM card is:\n4G_IP:%2%3").arg(out_f).arg(array[i+1].data()).arg(out_f));
-            ui->sim_label->setText("Find the New SIM card");
+            ui->message->append(QString(tr("%1\nThe New SIM card is:\n4G_IP:%2%3")).arg(out_f).arg(array[i+1].data()).arg(out_f));
+            ui->sim_label->setText(tr("Find the New SIM card"));
         }
         else
         {
             ++sim_flag;
-            ui->sim_label->setText("New SIM card is not found");
+            ui->sim_label->setText(tr("New SIM card is not found"));
         }
 
     }
@@ -231,7 +231,7 @@ void udev::on_sim_detection_clicked()
 
     if(temp == "New SIM card is not found")
     {
-        QMessageBox::information(NULL,NULL, QString("That may be a long time!!Please note the 4G LED on the board when it appears fast flashing!!"));
+        QMessageBox::information(NULL,NULL, QString(tr("That may be a long time!!Please note the 4G LED on the board when it appears fast flashing!!")));
         file_name = "";
 
         int gpio_port = calc_port_num('h',12);

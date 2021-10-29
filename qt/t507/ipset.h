@@ -24,9 +24,11 @@ public:
     ipset_popup popup;
     void language_reload();
 
+public slots:
+    bool eventFilter(QObject *,QEvent *);
+
 private slots:
     void on_pushButton_clicked();
-    void on_pushButton_2_clicked();
     void on_pushButton_3_clicked();
     void on_pushButton_4_clicked();
     void on_pushButton_5_clicked();
@@ -35,7 +37,6 @@ private slots:
     void on_pushButton_8_clicked();
     void speedtest();
     void on_pushButton_9_clicked();
-    void setstaticip(QString,QString,QString,QString);
     void setdynamicip(QString);
     void increaseip(QString,QString,QString,QString);
     void modifyip(QString,QString,QString);
@@ -47,6 +48,7 @@ signals:
     void StartTestSpeed();
 private:
     Ui::ipset *ui;
+    QTimer *timer;
 };
 
 #endif // IPSET_H

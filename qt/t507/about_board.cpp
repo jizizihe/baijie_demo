@@ -95,8 +95,8 @@ void about_board::resolution_update()
 
 void about_board::QTversion_update()
 {
-    char *vQT;
-    vQT = get_QTversion();
+    char vQT[64];
+    get_QTversion("/usr/lib/","libQt5Core",vQT);
     QTversion->setText(QString(tr("QT version: %1")).arg(vQT));
 }
 

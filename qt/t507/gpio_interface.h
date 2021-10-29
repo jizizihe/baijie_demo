@@ -10,9 +10,12 @@
 #include <errno.h>
 #include <signal.h>
 #include<sys/epoll.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include <QDebug>
 
 #define SYSFS_GPIO_DIR "/sys/class/gpio"
-
 #define MAX_BUF 256
 
 enum PIN_DIRECTION{
@@ -25,12 +28,20 @@ enum PIN_VALUE{
     HIGH=1
 };
 
+struct occupied_gpio_s
+{
+    int gpio[MAX_BUF];
+    int len;
+};
+
 int calc_port_num(char port, int num);
 int gpio_export(unsigned int gpio);
 int gpio_unexport(unsigned int gpio);
 int gpio_set_state(unsigned int gpio, char *state);
 int gpio_set_value(unsigned int gpio, int value);
 int gpio_get_value(unsigned int gpio);
-
+bool getFileName(unsigned int gpio);
+struct occupied_gpio_s get_debug_gpio();
+int get_occupied_gpio(int *save_gpio,int nLine);
 
 #endif

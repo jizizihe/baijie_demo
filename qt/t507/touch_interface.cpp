@@ -33,14 +33,14 @@ touch::~touch()
 }
 
 
-void touch::clearImage()
+void touch::clearImage()  //clear screen
 {
     image.fill(qRgb(255, 255, 255));
 
     update();
 }
 
-void touch::paintEvent(QPaintEvent *event)
+void touch::paintEvent(QPaintEvent *event)  //
 {
     QPainter painter(this);
     const QRect rect = event->rect();

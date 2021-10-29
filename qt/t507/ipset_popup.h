@@ -23,8 +23,6 @@ public:
 signals:
     void setdip();
     void setdyninfor(QString);
-    void setsip();
-    void setsipinfor(QString,QString,QString,QString);
     void addip();
     void addipinfor(QString,QString,QString,QString);
     void modip();
@@ -36,7 +34,6 @@ signals:
 private slots:
     void remain();
     void getaddipinforma();
-    void getsetsipinforma();
     void getsetdipinforma();
     void getmodipinforma();
     void getdelipinforma();

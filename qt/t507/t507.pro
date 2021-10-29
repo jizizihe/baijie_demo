@@ -59,7 +59,9 @@ SOURCES += \
     gpio_interface.cpp \
     touch_interface.cpp \
     all_interface_test.cpp \
-    udev_interface.cpp
+    udev_interface.cpp\
+    bluetooth.cpp \
+    bluetooth_thread.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -85,8 +87,9 @@ HEADERS += \
     ipset_interface.h \
     touch_interface.h \
     all_interface_test.h \
-    udev_interface.h
-
+    udev_interface.h \
+    bluetooth.h \
+    bluetooth_thread.h
 
 FORMS += \
         mainwindow.ui \
@@ -102,7 +105,8 @@ FORMS += \
     about_board.ui \
     keytest.ui \
     ipset.ui \
-    all_interface_test.ui
+    all_interface_test.ui \
+    bluetooth.ui
 
 RESOURCES += \
     translation.qrc

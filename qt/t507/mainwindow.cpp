@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&keytest_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&board_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&all_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+    connect(&bluetooth_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
 
 }
 
@@ -49,6 +50,8 @@ void MainWindow::show_main()
     keytest_w.hide();
     board_w.hide();
     all_w.hide();
+    bluetooth_w.hide();
+
     this->show();
 }
 
@@ -69,8 +72,6 @@ void MainWindow::on_udev_clicked()
     this->hide();
     udev_w.show();
 }
-
-
 
 void MainWindow::on_gpio_clicked()
 {
@@ -135,6 +136,13 @@ void MainWindow::on_pushButton_clicked()
     udev_w.language_reload();
     board_w.language_reload();
     keytest_w.language_reload();
+    bluetooth_w.language_reload();
+}
+
+void MainWindow::on_bluetooth_clicked()
+{
+    this->hide();
+    bluetooth_w.show();
 }
 
 void MainWindow::on_alltest_clicked()
