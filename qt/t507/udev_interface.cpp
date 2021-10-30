@@ -10,7 +10,6 @@
 
 QString get_new_usb()
 {
-    qdebug("in get_new_usb");
     qDebug() << "in get_new_usb";
     bool flag = false;
     QByteArray array_data[10];

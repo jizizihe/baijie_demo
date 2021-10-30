@@ -36,31 +36,30 @@ void udev::readoutput()
 //    qDebug() << "<<<<<-------------------"<< file_name <<"-------------------->>>>>>";
     QString out_f = QString("*****************************************************************");
 
-    array = proc->readAllStandardOutput().data();
+    arr = proc->readAllStandardOutput().data();
 
-    ui->message->setText(array);
+    ui->message->setText(arr);
+
+    QByteArray array[140];
 
     QFile file(file_name);
 
-    file.open(QIODevice::ReadWrite | QIODevice::Append);
-    QTextStream stream(&file);
-    stream << array;
-    file.flush();
-    file.close();
+//    file.open(QIODevice::ReadWrite | QIODevice::Append);
+//    QTextStream stream(&file);
+//    stream << array;
+//    file.flush();
+//    file.close();
 
+    file.open(QIODevice::ReadOnly);
     static bool flag = false;
-
 
     if(file_name == "/data/1.txt")
     {
-        file.open(QIODevice::ReadOnly);
-        QByteArray array[10];
         int i;
         for(i = 0; !file.atEnd();++i)
         {
             array[i] = file.readLine();
         }
-
         QByteArray temp;
         for(int x = 0; x < i; x++)
         {
@@ -79,21 +78,16 @@ void udev::readoutput()
         }
         if(flag)
         {
-            ui->message->append(QString(tr("%1\nThe New USB device is:\n%2%3")).arg(out_f).arg(temp.data()).arg(out_f));
+            ui->message->append(QString(("%1\nThe New USB device is:\n%2%3")).arg(out_f).arg(temp.data()).arg(out_f));
             ui->usb_label->setText(tr("Find the New USB device"));
         }
         else
             ui->usb_label->setText(tr("New USB device is not found"));
-
     }
     else if(file_name == "/data/2.txt")
     {
         flag = false;
-        file.open(QIODevice::ReadOnly);
-
-        QByteArray array[140];
         int i;
-
         for(i = 0; !file.atEnd(); i++)
         {
             array[i] = file.readLine();
@@ -108,11 +102,9 @@ void udev::readoutput()
                 break;
             }
         }
-
-
         if(flag)
         {
-            ui->message->append(QString(tr("%1\nThe New SD card is :\n%2%3\n")).arg(out_f).arg(array[i].data()).arg(out_f));
+            ui->message->append(QString(("%1\nThe New SD card is :\n%2%3\n")).arg(out_f).arg(array[i].data()).arg(out_f));
             ui->sd_label->setText(tr("Find the New Sd card"));
         }
         else
@@ -122,16 +114,11 @@ void udev::readoutput()
     else if(file_name == "/data/3.txt")
     {
         flag = false;
-
-        file.open(QIODevice::ReadOnly);
-        QByteArray array[35];
         int i;
-
         for(i = 0; !file.atEnd(); ++i)
         {
             array[i] = file.readLine();
         }
-
         for(int x = 0; x < i; x++)
         {
             if("    " == array[x].left(4) || "\n" == array[x].left(1))
@@ -147,10 +134,9 @@ void udev::readoutput()
                 break;
             }
         }
-
         if(flag)
         {
-            ui->message->append(QString(tr("%1\nThe New SIM card is:\n4G_IP:%2%3")).arg(out_f).arg(array[i+1].data()).arg(out_f));
+            ui->message->append(QString(("%1\nThe New SIM card is:\n4G_IP:%2%3")).arg(out_f).arg(array[i+1].data()).arg(out_f));
             ui->sim_label->setText(tr("Find the New SIM card"));
         }
         else
@@ -158,8 +144,8 @@ void udev::readoutput()
             ++sim_flag;
             ui->sim_label->setText(tr("New SIM card is not found"));
         }
-
     }
+
     file.flush();
     file.close();
 }
@@ -170,25 +156,19 @@ void udev::on_usb_detection_clicked()
 
     file_name = QString("/data/1.txt");
 
-    proc->start(QString("rm %1").arg(file_name));
-    proc->waitForStarted(-1);
-    proc->waitForFinished(-1);
+//    proc->start(QString("rm %1").arg(file_name));
+//    proc->waitForStarted(-1);
+//    proc->waitForFinished(-1);
 
-    proc->start(QString("touch %1").arg(file_name));
-    proc->waitForStarted(-1);
-    proc->waitForFinished(-1);
+//    proc->start(QString("touch %1").arg(file_name));
+//    proc->waitForStarted(-1);
+//    proc->waitForFinished(-1);
 
+    proc->start("bash", QStringList() << "-c" << QString("lsusb > %1").arg(file_name));
+    proc->waitForFinished();
     proc->start("lsusb");
-
-//    QString status = get_new_usb();
-//    if(status == "USB OK")
-//    {
-
-//    }
-//    else
-//    {
-
-//    }
+    QString stt = proc->readAllStandardOutput();
+    ui->message->setText(stt);
 }
 
 void udev::on_sd_detection_clicked()
@@ -197,14 +177,16 @@ void udev::on_sd_detection_clicked()
 
     file_name = QString("/data/2.txt");
 
-    proc->start(QString("rm %1").arg(file_name));
-    proc->waitForStarted(-1);
-    proc->waitForFinished(-1);
+//    proc->start(QString("rm %1").arg(file_name));
+//    proc->waitForStarted(-1);
+//    proc->waitForFinished(-1);
 
-    proc->start(QString("touch %1").arg(file_name));
-    proc->waitForStarted(-1);
-    proc->waitForFinished(-1);
+//    proc->start(QString("touch %1").arg(file_name));
+//    proc->waitForStarted(-1);
+//    proc->waitForFinished(-1);
 
+    proc->start("bash",QStringList() << "-c" << QString("fdisk -l > %1").arg(file_name));
+    proc->waitForFinished();
     proc->start("fdisk -l");
 }
 
@@ -215,16 +197,17 @@ void udev::on_sim_detection_clicked()
 
     file_name = QString("/data/3.txt");
 
-    proc->start(QString("rm %1").arg(file_name));
-    proc->waitForStarted(-1);
-    proc->waitForFinished(-1);
+//    proc->start(QString("rm %1").arg(file_name));
+//    proc->waitForStarted(-1);
+//    proc->waitForFinished(-1);
 
-    proc->start(QString("touch %1").arg(file_name));
-    proc->waitForStarted(-1);
-    proc->waitForFinished(-1);
+//    proc->start(QString("touch %1").arg(file_name));
+//    proc->waitForStarted(-1);
+//    proc->waitForFinished(-1);
+    proc->start("bash",QStringList() << "-c" << QString("ifconfig > %1").arg(file_name));
+    proc->waitForFinished();
 
     proc->start("ifconfig");
-    proc->waitForStarted(-1);
     proc->waitForFinished(-1);
 
     QString temp = ui->sim_label->text();
@@ -240,7 +223,6 @@ void udev::on_sim_detection_clicked()
         gpio_set_value(gpio_port,0);
 
         proc->start("nmcli connection delete ppp0");
-        proc->waitForStarted(-1);
         proc->waitForFinished(-1);
         sleep(1);
 
@@ -250,14 +232,7 @@ void udev::on_sim_detection_clicked()
 
         proc->start("nmcli connection add con-name ppp0 ifname ttyUSB2 autoconnect yes \
                     type gsm apn 3gnet user uninet password uninet");
-        proc->waitForStarted(-1);
         proc->waitForFinished(-1);
-
-//        QTime add = QTime::currentTime().addSecs(20);
-//        while(QTime::currentTime() < add)
-//        {
-//            QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//        }
 
     }
 }

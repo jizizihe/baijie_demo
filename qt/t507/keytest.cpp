@@ -6,6 +6,7 @@ keytest::keytest(QWidget *parent) :
     ui(new Ui::keytest)
 {
     ui->setupUi(this);
+//    this->resize(800,600);
 
     retBt = new QPushButton(this);
     retBt->setFixedSize(100,40);

@@ -34,6 +34,12 @@
       <iconset resource="translation.qrc">
        <normaloff>:/t507_button_image/voice.png</normaloff>:/t507_button_image/voice.png</iconset>
      </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
     </widget>
     <widget class="QLabel" name="label_33">
      <property name="minimumSize">
@@ -70,6 +76,12 @@
       <iconset resource="translation.qrc">
        <normaloff>:/t507_button_image/interface.png</normaloff>:/t507_button_image/interface.png</iconset>
      </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
     </widget>
     <widget class="QLabel" name="label_39">
      <property name="minimumSize">
@@ -105,6 +117,12 @@
      <property name="icon">
       <iconset resource="translation.qrc">
        <normaloff>:/t507_button_image/key.png</normaloff>:/t507_button_image/key.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
     <widget class="QLabel" name="label_40">
@@ -144,6 +162,12 @@
      <property name="icon">
       <iconset resource="translation.qrc">
        <normaloff>:/t507_button_image/about.png</normaloff>:/t507_button_image/about.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
     <widget class="QLabel" name="label_key_6">
@@ -193,6 +217,12 @@
       <iconset resource="translation.qrc">
        <normaloff>:/t507_button_image/ethernet.png</normaloff>:/t507_button_image/ethernet.png</iconset>
      </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
     </widget>
     <widget class="QLabel" name="label_37">
      <property name="minimumSize">
@@ -228,6 +258,12 @@
      <property name="icon">
       <iconset resource="translation.qrc">
        <normaloff>:/t507_button_image/serial.png</normaloff>:/t507_button_image/serial.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
     <widget class="QLabel" name="label_32">
@@ -270,6 +306,12 @@
      <property name="icon">
       <iconset resource="translation.qrc">
        <normaloff>:/t507_button_image/wifi.png</normaloff>:/t507_button_image/wifi.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
     <widget class="QLabel" name="label_35">
@@ -316,6 +358,12 @@
       <iconset resource="translation.qrc">
        <normaloff>:/t507_button_image/bluetooth.png</normaloff>:/t507_button_image/bluetooth.png</iconset>
      </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
     </widget>
     <widget class="QLabel" name="label_36">
      <property name="minimumSize">
@@ -358,6 +406,12 @@
       <iconset resource="translation.qrc">
        <normaloff>:/t507_button_image/rtc .png</normaloff>:/t507_button_image/rtc .png</iconset>
      </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
     </widget>
     <widget class="QLabel" name="label_29">
      <property name="minimumSize">
@@ -393,6 +447,12 @@
      <property name="icon">
       <iconset resource="translation.qrc">
        <normaloff>:/t507_button_image/USB.png</normaloff>:/t507_button_image/USB.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>40</width>
+       <height>40</height>
+      </size>
      </property>
     </widget>
     <widget class="QLabel" name="label_38">
@@ -430,6 +490,12 @@
       <iconset resource="translation.qrc">
        <normaloff>:/t507_button_image/gpio.png</normaloff>:/t507_button_image/gpio.png</iconset>
      </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
     </widget>
     <widget class="QLabel" name="label_31">
      <property name="minimumSize">
@@ -465,6 +531,12 @@
      <property name="icon">
       <iconset resource="translation.qrc">
        <normaloff>:/t507_button_image/backlight.png</normaloff>:/t507_button_image/backlight.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
     <widget class="QLabel" name="label_30">
@@ -526,6 +598,12 @@
      <iconset resource="translation.qrc">
       <normaloff>:/t507_button_image/touch.png</normaloff>:/t507_button_image/touch.png</iconset>
     </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
@@ -567,6 +645,12 @@
      <property name="icon">
       <iconset resource="translation.qrc">
        <normaloff>:/t507_button_image/cn.png</normaloff>:/t507_button_image/cn.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
     <widget class="QLabel" name="label_2">

@@ -45,6 +45,8 @@ all_interface_test::~all_interface_test()
 
 void all_interface_test::on_return_2_clicked()
 {
+    ui->textEdit->clear();
+    ui->image->clear();
     emit Mysignal();
 }
 

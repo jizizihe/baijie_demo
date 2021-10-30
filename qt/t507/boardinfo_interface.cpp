@@ -143,7 +143,7 @@ void get_QTversion(char *dirpath,char *filename,char *fs_file)
         if(strncmp(ent->d_name,filename ,9) == 0)
         {
             sprintf(fw_file[i],"%s",ent->d_name);
-            qDebug("fw: %s\n",fw_file[i]);
+//            qDebug("fw: %s\n",fw_file[i]);
             i++;
         }
     }
@@ -157,10 +157,10 @@ void get_QTversion(char *dirpath,char *filename,char *fs_file)
             strcpy(finish_file,fw_file[j]);
         }
     }
-    qDebug("finish_file is %s\n",finish_file);
+//    qDebug("finish_file is %s\n",finish_file);
 
     sscanf(finish_file,"%*[^.]%*[^1-9]%s",fs_file);
-    qDebug("fs_file is %s\n",fs_file);
+//    qDebug("fs_file is %s\n",fs_file);
 
 }
 

@@ -47,7 +47,7 @@ private:
     Ui::udev *ui;
     QProcess *proc;
     QString file_name;
-    QString array;
+    QString arr;
 };
 
 #endif // UDEV_H
