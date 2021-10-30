@@ -23,7 +23,7 @@ float get_CPU_temp();
 int get_resolution(int *x,int *y);
 char *get_boardname();
 char *get_OSname();
-void get_QTversion(char *dirpath,char *filename,char *fs_file);
+int get_QTversion(char *dirpath,char *filename,char *fs_file);
 char *get_kernel();
 
 

@@ -77,7 +77,7 @@ void udev::readoutput()
         }
         if(flag)
         {
-            ui->message->append(QString(tr("%1\nThe New USB device is:\n%2%3")).arg(out_f).arg(temp.data()).arg(out_f));
+            ui->message->append(QString(("%1\nThe New USB device is:\n%2%3")).arg(out_f).arg(temp.data()).arg(out_f));
             ui->usb_label->setText(tr("Find the New USB device"));
         }
         else
@@ -110,7 +110,7 @@ void udev::readoutput()
 
         if(flag)
         {
-            ui->message->append(QString(tr("%1\nThe New SD card is :\n%2%3\n")).arg(out_f).arg(array[i].data()).arg(out_f));
+            ui->message->append(QString(("%1\nThe New SD card is :\n%2%3\n")).arg(out_f).arg(array[i].data()).arg(out_f));
             ui->sd_label->setText(tr("Find the New Sd card"));
         }
         else
@@ -148,7 +148,7 @@ void udev::readoutput()
 
         if(flag)
         {
-            ui->message->append(QString(tr("%1\nThe New SIM card is:\n4G_IP:%2%3")).arg(out_f).arg(array[i+1].data()).arg(out_f));
+            ui->message->append(QString(("%1\nThe New SIM card is:\n4G_IP:%2%3")).arg(out_f).arg(array[i+1].data()).arg(out_f));
             ui->sim_label->setText(tr("Find the New SIM card"));
         }
         else

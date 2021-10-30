@@ -96,8 +96,18 @@ void about_board::resolution_update()
 void about_board::QTversion_update()
 {
     char vQT[64];
-    get_QTversion("/usr/lib/","libQt5Core",vQT);
-    QTversion->setText(QString(tr("QT version: %1")).arg(vQT));
+    if(get_QTversion("/usr/lib/","libQt5Core",vQT) == 0)
+    {
+         if(get_QTversion("/usr/lib/","libQt4Core",vQT) == 0)
+         {
+             QTversion->setText(QString(tr("QT version: Unknow")));
+         }
+    }
+    else
+    {
+        QTversion->setText(QString(tr("QT version: %1")).arg(vQT));
+    }
+
 }
 
 void about_board::language_reload()

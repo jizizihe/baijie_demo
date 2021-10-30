@@ -119,13 +119,19 @@ char *get_OSname()
     OS = (char *)malloc(sizeof(char) * 255);
 
     fscanf(fd, "%[^\n]", OS);
+    QString str = QString::fromUtf8(OS);
+    str.remove("\\n");
+    str.remove("\\l");
+    QByteArray ba = str.toLatin1();
+    OS=ba.data();
+
     fclose(fd);
 
 
     return OS;
 }
 
-void get_QTversion(char *dirpath,char *filename,char *fs_file)
+int get_QTversion(char *dirpath,char *filename,char *fs_file)
 {
     int i = 0,j = 0;
     char fw_file[64][64];
@@ -134,7 +140,7 @@ void get_QTversion(char *dirpath,char *filename,char *fs_file)
     DIR *dir = opendir(dirpath);
     if(dir == NULL) {
         qDebug("open %s failed \n",dirpath);
-        return ;
+        return 0;
     }
 
     struct dirent *ent;
@@ -143,11 +149,12 @@ void get_QTversion(char *dirpath,char *filename,char *fs_file)
         if(strncmp(ent->d_name,filename ,9) == 0)
         {
             sprintf(fw_file[i],"%s",ent->d_name);
-            qDebug("fw: %s\n",fw_file[i]);
+//            qDebug("fw: %s\n",fw_file[i]);
             i++;
         }
     }
-        //qDebug("i = %d\n",i);
+
+//        qDebug("i = %d\n",i);
     closedir(dir);
 
     for(j = 0;j < i;j++)
@@ -157,11 +164,11 @@ void get_QTversion(char *dirpath,char *filename,char *fs_file)
             strcpy(finish_file,fw_file[j]);
         }
     }
-    qDebug("finish_file is %s\n",finish_file);
+//    qDebug("finish_file is %s\n",finish_file);
 
     sscanf(finish_file,"%*[^.]%*[^1-9]%s",fs_file);
-    qDebug("fs_file is %s\n",fs_file);
-
+//    qDebug("fs_file is %s\n",fs_file);
+    return i;
 }
 
 char *get_kernel()

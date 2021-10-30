@@ -69,39 +69,21 @@ QString getallip()
     return QString::fromLocal8Bit(cmd.readAllStandardOutput().data());
 }
 
-QString setstaticip(QString ipname,QString netcard,QString ipaddr,QString gateway)
+
+QString addstaticip(QString ipname,QString netcard,QString ipaddr)
 {
-    QString cmd_addstaticip = QString("nmcli con add con-name %1 ifname %2 autoconnect yes type ethernet ip4 %3 \
-                              gw4 %4").arg(ipname).arg(netcard).arg(ipaddr).arg(gateway);
-    QProcess cmd_addsip;
-    cmd_addsip.start(cmd_addstaticip);
-    if(!cmd_addsip.waitForFinished())
+    QString gateway;
+    for(int i = 9;i < 12;i++)
     {
-        return "Failed to set static IP address!";
+        if(ipaddr.at(i) == '.')
+        {
+            gateway = ipaddr.left(i+1);
+            gateway.append("1");
+            qDebug() << gateway;
+            break;
+        }
     }
-    cmd_addsip.start(QString("nmcli con up %1").arg(netcard));
-    if(!cmd_addsip.waitForFinished())
-    {
-        return "Failed to set static IP address!";
-    }
-    return QString::fromLocal8Bit(cmd_addsip.readAllStandardOutput().data());
-}
 
-QString setsip(QString ipname,QString netcard,QString ipaddr,QString gateway)
-{
-    QString cmd_addstaticip = QString("nmcli con add con-name %1 ifname %2 autoconnect yes type ethernet ip4 \
-                        %3 gw4 %4").arg(ipname).arg(netcard).arg(ipaddr).arg(gateway);
-    QProcess cmd_addsip;
-    cmd_addsip.start(cmd_addstaticip);
-    cmd_addsip.waitForFinished();
-    cmd_addsip.start(QString("nmcli con up %1").arg(ipname));
-    cmd_addsip.waitForFinished();
-    return QString::fromLocal8Bit(cmd_addsip.readAllStandardOutput().data());
-
-}
-
-QString addstaticip(QString ipname,QString netcard,QString ipaddr,QString gateway,bool flag)
-{
     QString cmd_addstaticip = QString("nmcli con add con-name %1 ifname %2 autoconnect yes type ethernet ip4 %3 gw4 %4") \
             .arg(ipname).arg(netcard).arg(ipaddr).arg(gateway);
     QProcess cmd_addsip;
@@ -110,21 +92,31 @@ QString addstaticip(QString ipname,QString netcard,QString ipaddr,QString gatewa
     {
         return "Failed to add static IP address!";
     }
-    if(flag)
-    {
-        QString cmd_ipup = QString("nmcli connection up %1").arg(ipname);
-        cmd_addsip.start(cmd_ipup);
 
-        if(!cmd_addsip.waitForFinished())
-        {
-            return "Failed to add static IP address!";
-        }
+    QString cmd_ipup = QString("nmcli connection up %1").arg(ipname);
+    cmd_addsip.start(cmd_ipup);
+
+    if(!cmd_addsip.waitForFinished())
+    {
+        return "Failed to set static IP address!";
     }
+
     return QString::fromLocal8Bit( cmd_addsip.readAllStandardOutput().data());
 }
 
-QString modstaticip(QString ipname,QString ipaddr,QString gateway,bool flag)
+QString modstaticip(QString ipname,QString ipaddr)
 {
+    QString gateway;
+    for(int i = 9;i < 12;i++)
+    {
+        if(ipaddr.at(i) == '.')
+        {
+            gateway = ipaddr.left(i+1);
+            gateway.append("1");
+            qDebug() << gateway;
+            break;
+        }
+    }
     QString cmd_modstaticip = QString("nmcli con mod %1 ipv4.address %2,%3").arg(ipname).arg(ipaddr).arg(gateway);
 
     QProcess cmd_modsip;
@@ -133,15 +125,14 @@ QString modstaticip(QString ipname,QString ipaddr,QString gateway,bool flag)
     {
         return "Failed to modify IP address!";
     }
-    if(flag)
+
+    QString cmd_ipup = QString("nmcli con up %1").arg(ipname);
+    cmd_modsip.start(cmd_ipup);
+    if(!cmd_modsip.waitForFinished())
     {
-        QString cmd_ipup = QString("nmcli con up %1").arg(ipname);
-        cmd_modsip.start(cmd_ipup);
-        if(!cmd_modsip.waitForFinished())
-        {
-            return "Failed to modify IP address!";
-        }
+        return "Failed to modify IP address!";
     }
+
     return QString::fromLocal8Bit(cmd_modsip.readAllStandardOutput().data());
 }
 
@@ -166,7 +157,7 @@ QString setdip(QString netcard)
     cmd_delsip.start(cmd_delstaticip);
     if(!cmd_delsip.waitForFinished())
     {
-        return "Failed to set dymanic IP!";
+        return "Failed to set dynamic IP!";
     }
     if(netcard.isEmpty())
     {

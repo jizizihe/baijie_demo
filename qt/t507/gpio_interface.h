@@ -31,10 +31,15 @@ enum PIN_VALUE{
 struct occupied_gpio_s
 {
     int gpio[MAX_BUF];
+    char portnum[MAX_BUF][4];
     int len;
 };
 
+
+
+int intTostr(int m, char str[]);
 int calc_port_num(char port, int num);
+void portnum_cal(int num,char gpio_port[]);
 int gpio_export(unsigned int gpio);
 int gpio_unexport(unsigned int gpio);
 int gpio_set_state(unsigned int gpio, char *state);

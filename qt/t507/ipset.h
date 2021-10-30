@@ -38,8 +38,8 @@ private slots:
     void speedtest();
     void on_pushButton_9_clicked();
     void setdynamicip(QString);
-    void increaseip(QString,QString,QString,QString);
-    void modifyip(QString,QString,QString);
+    void increaseip(QString,QString,QString);
+    void modifyip(QString,QString);
     void deleteip(QString);
     void gobackmenu();
 

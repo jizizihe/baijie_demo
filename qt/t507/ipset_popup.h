@@ -17,16 +17,15 @@ public:
     ~ipset_popup();
 
     char *bnttype;
-    bool setitflag = false;
     void language_reload();
 
 signals:
     void setdip();
     void setdyninfor(QString);
     void addip();
-    void addipinfor(QString,QString,QString,QString);
+    void addipinfor(QString,QString,QString);
     void modip();
-    void modipinfor(QString,QString,QString);
+    void modipinfor(QString,QString);
     void delip();
     void delipinfor(QString);
     void go_back();
@@ -46,8 +45,6 @@ private:
     QLineEdit *line_name;
     QLabel *label_addr;
     QLineEdit *line_addr;
-    QLabel *label_gateway;
-    QLineEdit *line_gateway;
     QLabel *label;
     QPushButton *btn_OK;
     QPushButton *btn_return;
