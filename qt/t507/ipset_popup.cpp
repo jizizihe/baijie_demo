@@ -6,7 +6,9 @@ ipset_popup::ipset_popup(QWidget *parent) :
     btn_OK = new QPushButton(tr("OK"),this);
     btn_OK->setGeometry(900,550,100,40);
 
-    btn_return = new QPushButton(tr("return"),this);
+    btn_return = new QPushButton(this);
+    btn_return->setIcon(QIcon(":/t507_button_image/return.png"));
+//    btn_return = new QPushButton(tr("return"),this);
     btn_return->setGeometry(10,10,100,40);
 
     label_Name = new QLabel(tr("name:"),this);
@@ -199,7 +201,7 @@ void ipset_popup::language_reload()
 
     label->setText(tr("Please do not have spaces in the name, otherwise the operation will fail!"));
     btn_OK->setText(tr("OK"));
-    btn_return->setText(tr("return"));
+//    btn_return->setText(tr("return"));
     label_Name->setText(tr("name:"));
     label_netcard->setText(tr("network card:"));
     label_addr->setText(tr("ip address:"));

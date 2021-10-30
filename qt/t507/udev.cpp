@@ -1,5 +1,6 @@
 #include "udev.h"
 #include "ui_udev.h"
+#include "udev_interface.h"
 #include "gpio_interface.h"
 
 #include <QDebug>
@@ -33,6 +34,8 @@ udev::~udev()
 void udev::readoutput()
 {
 //    qDebug() << "<<<<<-------------------"<< file_name <<"-------------------->>>>>>";
+    QString out_f = QString("*****************************************************************");
+
     array = proc->readAllStandardOutput().data();
 
     ui->message->setText(array);
@@ -43,11 +46,10 @@ void udev::readoutput()
     QTextStream stream(&file);
     stream << array;
     file.flush();
-    file.close();;
+    file.close();
 
     static bool flag = false;
 
-    QString out_f = QString("*****************************************************************");
 
     if(file_name == "/data/1.txt")
     {
@@ -177,6 +179,16 @@ void udev::on_usb_detection_clicked()
     proc->waitForFinished(-1);
 
     proc->start("lsusb");
+
+//    QString status = get_new_usb();
+//    if(status == "USB OK")
+//    {
+
+//    }
+//    else
+//    {
+
+//    }
 }
 
 void udev::on_sd_detection_clicked()

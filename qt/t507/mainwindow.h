@@ -13,6 +13,7 @@
 #include "ipset.h"
 #include "keytest.h"
 #include "about_board.h"
+#include "all_interface_test.h"
 #include <QTranslator>
 #include "bluetooth.h"
 
@@ -37,7 +38,9 @@ public:
     ipset eth0_w;
     keytest keytest_w;
     about_board board_w;
+    all_interface_test all_w;
     bluetooth bluetooth_w;
+
 
 private:
     Ui::MainWindow *ui;
@@ -58,6 +61,7 @@ private slots:
     void on_keytest_clicked();
     void on_auto_2_clicked();
     void on_pushButton_clicked();
+    void on_alltest_clicked();
     void on_bluetooth_clicked();
 };
 

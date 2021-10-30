@@ -11,8 +11,9 @@ wifi::wifi(QWidget *parent) :
 
     retBt = new QPushButton(this);
     retBt->setFixedSize(100,40);
-    retBt->setText(tr("return"));
+//    retBt->setText(tr("return"));
     retBt->move(10,10);
+    retBt->setIcon(QIcon(":/t507_button_image/return.png"));
 
     pLabel = new QLabel(this);
     pLabel->setText(tr("Wifi Test"));
@@ -48,6 +49,7 @@ wifi::wifi(QWidget *parent) :
     StatusBt->move(50,470);
 
     WifiMsgText = new QTextEdit(this);
+    WifiMsgText->setReadOnly(true);
     WifiMsgText->resize(650,370);
     WifiMsgText->move(350,150);
 
@@ -193,7 +195,7 @@ void wifi::StatusBt_clicked()
 void wifi::language_reload()
 {
     ui->retranslateUi(this);
-    retBt->setText(tr("return"));
+//    retBt->setText(tr("return"));
     pLabel->setText(tr("Wifi Test"));
     WifiConnectBt->setText(tr("wifi connect"));
     WifiDisconnectBt->setText(tr("wifi disconnect"));

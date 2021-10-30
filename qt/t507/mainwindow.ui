@@ -28,7 +28,11 @@
     </property>
     <widget class="QPushButton" name="vf">
      <property name="text">
-      <string>8</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="translation.qrc">
+       <normaloff>:/t507_button_image/voice.png</normaloff>:/t507_button_image/voice.png</iconset>
      </property>
     </widget>
     <widget class="QLabel" name="label_33">
@@ -58,9 +62,13 @@
     <property name="orientation">
      <enum>Qt::Vertical</enum>
     </property>
-    <widget class="QPushButton" name="g4">
+    <widget class="QPushButton" name="alltest">
      <property name="text">
-      <string>11</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="translation.qrc">
+       <normaloff>:/t507_button_image/interface.png</normaloff>:/t507_button_image/interface.png</iconset>
      </property>
     </widget>
     <widget class="QLabel" name="label_39">
@@ -92,7 +100,11 @@
     </property>
     <widget class="QPushButton" name="keytest">
      <property name="text">
-      <string>12</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="translation.qrc">
+       <normaloff>:/t507_button_image/key.png</normaloff>:/t507_button_image/key.png</iconset>
      </property>
     </widget>
     <widget class="QLabel" name="label_40">
@@ -127,7 +139,11 @@
       <bool>true</bool>
      </property>
      <property name="text">
-      <string>14</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="translation.qrc">
+       <normaloff>:/t507_button_image/about.png</normaloff>:/t507_button_image/about.png</iconset>
      </property>
     </widget>
     <widget class="QLabel" name="label_key_6">
@@ -171,7 +187,11 @@
       </size>
      </property>
      <property name="text">
-      <string>3</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="translation.qrc">
+       <normaloff>:/t507_button_image/ethernet.png</normaloff>:/t507_button_image/ethernet.png</iconset>
      </property>
     </widget>
     <widget class="QLabel" name="label_37">
@@ -203,7 +223,11 @@
     </property>
     <widget class="QPushButton" name="serialport">
      <property name="text">
-      <string>7</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="translation.qrc">
+       <normaloff>:/t507_button_image/serial.png</normaloff>:/t507_button_image/serial.png</iconset>
      </property>
     </widget>
     <widget class="QLabel" name="label_32">
@@ -241,7 +265,11 @@
     </property>
     <widget class="QPushButton" name="wifi">
      <property name="text">
-      <string>1</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="translation.qrc">
+       <normaloff>:/t507_button_image/wifi.png</normaloff>:/t507_button_image/wifi.png</iconset>
      </property>
     </widget>
     <widget class="QLabel" name="label_35">
@@ -282,7 +310,11 @@
     </property>
     <widget class="QPushButton" name="bluetooth">
      <property name="text">
-      <string>2</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="translation.qrc">
+       <normaloff>:/t507_button_image/bluetooth.png</normaloff>:/t507_button_image/bluetooth.png</iconset>
      </property>
     </widget>
     <widget class="QLabel" name="label_36">
@@ -320,7 +352,11 @@
     </property>
     <widget class="QPushButton" name="rtc">
      <property name="text">
-      <string>4</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="translation.qrc">
+       <normaloff>:/t507_button_image/rtc .png</normaloff>:/t507_button_image/rtc .png</iconset>
      </property>
     </widget>
     <widget class="QLabel" name="label_29">
@@ -352,7 +388,11 @@
     </property>
     <widget class="QPushButton" name="udev">
      <property name="text">
-      <string>10</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="translation.qrc">
+       <normaloff>:/t507_button_image/USB.png</normaloff>:/t507_button_image/USB.png</iconset>
      </property>
     </widget>
     <widget class="QLabel" name="label_38">
@@ -384,7 +424,11 @@
     </property>
     <widget class="QPushButton" name="gpio">
      <property name="text">
-      <string>6</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="translation.qrc">
+       <normaloff>:/t507_button_image/gpio.png</normaloff>:/t507_button_image/gpio.png</iconset>
      </property>
     </widget>
     <widget class="QLabel" name="label_31">
@@ -416,7 +460,11 @@
     </property>
     <widget class="QPushButton" name="backlight">
      <property name="text">
-      <string>5</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="translation.qrc">
+       <normaloff>:/t507_button_image/backlight.png</normaloff>:/t507_button_image/backlight.png</iconset>
      </property>
     </widget>
     <widget class="QLabel" name="label_30">
@@ -472,7 +520,11 @@
      </size>
     </property>
     <property name="text">
-     <string>9</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="translation.qrc">
+      <normaloff>:/t507_button_image/touch.png</normaloff>:/t507_button_image/touch.png</iconset>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -510,7 +562,11 @@
     </property>
     <widget class="QPushButton" name="pushButton">
      <property name="text">
-      <string>13</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="translation.qrc">
+       <normaloff>:/t507_button_image/cn.png</normaloff>:/t507_button_image/cn.png</iconset>
      </property>
     </widget>
     <widget class="QLabel" name="label_2">
@@ -544,6 +600,8 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="translation.qrc"/>
+ </resources>
  <connections/>
 </ui>

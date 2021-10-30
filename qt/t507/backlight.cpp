@@ -68,17 +68,20 @@ backlight::backlight(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::backlight)
 {
-//    extern bool touch_flag;
     ui->setupUi(this);
-//    ui->return_2->setGeometry(10,10,200,30);
+
 
     ui->horizontalSlider->setRange(140,255);
     ui->horizontalSlider->setValue(200);
     light_value = 200;
 
     timing = new QTimer(this);
-    timing->start(1);
+    timing->start();
     connect(timing,SIGNAL(timeout()),this,SLOT(light_screen()));
+
+    QTimer *show_timer = new QTimer(this);
+    show_timer->start(1000);
+    connect(show_timer,SIGNAL(timeout()),this,SLOT(show_time()));
 
     timeUp = new QTimer(this);
 
@@ -89,6 +92,11 @@ backlight::~backlight()
     delete ui;
 }
 
+void backlight::show_time()
+{
+    ui->time->setText(QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss"));
+}
+
 void backlight::light_screen()      //Click on the light screen
 {
     int now_value = get_backlight();
@@ -96,7 +104,8 @@ void backlight::light_screen()      //Click on the light screen
     if(now_value == 0 && touch_flag)   //touch_flag external variable in globalapp.h
     {
         timeUp->start();
-        qdebug("light_screen:%s");
+//        qdebug("light_screen:%d",touch_flag);
+        qDebug() << "light_screen" << QTime::currentTime();
         set_backlight(light_value);
 
     }
@@ -106,7 +115,8 @@ void backlight::timerUp()       //check whether events are generated
 {
     QTime now = QTime::currentTime().addSecs(timer_array[global_secs]);
 
-    qdebug("begin_timing");
+//    qdebug("begin_timing");
+    qDebug() << "begin_timing" << QTime::currentTime();
     while(QTime::currentTime() < now)
     {
         if(touch_flag)
@@ -118,7 +128,8 @@ void backlight::timerUp()       //check whether events are generated
     }
     timeUp->stop();
     set_backlight(0);
-    qdebug("black_screen");
+    qDebug() << "black_screen" << QTime::currentTime();
+//    qdebug("black_screen");
 }
 
 void backlight::on_horizontalSlider_valueChanged(int value)

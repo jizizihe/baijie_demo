@@ -24,7 +24,12 @@
      </rect>
     </property>
     <property name="text">
-     <string>return</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>:/t507_button_image/return.png</normalon>
+     </iconset>
     </property>
    </widget>
    <widget class="QWidget" name="function" native="true">
@@ -188,7 +193,7 @@
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>130</y>
+      <y>110</y>
       <width>211</width>
       <height>31</height>
      </rect>
@@ -197,14 +202,14 @@
      <string>FUNCTION:</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
       <x>330</x>
-      <y>130</y>
+      <y>110</y>
       <width>101</width>
       <height>31</height>
      </rect>

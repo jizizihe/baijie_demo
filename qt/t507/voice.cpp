@@ -3,7 +3,7 @@
 
 #include <QMessageBox>
 
-#define Dbug
+//#define Dbug
 #ifdef Dbug
 #define qdebug(format, ...)  qDebug("Function:%s,Line:%d " format,__func__,__LINE__, ##__VA_ARGS__);
 #else

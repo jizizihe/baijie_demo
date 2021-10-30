@@ -44,8 +44,9 @@ gpio::gpio(QWidget *parent) :
 
     ret = new QPushButton(this);
     ret->setFixedSize(100,40);
-    ret->setText(tr("return"));
+//    ret->setText(tr("return"));
     ret->move(10,10);
+    ret->setIcon(QIcon(":/t507_button_image/return.png"));
 
     connect(rBtnin,SIGNAL(clicked(bool)),this,SLOT(rBtnin_clicked()));
     connect(rBtnout,SIGNAL(clicked(bool)),this,SLOT(rBtnout_clicked()));
@@ -344,7 +345,7 @@ void gpio::language_reload()
     ui->label_2->setPalette(pe);
     stateGroup->setTitle(tr("state"));
     valueGroup->setTitle(tr("value"));
-    ret->setText(tr("return"));
+//    ret->setText(tr("return"));
     rBtnout->setText(tr("out"));
     rBtnin->setText(tr("in"));
     rBtnhigh->setText(tr("high"));
