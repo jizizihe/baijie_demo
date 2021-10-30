@@ -1,5 +1,38 @@
 #include "gpio_interface.h"
 
+int intTostr(int m, char str[])
+{
+    int i = 0;
+    int j = 1;
+    int k = 0;
+    char c;
+    if (m < 0)
+        str[i++] = '-';
+    m = m > 0 ? m : -m;
+    while (m > 0)
+    {
+        str[i] = '0' + m % 10;
+        m = m / 10;
+        i++;
+
+    }
+    if (str[0] == '-')
+        j = 1;
+    else
+        j = 0;
+    k = i - 1;
+    while (j < k)
+    {
+        c = str[j];
+        str[j] = str[k];
+        str[k] = c;
+        j++;
+        k--;
+    }
+    str[i] = '\0';
+    return i - 1;
+}
+
 int	calc_port_num(char port, int num)
 {
 	int	port_num;
@@ -62,6 +95,88 @@ int	calc_port_num(char port, int num)
 		port_num = -1;
 	}
 	return port_num;
+}
+
+
+void portnum_cal(int num,char gpio_port[])
+{
+//    char gpio_port[4];
+    if(num <= 32)
+    {
+        gpio_port[0] = 'a';
+        intTostr(num,&gpio_port[1]);
+//        return gpio_port;
+    }
+    else if(num > 32 && num <= 64)
+    {
+        gpio_port[0] = 'b';
+        intTostr((num-32),&gpio_port[1]);
+//        return gpio_port;
+    }
+    else if(num > 64 && num <= 96)
+    {
+        gpio_port[0] = 'c';
+        intTostr((num-64),&gpio_port[1]);
+//        return gpio_port;
+    }
+    else if(num > 96 && num <= 128)
+    {
+        gpio_port[0] = 'd';
+        intTostr((num-96),&gpio_port[1]);
+//        return gpio_port;
+    }
+    else if(num > 128 && num <= 160)
+    {
+        gpio_port[0] = 'e';
+        intTostr((num-128),&gpio_port[1]);
+//        return gpio_port;
+    }
+    else if(num > 160 && num <= 192)
+    {
+        gpio_port[0] = 'f';
+        intTostr((num-160),&gpio_port[1]);
+//        return gpio_port;
+    }
+    else if(num > 192 && num <= 224)
+    {
+        gpio_port[0] = 'g';
+        intTostr((num-192),&gpio_port[1]);
+//        return gpio_port;
+    }
+    else if(num > 224 && num <= 256)
+    {
+        gpio_port[0] = 'h';
+        intTostr((num-224),&gpio_port[1]);
+//        return gpio_port;
+    }
+    else if(num > 256 && num <= 288)
+    {
+        gpio_port[0] = 'i';
+        intTostr((num-256),&gpio_port[1]);
+//        return gpio_port;
+    }
+    else if(num > 288 && num <= 320)
+    {
+        gpio_port[0] = 'j';
+        intTostr((num-288),&gpio_port[1]);
+//        return gpio_port;
+    }
+    else if(num > 320 && num <= 352)
+    {
+        gpio_port[0] = 'k';
+        intTostr((num-320),&gpio_port[1]);
+//        return gpio_port;
+    }
+    else if(num > 352 && num <= 384)
+    {
+        gpio_port[0] = 'l';
+        intTostr((num-352),&gpio_port[1]);
+//        return gpio_port;
+    }
+    else
+    {
+//        return NULL;
+    }
 }
 
 int gpio_export(unsigned int gpio)
@@ -356,6 +471,7 @@ struct occupied_gpio_s get_debug_gpio()
     for(i = 0;i < occupied_gpio.len;i++)
     {
         printf("%d: gpio-%d\n",i,occupied_gpio.gpio[i]);
+        portnum_cal(occupied_gpio.gpio[i],occupied_gpio.portnum[i]);
     }
 
     return occupied_gpio;

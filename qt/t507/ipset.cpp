@@ -20,8 +20,8 @@ ipset::ipset(QWidget *parent) :
     connect(this,SIGNAL(StartTestSpeed()),this,SLOT(speedtest()));
     connect(&popup,SIGNAL(go_back()),this,SLOT(gobackmenu()));
     connect(&popup,SIGNAL(setdyninfor(QString)),this,SLOT(setdynamicip(QString)));
-    connect(&popup,SIGNAL(addipinfor(QString,QString,QString,QString)),this,SLOT(increaseip(QString,QString,QString,QString)));
-    connect(&popup,SIGNAL(modipinfor(QString,QString,QString)),this,SLOT(modifyip(QString,QString,QString)));
+    connect(&popup,SIGNAL(addipinfor(QString,QString,QString)),this,SLOT(increaseip(QString,QString,QString)));
+    connect(&popup,SIGNAL(modipinfor(QString,QString)),this,SLOT(modifyip(QString,QString)));
     connect(&popup,SIGNAL(delipinfor(QString)),this,SLOT(deleteip(QString)));
     connect(&popup,SIGNAL(go_back()),this,SLOT(gobackmenu()));
 }
@@ -48,7 +48,7 @@ void ipset::on_pushButton_3_clicked() //set dynamic ip
     emit popup.setdip();
     this->hide();
     popup.show();
-
+    ui->textEdit->setText("");
 }
 
 
@@ -58,6 +58,7 @@ void ipset::on_pushButton_4_clicked() //add static ip
     emit popup.addip();
     this->hide();
     popup.show();
+    ui->textEdit->setText("");
 }
 
 void ipset::on_pushButton_5_clicked() //mod static ip
@@ -66,7 +67,7 @@ void ipset::on_pushButton_5_clicked() //mod static ip
     emit popup.modip();
     this->hide();
     popup.show();
-
+    ui->textEdit->setText("");
 }
 
 void ipset::on_pushButton_6_clicked() //del static ip
@@ -75,6 +76,7 @@ void ipset::on_pushButton_6_clicked() //del static ip
     emit popup.delip();
     this->hide();
     popup.show();
+    ui->textEdit->setText("");
 }
 
 void ipset::on_pushButton_7_clicked()  //get current speed
@@ -106,7 +108,7 @@ void ipset::speedtest() //speedtest
     QString str= QString::number(speed,'f',1);
     ui->textEdit->setText(QString(tr("Current speed is %1 Bytes/s")).arg(str));
 
-//    ui->textEdit->setText(QString::number(speed,'f',1));
+
 }
 
 void ipset::on_pushButton_9_clicked()  //ifconfig
@@ -121,18 +123,18 @@ void ipset::setdynamicip(QString net_card)
     ui->textEdit->setText(setdip(net_card));
 }
 
-void ipset::increaseip(QString ip_name,QString net_card,QString ip_addr,QString ip_gateway)
+void ipset::increaseip(QString ip_name,QString net_card,QString ip_addr)
 {
     popup.hide();
     this->show();
-    ui->textEdit->setText(addstaticip(ip_name, net_card, ip_addr, ip_gateway, popup.setitflag));
+    ui->textEdit->setText(addstaticip(ip_name, net_card, ip_addr));
 }
 
-void ipset::modifyip(QString ip_name,QString ip_addr,QString ip_gateway)
+void ipset::modifyip(QString ip_name,QString ip_addr)
 {
     popup.hide();
     this->show();
-    ui->textEdit->setText(modstaticip(ip_name, ip_addr, ip_gateway, popup.setitflag));
+    ui->textEdit->setText(modstaticip(ip_name, ip_addr));
 }
 
 void ipset::deleteip(QString ip_name)
@@ -147,6 +149,7 @@ void ipset::gobackmenu()
     popup.hide();
     this->show();
 }
+
 bool ipset::eventFilter(QObject *watched, QEvent *event)
 {
      if (watched==ui->pushButton_7)
@@ -154,12 +157,10 @@ bool ipset::eventFilter(QObject *watched, QEvent *event)
           if (event->type()==QEvent::FocusIn)
           {
             timer->start(1100);
-            qDebug() << "FocusIn";
           }
           else if (event->type()==QEvent::FocusOut)
           {
             timer->stop();
-            qDebug() << "FocusOut";
           }
      }
 

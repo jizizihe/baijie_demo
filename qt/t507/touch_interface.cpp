@@ -40,7 +40,7 @@ void touch::clearImage()  //clear screen
     update();
 }
 
-void touch::paintEvent(QPaintEvent *event)  //
+void touch::paintEvent(QPaintEvent *event)  //paint Event
 {
     QPainter painter(this);
     const QRect rect = event->rect();
@@ -58,7 +58,7 @@ void touch::resizeEvent(QResizeEvent *event)  //Load Images
     QWidget::resizeEvent(event);
 }
 
-void touch::resizeImage(QImage *image, const QSize &newSize)
+void touch::resizeImage(QImage *image, const QSize &newSize)  //image replace
 {
     if (image->size() == newSize)
         return;

@@ -34,6 +34,9 @@ private slots:
     void ret_clicked();
     void srceenclear();
     void on_pushButton_2_clicked();
+    bool isEnglish(QString &qstrSrc);
+    bool isNumber(QString &qstrSrc);
+    bool istrueport(QString,int i);
 
 signals:
     void Mysignal();
@@ -48,7 +51,11 @@ private:
     QRadioButton *rBtnlow ;
     QRadioButton *rBtnout;
     QRadioButton *rBtnin ;
-    int port_num;
+    int port_num[384] = {0};
+    char portnum[384][4];
+    QStringList gpiolist;
+    bool gpioflag;
+    int num = 0,count = 0;
 };
 
 #endif // GPIO_H

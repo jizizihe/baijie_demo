@@ -13,9 +13,8 @@ double getspeed();
 long int getCurrentDownloadRates(long int * save_rate);
 QString getipconfig();
 QString getallip();
-QString setsip(QString ipname,QString netcard,QString ipaddr,QString gateway);
-QString addstaticip(QString ipname,QString netcard,QString ipaddr,QString gateway,bool flag);
-QString modstaticip(QString ipname,QString ipaddr,QString gateway,bool flag);
+QString addstaticip(QString ipname,QString netcard,QString ipaddr);
+QString modstaticip(QString ipname,QString ipaddr);
 QString delstaticip(QString ipname);
 QString setdip(QString netcard);
 

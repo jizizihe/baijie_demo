@@ -8,10 +8,9 @@
 #define qdebug(format, ...)
 #endif
 
-static int global_secs = 6;
 static int light_value;
 static int index_number;
-static int timer_array[7] = {15,30,60,120,300,600,-1};
+static unsigned int timer_array[7] = {15,30,60,120,300,600,429499999};
 
 QTimer *timeUp;
 
@@ -71,7 +70,7 @@ backlight::backlight(QWidget *parent) :
     ui->setupUi(this);
 
 
-    ui->horizontalSlider->setRange(140,255);
+    ui->horizontalSlider->setRange(138,255);
     ui->horizontalSlider->setValue(200);
     light_value = 200;
 
@@ -84,7 +83,8 @@ backlight::backlight(QWidget *parent) :
     connect(show_timer,SIGNAL(timeout()),this,SLOT(show_time()));
 
     timeUp = new QTimer(this);
-
+    timeUp->start();
+    connect(timeUp,SIGNAL(timeout()),this,SLOT(timerUp()));
 }
 
 backlight::~backlight()
@@ -104,8 +104,7 @@ void backlight::light_screen()      //Click on the light screen
     if(now_value == 0 && touch_flag)   //touch_flag external variable in globalapp.h
     {
         timeUp->start();
-//        qdebug("light_screen:%d",touch_flag);
-        qDebug() << "light_screen" << QTime::currentTime();
+//        qDebug() << "light_screen" << QTime::currentTime();
         set_backlight(light_value);
 
     }
@@ -113,23 +112,31 @@ void backlight::light_screen()      //Click on the light screen
 
 void backlight::timerUp()       //check whether events are generated
 {
-    QTime now = QTime::currentTime().addSecs(timer_array[global_secs]);
+    QTime now = QTime::currentTime().addSecs(timer_array[index_number]);
+    QTime shade = QTime::currentTime().addSecs((unsigned)timer_array[index_number] - 1);
 
-//    qdebug("begin_timing");
-    qDebug() << "begin_timing" << QTime::currentTime();
+//    qDebug() << "begin_timing" << QTime::currentTime();
     while(QTime::currentTime() < now)
     {
         if(touch_flag)
         {
-            now = QTime::currentTime().addSecs(timer_array[global_secs]);
+            now = QTime::currentTime().addSecs((unsigned)timer_array[index_number]);
+            shade = QTime::currentTime().addSecs((unsigned)timer_array[index_number] - 1);
+            set_backlight(light_value);
             touch_flag = false;
         }
+
+        if(QTime::currentTime() > shade)
+        {
+            set_backlight(140);
+        }
+
         QCoreApplication::processEvents(QEventLoop::AllEvents,100);
     }
     timeUp->stop();
     set_backlight(0);
-    qDebug() << "black_screen" << QTime::currentTime();
-//    qdebug("black_screen");
+//    qDebug() << "black_screen" << QTime::currentTime();
+
 }
 
 void backlight::on_horizontalSlider_valueChanged(int value)
@@ -146,15 +153,6 @@ void backlight::on_normal_clicked()
 void backlight::on_comboBox_currentIndexChanged(int index)
 {
     index_number = index;
-}
-
-void backlight::on_sure_clicked()
-{
-    timeUp->start();
-    connect(timeUp,SIGNAL(timeout()),this,SLOT(timerUp()));
-
-    global_secs = index_number;
-
 }
 
 void backlight::on_return_2_clicked()

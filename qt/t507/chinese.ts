@@ -303,7 +303,7 @@
         <translation type="obsolete">QT版本： 未知</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="100"/>
+        <location filename="about_board.cpp" line="108"/>
         <source>QT version: %1</source>
         <translation>QT版本: %1</translation>
     </message>
@@ -341,6 +341,11 @@
         <location filename="about_board.cpp" line="66"/>
         <source>CPU temp: %1</source>
         <translation>CPU温度： %1</translation>
+    </message>
+    <message>
+        <location filename="about_board.cpp" line="103"/>
+        <source>QT version: Unknow</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -572,71 +577,76 @@ Please wait a moment...</source>
     </message>
     <message>
         <location filename="gpio.cpp" line="22"/>
-        <location filename="gpio.cpp" line="214"/>
+        <location filename="gpio.cpp" line="345"/>
         <source>state</source>
         <translation type="unfinished">状态</translation>
     </message>
     <message>
         <location filename="gpio.cpp" line="25"/>
-        <location filename="gpio.cpp" line="126"/>
-        <location filename="gpio.cpp" line="217"/>
+        <location filename="gpio.cpp" line="160"/>
+        <location filename="gpio.cpp" line="348"/>
         <source>out</source>
         <translation type="unfinished">输出</translation>
     </message>
     <message>
         <location filename="gpio.cpp" line="26"/>
-        <location filename="gpio.cpp" line="119"/>
-        <location filename="gpio.cpp" line="218"/>
+        <location filename="gpio.cpp" line="152"/>
+        <location filename="gpio.cpp" line="349"/>
         <source>in</source>
         <translation type="unfinished">输入</translation>
     </message>
     <message>
         <location filename="gpio.cpp" line="35"/>
-        <location filename="gpio.cpp" line="215"/>
+        <location filename="gpio.cpp" line="346"/>
         <source>value</source>
         <translation type="unfinished">值</translation>
     </message>
     <message>
         <location filename="gpio.cpp" line="38"/>
-        <location filename="gpio.cpp" line="130"/>
-        <location filename="gpio.cpp" line="219"/>
+        <location filename="gpio.cpp" line="164"/>
+        <location filename="gpio.cpp" line="350"/>
         <source>high</source>
         <translation type="unfinished">高</translation>
     </message>
     <message>
         <location filename="gpio.cpp" line="39"/>
-        <location filename="gpio.cpp" line="135"/>
-        <location filename="gpio.cpp" line="220"/>
+        <location filename="gpio.cpp" line="169"/>
+        <location filename="gpio.cpp" line="351"/>
         <source>low</source>
         <translation type="unfinished">低</translation>
     </message>
     <message>
         <location filename="gpio.cpp" line="47"/>
-        <location filename="gpio.cpp" line="216"/>
+        <location filename="gpio.cpp" line="347"/>
         <source>return</source>
         <translation type="unfinished">返回</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="112"/>
+        <location filename="gpio.cpp" line="119"/>
         <source>The GPIO port entered is empty!</source>
         <translation type="unfinished">输入的GPIO口为空！</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="118"/>
-        <location filename="gpio.cpp" line="125"/>
+        <location filename="gpio.cpp" line="137"/>
+        <source>P%1 is occupied!You can&apos;t mobilize it!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="gpio.cpp" line="151"/>
+        <location filename="gpio.cpp" line="159"/>
         <source>gpio_port: %1</source>
         <translation type="unfinished">gpio口： %1</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="119"/>
-        <location filename="gpio.cpp" line="126"/>
+        <location filename="gpio.cpp" line="152"/>
+        <location filename="gpio.cpp" line="160"/>
         <source>state: %1</source>
         <translation type="unfinished">状态： %1</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="120"/>
-        <location filename="gpio.cpp" line="130"/>
-        <location filename="gpio.cpp" line="135"/>
+        <location filename="gpio.cpp" line="153"/>
+        <location filename="gpio.cpp" line="164"/>
+        <location filename="gpio.cpp" line="169"/>
         <source>value: %1</source>
         <translation type="unfinished">值： %1</translation>
     </message>
@@ -645,9 +655,7 @@ Please wait a moment...</source>
         <translation type="obsolete">请输入正确的GPIO口！</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="148"/>
-        <location filename="gpio.cpp" line="176"/>
-        <location filename="gpio.cpp" line="199"/>
+        <location filename="gpio.cpp" line="125"/>
         <source>Please input true GPIO!</source>
         <translation type="unfinished">请输入正确的GPIO口！</translation>
     </message>
@@ -710,17 +718,17 @@ Please wait a moment...</source>
         <translation type="obsolete">显示所有的静态ip</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="95"/>
+        <location filename="ipset.cpp" line="97"/>
         <source>Current speed is %1 MBytes/s</source>
         <translation type="unfinished">当前网速为%1 MBytes/s</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="103"/>
+        <location filename="ipset.cpp" line="105"/>
         <source>Current speed is %1 KBytes/s</source>
         <translation type="unfinished">当前网速为%1 KBytes/s</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="107"/>
+        <location filename="ipset.cpp" line="109"/>
         <source>Current speed is %1 Bytes/s</source>
         <translation>当前网速为%1 Bytes/s</translation>
     </message>
@@ -729,63 +737,87 @@ Please wait a moment...</source>
     <name>ipset_popup</name>
     <message>
         <location filename="ipset_popup.cpp" line="6"/>
-        <location filename="ipset_popup.cpp" line="177"/>
+        <location filename="ipset_popup.cpp" line="55"/>
+        <location filename="ipset_popup.cpp" line="73"/>
+        <location filename="ipset_popup.cpp" line="91"/>
+        <location filename="ipset_popup.cpp" line="109"/>
+        <location filename="ipset_popup.cpp" line="201"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="ipset_popup.cpp" line="9"/>
-        <location filename="ipset_popup.cpp" line="178"/>
+        <location filename="ipset_popup.cpp" line="202"/>
         <source>return</source>
-        <translation type="unfinished">返回</translation>
+        <translation>返回</translation>
     </message>
     <message>
         <location filename="ipset_popup.cpp" line="12"/>
-        <location filename="ipset_popup.cpp" line="179"/>
+        <location filename="ipset_popup.cpp" line="203"/>
         <source>name:</source>
-        <translation type="unfinished">名称:</translation>
+        <translation>名称:</translation>
     </message>
     <message>
         <location filename="ipset_popup.cpp" line="17"/>
-        <location filename="ipset_popup.cpp" line="180"/>
+        <location filename="ipset_popup.cpp" line="204"/>
         <source>network card:</source>
-        <translation type="unfinished">网卡：</translation>
+        <translation>网卡：</translation>
     </message>
     <message>
         <location filename="ipset_popup.cpp" line="22"/>
-        <location filename="ipset_popup.cpp" line="181"/>
+        <location filename="ipset_popup.cpp" line="205"/>
         <source>ip address:</source>
-        <translation type="unfinished">ip地址：</translation>
+        <translation>ip地址：</translation>
     </message>
     <message>
-        <location filename="ipset_popup.cpp" line="29"/>
-        <location filename="ipset_popup.cpp" line="182"/>
+        <location filename="ipset_popup.cpp" line="113"/>
+        <source>Are you sure you want to delete this connection?</source>
+        <translation>你确定想删除此连接？</translation>
+    </message>
+    <message>
         <source>gateway:</source>
-        <translation type="unfinished">网关：</translation>
+        <translation type="obsolete">网关：</translation>
     </message>
     <message>
-        <location filename="ipset_popup.cpp" line="42"/>
-        <location filename="ipset_popup.cpp" line="176"/>
+        <location filename="ipset_popup.cpp" line="34"/>
+        <location filename="ipset_popup.cpp" line="200"/>
         <source>Please do not have spaces in the name, otherwise the operation will fail!</source>
-        <translation type="unfinished">名称请不要带空格，否则会导致此次操作失败</translation>
+        <translation>名称请不要带空格，否则会导致此次操作失败</translation>
     </message>
     <message>
-        <location filename="ipset_popup.cpp" line="65"/>
-        <location filename="ipset_popup.cpp" line="78"/>
+        <location filename="ipset_popup.cpp" line="55"/>
+        <location filename="ipset_popup.cpp" line="73"/>
+        <location filename="ipset_popup.cpp" line="91"/>
+        <location filename="ipset_popup.cpp" line="109"/>
+        <source>Please complete the information</source>
+        <translation>请填完您要改变的信息</translation>
+    </message>
+    <message>
+        <location filename="ipset_popup.cpp" line="59"/>
+        <source>Are you sure you want to set this connection to get IP dynamically?</source>
+        <translation>你确定要将此连接设置为动态获取ip吗？</translation>
+    </message>
+    <message>
+        <location filename="ipset_popup.cpp" line="76"/>
+        <location filename="ipset_popup.cpp" line="94"/>
         <source>Do you want to set it to current IP?</source>
-        <translation type="unfinished">你是否想将其设为当前ip地址？</translation>
+        <translation>你是否想将其设为当前ip地址？</translation>
     </message>
     <message>
-        <location filename="ipset_popup.cpp" line="65"/>
-        <location filename="ipset_popup.cpp" line="78"/>
+        <location filename="ipset_popup.cpp" line="59"/>
+        <location filename="ipset_popup.cpp" line="76"/>
+        <location filename="ipset_popup.cpp" line="94"/>
+        <location filename="ipset_popup.cpp" line="113"/>
         <source>yes</source>
-        <translation type="unfinished">是的</translation>
+        <translation>是的</translation>
     </message>
     <message>
-        <location filename="ipset_popup.cpp" line="65"/>
-        <location filename="ipset_popup.cpp" line="78"/>
+        <location filename="ipset_popup.cpp" line="59"/>
+        <location filename="ipset_popup.cpp" line="76"/>
+        <location filename="ipset_popup.cpp" line="94"/>
+        <location filename="ipset_popup.cpp" line="113"/>
         <source>no</source>
-        <translation type="unfinished">不是</translation>
+        <translation>暂不</translation>
     </message>
 </context>
 <context>
@@ -1243,11 +1275,10 @@ Please wait a moment...</source>
         <translation type="obsolete">状态信息</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="80"/>
         <source>%1
 The New USB device is:
 %2%3</source>
-        <translation>% 有一个新的USB设备：%2%3</translation>
+        <translation type="obsolete">% 有一个新的USB设备：%2%3</translation>
     </message>
     <message>
         <location filename="udev.cpp" line="81"/>
@@ -1260,12 +1291,11 @@ The New USB device is:
         <translation>未识别到新的USB设备</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="113"/>
         <source>%1
 The New SD card is :
 %2%3
 </source>
-        <translation>%1 有一张新的SD卡：%2%3</translation>
+        <translation type="obsolete">%1 有一张新的SD卡：%2%3</translation>
     </message>
     <message>
         <location filename="udev.cpp" line="114"/>
@@ -1278,11 +1308,10 @@ The New SD card is :
         <translation>未识别到新的SD卡</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="151"/>
         <source>%1
 The New SIM card is:
 4G_IP:%2%3</source>
-        <translation>%1 有一张新的SIM卡：4G_IP：%2%3</translation>
+        <translation type="obsolete">%1 有一张新的SIM卡：4G_IP：%2%3</translation>
     </message>
     <message>
         <location filename="udev.cpp" line="152"/>

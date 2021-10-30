@@ -84,13 +84,11 @@
            <string>10min</string>
           </property>
          </item>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="sure">
-         <property name="text">
-          <string>sure</string>
-         </property>
+         <item>
+          <property name="text">
+           <string>never</string>
+          </property>
+         </item>
         </widget>
        </item>
       </layout>

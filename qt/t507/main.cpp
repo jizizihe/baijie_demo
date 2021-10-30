@@ -7,7 +7,7 @@
 int main(int argc, char *argv[])
 {
 
-//    qputenv("QT_IM_MODULE", QByteArray("tgtsml"));
+    qputenv("QT_IM_MODULE", QByteArray("tgtsml"));
     globalApp a(argc,argv);
 //    QApplication a(argc, argv);
     keyBoard keyBoard;

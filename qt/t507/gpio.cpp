@@ -9,9 +9,9 @@ gpio::gpio(QWidget *parent) :
 {
     ui->setupUi(this);
 
-//    QRegExp regx("[a-zA-Z0-9]{1,4}$");
-//    QValidator *validator = new QRegExpValidator(regx, ui->lineedit1_1);
-//    ui->lineedit1_1->setValidator( validator );
+    QRegExp regx("[a-zA-Z0-9|,]{1,}$");
+    QValidator *validator = new QRegExpValidator(regx, ui->lineedit1_1);
+    ui->lineedit1_1->setValidator( validator );
 
     display = new QTextEdit(this);
     display->setReadOnly(true);
@@ -62,7 +62,15 @@ gpio::~gpio()
 void gpio::ret_clicked()
 {
     emit Mysignal();
-    gpio_unexport(port_num);
+    for(int i = 0;i < num;i++)
+    {
+        if(!getFileName(port_num[i]))
+        {
+            gpio_unexport(port_num[i]);
+        }
+    }
+    memset(port_num,0,sizeof(port_num));
+    num = 0;
 }
 
 void gpio::srceenclear()
@@ -101,109 +109,221 @@ void gpio::rBtnout_clicked()
 
 void gpio::on_pushButton_clicked()
 {
+    int i;
     display->clear();
-    if(!getFileName(port_num))
-    {
-//        qDebug() << "test";
-        gpio_export(port_num);
-    }
+
+//    memset(port_num,0,sizeof(port_num));
+//    gpiolist.clear();
 
     if(ui->lineedit1_1->text().isEmpty())
     {
         display->append(QString(tr("The GPIO port entered is empty!")));
         return;
     }
-    if(rBtnin->isChecked())
-    {
-        gpio_set_state(port_num, "in");
-        display->append(QString(tr("gpio_port: %1")).arg(ui->lineedit1_1->text()));
-        display->append(QString(tr("state: %1")).arg(tr("in")));
-        display->append( QString(tr("value: %1")).arg((gpio_get_value(port_num))));
-    }
-    else if(rBtnout->isChecked())
-    {
-        gpio_set_state(port_num, "out");
-        display->append(QString(tr("gpio_port: %1")).arg(ui->lineedit1_1->text()));
-        display->append(QString(tr("state: %1")).arg(tr("out")));
-        if(rBtnhigh->isChecked())
-        {
-            gpio_set_value(port_num, 1);
-            display->append(QString(tr("value: %1")).arg(tr("high")));
-        }
-        else if(rBtnlow->isChecked())
-        {
-            gpio_set_value(port_num, 0);
-            display->append(QString(tr("value: %1")).arg(tr("low")));
-        }
-    }
 
-
-}
-
-void gpio::on_lineedit1_1_editingFinished()
-{
-    QString str = ui->lineedit1_1->text();
-
-    if(str.size() < 2 && str.size() != 0)
+    if(!gpioflag)
     {
         QMessageBox::information(NULL, NULL, tr("Please input true GPIO!"), QMessageBox::Ok);
         return;
     }
 
+    for(i = count;i < num;i++)
+    {
+        if(!getFileName(port_num[i]))
+        {
+            gpio_export(port_num[i]);
+        }
+
+    if(rBtnin->isChecked())
+    {
+        gpio_set_state(port_num[i], "in");
+        portnum_cal(port_num[i],portnum[i]);
+        display->append(QString(tr("gpio_port: %1")).arg(portnum[i]));
+        display->append(QString(tr("state: %1")).arg(tr("in")));
+        display->append( QString(tr("value: %1")).arg((gpio_get_value(port_num[i]))));
+    }
+    else if(rBtnout->isChecked())
+    {
+        gpio_set_state(port_num[i], "out");
+        portnum_cal(port_num[i],portnum[i]);
+        display->append(QString(tr("gpio_port: %1")).arg(portnum[i]));
+        display->append(QString(tr("state: %1")).arg(tr("out")));
+        if(rBtnhigh->isChecked())
+        {
+            gpio_set_value(port_num[i], 1);
+            display->append(QString(tr("value: %1")).arg(tr("high")));
+        }
+        else if(rBtnlow->isChecked())
+        {
+            gpio_set_value(port_num[i], 0);
+            display->append(QString(tr("value: %1")).arg(tr("low")));
+        }
+    }
+}
+
+}
+
+bool gpio::istrueport(QString str,int i)
+{
+//    QString str = ui->lineedit1_1->text();
+    QString last_character = str.right(1);
+    QString third_character = str.mid(2,1);
+
+    if(str.size() == 0)
+    {
+        return true;
+    }
+
+    if(str.size() < 2 && str.size() != 0)
+    {
+        return false;
+    }
+
+    if(!isNumber(last_character))
+    {
+        return false;
+    }
+
+    if(isEnglish(third_character) && third_character != "")
+    {
+        return false;
+    }
     QString port = str.mid(0,1);
     QByteArray temp = port.toLatin1();
     char gpio_port = *(temp.data());
     if(gpio_port == 'p' || gpio_port == 'P')
     {
-//        QString tmp = str.at(2);
-//        QByteArray ba = tmp.toLatin1();
-//        char* s = ba.data();
-//        while (*s && *s >= '0' && *s <= '9') s++;
-//        if (*s)
-//        {
-//           QMessageBox::information(NULL, NULL, tr("Please input true GPIO!"), QMessageBox::Ok);
-//           return;
-//        }
+        QString tmp = str.at(2);
+        if(isEnglish(tmp))
+        {
+            return false;
+        }
         port = str.mid(1,2);
         temp = port.toLatin1();
         gpio_port = *(temp.data());
 
         QString num = str.mid(2);
         int gpio_num = num.toInt();
-        port_num = calc_port_num(gpio_port, gpio_num);
+        port_num[i] = calc_port_num(gpio_port, gpio_num);
 
-        if(port_num < 0 && str.size() != 0)
+        if(port_num[i] < 0 && str.size() != 0)
         {
-            QMessageBox::information(NULL, NULL, tr("Please input true GPIO!"), QMessageBox::Ok);
-            qDebug() << "input error GPIO port:" << port_num;
-            return;
+            return false;
         }
 
     }
     else
     {
-//        QString tmp = str.at(1);
-//        QByteArray ba = tmp.toLatin1();
-//        char* s = ba.data();
-//        while (*s && *s >= '0' && *s <= '9') s++;
-//        if (*s)
-//         {
-//            QMessageBox::information(NULL, NULL, tr("Please input true GPIO!"), QMessageBox::Ok);
-//            return;
-//         }
+        QString tmp = str.at(1);
+        if(isEnglish(tmp))
+        {
+            return false;
+        }
         QString num = str.mid(1);
         int gpio_num = num.toInt();
-        port_num = calc_port_num(gpio_port, gpio_num);
+        port_num[i] = calc_port_num(gpio_port, gpio_num);
 
-        if(port_num < 0 && str.size() != 0)
+        if(port_num[i] < 0 && str.size() != 0)
         {
-            QMessageBox::information(NULL, NULL, tr("Please input true GPIO!"), QMessageBox::Ok);
-            qDebug() << "input error GPIO port:" << port_num;
-            return;
+            return false;
+        }
+    }
+    return true;
+}
+
+void gpio::on_lineedit1_1_editingFinished()
+{
+    QString str = ui->lineedit1_1->text();
+    int i,j = -1;
+    QString gpio;
+
+    count = num;
+
+    gpioflag = true;
+    for(i = 0;i < str.size();i++)
+    {
+        if(str.at(i) == ',')
+        {
+            gpio = str.mid(j+1,(i-j-1));
+            if(!istrueport(gpio,num))
+            {
+                gpioflag = false;
+            }
+            gpiolist << gpio;
+            j = i;
+            num++;
+        }
+        else if(i == str.size()-1)
+        {
+            gpio = str.mid(j+1,(i-j));
+            if(!istrueport(gpio,num))
+            {
+                gpioflag = false;
+            }
+            gpiolist << gpio;
+            j = i;
+            num++;
         }
 
     }
+    return;
+}
 
+
+
+void gpio::on_pushButton_2_clicked()
+{
+    struct occupied_gpio_s occupied_gpio;
+    occupied_gpio = get_debug_gpio();
+    display->clear();
+
+    for(int i = 0;i < occupied_gpio.len;i++)
+    {
+        display->append(QString("gpio-%1").arg(occupied_gpio.portnum[i]));
+    }
+
+}
+
+bool gpio::isEnglish(QString &qstrSrc)
+{
+    QByteArray ba = qstrSrc.toLatin1();
+        const char *s = ba.data();
+        bool bret = true;
+        while(*s)
+        {
+            if((*s>='A' && *s<='Z') || (*s>='a' && *s<='z'))
+            {
+
+            }
+            else
+            {
+                bret = false;
+                break;
+            }
+            s++;
+        }
+        return bret;
+}
+
+bool gpio::isNumber(QString &qstrSrc)
+{
+    QByteArray ba = qstrSrc.toLatin1();
+    const char *s = ba.data();
+    bool bret = true;
+    while(*s)
+    {
+        if(*s>='0' && *s<='9')
+        {
+
+        }
+        else
+        {
+            bret = false;
+            break;
+        }
+        s++;
+    }
+    return bret;
 }
 
 void gpio::language_reload()
@@ -221,15 +341,4 @@ void gpio::language_reload()
     rBtnlow->setText(tr("low"));
 }
 
-void gpio::on_pushButton_2_clicked()
-{
-    struct occupied_gpio_s occupied_gpio;
-    occupied_gpio = get_debug_gpio();
-    display->clear();
 
-    for(int i = 0;i < occupied_gpio.len;i++)
-    {
-        display->append(QString("gpio-%1").arg(occupied_gpio.gpio[i]));
-    }
-
-}
