@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&all_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&bluetooth_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&user_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+    connect(&serial_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
 }
 
 MainWindow::~MainWindow()
@@ -52,6 +53,7 @@ void MainWindow::show_main()
     all_w.hide();
     bluetooth_w.hide();
     user_w.hide();
+    serial_w.hide();
 
     this->show();
 }
@@ -158,4 +160,10 @@ void MainWindow::on_auto_4_clicked()
 {
     this->hide();
     user_w.show();
+}
+
+void MainWindow::on_serialport_clicked()
+{
+    this->hide();
+    serial_w.show();
 }
