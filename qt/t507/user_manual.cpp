@@ -7,7 +7,7 @@ user_manual::user_manual(QWidget *parent) :
     ui(new Ui::user_manual)
 {
     ui->setupUi(this);
-
+    ui->textEdit->setReadOnly(true);
 }
 
 user_manual::~user_manual()
@@ -18,6 +18,10 @@ user_manual::~user_manual()
 void user_manual::on_pushButton_clicked()
 {
     emit Mysignal();
+    ui->textEdit->clear();
+    ui->pushButton_2->setText(tr("expand all"));
+    catalogueflag = true;
+    ui->treeWidget->collapseAll();
 }
 
 void user_manual::language_reload()
@@ -29,7 +33,6 @@ void user_manual::language_reload()
 
 void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 {
-//    qDebug() << item->text(column);
     QString str = item->text(column);
     if(str == tr("wifi connect"))
     {
@@ -37,7 +40,7 @@ void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
     }
     else if(str == tr("hot spot"))
     {
-//        ui->textEdit->setText(tr());
+        ui->textEdit->setText(tr("You can use the < hotspot > button to turn on or off the hotspot of the board."));
     }
     else if(str == tr("show all ip connect"))
     {
@@ -54,7 +57,11 @@ You can use < show all connections > to view all current network connections."))
     }
     else if(str == tr("network speed test"))
     {
-        ui->textEdit->setText(tr("You can check the network speed in real time through < network speed test >."));
+        ui->textEdit->setText(tr("You can check the network speed in real time through < network speed test >.However,if you select other buttons or prompt boxes, the network speed test will stop."));
+    }
+    else if(str == tr("RTC"))
+    {
+        ui->textEdit->setText(tr("You can use the < systimesetbt > button to set the system time, or you can use < rtcsetbt > to set the hardware time."));
     }
     else if(str == tr("brightness"))
     {
@@ -62,7 +69,7 @@ You can use < show all connections > to view all current network connections."))
     }
     else if(str == tr("Sleep time"))
     {
-        ui->textEdit->setText(tr("You can adjust the sleep time yourself. However, it should be noted that there will be automatic screen rest only after you set the sleep time for the first time."));
+        ui->textEdit->setText(tr("You can adjust the sleep time yourself."));
     }
     else if(str == tr("scan occupied gpio"))
     {
@@ -90,6 +97,14 @@ Note: there should be no space between each GPIO air, otherwise this operation w
     {
         ui->textEdit->setText(tr("This function will recognize the touch screen and display the movement track on the screen."));
     }
+    else if(str == tr("USB"))
+    {
+        ui->textEdit->setText(tr("You can use this function to detect whether a device is inserted into the USB port."));
+    }
+    else if(str == tr("SD"))
+    {
+        ui->textEdit->setText(tr("You can test whether there is SD insertion through this function."));
+    }
     else if(str == tr("SIM"))
     {
         ui->textEdit->setText(tr("This function should not be clicked too often. After the previous test is displayed, it will be tested according to your needs. Pay special attention to check whether the SIM card is inserted if a prompt box appears when detecting the SIM card. If it is not inserted, please do not continue to click. Because the current operation will be delayed, it will have a bad sense of experience. During the waiting process, it is necessary to pay attention to the change of 4G LED lamp. When the card is detected or pulled out, the LED lamp will flash - after detecting the flash of card insertion, it will enter the normally on state and pause for 500ms; When it is detected that the card is pulled out, after the flash, enter the pause (on for 500ms)."));
@@ -112,3 +127,20 @@ Note: there should be no space between each GPIO air, otherwise this operation w
     }
 
 }
+
+void user_manual::on_pushButton_2_clicked()
+{
+    if(catalogueflag)
+    {
+        ui->treeWidget->expandAll();
+        ui->pushButton_2->setText(tr("collapse all"));
+    }
+    else
+    {
+        ui->treeWidget->collapseAll();
+        ui->pushButton_2->setText(tr("expand all"));
+    }
+    catalogueflag = !catalogueflag;
+}
+
+

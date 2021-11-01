@@ -21,6 +21,7 @@ about_board::about_board(QWidget *parent) :
 //    pLayout->setMargin(0);
 //    pLayout->setSpacing(0);
 //    ui->widget->setLayout(pLayout);
+    ui->progressBar->setAlignment(Qt::AlignLeft | Qt::AlignCenter);
 
     QTversion = new QLabel(ui->groupBox_3);
     QTversion->move(20,140);
@@ -55,7 +56,8 @@ void about_board::battery_update()
 {
     tr("Unknown");tr("Uncharged");tr("charge");tr("Full");
     int battery_level = get_battery_level();
-    ui->batterylevel_label->setText(QString(tr("battery level: %1")).arg(battery_level));
+    ui->batterylevel_label->setText(QString(tr("battery level:")));
+    ui->progressBar->setValue(battery_level);
     char *battery_status = get_battery_status();
     ui->batterystatus_label->setText(QString(tr("battery status: %1")).arg(battery_status));
 }

@@ -17,5 +17,6 @@
         <file>t507_button_image/backlight.png</file>
         <file>t507_button_image/about.png</file>
         <file>t507_button_image/return.png</file>
+        <file>t507_button_image/user_manual.png</file>
     </qresource>
 </RCC>

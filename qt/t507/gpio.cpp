@@ -44,7 +44,6 @@ gpio::gpio(QWidget *parent) :
 
     ret = new QPushButton(this);
     ret->setFixedSize(100,40);
-//    ret->setText(tr("return"));
     ret->move(10,10);
     ret->setIcon(QIcon(":/t507_button_image/return.png"));
 
@@ -129,7 +128,7 @@ void gpio::on_pushButton_clicked()
 
     for(i = count;i < num;i++)
     {
-<<<<<<< HEAD
+
 //        struct occupied_gpio_s occupied_gpio;
 //        occupied_gpio = get_debug_gpio();
 //        for(int j = 0;j < occupied_gpio.len;j++)
@@ -141,8 +140,6 @@ void gpio::on_pushButton_clicked()
 //            }
 //        }
 
-=======
->>>>>>> 7f0df59855f104dabc1a66e1c37bc52a1f39e228
         if(!getFileName(port_num[i]))
         {
             gpio_export(port_num[i]);

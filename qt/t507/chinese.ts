@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="zh_CN">
+<TS version="2.1" language="zh_CN">
 <context>
     <name>HotSpot</name>
     <message>
@@ -53,83 +53,83 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="46"/>
+        <location filename="mainwindow.ui" line="52"/>
         <source>Voice Frequency</source>
         <translation type="unfinished">音频</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="82"/>
+        <location filename="mainwindow.ui" line="94"/>
         <source>All Interface Test</source>
         <translation type="unfinished">所有接口测试</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="118"/>
+        <location filename="mainwindow.ui" line="136"/>
         <source>Key Test</source>
         <translation type="unfinished">按键测试</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="157"/>
+        <location filename="mainwindow.ui" line="181"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;About Board&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished">关于板子</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="205"/>
+        <location filename="mainwindow.ui" line="235"/>
         <source>Ethernet</source>
         <translation type="unfinished">以太网</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="241"/>
+        <location filename="mainwindow.ui" line="277"/>
         <source>Serial Port</source>
         <translation type="unfinished">串口</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="283"/>
+        <location filename="mainwindow.ui" line="325"/>
         <source>Wifi</source>
         <translation type="unfinished">Wifi</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="328"/>
+        <location filename="mainwindow.ui" line="376"/>
         <source>Bluetooth</source>
         <translation type="unfinished">蓝牙</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="370"/>
+        <location filename="mainwindow.ui" line="424"/>
         <source>Rtc</source>
         <translation type="unfinished">时钟</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="406"/>
+        <location filename="mainwindow.ui" line="466"/>
         <source>Udev Detection</source>
         <translation type="unfinished">Udev检测</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="442"/>
+        <location filename="mainwindow.ui" line="508"/>
         <source>Gpio</source>
         <translation type="unfinished">Gpio</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="478"/>
+        <location filename="mainwindow.ui" line="550"/>
         <source>Backlight</source>
         <translation type="unfinished">背光</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="501"/>
+        <location filename="mainwindow.ui" line="573"/>
         <source>Touch Display</source>
         <oldsource>Touch Calibration</oldsource>
         <translation type="unfinished">触摸显示</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="545"/>
+        <location filename="mainwindow.ui" line="623"/>
         <source>Main Interface</source>
         <translation type="unfinished">主要接口</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="574"/>
+        <location filename="mainwindow.ui" line="658"/>
         <source>Chiese/English</source>
         <translation type="unfinished">中/英</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="613"/>
+        <location filename="mainwindow.ui" line="703"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;User manual&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished">用户手册</translation>
     </message>
@@ -141,17 +141,17 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="udev_interface.cpp" line="18"/>
+        <location filename="udev_interface.cpp" line="17"/>
         <source>USB Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="udev_interface.cpp" line="81"/>
+        <location filename="udev_interface.cpp" line="80"/>
         <source>SD Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="udev_interface.cpp" line="103"/>
+        <location filename="udev_interface.cpp" line="102"/>
         <source>SIM Failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -216,9 +216,9 @@
         <location filename="about_board.ui" line="87"/>
         <location filename="about_board.ui" line="100"/>
         <location filename="about_board.ui" line="113"/>
-        <location filename="about_board.ui" line="139"/>
         <location filename="about_board.ui" line="152"/>
-        <location filename="about_board.ui" line="178"/>
+        <location filename="about_board.ui" line="165"/>
+        <location filename="about_board.ui" line="191"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -231,22 +231,22 @@
         <translation type="obsolete">架构： %1 %2 %3</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="86"/>
+        <location filename="about_board.cpp" line="87"/>
         <source>OS: %1</source>
         <translation type="unfinished">操作系统:%1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="72"/>
+        <location filename="about_board.cpp" line="73"/>
         <source>Board name: %1</source>
         <translation>开发板名称: %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="79"/>
+        <location filename="about_board.cpp" line="80"/>
         <source>kernel: %1</source>
         <translation>架构： %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="93"/>
+        <location filename="about_board.cpp" line="94"/>
         <source>resolution: %1 * %2</source>
         <translation>分辨率: %1 * %2</translation>
     </message>
@@ -255,7 +255,7 @@
         <translation type="obsolete">QT版本： 未知</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="108"/>
+        <location filename="about_board.cpp" line="109"/>
         <source>QT version: %1</source>
         <translation>QT版本: %1</translation>
     </message>
@@ -281,21 +281,22 @@
     </message>
     <message>
         <location filename="about_board.cpp" line="58"/>
-        <source>battery level: %1</source>
-        <translation>电池电量： %1</translation>
+        <source>battery level:</source>
+        <oldsource>battery level: %1</oldsource>
+        <translation type="unfinished">电池电量：</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="60"/>
+        <location filename="about_board.cpp" line="61"/>
         <source>battery status: %1</source>
         <translation>电池状态: %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="66"/>
+        <location filename="about_board.cpp" line="67"/>
         <source>CPU temp: %1</source>
         <translation>CPU温度： %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="103"/>
+        <location filename="about_board.cpp" line="104"/>
         <source>QT version: Unknow</source>
         <translation type="unfinished"></translation>
     </message>
@@ -328,42 +329,61 @@
         <translation>显示</translation>
     </message>
     <message>
-        <location filename="all_interface_test.cpp" line="54"/>
+        <location filename="all_interface_test.cpp" line="56"/>
         <source>1. Note that the buzzer has or does not have sound!!</source>
         <translation>1.请注意蜂鸣器是否发出了声音</translation>
     </message>
     <message>
-        <location filename="all_interface_test.cpp" line="65"/>
         <source>2. USB Failed</source>
-        <translation>2. USB检测失败</translation>
+        <translation type="obsolete">2. USB检测失败</translation>
     </message>
     <message>
-        <location filename="all_interface_test.cpp" line="68"/>
+        <location filename="all_interface_test.cpp" line="70"/>
         <source>2. USB OK</source>
         <translation>2. USB检测成功</translation>
     </message>
     <message>
-        <location filename="all_interface_test.cpp" line="70"/>
         <source>3. SD Failed</source>
-        <translation>3. SD卡检测失败</translation>
+        <translation type="obsolete">3. SD卡检测失败</translation>
     </message>
     <message>
-        <location filename="all_interface_test.cpp" line="73"/>
+        <location filename="all_interface_test.cpp" line="75"/>
         <source>3. SD OK</source>
         <translation>3. SD卡检测成功</translation>
     </message>
     <message>
-        <location filename="all_interface_test.cpp" line="75"/>
         <source>4. SIM Failed</source>
-        <translation>4. SIM卡检测失败</translation>
+        <translation type="obsolete">4. SIM卡检测失败</translation>
     </message>
     <message>
+        <location filename="all_interface_test.cpp" line="67"/>
+        <source>USB Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="all_interface_test.cpp" line="68"/>
+        <location filename="all_interface_test.cpp" line="73"/>
         <location filename="all_interface_test.cpp" line="78"/>
+        <source>%1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="all_interface_test.cpp" line="72"/>
+        <source>SD Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="all_interface_test.cpp" line="77"/>
+        <source>SIM Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="all_interface_test.cpp" line="80"/>
         <source>4. SIM OK</source>
         <translation>4. SIM卡检测成功</translation>
     </message>
     <message>
-        <location filename="all_interface_test.cpp" line="86"/>
+        <location filename="all_interface_test.cpp" line="88"/>
         <source>5. Whether the picture is displayed properly</source>
         <translation>5. 照片是否正确的显示</translation>
     </message>
@@ -411,26 +431,30 @@
         <translation type="unfinished">10分钟</translation>
     </message>
     <message>
-        <location filename="backlight.ui" line="92"/>
+        <location filename="backlight.ui" line="89"/>
+        <source>never</source>
+        <translation type="unfinished">从不</translation>
+    </message>
+    <message>
         <source>sure</source>
-        <translation type="unfinished">确定</translation>
+        <translation type="obsolete">确定</translation>
     </message>
     <message>
         <source>return</source>
         <translation type="obsolete">返回</translation>
     </message>
     <message>
-        <location filename="backlight.ui" line="139"/>
+        <location filename="backlight.ui" line="137"/>
         <source>brightness</source>
         <translation type="unfinished">亮度</translation>
     </message>
     <message>
-        <location filename="backlight.ui" line="156"/>
+        <location filename="backlight.ui" line="154"/>
         <source>normal</source>
         <translation type="unfinished">默认</translation>
     </message>
     <message>
-        <location filename="backlight.ui" line="179"/>
+        <location filename="backlight.ui" line="177"/>
         <source>Backlight  Settings</source>
         <translation type="unfinished">背光设置</translation>
     </message>
@@ -598,41 +622,41 @@ Please wait a moment...</source>
     </message>
     <message>
         <location filename="gpio.cpp" line="22"/>
-        <location filename="gpio.cpp" line="346"/>
+        <location filename="gpio.cpp" line="347"/>
         <source>state</source>
         <translation type="unfinished">状态</translation>
     </message>
     <message>
         <location filename="gpio.cpp" line="25"/>
-        <location filename="gpio.cpp" line="161"/>
-        <location filename="gpio.cpp" line="349"/>
+        <location filename="gpio.cpp" line="162"/>
+        <location filename="gpio.cpp" line="350"/>
         <source>out</source>
         <translation type="unfinished">输出</translation>
     </message>
     <message>
         <location filename="gpio.cpp" line="26"/>
-        <location filename="gpio.cpp" line="153"/>
-        <location filename="gpio.cpp" line="350"/>
+        <location filename="gpio.cpp" line="154"/>
+        <location filename="gpio.cpp" line="351"/>
         <source>in</source>
         <translation type="unfinished">输入</translation>
     </message>
     <message>
         <location filename="gpio.cpp" line="35"/>
-        <location filename="gpio.cpp" line="347"/>
+        <location filename="gpio.cpp" line="348"/>
         <source>value</source>
         <translation type="unfinished">值</translation>
     </message>
     <message>
         <location filename="gpio.cpp" line="38"/>
-        <location filename="gpio.cpp" line="165"/>
-        <location filename="gpio.cpp" line="351"/>
+        <location filename="gpio.cpp" line="166"/>
+        <location filename="gpio.cpp" line="352"/>
         <source>high</source>
         <translation type="unfinished">高</translation>
     </message>
     <message>
         <location filename="gpio.cpp" line="39"/>
-        <location filename="gpio.cpp" line="170"/>
-        <location filename="gpio.cpp" line="352"/>
+        <location filename="gpio.cpp" line="171"/>
+        <location filename="gpio.cpp" line="353"/>
         <source>low</source>
         <translation type="unfinished">低</translation>
     </message>
@@ -646,21 +670,21 @@ Please wait a moment...</source>
         <translation type="unfinished">输入的GPIO口为空！</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="152"/>
-        <location filename="gpio.cpp" line="160"/>
+        <location filename="gpio.cpp" line="153"/>
+        <location filename="gpio.cpp" line="161"/>
         <source>gpio_port: %1</source>
         <translation type="unfinished">gpio口： %1</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="153"/>
-        <location filename="gpio.cpp" line="161"/>
+        <location filename="gpio.cpp" line="154"/>
+        <location filename="gpio.cpp" line="162"/>
         <source>state: %1</source>
         <translation type="unfinished">状态： %1</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="154"/>
-        <location filename="gpio.cpp" line="165"/>
-        <location filename="gpio.cpp" line="170"/>
+        <location filename="gpio.cpp" line="155"/>
+        <location filename="gpio.cpp" line="166"/>
+        <location filename="gpio.cpp" line="171"/>
         <source>value: %1</source>
         <translation type="unfinished">值： %1</translation>
     </message>
@@ -1133,7 +1157,7 @@ Please wait a moment...</source>
 <context>
     <name>keytest</name>
     <message>
-        <location filename="keytest.ui" line="16"/>
+        <location filename="keytest.ui" line="14"/>
         <source>MainWindow</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1142,35 +1166,35 @@ Please wait a moment...</source>
         <translation type="obsolete">返回</translation>
     </message>
     <message>
-        <location filename="keytest.cpp" line="17"/>
-        <location filename="keytest.cpp" line="78"/>
+        <location filename="keytest.cpp" line="18"/>
+        <location filename="keytest.cpp" line="79"/>
         <source>key Test</source>
         <translation>按键测试</translation>
     </message>
     <message>
-        <location filename="keytest.cpp" line="25"/>
-        <location filename="keytest.cpp" line="79"/>
+        <location filename="keytest.cpp" line="26"/>
+        <location filename="keytest.cpp" line="80"/>
         <source>start</source>
         <translation>开始</translation>
     </message>
     <message>
-        <location filename="keytest.cpp" line="30"/>
-        <location filename="keytest.cpp" line="80"/>
+        <location filename="keytest.cpp" line="31"/>
+        <location filename="keytest.cpp" line="81"/>
         <source>stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="keytest.cpp" line="57"/>
+        <location filename="keytest.cpp" line="58"/>
         <source>start test!</source>
         <translation>开始测试！</translation>
     </message>
     <message>
-        <location filename="keytest.cpp" line="64"/>
+        <location filename="keytest.cpp" line="65"/>
         <source>stop test!</source>
         <translation>停止测试！</translation>
     </message>
     <message>
-        <location filename="keytest.cpp" line="72"/>
+        <location filename="keytest.cpp" line="73"/>
         <source>key pressed!</source>
         <translation>按键按下！</translation>
     </message>
@@ -1285,12 +1309,12 @@ The New USB device is:
         <translation type="obsolete">% 有一个新的USB设备：%2%3</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="83"/>
+        <location filename="udev.cpp" line="82"/>
         <source>Find the New USB device</source>
         <translation>识别到一个新的USB设备</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="86"/>
+        <location filename="udev.cpp" line="85"/>
         <source>New USB device is not found</source>
         <translation>未识别到新的USB设备</translation>
     </message>
@@ -1302,12 +1326,12 @@ The New SD card is :
         <translation type="obsolete">%1 有一张新的SD卡：%2%3</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="116"/>
+        <location filename="udev.cpp" line="108"/>
         <source>Find the New Sd card</source>
         <translation>识别到一张新的SD卡</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="119"/>
+        <location filename="udev.cpp" line="111"/>
         <source>New SD card is not found</source>
         <translation>未识别到新的SD卡</translation>
     </message>
@@ -1318,17 +1342,17 @@ The New SIM card is:
         <translation type="obsolete">%1 有一张新的SIM卡：4G_IP：%2%3</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="154"/>
+        <location filename="udev.cpp" line="140"/>
         <source>Find the New SIM card</source>
         <translation>识别到一张新的SIM卡</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="159"/>
+        <location filename="udev.cpp" line="145"/>
         <source>New SIM card is not found</source>
         <translation>未识别到新的SIM卡</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="234"/>
+        <location filename="udev.cpp" line="217"/>
         <source>That may be a long time!!Please note the 4G LED on the board when it appears fast flashing!!</source>
         <translation>可能会花很长时间！！请注意电路板上的4G指示灯是否快速闪烁！！</translation>
     </message>
@@ -1352,7 +1376,7 @@ The New SIM card is:
     </message>
     <message>
         <location filename="user_manual.ui" line="41"/>
-        <location filename="user_manual.cpp" line="34"/>
+        <location filename="user_manual.cpp" line="37"/>
         <source>wifi connect</source>
         <translation type="unfinished">连接Wifi</translation>
     </message>
@@ -1362,7 +1386,7 @@ The New SIM card is:
     </message>
     <message>
         <location filename="user_manual.ui" line="51"/>
-        <location filename="user_manual.cpp" line="38"/>
+        <location filename="user_manual.cpp" line="41"/>
         <source>hot spot</source>
         <translation type="unfinished">热点</translation>
     </message>
@@ -1401,7 +1425,7 @@ The New SIM card is:
     </message>
     <message>
         <location filename="user_manual.ui" line="111"/>
-        <location filename="user_manual.cpp" line="42"/>
+        <location filename="user_manual.cpp" line="45"/>
         <source>show all ip connect</source>
         <oldsource>show all ip address</oldsource>
         <translation type="unfinished">显示所有ip地址</translation>
@@ -1412,7 +1436,7 @@ The New SIM card is:
     </message>
     <message>
         <location filename="user_manual.ui" line="121"/>
-        <location filename="user_manual.cpp" line="47"/>
+        <location filename="user_manual.cpp" line="50"/>
         <source>set dynamic ip </source>
         <translation>设置动态ip</translation>
     </message>
@@ -1430,140 +1454,148 @@ The New SIM card is:
     </message>
     <message>
         <location filename="user_manual.ui" line="131"/>
-        <location filename="user_manual.cpp" line="51"/>
+        <location filename="user_manual.cpp" line="54"/>
         <source>set static ip</source>
         <translation type="unfinished">设置静态ip</translation>
     </message>
     <message>
         <location filename="user_manual.ui" line="141"/>
-        <location filename="user_manual.cpp" line="55"/>
+        <location filename="user_manual.cpp" line="58"/>
         <source>network speed test</source>
         <oldsource>speed test</oldsource>
         <translation type="unfinished">网速测试</translation>
     </message>
     <message>
         <location filename="user_manual.ui" line="152"/>
+        <location filename="user_manual.cpp" line="62"/>
         <source>RTC</source>
         <translation type="unfinished">RTC</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="161"/>
         <source>SystimeSetBt</source>
-        <translation type="unfinished">系统时间设置</translation>
+        <translation type="obsolete">系统时间设置</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="171"/>
         <source>RTCSetBt</source>
-        <translation type="unfinished">RTC设置</translation>
+        <translation type="obsolete">RTC设置</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="182"/>
+        <location filename="user_manual.ui" line="162"/>
         <source>Brightness adjustment</source>
         <translation type="unfinished">亮度调节</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="191"/>
-        <location filename="user_manual.cpp" line="59"/>
+        <location filename="user_manual.ui" line="171"/>
+        <location filename="user_manual.cpp" line="66"/>
         <source>brightness</source>
         <translation type="unfinished">亮度</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="201"/>
-        <location filename="user_manual.cpp" line="63"/>
+        <location filename="user_manual.ui" line="181"/>
+        <location filename="user_manual.cpp" line="70"/>
         <source>Sleep time</source>
         <translation type="unfinished">休眠时间</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="212"/>
+        <location filename="user_manual.ui" line="192"/>
         <source>GPIO</source>
         <translation type="unfinished">GPIO</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="221"/>
-        <location filename="user_manual.cpp" line="67"/>
+        <location filename="user_manual.ui" line="201"/>
+        <location filename="user_manual.cpp" line="74"/>
         <source>scan occupied gpio</source>
         <translation type="unfinished">扫描被占用的GPIO口</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="231"/>
-        <location filename="user_manual.cpp" line="71"/>
+        <location filename="user_manual.ui" line="211"/>
+        <location filename="user_manual.cpp" line="78"/>
         <source>batch operation</source>
         <translation type="unfinished">批量操作</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="242"/>
+        <location filename="user_manual.ui" line="222"/>
         <source>Serial Port</source>
         <translation type="unfinished">串口</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="252"/>
+        <location filename="user_manual.ui" line="232"/>
         <source>Voice Frequency</source>
         <translation type="unfinished">音频</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="261"/>
-        <location filename="user_manual.cpp" line="77"/>
+        <location filename="user_manual.ui" line="241"/>
+        <location filename="user_manual.cpp" line="84"/>
         <source>choose file</source>
         <oldsource>choose</oldsource>
         <translation type="unfinished">选择文件</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="271"/>
-        <location filename="user_manual.cpp" line="81"/>
+        <location filename="user_manual.ui" line="251"/>
+        <location filename="user_manual.cpp" line="88"/>
         <source>begin</source>
         <translation type="unfinished">开始</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="281"/>
-        <location filename="user_manual.cpp" line="85"/>
+        <location filename="user_manual.ui" line="261"/>
+        <location filename="user_manual.cpp" line="92"/>
         <source>play</source>
         <translation type="unfinished">播放</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="292"/>
-        <location filename="user_manual.cpp" line="89"/>
+        <location filename="user_manual.ui" line="272"/>
+        <location filename="user_manual.cpp" line="96"/>
         <source>Touch Display</source>
         <translation type="unfinished">触摸显示</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="302"/>
+        <location filename="user_manual.ui" line="282"/>
         <source>Udev Detection</source>
         <translation type="unfinished">Udev检测</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="311"/>
+        <location filename="user_manual.ui" line="291"/>
+        <location filename="user_manual.cpp" line="100"/>
         <source>USB</source>
         <translation type="unfinished">USB</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="321"/>
+        <location filename="user_manual.ui" line="301"/>
+        <location filename="user_manual.cpp" line="104"/>
         <source>SD</source>
         <translation type="unfinished">SD</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="331"/>
-        <location filename="user_manual.cpp" line="93"/>
+        <location filename="user_manual.ui" line="311"/>
+        <location filename="user_manual.cpp" line="108"/>
         <source>SIM</source>
         <translation type="unfinished">SIM</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="342"/>
+        <location filename="user_manual.ui" line="322"/>
         <source>All Interface Test</source>
         <translation type="unfinished">所有接口测试</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="351"/>
-        <location filename="user_manual.cpp" line="97"/>
+        <location filename="user_manual.ui" line="331"/>
+        <location filename="user_manual.cpp" line="112"/>
         <source>test</source>
         <translation type="unfinished">测试</translation>
+    </message>
+    <message>
+        <location filename="user_manual.ui" line="408"/>
+        <location filename="user_manual.cpp" line="22"/>
+        <location filename="user_manual.cpp" line="141"/>
+        <source>expand all</source>
+        <translation type="unfinished">展开全部</translation>
     </message>
     <message>
         <source>clear</source>
         <translation type="obsolete">清屏</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="361"/>
-        <location filename="user_manual.cpp" line="101"/>
+        <location filename="user_manual.ui" line="341"/>
+        <location filename="user_manual.cpp" line="116"/>
         <source>photo</source>
         <translation type="unfinished">照相</translation>
     </message>
@@ -1572,8 +1604,8 @@ The New SIM card is:
         <translation type="obsolete">显示</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="372"/>
-        <location filename="user_manual.cpp" line="105"/>
+        <location filename="user_manual.ui" line="352"/>
+        <location filename="user_manual.cpp" line="120"/>
         <source>Key Test</source>
         <translation type="unfinished">按键测试</translation>
     </message>
@@ -1586,60 +1618,79 @@ The New SIM card is:
         <translation type="obsolete">停止</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="382"/>
+        <location filename="user_manual.ui" line="362"/>
+        <location filename="user_manual.cpp" line="124"/>
         <source>Chinese/English</source>
         <translation type="unfinished">中/英</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="401"/>
         <source>return</source>
-        <translation type="unfinished">返回</translation>
+        <translation type="obsolete">返回</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="36"/>
+        <location filename="user_manual.cpp" line="39"/>
         <source>You can use the &lt; WiFi connection &gt; key to scan the surrounding WiFi signals and enter the password to connect. Or use and you can use the &lt; signal quality &gt; and &lt; connection status &gt; keys to view the signal strength and WiFi connection of the currently connected WiFi.</source>
         <oldsource>You can use the &lt;WiFi connection&gt; button to scan the surrounding WiFi signals and enter the password to connect. Or use and you can use the key to view the signal strength and connection quality of the currently connected WiFi.</oldsource>
         <translation type="unfinished">你可以使用&lt;wifi连接&gt;按键扫描出周围wifi信号，并输入密码连接。或者使用并且可以使用&lt;信号质量&gt;和&lt;连接状态&gt;按键查看当前连接wifi的信号强度以及wifi连接情况。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="44"/>
+        <location filename="user_manual.cpp" line="43"/>
+        <source>You can use the &lt; hotspot &gt; button to turn on or off the hotspot of the board.</source>
+        <translation type="unfinished">你可以&lt;热点&gt;按钮将板子的热点开启或关闭。</translation>
+    </message>
+    <message>
+        <location filename="user_manual.cpp" line="47"/>
         <source>You can use &lt; show all IP addresses &gt; to view the IP addresses of all network configurations, which is equivalent to &apos;ifconfig&apos;. You can use &lt; show all connections &gt; to view all current network connections.</source>
         <translation type="unfinished">你可以使用&lt;显示所有ip地址&gt;按钮来查看所有网络设备的ip地址，等同于&apos;ifconfig&apos;。你可以使用&lt;显示所有连接&gt;来查看所有网络连接。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="49"/>
+        <location filename="user_manual.cpp" line="52"/>
         <source>Click the &lt; set dynamic IP &gt; button, enter the network device you want to set as dynamic IP, and the setting result will be displayed in the prompt box.</source>
         <translation type="unfinished">点击&lt;设置动态ip&gt;按钮，输入你想要设置成动态ip的网络设备，设置结果会显示在提示框内。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="53"/>
+        <location filename="user_manual.cpp" line="56"/>
         <source>You can add, delete and modify static connections, and you can view the connections you just added through the &lt; show all connections &gt; button.</source>
         <translation type="unfinished">你可以对静态连接进行增删改等操作，并且可以通过&lt;显示所有连接&gt;按钮查看你刚添加的连接。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="57"/>
         <source>You can check the network speed in real time through &lt; network speed test &gt;.</source>
         <oldsource>You can check the network speed in real time through &lt; network speed test &gt;</oldsource>
-        <translation type="unfinished">你可以通过&lt;网速测试&gt;实时查看网速。</translation>
+        <translation type="obsolete">你可以通过&lt;网速测试&gt;实时查看网速。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="61"/>
+        <location filename="user_manual.cpp" line="68"/>
         <source>You can adjust the brightness of the screen through the slider.</source>
         <oldsource>You can adjust the brightness through the slider.</oldsource>
         <translation type="unfinished">你可以通过滑块来调节屏幕的亮度。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="65"/>
         <source>You can adjust the sleep time yourself. However, it should be noted that there will be automatic screen rest only after you set the sleep time for the first time.</source>
-        <translation type="unfinished">你可以自己调节休眠时间。但是需要注意的是，只有在你第一次设置完休眠时间后，才会自动息屏。</translation>
+        <translation type="obsolete">你可以自己调节休眠时间。但是需要注意的是，只有在你第一次设置完休眠时间后，才会自动息屏。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="69"/>
+        <location filename="user_manual.cpp" line="60"/>
+        <source>You can check the network speed in real time through &lt; network speed test &gt;.However,if you select other buttons or prompt boxes, the network speed test will stop.</source>
+        <oldsource>You can check the network speed in real time through &lt; network speed test &gt;.And,if you select other buttons or prompt boxes, the network speed test will stop.</oldsource>
+        <translation type="unfinished">你可以通过&lt;网速测试&gt;实时查看网速。但是，如果你选中了其他按钮或是提示框，网速测试将会停止。</translation>
+    </message>
+    <message>
+        <location filename="user_manual.cpp" line="64"/>
+        <source>You can use the &lt; systimesetbt &gt; button to set the system time, or you can use &lt; rtcsetbt &gt; to set the hardware time.</source>
+        <translation type="unfinished">你可以使用&lt;系统时间设置&gt;按钮设置系统时间，也可以使用&lt;RTC设置&gt;按钮设置硬件时间。</translation>
+    </message>
+    <message>
+        <location filename="user_manual.cpp" line="72"/>
+        <source>You can adjust the sleep time yourself.</source>
+        <translation type="unfinished">你可以自己调节休眠时间。</translation>
+    </message>
+    <message>
+        <location filename="user_manual.cpp" line="76"/>
         <source>You can view the currently occupied GPIO port by pressing the &lt; scan &gt; button.</source>
         <translation type="unfinished">你可以通过&lt;扫描&gt;按键查看当前被占用的GPIO口。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="73"/>
+        <location filename="user_manual.cpp" line="80"/>
         <source>You can configure the input / output of GPIO port and pull it up / down when it is set to output mode.
  You can also operate on multiple GPIO ports, but each two GPIO ports should be separated by &apos;,&apos;. 
  Note: there should be no space between each GPIO air, otherwise this operation will fail.</source>
@@ -1650,52 +1701,66 @@ The New SIM card is:
 注意：每个gpio空中间不要出现空格，否则会致使此次操作失败。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="79"/>
+        <location filename="user_manual.cpp" line="86"/>
         <source>Note: the newly created folder should not contain spaces, otherwise the new recording file cannot be saved.</source>
         <translation type="unfinished">注意：新建的文件夹不要带空格，不然新的录音文件保存不了。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="83"/>
+        <location filename="user_manual.cpp" line="90"/>
         <source>You can press the &lt; start &gt; key to record. The next time you press this key, end the recording and save it in &apos;/ data&apos; or the file directory you choose.</source>
         <translation type="unfinished">你可以按&lt;开始&gt;键进行录音，在下一次按下这个键的时候结束录音，并将其保存在‘/data’里或者你所选择的文件目录里。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="87"/>
+        <location filename="user_manual.cpp" line="94"/>
         <source>You can adjust the volume when playing the recording.</source>
         <translation type="unfinished">你可以在播放录音的时候自行调节音量。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="91"/>
+        <location filename="user_manual.cpp" line="98"/>
         <source>This function will recognize the touch screen and display the movement track on the screen.</source>
         <translation type="unfinished">这个功能会识别到触摸屏幕，并将移动轨迹显示在屏幕上。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="95"/>
+        <location filename="user_manual.cpp" line="102"/>
+        <source>You can use this function to detect whether a device is inserted into the USB port.</source>
+        <translation type="unfinished">你可以使用此功能检测USB口是否有设备插入。</translation>
+    </message>
+    <message>
+        <location filename="user_manual.cpp" line="106"/>
+        <source>You can test whether there is SD insertion through this function.</source>
+        <translation type="unfinished">你可以通过此功能测试有无SD插入。</translation>
+    </message>
+    <message>
+        <location filename="user_manual.cpp" line="110"/>
         <source>This function should not be clicked too often. After the previous test is displayed, it will be tested according to your needs. Pay special attention to check whether the SIM card is inserted if a prompt box appears when detecting the SIM card. If it is not inserted, please do not continue to click. Because the current operation will be delayed, it will have a bad sense of experience. During the waiting process, it is necessary to pay attention to the change of 4G LED lamp. When the card is detected or pulled out, the LED lamp will flash - after detecting the flash of card insertion, it will enter the normally on state and pause for 500ms; When it is detected that the card is pulled out, after the flash, enter the pause (on for 500ms).</source>
         <translation type="unfinished">此项功能点击不要太过于频繁，当上一项检测情况展示后，再根据您的需求检测。特别注意检测SIM卡的时候，如果出现提示框，先检查SIM卡是否插入，如果没有插入，请不要继续点击，由于当前操作会有些延迟，对体验感会有不良。在等待途中，需要注意4g LED灯的变化，检测到卡或者从有到拔出的状态时，LED灯会快闪——检测到卡插入快闪后，进入常亮接停顿500ms；检测到卡拔出时，快闪后，进入停顿接亮500ms）。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="99"/>
+        <location filename="user_manual.cpp" line="114"/>
         <source>Press the &lt; test &gt; button to test all interfaces, the test results will be displayed in the prompt box, and the photos taken by the camera will be displayed in the lower left corner.</source>
         <translation type="unfinished">按下&lt;测试&gt;按钮，可以将所有接口检测一遍，测试结果将显示在提示框内，摄像头所拍到的照片将显示在左下角。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="103"/>
+        <location filename="user_manual.cpp" line="118"/>
         <source>You can press the &lt; photo &gt; button to take a picture again, but you need to press the &lt; display &gt; button to take a good picture before it can be loaded again.</source>
         <translation type="unfinished">你可以按下&lt;photo&gt;按钮再一次拍照，但是需要按下&lt;显示&gt;按钮拍好的照片才会重新加载出来。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="107"/>
+        <location filename="user_manual.cpp" line="122"/>
         <source>You can use this function to test the buttons on the board. After pressing the &lt; start &gt; button, when you press the button on the board, a prompt will be displayed in the prompt box, and then press the &lt; stop &gt; button to end the test</source>
-        <translation type="unfinished">您可以使用此功能测试电路板上的按钮。按下&lt;start&gt;按钮后，当您按下电路板上的按钮时，提示框中将显示提示，然后按下&lt;stop&gt;按钮结束测试。</translation>
+        <translation>您可以使用此功能测试电路板上的按钮。按下&lt;start&gt;按钮后，当您按下电路板上的按钮时，提示框中将显示提示，然后按下&lt;stop&gt;按钮结束测试。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="109"/>
+        <location filename="user_manual.cpp" line="136"/>
+        <source>collapse all</source>
+        <translation type="unfinished">折叠全部</translation>
+    </message>
+    <message>
         <source>Chiese/English</source>
-        <translation type="unfinished">中/英</translation>
+        <translation type="obsolete">中/英</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="111"/>
+        <location filename="user_manual.cpp" line="126"/>
         <source>Support Chinese / English switching.</source>
         <translation type="unfinished">支持中/英切换。</translation>
     </message>
@@ -1722,13 +1787,13 @@ The New SIM card is:
     </message>
     <message>
         <location filename="voice.ui" line="67"/>
-        <location filename="voice.cpp" line="159"/>
+        <location filename="voice.cpp" line="157"/>
         <source>begin</source>
         <translation>开始</translation>
     </message>
     <message>
         <location filename="voice.ui" line="80"/>
-        <location filename="voice.cpp" line="103"/>
+        <location filename="voice.cpp" line="101"/>
         <source>choose</source>
         <translation>选择文件</translation>
     </message>
@@ -1768,7 +1833,7 @@ The New SIM card is:
         <translation>音量：</translation>
     </message>
     <message>
-        <location filename="voice.cpp" line="149"/>
+        <location filename="voice.cpp" line="147"/>
         <source>end</source>
         <translation>结束</translation>
     </message>

@@ -156,26 +156,6 @@
       <pointsize>15</pointsize>
      </font>
     </property>
-    <item>
-     <property name="text">
-      <string>SystimeSetBt</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>RTCSetBt</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
    </item>
    <item>
     <property name="text">
@@ -398,7 +378,11 @@
     </rect>
    </property>
    <property name="text">
-    <string>return</string>
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="translation.qrc">
+     <normaloff>:/t507_button_image/return.png</normaloff>:/t507_button_image/return.png</iconset>
    </property>
   </widget>
   <widget class="QTextEdit" name="textEdit">
@@ -411,7 +395,22 @@
     </rect>
    </property>
   </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>2</y>
+     <width>150</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>expand all</string>
+   </property>
+  </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="translation.qrc"/>
+ </resources>
  <connections/>
 </ui>
