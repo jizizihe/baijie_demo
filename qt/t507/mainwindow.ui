@@ -125,7 +125,7 @@
    <widget class="QSplitter" name="splitter">
     <property name="geometry">
      <rect>
-      <x>641</x>
+      <x>710</x>
       <y>410</y>
       <width>250</width>
       <height>75</height>
@@ -167,7 +167,7 @@
       <x>512</x>
       <y>79</y>
       <width>250</width>
-      <height>75</height>
+      <height>78</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -510,7 +510,7 @@
       <x>10</x>
       <y>310</y>
       <width>250</width>
-      <height>37</height>
+      <height>35</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -551,7 +551,7 @@
    <widget class="QSplitter" name="splitter_10">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>70</x>
       <y>410</y>
       <width>241</width>
       <height>81</height>
@@ -578,6 +578,46 @@
      </property>
     </widget>
    </widget>
+   <widget class="QSplitter" name="splitter_14">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>410</y>
+      <width>250</width>
+      <height>75</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+    <widget class="QPushButton" name="auto_4">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normalon>t507_button_image/user_manual.png</normalon>
+      </iconset>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_key_8">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;User manual&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -585,7 +625,7 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>23</height>
+     <height>28</height>
     </rect>
    </property>
   </widget>

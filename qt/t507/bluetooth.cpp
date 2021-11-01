@@ -11,7 +11,8 @@ bluetooth::bluetooth(QWidget *parent) :
 
     retBt = new QPushButton(this);
     retBt->setFixedSize(100,40);
-    retBt->setText(tr("return"));
+//    retBt->setText(tr("return"));
+    retBt->setIcon(QIcon(":/t507_button_image/return.png"));
     retBt->move(10,10);
 
     BTTitleLab = new QLabel( this);
@@ -158,7 +159,7 @@ void bluetooth::BTConnectBt_clicked()
 void bluetooth::language_reload()
 {
     ui->retranslateUi(this);
-    retBt->setText(tr("return"));
+//    retBt->setText(tr("return"));
     BTTitleLab->setText(tr("Blue Tooth"));
     BTScanBt->setText(tr("BT scan"));
     BTPairBt->setText(tr("BT pair"));

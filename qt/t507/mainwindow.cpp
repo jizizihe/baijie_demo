@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&board_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&all_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&bluetooth_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
-
+    connect(&user_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
 }
 
 MainWindow::~MainWindow()
@@ -51,6 +51,7 @@ void MainWindow::show_main()
     board_w.hide();
     all_w.hide();
     bluetooth_w.hide();
+    user_w.hide();
 
     this->show();
 }
@@ -137,6 +138,8 @@ void MainWindow::on_pushButton_clicked()
     board_w.language_reload();
     keytest_w.language_reload();
     bluetooth_w.language_reload();
+    all_w.language_reload();
+    user_w.language_reload();
 }
 
 void MainWindow::on_bluetooth_clicked()
@@ -150,4 +153,10 @@ void MainWindow::on_alltest_clicked()
     qDebug() << "touch_flag:" << touch_flag;
     this->hide();
     all_w.show();
+}
+
+void MainWindow::on_auto_4_clicked()
+{
+    this->hide();
+    user_w.show();
 }

@@ -496,7 +496,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>scan occupied gpio</string>
+    <string>scan</string>
    </property>
   </widget>
  </widget>

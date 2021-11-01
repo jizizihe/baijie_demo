@@ -16,6 +16,7 @@
 #include "all_interface_test.h"
 #include <QTranslator>
 #include "bluetooth.h"
+#include "user_manual.h"
 
 namespace Ui {
 class MainWindow;
@@ -40,7 +41,7 @@ public:
     about_board board_w;
     all_interface_test all_w;
     bluetooth bluetooth_w;
-
+    user_manual user_w;
 
 private:
     Ui::MainWindow *ui;
@@ -63,6 +64,7 @@ private slots:
     void on_pushButton_clicked();
     void on_alltest_clicked();
     void on_bluetooth_clicked();
+    void on_auto_4_clicked();
 };
 
 #endif // MAINWINDOW_H

@@ -100,82 +100,65 @@ int	calc_port_num(char port, int num)
 
 void portnum_cal(int num,char gpio_port[])
 {
-//    char gpio_port[4];
     if(num <= 32)
     {
         gpio_port[0] = 'a';
         intTostr(num,&gpio_port[1]);
-//        return gpio_port;
     }
     else if(num > 32 && num <= 64)
     {
         gpio_port[0] = 'b';
         intTostr((num-32),&gpio_port[1]);
-//        return gpio_port;
     }
     else if(num > 64 && num <= 96)
     {
         gpio_port[0] = 'c';
         intTostr((num-64),&gpio_port[1]);
-//        return gpio_port;
     }
     else if(num > 96 && num <= 128)
     {
         gpio_port[0] = 'd';
         intTostr((num-96),&gpio_port[1]);
-//        return gpio_port;
     }
     else if(num > 128 && num <= 160)
     {
         gpio_port[0] = 'e';
         intTostr((num-128),&gpio_port[1]);
-//        return gpio_port;
     }
     else if(num > 160 && num <= 192)
     {
         gpio_port[0] = 'f';
         intTostr((num-160),&gpio_port[1]);
-//        return gpio_port;
     }
     else if(num > 192 && num <= 224)
     {
         gpio_port[0] = 'g';
         intTostr((num-192),&gpio_port[1]);
-//        return gpio_port;
     }
     else if(num > 224 && num <= 256)
     {
         gpio_port[0] = 'h';
         intTostr((num-224),&gpio_port[1]);
-//        return gpio_port;
     }
     else if(num > 256 && num <= 288)
     {
         gpio_port[0] = 'i';
         intTostr((num-256),&gpio_port[1]);
-//        return gpio_port;
     }
     else if(num > 288 && num <= 320)
     {
         gpio_port[0] = 'j';
         intTostr((num-288),&gpio_port[1]);
-//        return gpio_port;
     }
     else if(num > 320 && num <= 352)
     {
         gpio_port[0] = 'k';
         intTostr((num-320),&gpio_port[1]);
-//        return gpio_port;
     }
     else if(num > 352 && num <= 384)
     {
         gpio_port[0] = 'l';
         intTostr((num-352),&gpio_port[1]);
-//        return gpio_port;
-    }
-    else
-    {
-//        return NULL;
     }
 }
 
@@ -324,41 +307,11 @@ static int SetPositionByLine(FILE *fp, int nLine)
     return 0;
 }
 
-static int extractname(char * filename,int *save_gpio){
-    char buffer[1024];
-    FILE *fd;
-    size_t bytes_read;
-    char  *match;
-
-    if((fd = fopen("/read_gpio","r")) == NULL)
-    {
-        return -1;
-    }
-    bytes_read = fread(buffer, 1, sizeof(buffer), fd);
-
-    fclose(fd);
-    if ( bytes_read == 0 )
-    {
-        printf("bytes_read = 0\n");
-//        return -1;
-    }
-
-    buffer[bytes_read] = '\0';
-    match = strstr(buffer, "gpio-");
-    if ( match == NULL )
-    {
-        printf("no gpio- keyword to find!\n");
-        return -1;
-    }
-    sscanf(match, "gpio-%d", save_gpio);
-    return *save_gpio;
-}
-
 int get_occupied_gpio(int *save_gpio,int nLine)
 {
     FILE * gpio_dev_file;
-    char buf[1024];
-
+    char buf[MAX_BUF];
+    char  *match;
 
     if ( (gpio_dev_file=fopen("/sys/kernel/debug/gpio", "r")) == NULL )
     {
@@ -370,15 +323,14 @@ int get_occupied_gpio(int *save_gpio,int nLine)
 
     fgets(buf, MAX_BUF, gpio_dev_file);
 
-    if((gpio_dev_file = fopen("/read_gpio","w")) == NULL)
+    match = strstr(buf, "gpio-");
+    if ( match == NULL )
     {
-        printf("open file read_gpio error!\n");
+        printf("no gpio- keyword to find!\n");
         return -1;
     }
-    fputs(buf,gpio_dev_file);
-    fclose(gpio_dev_file);
+    sscanf(match, "gpio-%d", save_gpio);
 
-    extractname("/read_gpio",save_gpio);
     return 0;
 }
 
@@ -395,7 +347,7 @@ static int get_file_linenum(char * filename)
     int i =0;
     int num = 0;
     int iRet = -1;
-    while((iRet = read(pfile, buf, MAX_BUF)) > 0)	//保证文件内容全部读完
+    while((iRet = read(pfile, buf, MAX_BUF)) > 0)
     {
         for(i=0;i<MAX_BUF;i++)
         {

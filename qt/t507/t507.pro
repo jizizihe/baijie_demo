@@ -61,7 +61,8 @@ SOURCES += \
     all_interface_test.cpp \
     udev_interface.cpp\
     bluetooth.cpp \
-    bluetooth_thread.cpp
+    bluetooth_thread.cpp \
+    user_manual.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -89,7 +90,8 @@ HEADERS += \
     all_interface_test.h \
     udev_interface.h \
     bluetooth.h \
-    bluetooth_thread.h
+    bluetooth_thread.h \
+    user_manual.h
 
 FORMS += \
         mainwindow.ui \
@@ -106,7 +108,8 @@ FORMS += \
     keytest.ui \
     ipset.ui \
     all_interface_test.ui \
-    bluetooth.ui
+    bluetooth.ui \
+    user_manual.ui
 
 RESOURCES += \
     translation.qrc

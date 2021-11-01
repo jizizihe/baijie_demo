@@ -1,5 +1,5 @@
 #include "ipset_interface.h"
-#include <QDebug>
+
 
 
 long int getCurrentDownloadRates(long int * save_rate)

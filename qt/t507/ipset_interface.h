@@ -6,6 +6,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <QProcess>
+#include <QDebug>
+#include <QString>
 
 #define WAIT_SECOND 1.1
 

@@ -124,3 +124,8 @@ void all_interface_test::on_pushButton_4_clicked()
     ui->image->setScaledContents(true);
     ui->image->show();
 }
+
+void all_interface_test::language_reload()
+{
+    ui->retranslateUi(this);
+}

@@ -64,7 +64,7 @@ void gpio::ret_clicked()
     emit Mysignal();
     for(int i = 0;i < num;i++)
     {
-        if(!getFileName(port_num[i]))
+        if(getFileName(port_num[i]))
         {
             gpio_unexport(port_num[i]);
         }
@@ -129,16 +129,16 @@ void gpio::on_pushButton_clicked()
 
     for(i = count;i < num;i++)
     {
-        struct occupied_gpio_s occupied_gpio;
-        occupied_gpio = get_debug_gpio();
-        for(int j;j < occupied_gpio.len;j++)
-        {
-            if(port_num[i] == occupied_gpio.gpio[j])
-            {
-                QMessageBox::information(NULL, NULL, QString(tr("P%1 is occupied!You can't mobilize it!")).arg(port_num[i]), QMessageBox::Ok);
-                return;
-            }
-        }
+//        struct occupied_gpio_s occupied_gpio;
+//        occupied_gpio = get_debug_gpio();
+//        for(int j = 0;j < occupied_gpio.len;j++)
+//        {
+//            if(port_num[i] == occupied_gpio.gpio[j])
+//            {
+//                QMessageBox::information(NULL, NULL, QString(tr("P%1 is occupied!You can't mobilize it!")).arg(port_num[i]), QMessageBox::Ok);
+//                return;
+//            }
+//        }
 
         if(!getFileName(port_num[i]))
         {

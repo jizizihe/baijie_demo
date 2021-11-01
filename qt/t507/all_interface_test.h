@@ -19,6 +19,7 @@ public:
     explicit all_interface_test(QWidget *parent = 0);
     ~all_interface_test();
 
+    void language_reload();
 private slots:
     void on_return_2_clicked();
 
