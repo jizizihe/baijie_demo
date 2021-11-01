@@ -150,7 +150,6 @@ void MainWindow::on_bluetooth_clicked()
 
 void MainWindow::on_alltest_clicked()
 {
-    qDebug() << "touch_flag:" << touch_flag;
     this->hide();
     all_w.show();
 }

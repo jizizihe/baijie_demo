@@ -14,12 +14,12 @@ touchscreen::touchscreen(QWidget *parent) :
 
     btnclear = new CTouchButton(this);
     btnclear->setText(tr("clear"));
-    btnclear->setGeometry(900,480,100,50);
+    btnclear->setGeometry(900,480,100,40);
 
     btnreturn = new CTouchButton(this);
 //    btnreturn->setText(tr("return"));
     btnreturn->setIcon(QIcon(":/t507_button_image/return.png"));
-    btnreturn->setGeometry(10,10,100,50);
+    btnreturn->setGeometry(10,10,100,40);
 
     connect(btnclear,SIGNAL(clicked()),this,SLOT(screenclear()));
     connect(btnreturn,SIGNAL(clicked()),this,SLOT(btnreturn_clicked()));

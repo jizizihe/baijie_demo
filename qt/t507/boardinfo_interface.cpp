@@ -169,6 +169,7 @@ int get_QTversion(char *dirpath,char *filename,char *fs_file)
     sscanf(finish_file,"%*[^.]%*[^1-9]%s",fs_file);
 //    qDebug("fs_file is %s\n",fs_file);
     return i;
+
 }
 
 char *get_kernel()

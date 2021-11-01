@@ -45,6 +45,8 @@ all_interface_test::~all_interface_test()
 
 void all_interface_test::on_return_2_clicked()
 {
+    ui->textEdit->clear();
+    ui->image->clear();
     emit Mysignal();
 }
 
@@ -62,18 +64,18 @@ void all_interface_test::on_test_clicked()
     gpio_unexport(gpio_port);
 
 
-    if(get_new_usb() == tr("2. USB Failed"))
-        ui->textEdit->append(get_new_usb());
+    if(get_new_usb() == tr("USB Failed"))
+        ui->textEdit->append(QString(tr("%1 %2")).arg("2.").arg(get_new_usb()));
     else
         ui->textEdit->append(tr("2. USB OK"));
 
-    if(get_new_sd() == tr("3. SD Failed"))
-        ui->textEdit->append(get_new_sd());
+    if(get_new_sd() == tr("SD Failed"))
+        ui->textEdit->append(QString(tr("%1 %2")).arg("3.").arg(get_new_sd()));
     else
         ui->textEdit->append(tr("3. SD OK"));
 
-    if(get_new_sim() == tr("4. SIM Failed"))
-        ui->textEdit->append(get_new_sim());
+    if(get_new_sim() == tr("SIM Failed"))
+        ui->textEdit->append(QString(tr("%1 %2")).arg("4.").arg(get_new_sim()));
     else
         ui->textEdit->append(tr("4. SIM OK"));
 

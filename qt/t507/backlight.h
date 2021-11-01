@@ -53,7 +53,6 @@ private slots:
     void on_horizontalSlider_valueChanged(int value);
     void on_normal_clicked();
     void on_comboBox_currentIndexChanged(int index);
-    void on_sure_clicked();
     void on_return_2_clicked();
     void show_time();
 

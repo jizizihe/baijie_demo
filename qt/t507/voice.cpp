@@ -76,9 +76,7 @@ void voice::refresh()
 
 void voice::show_time()
 {
-    QString s;
-    s= QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss");
-    ui->time->setText(s);
+    ui->time->setText(QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss"));
 }
 
 void voice::on_horizontalSlider_valueChanged(int value)
