@@ -70,7 +70,7 @@ wifi::wifi(QWidget *parent) :
     connect(SignalQualityBt,SIGNAL(clicked()),this,SLOT(SignalQualityBt_clicked()));
     connect(StatusBt,SIGNAL(clicked()),this,SLOT(StatusBt_clicked()));
 
-    emit scan_signal();
+    //emit scan_signal();
 }
 
 wifi::~wifi()
