@@ -11,6 +11,7 @@
 #include <QCheckBox>
 #include <QGroupBox>
 #include <QVBoxLayout>
+#include <QDateTime>
 
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
