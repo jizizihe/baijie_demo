@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QRegExpValidator>
 #include <QPushButton>
+#include <QtNetwork>
 
 class ipset_popup : public QDialog
 {
@@ -16,38 +17,31 @@ public:
     explicit ipset_popup(QWidget *parent = 0);
     ~ipset_popup();
 
-    char *bnttype;
+    char *bnttype; 
     void language_reload();
 
 signals:
-    void setdip();
-    void setdyninfor(QString);
     void addip();
-    void addipinfor(QString,QString,QString);
+    void addipinfor(QString,QString);
     void modip();
-    void modipinfor(QString,QString);
-    void delip();
-    void delipinfor(QString);
+    void modipinfor(QString);
     void go_back();
 
 private slots:
     void remain();
     void getaddipinforma();
-    void getsetdipinforma();
     void getmodipinforma();
-    void getdelipinforma();
     void screen_clear();
     void returnmain();
 private:
     QLabel *label_netcard;
     QLineEdit * line_netcard;
-    QLabel *label_Name;
-    QLineEdit *line_name;
     QLabel *label_addr;
     QLineEdit *line_addr;
     QLabel *label;
     QPushButton *btn_OK;
     QPushButton *btn_return;
+    QList<QHostAddress> list;
 };
 
 #endif // IPSET_POPUP_H

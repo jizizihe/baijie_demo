@@ -326,7 +326,7 @@ int get_occupied_gpio(int *save_gpio,int nLine)
     match = strstr(buf, "gpio-");
     if ( match == NULL )
     {
-        printf("no gpio- keyword to find!\n");
+//        printf("no gpio- keyword to find!\n");
         return -1;
     }
     sscanf(match, "gpio-%d", save_gpio);
@@ -358,7 +358,7 @@ static int get_file_linenum(char * filename)
         }
         memset(buf,0,MAX_BUF);
     }
-    printf("%d\n",num);
+//    printf("%d\n",num);
     close(pfile);
     return num;
 }
@@ -406,23 +406,23 @@ struct occupied_gpio_s get_debug_gpio()
 
     memset(occupied_gpio.gpio,0,MAX_BUF);
     linenum = get_file_linenum(gpiopath);
-    printf("linenum = %d\n",linenum);
+//    printf("linenum = %d\n",linenum);
 
     for(i = 0;i < linenum;i++)
     {
         if(get_occupied_gpio(occupied_gpio.gpio+i,i) == -1)
         {
-            printf("get_occupied_gpio failed\n");
+//            printf("get_occupied_gpio failed\n");
         }
     }
 
     occupied_gpio.len = CompactIntegers(occupied_gpio.gpio,i-1);
 
-    printf("len = %d\n",occupied_gpio.len);
-    printf("i = %d\n",i);
+//    printf("len = %d\n",occupied_gpio.len);
+//    printf("i = %d\n",i);
     for(i = 0;i < occupied_gpio.len;i++)
     {
-        printf("%d: gpio-%d\n",i,occupied_gpio.gpio[i]);
+        //printf("%d: gpio-%d\n",i,occupied_gpio.gpio[i]);
         portnum_cal(occupied_gpio.gpio[i],occupied_gpio.portnum[i]);
     }
 

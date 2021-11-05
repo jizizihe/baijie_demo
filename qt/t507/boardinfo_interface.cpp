@@ -79,7 +79,7 @@ int get_resolution(int *x,int *y)
     ioctl(fd,FBIOGET_VSCREENINFO,&screen_info);
     *x = screen_info.xres;
     *y = screen_info.yres;
-    printf("%d*%d\n",screen_info.xres,screen_info.yres);
+    //printf("%d*%d\n",screen_info.xres,screen_info.yres);
     close(fd);
     return 0;
 }

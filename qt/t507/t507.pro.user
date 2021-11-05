@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.5.2, 2021-11-01T15:08:35. -->
+<!-- Written by QtCreator 4.5.2, 2021-11-04T21:10:18. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -473,18 +473,23 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">RemoteLinux.DirectUploadStep</value>
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedFiles">
        <value type="QString">/home/szbaijie/workspace/a133_qt/baijie_interface/qt/t507/main</value>
+       <value type="QString">/home/szbaijie/workspace/a133_qt/baijie_interface/qt/t507/main</value>
       </valuelist>
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedHosts">
+       <value type="QString">192.168.0.164</value>
        <value type="QString">192.168.0.122</value>
       </valuelist>
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedRemotePaths">
        <value type="QString">/</value>
+       <value type="QString">/</value>
       </valuelist>
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedSysroots">
        <value type="QString"></value>
+       <value type="QString"></value>
       </valuelist>
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedTimes">
-       <value type="QDateTime">2021-11-01T14:55:44</value>
+       <value type="QDateTime">2021-11-02T14:28:16</value>
+       <value type="QDateTime">2021-11-04T21:00:15</value>
       </valuelist>
       <value type="bool" key="RemoteLinux.GenericDirectUploadStep.IgnoreMissingFiles">false</value>
       <value type="bool" key="RemoteLinux.GenericDirectUploadStep.Incremental">true</value>

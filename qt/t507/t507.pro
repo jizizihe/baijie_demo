@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui serialport
 QT       += network
 #DEFINES += QT_NO_WARNING_OUTPUT\
 #     QT_NO_DEBUG_OUTPUT
@@ -57,12 +57,12 @@ SOURCES += \
     ipset.cpp \
     ipset_interface.cpp \
     gpio_interface.cpp \
-    touch_interface.cpp \
     all_interface_test.cpp \
     udev_interface.cpp\
     bluetooth.cpp \
     bluetooth_thread.cpp \
-    user_manual.cpp
+    user_manual.cpp \
+    serial.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -86,12 +86,12 @@ HEADERS += \
     ipset_popup.h \
     ipset.h \
     ipset_interface.h \
-    touch_interface.h \
     all_interface_test.h \
     udev_interface.h \
     bluetooth.h \
     bluetooth_thread.h \
-    user_manual.h
+    user_manual.h \
+    serial.h
 
 FORMS += \
         mainwindow.ui \
@@ -109,7 +109,8 @@ FORMS += \
     ipset.ui \
     all_interface_test.ui \
     bluetooth.ui \
-    user_manual.ui
+    user_manual.ui \
+    serial.ui
 
 RESOURCES += \
     translation.qrc

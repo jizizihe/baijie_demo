@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QTreeWidget>
+#include <QScrollBar>
 namespace Ui {
 class user_manual;
 }

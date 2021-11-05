@@ -13,11 +13,11 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="pushButton_5">
+  <widget class="QPushButton" name="modstaticip">
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>350</y>
+     <y>390</y>
      <width>260</width>
      <height>40</height>
     </rect>
@@ -30,38 +30,25 @@
    <property name="geometry">
     <rect>
      <x>320</x>
-     <y>110</y>
+     <y>120</y>
      <width>680</width>
      <height>400</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="readOnly">
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_7">
+  <widget class="QPushButton" name="ipshowbtn">
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>470</y>
-     <width>260</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>speed test</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_9">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>110</y>
+     <y>120</y>
      <width>260</width>
      <height>40</height>
     </rect>
@@ -70,7 +57,7 @@
     <string>show all ip address</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="retbtn">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -87,37 +74,11 @@
      <normaloff>:/t507_button_image/return.png</normaloff>:/t507_button_image/return.png</iconset>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="delstaticip">
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>230</y>
-     <width>260</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>set dynamic ip</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_4">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>290</y>
-     <width>260</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>add static ip</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_6">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>410</y>
+     <y>480</y>
      <width>260</width>
      <height>40</height>
     </rect>
@@ -126,17 +87,30 @@
     <string>delete static ip</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_8">
+  <widget class="QPushButton" name="setstaticip">
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>170</y>
+     <y>300</y>
      <width>260</width>
      <height>40</height>
     </rect>
    </property>
    <property name="text">
-    <string>show all connections</string>
+    <string>set static ip</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="networkupbtn">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>210</y>
+     <width>260</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>set network up</string>
    </property>
   </widget>
  </widget>

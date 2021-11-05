@@ -85,6 +85,8 @@ backlight::backlight(QWidget *parent) :
     timeUp = new QTimer(this);
     timeUp->start();
     connect(timeUp,SIGNAL(timeout()),this,SLOT(timerUp()));
+    index_number = 6;
+    ui->comboBox->setCurrentIndex(6);
 }
 
 backlight::~backlight()
@@ -108,6 +110,7 @@ void backlight::light_screen()      //Click on the light screen
         set_backlight(light_value);
 
     }
+    usleep(800);
 }
 
 void backlight::timerUp()       //check whether events are generated

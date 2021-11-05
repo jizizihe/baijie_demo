@@ -8,6 +8,10 @@ user_manual::user_manual(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->textEdit->setReadOnly(true);
+    ui->treeWidget->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
+    ui->textEdit->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
+
+
 }
 
 user_manual::~user_manual()
@@ -28,7 +32,6 @@ void user_manual::language_reload()
 {
     ui->retranslateUi(this);
 }
-
 
 
 void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)

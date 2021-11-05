@@ -8,16 +8,17 @@
 #include <QProcess>
 #include <QDebug>
 #include <QString>
+#include <QtNetwork>
 
-#define WAIT_SECOND 1.1
 
-double getspeed();
-long int getCurrentDownloadRates(long int * save_rate);
 QString getipconfig();
 QString getallip();
-QString addstaticip(QString ipname,QString netcard,QString ipaddr);
-QString modstaticip(QString ipname,QString ipaddr);
-QString delstaticip(QString ipname);
-QString setdip(QString netcard);
+QString addstaticip(QString netcard,QString ipaddr);
+QString modstaticip(QString ipaddr);
+QString delstaticip();
+QString networkup();
+QString getifconfig();
+QString GetCurrentIp(QString Name);
+QString is_staticip();
 
 #endif // IPSET_INTERFACE_H

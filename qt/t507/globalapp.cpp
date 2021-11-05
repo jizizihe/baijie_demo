@@ -22,7 +22,7 @@ bool globalApp::notify(QObject *obj, QEvent *e)
     {
 //        QDBG << e->type();
 
-        if(e->type() == QEvent::TouchEnd || e->type() == QEvent::TouchBegin)
+        if(e->type() == QEvent::TouchEnd || e->type() == QEvent::TouchBegin ||  e->type() == QEvent::TouchUpdate)
         {
             touch_flag = true;
         }

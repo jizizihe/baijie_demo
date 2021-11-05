@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include "ipset_popup.h"
 #include <QTimer>
+#include <QScrollBar>
 
 namespace Ui {
 class ipset;
@@ -25,30 +26,23 @@ public:
     void language_reload();
 
 public slots:
-    bool eventFilter(QObject *,QEvent *);
 
 private slots:
-    void on_pushButton_clicked();
-    void on_pushButton_3_clicked();
-    void on_pushButton_4_clicked();
-    void on_pushButton_5_clicked();
-    void on_pushButton_6_clicked();
-    void on_pushButton_7_clicked();
-    void on_pushButton_8_clicked();
-    void speedtest();
-    void on_pushButton_9_clicked();
-    void setdynamicip(QString);
-    void increaseip(QString,QString,QString);
-    void modifyip(QString,QString);
-    void deleteip(QString);
+    void on_retbtn_clicked();
+    void on_delstaticip_clicked();
+    void on_setstaticip_clicked();
+    void on_modstaticip_clicked();
+    void on_networkupbtn_clicked();
+    void on_ipshowbtn_clicked();
+    void increaseip(QString,QString);
+    void modifyip(QString);
     void gobackmenu();
 
 signals:
     void Mysignal();
-    void StartTestSpeed();
+
 private:
     Ui::ipset *ui;
-    QTimer *timer;
 };
 
 #endif // IPSET_H

@@ -17,6 +17,7 @@
 #include <QTranslator>
 #include "bluetooth.h"
 #include "user_manual.h"
+#include "serial.h"
 
 namespace Ui {
 class MainWindow;
@@ -42,7 +43,7 @@ public:
     all_interface_test all_w;
     bluetooth bluetooth_w;
     user_manual user_w;
-
+    serial serial_w;
 private:
     Ui::MainWindow *ui;
     QTranslator *translator;
@@ -65,6 +66,7 @@ private slots:
     void on_alltest_clicked();
     void on_bluetooth_clicked();
     void on_auto_4_clicked();
+    void on_serialport_clicked();
 };
 
 #endif // MAINWINDOW_H

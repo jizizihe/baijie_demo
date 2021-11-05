@@ -6,6 +6,7 @@
 #include <QCoreApplication>
 #include <QMouseEvent>
 #include <QTouchEvent>
+#include <QPainter>
 
 class CTouchButton : public QPushButton
 {
@@ -19,5 +20,28 @@ protected:
 private:
     bool m_bTouchEnd = false;
 };
+
+/*****************************/  //slide button
+
+class slideButton : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit slideButton(QWidget *parent = 0);
+    void mouseReleaseEvent(QMouseEvent *);  //mouse up time
+    int switchflag;
+    int initflag;
+
+protected:
+    void paintEvent(QPaintEvent *event);
+
+signals:
+    void buttonChange();
+
+public slots:
+};
+
+/******************************/
 
 #endif // CTOUCHBUTTON_H
