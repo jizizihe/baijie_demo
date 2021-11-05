@@ -1,7 +1,7 @@
 #include "ipset.h"
 #include "ui_ipset.h"
 #include "ipset_interface.h"
-
+#include "ctouchbutton.h"
 
 //bool is_virtual_network_card_or_loopback(QString str_card_name);
 
@@ -10,7 +10,8 @@ ipset::ipset(QWidget *parent) :
     ui(new Ui::ipset)
 {
     ui->setupUi(this);
-
+    slideButton *slidebtn = new slideButton(this);
+    slidebtn->setGeometry(500,300,100,100);
     ui->textEdit->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
 
     connect(&popup,SIGNAL(go_back()),this,SLOT(gobackmenu()));

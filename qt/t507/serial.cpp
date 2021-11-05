@@ -205,6 +205,10 @@ int serial::set_prop(int fd)
 
 void *serial::thread_serial_port(void * data)
 {
+    QDateTime current_date_time = QDateTime::currentDateTime();
+    QString current_time = current_date_time.toString("hh:mm:ss.zzz ");
+    qDebug() << "--LINE--: " << __LINE__<< current_time;
+
     int		fd;
     int		rc;
     int     com;
@@ -312,15 +316,16 @@ void *serial::thread_serial_port(void * data)
 
 void serial::serial_thread(port_num_s * port_num_ptr)
 {
-    pthread_t thread_id = 0;
+    pthread_t thread_id[SerialNumMax];
     pthread_attr_t  attr;
     int	i;
 
     //int *port_num_ptr = new int();
-    if(thread_id)
-    {
-        pthread_cancel(thread_id);
-    }
+//    if(thread_id)
+//    {
+//        pthread_cancel(thread_id);
+//    }
+
     pthread_attr_init(&attr);
     for(i = 1; i < port_count; i++)
     {
@@ -330,20 +335,27 @@ void serial::serial_thread(port_num_s * port_num_ptr)
             //*port_num_ptr = i;
             port_num_ptr->port_num = i;
             qDebug() << "pthread : i = " << i;
-            if (pthread_create(&thread_id, &attr, thread_serial_port,port_num_ptr))
+            if (pthread_create(&thread_id[i], &attr, thread_serial_port,port_num_ptr))
             {
                 printf("ERROR: can't create read_thread thread!\n");
             }
             else
             {
-                pthread_detach(thread_id);
+                pthread_detach(thread_id[i]);
             }
             QThread::msleep(50);
         }
     }
-    //sleep(5);
+    sleep(3);
 
-    pthread_attr_destroy(&attr);
+    for(i = 1; i < port_count; i++)
+    {
+        pthread_cancel(thread_id[i]);
+    }
+    QDateTime current_date_time = QDateTime::currentDateTime();
+    QString current_time = current_date_time.toString("hh:mm:ss.zzz ");
+    qDebug() << "--LINE--: " << __LINE__<< current_time;
+
     return;
 }
 

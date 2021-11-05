@@ -54,6 +54,14 @@ wifi::wifi(QWidget *parent) :
     WifiMsgText->move(350,150);
 
 
+    ConnectWin = new WifiConnect;
+
+    ScanTimer = new QTimer(this);
+    ScanTimer->start(100);
+    //connect(ScanTimer,&QTimer::timeout,ConnectWin,SLOT(wifi_scan());
+
+    connect(this,SIGNAL(scan_signal()),ConnectWin,SLOT(scan_show()));
+
     //connect(&HotSpotWin_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(retBt,SIGNAL(clicked(bool)),this,SLOT(retBt_clicked()));
     connect(WifiConnectBt,SIGNAL(clicked()),this,SLOT(WifiConnectBt_clicked()));
@@ -62,12 +70,14 @@ wifi::wifi(QWidget *parent) :
     connect(SignalQualityBt,SIGNAL(clicked()),this,SLOT(SignalQualityBt_clicked()));
     connect(StatusBt,SIGNAL(clicked()),this,SLOT(StatusBt_clicked()));
 
+    //emit scan_signal();
 }
 
 wifi::~wifi()
 {
     delete ui;
 }
+
 
 void wifi::retBt_clicked()
 {
@@ -77,8 +87,8 @@ void wifi::retBt_clicked()
 
 void wifi::WifiConnectBt_clicked()
 {
-    ConnectWin = new WifiConnect;
-    ConnectWin->setGeometry(200,150,600,400);
+    //ConnectWin = new WifiConnect;
+    ConnectWin->setGeometry(0,0,1024,600);
     //this->hide();
     ConnectWin->show();
 
@@ -111,7 +121,7 @@ void wifi::HotSpotBt_clicked()
 
     //HotSpotWin_w.show();
     HotSpotSetWin = new HotSpot;
-    HotSpotSetWin->setGeometry(200,150,600,400);
+    HotSpotSetWin->setGeometry(0,0,1024,600);
     HotSpotSetWin->show();
 
 }
@@ -153,12 +163,18 @@ QString get_wifisignalquality()
 
     }
 */
-    QString strCmd = QString("iw dev wlan0 link | grep signal");
-    qDebug() << "text == " << strCmd;
+
     QProcess process;
+    QString strCmd = QString("iw dev wlan0 link | grep SSID |awk '{print $2}'");
     process.start("bash", QStringList() <<"-c" << strCmd);
     process.waitForFinished();
     QString strResult = process.readAllStandardOutput();
+
+    strCmd = QString("nmcli device wifi |grep '%1'|awk '{print $7}'|sed -n '1p' ").arg(strResult.remove("\n"));
+    qDebug() << "text == " << strCmd;
+    process.start("bash", QStringList() <<"-c" << strCmd);
+    process.waitForFinished();
+    strResult = process.readAllStandardOutput();
     qDebug() << strResult;
 
     return strResult;
@@ -168,19 +184,29 @@ void wifi::SignalQualityBt_clicked()
 {
     QString strResult = get_wifisignalquality();
 
-    this->WifiMsgText->setText(strResult);
+    this->WifiMsgText->setText("signal");
+    this->WifiMsgText->append(strResult);
 }
 
 QString get_wifistatus()
 {
-    //QString strCmd = QString("nmcli device status");//wifi or hotspot
+    //QString strCmd = QString("nmcli device wifi |awk '{print $8}'");//wifi or hotspot
     QString strCmd = QString("iw dev wlan0 link");
     qDebug() << "text == " << strCmd;
     QProcess process;
     process.start("bash", QStringList() <<"-c" << strCmd);
     process.waitForFinished();
-    QString strResult = process.readAllStandardOutput();
-    qDebug() << strResult;
+    QString statusResult = process.readAllStandardOutput();
+    //qDebug() << statusResult;
+
+    strCmd = QString("wpa_cli -i wlan0 status | grep ip_address");
+    qDebug() << "text == " << strCmd;
+    process.start("bash", QStringList() <<"-c" << strCmd);
+    process.waitForFinished();
+    QString addressResult = process.readAllStandardOutput();
+    //qDebug() << addressResult;
+
+    QString strResult = QString("%1\n%2").arg(statusResult).arg(addressResult);
 
     return strResult;
 }

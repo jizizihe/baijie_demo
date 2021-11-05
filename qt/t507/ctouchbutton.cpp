@@ -61,25 +61,25 @@ void slideButton::paintEvent(QPaintEvent *){
             painter.setBrush(Qt::gray);
         }
         else if(switchflag==1){
-            painter.setBrush(Qt::green);
+            painter.setBrush(Qt::blue);
         }
-        QRectF re(1,1,20,20);
+        QRectF re(1,2,40,40);
         int startAngle = 90*16;
         int endAngel = 180*16;
         painter.drawPie(re,startAngle,endAngel);
-        painter.drawRect(11,1,10,20);
-        QRectF re2(11,1,20,20);
+        painter.drawRect(20,2,40,40);
+        QRectF re2(40,2,40,40);
         int startAngle2 = -90*16;
         int endAngel2 = 180*16;
         painter.drawPie(re2,startAngle2,endAngel2);
 
         if(switchflag==0){ // close status
-            painter.setBrush(Qt::yellow);
-            painter.drawEllipse(2,2,18,18);
+            painter.setBrush(Qt::white);
+            painter.drawEllipse(2,3,38,38);
         }
         else if(switchflag==1){ // open status
-            painter.setBrush(Qt::yellow);
-            painter.drawEllipse(12,2,18,18);
+            painter.setBrush(Qt::white);
+            painter.drawEllipse(41,3,38,38);
         }
         initflag=1;
     }
@@ -90,26 +90,26 @@ void slideButton::paintEvent(QPaintEvent *){
             painter.setBrush(Qt::gray);
         }
         else if(switchflag==0){
-            painter.setBrush(Qt::green);
+            painter.setBrush(Qt::blue);
         }
-        QRectF re(1,1,20,20);
+        QRectF re(1,2,40,40);
         int startAngle = 90*16;
         int endAngel = 180*16;
         painter.drawPie(re,startAngle,endAngel);
-        painter.drawRect(11,1,10,20);
-        QRectF re2(11,1,20,20);
+        painter.drawRect(20,2,40,40);
+        QRectF re2(40,2,40,40);
         int startAngle2 = -90*16;
         int endAngel2 = 180*16;
         painter.drawPie(re2,startAngle2,endAngel2);
 
         if(switchflag==0){ // open
-            painter.setBrush(Qt::yellow);
-            painter.drawEllipse(12,2,18,18);
+            painter.setBrush(Qt::white);
+            painter.drawEllipse(41,3,38,38);
             switchflag=1;
         }
         else if(switchflag==1){  //close
-            painter.setBrush(Qt::yellow);
-            painter.drawEllipse(2,2,18,18);
+            painter.setBrush(Qt::white);
+            painter.drawEllipse(2,3,38,38);
             switchflag=0;
         }
         emit buttonChange();

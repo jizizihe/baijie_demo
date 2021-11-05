@@ -8,6 +8,9 @@
 #include <QDateTimeEdit>
 #include <QLabel>
 #include <QDebug>
+#include <QDateTime>
+#include <QTimer>
+#include <QFont>
 
 namespace Ui {
 class timeset;
@@ -30,17 +33,27 @@ private slots:
     void retBt_clicked();
     void SystimeSet(QString  datetext);
     void SystimeSetBt_clicked();
-    void RTCSet(QString  datetext);
+    QString RTCSet(QString  datetext);
     void RTCSetBt_clicked();
+
+    void SystimerUpdate(void);
+    void RTCtimerUpdate(void);
 
 private:
     Ui::timeset *ui;
+
+    QLabel *SystimeReadLabel;
+    QLabel *RTCReadLabel;
 
     QPushButton *retBt;
     QLabel * pLabel;
     QDateTimeEdit *datetime;
     QPushButton * SystimeSetBt;
     QPushButton * RTCSetBt;
+    QLabel *SystimepLabel;
+    QLabel *RTCtimepLabel;
+
+    QTimer *RTCTimer;
 };
 
 #endif // TIMESET_H
