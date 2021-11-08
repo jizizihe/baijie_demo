@@ -58,11 +58,11 @@ SOURCES += \
     ipset_interface.cpp \
     gpio_interface.cpp \
     all_interface_test.cpp \
-    udev_interface.cpp\
     bluetooth.cpp \
     bluetooth_thread.cpp \
     user_manual.cpp \
-    serial.cpp
+    serial.cpp \
+    udev_interface.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -87,11 +87,11 @@ HEADERS += \
     ipset.h \
     ipset_interface.h \
     all_interface_test.h \
-    udev_interface.h \
     bluetooth.h \
     bluetooth_thread.h \
     user_manual.h \
-    serial.h
+    serial.h \
+    udev_interface.h
 
 FORMS += \
         mainwindow.ui \

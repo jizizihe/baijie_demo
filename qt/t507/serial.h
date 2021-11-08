@@ -16,6 +16,9 @@
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
 
+
+
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

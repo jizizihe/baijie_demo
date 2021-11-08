@@ -18,5 +18,14 @@
         <file>t507_button_image/about.png</file>
         <file>t507_button_image/return.png</file>
         <file>t507_button_image/user_manual.png</file>
+        <file>t507_button_image/cp.png</file>
+        <file>t507_button_image/del.png</file>
+        <file>t507_button_image/event.png</file>
+        <file>t507_button_image/exit.png</file>
+        <file>t507_button_image/flush.png</file>
+        <file>t507_button_image/open.png</file>
+        <file>t507_button_image/system.png</file>
+        <file>t507_button_image/cut.png</file>
+        <file>t507_button_image/log.png</file>
     </qresource>
 </RCC>

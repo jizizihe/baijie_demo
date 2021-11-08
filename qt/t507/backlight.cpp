@@ -71,8 +71,8 @@ backlight::backlight(QWidget *parent) :
 
 
     ui->horizontalSlider->setRange(138,255);
-    ui->horizontalSlider->setValue(200);
-    light_value = 200;
+    ui->horizontalSlider->setValue(255);
+    light_value = 255;
 
     timing = new QTimer(this);
     timing->start();
@@ -110,26 +110,26 @@ void backlight::light_screen()      //Click on the light screen
         set_backlight(light_value);
 
     }
-    usleep(800);
+    usleep(5000);
 }
 
 void backlight::timerUp()       //check whether events are generated
 {
-    QTime now = QTime::currentTime().addSecs(timer_array[index_number]);
-    QTime shade = QTime::currentTime().addSecs((unsigned)timer_array[index_number] - 1);
+    QDateTime now = QDateTime::currentDateTime().addSecs(timer_array[index_number]);
+    QDateTime shade = QDateTime::currentDateTime().addSecs((unsigned)timer_array[index_number] - 1);
 
-//    qDebug() << "begin_timing" << QTime::currentTime();
-    while(QTime::currentTime() < now)
+//    qDebug() << "begin_timing" << QDateTime::currentDateTime() << "now_timing" << now;
+    while(QDateTime::currentDateTime() < now)
     {
         if(touch_flag)
         {
-            now = QTime::currentTime().addSecs((unsigned)timer_array[index_number]);
-            shade = QTime::currentTime().addSecs((unsigned)timer_array[index_number] - 1);
+            now = QDateTime::currentDateTime().addSecs((unsigned)timer_array[index_number]);
+            shade = QDateTime::currentDateTime().addSecs((unsigned)timer_array[index_number] - 1);
             set_backlight(light_value);
             touch_flag = false;
         }
 
-        if(QTime::currentTime() > shade)
+        if(QDateTime::currentDateTime() > shade)
         {
             set_backlight(140);
         }

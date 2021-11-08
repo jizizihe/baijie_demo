@@ -136,7 +136,7 @@ void MainWindow::on_pushButton_clicked()
     gpio_w.language_reload();
     voice_w.language_reload();
     touch_w.language_reload();
-    udev_w.language_reload();
+//    udev_w.language_reload();
     board_w.language_reload();
     keytest_w.language_reload();
     bluetooth_w.language_reload();

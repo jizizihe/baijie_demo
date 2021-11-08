@@ -17,10 +17,10 @@ void camera_interface()
     QProcess *proc = new QProcess();
 
     proc->start("bash", QStringList() << "-c" << "rm /data/yuv.jpg");
-    proc->waitForFinished();
+    proc->waitForFinished(-1);
 
     proc->start("bash",QStringList() << "-c" << "cd /data && csi_test_mplane");
-    proc->waitForFinished();
+    proc->waitForFinished(-1);
 
     proc->close();
     delete proc;
@@ -86,10 +86,6 @@ void all_interface_test::on_test_clicked()
     ui->image->setPixmap(QPixmap::fromImage(image));
     ui->image->show();
     ui->textEdit->append(tr("5. Whether the picture is displayed properly"));
-//    if()
-//    {
-//        ui->textEdit->append(tr("the camera test is failed!!!!"));
-//    }
 
 }
 
@@ -113,8 +109,6 @@ void all_interface_test::on_pushButton_3_clicked()
     delete proc;
     proc = 0;
 }
-
-
 
 
 void all_interface_test::on_pushButton_4_clicked()

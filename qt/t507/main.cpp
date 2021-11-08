@@ -11,8 +11,8 @@ int main(int argc, char *argv[])
     globalApp a(argc,argv);
 //    QApplication a(argc, argv);
 
-    keyBoard keyBoard;
-    keyBoard.hide();
+//    keyBoard keyBoard;
+//    keyBoard.hide();
 
     MainWindow w;
     w.show();
