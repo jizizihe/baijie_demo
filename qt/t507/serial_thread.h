@@ -21,7 +21,7 @@ public:
     void init_port(QString port,long baud,int *OpenFlag);//初始化串口
 
 signals:
-    void receive_data(int portId,QString buff);//向主线程发送接收到的串口数据
+    void receive_data(QString buff);//向主线程发送接收到的串口数据
     void thread_sig();
 
 private slots:

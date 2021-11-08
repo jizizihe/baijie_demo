@@ -51,7 +51,7 @@ void serial::on_OpenBtn_clicked()
          }
 
         //接收从子线程传输数据的信号
-        connect(PortA,SIGNAL(receive_data(int,QString)),this,SLOT(on_showData(int,QString)));//,Qt::QueuedConnection
+        connect(PortA,SIGNAL(receive_data(QString)),this,SLOT(on_showData(QString)));//,Qt::QueuedConnection
         connect(this,SIGNAL(writePort_sig(int,QByteArray)),PortA,SLOT(write_data(int,QByteArray)));
         connect(this,SIGNAL(closePort_sig(int)),PortA,SLOT(closePort(int)));
         //关闭设置菜单使能
@@ -90,7 +90,7 @@ void serial::on_OpenBtn_2_clicked()
             QMessageBox::critical(this,"information","failed!");
         }
        //接收从子线程传输数据的信号
-        connect(PortB,SIGNAL(receive_data(int,QString)),this,SLOT(on_showData(QString)));//,Qt::QueuedConnection
+        connect(PortB,SIGNAL(receive_data(QString)),this,SLOT(on_showData(QString)));//,Qt::QueuedConnection
         connect(this,SIGNAL(writePort_sig(int,QByteArray)),PortB,SLOT(write_data(int,QByteArray)));
         connect(this,SIGNAL(closePort_sig(int)),PortB,SLOT(closePort(int)));
 
@@ -117,8 +117,7 @@ void serial::on_OpenBtn_2_clicked()
 
 void serial::on_showData(QString buff)//用于显示数据
 {
-    qDebug() << "LINE:" << __LINE__ << buff << endl;
-
+    //qDebug() << "LINE:" << __LINE__ << buff << endl;
     ui->recvEdit->appendPlainText(buff);
 }
 
@@ -132,7 +131,7 @@ void serial::on_SendBtn_clicked()
 
 void serial::on_SendBtn_2_clicked()
 {
-    qDebug() << "LINE:" << __LINE__ << "on_sendBtn_clicked" << endl;
+    qDebug() << "LINE:" << __LINE__ << "on_sendBtn_2_clicked" << endl;
 
     emit writePort_sig(COM1,ui->SendEdit->text().toUtf8());
 }
