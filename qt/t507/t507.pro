@@ -62,7 +62,8 @@ SOURCES += \
     bluetooth_thread.cpp \
     user_manual.cpp \
     serial.cpp \
-    udev_interface.cpp
+    udev_interface.cpp \
+    serial_thread.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -91,7 +92,8 @@ HEADERS += \
     bluetooth_thread.h \
     user_manual.h \
     serial.h \
-    udev_interface.h
+    udev_interface.h \
+    serial_thread.h
 
 FORMS += \
         mainwindow.ui \
