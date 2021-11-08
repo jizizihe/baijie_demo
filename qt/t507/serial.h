@@ -1,43 +1,24 @@
 #ifndef SERIAL_H
 #define SERIAL_H
 
+#include "serial_thread.h"
 #include <QMainWindow>
-#include <QProcess>
-#include <QPushButton>
-#include <QDebug>
-#include <QLabel>
-#include <QComboBox>
-#include <QTextEdit>
-#include <QCheckBox>
-#include <QGroupBox>
-#include <QVBoxLayout>
-#include <QDateTime>
-
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
+#include <QMessageBox>
+#include <QDebug>
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <termios.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <sys/poll.h>
-#include <sys/ioctl.h>
-#include <time.h>
-#include <errno.h>
-#include <pthread.h>
-#include<iostream>
-
-#define SerialNumMax 10
-
+enum COMId
+{
+    COM_NULL =-1,
+    COM0 = 0,
+    COM1 = 1,
+    COM2= 2
+};
 
 namespace Ui {
 class serial;
 }
-
-static QStringList m_serialPortName;
 
 class serial : public QMainWindow
 {
@@ -47,52 +28,36 @@ public:
     explicit serial(QWidget *parent = 0);
     ~serial();
 
-    typedef struct port_num_t
-    {
-        int port_num = 0;
-        int server_client_flag = 0;  // 1--server  2--client
-    }port_num_s;
-
-    QCheckBox *SerialCheckBox[SerialNumMax]= {NULL};
-
-    //int port_num = -1;
-    static void *thread_serial_port(void *);
-    static int set_prop(int fd);
-    int port_check_stat = 0, count = 0;
-
-    void serial_thread(port_num_s * port_num_ptr);
-    int check_flag[SerialNumMax] = {0};
+    QStringList getPortNameList();
 
 signals:
     void Mysignal();
+    void closePort_sig(int portId);
+    void writePort_sig(int portId,QByteArray buff);
+
+private slots:
+    void on_showData(QString buff);//用于显示数据
+
+    void on_OpenBtn_clicked();
+
+    void on_OpenBtn_2_clicked();
+
+    void on_SendBtn_clicked();
+
+    void on_SendBtn_2_clicked();
+
+    void on_CleanBtn_clicked();
+
+    void on_CleanBtn_2_clicked();
+
+    void on_retBtn_clicked();
 
 private:
     Ui::serial *ui;
-    QProcess process;
 
-    QPushButton * retBt;
-    QLabel * TitleLabel;
-    QLabel * ModeChooseLabel;
-    QLabel * PortChooseLabel;
-    QComboBox * ModeChooseBox;
-    QComboBox * PortChooseBox;
-    QComboBox * ConnectBox;
-    QPushButton * StartBt;
-    QPushButton * StopBt;
-    QTextEdit * SerialMsgText;
-
-    QStringList serialPortName;
-    int port_count = 0;
-
-    char * port_name_new[5];
-
-private slots:
-    void readyReadStandardOutput();
-
-    void StartBt_clicked();
-    void StopBt_clicked();
-    void retBt_clicked();
-
+    serial_thread *PortA;
+    serial_thread *PortB;
+    QStringList m_portNameList;
 };
 
 #endif // SERIAL_H
