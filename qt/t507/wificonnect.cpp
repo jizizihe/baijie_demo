@@ -65,6 +65,7 @@ WifiConnect::WifiConnect(QWidget *parent) :
 WifiConnect::~WifiConnect()
 {
     delete ui;
+
 }
 
 void WifiConnect::scan_show()
@@ -264,6 +265,8 @@ void WifiConnect::WifiConnectBt_clicked()
 
 void WifiConnect::WifiCloseBt_clicked()
 {
+    WifiSsidLine->clear();
+    WifiPasswdLine->clear();
     this->close();
 }
 
