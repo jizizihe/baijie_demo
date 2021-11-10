@@ -1,0 +1,33 @@
+<RCC>
+    <qresource prefix="/">
+        <file>chinese.ts</file>
+        <file>chinese.qm</file>
+        <file>t507_button_image/wifi.png</file>
+        <file>t507_button_image/voice.png</file>
+        <file>t507_button_image/USB.png</file>
+        <file>t507_button_image/touch.png</file>
+        <file>t507_button_image/serial.png</file>
+        <file>t507_button_image/rtc .png</file>
+        <file>t507_button_image/key.png</file>
+        <file>t507_button_image/interface.png</file>
+        <file>t507_button_image/gpio.png</file>
+        <file>t507_button_image/ethernet.png</file>
+        <file>t507_button_image/cn.png</file>
+        <file>t507_button_image/bluetooth.png</file>
+        <file>t507_button_image/backlight.png</file>
+        <file>t507_button_image/about.png</file>
+        <file>t507_button_image/return.png</file>
+        <file>t507_button_image/user_manual.png</file>
+        <file>t507_button_image/cp.png</file>
+        <file>t507_button_image/del.png</file>
+        <file>t507_button_image/event.png</file>
+        <file>t507_button_image/exit.png</file>
+        <file>t507_button_image/flush.png</file>
+        <file>t507_button_image/open.png</file>
+        <file>t507_button_image/system.png</file>
+        <file>t507_button_image/cut.png</file>
+        <file>t507_button_image/log.png</file>
+        <file>t507_button_image/loading.webp</file>
+        <file>t507_button_image/wait.gif</file>
+    </qresource>
+</RCC>
