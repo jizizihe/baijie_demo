@@ -79,7 +79,7 @@ void serial_thread::read_data()
     QString buf;
     buf = QString(m_port->readAll());
     qDebug() << "LINE:" << __LINE__ << "read data:" << buf;
-    emit receive_data(m_portId,buf);
+    emit receive_data(buf);
 }
 
 void serial_thread::write_data(int portId,QByteArray buff)

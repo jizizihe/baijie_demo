@@ -27,6 +27,7 @@
         <file>t507_button_image/system.png</file>
         <file>t507_button_image/cut.png</file>
         <file>t507_button_image/log.png</file>
+<<<<<<< HEAD
         <file>t507_button_image/all/photo.png</file>
         <file>t507_button_image/all/show.png</file>
         <file>t507_button_image/all/test.png</file>
@@ -49,5 +50,9 @@
         <file>t507_button_image/wifi/signal.png</file>
         <file>t507_button_image/wifi/status.png</file>
         <file>t507_button_image/wifi/close.png</file>
+=======
+        <file>t507_button_image/loading.webp</file>
+        <file>t507_button_image/wait.gif</file>
+>>>>>>> c9f49ae2b9f4475afb59a6a7cc02c0501bf05ed1
     </qresource>
 </RCC>

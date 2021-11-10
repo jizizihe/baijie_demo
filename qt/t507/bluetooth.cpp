@@ -9,6 +9,12 @@ bluetooth::bluetooth(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QScreen *screen=QGuiApplication::primaryScreen ();
+    QRect mm=screen->availableGeometry() ;
+    int screen_width = mm.width();
+    int screen_height = mm.height();
+    //qDebug()<<screen_width<<screen_height;
+
     retBt = new QPushButton(this);
     retBt->setFixedSize(100,40);
 //    retBt->setText(tr("return"));
@@ -16,8 +22,8 @@ bluetooth::bluetooth(QWidget *parent) :
     retBt->move(10,10);
 
     BTTitleLab = new QLabel( this);
-    BTTitleLab->resize(200,100);
-    BTTitleLab->move(400,20);
+    BTTitleLab->resize(300,100);
+    BTTitleLab->move(this->width()/3,20);
     BTTitleLab->setText(tr("Blue Tooth"));
     QFont ft;
     ft.setPointSize(18);
@@ -25,24 +31,28 @@ bluetooth::bluetooth(QWidget *parent) :
 
     BTScanBt = new QPushButton(tr("BT scan"),this);
     BTScanBt->resize(250,50);
-    BTScanBt->move(100,200);
+    BTScanBt->move(this->width()/10,this->height()/3);
 
     BTPairBt = new QPushButton(tr("BT pair"),this);
     BTPairBt->resize(250,50);
-    BTPairBt->move(100,300);
+    BTPairBt->move(this->width()/10,this->height()/2);
 
     BTConnectBt = new QPushButton(tr("BT connect"),this);
     BTConnectBt->resize(250,50);
-    BTConnectBt->move(100,400);
+    BTConnectBt->move(this->width()/10,this->height()/3*2);
 
-    BTNameBox = new QComboBox(this);
-    BTNameBox->resize(500,80);
-    BTNameBox->move(400,150);
-//    BTNameBox->addItem("baijiekeji");
+    BtNameWidget = new QListWidget(this);
+    BtNameWidget->resize(this->width()/2,450);
+    BtNameWidget->move(this->width()/2-100,this->height()/6);
 
-    BTText = new QTextEdit(this);
-    BTText->resize(500,300);
-    BTText->move(400,250);
+    LoadLabel = new QLabel(this);
+    //LoadLabel->resize(100,100);
+    LoadLabel->move(screen_width/2 - 150,screen_height/2 -50);
+    pMovie = new QMovie("://t507_button_image/loading.webp");
+    LoadLabel->setFixedSize(50, 50);
+    LoadLabel->setScaledContents(true);
+    LoadLabel->setMovie(pMovie);
+    //pMovie->start();
 
     connect(retBt,SIGNAL(clicked(bool)),this,SLOT(retBt_clicked()));
     connect(BTScanBt,SIGNAL(clicked()),this,SLOT(BTScanBt_clicked()));
@@ -50,8 +60,11 @@ bluetooth::bluetooth(QWidget *parent) :
     connect(BTPairBt,SIGNAL(clicked()),this,SLOT(BTPairBt_clicked()));
 
     connect(this,SIGNAL(bluetooth_signal(int,QString)),BtThread,SLOT(flag_set(int,QString)));
-    connect(BtThread,SIGNAL(message(QString)),this,SLOT(recvmsg(QString)));
+    connect(BtThread,SIGNAL(message(int, QString)),this,SLOT(recvmsg(int, QString)));
     connect(BtThread,SIGNAL(setText(bool)),this,SLOT(setText_slot(bool)));
+    emit bluetooth_signal(1,0);
+    BtThread->start();
+
 }
 
 bluetooth::~bluetooth()
@@ -67,14 +80,63 @@ void bluetooth::retBt_clicked()
     emit Mysignal();
 }
 
-void bluetooth::recvmsg(QString str)
+void bluetooth::recvmsg(int signal_type,QString str)
 {
-    qDebug() << str;
-    this->BTText->setText(str);
+    if(signal_type == 1)
+    {
+        //qDebug() << "Line "<< __LINE__<< "recvmsg: "<< str;
+
+        BtScanList.clear();
+        BtScanList = str.split("\n");
+        BtScanList.removeAll(QString(""));
+        for(int i = 0; i < BtScanList.size(); i++)
+        {
+            QString tmp = BtScanList.at(i);
+            tmp = tmp.trimmed().section("\t",1,1);
+            BtNameWidget->addItem(tmp);
+        }
+        BtNameWidget->setCurrentRow(0);
+        BtNameWidget->setStyleSheet(R"(
+            QListWidget { outline: none; border:1px solid gray; color: black; }
+            QListWidget::Item { width: 800px; height: 50px; }
+            QListWidget::Item:hover { background: #4CAF50; color: white; }
+            QListWidget::item:selected { background: #e7e7e7; color: #f44336; }
+            QListWidget::item:selected:!active { background: lightgreen; }
+           )");
+        BtNameWidget->verticalScrollBar()->setStyleSheet("QScrollBar{width:40px;}");
+        BtNameWidget->horizontalScrollBar()->setStyleSheet("QScrollBar{height:30px;}");
+        BtNameWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+    }
+    else if(signal_type == 2)
+    {
+        if(str == "successful")
+        {
+            QMessageBox::information(this,"information","pair success!");
+        }
+        else if(str == "failed")
+        {
+            QMessageBox::critical(this,"information","pair failed!");
+        }
+    }
+    else if(signal_type == 3)
+    {
+        if(str == "successful")
+        {
+            QMessageBox::information(this,"information","connect success!");
+        }
+        else if(str == "failed")
+        {
+            QMessageBox::critical(this,"information","connect failed!");
+        }
+    }
+    pMovie->stop();
+    LoadLabel->close();
+
 }
 
 void bluetooth::setText_slot(bool flag)
 {
+    /*
     int BtCount,i;
 
     if(flag == true)
@@ -101,13 +163,17 @@ void bluetooth::setText_slot(bool flag)
             BTNameBox->addItem(strResult.simplified());
         }
     }
+    */
 }
 
 void bluetooth::BTScanBt_clicked()
 {
     qDebug() << "BTScanBt_clicked";
+    BtNameWidget->clear();
+    //BTText->setText(tr("Start scanning! \nPlease wait a moment..."));
 
-    BTText->setText(tr("Start scanning! \nPlease wait a moment..."));
+    LoadLabel->show();
+    pMovie->start();
 
     emit bluetooth_signal(1,0);
     BtThread->start();
@@ -115,22 +181,21 @@ void bluetooth::BTScanBt_clicked()
 
 void bluetooth::BTPairBt_clicked()
 {
-    BTText->setText(tr("Start Pairing! \nPlease wait a moment..."));
-
-    int BtNameIndex = BTNameBox->currentIndex();
-    QString strCmd = QString("cat /bluetooth_scan | sed -n '%1p' | awk '{print $1}'").arg(BtNameIndex+2);
-    //qDebug() << "strCmd == " << strCmd;
-    QString BtAddress = BtThread->executeLinuxCmd(strCmd);
+    int BtNameIndex = BtNameWidget->currentRow();
+    QString BtAddress = BtScanList.at(BtNameIndex);
+    BtAddress = BtAddress.trimmed().section("\t",0,0);
     qDebug() << BtAddress;
 
+    LoadLabel->show();
+    pMovie->start();
     emit bluetooth_signal(2,BtAddress);
     BtThread->start();
-
 }
 
 void bluetooth::BTConnectBt_clicked()
 {
-    BTText->setText(tr("Start Connection! \nPlease wait a moment..."));
+    LoadLabel->show();
+    pMovie->start();
 
     QString strCmd = QString("ps -x|grep pulseaudio | grep -v grep |wc -l");
     qDebug() << "strCmd == " << strCmd;
@@ -145,15 +210,13 @@ void bluetooth::BTConnectBt_clicked()
         qDebug() << strResult;
     }
 
-    int BtNameIndex = BTNameBox->currentIndex();
-    strCmd = QString("cat /bluetooth_scan | sed -n '%1p' | awk '{print $1}'").arg(BtNameIndex+2);
-    //qDebug() << "strCmd == " << strCmd;
-    QString BtAddress = BtThread->executeLinuxCmd(strCmd);
+    int BtNameIndex = BtNameWidget->currentRow();
+    QString BtAddress = BtScanList.at(BtNameIndex);
+    BtAddress = BtAddress.trimmed().section("\t",0,0);
     qDebug() << BtAddress;
 
     emit bluetooth_signal(3,BtAddress);
     BtThread->start();
-
 }
 
 void bluetooth::language_reload()
@@ -164,5 +227,4 @@ void bluetooth::language_reload()
     BTScanBt->setText(tr("BT scan"));
     BTPairBt->setText(tr("BT pair"));
     BTConnectBt->setText(tr("BT connect"));
-
 }
