@@ -63,7 +63,8 @@ SOURCES += \
     user_manual.cpp \
     serial.cpp \
     udev_interface.cpp \
-    serial_thread.cpp
+    serial_thread.cpp \
+    sys_setting.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -93,7 +94,8 @@ HEADERS += \
     user_manual.h \
     serial.h \
     udev_interface.h \
-    serial_thread.h
+    serial_thread.h \
+    sys_setting.h
 
 FORMS += \
         mainwindow.ui \
@@ -112,7 +114,8 @@ FORMS += \
     all_interface_test.ui \
     bluetooth.ui \
     user_manual.ui \
-    serial.ui
+    serial.ui \
+    sys_setting.ui
 
 RESOURCES += \
     translation.qrc

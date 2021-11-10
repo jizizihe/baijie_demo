@@ -35,18 +35,22 @@ WifiConnect::WifiConnect(QWidget *parent) :
 //    qDebug() << "Now there are " << WifiNameBox->count() << "Items";
 //    qDebug() << "The current item is" << WifiNameBox->currentText();
 
+//    WifiScanBt->setIcon(QIcon(":/t507_button_image/bluetooth/scan.png"));
     WifiScanBt = new QPushButton(tr("scan"),this);
     WifiScanBt->resize(100,50);
     WifiScanBt->move(830,50);
 
+//    WifiCleanBt->setIcon(QIcon(":/t507_button_image/serial/clean.png"));
     WifiCleanBt = new QPushButton(tr("clean"),this);
     WifiCleanBt->resize(100,50);
     WifiCleanBt->move(830,150);
 
+//    WifiConnectBt->setIcon(QIcon(":/t507_button_image/wifi/connect.png"));
     WifiConnectBt = new QPushButton(tr("connect"),this);
     WifiConnectBt->resize(150,50);
     WifiConnectBt->move(560,250);
 
+//    WifiCloseBt->setIcon(QIcon(":/t507_button_image/wifi/close.png"));
     WifiCloseBt = new QPushButton(tr("close"),this);
     WifiCloseBt->resize(150,50);
     WifiCloseBt->move(730,250);
