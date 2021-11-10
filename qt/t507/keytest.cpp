@@ -35,6 +35,7 @@ keytest::keytest(QWidget *parent) :
     keyText = new QTextEdit(this);
     keyText->resize(500,400);
     keyText->move(400,150);
+    keyText->setReadOnly(true);
 
     connect(retBt,SIGNAL(clicked(bool)),this,SLOT(retBt_clicked()));
     connect(StartBt,SIGNAL(clicked(bool)),this,SLOT(startBt_clicked()));
@@ -49,6 +50,10 @@ keytest::~keytest()
 
 void keytest::retBt_clicked()
 {
+    keyText->clear();
+    this->task->terminate();
+    this->task->wait();
+
     emit Mysignal();
 }
 

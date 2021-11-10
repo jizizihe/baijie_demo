@@ -129,6 +129,11 @@ void bluetooth::recvmsg(int signal_type,QString str)
             QMessageBox::critical(this,"information","connect failed!");
         }
     }
+
+    BTScanBt->setEnabled(true);
+    BTPairBt->setEnabled(true);
+    BTConnectBt->setEnabled(true);
+
     pMovie->stop();
     LoadLabel->close();
 
@@ -172,6 +177,8 @@ void bluetooth::BTScanBt_clicked()
     BtNameWidget->clear();
     //BTText->setText(tr("Start scanning! \nPlease wait a moment..."));
 
+    BTPairBt->setDisabled(true);
+    BTConnectBt->setDisabled(true);
     LoadLabel->show();
     pMovie->start();
 

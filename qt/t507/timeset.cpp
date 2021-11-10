@@ -64,7 +64,7 @@ timeset::timeset(QWidget *parent) :
     RTCtimepLabel->resize(500,100);
     RTCtimepLabel->move(300,220);
 
-    QTimer *SysTimer = new QTimer(this);
+    SysTimer = new QTimer(this);
     connect(SysTimer,SIGNAL(timeout()),this,SLOT(SystimerUpdate()));
     SysTimer->start(1000);
     RTCTimer = new QTimer(this);
