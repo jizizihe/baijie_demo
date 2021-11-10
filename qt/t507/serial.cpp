@@ -38,16 +38,16 @@ void serial::on_OpenBtn_clicked()
 {
     int OpenFlag = 0;
     //对串口进行一些初始化
-    if(ui->OpenBtn->text()=="open")
+    if(ui->OpenBtn->text()==tr("open"))
     {
          PortA = new serial_thread(COM0,ui->SerialCb->currentText(), ui->BaudrateCb->currentText().toInt(),&OpenFlag);
          if(OpenFlag == 1)
          {
-             QMessageBox::information(this,"information","success!");
+             QMessageBox::information(this,"information",tr("success!"));
          }
          else
          {
-             QMessageBox::critical(this,"information","failed!");
+             QMessageBox::critical(this,"information",tr("failed!"));
          }
 
         //接收从子线程传输数据的信号
@@ -57,7 +57,7 @@ void serial::on_OpenBtn_clicked()
         //关闭设置菜单使能
         ui->SerialCb->setEnabled(false);
         ui->BaudrateCb->setEnabled(false);
-        ui->OpenBtn->setText("close");
+        ui->OpenBtn->setText(tr("close"));
     }
     else
     {
@@ -69,7 +69,7 @@ void serial::on_OpenBtn_clicked()
         //恢复设置菜单使能
         ui->SerialCb->setEnabled(true);
         ui->BaudrateCb->setEnabled(true);
-        ui->OpenBtn->setText("open");
+        ui->OpenBtn->setText(tr("open"));
     }
 
 }
@@ -78,16 +78,16 @@ void serial::on_OpenBtn_2_clicked()
 {
     int OpenFlag = 0;
     //对串口进行一些初始化
-    if(ui->OpenBtn_2->text()=="open")
+    if(ui->OpenBtn_2->text()==tr("open"))
     {
         PortB = new serial_thread(COM1,ui->SerialCb_2->currentText(), ui->BaudrateCb_2->currentText().toInt(),&OpenFlag);
         if(OpenFlag == 1)
         {
-            QMessageBox::information(this,"information","success!");
+            QMessageBox::information(this,"information",tr("success!"));
         }
         else
         {
-            QMessageBox::critical(this,"information","failed!");
+            QMessageBox::critical(this,"information",tr("failed!"));
         }
        //接收从子线程传输数据的信号
         connect(PortB,SIGNAL(receive_data(QString)),this,SLOT(on_showData(QString)));//,Qt::QueuedConnection
@@ -97,7 +97,7 @@ void serial::on_OpenBtn_2_clicked()
        //关闭设置菜单使能
        ui->SerialCb_2->setEnabled(false);
        ui->BaudrateCb_2->setEnabled(false);
-       ui->OpenBtn_2->setText("close");
+       ui->OpenBtn_2->setText(tr("close"));
     }
     else
     {
@@ -110,7 +110,7 @@ void serial::on_OpenBtn_2_clicked()
         //恢复设置菜单使能
         ui->SerialCb_2->setEnabled(true);
         ui->BaudrateCb_2->setEnabled(true);
-        ui->OpenBtn_2->setText("open");
+        ui->OpenBtn_2->setText(tr("open"));
     }
 
 }
@@ -149,4 +149,9 @@ void serial::on_CleanBtn_2_clicked()
 void serial::on_retBtn_clicked()
 {
     emit Mysignal();
+}
+
+void serial::language_reload()
+{
+    ui->retranslateUi(this);
 }

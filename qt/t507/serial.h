@@ -47,6 +47,7 @@ public:
     ~serial();
 
     QStringList getPortNameList();
+    void language_reload();
 
 signals:
     void Mysignal();

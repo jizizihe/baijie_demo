@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="return_2">
     <property name="geometry">
@@ -22,6 +25,44 @@
       <width>100</width>
       <height>40</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/****************按钮部件*******************/
+QPushButton{
+     background-color: rgba(100, 225, 100, 120);/*背景色*/
+     border-style: outset; /*边框样式*/
+     border-width:  2px;  /*边框宽度为4像素*/
+     border-radius: 10px; /*边框圆角半径*/
+     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
+     font: bold 14px;/*字体*/
+     color:rgba(0, 0, 0, 100);/*字体颜色*/
+     padding: 6px; /*填衬*/
+    outline: none; /*去掉按钮的虚线框*/
+}
+
+QPushButton:hover{ /*鼠标悬停在按钮上时*/
+        background-color:rgba(100,255,100, 100);
+        border-color: rgba(255, 225, 255, 200);
+        color:rgba(0, 0, 0, 200);
+}
+
+QPushButton:pressed { /*按钮被按下时*/
+     background-color:rgba(100,255,100, 200);
+     border-color: rgba(255, 225, 255, 30);
+     border-style: inset;
+     color:rgba(0, 0, 0, 100);
+}
+
+/****************滑块部件*******************/
+
+
+QSlider::handle:horizontal { /*水平滑块的手柄*/
+        image: url(:/image/sliderHandle.png);
+}
+
+QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
+        border-image: url(:/image/slider.png);/*边框图片*/
+}</string>
     </property>
     <property name="text">
      <string/>
@@ -36,48 +77,245 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>180</y>
+      <y>170</y>
       <width>241</width>
-      <height>211</height>
+      <height>241</height>
      </rect>
     </property>
     <widget class="QPushButton" name="play">
      <property name="geometry">
       <rect>
-       <x>9</x>
-       <y>170</y>
-       <width>221</width>
-       <height>31</height>
+       <x>150</x>
+       <y>173</y>
+       <width>71</width>
+       <height>41</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">/****************按钮部件*******************/
+QPushButton{
+     background-color: rgba(100, 225, 100, 120);/*背景色*/
+     border-style: outset; /*边框样式*/
+     border-width:  2px;  /*边框宽度为4像素*/
+     border-radius: 10px; /*边框圆角半径*/
+     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
+     font: bold 14px;/*字体*/
+     color:rgba(0, 0, 0, 100);/*字体颜色*/
+     padding: 6px; /*填衬*/
+    outline: none; /*去掉按钮的虚线框*/
+}
+
+QPushButton:hover{ /*鼠标悬停在按钮上时*/
+        background-color:rgba(100,255,100, 100);
+        border-color: rgba(255, 225, 255, 200);
+        color:rgba(0, 0, 0, 200);
+}
+
+QPushButton:pressed { /*按钮被按下时*/
+     background-color:rgba(100,255,100, 200);
+     border-color: rgba(255, 225, 255, 30);
+     border-style: inset;
+     color:rgba(0, 0, 0, 100);
+}
+
+/****************滑块部件*******************/
+
+
+QSlider::handle:horizontal { /*水平滑块的手柄*/
+        image: url(:/image/sliderHandle.png);
+}
+
+QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
+        border-image: url(:/image/slider.png);/*边框图片*/
+}</string>
+     </property>
      <property name="text">
-      <string>play</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="translation.qrc">
+       <normaloff>:/t507_button_image/voice/play.png</normaloff>:/t507_button_image/voice/play.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
     <widget class="QPushButton" name="begin">
      <property name="geometry">
       <rect>
-       <x>9</x>
+       <x>150</x>
        <y>90</y>
-       <width>221</width>
-       <height>31</height>
+       <width>71</width>
+       <height>41</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">/****************按钮部件*******************/
+QPushButton{
+     background-color: rgba(100, 225, 100, 120);/*背景色*/
+     border-style: outset; /*边框样式*/
+     border-width:  2px;  /*边框宽度为4像素*/
+     border-radius: 10px; /*边框圆角半径*/
+     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
+     font: bold 14px;/*字体*/
+     color:rgba(0, 0, 0, 100);/*字体颜色*/
+     padding: 6px; /*填衬*/
+    outline: none; /*去掉按钮的虚线框*/
+}
+
+QPushButton:hover{ /*鼠标悬停在按钮上时*/
+        background-color:rgba(100,255,100, 100);
+        border-color: rgba(255, 225, 255, 200);
+        color:rgba(0, 0, 0, 200);
+}
+
+QPushButton:pressed { /*按钮被按下时*/
+     background-color:rgba(100,255,100, 200);
+     border-color: rgba(255, 225, 255, 30);
+     border-style: inset;
+     color:rgba(0, 0, 0, 100);
+}
+
+/****************滑块部件*******************/
+
+
+QSlider::handle:horizontal { /*水平滑块的手柄*/
+        image: url(:/image/sliderHandle.png);
+}
+
+QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
+        border-image: url(:/image/slider.png);/*边框图片*/
+}</string>
+     </property>
      <property name="text">
-      <string>begin</string>
+      <string/>
      </property>
     </widget>
     <widget class="QPushButton" name="choose_3">
      <property name="geometry">
       <rect>
-       <x>9</x>
-       <y>0</y>
-       <width>221</width>
-       <height>31</height>
+       <x>150</x>
+       <y>10</y>
+       <width>71</width>
+       <height>41</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/****************按钮部件*******************/
+QPushButton{
+     background-color: rgba(100, 225, 100, 120);/*背景色*/
+     border-style: outset; /*边框样式*/
+     border-width:  2px;  /*边框宽度为4像素*/
+     border-radius: 10px; /*边框圆角半径*/
+     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
+     font: bold 14px;/*字体*/
+     color:rgba(0, 0, 0, 100);/*字体颜色*/
+     padding: 6px; /*填衬*/
+    outline: none; /*去掉按钮的虚线框*/
+}
+
+QPushButton:hover{ /*鼠标悬停在按钮上时*/
+        background-color:rgba(100,255,100, 100);
+        border-color: rgba(255, 225, 255, 200);
+        color:rgba(0, 0, 0, 200);
+}
+
+QPushButton:pressed { /*按钮被按下时*/
+     background-color:rgba(100,255,100, 200);
+     border-color: rgba(255, 225, 255, 30);
+     border-style: inset;
+     color:rgba(0, 0, 0, 100);
+}
+
+/****************滑块部件*******************/
+
+
+QSlider::handle:horizontal { /*水平滑块的手柄*/
+        image: url(:/image/sliderHandle.png);
+}
+
+QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
+        border-image: url(:/image/slider.png);/*边框图片*/
+}</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="translation.qrc">
+       <normaloff>:/t507_button_image/open.png</normaloff>:/t507_button_image/open.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>10</y>
+       <width>131</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>choose</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_9">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>94</y>
+       <width>121</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>begin</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>173</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>play</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>
@@ -248,17 +486,73 @@
       <height>41</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QSlider::groove:horizontal {  
+border: 1px solid #bbb;  
+background: white;  
+height: 30px;  
+border-radius: 4px;  
+}  
+  
+QSlider::sub-page:horizontal {  
+background: qlineargradient(x1: 0, y1: 0.2, x2: 1, y2: 1,  
+    stop: 0 #bbf, stop: 1 #55f);  
+border: 1px solid #777;  
+height: 10px;  
+border-radius: 4px;  
+}  
+  
+QSlider::add-page:horizontal {  
+background: #fff;  
+border: 1px solid #777;  
+height: 10px;  
+border-radius: 4px;  
+}  
+  
+QSlider::handle:horizontal {  
+background: qlineargradient(x1:0, y1:0, x2:1, y2:1,  
+    stop:0 #eee, stop:1 #ccc);  
+border: 1px solid #777;  
+width: 13px;  
+margin-top: -2px;  
+margin-bottom: -2px;  
+border-radius: 4px;  
+}  
+  
+QSlider::handle:horizontal:hover {  
+background: qlineargradient(x1:0, y1:0, x2:1, y2:1,  
+    stop:0 #fff, stop:1 #ddd);  
+border: 1px solid #444;  
+border-radius: 4px;  
+}  
+  
+QSlider::sub-page:horizontal:disabled {  
+background: #bbb;  
+border-color: #999;  
+}  
+  
+QSlider::add-page:horizontal:disabled {  
+background: #eee;  
+border-color: #999;  
+}  
+  
+QSlider::handle:horizontal:disabled {  
+background: #eee;  
+border: 1px solid #aaa;  
+border-radius: 4px;  
+} </string>
+    </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QLabel" name="label_7">
+   <widget class="QLabel" name="sound">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>430</y>
-      <width>81</width>
-      <height>30</height>
+      <x>200</x>
+      <y>420</y>
+      <width>71</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -266,8 +560,20 @@
       <pointsize>11</pointsize>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(100, 225, 100, 120);/*背景色*/
+border：1px solid gray;/*边框大小，样式，颜色*/
+border-radius:10px;/*用来设定边框的弧度，可以设定圆角的按钮*/
+</string>
+    </property>
     <property name="text">
-     <string>sound:</string>
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="translation.qrc">:/t507_button_image/voice/sound.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -286,6 +592,8 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="translation.qrc"/>
+ </resources>
  <connections/>
 </ui>

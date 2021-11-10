@@ -27,7 +27,32 @@
         <file>t507_button_image/system.png</file>
         <file>t507_button_image/cut.png</file>
         <file>t507_button_image/log.png</file>
+<<<<<<< HEAD
+        <file>t507_button_image/all/photo.png</file>
+        <file>t507_button_image/all/show.png</file>
+        <file>t507_button_image/all/test.png</file>
+        <file>t507_button_image/bluetooth/connect.png</file>
+        <file>t507_button_image/bluetooth/pair.png</file>
+        <file>t507_button_image/bluetooth/scan.png</file>
+        <file>t507_button_image/ethernet/modify.png</file>
+        <file>t507_button_image/ethernet/run.png</file>
+        <file>t507_button_image/ethernet/show.png</file>
+        <file>t507_button_image/ethernet/static.png</file>
+        <file>t507_button_image/serial/clean.png</file>
+        <file>t507_button_image/serial/send.png</file>
+        <file>t507_button_image/voice/begin.png</file>
+        <file>t507_button_image/voice/play.png</file>
+        <file>t507_button_image/voice/sound.png</file>
+        <file>t507_button_image/voice/stop.png</file>
+        <file>t507_button_image/wifi/connect.png</file>
+        <file>t507_button_image/wifi/disconnect.png</file>
+        <file>t507_button_image/wifi/hot spot.png</file>
+        <file>t507_button_image/wifi/signal.png</file>
+        <file>t507_button_image/wifi/status.png</file>
+        <file>t507_button_image/wifi/close.png</file>
+=======
         <file>t507_button_image/loading.webp</file>
         <file>t507_button_image/wait.gif</file>
+>>>>>>> c9f49ae2b9f4475afb59a6a7cc02c0501bf05ed1
     </qresource>
 </RCC>

@@ -7,23 +7,26 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(&backlight_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+//    connect(&backlight_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&voice_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&udev_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&gpio_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
-    connect(&timeset_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+//    connect(&timeset_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
 
     connect(&touch_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
-    connect(&timeset_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+//    connect(&timeset_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
 
     connect(&wifi_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&eth0_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&keytest_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
-    connect(&board_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+//    connect(&board_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&all_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&bluetooth_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
-    connect(&user_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+//    connect(&user_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&serial_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+
+    connect(&system_w,SIGNAL(sigmain()),this,SLOT(show_main()));
+    connect(&system_w,SIGNAL(main_cn()),this,SLOT(cn_main()));
 }
 
 MainWindow::~MainWindow()
@@ -31,38 +34,21 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
-void MainWindow::on_rtc_clicked()
-{
-    this->hide();
-    timeset_w.show();
-}
-
 void MainWindow::show_main()
 {
-    backlight_w.hide();
     voice_w.hide();
     udev_w.hide();
     gpio_w.hide();
-    timeset_w.hide();
     touch_w.hide();
     wifi_w.hide();
     eth0_w.hide();
     keytest_w.hide();
-    board_w.hide();
     all_w.hide();
     bluetooth_w.hide();
-    user_w.hide();
     serial_w.hide();
-
     this->show();
 }
 
-void MainWindow::on_backlight_clicked()
-{
-    this->hide();
-    backlight_w.show();
-}
 
 void MainWindow::on_vf_clicked()
 {
@@ -106,13 +92,7 @@ void MainWindow::on_keytest_clicked()
     keytest_w.show();
 }
 
-void MainWindow::on_auto_2_clicked()
-{
-    this->hide();
-    board_w.show();
-}
-
-void MainWindow::on_pushButton_clicked()
+void MainWindow::cn_main()
 {
     static bool languageflag = 0;
     if(languageflag)
@@ -131,17 +111,14 @@ void MainWindow::on_pushButton_clicked()
     ui->retranslateUi(this);
     wifi_w.language_reload();
     eth0_w.language_reload();
-    timeset_w.language_reload();
-    backlight_w.language_reload();
     gpio_w.language_reload();
     voice_w.language_reload();
     touch_w.language_reload();
-//    udev_w.language_reload();
-    board_w.language_reload();
+    udev_w.language_reload();
     keytest_w.language_reload();
     bluetooth_w.language_reload();
     all_w.language_reload();
-    user_w.language_reload();
+    serial_w.language_reload();
 }
 
 void MainWindow::on_bluetooth_clicked()
@@ -156,14 +133,15 @@ void MainWindow::on_alltest_clicked()
     all_w.show();
 }
 
-void MainWindow::on_auto_4_clicked()
-{
-    this->hide();
-    user_w.show();
-}
 
 void MainWindow::on_serialport_clicked()
 {
     this->hide();
     serial_w.show();
+}
+
+void MainWindow::on_system_clicked()
+{
+    this->hide();
+    system_w.show();
 }

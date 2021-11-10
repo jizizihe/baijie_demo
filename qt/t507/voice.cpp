@@ -2,6 +2,7 @@
 #include "ui_voice.h"
 
 #include <QMessageBox>
+#include <QLabel>
 
 //#define Dbug
 #ifdef Dbug
@@ -36,6 +37,8 @@ voice::voice(QWidget *parent) :
     QTimer *show_time = new QTimer(this);
     show_time->start(1000);
     connect(show_time,SIGNAL(timeout()),this,SLOT(show_time()));
+
+    ui->begin->setIcon(QIcon(":/t507_button_image/voice/begin.png"));
 
 }
 
@@ -141,20 +144,16 @@ void voice::on_begin_clicked()
 
         files = QString("%1_record.wav").arg(s_time);
         file_name = files;
-
-//        qDebug() << "str name:" << str;
-//        qDebug() << "file_name:" << file_name;
-        ui->begin->setText(tr("end"));
+        ui->begin->setIcon(QIcon(":/t507_button_image/voice/stop.png"));
         flag = false;
         refresh_flag = false;
-//        qDebug() << "begin arecord";
         proc->start(str);
 
         ui->time->setText(s_time);
     }
     else
     {
-        ui->begin->setText(tr("begin"));
+        ui->begin->setIcon(QIcon(":/t507_button_image/voice/begin.png"));
 
         QMessageBox::information(this, file_name, file_name);
 

@@ -24,26 +24,32 @@ wifi::wifi(QWidget *parent) :
     pLabel->setFont(ft);
 
     WifiConnectBt = new QPushButton(this);
+
+    WifiConnectBt->setIcon(QIcon(":/t507_button_image/wifi/connect.png"));
     WifiConnectBt->setText(tr("wifi connect"));
     WifiConnectBt->resize(250,50);
     WifiConnectBt->move(50,150);
 
     WifiDisconnectBt = new QPushButton(this);
+    WifiDisconnectBt->setIcon(QIcon(":/t507_button_image/wifi/disconnect.png"));
     WifiDisconnectBt->setText(tr("wifi disconnect"));
     WifiDisconnectBt->resize(250,50);
     WifiDisconnectBt->move(50,230);
 
     HotSpotBt = new QPushButton(this);
+    HotSpotBt->setIcon(QIcon(":/t507_button_image/wifi/hot spot.png"));
     HotSpotBt->setText(tr("hot spot"));
     HotSpotBt->resize(250,50);
     HotSpotBt->move(50,310);
 
     SignalQualityBt = new QPushButton(this);
+    SignalQualityBt->setIcon(QIcon(":/t507_button_image/wifi/signal.png"));
     SignalQualityBt->setText(tr("signal quality"));
     SignalQualityBt->resize(250,50);
     SignalQualityBt->move(50,390);
 
     StatusBt = new QPushButton(this);
+    StatusBt->setIcon(QIcon(":/t507_button_image/wifi/status.png"));
     StatusBt->setText(tr("connection status"));
     StatusBt->resize(250,50);
     StatusBt->move(50,470);
@@ -100,7 +106,6 @@ QString wifi_disconnect()
     QProcess process;
     process.start("bash", QStringList() <<"-c" << strCmd);
     process.waitForFinished();
-
     QString strResult = process.readAllStandardOutput();
     qDebug() << strResult;
 

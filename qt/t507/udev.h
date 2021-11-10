@@ -7,6 +7,14 @@
 #include <QFile>
 #include <QTimer>
 #include <QProcess>
+#include <QFileInfoList>
+#include <QFileDialog>
+#include <QDateTime>
+#include <QTime>
+#include <QMessageBox>
+#include <QPalette>
+#include <qfileinfo.h>
+
 
 //#include <unistd.h>
 //#include <stdio.h>
@@ -35,7 +43,7 @@ public:
     ~udev();
     void umount_device();
     void show_file(QString);
-//    void language_reload();
+    void language_reload();
 
 private slots:
 //    void on_new_2_clicked();
