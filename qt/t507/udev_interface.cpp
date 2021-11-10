@@ -8,6 +8,44 @@
 #endif
 
 
+QString get_gateway()
+{
+    QProcess *proc = new QProcess();
+    proc->start("bash",QStringList() << "-c" << "route -n | awk '{print $2}'");
+    proc->waitForFinished(-1);
+
+    QString str = proc->readAllStandardOutput();
+    QStringList route = str.split("\n");
+
+    for(int i = 0; i < route.size(); i++)
+    {
+        if(route.at(i) == "Gateway" && route.at(i+1) != "0.0.0.0")
+        {
+            str = route.at(i+1);
+            qDebug() << "str :" << str;
+            return str;
+        }
+    }
+    return NULL;
+
+}
+
+QString ping_gateway()
+{
+    QString gateway = get_gateway();
+    QString dex = "1 received, 0% packet loss";
+    QString sd_str = QString("ping -c 1 %1 | grep '%2'").arg(gateway).arg(dex);
+
+    QProcess proc;
+    proc.start("bash",QStringList() << "-c" << sd_str);
+    proc.waitForFinished();
+
+    if(proc.readAllStandardOutput() != NULL)
+        return "OK";
+
+    return "Failed";
+}
+
 QString get_new_usb()
 {
 //    qDebug() << "in get_new_usb";
@@ -34,7 +72,6 @@ QString get_new_usb()
     for(i = 0; !file.atEnd();++i)
     {
         array_data[i] = file.readLine();
-//        qDebug() <<__LINE__ <<array_data[i];
     }
 
     QByteArray temp;
@@ -52,7 +89,6 @@ QString get_new_usb()
             break;
         }
     }
-
     file.flush();
     file.close();
 

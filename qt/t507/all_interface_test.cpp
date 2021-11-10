@@ -79,13 +79,18 @@ void all_interface_test::on_test_clicked()
     else
         ui->textEdit->append(tr("4. SIM OK"));
 
+    if(ping_gateway() == tr("OK"))
+        ui->textEdit->append(tr("5. NETWORK OK"));
+    else
+        ui->textEdit->append(tr("5. NETWORK Failed"));
+
 
     camera_interface();
     QImage image = QImage("/data/yuv.jpg");
     ui->image->setScaledContents(true);
     ui->image->setPixmap(QPixmap::fromImage(image));
     ui->image->show();
-    ui->textEdit->append(tr("5. Whether the picture is displayed properly"));
+    ui->textEdit->append(tr("6. Whether the picture is displayed properly?"));
 
 }
 

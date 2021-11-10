@@ -10,6 +10,8 @@
 QString get_new_usb();
 QString get_new_sd();
 QString get_new_sim();
+QString get_gateway();
+QString ping_gateway();
 
 
 #endif // UDEV_INTERFACE_H
