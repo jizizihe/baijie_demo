@@ -19,7 +19,7 @@ public:
     QString bluetooth_connect(QString BtAddress);
 
 signals:
-    void message(QString);
+    void message(int, QString);
     void setText(bool);
 
 public slots:

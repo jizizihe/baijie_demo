@@ -14,6 +14,11 @@
 #include <QThread>
 #include <QFile>
 #include<iostream>
+#include <QListWidget>
+#include <QScrollBar>
+#include <QMessageBox>
+#include <QMovie>
+#include<QScreen>
 
 namespace Ui {
 class bluetooth;
@@ -34,7 +39,8 @@ private slots:
     void BTScanBt_clicked();
     void BTConnectBt_clicked();
     void BTPairBt_clicked();
-    void recvmsg(QString);
+    void recvmsg(int,QString);
+
     void setText_slot(bool);
 
 signals:
@@ -44,14 +50,18 @@ signals:
 private:
     Ui::bluetooth *ui;
 
-    QComboBox * BTNameBox;
-    QTextEdit * BTText;
+    QStringList BtScanList;
+
     QLabel * BTTitleLab;
     QPushButton * BTScanBt;
     QPushButton * BTConnectBt;
     QPushButton * BTPairBt;
     QPushButton * retBt;
 
+    QLabel *LoadLabel;
+    QMovie *pMovie;
+
+    QListWidget * BtNameWidget;
     bluetooth_thread * BtThread=new bluetooth_thread(NULL);//声明线程
 
 };

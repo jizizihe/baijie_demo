@@ -7,29 +7,27 @@ bluetooth_thread::bluetooth_thread(QObject *parent) : QThread(parent)
 
 void bluetooth_thread::run()
 {
-    qDebug() << "start bluetooth_thread";
+    if(scan_flag == true)
+    {
+        QString scan_result = bluetooth_scan();
+        emit setText(true);
+        emit message(1,scan_result);
+    }
+    else if(pair_flag == true)
+    {
+        QString pair_result = bluetooth_pair(BtAddress);
+        emit message(2,pair_result);
+    }
+    else if(connect_flag == true)
+    {
+        QString connect_result = bluetooth_connect(BtAddress);
+        emit message(3,connect_result);
+    }
+    else
+    {
+        emit setText(false);
 
-        if(scan_flag == true)
-        {
-            QString scan_result = bluetooth_scan();
-            emit setText(true);
-            emit message(scan_result);
-        }
-        else if(pair_flag == true)
-        {
-            QString pair_result = bluetooth_pair(BtAddress);
-            emit message(pair_result);
-        }
-        else if(connect_flag == true)
-        {
-            QString connect_result = bluetooth_connect(BtAddress);
-            emit message(connect_result);
-        }
-        else
-        {
-            emit setText(false);
-
-        }
+    }
 
 }
 
@@ -65,37 +63,32 @@ void bluetooth_thread::flag_set(int signal_type,QString address)
 QString bluetooth_thread::bluetooth_scan()
 {
     QString strCmd = QString("rfkill unblock all");
-    qDebug() << "strCmd == " << strCmd;
+    //qDebug() << "strCmd == " << strCmd;
     QString strResult = executeLinuxCmd(strCmd);
-    qDebug() << strResult;
+    //qDebug() << strResult;
 
     strCmd = QString("killall hciattach");
-    qDebug() << "strCmd == " << strCmd;
+    //qDebug() << "strCmd == " << strCmd;
     strResult = executeLinuxCmd(strCmd);
-    qDebug() << strResult;
+    //qDebug() << strResult;
     QThread::msleep(100);
 
     strCmd = QString("hciattach -n -s 1500000 /dev/ttyBT0 sprd 1>/dev/null 2>/dev/null &");
-    qDebug() << "strCmd == " << strCmd;
+    //qDebug() << "strCmd == " << strCmd;
     strResult = executeLinuxCmd(strCmd);
-    qDebug() << strResult;
+    //qDebug() << strResult;
     QThread::sleep(2);
 
     strCmd = QString("hciconfig hci0 up && hciconfig hci0 piscan");
-    qDebug() << "strCmd == " << strCmd;
+    //qDebug() << "strCmd == " << strCmd;
     strResult = executeLinuxCmd(strCmd);
-    qDebug() << strResult;
+    //qDebug() << strResult;
     QThread::sleep(1);
 
-    strCmd = QString("hcitool scan > /bluetooth_scan");
-    qDebug() << "strCmd == " << strCmd;
+    strCmd = QString("hcitool scan | sed \"1d\" ");
+    //qDebug() << "strCmd == " << strCmd;
     strResult = executeLinuxCmd(strCmd);
-    qDebug() << strResult;
-
-    strCmd = QString("cat /bluetooth_scan");
-    qDebug() << "strCmd == " << strCmd;
-    strResult = executeLinuxCmd(strCmd);
-    qDebug() << strResult;
+    //qDebug() << strResult;
 
     return strResult;
 }
@@ -171,11 +164,11 @@ QString bluetooth_thread::bluetooth_pair(QString BtAddress)
 
     if(PairResult == 1)  //1 == true
     {
-        strResult = "Pairing successful!";
+        strResult = "successful";
     }
     else
     {
-        strResult = "Pairing failed!";
+        strResult = "failed";
     }
 
     return strResult;
@@ -234,11 +227,11 @@ QString bluetooth_thread::bluetooth_connect(QString BtAddress)
 
     if(ConnectResult == 1)
     {
-        strResult = "Connection successful!";
+        strResult = "successful";
     }
     else
     {
-        strResult = "Connection failed!";
+        strResult = "failed";
     }
 
     return strResult;
@@ -249,7 +242,7 @@ QString bluetooth_thread::executeLinuxCmd(QString strCmd)
 {
     QProcess p;
     p.start("bash", QStringList() <<"-c" << strCmd);
-    p.waitForFinished();
+    p.waitForFinished(-1);
     QString strResult = p.readAllStandardOutput();
     return strResult;
 }
