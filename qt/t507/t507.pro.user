@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.5.2, 2021-11-10T11:29:30. -->
+<!-- Written by QtCreator 4.5.2, 2021-11-10T16:20:55. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -66,7 +66,7 @@
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/szbaijie/t3/te</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/szbaijie/t3/baijie_interface/qt/build-t507-helpera133-Debug</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -268,10 +268,16 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">RemoteLinux.DirectUploadStep</value>
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedFiles">
        <value type="QString">/home/szbaijie/t3/te/te</value>
+       <value type="QString">/home/szbaijie/t3/te/main</value>
        <value type="QString">/home/szbaijie/t3/baijie_interface/qt/build-t507-helpera133-Debug/w</value>
+       <value type="QString">/home/szbaijie/t3/te/t3</value>
        <value type="QString">/home/szbaijie/t3/baijie_interface/qt/build-t507-helpera133-Debug/main</value>
+       <value type="QString">/home/szbaijie/t3/baijie_interface/qt/main</value>
       </valuelist>
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedHosts">
+       <value type="QString">192.168.0.164</value>
+       <value type="QString">192.168.0.164</value>
+       <value type="QString">192.168.0.164</value>
        <value type="QString">192.168.0.164</value>
        <value type="QString">192.168.0.164</value>
        <value type="QString">192.168.0.164</value>
@@ -280,16 +286,25 @@
        <value type="QString">/</value>
        <value type="QString">/</value>
        <value type="QString">/</value>
+       <value type="QString">/</value>
+       <value type="QString">/</value>
+       <value type="QString">/</value>
       </valuelist>
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedSysroots">
+       <value type="QString"></value>
+       <value type="QString"></value>
+       <value type="QString"></value>
        <value type="QString"></value>
        <value type="QString"></value>
        <value type="QString"></value>
       </valuelist>
       <valuelist type="QVariantList" key="ProjectExplorer.RunConfiguration.LastDeployedTimes">
        <value type="QDateTime">2021-11-10T11:29:07</value>
+       <value type="QDateTime">2021-11-10T16:05:47</value>
        <value type="QDateTime">2021-11-09T14:11:08</value>
+       <value type="QDateTime">2021-11-10T14:08:10</value>
        <value type="QDateTime">2021-11-09T11:38:01</value>
+       <value type="QDateTime">2021-11-10T16:17:19</value>
       </valuelist>
       <value type="bool" key="RemoteLinux.GenericDirectUploadStep.IgnoreMissingFiles">false</value>
       <value type="bool" key="RemoteLinux.GenericDirectUploadStep.Incremental">true</value>
@@ -348,11 +363,11 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">1</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">te (在远端设备上)</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">main (在远端设备上)</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">RemoteLinuxRunConfiguration:te</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">RemoteLinuxRunConfiguration:main</value>
     <value type="QString" key="Qt4ProjectManager.MaemoRunConfiguration.Arguments"></value>
-    <value type="QString" key="Qt4ProjectManager.MaemoRunConfiguration.TargetName">te</value>
+    <value type="QString" key="Qt4ProjectManager.MaemoRunConfiguration.TargetName">main</value>
     <value type="int" key="RemoteLinux.EnvironmentAspect.Version">1</value>
     <value type="QString" key="RemoteLinux.RunConfig.AlternateRemoteExecutable"></value>
     <value type="bool" key="RemoteLinux.RunConfig.UseAlternateRemoteExecutable">false</value>
