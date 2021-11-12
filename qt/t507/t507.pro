@@ -16,7 +16,7 @@ TRANSLATIONS += chinese.ts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = main
+TARGET = t507_QT
 TEMPLATE = app
 
 target.path = /
@@ -64,7 +64,8 @@ SOURCES += \
     serial.cpp \
     udev_interface.cpp \
     serial_thread.cpp \
-    sys_setting.cpp
+    sys_setting.cpp \
+    wifi_thread.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -95,7 +96,8 @@ HEADERS += \
     serial.h \
     udev_interface.h \
     serial_thread.h \
-    sys_setting.h
+    sys_setting.h \
+    wifi_thread.h
 
 FORMS += \
         mainwindow.ui \

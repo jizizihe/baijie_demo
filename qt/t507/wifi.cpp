@@ -66,8 +66,6 @@ wifi::wifi(QWidget *parent) :
     ScanTimer->start(100);
     //connect(ScanTimer,&QTimer::timeout,ConnectWin,SLOT(wifi_scan());
 
-    connect(this,SIGNAL(scan_signal()),ConnectWin,SLOT(scan_show()));
-
     //connect(&HotSpotWin_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(retBt,SIGNAL(clicked(bool)),this,SLOT(retBt_clicked()));
     connect(WifiConnectBt,SIGNAL(clicked()),this,SLOT(WifiConnectBt_clicked()));
@@ -76,7 +74,6 @@ wifi::wifi(QWidget *parent) :
     connect(SignalQualityBt,SIGNAL(clicked()),this,SLOT(SignalQualityBt_clicked()));
     connect(StatusBt,SIGNAL(clicked()),this,SLOT(StatusBt_clicked()));
 
-    //emit scan_signal();
 }
 
 wifi::~wifi()
@@ -185,6 +182,7 @@ void wifi::StatusBt_clicked()
 
     this->WifiMsgText->setText(strResult);
 }
+
 
 void wifi::language_reload()
 {

@@ -27,13 +27,10 @@ public:
     explicit wifi(QWidget *parent = 0);
     ~wifi();
 
-
-
     void language_reload();
 
 signals:
     void Mysignal();
-    void scan_signal();
 
 private slots:
     void retBt_clicked();
@@ -61,5 +58,6 @@ private:
     QTimer *ScanTimer;
 
 };
+
 
 #endif // WIFI_H

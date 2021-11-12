@@ -30,14 +30,14 @@ sys_setting::~sys_setting()
 
 void sys_setting::out()
 {
-    if(slidebtn->switchflag)
-    {
-        qDebug() << slidebtn->switchflag << "11111111111" << __LINE__;
-    }
-    else
-    {
-        qDebug() << slidebtn->switchflag << "22222222222" << __LINE__;
-    }
+//    if(slidebtn->switchflag)
+//    {
+//        qDebug() << slidebtn->switchflag << "11111111111" << __LINE__;
+//    }
+//    else
+//    {
+//        qDebug() << slidebtn->switchflag << "22222222222" << __LINE__;
+//    }
 }
 
 void sys_setting::on_return_2_clicked()

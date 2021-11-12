@@ -12,13 +12,43 @@
 #include <QListWidget>
 #include <QThread>
 #include <pthread.h>
+#include <QPainter>
+#include <QMouseEvent>
+#include <QPaintEvent>
+#include "bluetooth.h"
+#include "wifi_thread.h"
 
-QString wifi_scan();
 void wifi_connect(QString WifiSsid,QString PassWd);
 
 namespace Ui {
 class WifiConnect;
 }
+
+class slideButton : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit slideButton(QWidget *parent = 0);
+    void mouseReleaseEvent(QMouseEvent *);  //mouse up time
+    int switchflag = 0;
+    int initflag = 0;
+
+    int get_switchflag()
+    {
+        return switchflag;
+    }
+
+protected:
+    void paintEvent(QPaintEvent *event);
+
+signals:
+    void buttonChange(int );
+
+public slots:
+};
+
+
 
 class WifiConnect : public QMainWindow
 {
@@ -27,12 +57,11 @@ class WifiConnect : public QMainWindow
 public:
     explicit WifiConnect(QWidget *parent = 0);
     ~WifiConnect();
-
-//    static void *scan_thread(void *);
-//    void WifiScanThread();
-    void wifi_connect_show();
-
     void language_reload();
+
+signals:
+    void ToThread(); // 信号
+    void wifi_scan_msg();
 
 private slots:
     void WifiScanBt_clicked();
@@ -40,7 +69,9 @@ private slots:
     void WifiConnectBt_clicked();
     void WifiCloseBt_clicked();
     void ListWidgeItem_clicked();
-    void scan_show();
+    void BtnChange_flag(int switchflag);
+
+    void recv_msg(QString );
 
 private:
     Ui::WifiConnect *ui;
@@ -55,6 +86,16 @@ private:
     QPushButton * WifiConnectBt;
     QPushButton * WifiCloseBt;
     QListWidget * WifiScanListWid;
+
+    QStringList scanlist;
+
+    QLabel *LoadLabel;
+    QMovie *pMovie;
+
+    slideButton *SwitchBtn;
 };
+
+
+
 
 #endif // WIFICONNECT_H

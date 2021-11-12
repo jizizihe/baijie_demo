@@ -41,7 +41,7 @@ private slots:
     void BTPairBt_clicked();
     void recvmsg(int,QString);
 
-    void setText_slot(bool);
+    //void setText_slot(bool);
 
 signals:
     void Mysignal();

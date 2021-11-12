@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(&system_w,SIGNAL(sigmain()),this,SLOT(show_main()));
     connect(&system_w,SIGNAL(main_cn()),this,SLOT(cn_main()));
+
 }
 
 MainWindow::~MainWindow()

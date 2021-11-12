@@ -7,6 +7,12 @@ WifiConnect::WifiConnect(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QScreen *screen=QGuiApplication::primaryScreen ();
+    QRect mm=screen->availableGeometry() ;
+    int screen_width = mm.width();
+    int screen_height = mm.height();
+    //qDebug()<<screen_width<<screen_height;
+
     WifiSsidLab = new QLabel(this);
     WifiSsidLab->resize(100,50);
     WifiSsidLab->move(500,50);
@@ -32,13 +38,10 @@ WifiConnect::WifiConnect(QWidget *parent) :
     WifiNameBox->move(600,50);
     WifiNameBox->hide();
 
-//    qDebug() << "Now there are " << WifiNameBox->count() << "Items";
-//    qDebug() << "The current item is" << WifiNameBox->currentText();
-
 //    WifiScanBt->setIcon(QIcon(":/t507_button_image/bluetooth/scan.png"));
-    WifiScanBt = new QPushButton(tr("scan"),this);
-    WifiScanBt->resize(100,50);
-    WifiScanBt->move(830,50);
+    WifiScanBt = new QPushButton(tr("Refresh"),this);
+    WifiScanBt->resize(120,50);
+    WifiScanBt->move(300,50);
 
 //    WifiCleanBt->setIcon(QIcon(":/t507_button_image/serial/clean.png"));
     WifiCleanBt = new QPushButton(tr("clean"),this);
@@ -59,92 +62,57 @@ WifiConnect::WifiConnect(QWidget *parent) :
     WifiScanListWid->resize(400,500);
     WifiScanListWid->move(20,100);
 
+    LoadLabel = new QLabel(this);
+    //LoadLabel->resize(100,100);
+    LoadLabel->move(screen_width/2 ,screen_height/2);
+    pMovie = new QMovie("://t507_button_image/loading.webp");
+    LoadLabel->setFixedSize(50, 50);
+    LoadLabel->setScaledContents(true);
+    LoadLabel->setMovie(pMovie);
+    //pMovie->start();
+
     connect(WifiScanBt,SIGNAL(clicked()),this,SLOT(WifiScanBt_clicked()));
     connect(WifiCleanBt,SIGNAL(clicked()),this,SLOT(WifiCleanBt_clicked()));
     connect(WifiConnectBt,SIGNAL(clicked()),this,SLOT(WifiConnectBt_clicked()));
     connect(WifiCloseBt,SIGNAL(clicked()),this,SLOT(WifiCloseBt_clicked()));
     connect(WifiScanListWid, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(ListWidgeItem_clicked()));
+
+    QThread * myThread = new QThread(this);
+    wifi_thread * WifiThread = new wifi_thread();
+    connect(this,SIGNAL(ToThread()),WifiThread,SLOT(Thread_Fun()));
+    connect(this,SIGNAL(wifi_scan_msg()),WifiThread,SLOT(wifi_scan_thread()));
+    connect(WifiThread,SIGNAL(send_msg(QString)),this,SLOT(recv_msg(QString)));
+    WifiThread->moveToThread(myThread);
+    myThread->start();
+
+    emit ToThread();
+    emit wifi_scan_msg();
+
+    SwitchBtn = new slideButton(this);
+    SwitchBtn->move(220,55);
+    //qDebug() << "LINe:" << __LINE__<<"switchflag " << switchflag;
+    connect(SwitchBtn,SIGNAL(buttonChange(int )),this,SLOT(BtnChange_flag(int)));
+
 }
 
 WifiConnect::~WifiConnect()
 {
     delete ui;
-
 }
 
-void WifiConnect::scan_show()
+void WifiConnect::recv_msg(QString ScanResult)
 {
-    wifi_connect_show();
-
-    //QThread::sleep(5);
-}
-
-//void *WifiConnect::scan_thread(void *)
-//{
-//    //WifiConnect::WifiScanBt_clicked();
-//    //emit scan_signal();
-//    //wifi_connect_show();
-//    QThread::sleep(5);
-//    return NULL;
-//}
-
-//void WifiConnect::WifiScanThread()
-//{
-//    //ScanTimer->stop();
-
-//    pthread_t scan_thread_id = 0;
-
-//    if (pthread_create(&scan_thread_id, NULL, scan_thread,NULL))
-//    {
-//        printf("ERROR: can't create read_thread thread!\n");
-//    }
-//    else
-//    {
-//        pthread_detach(scan_thread_id);
-//    }
-
-//    //ScanTimer->start(5000);
-//}
-
-void WifiConnect::ListWidgeItem_clicked()
-{
-    qDebug() << "istWidgeItem_clicked()";
-    QString str = WifiScanListWid->currentItem()->text();
-    qDebug() << "WifiScanListWid->currentItem()->text = " << str;
-    WifiSsidLine->setText(str);
-}
-
-QString wifi_scan()
-{
-    QString strCmd = QString("iw dev wlan0 scan|grep SSID|awk '{for(i=2;i<=NF;i++){printf \"%s \", $i}; printf \"\\n\"}' ");
-    //qDebug() << "strCmd == " << strCmd;
-    QProcess process;
-    process.start("bash", QStringList() <<"-c" << strCmd);
-    process.waitForFinished();
-
-    QString strResult = process.readAllStandardOutput();
-    //qDebug() << strResult;
-
-    return strResult;
-}
-
-void WifiConnect::wifi_connect_show()
-{
-    int i,WifiNum = 0;
-    QProcess process;
+    //qDebug() << "LINE:" << __LINE__ << "ScanResult:" << ScanResult;
 
     WifiScanListWid->clear();
     WifiSsidLine->clear();
-    QString ScanResult = wifi_scan();
-
-    QStringList scanlist;
 
     scanlist = ScanResult.split("\n");
     scanlist.removeAll(QString(""));
     for(int i = 0; i < scanlist.size(); i++)
     {
         QString tmp = scanlist.at(i);
-        qDebug() << tmp;
+        //qDebug() << tmp;
         WifiScanListWid->addItem(tmp.left(tmp.size() - 1));
     }
     WifiScanListWid->setCurrentRow(0);
@@ -155,15 +123,39 @@ void WifiConnect::wifi_connect_show()
         QListWidget::item:selected { background: #e7e7e7; color: #f44336; }
         QListWidget::item:selected:!active { background: lightgreen; }
        )");
-    WifiScanListWid->verticalScrollBar()->setStyleSheet("QScrollBar{width:40px;}");
+    WifiScanListWid->verticalScrollBar()->setStyleSheet("QScrollBar{width:30px;}");
     WifiScanListWid->horizontalScrollBar()->setStyleSheet("QScrollBar{height:30px;}");
     WifiScanListWid->setSelectionMode(QAbstractItemView::SingleSelection);
 
+    pMovie->stop();
+    LoadLabel->close();
+
+}
+
+void WifiConnect::ListWidgeItem_clicked()
+{
+    qDebug() << "istWidgeItem_clicked()";
+    QString str = WifiScanListWid->currentItem()->text();
+    qDebug() << "WifiScanListWid->currentItem()->text = " << str;
+    WifiSsidLine->setText(str);
 }
 
 void WifiConnect::WifiScanBt_clicked()
 {
-    wifi_connect_show();
+    int flag;
+
+    flag = SwitchBtn->get_switchflag();
+    if(flag == 0) // open
+    {
+        LoadLabel->show();
+        pMovie->start();
+
+        emit wifi_scan_msg();
+    }
+    else
+    {
+        return;
+    }
 }
 
 void WifiConnect::WifiCleanBt_clicked()
@@ -207,13 +199,13 @@ void wifi_connect(QString WifiSsid,QString PassWd)
     }
     else
     {
-        strResult = "it does not connected!!";
-        qDebug() << "--line--: " << __LINE__<< strResult;
+        //strResult = "it does not connected!!";
+        //qDebug() << "--line--: " << __LINE__<< strResult;
 
         strCmd = QString("nmcli device wifi connect \"%1\" password \"%2\" name %3").arg(WifiSsid).arg(PassWd).arg(WifiSsid);
         qDebug() << "--line--: " << __LINE__<< "strCmd == " << strCmd;
         process.start("bash", QStringList() <<"-c" << strCmd);
-        process.waitForFinished();
+        process.waitForFinished(-1);
         strResult = process.readAllStandardOutput();
         qDebug() << strResult;
 
@@ -252,9 +244,7 @@ void wifi_connect(QString WifiSsid,QString PassWd)
             }
 
         }
-
     }
-
 }
 
 void WifiConnect::WifiConnectBt_clicked()
@@ -274,6 +264,32 @@ void WifiConnect::WifiCloseBt_clicked()
     this->close();
 }
 
+void WifiConnect::BtnChange_flag(int switchflag)
+{
+    //qDebug() << "LINe:" << __LINE__<<"switchflag " << switchflag;
+
+    if(switchflag == 0) // open
+    {
+        if(WifiScanListWid->count() == 0)
+        {
+            wifi_scan_msg();
+        }
+
+        for(int i = 0; i < WifiScanListWid->count(); i++)
+        {
+            WifiScanListWid->setItemHidden(WifiScanListWid->item(i), false);
+        }
+
+    }
+    else //close
+    {
+        for(int i = 0; i < WifiScanListWid->count(); i++)
+        {
+            WifiScanListWid->setItemHidden(WifiScanListWid->item(i), true);
+        }
+    }
+}
+
 void WifiConnect::language_reload()
 {
     ui->retranslateUi(this);
@@ -283,4 +299,90 @@ void WifiConnect::language_reload()
     WifiCleanBt->setText(tr("clean"));
     WifiConnectBt->setText(tr("connect"));
     WifiCloseBt->setText(tr("close"));
+}
+
+
+slideButton::slideButton(QWidget *parent) :
+    QWidget(parent)
+{
+    resize(80,40);
+    switchflag=0; // default close
+    initflag=0; //initflag = 1 init
+    //update();
+}
+
+void slideButton::paintEvent(QPaintEvent *)
+{
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    if(initflag==0)
+    { // init
+        //qDebug() << "LINe:" << __LINE__<<"switchflag " << switchflag;
+
+        painter.setPen(Qt::NoPen);
+        if(switchflag==0){
+            painter.setBrush(Qt::gray);
+        }
+        else if(switchflag==1){
+            painter.setBrush(Qt::blue);
+        }
+        QRectF re(1,2,40,40);
+        int startAngle = 90*16;
+        int endAngel = 180*16;
+        painter.drawPie(re,startAngle,endAngel);
+        painter.drawRect(20,2,40,40);
+        QRectF re2(40,2,40,40);
+        int startAngle2 = -90*16;
+        int endAngel2 = 180*16;
+        painter.drawPie(re2,startAngle2,endAngel2);
+
+        if(switchflag==0){ // close status
+            painter.setBrush(Qt::white);
+            painter.drawEllipse(2,3,38,38);
+        }
+        else if(switchflag==1){ // open status
+            painter.setBrush(Qt::white);
+            painter.drawEllipse(41,3,38,38);
+        }
+        initflag=1;
+    }
+    else
+    {
+        //qDebug() << "LINe:" << __LINE__<<"switchflag " << switchflag;
+
+        painter.setPen(Qt::NoPen);
+        if(switchflag==0){  //前一个状态为open
+            painter.setBrush(Qt::gray);
+        }
+        else if(switchflag==1){//前一个状态为close
+            painter.setBrush(Qt::blue);
+        }
+        QRectF re(1,2,40,40);
+        int startAngle = 90*16;
+        int endAngel = 180*16;
+        painter.drawPie(re,startAngle,endAngel);
+        painter.drawRect(20,2,40,40);
+        QRectF re2(40,2,40,40);
+        int startAngle2 = -90*16;
+        int endAngel2 = 180*16;
+        painter.drawPie(re2,startAngle2,endAngel2);
+
+        if(switchflag==0){ // open
+            painter.setBrush(Qt::white);
+            painter.drawEllipse(2,3,38,38);
+
+            switchflag=1;
+        }
+        else if(switchflag==1){  //close
+            painter.setBrush(Qt::white);
+            painter.drawEllipse(41,3,38,38);
+            switchflag=0;
+        }
+        emit buttonChange(switchflag);
+    }
+}
+
+void slideButton::mouseReleaseEvent(QMouseEvent *)
+{
+    update();
 }

@@ -20,7 +20,7 @@ public:
 
 signals:
     void message(int, QString);
-    void setText(bool);
+    //void setText(bool);
 
 public slots:
     void flag_set(int signal_type,QString address);
