@@ -54,7 +54,6 @@ private:
 private slots:
     void show_main();
 
-
     void on_vf_clicked();
     void on_udev_clicked();
     void on_gpio_clicked();

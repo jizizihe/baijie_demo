@@ -23,6 +23,8 @@ public:
     explicit keytest(QWidget *parent = 0);
     ~keytest();
 
+    bool event(QEvent *event);
+
     void language_reload();
 
 signals:

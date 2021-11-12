@@ -61,7 +61,8 @@ bluetooth::bluetooth(QWidget *parent) :
 
     connect(this,SIGNAL(bluetooth_signal(int,QString)),BtThread,SLOT(flag_set(int,QString)));
     connect(BtThread,SIGNAL(message(int, QString)),this,SLOT(recvmsg(int, QString)));
-    connect(BtThread,SIGNAL(setText(bool)),this,SLOT(setText_slot(bool)));
+    //connect(BtThread,SIGNAL(setText(bool)),this,SLOT(setText_slot(bool)));
+
     emit bluetooth_signal(1,0);
     BtThread->start();
 
@@ -129,48 +130,24 @@ void bluetooth::recvmsg(int signal_type,QString str)
             QMessageBox::critical(this,"information","connect failed!");
         }
     }
+
+    BTScanBt->setEnabled(true);
+    BTPairBt->setEnabled(true);
+    BTConnectBt->setEnabled(true);
+
     pMovie->stop();
     LoadLabel->close();
 
 }
 
-void bluetooth::setText_slot(bool flag)
-{
-    /*
-    int BtCount,i;
-
-    if(flag == true)
-    {
-        QString strCmd = QString("wc -l /bluetooth_scan | awk '{print $1}'");
-        qDebug() << "strCmd == " << strCmd;
-        QString strResult = BtThread->executeLinuxCmd(strCmd);
-        qDebug() << strResult;
-
-        BtCount = strResult.toInt();
-        qDebug() << BtCount;
-
-        if(BtCount < 2)
-        {
-            BTText->setText(tr("Scan failed!"));
-        }
-
-        for(i = 1; i < BtCount; i++)
-        {
-            strCmd = QString("cat /bluetooth_scan | sed -n '%1p' |awk '{$1=\"\"; print $0}'").arg(i+1);
-            //qDebug() << "strCmd == " << strCmd;
-            strResult = BtThread->executeLinuxCmd(strCmd);
-            qDebug() << strResult;
-            BTNameBox->addItem(strResult.simplified());
-        }
-    }
-    */
-}
-
 void bluetooth::BTScanBt_clicked()
 {
-    qDebug() << "BTScanBt_clicked";
+    //qDebug() << "BTScanBt_clicked";
     BtNameWidget->clear();
-    //BTText->setText(tr("Start scanning! \nPlease wait a moment..."));
+
+    BTScanBt->setDisabled(true);
+    BTPairBt->setDisabled(true);
+    BTConnectBt->setDisabled(true);
 
     LoadLabel->show();
     pMovie->start();
@@ -181,10 +158,22 @@ void bluetooth::BTScanBt_clicked()
 
 void bluetooth::BTPairBt_clicked()
 {
+    int count = BtNameWidget->count();
+//    qDebug() << "LINE: "<< __LINE__ << "count:" << count;
+    if(count == 0)
+    {
+        QMessageBox::information(this,"information","Please scan Bluetooth first!");
+        return ;
+    }
+
     int BtNameIndex = BtNameWidget->currentRow();
     QString BtAddress = BtScanList.at(BtNameIndex);
     BtAddress = BtAddress.trimmed().section("\t",0,0);
     qDebug() << BtAddress;
+
+    BTScanBt->setDisabled(true);
+    BTPairBt->setDisabled(true);
+    BTConnectBt->setDisabled(true);
 
     LoadLabel->show();
     pMovie->start();
@@ -194,6 +183,14 @@ void bluetooth::BTPairBt_clicked()
 
 void bluetooth::BTConnectBt_clicked()
 {
+    int count = BtNameWidget->count();
+//    qDebug() << "LINE: "<< __LINE__ << "count:" << count;
+    if(count == 0)
+    {
+        QMessageBox::information(this,"information","Please scan Bluetooth first!");
+        return ;
+    }
+
     LoadLabel->show();
     pMovie->start();
 
@@ -217,6 +214,11 @@ void bluetooth::BTConnectBt_clicked()
 
     emit bluetooth_signal(3,BtAddress);
     BtThread->start();
+
+    BTScanBt->setDisabled(true);
+    BTPairBt->setDisabled(true);
+    BTConnectBt->setDisabled(true);
+
 }
 
 void bluetooth::language_reload()

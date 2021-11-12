@@ -52,7 +52,7 @@ private:
     about_board board_w;
     user_manual user_w;
     QTranslator *transl;
-    slideButton *slidebtn;
+    //slideButton *slidebtn;
 
 };
 

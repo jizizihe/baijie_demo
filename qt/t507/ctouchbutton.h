@@ -23,24 +23,24 @@ private:
 
 /*****************************/  //slide button
 
-class slideButton : public QWidget
-{
-    Q_OBJECT
+//class slideButton : public QWidget
+//{
+//    Q_OBJECT
 
-public:
-    explicit slideButton(QWidget *parent = 0);
-    void mouseReleaseEvent(QMouseEvent *);  //mouse up time
-    int switchflag;
-    int initflag;
+//public:
+//    explicit slideButton(QWidget *parent = 0);
+//    void mouseReleaseEvent(QMouseEvent *);  //mouse up time
+//    int switchflag = 0;
+//    int initflag = 0;
 
-protected:
-    void paintEvent(QPaintEvent *event);
+//protected:
+//    void paintEvent(QPaintEvent *event);
 
-signals:
-    void buttonChange();
+//signals:
+//    void buttonChange();
 
-public slots:
-};
+//public slots:
+//};
 
 /******************************/
 

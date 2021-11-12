@@ -4,13 +4,14 @@ bluetooth_thread::bluetooth_thread(QObject *parent) : QThread(parent)
 {
 }
 
-
 void bluetooth_thread::run()
 {
+    //qDebug()<<"子线程功能函数ID:"<<QThread::currentThreadId();
+
     if(scan_flag == true)
     {
         QString scan_result = bluetooth_scan();
-        emit setText(true);
+        //emit setText(true);
         emit message(1,scan_result);
     }
     else if(pair_flag == true)
@@ -25,10 +26,9 @@ void bluetooth_thread::run()
     }
     else
     {
-        emit setText(false);
+        //emit setText(false);
 
     }
-
 }
 
 void bluetooth_thread::flag_set(int signal_type,QString address)

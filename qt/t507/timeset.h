@@ -53,6 +53,7 @@ private:
     QLabel *SystimepLabel;
     QLabel *RTCtimepLabel;
 
+    QTimer *SysTimer;
     QTimer *RTCTimer;
 };
 

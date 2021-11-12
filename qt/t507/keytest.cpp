@@ -35,6 +35,7 @@ keytest::keytest(QWidget *parent) :
     keyText = new QTextEdit(this);
     keyText->resize(500,400);
     keyText->move(400,150);
+    keyText->setReadOnly(true);
 
     connect(retBt,SIGNAL(clicked(bool)),this,SLOT(retBt_clicked()));
     connect(StartBt,SIGNAL(clicked(bool)),this,SLOT(startBt_clicked()));
@@ -49,7 +50,25 @@ keytest::~keytest()
 
 void keytest::retBt_clicked()
 {
+    keyText->clear();
+    this->task->terminate();
+    this->task->wait();
+
     emit Mysignal();
+}
+
+bool keytest::event(QEvent *event)
+{
+    if(event->type() == QEvent::KeyPress)  //键盘按下处理,其他事件让事件处理器自己处理,不能返回false
+    {
+//        qDebug()<<"key pressed!";
+//        this->keyText->append(tr("key pressed!"));
+//        return true;
+    }
+    else
+    {
+        return QWidget::event(event);
+    }
 }
 
 void keytest::startBt_clicked()
@@ -57,7 +76,6 @@ void keytest::startBt_clicked()
     qDebug() << "startBt_clicked!";
     this->keyText->append(tr("start test!"));
     this->task->start();
-
 }
 
 void keytest::stopBt_clicked()

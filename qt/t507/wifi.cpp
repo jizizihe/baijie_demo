@@ -66,8 +66,6 @@ wifi::wifi(QWidget *parent) :
     ScanTimer->start(100);
     //connect(ScanTimer,&QTimer::timeout,ConnectWin,SLOT(wifi_scan());
 
-    connect(this,SIGNAL(scan_signal()),ConnectWin,SLOT(scan_show()));
-
     //connect(&HotSpotWin_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(retBt,SIGNAL(clicked(bool)),this,SLOT(retBt_clicked()));
     connect(WifiConnectBt,SIGNAL(clicked()),this,SLOT(WifiConnectBt_clicked()));
@@ -76,14 +74,12 @@ wifi::wifi(QWidget *parent) :
     connect(SignalQualityBt,SIGNAL(clicked()),this,SLOT(SignalQualityBt_clicked()));
     connect(StatusBt,SIGNAL(clicked()),this,SLOT(StatusBt_clicked()));
 
-    //emit scan_signal();
 }
 
 wifi::~wifi()
 {
     delete ui;
 }
-
 
 void wifi::retBt_clicked()
 {
@@ -133,42 +129,6 @@ void wifi::HotSpotBt_clicked()
 
 QString get_wifisignalquality()
 {
-    /*
-    QString strCmd = QString("wpa_cli -i wlan0 status|grep wpa_state |cut -d = -f 2");
-    qDebug() << "text == " << strCmd;
-    QProcess process;
-    process.start("bash", QStringList() <<"-c" << strCmd);
-    process.waitForFinished();
-
-    QString strResult = process.readAllStandardOutput();
-    qDebug() << strResult;
-
-    if(strResult == QString("COMPLETED\n"))
-    {
-        this->WifiMsgText->setText("WiFi connected!");
-        strCmd = QString("wpa_cli -i wlan0 status | sed -n '1p' | cut -d = -f 2");
-        process.start("bash", QStringList() <<"-c" << strCmd);
-        process.waitForFinished();
-        QString strResult = process.readAllStandardOutput();
-        qDebug() << strResult;
-
-        strCmd = QString("wpa_cli -i wlan0 scan_results | grep dc:fe:18:4d:d1:25 | cut -f 3");
-        process.start("bash", QStringList() <<"-c" << strCmd);
-        process.waitForFinished();
-        strResult = process.readAllStandardOutput();
-        qDebug() << strResult;
-
-        this->WifiMsgText->append(strResult);
-
-    }
-    else    //(strResult == QString::fromLocal8Bit("DISCONNECTED\n"))
-    {
-        this->WifiMsgText->setText("WiFi disconnected!");
-        this->WifiMsgText->append("Please connect!");
-
-    }
-*/
-
     QProcess process;
     QString strCmd = QString("iw dev wlan0 link | grep SSID |awk '{print $2}'");
     process.start("bash", QStringList() <<"-c" << strCmd);
@@ -222,6 +182,7 @@ void wifi::StatusBt_clicked()
 
     this->WifiMsgText->setText(strResult);
 }
+
 
 void wifi::language_reload()
 {
