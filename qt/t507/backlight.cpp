@@ -147,12 +147,6 @@ void backlight::on_horizontalSlider_valueChanged(int value)
     light_value = set_backlight(value);
 }
 
-void backlight::on_normal_clicked()
-{
-     ui->horizontalSlider->setValue(180);
-     light_value = 180;     
-}
-
 void backlight::on_comboBox_currentIndexChanged(int index)
 {
     index_number = index;

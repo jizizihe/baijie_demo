@@ -22,7 +22,6 @@ QString get_gateway()
         if(route.at(i) == "Gateway" && route.at(i+1) != "0.0.0.0")
         {
             str = route.at(i+1);
-            qDebug() << "str :" << str;
             return str;
         }
     }

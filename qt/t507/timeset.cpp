@@ -16,7 +16,7 @@ timeset::timeset(QWidget *parent) :
     QString imagepath = ":/t507_button_image/return.png";
     QPixmap image0(imagepath);
     QPixmap image = image0.scaled(QSize(128,128));
-    qDebug() << image.size();
+
     QIcon icon = QIcon(image);
     retBt->setIcon(icon);
     retBt->move(10,10);

@@ -59,6 +59,7 @@ void MainWindow::on_vf_clicked()
 void MainWindow::on_udev_clicked()
 {
     this->hide();
+    emit again();
     udev_w.show();
 }
 

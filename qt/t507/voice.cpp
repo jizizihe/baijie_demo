@@ -38,6 +38,7 @@ voice::voice(QWidget *parent) :
     show_time->start(1000);
     connect(show_time,SIGNAL(timeout()),this,SLOT(show_time()));
 
+    ui->label_9->setText(tr("begin"));
     ui->begin->setIcon(QIcon(":/t507_button_image/voice/begin.png"));
 
 }
@@ -68,7 +69,7 @@ void voice::refresh()
     ui->combox->clear();
     for(int i = 0; i <= len; i++)
     {
-        if("." == str[i] || ".." == str[i])
+        if("." == str[i] || ".." == str[i] || "" == str[i])
         {
             continue;
         }
@@ -144,6 +145,7 @@ void voice::on_begin_clicked()
 
         files = QString("%1_record.wav").arg(s_time);
         file_name = files;
+        ui->label_9->setText(tr("stop"));
         ui->begin->setIcon(QIcon(":/t507_button_image/voice/stop.png"));
         flag = false;
         refresh_flag = false;
@@ -153,9 +155,10 @@ void voice::on_begin_clicked()
     }
     else
     {
+        ui->label_9->setText(tr("begin"));
         ui->begin->setIcon(QIcon(":/t507_button_image/voice/begin.png"));
 
-        QMessageBox::information(this, file_name, file_name);
+        QMessageBox::information(this, NULL, QString(tr("Successfully save the file %1")).arg(file_name));
 
         ui->combox->addItem(QString("%1").arg(file_name));
 
@@ -207,7 +210,6 @@ void voice::on_play_clicked()
 void voice::language_reload()
 {
     ui->retranslateUi(this);
-    ui->label_5->move(320,10);
     ui->pathname_2->setText("/data");
 
 }

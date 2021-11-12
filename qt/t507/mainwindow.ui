@@ -517,9 +517,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">
-
-</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string/>

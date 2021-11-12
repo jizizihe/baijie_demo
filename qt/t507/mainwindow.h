@@ -69,6 +69,9 @@ private slots:
     void on_system_clicked();
 
     void cn_main();
+
+signals:
+    void again();
 };
 
 #endif // MAINWINDOW_H

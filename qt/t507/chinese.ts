@@ -92,7 +92,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="606"/>
+        <location filename="mainwindow.ui" line="604"/>
         <source>Wifi</source>
         <translation type="unfinished">Wifi</translation>
     </message>
@@ -144,17 +144,17 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="udev_interface.cpp" line="55"/>
+        <location filename="udev_interface.cpp" line="54"/>
         <source>USB Failed</source>
         <translation type="unfinished">USB检测失败</translation>
     </message>
     <message>
-        <location filename="udev_interface.cpp" line="116"/>
+        <location filename="udev_interface.cpp" line="115"/>
         <source>SD Failed</source>
         <translation type="unfinished">SD卡检测失败</translation>
     </message>
     <message>
-        <location filename="udev_interface.cpp" line="138"/>
+        <location filename="udev_interface.cpp" line="137"/>
         <source>SIM Failed</source>
         <translation type="unfinished">SIM检测失败</translation>
     </message>
@@ -420,42 +420,42 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="backlight.ui" line="41"/>
+        <location filename="backlight.ui" line="301"/>
         <source>Sleep time</source>
         <translation type="unfinished">休眠时间</translation>
     </message>
     <message>
-        <location filename="backlight.ui" line="65"/>
+        <location filename="backlight.ui" line="325"/>
         <source>15s</source>
         <translation type="unfinished">15秒</translation>
     </message>
     <message>
-        <location filename="backlight.ui" line="70"/>
+        <location filename="backlight.ui" line="330"/>
         <source>30s</source>
         <translation type="unfinished">30秒</translation>
     </message>
     <message>
-        <location filename="backlight.ui" line="75"/>
+        <location filename="backlight.ui" line="335"/>
         <source>1min</source>
         <translation type="unfinished">1分钟</translation>
     </message>
     <message>
-        <location filename="backlight.ui" line="80"/>
+        <location filename="backlight.ui" line="340"/>
         <source>2min</source>
         <translation type="unfinished">2分钟</translation>
     </message>
     <message>
-        <location filename="backlight.ui" line="85"/>
+        <location filename="backlight.ui" line="345"/>
         <source>5min</source>
         <translation type="unfinished">5分钟</translation>
     </message>
     <message>
-        <location filename="backlight.ui" line="90"/>
+        <location filename="backlight.ui" line="350"/>
         <source>10min</source>
         <translation type="unfinished">10分钟</translation>
     </message>
     <message>
-        <location filename="backlight.ui" line="95"/>
+        <location filename="backlight.ui" line="355"/>
         <source>never</source>
         <translation type="unfinished">从不</translation>
     </message>
@@ -468,17 +468,15 @@
         <translation type="obsolete">返回</translation>
     </message>
     <message>
-        <location filename="backlight.ui" line="187"/>
         <source>brightness</source>
-        <translation type="unfinished">亮度</translation>
+        <translation type="obsolete">亮度</translation>
     </message>
     <message>
-        <location filename="backlight.ui" line="242"/>
         <source>normal</source>
-        <translation type="unfinished">默认</translation>
+        <translation type="obsolete">默认</translation>
     </message>
     <message>
-        <location filename="backlight.ui" line="265"/>
+        <location filename="backlight.ui" line="99"/>
         <source>Backlight  Settings</source>
         <translation type="unfinished">背光设置</translation>
     </message>
@@ -823,9 +821,9 @@ Please wait a moment...</source>
     <name>ipset_popup</name>
     <message>
         <location filename="ipset_popup.cpp" line="16"/>
-        <location filename="ipset_popup.cpp" line="60"/>
-        <location filename="ipset_popup.cpp" line="78"/>
-        <location filename="ipset_popup.cpp" line="139"/>
+        <location filename="ipset_popup.cpp" line="110"/>
+        <location filename="ipset_popup.cpp" line="128"/>
+        <location filename="ipset_popup.cpp" line="189"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -838,14 +836,14 @@ Please wait a moment...</source>
         <translation type="obsolete">名称:</translation>
     </message>
     <message>
-        <location filename="ipset_popup.cpp" line="24"/>
-        <location filename="ipset_popup.cpp" line="141"/>
+        <location filename="ipset_popup.cpp" line="74"/>
+        <location filename="ipset_popup.cpp" line="191"/>
         <source>network card:</source>
         <translation>网卡：</translation>
     </message>
     <message>
-        <location filename="ipset_popup.cpp" line="29"/>
-        <location filename="ipset_popup.cpp" line="142"/>
+        <location filename="ipset_popup.cpp" line="79"/>
+        <location filename="ipset_popup.cpp" line="192"/>
         <source>ip address:</source>
         <translation>ip地址：</translation>
     </message>
@@ -858,14 +856,14 @@ Please wait a moment...</source>
         <translation type="obsolete">网关：</translation>
     </message>
     <message>
-        <location filename="ipset_popup.cpp" line="41"/>
-        <location filename="ipset_popup.cpp" line="138"/>
+        <location filename="ipset_popup.cpp" line="91"/>
+        <location filename="ipset_popup.cpp" line="188"/>
         <source>Please do not have spaces in the name, otherwise the operation will fail!</source>
         <translation>名称请不要带空格，否则会导致此次操作失败</translation>
     </message>
     <message>
-        <location filename="ipset_popup.cpp" line="60"/>
-        <location filename="ipset_popup.cpp" line="78"/>
+        <location filename="ipset_popup.cpp" line="110"/>
+        <location filename="ipset_popup.cpp" line="128"/>
         <source>Please complete the information</source>
         <translation>请填完您要改变的信息</translation>
     </message>
@@ -874,20 +872,20 @@ Please wait a moment...</source>
         <translation type="obsolete">你确定要将此连接设置为动态获取ip吗？</translation>
     </message>
     <message>
-        <location filename="ipset_popup.cpp" line="63"/>
-        <location filename="ipset_popup.cpp" line="81"/>
+        <location filename="ipset_popup.cpp" line="113"/>
+        <location filename="ipset_popup.cpp" line="131"/>
         <source>Do you want to set it to current IP?</source>
         <translation>你是否想将其设为当前ip地址？</translation>
     </message>
     <message>
-        <location filename="ipset_popup.cpp" line="63"/>
-        <location filename="ipset_popup.cpp" line="81"/>
+        <location filename="ipset_popup.cpp" line="113"/>
+        <location filename="ipset_popup.cpp" line="131"/>
         <source>yes</source>
         <translation>是的</translation>
     </message>
     <message>
-        <location filename="ipset_popup.cpp" line="63"/>
-        <location filename="ipset_popup.cpp" line="81"/>
+        <location filename="ipset_popup.cpp" line="113"/>
+        <location filename="ipset_popup.cpp" line="131"/>
         <source>no</source>
         <translation>暂不</translation>
     </message>
@@ -1496,52 +1494,52 @@ Please wait a moment...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="udev.ui" line="135"/>
+        <location filename="udev.ui" line="168"/>
         <source>dic_path:</source>
         <translation type="unfinished">文件夹路径：</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="241"/>
+        <location filename="udev.ui" line="330"/>
         <source>mount_device:</source>
         <translation type="unfinished">外部设备：</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="259"/>
+        <location filename="udev.ui" line="250"/>
         <source>choose_file:</source>
         <translation type="unfinished">选择文件：</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="339"/>
+        <location filename="udev.ui" line="434"/>
         <source>choose dir</source>
         <translation type="unfinished">选择文件夹</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="360"/>
+        <location filename="udev.ui" line="495"/>
         <source>refresh</source>
         <translation type="unfinished">刷新</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="381"/>
+        <location filename="udev.ui" line="556"/>
         <source>safe withdrawing</source>
         <translation type="unfinished">安全退出</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="402"/>
+        <location filename="udev.ui" line="762"/>
         <source>del</source>
         <translation type="unfinished">删除</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="423"/>
+        <location filename="udev.ui" line="701"/>
         <source>mv</source>
         <translation type="unfinished">剪切</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="444"/>
+        <location filename="udev.ui" line="640"/>
         <source>cp</source>
         <translation type="unfinished">复制</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="465"/>
+        <location filename="udev.ui" line="93"/>
         <source>Udev</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1633,7 +1631,7 @@ The New SIM card is:
         <translation type="obsolete">可能会花很长时间！！请注意电路板上的4G指示灯是否快速闪烁！！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="87"/>
+        <location filename="udev.cpp" line="89"/>
         <source>choose</source>
         <translation type="unfinished">选择文件</translation>
     </message>
@@ -1643,9 +1641,15 @@ The New SIM card is:
         <translation type="unfinished">%1已安全退出！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="202"/>
+        <location filename="udev.cpp" line="198"/>
         <source>CP OK</source>
         <translation type="unfinished">复制成功</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="206"/>
+        <location filename="udev.cpp" line="230"/>
+        <source>Please select a legal path!</source>
+        <translation type="unfinished">请选择一个合法路径！</translation>
     </message>
     <message>
         <location filename="udev.cpp" line="224"/>
@@ -1653,12 +1657,12 @@ The New SIM card is:
         <translation type="unfinished">剪切成功</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="235"/>
+        <location filename="udev.cpp" line="239"/>
         <source>Are you sure you want to delete this file ?</source>
         <translation type="unfinished">你确定删除这个文件？</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="243"/>
+        <location filename="udev.cpp" line="247"/>
         <source>DEL OK</source>
         <translation type="unfinished">删除成功</translation>
     </message>
@@ -2093,12 +2097,14 @@ The New SIM card is:
     </message>
     <message>
         <location filename="voice.ui" line="294"/>
+        <location filename="voice.cpp" line="41"/>
+        <location filename="voice.cpp" line="158"/>
         <source>begin</source>
         <translation>开始</translation>
     </message>
     <message>
         <location filename="voice.ui" line="273"/>
-        <location filename="voice.cpp" line="104"/>
+        <location filename="voice.cpp" line="105"/>
         <source>choose</source>
         <translation>选择文件</translation>
     </message>
@@ -2133,12 +2139,28 @@ The New SIM card is:
         <translation>录音</translation>
     </message>
     <message>
+        <location filename="voice.ui" line="597"/>
+        <source>sound</source>
+        <translation type="unfinished">音量</translation>
+    </message>
+    <message>
         <source>sound:</source>
         <translation type="obsolete">音量：</translation>
     </message>
     <message>
         <source>end</source>
         <translation type="obsolete">结束</translation>
+    </message>
+    <message>
+        <location filename="voice.cpp" line="148"/>
+        <source>stop</source>
+        <translation type="unfinished">停止</translation>
+    </message>
+    <message>
+        <location filename="voice.cpp" line="161"/>
+        <source>Successfully save the file %1</source>
+        <oldsource>save file %1</oldsource>
+        <translation type="unfinished">成功保存文件%1</translation>
     </message>
 </context>
 <context>

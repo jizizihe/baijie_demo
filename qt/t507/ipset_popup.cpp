@@ -15,10 +15,60 @@ ipset_popup::ipset_popup(QWidget *parent) :
 
     btn_OK = new QPushButton(tr("OK"),this);
     btn_OK->setGeometry(900,550,100,40);
+    btn_OK->setStyleSheet(R"(
+                     QPushButton{
+                     background-color: rgba(100, 225, 100, 120);/*背景色*/
+                     border-style: outset; /*边框样式*/
+                     border-width:  2px;  /*边框宽度为4像素*/
+                     border-radius: 10px; /*边框圆角半径*/
+                     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
+                     font: bold 20px;/*字体*/
+                     color:rgba(0, 0, 0, 100);/*字体颜色*/
+                     padding: 6px; /*填衬*/
+                    outline: none; /*去掉按钮的虚线框*/
+                }
+
+                QPushButton:hover{ /*鼠标悬停在按钮上时*/
+                        background-color:rgba(100,255,100, 100);
+                        border-color: rgba(255, 225, 255, 200);
+                        color:rgba(0, 0, 0, 200);
+                }
+
+                QPushButton:pressed { /*按钮被按下时*/
+                     background-color:rgba(100,255,100, 200);
+                     border-color: rgba(255, 225, 255, 30);
+                     border-style: inset;
+                     color:rgba(0, 0, 0, 100);
+                })");
 
     btn_return = new QPushButton(this);
     btn_return->setIcon(QIcon(":/t507_button_image/return.png"));
 //    btn_return = new QPushButton(tr("return"),this);
+    btn_return->setStyleSheet(R"(
+                     QPushButton{
+                     background-color: rgba(100, 225, 100, 120);/*背景色*/
+                     border-style: outset; /*边框样式*/
+                     border-width:  2px;  /*边框宽度为4像素*/
+                     border-radius: 10px; /*边框圆角半径*/
+                     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
+                     font: bold 14px;/*字体*/
+                     color:rgba(0, 0, 0, 100);/*字体颜色*/
+                     padding: 6px; /*填衬*/
+                    outline: none; /*去掉按钮的虚线框*/
+                }
+
+                QPushButton:hover{ /*鼠标悬停在按钮上时*/
+                        background-color:rgba(100,255,100, 100);
+                        border-color: rgba(255, 225, 255, 200);
+                        color:rgba(0, 0, 0, 200);
+                }
+
+                QPushButton:pressed { /*按钮被按下时*/
+                     background-color:rgba(100,255,100, 200);
+                     border-color: rgba(255, 225, 255, 30);
+                     border-style: inset;
+                     color:rgba(0, 0, 0, 100);
+                })");
     btn_return->setGeometry(10,10,100,40);
 
     label_netcard = new QLabel(tr("network card:"),this);

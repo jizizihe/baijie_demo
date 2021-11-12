@@ -51,5 +51,7 @@
         <file>t507_button_image/wifi/close.png</file>
         <file>t507_button_image/loading.webp</file>
         <file>t507_button_image/wait.gif</file>
+        <file>t507_button_image/light_h.png</file>
+        <file>t507_button_image/light_l.png</file>
     </qresource>
 </RCC>

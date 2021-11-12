@@ -11,6 +11,7 @@
 #include <QFileDialog>
 #include <QDateTime>
 #include <QTime>
+#include <QComboBox>
 #include <QMessageBox>
 #include <QPalette>
 #include <qfileinfo.h>
@@ -46,28 +47,8 @@ public:
     void language_reload();
 
 private slots:
-//    void on_new_2_clicked();
-
-//    void on_mount_currentIndexChanged(int index);
-
-//    void on_umount_clicked();
-
-//    void on_cp_clicked();
-
-//    void on_mv_clicked();
-
-//    void on_del_clicked();
 
     void find_device();
-
-//    void on_refresh_clicked();
-//    void on_usb_detection_clicked();
-
-//    void on_sd_detection_clicked();
-
-//    void on_sim_detection_clicked();
-
-//    void readoutput();
 
     void on_return_2_clicked();
 
@@ -87,6 +68,7 @@ private slots:
 
 signals:
     void Mysignal();
+
 
 private:
     Ui::udev *ui;
