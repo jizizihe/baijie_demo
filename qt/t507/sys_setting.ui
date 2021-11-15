@@ -58,9 +58,9 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    <property name="geometry">
     <rect>
      <x>620</x>
-     <y>320</y>
-     <width>101</width>
-     <height>51</height>
+     <y>297</y>
+     <width>111</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -75,15 +75,15 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    </property>
    <property name="iconSize">
     <size>
-     <width>32</width>
-     <height>32</height>
+     <width>64</width>
+     <height>64</height>
     </size>
    </property>
   </widget>
   <widget class="QLabel" name="label_29">
    <property name="geometry">
     <rect>
-     <x>385</x>
+     <x>390</x>
      <y>260</y>
      <width>251</width>
      <height>35</height>
@@ -95,6 +95,11 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <height>0</height>
     </size>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>7</pointsize>
+    </font>
+   </property>
    <property name="text">
     <string>Rtc</string>
    </property>
@@ -105,8 +110,8 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
   <widget class="QLabel" name="label_key_8">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>373</y>
+     <x>225</x>
+     <y>398</y>
      <width>251</width>
      <height>35</height>
     </rect>
@@ -116,6 +121,11 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <width>0</width>
      <height>0</height>
     </size>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>7</pointsize>
+    </font>
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;User manual&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -128,9 +138,9 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    <property name="geometry">
     <rect>
      <x>775</x>
-     <y>200</y>
-     <width>101</width>
-     <height>51</height>
+     <y>160</y>
+     <width>111</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -145,8 +155,8 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    </property>
    <property name="iconSize">
     <size>
-     <width>32</width>
-     <height>32</height>
+     <width>64</width>
+     <height>64</height>
     </size>
    </property>
   </widget>
@@ -157,9 +167,9 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    <property name="geometry">
     <rect>
      <x>295</x>
-     <y>320</y>
-     <width>101</width>
-     <height>51</height>
+     <y>297</y>
+     <width>111</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -174,16 +184,16 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    </property>
    <property name="iconSize">
     <size>
-     <width>32</width>
-     <height>32</height>
+     <width>64</width>
+     <height>64</height>
     </size>
    </property>
   </widget>
   <widget class="QLabel" name="label_key_6">
    <property name="geometry">
     <rect>
-     <x>545</x>
-     <y>373</y>
+     <x>550</x>
+     <y>398</y>
      <width>251</width>
      <height>35</height>
     </rect>
@@ -193,6 +203,11 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <width>0</width>
      <height>0</height>
     </size>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>7</pointsize>
+    </font>
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;About Board&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -204,7 +219,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
   <widget class="QLabel" name="label_30">
    <property name="geometry">
     <rect>
-     <x>85</x>
+     <x>90</x>
      <y>260</y>
      <width>251</width>
      <height>35</height>
@@ -215,6 +230,11 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <width>0</width>
      <height>0</height>
     </size>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>7</pointsize>
+    </font>
    </property>
    <property name="text">
     <string>Backlight</string>
@@ -252,11 +272,16 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>700</x>
+     <x>705</x>
      <y>260</y>
      <width>251</width>
      <height>35</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>7</pointsize>
+    </font>
    </property>
    <property name="text">
     <string>Chiese/English</string>
@@ -269,9 +294,9 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>200</y>
-     <width>101</width>
-     <height>51</height>
+     <y>160</y>
+     <width>111</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -286,8 +311,8 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    </property>
    <property name="iconSize">
     <size>
-     <width>32</width>
-     <height>32</height>
+     <width>64</width>
+     <height>64</height>
     </size>
    </property>
   </widget>
@@ -295,9 +320,9 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>200</y>
-     <width>101</width>
-     <height>51</height>
+     <y>160</y>
+     <width>111</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -312,8 +337,8 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    </property>
    <property name="iconSize">
     <size>
-     <width>32</width>
-     <height>32</height>
+     <width>64</width>
+     <height>64</height>
     </size>
    </property>
   </widget>

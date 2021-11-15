@@ -426,7 +426,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="translation.qrc">
+           <iconset>
             <normaloff>:/t507_button_image/open.png</normaloff>:/t507_button_image/open.png</iconset>
           </property>
           <property name="iconSize">
@@ -487,7 +487,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="translation.qrc">
+           <iconset>
             <normaloff>:/t507_button_image/flush.png</normaloff>:/t507_button_image/flush.png</iconset>
           </property>
           <property name="iconSize">
@@ -548,7 +548,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="translation.qrc">
+           <iconset>
             <normaloff>:/t507_button_image/exit.png</normaloff>:/t507_button_image/exit.png</iconset>
           </property>
           <property name="iconSize">
@@ -632,7 +632,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="translation.qrc">
+           <iconset>
             <normaloff>:/t507_button_image/cp.png</normaloff>:/t507_button_image/cp.png</iconset>
           </property>
           <property name="iconSize">
@@ -651,7 +651,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
            </font>
           </property>
           <property name="text">
-           <string>cp</string>
+           <string>copy</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -693,7 +693,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="translation.qrc">
+           <iconset>
             <normaloff>:/t507_button_image/cut.png</normaloff>:/t507_button_image/cut.png</iconset>
           </property>
           <property name="iconSize">
@@ -712,7 +712,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
            </font>
           </property>
           <property name="text">
-           <string>mv</string>
+           <string>move</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -754,7 +754,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="translation.qrc">
+           <iconset>
             <normaloff>:/t507_button_image/del.png</normaloff>:/t507_button_image/del.png</iconset>
           </property>
           <property name="iconSize">
@@ -814,8 +814,6 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="translation.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

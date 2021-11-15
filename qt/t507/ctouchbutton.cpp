@@ -30,7 +30,7 @@ bool CTouchButton::event(QEvent *e)
         return true;
     } break;
     case QEvent::MouseButtonPress:
-        qDebug() << "mouse press";
+//        qDebug() << "mouse press";
     case QEvent::MouseButtonRelease:
     {
        if(m_bTouchEnd){

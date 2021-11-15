@@ -7,24 +7,19 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-//    connect(&backlight_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+
+
+
     connect(&voice_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&udev_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&gpio_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
-//    connect(&timeset_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
-
     connect(&touch_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
-//    connect(&timeset_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
-
     connect(&wifi_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&eth0_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&keytest_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
-//    connect(&board_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&all_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&bluetooth_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
-//    connect(&user_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&serial_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
-
     connect(&system_w,SIGNAL(sigmain()),this,SLOT(show_main()));
     connect(&system_w,SIGNAL(main_cn()),this,SLOT(cn_main()));
 
@@ -33,6 +28,26 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::config_file()
+{
+    QString localSettingsPath("/data");
+    QDir dir(localSettingsPath);
+    if (!dir.exists()) {
+        dir.mkpath(localSettingsPath);  // mkdir如果上层路径不存在就会创建失败, 因此用mkpath
+    }
+
+    QString localSettingsFile = localSettingsPath + QDir::separator()  + "HelperBoard.ini";
+    QFile file(localSettingsFile);
+    if (!file.exists() && !file.open(QIODevice::WriteOnly|QIODevice::Text)) {  // 如果文件的上层路径不存在就会创建失败
+        qDebug()<<"failed";
+     }
+    file.close();
+
+    setting = new QSettings(localSettingsFile,QSettings::IniFormat);
+    setting->SystemScope;
+    setting->setIniCodec("UTF-8");
 }
 
 void MainWindow::show_main()

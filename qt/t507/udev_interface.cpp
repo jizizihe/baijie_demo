@@ -33,10 +33,10 @@ QString ping_gateway()
 {
     QString gateway = get_gateway();
     QString dex = "1 received, 0% packet loss";
-    QString sd_str = QString("ping -c 1 %1 | grep '%2'").arg(gateway).arg(dex);
+    QString ping_str = QString("ping -c 1 %1 | grep '%2'").arg(gateway).arg(dex);
 
     QProcess proc;
-    proc.start("bash",QStringList() << "-c" << sd_str);
+    proc.start("bash",QStringList() << "-c" << ping_str);
     proc.waitForFinished();
 
     if(proc.readAllStandardOutput() != NULL)
@@ -47,40 +47,25 @@ QString ping_gateway()
 
 QString get_new_usb()
 {
-//    qDebug() << "in get_new_usb";
     bool flag = false;
-    QByteArray array_data[10];
-
     QString failed = QObject::tr("USB Failed");
-    QString file_name = QString("/data/1.txt");
 
     QProcess *proc = new QProcess();
-    proc->start(QString("rm %1").arg(file_name));;
-    proc->waitForFinished();
-
-    proc->start(QString("touch %1").arg(file_name));
-    proc->waitForFinished();
-
-    QString str = QString("lsusb > %1").arg(file_name);
+    QString str = QString("lsusb | awk '{print $6}'");
     proc->start("bash",QStringList() << "-c" << str);
     proc->waitForFinished();
+    QString temp = proc->readAllStandardOutput();
 
-    QFile file(file_name);
-    file.open(QIODevice::ReadOnly);
-    int i;
-    for(i = 0; !file.atEnd();++i)
-    {
-        array_data[i] = file.readLine();
-    }
+    QStringList usb_data = temp.split("\n");
+    usb_data.removeAll("");
 
-    QByteArray temp;
-    for(int x = 0; x < i; x++)
+    for(int x = 0; x < usb_data.size(); x++)
     {
-        temp = array_data[x];
-        array_data[x] = array_data[x].remove(0,28).left(4);
-        if(array_data[x] == "0001" || array_data[x] == "0125" || array_data[x] == "0101" || array_data[x] == "0002" || array_data[x] == "772b")
+        temp = usb_data.at(x);
+        temp = temp.right(4);
+        if(temp == "0001" || temp == "0125" || temp == "0101" || temp == "0002" || temp == "772b")
         {
-            flag = false;
+            continue;
         }
         else
         {
@@ -88,22 +73,17 @@ QString get_new_usb()
             break;
         }
     }
-    file.flush();
-    file.close();
-
     proc->close();
     delete proc;
     proc = 0;
 
     if(flag)
     {
-//        qDebug() << "*****usb******true: " << temp.data();
         qdebug("*****usb******true : %s",temp.data());
-        return temp.data();
+        return temp;
     }
     else
     {
-//        qDebug() <<"*****usb******false: " << failed.data();
         qdebug("*****usb******flase: %s",failed.data());
         return failed;
     }
@@ -135,11 +115,11 @@ QString get_new_sd()
 QString get_new_sim()
 {
     QString failed = QObject::tr("SIM Failed");
-    QString sd_str = QString("ifconfig | grep ppp0");
-    QProcess sd_proc;
-    sd_proc.start("bash",QStringList() << "-c" << sd_str);
-    sd_proc.waitForFinished();
-    QString status = sd_proc.readAllStandardOutput().data();
+    QString sim_str = QString("ifconfig | grep ppp0");
+    QProcess sim_proc;
+    sim_proc.start("bash",QStringList() << "-c" << sim_str);
+    sim_proc.waitForFinished();
+    QString status = sim_proc.readAllStandardOutput().data();
     if(status == NULL)
     {
         qdebug("*****sim****** false: %s",failed.data());
@@ -150,4 +130,29 @@ QString get_new_sim()
         qdebug("*****sim****** true: %s",status.data());
         return status;
     }
+}
+
+QString wifi_test()
+{
+    QString failed = QObject::tr("WIFI Failed");
+    QString wifi_str = QString("iw dev wlan0 scan | grep SSID");
+    QProcess wifi_proc;
+    wifi_proc.start("bash",QStringList() << "-c" << wifi_str);
+    wifi_proc.waitForFinished();
+    QString status = wifi_proc.readAllStandardOutput().data();
+    if(status == NULL)
+    {
+        qdebug("*****wifi****** false: %s",failed.data());
+        return failed;
+    }
+    else
+    {
+        qdebug("*****wifi****** true: %s",status.data());
+        return "OK";
+    }
+}
+
+QString bluetooth()
+{
+
 }
