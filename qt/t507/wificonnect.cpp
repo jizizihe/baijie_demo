@@ -254,6 +254,12 @@ void WifiConnect::WifiConnectBt_clicked()
     QString PassWd = this->WifiPasswdLine->text();
     qDebug() << "PassWd = " << PassWd;
 
+    if(WifiSsid == "")
+    {
+        //qDebug() << "please choose first ";
+        QMessageBox::information(this,"information","please choose first!");
+        return ;
+    }
     wifi_connect(WifiSsid, PassWd);
 }
 

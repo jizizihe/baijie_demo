@@ -15,7 +15,9 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <QPaintEvent>
-#include "bluetooth.h"
+#include <QMessageBox>
+#include <QMovie>
+#include<QScreen>
 #include "wifi_thread.h"
 
 void wifi_connect(QString WifiSsid,QString PassWd);

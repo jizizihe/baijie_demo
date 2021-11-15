@@ -16,7 +16,7 @@ TRANSLATIONS += chinese.ts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = t507_QT
+TARGET = HelperAPP
 TEMPLATE = app
 
 target.path = /
