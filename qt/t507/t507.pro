@@ -65,7 +65,8 @@ SOURCES += \
     udev_interface.cpp \
     serial_thread.cpp \
     sys_setting.cpp \
-    wifi_thread.cpp
+    wifi_thread.cpp \
+    xcombobox.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -97,7 +98,8 @@ HEADERS += \
     udev_interface.h \
     serial_thread.h \
     sys_setting.h \
-    wifi_thread.h
+    wifi_thread.h \
+    xcombobox.h
 
 FORMS += \
         mainwindow.ui \

@@ -3,6 +3,7 @@
 #include "gpio_interface.h"
 
 //#include "mainwindow.h"
+#include "xcombobox.h"
 
 int device_index=0;
 
@@ -79,9 +80,9 @@ void udev::show_file(QString file_path)   //显示当前路径下的文件内容
     proc->waitForFinished(-1);
     QString ls = proc->readAllStandardOutput().data();
     QStringList ls_data = ls.split("\n");
-    ui->file->clear();
-    ui->file->addItems(ls_data);
-
+    ls_data.removeAll("");
+    ui->files->clear();
+    ui->files->AddItems(ls_data);
 }
 
 void udev::on_choose_clicked()   //选择其他路径的文件
@@ -92,7 +93,7 @@ void udev::on_choose_clicked()   //选择其他路径的文件
     file_path = info.path();
 
     show_file(file_path);
-    ui->file->setCurrentText(info.fileName());
+    ui->files->setCurrentText(info.fileName());
 }
 
 void udev::on_refresh_clicked()  //清除挂载过移动设备的文件夹，控件内容刷新
@@ -101,63 +102,6 @@ void udev::on_refresh_clicked()  //清除挂载过移动设备的文件夹，控
     if(mount_device.size() != 0)
     {
         on_mount_currentIndexChanged(0);
-//        if(umount_flag)
-//        {
-//            umount_flag = false;
-//            insert_device.clear();
-
-//            QRegExp reg("sd[a-z]1");
-//            QString str_text = QString("cat /proc/partitions | awk '{print $4}'");
-//            proc->start("bash",QStringList() << "-c" << str_text);
-//            proc->waitForFinished(-1);
-//            QString str = proc->readAllStandardOutput().data();
-//            QStringList temp = str.split("\n");
-
-//            for(int i = 0; i < temp.size(); i ++) //
-//            {
-//                if(reg.exactMatch(temp.at(i)) || temp.at(i) == "mmcblk1p1")
-//                {
-//                    insert_device << temp.at(i);
-//                }
-//            }
-//            //从末尾开始查询，如果当前有插入的设备名，但是已经安全退出了，此时就对挂载过的文件进行删除操作
-//            //insert_device {mmcblk1p1,sdb1,sdc1}
-//            //mount_device {mmcblk1p1,sdc1}
-//            //循环后insert_device列表还剩sdb1,后续对它进行删除
-//            for(int i = mount_device.size()-1; i >= 0; i --)
-//            {
-//                QString s = mount_device.at(i);
-//                s = s.remove(0,5);
-//                for(int x = insert_device.size()-1; x >=0; x--)
-//                {
-//                    QString ss = insert_device.at(x);
-
-//                    if(insert_device.at(x) == s)
-//                    {
-//                        insert_device.removeAt(x);
-//                        mount_device.removeAt(i);
-//                    }
-//                }
-//            }
-
-//            QProcess pro;
-//            for(int i = 0; i < insert_device.size(); i ++)
-//            {
-//                if(insert_device.at(i) == "mmcblk1p1")
-//                {
-//                    QString temp = insert_device.at(i);
-//                    pro.start("bash", QStringList() << "-c" << QString("rm -rf /media/sdcard/%1").arg(temp));
-//                    pro.waitForFinished(-1);
-//                }
-//                else
-//                {
-//                    QString temp = insert_device.at(i);
-//                    pro.start("bash", QStringList() << "-c" << QString("rm -rf /media/udisk/%1").arg(temp));
-//                    pro.waitForFinished(-1);
-//                }
-//            }
-//        }
-//        on_mount_currentIndexChanged(0);
     }
 }
 
@@ -178,16 +122,30 @@ void udev::on_umount_clicked()  //安全退出
     find_device();
     umount_flag = true;
     device_index = 0;
-    ui->file->clear();
+    ui->files->clear();
     if(mount_device.size() != 0)
         on_mount_currentIndexChanged(0);
 }
 
 void udev::on_cp_clicked()
 {
-    QString cp_file = ui->label->text()+"/"+ui->file->currentText();
+    QString temp = temp = ui->files->currentText();
+
+    QStringList str = temp.split(',');
+    temp.clear();
+    for(int i = 0; i < str.size(); i++)
+    {
+        qDebug() <<" str:"  << str.at(i) ;
+        temp.append(str.at(i) + " ");
+    }
+
+
+    QString cp_file = ui->label->text()+"/"+ temp;
 
     QString cp_to_path = QFileDialog::getExistingDirectory(this);
+
+    qDebug() << "cp_file:" << cp_file << __LINE__;
+    qDebug() << "cp_to_path:" << cp_to_path << __LINE__;
 
     if(cp_to_path != "")
     {
@@ -209,7 +167,15 @@ void udev::on_cp_clicked()
 
 void udev::on_mv_clicked()
 {
-    QString mv_file = ui->label->text()+"/"+ui->file->currentText();
+    QString temp = temp = ui->files->currentText();
+    QStringList str = temp.split(',');
+    temp.clear();
+    for(int i = 0; i < str.size(); i++)
+    {
+        qDebug() <<" str:"  << str.at(i) ;
+        temp.append(str.at(i) + " ");
+    }
+    QString mv_file = ui->label->text()+"/"+temp;
     qDebug() << "mv_file:" << mv_file;
 
     QString mv_to_path = QFileDialog::getExistingDirectory();
@@ -233,7 +199,15 @@ void udev::on_mv_clicked()
 
 void udev::on_del_clicked()
 {
-    QString del_file = ui->label->text()+"/"+ui->file->currentText();
+    QString temp = temp = ui->files->currentText();
+    QStringList str = temp.split(',');
+    temp.clear();
+    for(int i = 0; i < str.size(); i++)
+    {
+        qDebug() <<" str:"  << str.at(i) ;
+        temp.append(str.at(i) + " ");
+    }
+    QString del_file = ui->label->text()+"/"+temp;
 //    qDebug() << "del_file:" << del_file;
 
     int x = QMessageBox::warning(NULL, "critical", tr("Are you sure you want to delete this file ?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);

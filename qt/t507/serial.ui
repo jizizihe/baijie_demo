@@ -143,7 +143,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="translation.qrc">
+       <iconset>
         <normaloff>:/t507_button_image/return.png</normaloff>:/t507_button_image/return.png</iconset>
       </property>
      </widget>
@@ -425,8 +425,6 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="translation.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
