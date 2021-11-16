@@ -135,17 +135,12 @@ void udev::on_cp_clicked()
     temp.clear();
     for(int i = 0; i < str.size(); i++)
     {
-        qDebug() <<" str:"  << str.at(i) ;
         temp.append(str.at(i) + " ");
     }
-
 
     QString cp_file = ui->label->text()+"/"+ temp;
 
     QString cp_to_path = QFileDialog::getExistingDirectory(this);
-
-    qDebug() << "cp_file:" << cp_file << __LINE__;
-    qDebug() << "cp_to_path:" << cp_to_path << __LINE__;
 
     if(cp_to_path != "")
     {
@@ -172,14 +167,13 @@ void udev::on_mv_clicked()
     temp.clear();
     for(int i = 0; i < str.size(); i++)
     {
-        qDebug() <<" str:"  << str.at(i) ;
         temp.append(str.at(i) + " ");
     }
     QString mv_file = ui->label->text()+"/"+temp;
-    qDebug() << "mv_file:" << mv_file;
+//    qDebug() << "mv_file:" << mv_file;
 
     QString mv_to_path = QFileDialog::getExistingDirectory();
-    qDebug() << "mv_to_path :" << mv_to_path;
+//    qDebug() << "mv_to_path :" << mv_to_path;
 
     if(mv_to_path != "")
     {
@@ -204,7 +198,6 @@ void udev::on_del_clicked()
     temp.clear();
     for(int i = 0; i < str.size(); i++)
     {
-        qDebug() <<" str:"  << str.at(i) ;
         temp.append(str.at(i) + " ");
     }
     QString del_file = ui->label->text()+"/"+temp;
