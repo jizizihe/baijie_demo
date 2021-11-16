@@ -19,6 +19,7 @@
 #include <QMovie>
 #include<QScreen>
 #include "wifi_thread.h"
+#include "switchcontrol.h"
 
 void wifi_connect(QString WifiSsid,QString PassWd);
 
@@ -70,8 +71,10 @@ private slots:
     void WifiCleanBt_clicked();
     void WifiConnectBt_clicked();
     void WifiCloseBt_clicked();
+    void WifiModifyBt_clicked();
     void ListWidgeItem_clicked();
-    void BtnChange_flag(int switchflag);
+    //void BtnChange_flag(int switchflag);
+    void BtnChange_flag(bool);
 
     void recv_msg(QString );
 
@@ -87,6 +90,7 @@ private:
     QPushButton * WifiCleanBt;
     QPushButton * WifiConnectBt;
     QPushButton * WifiCloseBt;
+    QPushButton * WifiModifyBt;
     QListWidget * WifiScanListWid;
 
     QStringList scanlist;
@@ -95,6 +99,7 @@ private:
     QMovie *pMovie;
 
     slideButton *SwitchBtn;
+    SwitchControl *pSwitchControl;
 };
 
 
