@@ -15,8 +15,8 @@ WifiConnect::WifiConnect(QWidget *parent) :
 
     WifiSsidLab = new QLabel(this);
     WifiSsidLab->resize(100,50);
-    WifiSsidLab->move(500,50);
-    WifiSsidLab->setText(tr("ssid"));
+    WifiSsidLab->move(450,50);
+    WifiSsidLab->setText(tr("WifiName"));
 
     WifiSsidLine = new QLineEdit(this);
     WifiSsidLine->resize(200,50);
@@ -24,8 +24,8 @@ WifiConnect::WifiConnect(QWidget *parent) :
 
     WifiSsidLab = new QLabel(this);
     WifiSsidLab->resize(100,50);
-    WifiSsidLab->move(500,150);
-    WifiSsidLab->setText(tr("passwd"));
+    WifiSsidLab->move(450,150);
+    WifiSsidLab->setText(tr("Password"));
 
     WifiPasswdLine = new QLineEdit(this);
     WifiPasswdLine->setMaxLength(8);
@@ -51,12 +51,16 @@ WifiConnect::WifiConnect(QWidget *parent) :
 //    WifiConnectBt->setIcon(QIcon(":/t507_button_image/wifi/connect.png"));
     WifiConnectBt = new QPushButton(tr("connect"),this);
     WifiConnectBt->resize(150,50);
-    WifiConnectBt->move(560,250);
+    WifiConnectBt->move(450,250);
 
 //    WifiCloseBt->setIcon(QIcon(":/t507_button_image/wifi/close.png"));
     WifiCloseBt = new QPushButton(tr("close"),this);
     WifiCloseBt->resize(150,50);
-    WifiCloseBt->move(730,250);
+    WifiCloseBt->move(650,250);
+
+    WifiModifyBt = new QPushButton(tr("change passwd"),this);
+    WifiModifyBt->resize(150,50);
+    WifiModifyBt->move(850,250);
 
     WifiScanListWid = new QListWidget(this);
     WifiScanListWid->resize(400,500);
@@ -75,6 +79,7 @@ WifiConnect::WifiConnect(QWidget *parent) :
     connect(WifiCleanBt,SIGNAL(clicked()),this,SLOT(WifiCleanBt_clicked()));
     connect(WifiConnectBt,SIGNAL(clicked()),this,SLOT(WifiConnectBt_clicked()));
     connect(WifiCloseBt,SIGNAL(clicked()),this,SLOT(WifiCloseBt_clicked()));
+    connect(WifiModifyBt,SIGNAL(clicked()),this,SLOT(WifiModifyBt_clicked()));
     connect(WifiScanListWid, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(ListWidgeItem_clicked()));
 
     QThread * myThread = new QThread(this);
@@ -90,8 +95,18 @@ WifiConnect::WifiConnect(QWidget *parent) :
 
     SwitchBtn = new slideButton(this);
     SwitchBtn->move(220,55);
+    SwitchBtn->hide();
     //qDebug() << "LINe:" << __LINE__<<"switchflag " << switchflag;
-    connect(SwitchBtn,SIGNAL(buttonChange(int )),this,SLOT(BtnChange_flag(int)));
+    //connect(SwitchBtn,SIGNAL(buttonChange(int )),this,SLOT(BtnChange_flag(int)));
+
+
+    pSwitchControl = new SwitchControl(this);
+    pSwitchControl->move(220,60);
+    pSwitchControl->resize(70,30);
+    // 设置状态、样式
+    pSwitchControl->setToggle(true);
+    pSwitchControl->setCheckedColor(QColor(100, 225, 100));
+    connect(pSwitchControl,SIGNAL(toggled(bool)),this,SLOT(BtnChange_flag(bool)));
 
 }
 
@@ -109,6 +124,17 @@ void WifiConnect::recv_msg(QString ScanResult)
 
     scanlist = ScanResult.split("\n");
     scanlist.removeAll(QString(""));
+
+    int flag;
+
+    flag = pSwitchControl->isToggled();
+    //qDebug() << "line:" << __LINE__ << "flag:" << flag;
+
+    if(flag == 0)
+    {
+        return ;
+    }
+
     for(int i = 0; i < scanlist.size(); i++)
     {
         QString tmp = scanlist.at(i);
@@ -144,8 +170,11 @@ void WifiConnect::WifiScanBt_clicked()
 {
     int flag;
 
-    flag = SwitchBtn->get_switchflag();
-    if(flag == 0) // open
+    flag = pSwitchControl->isToggled();
+    qDebug() << "line:" << __LINE__ << "flag:" << flag;
+
+    //flag = SwitchBtn->get_switchflag();
+    if(flag == 1) // open
     {
         LoadLabel->show();
         pMovie->start();
@@ -270,15 +299,71 @@ void WifiConnect::WifiCloseBt_clicked()
     this->close();
 }
 
-void WifiConnect::BtnChange_flag(int switchflag)
+void WifiConnect::WifiModifyBt_clicked()
+{
+    QString WifiSsid = this->WifiSsidLine->text();
+    qDebug() << "WifiSsid = " << WifiSsid;
+
+    QString PassWd = this->WifiPasswdLine->text();
+    qDebug() << "PassWd = " << PassWd;
+
+    if(WifiSsid == "")
+    {
+        //qDebug() << "please choose first ";
+        QMessageBox::information(this,"information","please choose first!");
+        return ;
+    }
+    if(PassWd == "")
+    {
+        //qDebug() << "please choose first ";
+        QMessageBox::information(this,"information","please insert first!");
+        return ;
+    }
+
+    QString strCmd = QString("nmcli connection modify '%1' wifi-sec.psk \"%2\" ").arg(WifiSsid).arg(PassWd);
+    qDebug() << "strCmd == " << strCmd;
+    QProcess process;
+    process.start("bash", QStringList() <<"-c" << strCmd);
+    process.waitForFinished(-1);
+
+    QString strResult = process.readAllStandardOutput();
+    //qDebug() << strResult;
+
+
+    strCmd = QString("echo $?");
+    qDebug() << "strCmd == " << strCmd;
+    process.start("bash", QStringList() <<"-c" << strCmd);
+    process.waitForFinished(-1);
+    strResult = process.readAllStandardOutput();
+    qDebug() << strResult;
+
+    if(strResult == "0\n")
+    {
+        //qDebug() << "please choose first ";
+        QMessageBox::information(this,"information","change successful!");
+        return ;
+    }
+
+}
+
+
+void WifiConnect::BtnChange_flag(bool flag)
 {
     //qDebug() << "LINe:" << __LINE__<<"switchflag " << switchflag;
 
-    if(switchflag == 0) // open
+    //int flag;
+    flag = pSwitchControl->isToggled();
+    qDebug() << "line:" << __LINE__ << "flag:" << flag;
+
+
+    if(flag == 1) // open
     {
         if(WifiScanListWid->count() == 0)
         {
-            wifi_scan_msg();
+            LoadLabel->show();
+            pMovie->start();
+
+            emit wifi_scan_msg();
         }
 
         for(int i = 0; i < WifiScanListWid->count(); i++)
