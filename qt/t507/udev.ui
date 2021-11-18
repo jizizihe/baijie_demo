@@ -62,7 +62,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
    <widget class="XComboBox" name="files">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>290</x>
       <y>180</y>
       <width>491</width>
       <height>41</height>
@@ -74,8 +74,8 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
      <rect>
       <x>50</x>
       <y>260</y>
-      <width>118</width>
-      <height>19</height>
+      <width>231</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -96,7 +96,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
    <widget class="QComboBox" name="mount">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>290</x>
       <y>250</y>
       <width>491</width>
       <height>35</height>
@@ -112,7 +112,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
    <widget class="QPushButton" name="refresh">
     <property name="geometry">
      <rect>
-      <x>386</x>
+      <x>466</x>
       <y>330</y>
       <width>151</width>
       <height>48</height>
@@ -144,10 +144,10 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>453</x>
       <y>384</y>
-      <width>54</width>
-      <height>18</height>
+      <width>181</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -165,7 +165,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
    <widget class="QPushButton" name="umount">
     <property name="geometry">
      <rect>
-      <x>562</x>
+      <x>642</x>
       <y>330</y>
       <width>151</width>
       <height>48</height>
@@ -197,10 +197,10 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>598</x>
       <y>384</y>
-      <width>129</width>
-      <height>18</height>
+      <width>231</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -215,11 +215,11 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="mv">
+   <widget class="QPushButton" name="cut">
     <property name="geometry">
      <rect>
-      <x>386</x>
-      <y>412</y>
+      <x>466</x>
+      <y>426</y>
       <width>151</width>
       <height>48</height>
      </rect>
@@ -250,10 +250,10 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>466</y>
-      <width>42</width>
-      <height>18</height>
+      <x>471</x>
+      <y>480</y>
+      <width>141</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -262,7 +262,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
      </font>
     </property>
     <property name="text">
-     <string>move</string>
+     <string>cut</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -271,8 +271,8 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
    <widget class="QPushButton" name="del">
     <property name="geometry">
      <rect>
-      <x>562</x>
-      <y>412</y>
+      <x>642</x>
+      <y>426</y>
       <width>151</width>
       <height>48</height>
      </rect>
@@ -303,10 +303,10 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
    <widget class="QLabel" name="label_8">
     <property name="geometry">
      <rect>
-      <x>630</x>
-      <y>466</y>
-      <width>23</width>
-      <height>18</height>
+      <x>650</x>
+      <y>480</y>
+      <width>141</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -326,8 +326,8 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
      <rect>
       <x>50</x>
       <y>130</y>
-      <width>118</width>
-      <height>19</height>
+      <width>241</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -348,7 +348,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>212</x>
+      <x>292</x>
       <y>116</y>
       <width>481</width>
       <height>41</height>
@@ -367,9 +367,9 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>190</y>
-      <width>118</width>
-      <height>19</height>
+      <y>180</y>
+      <width>231</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -444,8 +444,8 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
    <widget class="QPushButton" name="cp">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>412</y>
+      <x>290</x>
+      <y>426</y>
       <width>151</width>
       <height>48</height>
      </rect>
@@ -476,10 +476,10 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
    <widget class="QLabel" name="label_10">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>466</y>
-      <width>36</width>
-      <height>18</height>
+      <x>295</x>
+      <y>480</y>
+      <width>141</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -497,10 +497,10 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>248</x>
       <y>384</y>
-      <width>79</width>
-      <height>18</height>
+      <width>231</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -518,7 +518,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
    <widget class="QPushButton" name="choose">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>290</x>
       <y>330</y>
       <width>151</width>
       <height>48</height>

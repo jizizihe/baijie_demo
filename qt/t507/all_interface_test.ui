@@ -292,7 +292,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
           </font>
          </property>
          <property name="text">
-          <string>bluetoth</string>
+          <string>bluetooth</string>
          </property>
         </widget>
        </item>

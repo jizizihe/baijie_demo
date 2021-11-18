@@ -26,7 +26,7 @@ XComboBox::~XComboBox()
 {
 }
 
-void XComboBox::AddItem(const QString& str, bool bChecked = false, const QVariant &userData = QVariant())
+void XComboBox::AddItem(const QString& str, bool bChecked, const QVariant &userData)
 {
     QStandardItem* item = new QStandardItem(str);
     item->setCheckable(true);

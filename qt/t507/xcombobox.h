@@ -77,7 +77,7 @@ public:
     ~XComboBox();
 
     // 添加item
-    void AddItem(const QString& str, bool bChecked, const QVariant &userData);
+    void AddItem(const QString& str, bool bChecked = false, const QVariant &userData = QVariant());
     void AddItems(const QList<ItemInfo>& lstItemInfo);
     void AddItems(const QMap<QString, bool>& mapStrChk);
     void AddItems(const QList<QString>& lstStr);

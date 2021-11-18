@@ -59,12 +59,14 @@ private slots:
     void on_umount_clicked();
 
     void on_cp_clicked();
-
-    void on_mv_clicked();
+    void on_cut_clicked();
+//    void on_mv_clicked();
 
     void on_del_clicked();
 
     void on_mount_currentIndexChanged(int index);
+
+
 
 signals:
     void Mysignal();

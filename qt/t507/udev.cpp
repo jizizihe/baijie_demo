@@ -1,8 +1,5 @@
 #include "udev.h"
 #include "ui_udev.h"
-#include "gpio_interface.h"
-
-//#include "mainwindow.h"
 #include "xcombobox.h"
 
 int device_index=0;
@@ -129,18 +126,23 @@ void udev::on_umount_clicked()  //安全退出
 
 void udev::on_cp_clicked()
 {
-    QString temp = temp = ui->files->currentText();
+    QString cp_file = ui->files->currentText();
+    if(cp_file == NULL)
+    {
+        QMessageBox::information(NULL,"INFO",tr("Please select the file that you want to copy!"));
+        return;
+    }
+    QStringList str = cp_file.split(',');
 
-    QStringList str = temp.split(',');
-    temp.clear();
+    cp_file.clear();
     for(int i = 0; i < str.size(); i++)
     {
-        temp.append(str.at(i) + " ");
+        cp_file.append(ui->label->text()+"/"+str.at(i) + " ");
     }
-
-    QString cp_file = ui->label->text()+"/"+ temp;
-
     QString cp_to_path = QFileDialog::getExistingDirectory(this);
+
+    file_path = cp_to_path;
+    ui->label->setText(file_path);
 
     if(cp_to_path != "")
     {
@@ -149,10 +151,8 @@ void udev::on_cp_clicked()
         if(flag)
         {
             QMessageBox::information(NULL,"INFO",tr("CP OK"));
-
-            on_refresh_clicked();
+            show_file(file_path);
         }
-
     }
     else
     {
@@ -160,29 +160,36 @@ void udev::on_cp_clicked()
     }
 }
 
-void udev::on_mv_clicked()
+void udev::on_cut_clicked()
 {
-    QString temp = temp = ui->files->currentText();
-    QStringList str = temp.split(',');
-    temp.clear();
+    QString cut_file =  ui->files->currentText();
+    if(cut_file == NULL)
+    {
+        QMessageBox::information(NULL,"INFO",tr("Please select the file that you want to cut!"));
+        ui->label->setText(file_path);
+
+        return;
+    }
+    QStringList str = cut_file.split(',');
+
+    cut_file.clear();
     for(int i = 0; i < str.size(); i++)
     {
-        temp.append(str.at(i) + " ");
+        cut_file.append(ui->label->text()+"/"+str.at(i) + " ");
     }
-    QString mv_file = ui->label->text()+"/"+temp;
-//    qDebug() << "mv_file:" << mv_file;
+    QString cut_to_path = QFileDialog::getExistingDirectory();
 
-    QString mv_to_path = QFileDialog::getExistingDirectory();
-//    qDebug() << "mv_to_path :" << mv_to_path;
+    file_path = cut_to_path;
+    ui->label->setText(file_path);
 
-    if(mv_to_path != "")
+    if(cut_to_path != "")
     {
-        proc->start("bash",QStringList() << "-c" << QString("mv %1 %2 -u").arg(mv_file).arg(mv_to_path));
+        proc->start("bash",QStringList() << "-c" << QString("mv %1 %2 -u").arg(cut_file).arg(cut_to_path));
         bool flag = proc->waitForFinished(-1);
         if(flag)
         {
-            QMessageBox::information(NULL,"INFO",tr("MV OK"));
-            on_refresh_clicked();
+            QMessageBox::information(NULL,"INFO",tr("CUT OK"));
+            show_file(file_path);
         }
     }
     else
@@ -193,26 +200,30 @@ void udev::on_mv_clicked()
 
 void udev::on_del_clicked()
 {
-    QString temp = temp = ui->files->currentText();
-    QStringList str = temp.split(',');
-    temp.clear();
+    QString del_file = ui->files->currentText();
+    if(del_file == NULL)
+    {
+        QMessageBox::information(NULL,"INFO",tr("Please select the file that you want to delete!"));
+        return;
+    }
+
+    QStringList str = del_file.split(',');
+    del_file.clear();
     for(int i = 0; i < str.size(); i++)
     {
-        temp.append(str.at(i) + " ");
+        del_file.append(ui->label->text()+"/"+str.at(i) + " ");
     }
-    QString del_file = ui->label->text()+"/"+temp;
-//    qDebug() << "del_file:" << del_file;
+
 
     int x = QMessageBox::warning(NULL, "critical", tr("Are you sure you want to delete this file ?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
     if(QMessageBox::Yes == x)
     {
-//        qDebug("You clicked the Yes!!!!!\n");
         proc->start("bash",QStringList() << "-c" << QString("rm %1 -rf").arg(del_file));
         bool flag = proc->waitForFinished(-1);
         if(flag)
         {
             QMessageBox::information(NULL,"INFO",tr("DEL OK"));
-            on_refresh_clicked();
+            show_file(file_path);
         }
     }
 }
@@ -232,8 +243,10 @@ void udev::on_mount_currentIndexChanged(int index)  //更改挂载的外部存�
            open_mount = "/media/sdcard/"+open_mount.remove(0,5);
         }
 
+        qDebug() <<__FUNCTION__<< "open_mount:" << open_mount << __LINE__;
         file_path = QString("%1").arg(open_mount);
         ui->label->setText(file_path);
+        qDebug() <<__FUNCTION__<< "file_path:" << file_path << __LINE__;
         show_file(file_path);
     }
 }
@@ -247,6 +260,7 @@ void udev::on_return_2_clicked()
 void udev::language_reload()
 {
     ui->retranslateUi(this);
+    ui->label->setText(file_path);
 }
 
 
