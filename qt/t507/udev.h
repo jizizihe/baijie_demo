@@ -81,7 +81,7 @@ private:
     QStringList insert_device;
     QStringList mount_device;
     QStringList user_show;
-    bool umount_flag;
+    int device_index=0;
 
 //    QProcess *proc;
 //    QString file_name;

@@ -14,13 +14,6 @@
 
 static bool flag = true;
 static bool refresh_flag = true;
-int len;
-
-QString str[100];
-QString file_name;
-QProcess *proc;
-
-
 
 voice::voice(QWidget *parent) :
     QMainWindow(parent),
@@ -32,7 +25,7 @@ voice::voice(QWidget *parent) :
     ui->horizontalSlider->setRange(0,31);
     ui->horizontalSlider->setValue(15);
 
-    refresh();
+    refresh("/data");
 
     QTimer *show_time = new QTimer(this);
     show_time->start(1000);
@@ -48,9 +41,9 @@ voice::~voice()
     delete ui;
 }
 
-void voice::refresh()
+void voice::refresh(QString dir_path)
 {
-    QDir dir("/data");
+    QDir dir(dir_path);
 
     QStringList filters;
 
@@ -59,23 +52,14 @@ void voice::refresh()
     dir.setNameFilters(filters);
 
     QFileInfoList list = dir.entryInfoList();
-
+    QStringList files;
     for(int i = 0; i != list.size(); i++)
     {
-        QString name = list.at(i).fileName();
-        str[i] = name;
-        len = i;
+        files << list.at(i).fileName();
     }
-    ui->combox->clear();
-    for(int i = 0; i <= len; i++)
-    {
-        if("." == str[i] || ".." == str[i] || "" == str[i])
-        {
-            continue;
-        }
-        ui->combox->addItem(str[i]);
-    }
-    len = -1;
+    files.removeAll("\n");
+     ui->combox->clear();
+    ui->combox->addItems(files);
 }
 
 void voice::show_time()
@@ -85,7 +69,7 @@ void voice::show_time()
 
 void voice::on_horizontalSlider_valueChanged(int value)
 {
-    proc = new QProcess();
+    QProcess *proc = new QProcess();
     qdebug("sound_value:%d",value);
     int sound = 31 - value;
     proc->start(QString("amixer cset numid=6 %1").arg(sound));
@@ -97,6 +81,9 @@ void voice::on_horizontalSlider_valueChanged(int value)
 
 void voice::on_return_2_clicked()
 {
+    QProcess proc;
+    proc.start("killall aplay");
+    proc.waitForFinished(-1);
     emit Mysignal();
 }
 
@@ -107,33 +94,15 @@ void voice::on_choose_3_clicked()
     QFileInfoList list1 = dir1.entryInfoList();
 
     ui->pathname_2->setText(list1.at(0).path());
-    QDir dir(list1.at(0).path());
-    QStringList filters;
-    filters << "*.wav";
-    dir.setNameFilters(filters);
-    QFileInfoList list = dir.entryInfoList();
+    refresh(list1.at(0).path());
 
-    for(int i = 0; i != list.size(); i++)
-    {
-        QString name = list.at(i).fileName();
-        str[i] = name;
-        len = i;
-    }
-    ui->combox->clear();
-    for(int i = 0; i <= len; i++)
-    {
-        if("." == str[i] || ".." == str[i])
-        {
-            continue;
-        }
-        ui->combox->addItem(str[i]);
-    }
-    len = -1;
 }
 
 void voice::on_begin_clicked()
 {
     QProcess *proc = new QProcess;
+    proc->start("killall aplay");
+    proc->waitForFinished(-1);
 
     QString files;
     QString str ;
@@ -171,40 +140,34 @@ void voice::on_begin_clicked()
 void voice::on_play_clicked()
 {
     QProcess *proc = new QProcess;
+    proc->start("killall aplay");
+    proc->waitForFinished(-1);
+
     QString path = QString("%1").arg(ui->pathname_2->text());
     QDir dir(path);
     QStringList filters;
     filters << "*.wav";
     dir.setNameFilters(filters);
     QFileInfoList list = dir.entryInfoList();
-    QString str[100];
-    int len = 0;
+
+    QStringList files;
 
     if(!refresh_flag)
     {
         refresh_flag = true;
         for(int i = 0; i < list.size(); i++)
         {
-           str[i] = list.at(i).fileName();
-           len = i;
+            files << list.at(i).fileName();
         }
+        files.removeAll("");
         ui->combox->clear();
-
-        for(int i = 0; i <= len; i++)
-        {
-            if("." == str[i] || ".." == str[i])
-            {
-                continue;
-            }
-            ui->combox->addItem(str[i]);
-        }
-        len = -1;
+        ui->combox->addItems(files);
         ui->combox->setCurrentText(file_name);
     }
 
     QString name = ui->combox->currentText();
-    str[0] = QString("aplay %1/%2").arg(ui->pathname_2->text()).arg(name);
-    proc->start(str[0]);
+    QString str = QString("aplay %1/%2").arg(ui->pathname_2->text()).arg(name);
+    proc->start(str);
 }
 
 void voice::language_reload()

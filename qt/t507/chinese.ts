@@ -164,7 +164,7 @@
     <message>
         <location filename="udev_interface.cpp" line="137"/>
         <source>WIFI Failed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">WIFI失败</translation>
     </message>
 </context>
 <context>
@@ -340,13 +340,13 @@
     <message>
         <location filename="all_interface_test.ui" line="80"/>
         <source>individual test</source>
-        <translation type="unfinished">单独测试</translation>
+        <translation type="unfinished">单个测试</translation>
     </message>
     <message>
         <location filename="all_interface_test.ui" line="91"/>
         <location filename="all_interface_test.ui" line="235"/>
         <source>gpio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">gpio</translation>
     </message>
     <message>
         <location filename="all_interface_test.ui" line="103"/>
@@ -370,7 +370,7 @@
         <location filename="all_interface_test.ui" line="139"/>
         <location filename="all_interface_test.ui" line="247"/>
         <source>usb</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">usb</translation>
     </message>
     <message>
         <location filename="all_interface_test.ui" line="151"/>
@@ -382,7 +382,7 @@
         <location filename="all_interface_test.ui" line="163"/>
         <location filename="all_interface_test.ui" line="307"/>
         <source>camera</source>
-        <translation type="unfinished">相机</translation>
+        <translation type="unfinished">摄像头</translation>
     </message>
     <message>
         <location filename="all_interface_test.ui" line="175"/>
@@ -394,7 +394,7 @@
         <location filename="all_interface_test.ui" line="187"/>
         <location filename="all_interface_test.ui" line="211"/>
         <source>wifi</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">wifi</translation>
     </message>
     <message>
         <location filename="all_interface_test.ui" line="200"/>
@@ -432,7 +432,7 @@
         <location filename="all_interface_test.cpp" line="233"/>
         <location filename="all_interface_test.cpp" line="568"/>
         <source>1. Note that the buzzer has or does not have sound!!</source>
-        <translation type="unfinished">1. 请注意蜂鸣器是否发出了声音！！</translation>
+        <translation type="unfinished">1.请注意蜂鸣器是否发出了声音！！</translation>
     </message>
     <message>
         <source>2. USB Failed</source>
@@ -441,7 +441,7 @@
     <message>
         <location filename="all_interface_test.cpp" line="108"/>
         <source>2. USB OK</source>
-        <translation>2. USB检测成功</translation>
+        <translation type="unfinished">2.USB检测成功</translation>
     </message>
     <message>
         <source>3. SD Failed</source>
@@ -450,7 +450,7 @@
     <message>
         <location filename="all_interface_test.cpp" line="113"/>
         <source>3. SD OK</source>
-        <translation>3. SD卡检测成功</translation>
+        <translation type="unfinished">3.SD卡检测成功</translation>
     </message>
     <message>
         <source>4. SIM Failed</source>
@@ -493,7 +493,7 @@
     <message>
         <location filename="all_interface_test.cpp" line="118"/>
         <source>4. SIM OK</source>
-        <translation>4. SIM卡检测成功</translation>
+        <translation type="unfinished">4.SIM卡检测成功</translation>
     </message>
     <message>
         <location filename="all_interface_test.cpp" line="120"/>
@@ -507,18 +507,18 @@
     <message>
         <location filename="all_interface_test.cpp" line="121"/>
         <source>5. NETWORK OK</source>
-        <translation type="unfinished">5. 网络测试成功</translation>
+        <translation type="unfinished">5.网络测试成功</translation>
     </message>
     <message>
         <location filename="all_interface_test.cpp" line="123"/>
         <source>5. NETWORK Failed</source>
-        <translation type="unfinished">4. 网络测试失败</translation>
+        <translation type="unfinished">4.网络测试失败</translation>
     </message>
     <message>
         <location filename="all_interface_test.cpp" line="131"/>
         <source>6. Whether the picture is displayed properly?</source>
         <oldsource>6. Whether the picture is displayed properly</oldsource>
-        <translation type="unfinished">6. 图片显示是否正常？</translation>
+        <translation type="unfinished">6.图片显示是否正常？</translation>
     </message>
     <message>
         <location filename="all_interface_test.cpp" line="255"/>
@@ -560,7 +560,7 @@
         <location filename="all_interface_test.cpp" line="322"/>
         <location filename="all_interface_test.cpp" line="622"/>
         <source>7. SD OK</source>
-        <translation type="unfinished">7. SD卡检测成功</translation>
+        <translation type="unfinished">7.SD卡检测成功</translation>
     </message>
     <message>
         <location filename="all_interface_test.cpp" line="345"/>
@@ -1714,7 +1714,7 @@ Please wait a moment...</source>
     <message>
         <location filename="udev.ui" line="438"/>
         <source>Udev</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Udev</translation>
     </message>
     <message>
         <source>return</source>
@@ -1804,55 +1804,61 @@ The New SIM card is:
         <translation type="obsolete">可能会花很长时间！！请注意电路板上的4G指示灯是否快速闪烁！！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="90"/>
+        <location filename="udev.cpp" line="86"/>
         <source>choose</source>
         <translation type="unfinished">选择文件</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="119"/>
+        <location filename="udev.cpp" line="109"/>
+        <source>All devices have been safely logged out, please check whether the device is inserted, or try to reinsert!!</source>
+        <oldsource>All devices have been safely logged out, please check whether the device is inserted, or try to reinsert!!  </oldsource>
+        <translation type="unfinished">所有设备已安全注销，请检查设备是否已插入，或尝试重新插入!!</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="121"/>
         <source>umount %1 successful!</source>
         <translation type="unfinished">%1已安全退出！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="135"/>
+        <location filename="udev.cpp" line="137"/>
         <source>Please select the file that you want to copy!</source>
         <translation type="unfinished">请选择要复制的文件!</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="156"/>
+        <location filename="udev.cpp" line="157"/>
         <source>CP OK</source>
         <translation type="unfinished">复制成功</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="162"/>
-        <location filename="udev.cpp" line="198"/>
+        <location filename="udev.cpp" line="163"/>
+        <location filename="udev.cpp" line="200"/>
         <source>Please select a legal path!</source>
         <translation type="unfinished">请选择一个合法路径！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="171"/>
+        <location filename="udev.cpp" line="172"/>
         <source>Please select the file that you want to cut!</source>
         <oldsource>Please select the file that you want to move!</oldsource>
         <translation type="unfinished">请选择要剪切的文件!</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="192"/>
+        <location filename="udev.cpp" line="194"/>
         <source>CUT OK</source>
         <oldsource>MV OK</oldsource>
         <translation type="unfinished">剪切成功</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="207"/>
+        <location filename="udev.cpp" line="209"/>
         <source>Please select the file that you want to delete!</source>
         <translation type="unfinished">请选择要删除的文件!</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="219"/>
+        <location filename="udev.cpp" line="221"/>
         <source>Are you sure you want to delete this file ?</source>
         <translation type="unfinished">你确定删除这个文件？</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="226"/>
+        <location filename="udev.cpp" line="228"/>
         <source>DEL OK</source>
         <translation type="unfinished">删除成功</translation>
     </message>
@@ -2050,40 +2056,43 @@ The New SIM card is:
     </message>
     <message>
         <location filename="user_manual.ui" line="285"/>
+        <source>Udev</source>
+        <translation type="unfinished">Udev</translation>
+    </message>
+    <message>
         <source>Udev Detection</source>
-        <translation type="unfinished">Udev检测</translation>
+        <translation type="obsolete">Udev检测</translation>
     </message>
     <message>
         <location filename="user_manual.ui" line="294"/>
         <location filename="user_manual.cpp" line="103"/>
-        <source>USB</source>
+        <source>udev</source>
+        <oldsource>USB</oldsource>
         <translation type="unfinished">USB</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="304"/>
         <location filename="user_manual.cpp" line="107"/>
         <source>SD</source>
         <translation type="unfinished">SD</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="314"/>
         <location filename="user_manual.cpp" line="111"/>
         <source>SIM</source>
         <translation type="unfinished">SIM</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="325"/>
+        <location filename="user_manual.ui" line="305"/>
         <source>All Interface Test</source>
         <translation type="unfinished">所有接口测试</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="334"/>
+        <location filename="user_manual.ui" line="314"/>
         <location filename="user_manual.cpp" line="115"/>
         <source>test</source>
         <translation type="unfinished">测试</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="411"/>
+        <location filename="user_manual.ui" line="391"/>
         <location filename="user_manual.cpp" line="26"/>
         <location filename="user_manual.cpp" line="144"/>
         <source>expand all</source>
@@ -2094,7 +2103,7 @@ The New SIM card is:
         <translation type="obsolete">清屏</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="344"/>
+        <location filename="user_manual.ui" line="324"/>
         <location filename="user_manual.cpp" line="119"/>
         <source>photo</source>
         <translation type="unfinished">照相</translation>
@@ -2104,7 +2113,7 @@ The New SIM card is:
         <translation type="obsolete">显示</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="355"/>
+        <location filename="user_manual.ui" line="335"/>
         <location filename="user_manual.cpp" line="123"/>
         <source>Key Test</source>
         <translation type="unfinished">按键测试</translation>
@@ -2118,7 +2127,7 @@ The New SIM card is:
         <translation type="obsolete">停止</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="365"/>
+        <location filename="user_manual.ui" line="345"/>
         <location filename="user_manual.cpp" line="127"/>
         <source>Chinese/English</source>
         <translation type="unfinished">中/英</translation>
@@ -2222,8 +2231,12 @@ The New SIM card is:
     </message>
     <message>
         <location filename="user_manual.cpp" line="105"/>
+        <source>You can operate files from external storage devices.</source>
+        <translation type="unfinished">你可以通过外部存储设备进行文件操作。</translation>
+    </message>
+    <message>
         <source>You can use this function to detect whether a device is inserted into the USB port.</source>
-        <translation type="unfinished">你可以使用此功能检测USB口是否有设备插入。</translation>
+        <translation type="obsolete">你可以使用此功能检测USB口是否有设备插入。</translation>
     </message>
     <message>
         <location filename="user_manual.cpp" line="109"/>
@@ -2287,14 +2300,14 @@ The New SIM card is:
     </message>
     <message>
         <location filename="voice.ui" line="298"/>
-        <location filename="voice.cpp" line="41"/>
-        <location filename="voice.cpp" line="158"/>
+        <location filename="voice.cpp" line="34"/>
+        <location filename="voice.cpp" line="127"/>
         <source>begin</source>
         <translation>开始</translation>
     </message>
     <message>
         <location filename="voice.ui" line="277"/>
-        <location filename="voice.cpp" line="105"/>
+        <location filename="voice.cpp" line="92"/>
         <source>choose</source>
         <translation>选择文件</translation>
     </message>
@@ -2342,12 +2355,12 @@ The New SIM card is:
         <translation type="obsolete">结束</translation>
     </message>
     <message>
-        <location filename="voice.cpp" line="148"/>
+        <location filename="voice.cpp" line="117"/>
         <source>stop</source>
         <translation type="unfinished">停止</translation>
     </message>
     <message>
-        <location filename="voice.cpp" line="161"/>
+        <location filename="voice.cpp" line="130"/>
         <source>Successfully save the file %1</source>
         <oldsource>save file %1</oldsource>
         <translation type="unfinished">成功保存文件%1</translation>

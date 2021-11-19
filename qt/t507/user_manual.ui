@@ -282,7 +282,7 @@
    </item>
    <item>
     <property name="text">
-     <string>Udev Detection</string>
+     <string>Udev</string>
     </property>
     <property name="font">
      <font>
@@ -291,27 +291,7 @@
     </property>
     <item>
      <property name="text">
-      <string>USB</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>SD</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>SIM</string>
+      <string>udev</string>
      </property>
      <property name="font">
       <font>

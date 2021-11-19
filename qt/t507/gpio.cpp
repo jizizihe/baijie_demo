@@ -22,7 +22,7 @@ gpio::gpio(QWidget *parent) :
     display->setReadOnly(true);
     display->resize(330,320);
     display->move(480,130);
-    display->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
+    display->verticalScrollBar()->setStyleSheet("QScrollBar{width:35px;}");
 
     stateGroup = new QGroupBox(this);
     stateGroup->setTitle(tr("state"));

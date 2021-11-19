@@ -2,7 +2,6 @@
 #include "ui_udev.h"
 #include "xcombobox.h"
 
-int device_index=0;
 
 udev::udev(QWidget *parent) :
     QMainWindow(parent),
@@ -11,10 +10,8 @@ udev::udev(QWidget *parent) :
     ui->setupUi(this);
 
     proc = new QProcess();
-    umount_flag = false;
 
     find_device();
-    ui->label->setText("/media/udisk/");
     on_mount_currentIndexChanged(0);
 }
 
@@ -93,7 +90,7 @@ void udev::on_choose_clicked()   //选择其他路径的文件
     ui->files->setCurrentText(info.fileName());
 }
 
-void udev::on_refresh_clicked()  //清除挂载过移动设备的文件夹，控件内容刷新
+void udev::on_refresh_clicked()  //控件内容刷新
 {
     find_device();
     if(mount_device.size() != 0)
@@ -104,6 +101,12 @@ void udev::on_refresh_clicked()  //清除挂载过移动设备的文件夹，控
 
 void udev::on_umount_clicked()  //安全退出
 {
+    ui->label->clear();
+    if(mount_device.size() == 0)
+    {
+        QMessageBox::information(NULL,"INFO",QString(tr("All devices have been safely logged out, please check whether the device is inserted, or try to reinsert!!")));
+        return ;
+    }
     QString mount_name = globall[device_index];
     QString user_show_name = user_show.at(device_index);
 
@@ -117,7 +120,6 @@ void udev::on_umount_clicked()  //安全退出
     }
 
     find_device();
-    umount_flag = true;
     device_index = 0;
     ui->files->clear();
     if(mount_device.size() != 0)
@@ -141,11 +143,10 @@ void udev::on_cp_clicked()
     }
     QString cp_to_path = QFileDialog::getExistingDirectory(this);
 
-    file_path = cp_to_path;
-    ui->label->setText(file_path);
-
     if(cp_to_path != "")
     {
+        file_path = cp_to_path;
+        ui->label->setText(file_path);
         proc->start("bash",QStringList() << "-c" << QString("cp %1 %2 -r").arg(cp_file).arg(cp_to_path));
         bool flag = proc->waitForFinished(-1);
         if(flag)
@@ -179,11 +180,10 @@ void udev::on_cut_clicked()
     }
     QString cut_to_path = QFileDialog::getExistingDirectory();
 
-    file_path = cut_to_path;
-    ui->label->setText(file_path);
-
     if(cut_to_path != "")
     {
+        file_path = cut_to_path;
+        ui->label->setText(file_path);
         proc->start("bash",QStringList() << "-c" << QString("mv %1 %2 -u").arg(cut_file).arg(cut_to_path));
         bool flag = proc->waitForFinished(-1);
         if(flag)
@@ -243,10 +243,8 @@ void udev::on_mount_currentIndexChanged(int index)  //更改挂载的外部存�
            open_mount = "/media/sdcard/"+open_mount.remove(0,5);
         }
 
-        qDebug() <<__FUNCTION__<< "open_mount:" << open_mount << __LINE__;
         file_path = QString("%1").arg(open_mount);
         ui->label->setText(file_path);
-        qDebug() <<__FUNCTION__<< "file_path:" << file_path << __LINE__;
         show_file(file_path);
     }
 }
