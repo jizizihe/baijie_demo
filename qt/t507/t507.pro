@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui serialport
+QT       += core gui serialport multimedia
 QT       += network
 #DEFINES += QT_NO_WARNING_OUTPUT\
 #     QT_NO_DEBUG_OUTPUT
@@ -44,8 +44,6 @@ SOURCES += \
     touchscreen.cpp \
     ctouchbutton.cpp \
     timeset.cpp \
-    wifi.cpp \
-    wificonnect.cpp \
     hotspot.cpp \
     globalapp.cpp \
     boardinfo_interface.cpp \
@@ -67,7 +65,8 @@ SOURCES += \
     sys_setting.cpp \
     wifi_thread.cpp \
     wifi_bt_interface.cpp \
-    switchcontrol.cpp
+    switchcontrol.cpp \
+    wifi.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -78,8 +77,6 @@ HEADERS += \
     touchscreen.h \
     ctouchbutton.h \
     timeset.h \
-    wifi.h \
-    wificonnect.h \
     hotspot.h \
     gpio_interface.h \
     globalapp.h \
@@ -101,7 +98,8 @@ HEADERS += \
     sys_setting.h \
     wifi_thread.h \
     wifi_bt_interface.h \
-    switchcontrol.h
+    switchcontrol.h \
+    wifi.h
 
 FORMS += \
         mainwindow.ui \
@@ -111,8 +109,6 @@ FORMS += \
     gpio.ui \
     touchscreen.ui \
     timeset.ui \
-    wifi.ui \
-    wificonnect.ui \
     hotspot.ui \
     about_board.ui \
     keytest.ui \
@@ -121,7 +117,8 @@ FORMS += \
     bluetooth.ui \
     user_manual.ui \
     serial.ui \
-    sys_setting.ui
+    sys_setting.ui \
+    wifi.ui
 
 RESOURCES += \
     translation.qrc

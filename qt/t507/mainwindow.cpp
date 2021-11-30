@@ -8,8 +8,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
 
-
-
     connect(&voice_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&udev_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&gpio_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
@@ -126,7 +124,7 @@ void MainWindow::cn_main()
     }
     languageflag = !languageflag;
     ui->retranslateUi(this);
-    wifi_w.language_reload();
+    //wifi_w.language_reload();
     eth0_w.language_reload();
     gpio_w.language_reload();
     voice_w.language_reload();
