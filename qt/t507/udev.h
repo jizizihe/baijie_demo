@@ -59,12 +59,14 @@ private slots:
     void on_umount_clicked();
 
     void on_cp_clicked();
-
-    void on_mv_clicked();
+    void on_cut_clicked();
+//    void on_mv_clicked();
 
     void on_del_clicked();
 
     void on_mount_currentIndexChanged(int index);
+
+
 
 signals:
     void Mysignal();
@@ -79,7 +81,7 @@ private:
     QStringList insert_device;
     QStringList mount_device;
     QStringList user_show;
-    bool umount_flag;
+    int device_index=0;
 
 //    QProcess *proc;
 //    QString file_name;

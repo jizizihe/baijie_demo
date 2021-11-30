@@ -25,7 +25,7 @@ public:
     ~voice();
 
     void language_reload();
-    void refresh();
+    void refresh(QString);
 
 private slots:
 
@@ -48,6 +48,7 @@ signals:
 
 private:
     Ui::voice *ui;
+    QString file_name;
 };
 
 #endif // VOICE_H

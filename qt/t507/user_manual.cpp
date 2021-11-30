@@ -100,9 +100,9 @@ Note: there should be no space between each GPIO air, otherwise this operation w
     {
         ui->textEdit->setText(tr("This function will recognize the touch screen and display the movement track on the screen."));
     }
-    else if(str == tr("USB"))
+    else if(str == tr("udev"))
     {
-        ui->textEdit->setText(tr("You can use this function to detect whether a device is inserted into the USB port."));
+        ui->textEdit->setText(tr("You can operate files from external storage devices."));
     }
     else if(str == tr("SD"))
     {

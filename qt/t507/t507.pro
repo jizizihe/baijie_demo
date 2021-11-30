@@ -64,6 +64,7 @@ SOURCES += \
     serial_thread.cpp \
     sys_setting.cpp \
     wifi_thread.cpp \
+    xcombobox.cpp \
     wifi_bt_interface.cpp \
     switchcontrol.cpp \
     wifi.cpp
@@ -97,6 +98,7 @@ HEADERS += \
     serial_thread.h \
     sys_setting.h \
     wifi_thread.h \
+    xcombobox.h \
     wifi_bt_interface.h \
     switchcontrol.h \
     wifi.h

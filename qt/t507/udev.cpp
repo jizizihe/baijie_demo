@@ -1,10 +1,7 @@
 #include "udev.h"
 #include "ui_udev.h"
-#include "gpio_interface.h"
+#include "xcombobox.h"
 
-//#include "mainwindow.h"
-
-int device_index=0;
 
 udev::udev(QWidget *parent) :
     QMainWindow(parent),
@@ -13,10 +10,8 @@ udev::udev(QWidget *parent) :
     ui->setupUi(this);
 
     proc = new QProcess();
-    umount_flag = false;
 
     find_device();
-    ui->label->setText("/media/udisk/");
     on_mount_currentIndexChanged(0);
 }
 
@@ -79,9 +74,9 @@ void udev::show_file(QString file_path)   //显示当前路径下的文件内容
     proc->waitForFinished(-1);
     QString ls = proc->readAllStandardOutput().data();
     QStringList ls_data = ls.split("\n");
-    ui->file->clear();
-    ui->file->addItems(ls_data);
-
+    ls_data.removeAll("");
+    ui->files->clear();
+    ui->files->AddItems(ls_data);
 }
 
 void udev::on_choose_clicked()   //选择其他路径的文件
@@ -92,77 +87,26 @@ void udev::on_choose_clicked()   //选择其他路径的文件
     file_path = info.path();
 
     show_file(file_path);
-    ui->file->setCurrentText(info.fileName());
+    ui->files->setCurrentText(info.fileName());
 }
 
-void udev::on_refresh_clicked()  //清除挂载过移动设备的文件夹，控件内容刷新
+void udev::on_refresh_clicked()  //控件内容刷新
 {
     find_device();
     if(mount_device.size() != 0)
     {
         on_mount_currentIndexChanged(0);
-//        if(umount_flag)
-//        {
-//            umount_flag = false;
-//            insert_device.clear();
-
-//            QRegExp reg("sd[a-z]1");
-//            QString str_text = QString("cat /proc/partitions | awk '{print $4}'");
-//            proc->start("bash",QStringList() << "-c" << str_text);
-//            proc->waitForFinished(-1);
-//            QString str = proc->readAllStandardOutput().data();
-//            QStringList temp = str.split("\n");
-
-//            for(int i = 0; i < temp.size(); i ++) //
-//            {
-//                if(reg.exactMatch(temp.at(i)) || temp.at(i) == "mmcblk1p1")
-//                {
-//                    insert_device << temp.at(i);
-//                }
-//            }
-//            //从末尾开始查询，如果当前有插入的设备名，但是已经安全退出了，此时就对挂载过的文件进行删除操作
-//            //insert_device {mmcblk1p1,sdb1,sdc1}
-//            //mount_device {mmcblk1p1,sdc1}
-//            //循环后insert_device列表还剩sdb1,后续对它进行删除
-//            for(int i = mount_device.size()-1; i >= 0; i --)
-//            {
-//                QString s = mount_device.at(i);
-//                s = s.remove(0,5);
-//                for(int x = insert_device.size()-1; x >=0; x--)
-//                {
-//                    QString ss = insert_device.at(x);
-
-//                    if(insert_device.at(x) == s)
-//                    {
-//                        insert_device.removeAt(x);
-//                        mount_device.removeAt(i);
-//                    }
-//                }
-//            }
-
-//            QProcess pro;
-//            for(int i = 0; i < insert_device.size(); i ++)
-//            {
-//                if(insert_device.at(i) == "mmcblk1p1")
-//                {
-//                    QString temp = insert_device.at(i);
-//                    pro.start("bash", QStringList() << "-c" << QString("rm -rf /media/sdcard/%1").arg(temp));
-//                    pro.waitForFinished(-1);
-//                }
-//                else
-//                {
-//                    QString temp = insert_device.at(i);
-//                    pro.start("bash", QStringList() << "-c" << QString("rm -rf /media/udisk/%1").arg(temp));
-//                    pro.waitForFinished(-1);
-//                }
-//            }
-//        }
-//        on_mount_currentIndexChanged(0);
     }
 }
 
 void udev::on_umount_clicked()  //安全退出
 {
+    ui->label->clear();
+    if(mount_device.size() == 0)
+    {
+        QMessageBox::information(NULL,"INFO",QString(tr("All devices have been safely logged out, please check whether the device is inserted, or try to reinsert!!")));
+        return ;
+    }
     QString mount_name = globall[device_index];
     QString user_show_name = user_show.at(device_index);
 
@@ -176,30 +120,40 @@ void udev::on_umount_clicked()  //安全退出
     }
 
     find_device();
-    umount_flag = true;
     device_index = 0;
-    ui->file->clear();
+    ui->files->clear();
     if(mount_device.size() != 0)
         on_mount_currentIndexChanged(0);
 }
 
 void udev::on_cp_clicked()
 {
-    QString cp_file = ui->label->text()+"/"+ui->file->currentText();
+    QString cp_file = ui->files->currentText();
+    if(cp_file == NULL)
+    {
+        QMessageBox::information(NULL,"INFO",tr("Please select the file that you want to copy!"));
+        return;
+    }
+    QStringList str = cp_file.split(',');
 
+    cp_file.clear();
+    for(int i = 0; i < str.size(); i++)
+    {
+        cp_file.append(ui->label->text()+"/"+str.at(i) + " ");
+    }
     QString cp_to_path = QFileDialog::getExistingDirectory(this);
 
     if(cp_to_path != "")
     {
+        file_path = cp_to_path;
+        ui->label->setText(file_path);
         proc->start("bash",QStringList() << "-c" << QString("cp %1 %2 -r").arg(cp_file).arg(cp_to_path));
         bool flag = proc->waitForFinished(-1);
         if(flag)
         {
             QMessageBox::information(NULL,"INFO",tr("CP OK"));
-
-            on_refresh_clicked();
+            show_file(file_path);
         }
-
     }
     else
     {
@@ -207,22 +161,35 @@ void udev::on_cp_clicked()
     }
 }
 
-void udev::on_mv_clicked()
+void udev::on_cut_clicked()
 {
-    QString mv_file = ui->label->text()+"/"+ui->file->currentText();
-    qDebug() << "mv_file:" << mv_file;
-
-    QString mv_to_path = QFileDialog::getExistingDirectory();
-    qDebug() << "mv_to_path :" << mv_to_path;
-
-    if(mv_to_path != "")
+    QString cut_file =  ui->files->currentText();
+    if(cut_file == NULL)
     {
-        proc->start("bash",QStringList() << "-c" << QString("mv %1 %2 -u").arg(mv_file).arg(mv_to_path));
+        QMessageBox::information(NULL,"INFO",tr("Please select the file that you want to cut!"));
+        ui->label->setText(file_path);
+
+        return;
+    }
+    QStringList str = cut_file.split(',');
+
+    cut_file.clear();
+    for(int i = 0; i < str.size(); i++)
+    {
+        cut_file.append(ui->label->text()+"/"+str.at(i) + " ");
+    }
+    QString cut_to_path = QFileDialog::getExistingDirectory();
+
+    if(cut_to_path != "")
+    {
+        file_path = cut_to_path;
+        ui->label->setText(file_path);
+        proc->start("bash",QStringList() << "-c" << QString("mv %1 %2 -u").arg(cut_file).arg(cut_to_path));
         bool flag = proc->waitForFinished(-1);
         if(flag)
         {
-            QMessageBox::information(NULL,"INFO",tr("MV OK"));
-            on_refresh_clicked();
+            QMessageBox::information(NULL,"INFO",tr("CUT OK"));
+            show_file(file_path);
         }
     }
     else
@@ -233,19 +200,30 @@ void udev::on_mv_clicked()
 
 void udev::on_del_clicked()
 {
-    QString del_file = ui->label->text()+"/"+ui->file->currentText();
-//    qDebug() << "del_file:" << del_file;
+    QString del_file = ui->files->currentText();
+    if(del_file == NULL)
+    {
+        QMessageBox::information(NULL,"INFO",tr("Please select the file that you want to delete!"));
+        return;
+    }
+
+    QStringList str = del_file.split(',');
+    del_file.clear();
+    for(int i = 0; i < str.size(); i++)
+    {
+        del_file.append(ui->label->text()+"/"+str.at(i) + " ");
+    }
+
 
     int x = QMessageBox::warning(NULL, "critical", tr("Are you sure you want to delete this file ?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
     if(QMessageBox::Yes == x)
     {
-//        qDebug("You clicked the Yes!!!!!\n");
         proc->start("bash",QStringList() << "-c" << QString("rm %1 -rf").arg(del_file));
         bool flag = proc->waitForFinished(-1);
         if(flag)
         {
             QMessageBox::information(NULL,"INFO",tr("DEL OK"));
-            on_refresh_clicked();
+            show_file(file_path);
         }
     }
 }
@@ -280,6 +258,7 @@ void udev::on_return_2_clicked()
 void udev::language_reload()
 {
     ui->retranslateUi(this);
+    ui->label->setText(file_path);
 }
 
 

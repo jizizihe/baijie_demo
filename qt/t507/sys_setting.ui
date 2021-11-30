@@ -70,7 +70,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <string/>
    </property>
    <property name="icon">
-    <iconset resource="translation.qrc">
+    <iconset>
      <normaloff>:/t507_button_image/about.png</normaloff>:/t507_button_image/about.png</iconset>
    </property>
    <property name="iconSize">
@@ -150,7 +150,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <string/>
    </property>
    <property name="icon">
-    <iconset resource="translation.qrc">
+    <iconset>
      <normaloff>:/t507_button_image/cn.png</normaloff>:/t507_button_image/cn.png</iconset>
    </property>
    <property name="iconSize">
@@ -179,7 +179,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <string/>
    </property>
    <property name="icon">
-    <iconset resource="translation.qrc">
+    <iconset>
      <normaloff>:/t507_button_image/user_manual.png</normaloff>:/t507_button_image/user_manual.png</iconset>
    </property>
    <property name="iconSize">
@@ -259,7 +259,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <string/>
    </property>
    <property name="icon">
-    <iconset resource="translation.qrc">
+    <iconset>
      <normaloff>:/t507_button_image/return.png</normaloff>:/t507_button_image/return.png</iconset>
    </property>
    <property name="iconSize">
@@ -306,7 +306,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <string/>
    </property>
    <property name="icon">
-    <iconset resource="translation.qrc">
+    <iconset>
      <normaloff>:/t507_button_image/backlight.png</normaloff>:/t507_button_image/backlight.png</iconset>
    </property>
    <property name="iconSize">
@@ -332,7 +332,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <string/>
    </property>
    <property name="icon">
-    <iconset resource="translation.qrc">
+    <iconset>
      <normaloff>:/t507_button_image/rtc .png</normaloff>:/t507_button_image/rtc .png</iconset>
    </property>
    <property name="iconSize">
@@ -343,8 +343,6 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    </property>
   </widget>
  </widget>
- <resources>
-  <include location="translation.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

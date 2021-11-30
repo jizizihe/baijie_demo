@@ -70,7 +70,7 @@ int key_test(char * event)
         for(i=0; i<(int)count/sizeof(struct input_event); i++){
             if(EV_KEY==ev_key.type)
             {
-                //printf("type:%d,code:%d,value:%d\n", ev_key.type,ev_key.code-1,ev_key.value);
+                qDebug("type:%d,code:%d,value:%d\n", ev_key.type,ev_key.code-1,ev_key.value);
                 if(ev_key.value == 1)
                 {
                     return 1;
