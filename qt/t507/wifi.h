@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include "wifi_bt_interface.h"
 #include "wifi_thread.h"
-
+#include "wificondialog.h"
 
 namespace Ui {
 class wifi;
@@ -17,8 +17,7 @@ class wifi : public QMainWindow
 public:
     explicit wifi(QWidget *parent = 0);
     ~wifi();
-    void wifi_connect_dialog();
-    void wifi_exist_dialog();
+    void language_reload();
 
 signals:
     void Mysignal();
@@ -45,15 +44,7 @@ private slots:
 
     void on_RefreshBtn_clicked();
 
-    void WifiActiveBtn_clicked();
-    void WifiExistRemoveBtn_clicked();
-    void WifiModifyBtn_clicked();
-    void ExistDialogCloseBtn_clicked();
-
     void ListWidgeItem_clicked();
-
-    void ConnectDialogCloseBtn_clicked();
-    void DialogConnectBtn_clicked();
 
     void on_HotspotBuildBtn_clicked();
 
@@ -61,30 +52,25 @@ private slots:
 
     void on_toolBox_currentChanged(int index);
 
+    void on_ChangePasswdBtn_clicked();
+
+    void on_WifiBackBtn_clicked();
+
+    void on_WifiActiveBtn_clicked();
+
+    void on_WifiExistRemoveBtn_clicked();
+
 private:
     Ui::wifi *ui;
 
     QLabel *LoadLabel;
     QMovie *pMovie;
 
-    QDialog *WifiConnectDialog;
-    QDialog *WifiExistDialog;
-
-    QPushButton * WifiModifyBtn;
-    QPushButton * WifiActiveBtn;
-    QPushButton * WifiExistRemoveBtn;
-    QPushButton *ExistDialogCloseBtn;
-
-    QLabel * WifiNameLabel;
-    QLabel * WifiPasswdLabel;
-    QLineEdit *WifiNameText;
-    QLineEdit *WifiPasswdText;
-    QPushButton * WifiConnectBtn;
-    QPushButton * WifiDisconnectBtn;
-    QPushButton * ConnectDialogCloseBtn;
     QThread * myThread;
     wifi_thread * WifiThread;
     wifi_bt_interface * wifi_bt_t;
+
+    WifiConDialog *WifiConnectDialog;
 };
 
 #endif // WIFI_H

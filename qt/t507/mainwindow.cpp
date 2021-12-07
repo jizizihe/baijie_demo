@@ -124,7 +124,7 @@ void MainWindow::cn_main()
     }
     languageflag = !languageflag;
     ui->retranslateUi(this);
-    //wifi_w.language_reload();
+    wifi_w.language_reload();
     eth0_w.language_reload();
     gpio_w.language_reload();
     voice_w.language_reload();
@@ -134,6 +134,7 @@ void MainWindow::cn_main()
     bluetooth_w.language_reload();
     all_w.language_reload();
     serial_w.language_reload();
+    WifiConDialog_w.language_reload();
 }
 
 void MainWindow::on_bluetooth_clicked()

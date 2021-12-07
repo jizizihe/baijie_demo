@@ -328,6 +328,7 @@ void all_interface_test::on_key_clicked()
     ui->textEdit->clear();
     dex = 7;
     click_str();
+
     enable_set->start(1000);
 }
 
@@ -640,5 +641,26 @@ void all_interface_test::on_begin_clicked()
 //    w_movie->stop();
     ll->clear();
 
+}
+
+bool all_interface_test::event(QEvent *event)
+{
+    if(event->type() == QEvent::KeyPress)  //键盘按下处理,其他事件让事件处理器自己处理,不能返回false
+    {
+        if(key_flag == true)
+        {
+            qDebug()<<"key pressed!";
+            ui->textEdit->append(tr("8. key pressed!"));
+            return true;
+        }
+        else
+        {
+            return QWidget::event(event);
+        }
+    }
+    else
+    {
+        return QWidget::event(event);
+    }
 }
 

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui serialport multimedia
+QT       += core gui serialport
 QT       += network
 #DEFINES += QT_NO_WARNING_OUTPUT\
 #     QT_NO_DEBUG_OUTPUT
@@ -67,7 +67,9 @@ SOURCES += \
     xcombobox.cpp \
     wifi_bt_interface.cpp \
     switchcontrol.cpp \
-    wifi.cpp
+    wifi.cpp \
+    wificondialog.cpp \
+    sim_module.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -101,7 +103,9 @@ HEADERS += \
     xcombobox.h \
     wifi_bt_interface.h \
     switchcontrol.h \
-    wifi.h
+    wifi.h \
+    wificondialog.h \
+    sim_module.h
 
 FORMS += \
         mainwindow.ui \
@@ -120,7 +124,9 @@ FORMS += \
     user_manual.ui \
     serial.ui \
     sys_setting.ui \
-    wifi.ui
+    wifi.ui \
+    wificondialog.ui \
+    sim_module.ui
 
 RESOURCES += \
     translation.qrc

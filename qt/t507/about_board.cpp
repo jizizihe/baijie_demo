@@ -38,8 +38,6 @@ about_board::about_board(QWidget *parent) :
 
     connect(timer, SIGNAL(timeout()), this, SLOT(battery_update()));
     connect(timer,SIGNAL(timeout()), this, SLOT(CPU_temp_update()));
-
-
 }
 
 about_board::~about_board()

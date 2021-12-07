@@ -4,7 +4,6 @@
 #include "mainwindow.h"
 
 
-
 sys_setting::sys_setting(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::sys_setting)

@@ -67,17 +67,25 @@ QString bluetooth_thread::bluetooth_scan()
     QString strResult = executeLinuxCmd(strCmd);
     //qDebug() << strResult;
 
-    strCmd = QString("killall hciattach");
-    //qDebug() << "strCmd == " << strCmd;
-    strResult = executeLinuxCmd(strCmd);
-    //qDebug() << strResult;
-    QThread::msleep(100);
+//    strCmd = QString("killall hciattach");
+//    //qDebug() << "strCmd == " << strCmd;
+//    strResult = executeLinuxCmd(strCmd);
+//    //qDebug() << strResult;
+//    QThread::msleep(100);
 
-    strCmd = QString("hciattach -n -s 1500000 /dev/ttyBT0 sprd 1>/dev/null 2>/dev/null &");
+    strCmd = QString("ps -ax |grep 'hciattach -n -s 1500000 /dev/ttyBT0 sprd' |grep -v grep |wc -l");
     //qDebug() << "strCmd == " << strCmd;
     strResult = executeLinuxCmd(strCmd);
     //qDebug() << strResult;
-    QThread::sleep(2);
+
+    if(strResult == "0\n")
+    {
+        strCmd = QString("hciattach -n -s 1500000 /dev/ttyBT0 sprd 1>/dev/null 2>/dev/null &");
+        //qDebug() << "strCmd == " << strCmd;
+        strResult = executeLinuxCmd(strCmd);
+        //qDebug() << strResult;
+        QThread::sleep(2);
+    }
 
     strCmd = QString("hciconfig hci0 up && hciconfig hci0 piscan");
     //qDebug() << "strCmd == " << strCmd;

@@ -20,6 +20,8 @@ public:
     ~all_interface_test();
     void click_str();
 
+    bool event(QEvent *event);
+
     void language_reload();
 private slots:
     void on_return_2_clicked();

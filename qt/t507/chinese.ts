@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<TS version="2.0" language="zh_CN">
 <context>
     <name>HotSpot</name>
     <message>
@@ -58,12 +58,12 @@
         <translation type="unfinished">系统设置</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="315"/>
+        <location filename="mainwindow.ui" line="288"/>
         <source>Interface Test</source>
         <translation type="unfinished">接口测试</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="342"/>
+        <location filename="mainwindow.ui" line="315"/>
         <source>Voice Frequency</source>
         <translation type="unfinished">音频</translation>
     </message>
@@ -80,7 +80,7 @@
         <translation type="obsolete">关于板子</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="474"/>
+        <location filename="mainwindow.ui" line="447"/>
         <source>Ethernet</source>
         <translation type="unfinished">以太网</translation>
     </message>
@@ -90,17 +90,17 @@
         <translation type="unfinished">串口</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="501"/>
+        <location filename="mainwindow.ui" line="474"/>
         <source>Udev </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="606"/>
+        <location filename="mainwindow.ui" line="579"/>
         <source>Wifi</source>
         <translation type="unfinished">Wifi</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="395"/>
+        <location filename="mainwindow.ui" line="368"/>
         <source>Bluetooth</source>
         <translation type="unfinished">蓝牙</translation>
     </message>
@@ -168,64 +168,94 @@
     </message>
 </context>
 <context>
-    <name>WifiConnect</name>
+    <name>WifiConDialog</name>
     <message>
-        <location filename="wificonnect.ui" line="14"/>
-        <source>MainWindow</source>
+        <location filename="wificondialog.ui" line="14"/>
+        <source>Dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="wificonnect.cpp" line="387"/>
+        <location filename="wificondialog.ui" line="28"/>
+        <source>wifi</source>
+        <translation type="unfinished">wifi</translation>
+    </message>
+    <message>
+        <location filename="wificondialog.ui" line="53"/>
+        <source>wifiname</source>
+        <translation>名称</translation>
+    </message>
+    <message>
+        <location filename="wificondialog.ui" line="84"/>
+        <source>password</source>
+        <translation>密码</translation>
+    </message>
+    <message>
+        <location filename="wificondialog.ui" line="111"/>
+        <source>OK</source>
+        <translation>确认</translation>
+    </message>
+    <message>
+        <location filename="wificondialog.ui" line="131"/>
+        <source>Canlcel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="wificondialog.cpp" line="28"/>
+        <source>The number of password digits must be greater than 8</source>
+        <translation type="unfinished">密码位数须大于8</translation>
+    </message>
+    <message>
+        <location filename="wificondialog.cpp" line="46"/>
+        <source>change succeeded!</source>
+        <translation type="unfinished">修改成功！</translation>
+    </message>
+    <message>
+        <location filename="wificondialog.cpp" line="53"/>
+        <source>change failed!</source>
+        <translation type="unfinished">修改失败！</translation>
+    </message>
+</context>
+<context>
+    <name>WifiConnect</name>
+    <message>
         <source>ssid</source>
-        <translation type="unfinished">Wifi名称</translation>
+        <translation type="obsolete">Wifi名称</translation>
     </message>
     <message>
-        <location filename="wificonnect.cpp" line="388"/>
         <source>passwd</source>
-        <translation type="unfinished">密码</translation>
+        <translation type="obsolete">密码</translation>
     </message>
     <message>
-        <location filename="wificonnect.cpp" line="389"/>
         <source>scan</source>
-        <translation type="unfinished">扫描</translation>
+        <translation type="obsolete">扫描</translation>
     </message>
     <message>
-        <location filename="wificonnect.cpp" line="47"/>
-        <location filename="wificonnect.cpp" line="390"/>
         <source>clean</source>
-        <translation type="unfinished">清除</translation>
+        <translation type="obsolete">清除</translation>
     </message>
     <message>
-        <location filename="wificonnect.cpp" line="19"/>
         <source>WifiName</source>
-        <translation type="unfinished">wifi名字</translation>
+        <translation type="obsolete">wifi名字</translation>
     </message>
     <message>
-        <location filename="wificonnect.cpp" line="28"/>
         <source>Password</source>
-        <translation type="unfinished">密码</translation>
+        <translation type="obsolete">密码</translation>
     </message>
     <message>
-        <location filename="wificonnect.cpp" line="42"/>
         <source>Refresh</source>
-        <translation type="unfinished">刷新</translation>
+        <translation type="obsolete">刷新</translation>
     </message>
     <message>
-        <location filename="wificonnect.cpp" line="52"/>
-        <location filename="wificonnect.cpp" line="391"/>
         <source>connect</source>
-        <translation type="unfinished">连接</translation>
+        <translation type="obsolete">连接</translation>
     </message>
     <message>
-        <location filename="wificonnect.cpp" line="57"/>
-        <location filename="wificonnect.cpp" line="392"/>
         <source>close</source>
-        <translation type="unfinished">退出</translation>
+        <translation type="obsolete">退出</translation>
     </message>
     <message>
-        <location filename="wificonnect.cpp" line="61"/>
         <source>change passwd</source>
-        <translation type="unfinished">修改密码</translation>
+        <translation type="obsolete">修改密码</translation>
     </message>
 </context>
 <context>
@@ -259,22 +289,22 @@
         <translation type="obsolete">架构： %1 %2 %3</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="88"/>
+        <location filename="about_board.cpp" line="86"/>
         <source>OS: %1</source>
         <translation type="unfinished">操作系统:%1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="74"/>
+        <location filename="about_board.cpp" line="72"/>
         <source>Board name: %1</source>
         <translation>开发板名称: %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="81"/>
+        <location filename="about_board.cpp" line="79"/>
         <source>kernel: %1</source>
         <translation>架构： %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="95"/>
+        <location filename="about_board.cpp" line="93"/>
         <source>resolution: %1 * %2</source>
         <translation>分辨率: %1 * %2</translation>
     </message>
@@ -283,49 +313,49 @@
         <translation type="obsolete">QT版本： 未知</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="110"/>
+        <location filename="about_board.cpp" line="108"/>
         <source>QT version: %1</source>
         <oldsource>QT version: QT5</oldsource>
         <translation type="unfinished">QT版本: %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="57"/>
+        <location filename="about_board.cpp" line="55"/>
         <source>Unknown</source>
         <translation>未知</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="57"/>
+        <location filename="about_board.cpp" line="55"/>
         <source>Uncharged</source>
         <translation>未充电</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="57"/>
+        <location filename="about_board.cpp" line="55"/>
         <source>charge</source>
         <translation>充电</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="57"/>
+        <location filename="about_board.cpp" line="55"/>
         <source>Full</source>
         <translation>满电</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="59"/>
+        <location filename="about_board.cpp" line="57"/>
         <source>battery level:</source>
         <oldsource>battery level: %1</oldsource>
         <translation type="unfinished">电池电量：</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="62"/>
+        <location filename="about_board.cpp" line="60"/>
         <source>battery status: %1</source>
         <translation>电池状态: %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="68"/>
+        <location filename="about_board.cpp" line="66"/>
         <source>CPU temp: %1</source>
         <translation>CPU温度： %1</translation>
     </message>
     <message>
-        <location filename="about_board.cpp" line="105"/>
+        <location filename="about_board.cpp" line="103"/>
         <source>QT version: Unknow</source>
         <translation type="unfinished">QT version: 未检测到</translation>
     </message>
@@ -430,7 +460,7 @@
     <message>
         <location filename="all_interface_test.cpp" line="93"/>
         <location filename="all_interface_test.cpp" line="233"/>
-        <location filename="all_interface_test.cpp" line="568"/>
+        <location filename="all_interface_test.cpp" line="569"/>
         <source>1. Note that the buzzer has or does not have sound!!</source>
         <translation type="unfinished">1.请注意蜂鸣器是否发出了声音！！</translation>
     </message>
@@ -459,7 +489,7 @@
     <message>
         <location filename="all_interface_test.cpp" line="105"/>
         <location filename="all_interface_test.cpp" line="305"/>
-        <location filename="all_interface_test.cpp" line="611"/>
+        <location filename="all_interface_test.cpp" line="612"/>
         <source>USB Failed</source>
         <translation type="unfinished">6.USB检测失败</translation>
     </message>
@@ -470,23 +500,23 @@
         <location filename="all_interface_test.cpp" line="292"/>
         <location filename="all_interface_test.cpp" line="306"/>
         <location filename="all_interface_test.cpp" line="320"/>
-        <location filename="all_interface_test.cpp" line="604"/>
-        <location filename="all_interface_test.cpp" line="612"/>
-        <location filename="all_interface_test.cpp" line="620"/>
+        <location filename="all_interface_test.cpp" line="605"/>
+        <location filename="all_interface_test.cpp" line="613"/>
+        <location filename="all_interface_test.cpp" line="621"/>
         <source>%1 %2</source>
         <translation>%1 %2</translation>
     </message>
     <message>
         <location filename="all_interface_test.cpp" line="110"/>
         <location filename="all_interface_test.cpp" line="319"/>
-        <location filename="all_interface_test.cpp" line="619"/>
+        <location filename="all_interface_test.cpp" line="620"/>
         <source>SD Failed</source>
         <translation type="unfinished">7.SD卡检测失败</translation>
     </message>
     <message>
         <location filename="all_interface_test.cpp" line="115"/>
         <location filename="all_interface_test.cpp" line="291"/>
-        <location filename="all_interface_test.cpp" line="603"/>
+        <location filename="all_interface_test.cpp" line="604"/>
         <source>SIM Failed</source>
         <translation type="unfinished">5.SIM检测失败</translation>
     </message>
@@ -499,8 +529,8 @@
         <location filename="all_interface_test.cpp" line="120"/>
         <location filename="all_interface_test.cpp" line="254"/>
         <location filename="all_interface_test.cpp" line="278"/>
-        <location filename="all_interface_test.cpp" line="583"/>
-        <location filename="all_interface_test.cpp" line="595"/>
+        <location filename="all_interface_test.cpp" line="584"/>
+        <location filename="all_interface_test.cpp" line="596"/>
         <source>OK</source>
         <translation type="unfinished">OK</translation>
     </message>
@@ -522,51 +552,56 @@
     </message>
     <message>
         <location filename="all_interface_test.cpp" line="255"/>
-        <location filename="all_interface_test.cpp" line="584"/>
+        <location filename="all_interface_test.cpp" line="585"/>
         <source>2. WIFI OK</source>
         <translation type="unfinished">2.wifi测试成功</translation>
     </message>
     <message>
         <location filename="all_interface_test.cpp" line="257"/>
-        <location filename="all_interface_test.cpp" line="586"/>
+        <location filename="all_interface_test.cpp" line="587"/>
         <source>2. WIFI Failed</source>
         <translation type="unfinished">2.wifi测试失败</translation>
     </message>
     <message>
         <location filename="all_interface_test.cpp" line="279"/>
-        <location filename="all_interface_test.cpp" line="596"/>
+        <location filename="all_interface_test.cpp" line="597"/>
         <source>4. NETWORK OK</source>
         <translation type="unfinished">4.网络测试成功</translation>
     </message>
     <message>
         <location filename="all_interface_test.cpp" line="281"/>
-        <location filename="all_interface_test.cpp" line="598"/>
+        <location filename="all_interface_test.cpp" line="599"/>
         <source>4. NETWORK Failed</source>
         <translation type="unfinished">4.网络测试失败</translation>
     </message>
     <message>
         <location filename="all_interface_test.cpp" line="294"/>
-        <location filename="all_interface_test.cpp" line="606"/>
+        <location filename="all_interface_test.cpp" line="607"/>
         <source>5. SIM OK</source>
         <translation type="unfinished">4.SIM卡检测成功</translation>
     </message>
     <message>
         <location filename="all_interface_test.cpp" line="308"/>
-        <location filename="all_interface_test.cpp" line="614"/>
+        <location filename="all_interface_test.cpp" line="615"/>
         <source>6. USB OK</source>
         <translation type="unfinished">6.USB检测成功</translation>
     </message>
     <message>
         <location filename="all_interface_test.cpp" line="322"/>
-        <location filename="all_interface_test.cpp" line="622"/>
+        <location filename="all_interface_test.cpp" line="623"/>
         <source>7. SD OK</source>
         <translation type="unfinished">7.SD卡检测成功</translation>
     </message>
     <message>
-        <location filename="all_interface_test.cpp" line="345"/>
-        <location filename="all_interface_test.cpp" line="637"/>
+        <location filename="all_interface_test.cpp" line="346"/>
+        <location filename="all_interface_test.cpp" line="638"/>
         <source>9. Whether the picture is displayed properly?</source>
         <translation type="unfinished">9. 图片显示是否正常？</translation>
+    </message>
+    <message>
+        <location filename="all_interface_test.cpp" line="653"/>
+        <source>8. key pressed!</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>5. Whether the picture is displayed properly</source>
@@ -1390,6 +1425,7 @@ Please wait a moment...</source>
         <translation>停止测试！</translation>
     </message>
     <message>
+        <location filename="keytest.cpp" line="65"/>
         <location filename="keytest.cpp" line="91"/>
         <source>key pressed!</source>
         <translation>按键按下！</translation>
@@ -1433,31 +1469,31 @@ Please wait a moment...</source>
         <source>Serial Port</source>
         <translation type="unfinished">串口</translation>
     </message>
-    <message>
+    <message utf8="true">
         <location filename="serial.ui" line="156"/>
         <location filename="serial.ui" line="380"/>
         <source>端口号</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
+    <message utf8="true">
         <location filename="serial.ui" line="163"/>
         <location filename="serial.ui" line="387"/>
         <source>波特率</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
+    <message utf8="true">
         <location filename="serial.ui" line="170"/>
         <location filename="serial.ui" line="394"/>
         <source>数据位</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
+    <message utf8="true">
         <location filename="serial.ui" line="177"/>
         <location filename="serial.ui" line="401"/>
         <source>停止位</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
+    <message utf8="true">
         <location filename="serial.ui" line="184"/>
         <location filename="serial.ui" line="408"/>
         <source>校验位</source>
@@ -1546,6 +1582,34 @@ Please wait a moment...</source>
         <location filename="serial.cpp" line="100"/>
         <source>close</source>
         <translation type="unfinished">关闭</translation>
+    </message>
+</context>
+<context>
+    <name>sim_module</name>
+    <message>
+        <location filename="sim_module.ui" line="14"/>
+        <source>MainWindow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sim_module.ui" line="49"/>
+        <source>4G set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sim_module.ui" line="65"/>
+        <source>build connect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sim_module.ui" line="78"/>
+        <source>delete connect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sim_module.ui" line="91"/>
+        <source>disconnect</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1804,61 +1868,61 @@ The New SIM card is:
         <translation type="obsolete">可能会花很长时间！！请注意电路板上的4G指示灯是否快速闪烁！！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="86"/>
+        <location filename="udev.cpp" line="84"/>
         <source>choose</source>
         <translation type="unfinished">选择文件</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="109"/>
+        <location filename="udev.cpp" line="107"/>
         <source>All devices have been safely logged out, please check whether the device is inserted, or try to reinsert!!</source>
         <oldsource>All devices have been safely logged out, please check whether the device is inserted, or try to reinsert!!  </oldsource>
         <translation type="unfinished">所有设备已安全注销，请检查设备是否已插入，或尝试重新插入!!</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="121"/>
+        <location filename="udev.cpp" line="119"/>
         <source>umount %1 successful!</source>
         <translation type="unfinished">%1已安全退出！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="137"/>
+        <location filename="udev.cpp" line="134"/>
         <source>Please select the file that you want to copy!</source>
         <translation type="unfinished">请选择要复制的文件!</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="157"/>
+        <location filename="udev.cpp" line="154"/>
         <source>CP OK</source>
         <translation type="unfinished">复制成功</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="163"/>
-        <location filename="udev.cpp" line="200"/>
+        <location filename="udev.cpp" line="160"/>
+        <location filename="udev.cpp" line="197"/>
         <source>Please select a legal path!</source>
         <translation type="unfinished">请选择一个合法路径！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="172"/>
+        <location filename="udev.cpp" line="169"/>
         <source>Please select the file that you want to cut!</source>
         <oldsource>Please select the file that you want to move!</oldsource>
         <translation type="unfinished">请选择要剪切的文件!</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="194"/>
+        <location filename="udev.cpp" line="191"/>
         <source>CUT OK</source>
         <oldsource>MV OK</oldsource>
         <translation type="unfinished">剪切成功</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="209"/>
+        <location filename="udev.cpp" line="206"/>
         <source>Please select the file that you want to delete!</source>
         <translation type="unfinished">请选择要删除的文件!</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="221"/>
+        <location filename="udev.cpp" line="218"/>
         <source>Are you sure you want to delete this file ?</source>
         <translation type="unfinished">你确定删除这个文件？</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="228"/>
+        <location filename="udev.cpp" line="225"/>
         <source>DEL OK</source>
         <translation type="unfinished">删除成功</translation>
     </message>
@@ -2374,44 +2438,174 @@ The New SIM card is:
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="wifi.ui" line="67"/>
+        <location filename="wifi.ui" line="238"/>
+        <location filename="wifi.ui" line="496"/>
+        <source>wifi</source>
+        <translation type="unfinished">wifi</translation>
+    </message>
+    <message>
+        <location filename="wifi.ui" line="123"/>
+        <location filename="wifi.ui" line="172"/>
+        <source>status</source>
+        <translation type="unfinished">状态</translation>
+    </message>
+    <message>
+        <location filename="wifi.ui" line="137"/>
+        <source>hotspot</source>
+        <translation type="unfinished">热点</translation>
+    </message>
+    <message>
+        <location filename="wifi.ui" line="154"/>
+        <source>hotspot connect</source>
+        <translation type="unfinished">连接热点</translation>
+    </message>
+    <message>
+        <location filename="wifi.ui" line="220"/>
+        <source>refresh</source>
+        <translation type="unfinished">刷新</translation>
+    </message>
+    <message>
+        <location filename="wifi.ui" line="261"/>
+        <source>wifi status</source>
+        <translation type="unfinished">wifi状态</translation>
+    </message>
+    <message>
+        <location filename="wifi.ui" line="312"/>
+        <source>name</source>
+        <translation type="unfinished">名称</translation>
+    </message>
+    <message>
+        <location filename="wifi.ui" line="325"/>
+        <source>passwd</source>
+        <translation type="unfinished">密码</translation>
+    </message>
+    <message>
+        <location filename="wifi.ui" line="338"/>
+        <source>up</source>
+        <translation type="unfinished">创建</translation>
+    </message>
+    <message>
+        <location filename="wifi.ui" line="351"/>
+        <source>down</source>
+        <translation type="unfinished">断开连接</translation>
+    </message>
+    <message>
+        <location filename="wifi.ui" line="387"/>
+        <source>Remove Network</source>
+        <translation type="unfinished">移除此网络</translation>
+    </message>
+    <message>
+        <location filename="wifi.ui" line="400"/>
+        <source>back</source>
+        <translation type="unfinished">返回</translation>
+    </message>
+    <message>
+        <location filename="wifi.ui" line="413"/>
+        <source>Join Network</source>
+        <translation type="unfinished">加入网络</translation>
+    </message>
+    <message>
+        <location filename="wifi.ui" line="452"/>
+        <source>security</source>
+        <translation type="unfinished">安全性</translation>
+    </message>
+    <message>
+        <location filename="wifi.ui" line="478"/>
+        <source>Change Password</source>
+        <translation type="unfinished">修改密码</translation>
+    </message>
+    <message>
+        <location filename="wifi.ui" line="439"/>
+        <source>wifiname</source>
+        <translation type="unfinished">名称</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="obsolete">OK</translation>
+    </message>
+    <message>
+        <source>hello liuu</source>
+        <translation type="obsolete">你好 刘</translation>
+    </message>
+    <message>
         <source>return</source>
         <translation type="obsolete">返回</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="19"/>
-        <location filename="wifi.cpp" line="191"/>
         <source>Wifi Test</source>
-        <translation>Wifi 测试</translation>
+        <translation type="obsolete">Wifi 测试</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="29"/>
-        <location filename="wifi.cpp" line="192"/>
+        <location filename="wifi.ui" line="87"/>
         <source>wifi connect</source>
         <translation>连接Wifi</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="35"/>
-        <location filename="wifi.cpp" line="193"/>
         <source>wifi disconnect</source>
-        <translation>断开连接</translation>
+        <translation type="obsolete">断开连接</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="41"/>
-        <location filename="wifi.cpp" line="194"/>
+        <location filename="wifi.ui" line="369"/>
         <source>hot spot</source>
         <translation>热点</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="47"/>
-        <location filename="wifi.cpp" line="195"/>
+        <location filename="wifi.ui" line="105"/>
         <source>signal quality</source>
         <translation>信号质量</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="53"/>
-        <location filename="wifi.cpp" line="196"/>
         <source>connection status</source>
-        <translation>连接状态</translation>
+        <translation type="obsolete">连接状态</translation>
+    </message>
+    <message>
+        <location filename="wifi.cpp" line="145"/>
+        <location filename="wifi.cpp" line="160"/>
+        <source>Connection succeeded!</source>
+        <translation type="unfinished">连接成功！</translation>
+    </message>
+    <message>
+        <location filename="wifi.cpp" line="152"/>
+        <location filename="wifi.cpp" line="164"/>
+        <source>Connection failed!</source>
+        <translation type="unfinished">连接失败！</translation>
+    </message>
+    <message>
+        <location filename="wifi.cpp" line="226"/>
+        <location filename="wifi.cpp" line="249"/>
+        <source>Please turn on the WiFi switch</source>
+        <translation type="unfinished">请开启wifi！</translation>
+    </message>
+    <message>
+        <location filename="wifi.cpp" line="326"/>
+        <source>remove succeeded!</source>
+        <translation type="unfinished">删除成功！</translation>
+    </message>
+    <message>
+        <location filename="wifi.cpp" line="331"/>
+        <source>remove failed!</source>
+        <translation type="unfinished">删除失败！</translation>
+    </message>
+    <message>
+        <location filename="wifi.cpp" line="342"/>
+        <source>Input cannot be empty!</source>
+        <translation type="unfinished">输入不能为空！</translation>
+    </message>
+    <message>
+        <location filename="wifi.cpp" line="348"/>
+        <source>The number of password digits must be greater than 8</source>
+        <translation type="unfinished">密码位数须大于8！</translation>
+    </message>
+    <message>
+        <location filename="wifi.cpp" line="368"/>
+        <source>successfully disconnected!</source>
+        <translation type="unfinished">断开连接成功！</translation>
+    </message>
+    <message>
+        <location filename="wifi.cpp" line="372"/>
+        <source>disconnect failed!</source>
+        <translation type="unfinished">断开连接失败！</translation>
     </message>
 </context>
 </TS>

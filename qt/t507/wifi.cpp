@@ -8,6 +8,12 @@ wifi::wifi(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    wifi_bt_t = new wifi_bt_interface(this);
+
+    WifiConnectDialog = new WifiConDialog(this);
+    //WifiConnectDialog->resize(400,300);
+    WifiConnectDialog->setStyleSheet("QDialog {border:2px solid gray;}");
+
     // 设置状态、样式
     ui->WifiSwitch->setToggle(true);
     ui->WifiSwitch->setCheckedColor(QColor(100, 225, 100));
@@ -28,11 +34,12 @@ wifi::wifi(QWidget *parent) :
     LoadLabel->setMovie(pMovie);
     //pMovie->start();
 
-
     myThread = new QThread(this);
     WifiThread = new wifi_thread();
     connect(this,SIGNAL(ToThread()),WifiThread,SLOT(Thread_Fun()));
     connect(this,SIGNAL(wifi_scan_msg()),WifiThread,SLOT(wifi_scan_thread()));
+    connect(this,SIGNAL(wifi_activation_msg(QString)),WifiThread,SLOT(wifi_activation_thread(QString)));
+
     connect(WifiThread,SIGNAL(send_msg(int, QString)),this,SLOT(recv_msg(int, QString)));
     WifiThread->moveToThread(myThread);
     myThread->start();
@@ -43,21 +50,19 @@ wifi::wifi(QWidget *parent) :
     connect(ui->WifiListWidget,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(ListWidgeItem_clicked()));
     connect(this,SIGNAL(hotspot_build_msg(QString,QString)),WifiThread,SLOT(hotspot_build_thread(QString,QString)));
 
-
-    wifi_exist_dialog();
-    wifi_connect_dialog();
+    connect(WifiConnectDialog,SIGNAL(wifi_connect_dialog_signal(QString,QString)),WifiThread,SLOT(wifi_connect_thread(QString,QString)));
 }
 
 wifi::~wifi()
 {
     delete ui;
-    delete WifiExistDialog;
+    delete wifi_bt_t;
+    //delete WifiExistDialog;
     delete WifiConnectDialog;
 }
 
 void wifi::BtnChange_flag(bool flag)
 {
-    bool wifi_open_flag;
     //qDebug() << "LINe:" << __LINE__<<"switchflag " << switchflag;
 
     //int flag;
@@ -92,7 +97,6 @@ void wifi::BtnChange_flag(bool flag)
     }
 }
 
-
 void wifi::recv_msg(int signal_type, QString strResult)
 {
     int flag;
@@ -106,6 +110,7 @@ void wifi::recv_msg(int signal_type, QString strResult)
         scanlist = ScanResult.split("\n");
         scanlist.removeAll(QString(""));
 
+        ui->WifiListWidget->clear();
         flag = ui->WifiSwitch->isToggled();
         //qDebug() << "line:" << __LINE__ << "flag:" << flag;
 
@@ -134,16 +139,29 @@ void wifi::recv_msg(int signal_type, QString strResult)
 
         break;
     case wifi_connect_signal :
-    case wifi_activation_signal:
-    case hotspot_build_signal:
         qDebug() << "FUNC:" << __FUNCTION__<< "Line:" << __LINE__ << "strResult:" << strResult;
         if(strResult == QString(1))
         {
-            QMessageBox::information(this,"information","Connection succeeded!");
+            QMessageBox::information(this,"information",tr("Connection succeeded!"));
+            WifiConnectDialog->SetWifiNameText("");
+            WifiConnectDialog->SetPasswdText("");
+            WifiConnectDialog->close();
         }
         else
         {
-            QMessageBox::critical(this,"information","Connection failed!");
+            QMessageBox::critical(this,"information",tr("Connection failed!"));
+        }
+        break;
+    case wifi_activation_signal:
+    case hotspot_build_signal:
+        //qDebug() << "FUNC:" << __FUNCTION__<< "Line:" << __LINE__ << "strResult:" << strResult;
+        if(strResult == QString(1))
+        {
+            QMessageBox::information(this,"information",tr("Connection succeeded!"));
+        }
+        else
+        {
+            QMessageBox::critical(this,"information",tr("Connection failed!"));
         }
         break;
     default:
@@ -153,195 +171,33 @@ void wifi::recv_msg(int signal_type, QString strResult)
     LoadLabel->close();
 }
 
-void wifi::wifi_exist_dialog()
-{
-    WifiExistDialog = new QDialog;
-    WifiExistDialog->resize(this->width()/2,this->height()/3*2);
-    WifiExistDialog->setStyleSheet("QDialog {border:2px solid gray;}");
-
-    WifiActiveBtn = new QPushButton("Join Network",WifiExistDialog);
-    WifiActiveBtn->resize(200,50);
-    WifiActiveBtn->move(20,250);
-    WifiExistRemoveBtn = new QPushButton("Remove Network",WifiExistDialog);
-    WifiExistRemoveBtn->resize(200,50);
-    WifiExistRemoveBtn->move(250,250);
-    WifiModifyBtn = new QPushButton("Change Password",WifiExistDialog);
-    WifiModifyBtn->resize(200,50);
-    WifiModifyBtn->move(20,330);
-    ExistDialogCloseBtn = new QPushButton("close",WifiExistDialog);
-    ExistDialogCloseBtn->resize(200,50);
-    ExistDialogCloseBtn->move(250,330);
-
-    connect(WifiActiveBtn,SIGNAL(clicked(bool)),this,SLOT(WifiActiveBtn_clicked()));
-    connect(WifiExistRemoveBtn,SIGNAL(clicked(bool)),this,SLOT(WifiExistRemoveBtn_clicked()));
-    connect(WifiModifyBtn,SIGNAL(clicked(bool)),this,SLOT(WifiModifyBtn_clicked()));
-    connect(ExistDialogCloseBtn,SIGNAL(clicked(bool)),this,SLOT(ExistDialogCloseBtn_clicked()));
-    connect(this,SIGNAL(wifi_activation_msg(QString)),WifiThread,SLOT(wifi_activation_thread(QString)));
-
-}
-
-void wifi::WifiActiveBtn_clicked()
-{
-    QString wifi_name = ui->WifiListWidget->currentItem()->text();
-    qDebug() << "line:" << __LINE__ << "currentItem()->text = " << wifi_name;
-
-//    LoadLabel->show();
-//    pMovie->start();
-
-    emit wifi_activation_msg(wifi_name);
-
-}
-
-void wifi::WifiExistRemoveBtn_clicked()
-{
-    QString wifi_name = ui->WifiListWidget->currentItem()->text();
-    qDebug() << "FUNC:" << __FUNCTION__<< "line:" << __LINE__ << "currentItem()->text = " << wifi_name;
-
-    QString strResult = wifi_bt_t->wifi_connection_remove(wifi_name);
-    qDebug() << "FUNC:" << __FUNCTION__<< "--LINE--: " << __LINE__<< strResult;
-
-    bool downResult=strResult.contains("successfully deleted",Qt::CaseInsensitive);
-    qDebug() << "FUNC:" << __FUNCTION__<< "--LINE--: " << __LINE__<< downResult;
-
-    if(downResult == 1)
-    {
-        QMessageBox::information(this,"information","remove succeeded!");
-    }
-    else
-    {
-        QMessageBox::critical(this,"information","remove failed!");
-    }
-
-}
-
-void wifi::WifiModifyBtn_clicked()
-{
-    QString wifi_name = ui->WifiListWidget->currentItem()->text();
-    qDebug() << "FUNC:" << __FUNCTION__<< "line:" << __LINE__ << "currentItem()->text = " << wifi_name;
-
-    QString wifi_passwd;
-    QString dlgTitle="input password dialog";
-    QString txtLabel="please input password";
-    QString defaultInput="password";
-    QLineEdit::EchoMode echoMode=QLineEdit::Normal;//正常文字输入
-    //QLineEdit::EchoMode echoMode=QLineEdit::Password;//密码输入
-    bool ok=false;
-    QString text = QInputDialog::getText(this, dlgTitle,txtLabel, echoMode,defaultInput, &ok);
-    int length = text.length();
-    if(length < 8)
-    {
-        QMessageBox::critical(this,"information","The number of password digits must be greater than 8");
-        ok=false;
-    }
-
-    if (ok && !text.isEmpty())
-    {
-        wifi_passwd = text;
-    }
-    else
-    {
-        return;
-    }
-    qDebug() << "FUNC:" << __FUNCTION__<< "--LINE--: " << __LINE__<< "wifi_passwd" << wifi_passwd;
-
-    bool strResult = wifi_bt_t->wifi_modify(wifi_name,wifi_passwd);
-    qDebug() << "FUNC:" << __FUNCTION__<< "--LINE--: " << __LINE__<< strResult;
-
-    if(strResult == 1)
-    {
-        QMessageBox::information(this,"information","change succeeded!");
-    }
-    else
-    {
-        QMessageBox::critical(this,"information","change failed!");
-    }
-}
-
-void wifi::ExistDialogCloseBtn_clicked()
-{
-//    myThread->quit();
-//    myThread->wait();
-    WifiExistDialog->close();
-}
-
-
-void wifi::wifi_connect_dialog()
-{
-    WifiConnectDialog = new QDialog;
-    WifiConnectDialog->resize(this->width()/2,this->height()/3*2);
-    WifiConnectDialog->setStyleSheet("QDialog {border:2px solid gray;}");
-
-    WifiNameLabel = new QLabel("wifiname",WifiConnectDialog);
-    WifiNameLabel->move(50,80);
-    WifiPasswdLabel = new QLabel("password",WifiConnectDialog);
-    WifiPasswdLabel->move(50,150);
-
-    WifiNameText = new QLineEdit(WifiConnectDialog);
-    WifiNameText->resize(200,50);
-    WifiNameText->move(200,80);
-    WifiPasswdText = new QLineEdit(WifiConnectDialog);
-    WifiPasswdText->resize(200,50);
-    WifiPasswdText->move(200,150);
-
-    WifiConnectBtn = new QPushButton("connect",WifiConnectDialog);
-    WifiConnectBtn->resize(200,50);
-    WifiConnectBtn->move(50,250);
-    ConnectDialogCloseBtn = new QPushButton("close",WifiConnectDialog);
-    ConnectDialogCloseBtn->resize(200,50);
-    ConnectDialogCloseBtn->move(300,250);
-
-    connect(ConnectDialogCloseBtn,SIGNAL(clicked(bool)),this,SLOT(ConnectDialogCloseBtn_clicked()));
-    connect(WifiConnectBtn,SIGNAL(clicked(bool)),this,SLOT(DialogConnectBtn_clicked()));
-    connect(this,SIGNAL(wifi_connect_msg(QString,QString)),WifiThread,SLOT(wifi_connect_thread(QString,QString)));
-}
-
 void wifi::ListWidgeItem_clicked()
-{
-    qDebug() << "line:" << __LINE__ << "istWidgeItem_clicked()";
+{    
+    QString infosecurity;
+    qDebug() << "line:" << __LINE__ << "istWidgeItem_clicked";
     QString wifi_name = ui->WifiListWidget->currentItem()->text();
     qDebug() << "line:" << __LINE__ << "currentItem()->text = " << wifi_name;
 
     int flag = wifi_bt_t->wifi_connect_exist(wifi_name);
     if(flag == 1)
     {
-        WifiExistDialog->show();
+        ui->WifiInfoNameLab->setText(wifi_name);
+        infosecurity = wifi_bt_t->get_wifisecurity(wifi_name);
+        ui->WifiInfoSecurityLab->setText(infosecurity);
+
+        ui->stackedWidget->setCurrentIndex(3);
     }
     else
     {
-        WifiNameText->setText(ui->WifiListWidget->currentItem()->text());
         WifiConnectDialog->show();
+        WifiConnectDialog->SetWifiNameText(ui->WifiListWidget->currentItem()->text());
+        WifiConnectDialog->SetWifiOkBtnText("connect");
     }
-
-}
-
-void wifi::ConnectDialogCloseBtn_clicked()
-{
-//    myThread->quit();
-//    myThread->wait();
-    WifiConnectDialog->close();
-}
-
-
-void wifi::DialogConnectBtn_clicked()
-{
-    qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<< "---------------------";
-
-
-    QString wifi_name =  WifiNameText->text();
-    QString wifi_passwd =  WifiPasswdText->text();
-
-    if(wifi_passwd == "")
-    {
-        //qDebug() << "please choose first ";
-        QMessageBox::information(this,"information","please insert first!");
-        return ;
-    }
-
-    emit wifi_connect_msg(wifi_name, wifi_passwd);
 }
 
 void wifi::on_ReturnBtn_clicked()
 {
+    WifiConnectDialog->close();
     emit Mysignal();
 }
 
@@ -367,7 +223,7 @@ void wifi::on_WifiQualityBtn_clicked()
     }
     else
     {
-        strResult = QString("Please turn on the WiFi switch");
+        strResult = QString(tr("Please turn on the WiFi switch"));
     }
 
     ui->WifiText->setText(strResult);
@@ -390,7 +246,7 @@ void wifi::on_WifiStatusBtn_clicked()
     }
     else
     {
-        strResult = QString("Please turn on the WiFi switch");
+        strResult = QString(tr("Please turn on the WiFi switch"));
     }
     ui->WifiText->setText(strResult);
 }
@@ -398,8 +254,6 @@ void wifi::on_WifiStatusBtn_clicked()
 void wifi::on_HotspotConBtn_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
-
-
 }
 
 void wifi::on_RefreshBtn_clicked()
@@ -407,7 +261,7 @@ void wifi::on_RefreshBtn_clicked()
     int flag;
 
     flag = ui->WifiSwitch->isToggled();
-    qDebug() << "line:" << __LINE__ << "flag:" << flag;
+    qDebug() << "Line:" << __LINE__ << "flag:" << flag;
 
     if(flag == 1) // open
     {
@@ -415,53 +269,9 @@ void wifi::on_RefreshBtn_clicked()
         pMovie->start();
         emit wifi_scan_msg();
     }
-    else
-    {
-        return;
-    }
+    return;
 }
 
-void wifi::on_HotspotBuildBtn_clicked()
-{
-    QString HtName = ui->HtName->text();
-    QString HtPasswd = ui->HtPasswd->text();
-
-    if(HtName == "" || HtPasswd == "")
-    {
-        QMessageBox::information(this,"information","Input cannot be empty!");
-        return;
-    }
-
-    if(HtPasswd.length() < 8)
-    {
-        QMessageBox::information(this,"information","The number of password digits must be greater than 8");
-        return ;
-    }
-
-    emit hotspot_build_msg(HtName,HtPasswd);
-    //wifi_bt_t->hotspot_connect(HtName ,HtPasswd);
-}
-
-void wifi::on_HotspotDownBtn_clicked()
-{
-    QString strResult;
-
-    strResult = wifi_bt_t->hotspot_disconnect();
-    qDebug() << "FUNC:" << __FUNCTION__<< "--LINE--: " << __LINE__<< "strResult" << strResult;
-
-    if(strResult == QString(1))
-    {
-        QMessageBox::information(this,"information","successfully disconnected!");
-    }
-    else if(strResult == QString(""))
-    {
-        QMessageBox::critical(this,"information","disconnect failed!");
-    }
-    else
-    {
-        QMessageBox::information(this,"information",strResult);
-    }
-}
 
 void wifi::on_toolBox_currentChanged(int index)
 {
@@ -475,4 +285,100 @@ void wifi::on_toolBox_currentChanged(int index)
     {
         ui->stackedWidget->setCurrentIndex(2);
     }
+}
+
+void wifi::on_ChangePasswdBtn_clicked()
+{
+    WifiConnectDialog->show();
+    WifiConnectDialog->SetWifiNameText(ui->WifiListWidget->currentItem()->text());
+    WifiConnectDialog->SetWifiOkBtnText("OK");
+
+}
+
+void wifi::on_WifiBackBtn_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void wifi::on_WifiActiveBtn_clicked()
+{
+    QString wifi_name = ui->WifiListWidget->currentItem()->text();
+    //qDebug() << "line:" << __LINE__ << "currentItem()->text = " << wifi_name;
+
+    emit wifi_activation_msg(wifi_name);
+    LoadLabel->show();
+    pMovie->start();
+}
+
+void wifi::on_WifiExistRemoveBtn_clicked()
+{
+    QString wifi_name = ui->WifiListWidget->currentItem()->text();
+    qDebug() << "FUNC:" << __FUNCTION__<< "line:" << __LINE__ << "currentItem()->text = " << wifi_name;
+
+    QString strResult = wifi_bt_t->wifi_connection_remove(wifi_name);
+    qDebug() << "FUNC:" << __FUNCTION__<< "--LINE--: " << __LINE__<< strResult;
+
+    bool downResult=strResult.contains("successfully deleted",Qt::CaseInsensitive);
+    qDebug() << "FUNC:" << __FUNCTION__<< "--LINE--: " << __LINE__<< downResult;
+
+    if(downResult == 1)
+    {
+        QMessageBox::information(this,"information",tr("remove succeeded!"));
+        ui->stackedWidget->setCurrentIndex(0);
+    }
+    else
+    {
+        QMessageBox::critical(this,"information",tr("remove failed!"));
+    }
+}
+
+void wifi::on_HotspotBuildBtn_clicked()
+{
+    QString HtName = ui->HtName->text();
+    QString HtPasswd = ui->HtPasswd->text();
+
+    if(HtName == "" || HtPasswd == "")
+    {
+        QMessageBox::information(this,"information",tr("Input cannot be empty!"));
+        return;
+    }
+
+    if(HtPasswd.length() < 8)
+    {
+        QMessageBox::information(this,"information",tr("The number of password digits must be greater than 8"));
+        return ;
+    }
+
+    emit hotspot_build_msg(HtName,HtPasswd);
+    LoadLabel->show();
+    pMovie->start();
+
+    //wifi_bt_t->hotspot_connect(HtName ,HtPasswd);
+}
+
+void wifi::on_HotspotDownBtn_clicked()
+{
+    QString strResult;
+
+    strResult = wifi_bt_t->hotspot_disconnect();
+    qDebug() << "FUNC:" << __FUNCTION__<< "--LINE--: " << __LINE__<< "strResult" << strResult;
+
+    if(strResult == QString(1))
+    {
+        QMessageBox::information(this,"information",tr("successfully disconnected!"));
+    }
+    else if(strResult == QString(""))
+    {
+        QMessageBox::critical(this,"information",tr("disconnect failed!"));
+    }
+    else
+    {
+        QMessageBox::information(this,"information",strResult);
+    }
+}
+
+
+void wifi::language_reload()
+{
+    ui->retranslateUi(this);
 }

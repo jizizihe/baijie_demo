@@ -27,6 +27,7 @@ enum signal_type
     wifi_scan_signal = 5,
     wifi_connect_signal = 6,
     wifi_activation_signal = 7,
+    wifi_modify_signal = 8,
     hotspot_build_signal,
 };
 
@@ -43,6 +44,8 @@ public:
     QString wifi_scan();
     QString get_wifistatus();
     QString get_wifisignalquality();
+    QString get_wifisecurity(QString infoname);
+
     QString wifi_disconnect();
     bool wifi_connect_exist(QString );
     QString wifi_activation(QString );

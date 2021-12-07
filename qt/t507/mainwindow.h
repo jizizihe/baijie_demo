@@ -17,7 +17,7 @@
 #include "bluetooth.h"
 #include "serial.h"
 #include "sys_setting.h"
-
+#include "wificondialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -42,7 +42,7 @@ public:
     serial serial_w;
     sys_setting system_w;
     QSettings *setting;
-
+    WifiConDialog WifiConDialog_w;
     void config_file();
 
 private:

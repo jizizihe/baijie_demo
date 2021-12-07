@@ -110,6 +110,15 @@ QString wifi_bt_interface::get_wifisignalquality()
     return strResult.append(QualityResult);
 }
 
+QString wifi_bt_interface::get_wifisecurity(QString infoname)
+{
+    QString strCmd = QString("nmcli connection show %1|grep key-mgmt | awk '{printf $2}'").arg(infoname);
+    QString strResult = executeLinuxCmd(strCmd);
+    qDebug() << strResult;
+    return strResult;
+}
+
+
 QString wifi_bt_interface::wifi_disconnect()
 {
     QString strCmd = QString("nmcli device disconnect wlan0");
@@ -224,7 +233,7 @@ bool wifi_bt_interface::wifi_modify(QString WifiSsid,QString PassWd)
 {
     if(WifiSsid == "" || PassWd == "")
     {
-        return "0";
+        return 0;
     }
 
     QString strCmd = QString("nmcli connection modify '%1' wifi-sec.psk '%2' ").arg(WifiSsid).arg(PassWd);
