@@ -48,7 +48,7 @@ void ipset::on_delstaticip_clicked() //del static ip
 
 void ipset::on_setstaticip_clicked() //set static ip
 {
-    popup.bnttype = "add ip";
+    popup.bnttype = (char *)"add ip";
     emit popup.addip();
     this->hide();
     popup.show();
@@ -63,7 +63,7 @@ void ipset::on_modstaticip_clicked() //mod static ip
     }
     else
     {
-        popup.bnttype = "mod ip";
+        popup.bnttype = (char *)"mod ip";
         emit popup.modip();
         this->hide();
         popup.show();

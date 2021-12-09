@@ -94,7 +94,7 @@ void all_interface_test::on_test_clicked()
 
     int gpio_port = calc_port_num('b',8);
     gpio_export(gpio_port);
-    gpio_set_state(gpio_port,"out");
+    gpio_set_state(gpio_port,(char *)"out");
     gpio_set_value(gpio_port,1);
 //    sleep(1);
 
@@ -234,7 +234,7 @@ void all_interface_test::on_gpio_clicked()
 
     int gpio_port = calc_port_num('b',8);
     gpio_export(gpio_port);
-    gpio_set_state(gpio_port,"out");
+    gpio_set_state(gpio_port,(char *)"out");
     gpio_set_value(gpio_port,1);
     sleep(1);
     gpio_set_value(gpio_port,0);
@@ -571,7 +571,7 @@ void all_interface_test::on_begin_clicked()
         qDebug() << "gpio_flag" << __LINE__;
         int gpio_port = calc_port_num('b',8);
         gpio_export(gpio_port);
-        gpio_set_state(gpio_port,"out");
+        gpio_set_state(gpio_port,(char *)"out");
         gpio_set_value(gpio_port,1);
         sleep(1);
         gpio_set_value(gpio_port,0);

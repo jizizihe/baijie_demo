@@ -90,7 +90,7 @@ int key_test(char * event)
 void keythread::run()
 {
     char* path;
-    char* keypath = "sunxi-keyboard";
+    char* keypath = (char *)"sunxi-keyboard";
 
     path = keytest_scan(keypath);
     if(path == NULL)

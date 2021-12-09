@@ -1,6 +1,7 @@
 #include "wifi.h"
 #include "ui_wifi.h"
 #include <QSpinBox>
+#include <QToolBox>
 
 wifi::wifi(QWidget *parent) :
     QMainWindow(parent),
@@ -12,7 +13,7 @@ wifi::wifi(QWidget *parent) :
 
     WifiConnectDialog = new WifiConDialog(this);
     //WifiConnectDialog->resize(400,300);
-    WifiConnectDialog->setStyleSheet("QDialog {border:2px solid gray;}");
+    //WifiConnectDialog->setStyleSheet("QDialog {border:2px solid gray;}");
 
     // 设置状态、样式
     ui->WifiSwitch->setToggle(true);
@@ -64,11 +65,7 @@ wifi::~wifi()
 void wifi::BtnChange_flag(bool flag)
 {
     //qDebug() << "LINe:" << __LINE__<<"switchflag " << switchflag;
-
-    //int flag;
     flag = ui->WifiSwitch->isToggled();
-    //qDebug() << "line:" << __LINE__ << "flag:" << flag;
-
 
     if(flag == 1) // open
     {

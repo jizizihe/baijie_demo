@@ -14,7 +14,11 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/******** combobox 滚动条  *********/
+   <string notr="true">#voice
+{
+border-image: url(:/t507_button_image/all/3.webp);
+}
+/******** combobox 滚动条  *********/
 QComboBox QScrollBar::vertical{ /*主体部分*/
     width:35px;
     border-radius:35px;
@@ -611,7 +615,7 @@ border-radius:10px;/*用来设定边框的弧度，可以设定圆角的按钮*/
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>23</height>
+     <height>28</height>
     </rect>
    </property>
   </widget>

@@ -84,3 +84,31 @@ void wifi_thread::hotspot_build_thread(QString HtName,QString HtPasswd)
     emit send_msg(hotspot_build_signal ,strResult);
 }
 
+void wifi_thread::sim_disconnect_thread_func()
+{
+    QString strResult = wifi_bt_w->sim_disconnect();
+
+    emit sim_send_msg(sim_disconnect_signal,strResult);
+}
+
+void wifi_thread::sim_activation_thread_func()
+{
+    QString strResult = wifi_bt_w->sim_activation();
+
+    emit sim_send_msg(sim_activation_signal,strResult);
+}
+
+void wifi_thread::sim_delete_thread_func()
+{
+    QString strResult = wifi_bt_w->sim_delete();
+
+    emit sim_send_msg(sim_delete_signal,strResult);
+}
+
+void wifi_thread::sim_connect_thread_func()
+{
+    QString strResult = wifi_bt_w->sim_connect();
+
+    emit sim_send_msg(sim_connect_signal,strResult);
+}
+

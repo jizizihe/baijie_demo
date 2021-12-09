@@ -29,7 +29,7 @@ char *get_battery_status()
 	if(NULL == fd)
 	{
 		printf("open battery status failed !\n");
-		return "false";
+        return (char *)"false";
 	}
 
     status = (char *)malloc(sizeof(char) * 255);
@@ -69,7 +69,7 @@ int get_resolution(int *x,int *y)
 {
     int fd;
     struct fb_var_screeninfo screen_info;
-    char *path = "/dev/fb0";
+    char *path = (char *)"/dev/fb0";
     fd = open(path,O_RDWR);
     if(0 == fd)
     {
@@ -93,7 +93,7 @@ char *get_boardname()
     if(NULL == fd)
     {
         printf("open battery status failed !\n");
-        return "false";
+        return (char *)"false";
     }
 
     name = (char *)malloc(sizeof(char) * 255);
@@ -109,12 +109,12 @@ char *get_OSname()
 {
     FILE *fd;
     char *OS;
-    char *path = "/etc/issue";
+    char *path = (char *)"/etc/issue";
     fd = fopen(path,"r");
     if(NULL == fd)
     {
         printf("open %s failed !\n",path);
-        return "false";
+        return (char *)"false";
     }
     OS = (char *)malloc(sizeof(char) * 255);
 
@@ -182,7 +182,7 @@ char *get_kernel()
     if(!process->waitForFinished())
     {
 //        ui->kernel_label->setText(QString(tr("kernel: Unknown")));
-        kernel = "Unknown";
+        kernel = (char *)"Unknown";
         return kernel;
     }
     QString hardware_name = QString::fromLocal8Bit(process->readAllStandardOutput());
@@ -192,7 +192,7 @@ char *get_kernel()
     if(!process->waitForFinished())
     {
 //        ui->kernel_label->setText(QString(tr("kernel: Unknown")));
-        kernel = "Unknown";
+        kernel = (char *)"Unknown";
         return kernel;
     }
     QString kernel_name = QString::fromLocal8Bit(process->readAllStandardOutput());
@@ -202,7 +202,7 @@ char *get_kernel()
     if(!process->waitForFinished())
     {
 //        ui->kernel_label->setText(QString(tr("kernel: Unknown")));
-        kernel = "Unknown";
+        kernel = (char *)"Unknown";
         return kernel;
     }
     QString kernel_release = QString::fromLocal8Bit(process->readAllStandardOutput());

@@ -14,7 +14,8 @@
 #include <QInputDialog>
 #include <QDialog>
 #include <QMessageBox>
-
+#include <QFileInfo>
+#include "gpio_interface.h"
 #include "switchcontrol.h"
 
 enum signal_type
@@ -28,7 +29,13 @@ enum signal_type
     wifi_connect_signal = 6,
     wifi_activation_signal = 7,
     wifi_modify_signal = 8,
+
     hotspot_build_signal,
+
+    sim_disconnect_signal = 11,
+    sim_activation_signal = 12,
+    sim_delete_signal = 13,
+    sim_connect_signal = 14,
 };
 
 class wifi_bt_interface : public QObject
@@ -55,6 +62,10 @@ public:
     QString hotspot_connect(QString HtName,QString HtPasswd);
     QString hotspot_disconnect();
 
+    QString sim_disconnect();
+    QString sim_delete();
+    QString sim_activation();
+    QString sim_connect();
 
 signals:
 

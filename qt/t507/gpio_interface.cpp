@@ -402,7 +402,7 @@ struct occupied_gpio_s get_debug_gpio()
 {
     struct occupied_gpio_s occupied_gpio;
     int i,linenum;
-    char *gpiopath = "/sys/kernel/debug/gpio";
+    char *gpiopath = (char *)"/sys/kernel/debug/gpio";
 
     memset(occupied_gpio.gpio,0,MAX_BUF);
     linenum = get_file_linenum(gpiopath);

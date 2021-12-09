@@ -23,7 +23,7 @@ timeset::timeset(QWidget *parent) :
 
     pLabel = new QLabel(this);
     pLabel->setText(tr("Time Settings"));
-    pLabel->resize(200,100);
+    pLabel->resize(400,100);
     pLabel->move(350,20);
     QFont ft;
     ft.setPointSize(18);
@@ -115,7 +115,7 @@ void timeset::retBt_clicked()
     emit Mysignal();
 }
 
-void timeset::SystimeSet(QString  datetext)
+QString timeset::SystimeSet(QString  datetext)
 {
     //  QString text = "\"2021-09-23 18:30:50\"";
       QString strCmd = QString("date -s \"%1\"").arg(datetext);
@@ -124,6 +124,15 @@ void timeset::SystimeSet(QString  datetext)
       process.start("bash", QStringList() <<"-c" << strCmd);
       process.waitForFinished();
 
+      strCmd = QString("echo $?").arg(datetext);
+      qDebug() << "text == " << strCmd;
+      process.start("bash", QStringList() <<"-c" << strCmd);
+      process.waitForFinished();
+
+      QString strResult = process.readAllStandardOutput();
+      //qDebug() << "strResult == " << strResult;
+
+      return strResult;
 }
 
 void timeset::SystimeSetBt_clicked()
@@ -131,7 +140,17 @@ void timeset::SystimeSetBt_clicked()
       QString  datetext = this->datetime->text();
       qDebug() << "text === " << datetext;
 
-      SystimeSet(datetext);
+      QString ret = SystimeSet(datetext);
+      if(ret == "0\n")
+      {
+          qDebug() << "Systime set ok!";
+          QMessageBox::information(this,"information",tr("Systime set ok!"));
+      }
+      else
+      {
+          qDebug() << "Systime set failed!";
+          QMessageBox::critical(this,"information",tr("Systime set failed!"));
+      }
 }
 
 /* ret : 0--success; 1 or other -- failed */
@@ -164,10 +183,13 @@ void timeset::RTCSetBt_clicked()
     if(ret == "0\n")
     {
         qDebug() << "RTC set ok!";
+        QMessageBox::information(this,"information",tr("RTC set ok!"));
     }
     else
     {
         qDebug() << "RTC set failed!";
+        QMessageBox::critical(this,"information",tr("RTC set failed!"));
+
     }
 }
 

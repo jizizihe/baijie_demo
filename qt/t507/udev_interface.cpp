@@ -154,5 +154,5 @@ QString wifi_test()
 
 QString bluetooth()
 {
-
+    return NULL;
 }

@@ -10,11 +10,20 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <pointsize>16</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/****************按钮部件*******************/
+   <string notr="true">#MainWindow
+{
+border-image: url(:/t507_button_image/all/3.webp);
+}
+/****************按钮部件*******************/
 QPushButton{
      background-color: rgba(100, 225, 100, 120);/*背景色*/
      border-style: outset; /*边框样式*/
@@ -49,7 +58,8 @@ QSlider::handle:horizontal { /*水平滑块的手柄*/
 
 QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
         border-image: url(:/image/slider.png);/*边框图片*/
- }</string>
+ }
+</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="touchca">
@@ -582,7 +592,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="keytest">
+   <widget class="QPushButton" name="sim_module">
     <property name="geometry">
      <rect>
       <x>90</x>
@@ -591,15 +601,19 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
       <height>91</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
     <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="translation.qrc">
-      <normaloff>:/t507_button_image/key.png</normaloff>:/t507_button_image/key.png</iconset>
+     <string>sim</string>
     </property>
     <property name="iconSize">
      <size>
@@ -608,8 +622,45 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      </size>
     </property>
    </widget>
+   <widget class="QLabel" name="label_40">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>530</y>
+      <width>251</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>4G</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>28</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

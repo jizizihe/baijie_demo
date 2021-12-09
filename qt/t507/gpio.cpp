@@ -111,7 +111,7 @@ void gpio::rBtnin_clicked()
 
     for(int i = count;i < num;i++)
     {
-        gpio_set_state(port_num[i], "in");
+        gpio_set_state(port_num[i], (char *)"in");
 
         display->append(QString(tr("gpio_port: %1")).arg(portnum[i]));
         display->append(QString(tr("state: %1")).arg(tr("in")));
@@ -135,7 +135,7 @@ void gpio::rBtnout_clicked()
         display->clear();
         for(int i = count;i < num;i++)
         {
-            gpio_set_state(port_num[i], "out");
+            gpio_set_state(port_num[i], (char *)"out");
             portnum_cal(port_num[i],portnum[i]);
             display->append(QString(tr("gpio_port: %1")).arg(portnum[i]));
             display->append(QString(tr("state: %1")).arg(tr("out")));
@@ -164,7 +164,7 @@ void gpio::rBtnhigh_clicked()
         display->clear();
         for(int i = count;i < num;i++)
         {
-            gpio_set_state(port_num[i], "out");
+            gpio_set_state(port_num[i], (char *)"out");
             portnum_cal(port_num[i],portnum[i]);
             display->append(QString(tr("gpio_port: %1")).arg(portnum[i]));
             display->append(QString(tr("state: %1")).arg(tr("out")));
@@ -185,7 +185,7 @@ void gpio::rBtnlow_clicked()
         display->clear();
         for(int i = count;i < num;i++)
         {
-            gpio_set_state(port_num[i], "out");
+            gpio_set_state(port_num[i], (char *)"out");
             portnum_cal(port_num[i],portnum[i]);
             display->append(QString(tr("gpio_port: %1")).arg(portnum[i]));
             display->append(QString(tr("state: %1")).arg(tr("out")));

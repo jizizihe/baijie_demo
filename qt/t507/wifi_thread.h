@@ -15,6 +15,7 @@ public:
 
 signals:
     void send_msg(int ,QString );
+    void sim_send_msg(int, QString);
 
 public slots:
     void Thread_Fun();
@@ -22,7 +23,10 @@ public slots:
     void wifi_connect_thread(QString,QString);
     void wifi_activation_thread(QString wifi_name);
     void hotspot_build_thread(QString HtName,QString HtPasswd);
-
+    void sim_connect_thread_func();
+    void sim_disconnect_thread_func();
+    void sim_activation_thread_func();
+    void sim_delete_thread_func();
 
 private:
     wifi_bt_interface * wifi_bt_w;

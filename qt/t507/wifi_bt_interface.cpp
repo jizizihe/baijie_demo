@@ -127,6 +127,8 @@ QString wifi_bt_interface::wifi_disconnect()
     return strResult;
 }
 
+
+/*return exist--true,not exist--false*/
 bool wifi_bt_interface::wifi_connect_exist(QString WifiSsid)
 {
     QString strCmd = QString("ifconfig wlan0 up");
@@ -323,5 +325,164 @@ QString wifi_bt_interface::hotspot_disconnect()
     return strResult;
 }
 
+QString wifi_bt_interface::sim_disconnect()
+{
+    QString strCmd = QString("nmcli connection down ppp0");
+    QString strResult = executeLinuxCmd(strCmd);
+    qDebug() << strResult;
+
+    bool DisconnectResult=strResult.contains("successfully deactivated",Qt::CaseInsensitive);
+    //qDebug() << ConnectResult;
+
+    if(DisconnectResult == true)
+    {
+        strResult = "disconnect successful!";
+        qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<< strResult;
+
+        return QString(1);
+    }
+    else
+    {
+        strResult = "disconnect failed!";
+        qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<< strResult;
+        return 0;
+    }
+
+    return 0;
+}
+
+QString wifi_bt_interface::sim_delete()
+{
+    QString strCmd = QString("nmcli connection delete ppp0");
+    QString strResult = executeLinuxCmd(strCmd);
+    qDebug() << strResult;
+
+    bool DeleteResult=strResult.contains("successfully deleted",Qt::CaseInsensitive);
+    //qDebug() << ConnectResult;
+
+    if(DeleteResult == true)
+    {
+        strResult = "deleted successful!";
+        qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<< strResult;
+
+        return QString(1);
+    }
+    else
+    {
+        strResult = "deleted failed!";
+        qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<< strResult;
+        return 0;
+    }
+
+    return 0;
+}
+
+QString wifi_bt_interface::sim_activation()
+{
+    QString strCmd = QString("nmcli con show --active |grep ppp0 |wc -l");
+    QString strResult = executeLinuxCmd(strCmd);
+    qDebug() << strResult;
+    if(strResult == "1\n")
+    {
+        return QString(1);
+    }
+
+    strCmd = QString("nmcli connection up ppp0");
+    strResult = executeLinuxCmd(strCmd);
+    qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<< strResult;
+
+    bool ActivateResult=strResult.contains("successfully activated",Qt::CaseInsensitive);
+    if(ActivateResult == true)
+    {
+        return QString(1);
+    }
+
+    return 0;
+}
+
+QString wifi_bt_interface::sim_connect()
+{
+    QString strCmd;
+    QString strResult;
+
+    char *state = (char *)"out";
+    int port_num = calc_port_num('h',12);
+    qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "port_num == " << port_num;
+
+    bool isExist = getFileName(port_num);
+    if(isExist == false)
+    {
+        qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "not Exist";
+        if(gpio_export(port_num) == 0)
+        {
+            if(gpio_set_state(port_num, state) == 0)
+            {
+                if(gpio_set_value(port_num, 1) == 0)
+                {
+                    qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "build connect";
+                    sleep(5);
+                }
+            }
+        }
+        else
+        {
+            gpio_unexport(port_num);
+            return 0;
+        }
+    }
+
+    QFileInfo fileInfo("/etc/NetworkManager/system-connections/ppp0");
+    if(fileInfo.isFile() == true)
+    {
+        qDebug()<<"File exists";
+        return QString(1);
+    }
+    else
+    {
+        qDebug()<<"File not exists";
+
+        strCmd = QString("nmcli connection add con-name ppp0 ifname ttyUSB2 autoconnect yes type gsm apn 3gnet user uninet password uninet");
+        //qDebug() << "--line--: " << __LINE__<< "strCmd == " << strCmd;
+        strResult = executeLinuxCmd(strCmd);
+        qDebug() << "--line--: " << __LINE__<< strResult;
+
+        bool ConnectResult=strResult.contains("successfully added",Qt::CaseInsensitive);
+        //qDebug() << ConnectResult;
+
+        if(ConnectResult == 1)
+        {
+            strResult = "Connection successful!";
+            qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<< strResult;
+
+            return QString(1);
+        }
+        else
+        {
+            strResult = "Connection failed!";
+            qDebug() << "--line--: " << __LINE__<< strResult;
+
+            strCmd = QString("nmcli connection delete ppp0");
+            //qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "strCmd == " << strCmd;
+            strResult = executeLinuxCmd(strCmd);
+            qDebug() << "--line--: " << __LINE__<< strResult;
+
+            bool ConnectResult=strResult.contains("successfully deleted",Qt::CaseInsensitive);
+            qDebug() << ConnectResult;
+            if(ConnectResult == 1)
+            {
+                strResult = "delete successful!";
+                qDebug() << "--line--: " << __LINE__<< strResult;
+            }
+            else
+            {
+                strResult = "delete failed!";
+                qDebug() << "--line--: " << __LINE__<< strResult;
+            }
+
+            return 0;
+        }
+    }
+    return 0;
+}
 
 

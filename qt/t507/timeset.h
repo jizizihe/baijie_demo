@@ -31,7 +31,7 @@ signals:
 
 private slots:
     void retBt_clicked();
-    void SystimeSet(QString  datetext);
+    QString SystimeSet(QString  datetext);
     void SystimeSetBt_clicked();
     QString RTCSet(QString  datetext);
     void RTCSetBt_clicked();

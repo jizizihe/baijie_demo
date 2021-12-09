@@ -18,6 +18,7 @@
 #include "serial.h"
 #include "sys_setting.h"
 #include "wificondialog.h"
+#include "sim_module.h"
 
 namespace Ui {
 class MainWindow;
@@ -36,13 +37,14 @@ public:
     touchscreen touch_w;
     wifi wifi_w;
     ipset eth0_w;
-    keytest keytest_w;
+//    keytest keytest_w;
     all_interface_test all_w;
     bluetooth bluetooth_w;
     serial serial_w;
     sys_setting system_w;
     QSettings *setting;
     WifiConDialog WifiConDialog_w;
+    sim_module sim_module_w;
     void config_file();
 
 private:
@@ -58,12 +60,13 @@ private slots:
     void on_touchca_clicked();
     void on_wifi_clicked();
     void on_ethernet_clicked();
-    void on_keytest_clicked();
+//    void on_keytest_clicked();
 
     void on_alltest_clicked();
     void on_bluetooth_clicked();
     void on_serialport_clicked();
     void on_system_clicked();
+    void on_sim_module_clicked();
 
     void cn_main();
 
