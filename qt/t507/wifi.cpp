@@ -141,14 +141,15 @@ void wifi::recv_msg(int signal_type, QString strResult)
         qDebug() << "FUNC:" << __FUNCTION__<< "Line:" << __LINE__ << "strResult:" << strResult;
         if(strResult == QString(1))
         {
-            QMessageBox::information(this,"information",tr("Connection succeeded!"));
+//            QMessageBox::information(this,"information",tr("Connection succeeded!"));
             wifi_bt_t->wifi_passwd_write(WifiConnectDialog->GetWifiNameText(),WifiConnectDialog->GetPasswdText());
+
+            wifi_info_fresh(WifiConnectDialog->GetWifiNameText());
+            ui->stackedWidget->setCurrentIndex(3);
 
             WifiConnectDialog->SetWifiNameText("");
             WifiConnectDialog->SetPasswdText("");
             WifiConnectDialog->close();
-
-            ui->stackedWidget->setCurrentIndex(3);
         }
         else
         {
@@ -251,8 +252,6 @@ void wifi::WifiStatus_show()
     {
         wifi_info_fresh(wifi_name.remove("\n"));
     }
-    ui->ChangePasswdBtn->hide();
-    ui->WifiExistRemoveBtn->hide();
     ui->stackedWidget->setCurrentIndex(3);
 }
 
@@ -331,10 +330,16 @@ void wifi::on_RefreshBtn_clicked()
 
 void wifi::on_ChangePasswdBtn_clicked()
 {
-    WifiConnectDialog->show();
-    WifiConnectDialog->SetWifiNameText(ui->WifiInfoNameLab->text());
-    WifiConnectDialog->SetWifiOkBtnText("OK");
+    QString wifi_name = ui->WifiInfoNameLab->text();
+    qDebug() << "--LINE--: " << __LINE__<< "FUNC:" << __FUNCTION__<< "currentItem()->text = " << wifi_name;
+    if(wifi_name == QString("Not connected"))
+    {
+        return ;
+    }
 
+    WifiConnectDialog->show();
+    WifiConnectDialog->SetWifiNameText(wifi_name);
+    WifiConnectDialog->SetWifiOkBtnText("OK");
 }
 
 void wifi::on_WifiExistRemoveBtn_clicked()
@@ -343,6 +348,14 @@ void wifi::on_WifiExistRemoveBtn_clicked()
     QString strResult;
 
     QMessageBox::StandardButton reply;
+
+    wifi_name = ui->WifiInfoNameLab->text();
+    qDebug() << "--LINE--: " << __LINE__<< "FUNC:" << __FUNCTION__<< "currentItem()->text = " << wifi_name;
+    if(wifi_name == QString("Not connected"))
+    {
+        return ;
+    }
+
     reply = QMessageBox::question(this,tr("QMessageBox::question()"),tr("Are you sure you want to delete it?"),
                                   QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel);
     if(reply == QMessageBox::Cancel)
@@ -351,14 +364,11 @@ void wifi::on_WifiExistRemoveBtn_clicked()
     }
     else if(reply == QMessageBox::Yes)
     {
-        wifi_name = ui->WifiListWidget->currentItem()->text();
-        qDebug() << "FUNC:" << __FUNCTION__<< "line:" << __LINE__ << "currentItem()->text = " << wifi_name;
-
         strResult = wifi_bt_t->wifi_connection_remove(wifi_name);
-        qDebug() << "FUNC:" << __FUNCTION__<< "--LINE--: " << __LINE__<< strResult;
+        qDebug() << "--LINE--: " << __LINE__<< "FUNC:" << __FUNCTION__<< strResult;
 
         bool downResult=strResult.contains("successfully deleted",Qt::CaseInsensitive);
-        qDebug() << "FUNC:" << __FUNCTION__<< "--LINE--: " << __LINE__<< downResult;
+        qDebug() << "--LINE--: " << __LINE__<< "FUNC:" << __FUNCTION__<< downResult;
 
         if(downResult == 1)
         {
