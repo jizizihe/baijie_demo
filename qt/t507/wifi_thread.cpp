@@ -13,10 +13,10 @@ void wifi_thread::Thread_Fun()
 
 void wifi_thread::wifi_scan_thread()
 {
-    //qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<< "--------------";
+    //qDebug() << "--line--: " << __LINE__<< "FILE:" << __FILE__<< "--------------";
 
     QString strResult = wifi_bt_w->wifi_scan();
-    //qDebug()<< "LINE:" << __LINE__ << "ScanResult" << strResult;
+    //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "strResult:" << strResult;
 
     emit send_msg(wifi_scan_signal,strResult);
 }
@@ -27,7 +27,7 @@ void wifi_thread::wifi_activation_thread(QString wifi_name)
     QString strResult;
 
     strResult = wifi_bt_w->wifi_activation(wifi_name);
-    qDebug() << "FUNC:" << __FUNCTION__<< "--LINE--: " << __LINE__<< strResult;
+    qDebug() << "--LINE--: " << __LINE__<< "FUNC:" << __FUNCTION__<< strResult;
     bool ConnectResult=strResult.contains("Connection successfully activated",Qt::CaseInsensitive);
     qDebug() << ConnectResult;
 
@@ -40,6 +40,8 @@ void wifi_thread::wifi_activation_thread(QString wifi_name)
         strResult = QString("");
     }
     emit send_msg(wifi_activation_signal,strResult);
+    emit wifi_info_fresh_msg(wifi_name);
+
 }
 
 
@@ -54,7 +56,6 @@ void wifi_thread::wifi_connect_thread(QString wifi_name,QString wifi_passwd)
         strResult = wifi_bt_w->wifi_activation(wifi_name);
         qDebug() << "FUNC:" << __FUNCTION__<< "--LINE--: " << __LINE__<< strResult;
         bool ConnectResult=strResult.contains("Connection successfully activated",Qt::CaseInsensitive);
-        qDebug() << ConnectResult;
 
         if(ConnectResult == 1)
         {
@@ -64,14 +65,14 @@ void wifi_thread::wifi_connect_thread(QString wifi_name,QString wifi_passwd)
         {
             strResult = QString("");
         }
-        emit send_msg(wifi_connect_signal,strResult);
     }
     else
     {
         strResult = wifi_bt_w->wifi_connect(wifi_name,wifi_passwd);
         qDebug()<< "LINE:" << __LINE__ << "strResult" << strResult;
-        emit send_msg(wifi_connect_signal,strResult);
     }
+    emit wifi_wait_end_msg();
+    emit send_msg(wifi_connect_signal,strResult);
 }
 
 void wifi_thread::hotspot_build_thread(QString HtName,QString HtPasswd)
@@ -79,7 +80,8 @@ void wifi_thread::hotspot_build_thread(QString HtName,QString HtPasswd)
     QString strResult;
 
     strResult = wifi_bt_w->hotspot_connect(HtName,HtPasswd);
-    qDebug() << "FUNC:" << __FUNCTION__<< "Line:" << __LINE__ << "strResult:" << strResult;
+    qDebug() << "Line:" << __LINE__ << "FUNC:" << __FUNCTION__<< "strResult:" << strResult;
+
 
     emit send_msg(hotspot_build_signal ,strResult);
 }

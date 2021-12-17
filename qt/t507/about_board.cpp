@@ -12,6 +12,8 @@ about_board::about_board(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->setAttribute(Qt::WA_StyledBackground,true);
+
 //    QScrollArea *m_pScroll = new QScrollArea(ui->widget);
 //    m_pScroll->setWidget(ui->widget_2);
 //    m_pScroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

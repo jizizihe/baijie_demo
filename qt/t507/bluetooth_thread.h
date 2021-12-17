@@ -1,35 +1,33 @@
 #ifndef BLUETOOTH_THREAD_H
 #define BLUETOOTH_THREAD_H
 
+#include "wifi_bt_interface.h"
+
+#include <QObject>
 #include <QThread>
 #include <QDebug>
 #include <QProcess>
 #include <QFile>
 
-class bluetooth_thread : public QThread
+class bluetooth_thread : public QObject
 {
     Q_OBJECT
 public:
     explicit bluetooth_thread(QObject *parent = nullptr);
 
-    virtual void run();
-    QString bluetooth_scan();
-    QString executeLinuxCmd(QString strCmd);
-    QString bluetooth_pair(QString BtAddress);
-    QString bluetooth_connect(QString BtAddress);
 
 signals:
-    void message(int, QString);
-    //void setText(bool);
+    void send_msg(int ,QString );
 
 public slots:
-    void flag_set(int signal_type,QString address);
+    QString bluetooth_scan_thread();
+    QString bluetooth_pair_thread(QString BtAddress);
+    QString bluetooth_connect_thread(QString BtAddress);
 
 private:
-    bool scan_flag = false;
-    bool pair_flag = false;
-    bool connect_flag = false;
-    QString BtAddress;
+
+    wifi_bt_interface * wifi_bt_w;
+
 };
 
 #endif // BLUETOOTH_THREAD_H

@@ -53,8 +53,7 @@
         <file>t507_button_image/wait.gif</file>
         <file>t507_button_image/light_h.png</file>
         <file>t507_button_image/light_l.png</file>
-        <file>t507_button_image/all/2.webp</file>
-        <file>t507_button_image/all/background2.webp</file>
         <file>t507_button_image/all/3.webp</file>
+        <file>t507_button_image/all/background.jpg</file>
     </qresource>
 </RCC>

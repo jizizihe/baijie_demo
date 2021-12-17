@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>899</width>
+    <height>584</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,9 +15,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#sim_module
-{
-border-image: url(:/t507_button_image/all/3.webp);
-}
+{border-image: url(:/t507_button_image/all/background.jpg)}
 /****************按钮部件*******************/
 QPushButton{
      background-color: rgba(100, 225, 100, 120);/*背景色*/
@@ -94,7 +92,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -164,7 +162,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>899</width>
      <height>28</height>
     </rect>
    </property>

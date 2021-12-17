@@ -72,6 +72,7 @@ private slots:
 
 signals:
     void again();
+    void wifi_status_msg();
 };
 
 #endif // MAINWINDOW_H

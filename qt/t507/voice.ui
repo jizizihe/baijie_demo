@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">#voice
 {
-border-image: url(:/t507_button_image/all/3.webp);
+border-image: url(:/t507_button_image/all/background.jpg);
 }
 /******** combobox 滚动条  *********/
 QComboBox QScrollBar::vertical{ /*主体部分*/
@@ -28,10 +28,10 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
    <widget class="QPushButton" name="return_2">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
+      <x>0</x>
+      <y>0</y>
       <width>100</width>
-      <height>40</height>
+      <height>50</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -200,6 +200,10 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      </property>
      <property name="text">
       <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="translation.qrc">
+       <normaloff>:/t507_button_image/voice/begin.png</normaloff>:/t507_button_image/voice/begin.png</iconset>
      </property>
     </widget>
     <widget class="QPushButton" name="choose_3">

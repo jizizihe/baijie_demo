@@ -2,6 +2,7 @@
 #include "ui_ipset.h"
 #include "ipset_interface.h"
 #include "ctouchbutton.h"
+#include <QBitmap>
 
 //bool is_virtual_network_card_or_loopback(QString str_card_name);
 
@@ -10,8 +11,20 @@ ipset::ipset(QWidget *parent) :
     ui(new Ui::ipset)
 {
     ui->setupUi(this);
-//    slideButton *slidebtn = new slideButton(this);
-//    slidebtn->setGeometry(500,300,100,100);
+
+    this->setAttribute(Qt::WA_StyledBackground,true);
+//    this->setStyleSheet("background-color: rgb(255,255, 255)");
+
+    //this->setStyleSheet("border-image: url(:/t507_button_image/all/3.webp)");
+
+//    this->setStyleSheet("#ipset{border-image: url(:/t507_button_image/all/2.webp)}");
+
+    /*2 * set background image3 */
+//    QPixmap bgImages(":/t507_button_image/all/3.webp");
+//    QPalette bgPalette = this->palette();
+//    bgPalette.setBrush(QPalette::Background,bgImages);
+//    this->setPalette(bgPalette);
+//    setMask(bgImages.mask());// set background mask attribute same as background's image
 
     ui->textEdit->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
 

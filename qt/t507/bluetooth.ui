@@ -14,7 +14,9 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/****************按钮部件*******************/
+   <string notr="true">#bluetooth
+{border-image: url(:/t507_button_image/all/background.jpg)}
+/****************按钮部件*******************/
 QPushButton{
      background-color: rgba(100, 225, 100, 120);/*背景色*/
      border-style: outset; /*边框样式*/
@@ -49,11 +51,174 @@ QSlider::handle:horizontal { /*水平滑块的手柄*/
 
 QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
         border-image: url(:/image/slider.png);/*边框图片*/
-}</string>
+}
+
+QMessageBox {
+	background-image: url(:/t507_button_image/all/2.webp);
+	border:1px solid gray;
+}
+
+QListWidget {
+background-color:transparent; outline: none; border:1px solid gray; color: black; }
+QListWidget::Item { width: 400px; height: 50px; }
+QListWidget::Item:hover { background: #4CAF50; color: white; }
+QListWidget::item:selected { background: #e7e7e7; color: #f44336; }
+QListWidget::item:selected:!active { background: lightgreen; }</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout"/>
+   <widget class="QPushButton" name="retBtn">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>100</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="translation.qrc">
+      <normaloff>:/t507_button_image/return.png</normaloff>:/t507_button_image/return.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BTScanBtn">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>230</y>
+      <width>221</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>bluetooth scan</string>
+    </property>
+    <property name="icon">
+     <iconset resource="translation.qrc">
+      <normaloff>:/t507_button_image/bluetooth/scan.png</normaloff>:/t507_button_image/bluetooth/scan.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BTConnectBtn">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>450</y>
+      <width>221</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>bluetooth connect</string>
+    </property>
+    <property name="icon">
+     <iconset resource="translation.qrc">
+      <normaloff>:/t507_button_image/bluetooth/connect.png</normaloff>:/t507_button_image/bluetooth/connect.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BTPairBtn">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>340</y>
+      <width>221</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>bluetooth pair</string>
+    </property>
+    <property name="icon">
+     <iconset resource="translation.qrc">
+      <normaloff>:/t507_button_image/bluetooth/pair.png</normaloff>:/t507_button_image/bluetooth/pair.png</iconset>
+    </property>
+   </widget>
+   <widget class="SwitchControl" name="BtSwitch" native="true">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>100</y>
+      <width>60</width>
+      <height>30</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="BtDeviceNameLab">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>160</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>0</y>
+      <width>20</width>
+      <height>571</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="BtNameListWidget">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>80</y>
+      <width>411</width>
+      <height>461</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>20</y>
+      <width>251</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Available devices</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>bluetooth</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>160</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>device name</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -67,6 +232,16 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <customwidgets>
+  <customwidget>
+   <class>SwitchControl</class>
+   <extends>QWidget</extends>
+   <header location="global">switchcontrol.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="translation.qrc"/>
+ </resources>
  <connections/>
 </ui>

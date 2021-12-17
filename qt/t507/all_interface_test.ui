@@ -14,24 +14,21 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
-  </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_3">
-    <item row="0" column="0">
-     <widget class="QPushButton" name="return_2">
-      <property name="styleSheet">
-       <string notr="true">/****************按钮部件*******************/
+   <string notr="true">#all_interface_test
+{
+border-image: url(:/t507_button_image/all/background.jpg);
+}
+/****************按钮部件*******************/
 QPushButton{
      background-color: rgba(100, 225, 100, 120);/*背景色*/
      border-style: outset; /*边框样式*/
      border-width:  2px;  /*边框宽度为4像素*/
      border-radius: 10px; /*边框圆角半径*/
      border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     font: bold 25px;/*字体*/
+     font: bold 20px;/*字体*/
      color:rgba(0, 0, 0, 100);/*字体颜色*/
      padding: 6px; /*填衬*/
-	outline: none; /*去掉按钮的虚线框*/
+    outline: none; /*去掉按钮的虚线框*/
 }
 
 QPushButton:hover{ /*鼠标悬停在按钮上时*/
@@ -52,35 +49,26 @@ QPushButton:pressed { /*按钮被按下时*/
 
 QSlider::handle:horizontal { /*水平滑块的手柄*/
         image: url(:/image/sliderHandle.png);
- }
+}
 
 QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
         border-image: url(:/image/slider.png);/*边框图片*/
- }</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normalon>:/t507_button_image/return.png</normalon>
-       </iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>32</width>
-        <height>32</height>
-       </size>
-      </property>
-     </widget>
-    </item>
+}
+QTextEdit
+{
+	background-color:transparent;
+	border:1px solid gray;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout_3">
     <item row="1" column="0">
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
        <string>individual test</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
+       <item row="2" column="0">
         <widget class="QRadioButton" name="gpio">
          <property name="font">
           <font>
@@ -92,43 +80,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QRadioButton" name="network">
-         <property name="font">
-          <font>
-           <pointsize>8</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>network</string>
-         </property>
-        </widget>
-       </item>
        <item row="7" column="0">
-        <widget class="QRadioButton" name="key">
-         <property name="font">
-          <font>
-           <pointsize>8</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>key</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QRadioButton" name="sim">
-         <property name="font">
-          <font>
-           <pointsize>8</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>sim</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
         <widget class="QRadioButton" name="usb">
          <property name="font">
           <font>
@@ -140,7 +92,31 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="5" column="0">
+        <widget class="QRadioButton" name="network">
+         <property name="font">
+          <font>
+           <pointsize>8</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>network</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QRadioButton" name="sim">
+         <property name="font">
+          <font>
+           <pointsize>8</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>sim</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
         <widget class="QRadioButton" name="bluetooth">
          <property name="font">
           <font>
@@ -153,18 +129,6 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
         </widget>
        </item>
        <item row="8" column="0">
-        <widget class="QRadioButton" name="camera">
-         <property name="font">
-          <font>
-           <pointsize>8</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>camera</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
         <widget class="QRadioButton" name="sd_card">
          <property name="font">
           <font>
@@ -176,7 +140,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="3" column="0">
         <widget class="QRadioButton" name="wifi">
          <property name="font">
           <font>
@@ -185,6 +149,30 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          </property>
          <property name="text">
           <string>wifi</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0">
+        <widget class="QRadioButton" name="camera">
+         <property name="font">
+          <font>
+           <pointsize>8</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>camera</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
+        <widget class="QRadioButton" name="key">
+         <property name="font">
+          <font>
+           <pointsize>8</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>key</string>
          </property>
         </widget>
        </item>
@@ -340,6 +328,62 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
       </property>
      </widget>
     </item>
+    <item row="0" column="0">
+     <widget class="QPushButton" name="return_2">
+      <property name="styleSheet">
+       <string notr="true">/****************按钮部件*******************/
+QPushButton{
+     background-color: rgba(100, 225, 100, 120);/*背景色*/
+     border-style: outset; /*边框样式*/
+     border-width:  2px;  /*边框宽度为4像素*/
+     border-radius: 10px; /*边框圆角半径*/
+     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
+     font: bold 25px;/*字体*/
+     color:rgba(0, 0, 0, 100);/*字体颜色*/
+     padding: 6px; /*填衬*/
+	outline: none; /*去掉按钮的虚线框*/
+}
+
+QPushButton:hover{ /*鼠标悬停在按钮上时*/
+        background-color:rgba(100,255,100, 100);
+        border-color: rgba(255, 225, 255, 200);
+        color:rgba(0, 0, 0, 200);
+}
+
+QPushButton:pressed { /*按钮被按下时*/
+     background-color:rgba(100,255,100, 200);
+     border-color: rgba(255, 225, 255, 30);
+     border-style: inset;
+     color:rgba(0, 0, 0, 100);
+}
+
+/****************滑块部件*******************/
+
+
+QSlider::handle:horizontal { /*水平滑块的手柄*/
+        image: url(:/image/sliderHandle.png);
+ }
+
+QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
+        border-image: url(:/image/slider.png);/*边框图片*/
+ }</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normalon>:/t507_button_image/return.png</normalon>
+       </iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+     </widget>
+    </item>
    </layout>
    <widget class="QLabel" name="image">
     <property name="geometry">
@@ -369,10 +413,10 @@ border-color: rgb(0, 170, 127);</string>
     </property>
    </widget>
    <zorder>textEdit</zorder>
-   <zorder>return_2</zorder>
    <zorder>groupBox</zorder>
    <zorder>groupBox_2</zorder>
    <zorder>image</zorder>
+   <zorder>return_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -380,7 +424,7 @@ border-color: rgb(0, 170, 127);</string>
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>23</height>
+     <height>28</height>
     </rect>
    </property>
   </widget>

@@ -17,6 +17,7 @@ class wifi : public QMainWindow
 public:
     explicit wifi(QWidget *parent = 0);
     ~wifi();
+
     void language_reload();
 
 signals:
@@ -32,10 +33,6 @@ private slots:
 
     void on_WifiConnectBtn_clicked();
 
-    void on_WifiQualityBtn_clicked();
-
-    void on_WifiStatusBtn_clicked();
-
     void on_HotspotConBtn_clicked();
 
     void BtnChange_flag(bool);
@@ -44,24 +41,24 @@ private slots:
 
     void on_RefreshBtn_clicked();
 
+    void wifi_info_fresh(QString wifi_name);
+
     void ListWidgeItem_clicked();
 
     void on_HotspotBuildBtn_clicked();
 
     void on_HotspotDownBtn_clicked();
 
-    void on_toolBox_currentChanged(int index);
-
     void on_ChangePasswdBtn_clicked();
-
-    void on_WifiBackBtn_clicked();
-
-    void on_WifiActiveBtn_clicked();
 
     void on_WifiExistRemoveBtn_clicked();
 
+    void on_WifiStatusBtn_clicked();
+    void WifiStatus_show();
 private:
     Ui::wifi *ui;
+
+    wifi_info WifiInfo;
 
     QLabel *LoadLabel;
     QMovie *pMovie;

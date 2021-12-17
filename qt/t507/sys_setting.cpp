@@ -10,6 +10,8 @@ sys_setting::sys_setting(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->setAttribute(Qt::WA_StyledBackground,true);
+
     connect(&backlight_w,SIGNAL(Mysignal()),this,SLOT(show_me()));
     connect(&timeset_w,SIGNAL(Mysignal()),this,SLOT(show_me()));
     connect(&user_w,SIGNAL(Mysignal()),this,SLOT(show_me()));

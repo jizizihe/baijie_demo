@@ -112,3 +112,9 @@ void sim_module::on_SimConnectBtn_clicked()
 
     emit sim_connect_msg();
 }
+
+
+void sim_module::language_reload()
+{
+    ui->retranslateUi(this);
+}

@@ -8,12 +8,29 @@ WifiConDialog::WifiConDialog(QWidget *parent) :
     ui->setupUi(this);
     wifi_bt_t = new wifi_bt_interface(this);
 
+    WifiLoadLabel = new QLabel(this);
+    WifiLoadLabel->move(this->size().width()/2,this->size().height()/2);
+    WifiMovie = new QMovie("://t507_button_image/loading.webp");
+    WifiLoadLabel->setFixedSize(50, 50);
+    WifiLoadLabel->setScaledContents(true);
+    WifiLoadLabel->setMovie(WifiMovie);
+    //pMovie->start();
+
 }
 
 WifiConDialog::~WifiConDialog()
 {
     delete ui;
+
+    delete WifiLoadLabel;
+    delete WifiMovie;
     delete wifi_bt_t;
+}
+
+void WifiConDialog::wifi_wait_end_func()
+{
+    WifiMovie->stop();
+    WifiLoadLabel->close();
 }
 
 void WifiConDialog::on_WifiOkBtn_clicked()
@@ -34,6 +51,9 @@ void WifiConDialog::on_WifiOkBtn_clicked()
 
     if(WifiOkBtnText == "connect")  //wifi connect
     {
+        WifiLoadLabel->show();
+        WifiMovie->start();
+
         emit wifi_connect_dialog_signal(wifi_name, wifi_passwd);
     }
     else if(WifiOkBtnText == "OK")  //wifi change password
@@ -44,6 +64,9 @@ void WifiConDialog::on_WifiOkBtn_clicked()
         if(strResult == true)
         {
             QMessageBox::information(this,"information",tr("change succeeded!"));
+            wifi_bt_t->wifi_passwd_change(wifi_name,wifi_passwd);
+
+            emit wifi_info_fresh_msg(wifi_name);
             ui->NamelineEdit->clear();
             ui->PasswdlineEdit->clear();
             this->close();
@@ -61,6 +84,7 @@ void WifiConDialog::on_WifiCancelBtn_clicked()
     ui->NamelineEdit->clear();
     ui->PasswdlineEdit->clear();
     this->close();
+
 }
 
 void WifiConDialog::SetWifiNameText(QString wifinanme)
@@ -72,6 +96,17 @@ void WifiConDialog::SetPasswdText(QString wifipasswd)
 {
     ui->PasswdlineEdit->setText(wifipasswd);
 }
+
+QString WifiConDialog::GetWifiNameText()
+{
+    return ui->NamelineEdit->text();
+}
+
+QString WifiConDialog::GetPasswdText()
+{
+    return ui->PasswdlineEdit->text();
+}
+
 
 QString WifiConDialog::GetWifiOkBtnText()
 {
@@ -87,4 +122,29 @@ void WifiConDialog::SetWifiOkBtnText(QString WifiOkBtnText)
 void WifiConDialog::language_reload()
 {
     ui->retranslateUi(this);
+
+}
+
+
+bool WifiConDialog::event(QEvent *event)
+{
+    /*
+    QWidget *currentItem;
+    currentItem = QApplication::focusWidget();
+    qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__ << "currentItem:" <<currentItem;
+
+    if(event->type()==QEvent::MouseButtonPress)
+    {
+        currentItem = QApplication::focusWidget();
+        qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__ << "currentItem:" <<currentItem;
+
+        this->setFocusPolicy(Qt::NoFocus);
+        qDebug() << tr("MyLineEdit event functions");
+
+        currentItem = QApplication::focusWidget();
+        qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__ << "currentItem:" <<currentItem;
+    }
+    */
+    return QWidget::event(event);
+
 }

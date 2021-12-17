@@ -14,7 +14,7 @@ ipset_popup::ipset_popup(QWidget *parent) :
 //     }
 
     btn_OK = new QPushButton(tr("OK"),this);
-    btn_OK->setGeometry(900,550,100,40);
+    btn_OK->setGeometry(900,500,100,40);
     btn_OK->setStyleSheet(R"(
                      QPushButton{
                      background-color: rgba(100, 225, 100, 120);/*背景色*/
@@ -73,11 +73,11 @@ ipset_popup::ipset_popup(QWidget *parent) :
 
     label_netcard = new QLabel(tr("network card:"),this);
     label_netcard->setGeometry(270,200,180,40);
-    line_netcard = new QLineEdit(this);
+    line_netcard = new QLineEdit("eth0",this);
     line_netcard->setGeometry(450,200,200,40);
 
     label_addr = new QLabel(tr("ip address:"),this);
-    label_addr->setGeometry(270,350,130,40);
+    label_addr->setGeometry(270,350,150,40);
     line_addr = new QLineEdit(this);
     line_addr->setGeometry(450,350,200,40);
     QRegExp a("\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
@@ -87,7 +87,7 @@ ipset_popup::ipset_popup(QWidget *parent) :
     pe.setColor(QPalette::WindowText, Qt::red);
     label = new QLabel(this);
     label->setPalette(pe);
-    label->setGeometry(20,545,860,50);
+    label->setGeometry(20,545,1024,50);
     label->setText(tr("Please do not have spaces in the name, otherwise the operation will fail!"));
 
     connect(btn_OK,SIGNAL(clicked(bool)),this,SLOT(remain()));

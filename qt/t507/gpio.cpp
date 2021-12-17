@@ -7,6 +7,9 @@ gpio::gpio(QWidget *parent) :
     ui(new Ui::gpio)
 {
     ui->setupUi(this);
+
+    this->setAttribute(Qt::WA_StyledBackground,true);
+
     occupied_gpio = get_debug_gpio();
 
     QPalette pe;

@@ -7,6 +7,8 @@ user_manual::user_manual(QWidget *parent) :
     ui(new Ui::user_manual)
 {
     ui->setupUi(this);
+    this->setAttribute(Qt::WA_StyledBackground,true);
+
     ui->textEdit->setReadOnly(true);
     ui->treeWidget->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
     ui->textEdit->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");

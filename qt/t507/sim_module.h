@@ -23,6 +23,7 @@ public:
     bool sim_activation();
     QString sim_connect();
 
+    void language_reload();
 
 signals:
     void Mysignal();

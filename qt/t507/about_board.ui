@@ -22,14 +22,108 @@
      <height>600</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">#about_board
+{
+border-image: url(:/t507_button_image/all/2.webp);
+}
+/****************按钮部件*******************/
+QPushButton{
+     background-color: rgba(100, 225, 100, 120);/*背景色*/
+     border-style: outset; /*边框样式*/
+     border-width:  2px;  /*边框宽度为4像素*/
+     border-radius: 10px; /*边框圆角半径*/
+     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
+     font: bold 20px;/*字体*/
+     color:rgba(0, 0, 0, 100);/*字体颜色*/
+     padding: 6px; /*填衬*/
+    outline: none; /*去掉按钮的虚线框*/
+}
+
+QPushButton:hover{ /*鼠标悬停在按钮上时*/
+        background-color:rgba(100,255,100, 100);
+        border-color: rgba(255, 225, 255, 200);
+        color:rgba(0, 0, 0, 200);
+}
+
+QPushButton:pressed { /*按钮被按下时*/
+     background-color:rgba(100,255,100, 200);
+     border-color: rgba(255, 225, 255, 30);
+     border-style: inset;
+     color:rgba(0, 0, 0, 100);
+}
+
+/****************滑块部件*******************/
+
+
+QSlider::handle:horizontal { /*水平滑块的手柄*/
+        image: url(:/image/sliderHandle.png);
+}
+
+QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
+        border-image: url(:/image/slider.png);/*边框图片*/
+}
+QTextEdit
+{
+	background-color:transparent;
+	border:1px solid gray;
+}</string>
+   </property>
    <widget class="QWidget" name="widget_2" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>10</y>
       <width>1024</width>
       <height>600</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#widget_2
+{
+border-image: url(:/t507_button_image/all/background.jpg);
+}
+/****************按钮部件*******************/
+QPushButton{
+     background-color: rgba(100, 225, 100, 120);/*背景色*/
+     border-style: outset; /*边框样式*/
+     border-width:  2px;  /*边框宽度为4像素*/
+     border-radius: 10px; /*边框圆角半径*/
+     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
+     font: bold 20px;/*字体*/
+     color:rgba(0, 0, 0, 100);/*字体颜色*/
+     padding: 6px; /*填衬*/
+    outline: none; /*去掉按钮的虚线框*/
+}
+
+QPushButton:hover{ /*鼠标悬停在按钮上时*/
+        background-color:rgba(100,255,100, 100);
+        border-color: rgba(255, 225, 255, 200);
+        color:rgba(0, 0, 0, 200);
+}
+
+QPushButton:pressed { /*按钮被按下时*/
+     background-color:rgba(100,255,100, 200);
+     border-color: rgba(255, 225, 255, 30);
+     border-style: inset;
+     color:rgba(0, 0, 0, 100);
+}
+
+/****************滑块部件*******************/
+
+
+QSlider::handle:horizontal { /*水平滑块的手柄*/
+        image: url(:/image/sliderHandle.png);
+}
+
+QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
+        border-image: url(:/image/slider.png);/*边框图片*/
+}
+QTextEdit
+{
+	background-color:transparent;
+	border:1px solid gray;
+}</string>
     </property>
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">

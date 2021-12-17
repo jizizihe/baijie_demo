@@ -115,7 +115,7 @@ QString getifconfig() //Obtain an IP connection that can change the address
     {
         str = list.at(i);
         strlist = str.split(":");
-        if(strlist.at(0) == "lo" || strlist.at(0) == "ppp0")
+        if(strlist.at(0) == "wlan0" ||strlist.at(0) == "lo" || strlist.at(0) == "ppp0")
         {
             for(int j = 0;j < 10;j++)
             {

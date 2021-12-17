@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&udev_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&gpio_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&touch_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+
+    connect(this,SIGNAL(wifi_status_msg()),&wifi_w,SLOT(WifiStatus_show()));
     connect(&wifi_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&eth0_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     //connect(&keytest_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
@@ -93,6 +95,7 @@ void MainWindow::on_touchca_clicked()
 
 void MainWindow::on_wifi_clicked()
 {
+    emit wifi_status_msg();
     this->hide();
     wifi_w.show();
 }
@@ -137,6 +140,7 @@ void MainWindow::cn_main()
     all_w.language_reload();
     serial_w.language_reload();
     WifiConDialog_w.language_reload();
+    sim_module_w.language_reload();
 }
 
 void MainWindow::on_bluetooth_clicked()

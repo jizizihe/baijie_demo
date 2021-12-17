@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">#wifi
 {
-border-image: url(:/t507_button_image/all/3.webp);
+border-image: url(:/t507_button_image/all/background.jpg);
 }
 /****************按钮部件*******************/
 QPushButton{
@@ -53,7 +53,19 @@ QSlider::handle:horizontal { /*水平滑块的手柄*/
 
 QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
         border-image: url(:/image/slider.png);/*边框图片*/
- }</string>
+ }
+
+QMessageBox {
+	background-image: url(:/t507_button_image/all/2.webp);
+	border:1px solid gray;
+}
+
+            QListWidget {background-color:transparent; outline: none; border:1px solid gray; color: black; }
+            QListWidget::Item { width: 400px; height: 50px; }
+            QListWidget::Item:hover { background: #4CAF50; color: white; }
+            QListWidget::item:selected { background: #e7e7e7; color: #f44336; }
+            QListWidget::item:selected:!active { background: lightgreen; }
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="ReturnBtn">
@@ -61,8 +73,8 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>91</width>
-      <height>41</height>
+      <width>100</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="text">
@@ -72,167 +84,6 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <iconset resource="translation.qrc">
       <normaloff>:/t507_button_image/return.png</normaloff>:/t507_button_image/return.png</iconset>
     </property>
-   </widget>
-   <widget class="QToolBox" name="toolBox">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>100</y>
-      <width>231</width>
-      <height>311</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-     </font>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="locale">
-     <locale language="English" country="UnitedStates"/>
-    </property>
-    <property name="currentIndex">
-     <number>0</number>
-    </property>
-    <widget class="QWidget" name="page_3">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>231</width>
-       <height>235</height>
-      </rect>
-     </property>
-     <attribute name="label">
-      <string>wifi</string>
-     </attribute>
-     <widget class="QPushButton" name="WifiConnectBtn">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>10</y>
-        <width>211</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>-1</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="text">
-       <string>wifi connect</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="WifiQualityBtn">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>70</y>
-        <width>211</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>-1</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>signal quality</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="WifiStatusBtn">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>140</y>
-        <width>211</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>-1</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>status</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="page_4">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>231</width>
-       <height>235</height>
-      </rect>
-     </property>
-     <attribute name="label">
-      <string>hotspot</string>
-     </attribute>
-     <widget class="QPushButton" name="HotspotConBtn">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>201</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>-1</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>hotspot connect</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="HotspotStatusBtn">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>90</y>
-        <width>201</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>-1</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>status</string>
-      </property>
-     </widget>
-    </widget>
    </widget>
    <widget class="Line" name="line">
     <property name="geometry">
@@ -257,7 +108,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="wifihomepage">
      <widget class="QListWidget" name="WifiListWidget">
@@ -291,6 +142,14 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
         <width>111</width>
         <height>41</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>-1</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="text">
        <string>refresh</string>
@@ -350,15 +209,15 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
         <x>320</x>
         <y>290</y>
         <width>251</width>
-        <height>61</height>
+        <height>51</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="HotspotName">
       <property name="geometry">
        <rect>
-        <x>160</x>
-        <y>190</y>
+        <x>200</x>
+        <y>200</y>
         <width>101</width>
         <height>41</height>
        </rect>
@@ -370,10 +229,10 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <widget class="QLabel" name="HotspotPasswd">
       <property name="geometry">
        <rect>
-        <x>150</x>
+        <x>200</x>
         <y>290</y>
         <width>101</width>
-        <height>51</height>
+        <height>41</height>
        </rect>
       </property>
       <property name="text">
@@ -432,8 +291,8 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <widget class="QPushButton" name="WifiExistRemoveBtn">
       <property name="geometry">
        <rect>
-        <x>500</x>
-        <y>230</y>
+        <x>400</x>
+        <y>500</y>
         <width>251</width>
         <height>51</height>
        </rect>
@@ -442,89 +301,11 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
        <string>Remove Network</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="WifiBackBtn">
-      <property name="geometry">
-       <rect>
-        <x>500</x>
-        <y>450</y>
-        <width>251</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>back</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="WifiActiveBtn">
-      <property name="geometry">
-       <rect>
-        <x>500</x>
-        <y>110</y>
-        <width>251</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Join Network</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="WifiInfoNameLab">
-      <property name="geometry">
-       <rect>
-        <x>170</x>
-        <y>60</y>
-        <width>251</width>
-        <height>71</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_3">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>80</y>
-        <width>141</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>wifiname</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_4">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>180</y>
-        <width>141</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>security</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="WifiInfoSecurityLab">
-      <property name="geometry">
-       <rect>
-        <x>170</x>
-        <y>170</y>
-        <width>251</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
      <widget class="QPushButton" name="ChangePasswdBtn">
       <property name="geometry">
        <rect>
-        <x>500</x>
-        <y>340</y>
+        <x>90</x>
+        <y>500</y>
         <width>251</width>
         <height>51</height>
        </rect>
@@ -533,7 +314,275 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
        <string>Change Password</string>
       </property>
      </widget>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>10</y>
+        <width>561</width>
+        <height>471</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Wifi info</string>
+      </property>
+      <widget class="QLabel" name="WifiInfoSecurityLab">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>340</y>
+         <width>221</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_4">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>200</y>
+         <width>131</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>active</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_5">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>340</y>
+         <width>121</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>security</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_3">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>60</y>
+         <width>131</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>wifiname</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="WifiInfoActiveLab">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>200</y>
+         <width>231</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_7">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>270</y>
+         <width>121</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>signal</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_8">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>130</y>
+         <width>141</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>password</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="WifiInfoNameLab">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>60</y>
+         <width>231</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="WifiInfoSignalLab">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>270</y>
+         <width>231</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="WifiInfoPasswdLab">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>140</y>
+         <width>221</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="WifiInfoIpaddressLab">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>410</y>
+         <width>231</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_9">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>410</y>
+         <width>121</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>ip address</string>
+       </property>
+      </widget>
+     </widget>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="WifiConnectBtn">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>230</y>
+      <width>211</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>wifi connect</string>
+    </property>
+    <property name="icon">
+     <iconset resource="translation.qrc">
+      <normaloff>:/t507_button_image/wifi/connect.png</normaloff>:/t507_button_image/wifi/connect.png</iconset>
+    </property>
+    <property name="autoDefault">
+     <bool>true</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="HotspotConBtn">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>340</y>
+      <width>211</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>hotspot connect</string>
+    </property>
+    <property name="icon">
+     <iconset resource="translation.qrc">
+      <normaloff>:/t507_button_image/wifi/hot spot.png</normaloff>:/t507_button_image/wifi/hot spot.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="WifiStatusBtn">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>120</y>
+      <width>211</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>wifi status</string>
+    </property>
+    <property name="icon">
+     <iconset resource="translation.qrc">
+      <normaloff>:/t507_button_image/wifi/status.png</normaloff>:/t507_button_image/wifi/status.png</iconset>
+    </property>
+    <property name="autoDefault">
+     <bool>true</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

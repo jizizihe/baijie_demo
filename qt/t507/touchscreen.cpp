@@ -27,7 +27,7 @@ touchscreen::touchscreen(QWidget *parent) :
 
     btnclear = new CTouchButton(this);
     btnclear->setText(tr("clear"));
-    btnclear->setGeometry(900,480,100,40);
+    btnclear->setGeometry(120,10,100,40);
 
     btnreturn = new CTouchButton(this);
 //    btnreturn->setText(tr("return"));

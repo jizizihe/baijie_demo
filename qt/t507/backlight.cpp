@@ -69,7 +69,6 @@ backlight::backlight(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
     ui->horizontalSlider->setRange(138,255);
     ui->horizontalSlider->setValue(255);
     light_value = 255;

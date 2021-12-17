@@ -14,7 +14,13 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/****************按钮部件*******************/
+   <string notr="true">#gpio
+{
+	border-image: url(:/t507_button_image/all/background.jpg);
+}
+
+
+/****************按钮部件*******************/
 QPushButton{
      background-color: rgba(100, 225, 100, 120);/*背景色*/
      border-style: outset; /*边框样式*/
@@ -49,6 +55,12 @@ QSlider::handle:horizontal { /*水平滑块的手柄*/
 
 QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
         border-image: url(:/image/slider.png);/*边框图片*/
+}
+
+QTextEdit
+{
+	background-color:transparent;
+	border:1px solid gray;
 }</string>
   </property>
   <widget class="QLineEdit" name="lineedit1_1">
@@ -80,7 +92,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>

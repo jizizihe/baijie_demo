@@ -25,7 +25,7 @@ border-image: url(:/t507_button_image/all/3.webp);
 }
 /****************按钮部件*******************/
 QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
+     background-color: rgba(100, 225, 100, 180);/*背景色*/
      border-style: outset; /*边框样式*/
      border-width:  2px;  /*边框宽度为4像素*/
      border-radius: 10px; /*边框圆角半径*/
@@ -105,7 +105,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </property>
     <property name="font">
      <font>
-      <pointsize>7</pointsize>
+      <pointsize>11</pointsize>
      </font>
     </property>
     <property name="text">
@@ -132,7 +132,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </property>
     <property name="font">
      <font>
-      <pointsize>7</pointsize>
+      <pointsize>11</pointsize>
      </font>
     </property>
     <property name="text">
@@ -211,7 +211,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </property>
     <property name="font">
      <font>
-      <pointsize>7</pointsize>
+      <pointsize>11</pointsize>
      </font>
     </property>
     <property name="text">
@@ -238,7 +238,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </property>
     <property name="font">
      <font>
-      <pointsize>7</pointsize>
+      <pointsize>11</pointsize>
      </font>
     </property>
     <property name="text">
@@ -291,7 +291,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </property>
     <property name="font">
      <font>
-      <pointsize>7</pointsize>
+      <pointsize>11</pointsize>
      </font>
     </property>
     <property name="text">
@@ -318,11 +318,11 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </property>
     <property name="font">
      <font>
-      <pointsize>7</pointsize>
+      <pointsize>11</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>Voice Frequency</string>
+     <string>Audio</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -371,7 +371,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </property>
     <property name="font">
      <font>
-      <pointsize>7</pointsize>
+      <pointsize>11</pointsize>
      </font>
     </property>
     <property name="text">
@@ -450,7 +450,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </property>
     <property name="font">
      <font>
-      <pointsize>7</pointsize>
+      <pointsize>11</pointsize>
      </font>
     </property>
     <property name="text">
@@ -477,11 +477,11 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </property>
     <property name="font">
      <font>
-      <pointsize>7</pointsize>
+      <pointsize>11</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>Udev </string>
+     <string>Storage</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -582,7 +582,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </property>
     <property name="font">
      <font>
-      <pointsize>7</pointsize>
+      <pointsize>11</pointsize>
      </font>
     </property>
     <property name="text">
@@ -613,7 +613,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>sim</string>
+     <string>4G</string>
     </property>
     <property name="iconSize">
      <size>
@@ -639,7 +639,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </property>
     <property name="font">
      <font>
-      <pointsize>7</pointsize>
+      <pointsize>11</pointsize>
      </font>
     </property>
     <property name="text">

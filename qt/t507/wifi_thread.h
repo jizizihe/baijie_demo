@@ -16,6 +16,8 @@ public:
 signals:
     void send_msg(int ,QString );
     void sim_send_msg(int, QString);
+    void wifi_info_fresh_msg(QString);
+    void wifi_wait_end_msg();
 
 public slots:
     void Thread_Fun();

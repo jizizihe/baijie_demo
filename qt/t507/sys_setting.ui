@@ -14,7 +14,12 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/****************按钮部件*******************/
+   <string notr="true">#sys_setting
+{
+border-image: url(:/t507_button_image/all/background.jpg);
+}
+/****************按钮部件*******************/
+
 QPushButton{
      background-color: rgba(100, 225, 100, 120);/*背景色*/
      border-style: outset; /*边框样式*/
@@ -70,7 +75,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <string/>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="translation.qrc">
      <normaloff>:/t507_button_image/about.png</normaloff>:/t507_button_image/about.png</iconset>
    </property>
    <property name="iconSize">
@@ -97,7 +102,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    </property>
    <property name="font">
     <font>
-     <pointsize>7</pointsize>
+     <pointsize>11</pointsize>
     </font>
    </property>
    <property name="text">
@@ -124,7 +129,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    </property>
    <property name="font">
     <font>
-     <pointsize>7</pointsize>
+     <pointsize>11</pointsize>
     </font>
    </property>
    <property name="text">
@@ -150,7 +155,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <string/>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="translation.qrc">
      <normaloff>:/t507_button_image/cn.png</normaloff>:/t507_button_image/cn.png</iconset>
    </property>
    <property name="iconSize">
@@ -179,7 +184,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <string/>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="translation.qrc">
      <normaloff>:/t507_button_image/user_manual.png</normaloff>:/t507_button_image/user_manual.png</iconset>
    </property>
    <property name="iconSize">
@@ -206,7 +211,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    </property>
    <property name="font">
     <font>
-     <pointsize>7</pointsize>
+     <pointsize>11</pointsize>
     </font>
    </property>
    <property name="text">
@@ -233,7 +238,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    </property>
    <property name="font">
     <font>
-     <pointsize>7</pointsize>
+     <pointsize>11</pointsize>
     </font>
    </property>
    <property name="text">
@@ -246,10 +251,10 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
   <widget class="QPushButton" name="return_2">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
+     <x>0</x>
+     <y>0</y>
      <width>100</width>
-     <height>40</height>
+     <height>50</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -259,7 +264,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <string/>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="translation.qrc">
      <normaloff>:/t507_button_image/return.png</normaloff>:/t507_button_image/return.png</iconset>
    </property>
    <property name="iconSize">
@@ -280,7 +285,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    </property>
    <property name="font">
     <font>
-     <pointsize>7</pointsize>
+     <pointsize>11</pointsize>
     </font>
    </property>
    <property name="text">
@@ -306,7 +311,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <string/>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="translation.qrc">
      <normaloff>:/t507_button_image/backlight.png</normaloff>:/t507_button_image/backlight.png</iconset>
    </property>
    <property name="iconSize">
@@ -332,7 +337,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <string/>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="translation.qrc">
      <normaloff>:/t507_button_image/rtc .png</normaloff>:/t507_button_image/rtc .png</iconset>
    </property>
    <property name="iconSize">
@@ -343,6 +348,8 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="translation.qrc"/>
+ </resources>
  <connections/>
 </ui>

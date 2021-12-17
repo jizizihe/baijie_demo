@@ -7,6 +7,7 @@
 #include <QProcess>
 #include <QLabel>
 #include <QFile>
+#include <QDir>
 #include <QMovie>
 #include<QScreen>
 #include <QScrollBar>
@@ -38,18 +39,34 @@ enum signal_type
     sim_connect_signal = 14,
 };
 
+typedef struct WIFI_INFO
+{
+    QString name;
+    QString passwd;
+    QString active;
+    QString signal;
+    QString secrity;
+    QString ip_address;
+}wifi_info;
+
 class wifi_bt_interface : public QObject
 {
     Q_OBJECT
 public:
     explicit wifi_bt_interface(QObject *parent = nullptr);
+    ~wifi_bt_interface();
 
     QString executeLinuxCmd(QString strCmd);
+    bool wifi_passwd_write(QString WifiSsid,QString PassWd);
+    QString wifi_passwd_read(QString WifiSsid);
+
+    void wifi_passwd_delete(QString info);
+    void wifi_passwd_change(QString WifiSsid,QString PassWd);
 
     bool get_wifiopenorno();
     QString wifi_enable(bool flag);
     QString wifi_scan();
-    QString get_wifistatus();
+    wifi_info get_wifistatus(QString WifiSsid);
     QString get_wifisignalquality();
     QString get_wifisecurity(QString infoname);
 
@@ -60,16 +77,28 @@ public:
     QString wifi_connect(QString WifiSsid,QString PassWd);
     bool wifi_modify(QString WifiSsid,QString PassWd);
     QString hotspot_connect(QString HtName,QString HtPasswd);
-    QString hotspot_disconnect();
+    bool hotspot_disconnect(QString HtName);
 
     QString sim_disconnect();
     QString sim_delete();
     QString sim_activation();
     QString sim_connect();
 
+    QString bluetooth_scan();
+    QString bluetooth_pair(QString BtAddress);
+    QString bluetooth_connect(QString BtAddress);
+    void bluetooth_enable(bool);
+    QString get_bluetooth_name();
+    QString set_bluetooth_name(QString bluetooth_name);
+
+
 signals:
 
 public slots:
+
+private:
+    wifi_info WifiStatus;
+
 };
 
 #endif // WIFI_BT_INTERFACE_H

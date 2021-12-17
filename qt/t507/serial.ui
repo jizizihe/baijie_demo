@@ -14,17 +14,22 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/****************按钮部件*******************/
+   <string notr="true">#serial
+{
+	border-image: url(:/t507_button_image/all/background.jpg);
+}
+
+/****************按钮部件*******************/
 QPushButton{
      background-color: rgba(100, 225, 100, 120);/*背景色*/
      border-style: outset; /*边框样式*/
      border-width:  2px;  /*边框宽度为4像素*/
      border-radius: 10px; /*边框圆角半径*/
      border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     font: bold 18px;/*字体*/
+     font: bold 14px;/*字体*/
      color:rgba(0, 0, 0, 100);/*字体颜色*/
      padding: 6px; /*填衬*/
-	outline: none; /*去掉按钮的虚线框*/
+    outline: none; /*去掉按钮的虚线框*/
 }
 
 QPushButton:hover{ /*鼠标悬停在按钮上时*/
@@ -45,11 +50,17 @@ QPushButton:pressed { /*按钮被按下时*/
 
 QSlider::handle:horizontal { /*水平滑块的手柄*/
         image: url(:/image/sliderHandle.png);
- }
+}
 
 QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
         border-image: url(:/image/slider.png);/*边框图片*/
- }</string>
+}
+
+QTextEdit
+{
+	background-color:transparent;
+	border:1px solid gray;
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_6">
@@ -143,7 +154,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
        <string/>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="translation.qrc">
         <normaloff>:/t507_button_image/return.png</normaloff>:/t507_button_image/return.png</iconset>
       </property>
      </widget>
@@ -419,12 +430,14 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <x>0</x>
      <y>0</y>
      <width>969</width>
-     <height>23</height>
+     <height>28</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="translation.qrc"/>
+ </resources>
  <connections/>
 </ui>

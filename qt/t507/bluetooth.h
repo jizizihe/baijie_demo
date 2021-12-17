@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "bluetooth_thread.h"
+#include "wifi_bt_interface.h"
 
 #include <QMainWindow>
 #include <QDebug>
@@ -35,35 +36,37 @@ public:
     void language_reload();
 
 private slots:
-    void retBt_clicked();
-    void BTScanBt_clicked();
-    void BTConnectBt_clicked();
-    void BTPairBt_clicked();
-    void recvmsg(int,QString);
+    void recv_msg(int,QString);
 
-    //void setText_slot(bool);
+    void BtnChange_flag(bool);
+
+    void on_BTScanBtn_clicked();
+
+    void on_BTPairBtn_clicked();
+
+    void on_BTConnectBtn_clicked();
+
+    void on_retBtn_clicked();
 
 signals:
+    void bluetooth_scan_msg();
+    void bluetooth_pair_msg(QString);
+    void bluetooth_connect_msg(QString);
+
     void Mysignal();
-    void bluetooth_signal(int signal_type,QString BtAddress);//signal_type:1--scan;2--pair;3--connect
+    //void bluetooth_signal(int signal_type,QString BtAddress);//signal_type:1--scan;2--pair;3--connect
 
 private:
     Ui::bluetooth *ui;
 
     QStringList BtScanList;
 
-    QLabel * BTTitleLab;
-    QPushButton * BTScanBt;
-    QPushButton * BTConnectBt;
-    QPushButton * BTPairBt;
-    QPushButton * retBt;
-
     QLabel *LoadLabel;
     QMovie *pMovie;
 
-    QListWidget * BtNameWidget;
-    bluetooth_thread * BtThread=new bluetooth_thread(NULL);//声明线程
-
+    QThread * myThread;
+    bluetooth_thread * BluetoothThread;
+    wifi_bt_interface * wifi_bt_t;
 };
 
 #endif // BLUETOOTH_H
