@@ -179,7 +179,7 @@ bool wifi_bt_interface::wifi_connect_exist(QString WifiSsid)
     QString strResult = executeLinuxCmd(strCmd);
     //qDebug() << "--line--: " << __LINE__<< strResult;
 
-    strCmd = QString("nmcli connection show | grep %1 | awk '{print $1}'").arg(WifiSsid);
+    strCmd = QString("nmcli connection show | grep '%1' | awk '{print $1}'").arg(WifiSsid);
     strResult = executeLinuxCmd(strCmd);
     //qDebug() << "--line--: " << __LINE__<< strResult;
 
@@ -195,17 +195,13 @@ bool wifi_bt_interface::wifi_connect_exist(QString WifiSsid)
 
         return true;
     }
-    else
-    {
-        return false;
-    }
 
     return false;
 }
 
 QString wifi_bt_interface::wifi_activation(QString WifiSsid)
 {
-    QString strCmd = QString("nmcli connection up %1").arg(WifiSsid);
+    QString strCmd = QString("nmcli connection up '%1' ").arg(WifiSsid);
     //qDebug() << "--line--: " << __LINE__<<"strcmd = " << strCmd;
     QString strResult = executeLinuxCmd(strCmd);
     //qDebug() << "--LINE--: " << __LINE__<< "func:" << __FUNCTION__<< strResult;
@@ -215,7 +211,7 @@ QString wifi_bt_interface::wifi_activation(QString WifiSsid)
 
 QString wifi_bt_interface::wifi_connection_remove(QString WifiSsid)
 {
-    QString strCmd = QString("nmcli connection delete %1").arg(WifiSsid);
+    QString strCmd = QString("nmcli connection delete '%1' ").arg(WifiSsid);
     //qDebug() << "--line--: " << __LINE__<<"strcmd = " << strCmd;
     QString strResult = executeLinuxCmd(strCmd);
     //qDebug() << "--LINE--: " << __LINE__<< "func:" << __FUNCTION__<< strResult;
@@ -231,7 +227,7 @@ QString wifi_bt_interface::wifi_connect(QString WifiSsid,QString PassWd)
 
     //qDebug() << "--line--: " << __LINE__<< strResult;
 
-    strCmd = QString("nmcli device wifi connect \"%1\" password \"%2\" name %3").arg(WifiSsid).arg(PassWd).arg(WifiSsid);
+    strCmd = QString("nmcli device wifi connect \"%1\" password \"%2\" name \"%3\" ").arg(WifiSsid).arg(PassWd).arg(WifiSsid);
     qDebug() << "--line--: " << __LINE__<< "strCmd == " << strCmd;
     strResult = executeLinuxCmd(strCmd);
     qDebug() << "--line--: " << __LINE__<< strResult;
@@ -251,7 +247,7 @@ QString wifi_bt_interface::wifi_connect(QString WifiSsid,QString PassWd)
         strResult = "Connection failed!";
         qDebug() << "--line--: " << __LINE__<< strResult;
 
-        strCmd = QString("nmcli connection delete %1").arg(WifiSsid);
+        strCmd = QString("nmcli connection delete \"%1\" ").arg(WifiSsid);
         qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "strCmd == " << strCmd;
         strResult = executeLinuxCmd(strCmd);
         qDebug() << "--line--: " << __LINE__<< strResult;
@@ -282,10 +278,11 @@ bool wifi_bt_interface::wifi_modify(QString WifiSsid,QString PassWd)
         return false;
     }
 
-    QString strCmd = QString("nmcli connection modify '%1' wifi-sec.psk '%2' ").arg(WifiSsid).arg(PassWd);
+    QString strCmd = QString("nmcli connection modify \"%1\" wifi-sec.psk \"%2\" ").arg(WifiSsid).arg(PassWd);
     qDebug() << "--line--: " << __LINE__<< "strCmd == " << strCmd;
     QString strResult = executeLinuxCmd(strCmd);
     qDebug() << "--line--: " << __LINE__<< strResult;
+
 
     strCmd = QString("echo $?");
     qDebug() << "--line--: " << __LINE__<< "strCmd == " << strCmd;
@@ -312,26 +309,22 @@ QString wifi_bt_interface::hotspot_connect(QString HtName,QString HtPasswd)
     }
 
     strCmd = QString("nmcli con show|grep hotspot | awk '{print $1}'");
-    qDebug() << "--line--: " << __LINE__<< "FILE: " << __FILE__<< "FUNC:" << __FUNCTION__<< "strCmd == " << strCmd;
-    QString LastHtName = executeLinuxCmd(strCmd);
+    QString num = executeLinuxCmd(strCmd);
 
-    strCmd = QString("nmcli con delete %1").arg(LastHtName.remove("\n"));
-    strResult = executeLinuxCmd(strCmd);
-    qDebug() << "--line--: " << __LINE__<< "FILE: " << __FILE__<< "FUNC:" << __FUNCTION__<< strResult;
-    bool deleteResult=strResult.contains("successfully deleted",Qt::CaseInsensitive);
-    //qDebug() << ConnectResult;
-    if(deleteResult == true)
+    if(!num.isEmpty())
     {
-        wifi_passwd_delete(LastHtName);
+        strCmd = QString("nmcli connection modify hotspot ssid '%1' wifi-sec.psk '%2' ").arg(HtName).arg(HtPasswd);
+        strResult = executeLinuxCmd(strCmd);
     }
-
-    strCmd = QString("nmcli device wifi hotspot con-name hotspot%1 ifname wlan0 ssid hotsopt%2 password \"%3\" ").arg(HtName).arg(HtName).arg(HtPasswd);
-    strResult = executeLinuxCmd(strCmd);
+    else
+    {
+        strCmd = QString("nmcli device wifi hotspot con-name hotspot ifname wlan0 ssid '%1' password '%2' ").arg(HtName).arg(HtPasswd);
+        strResult = executeLinuxCmd(strCmd);
+    }
     qDebug() << "--line--: " << __LINE__<< "FILE: " << __FILE__<< "FUNC:" << __FUNCTION__<< strResult;
 
     bool ConnectResult=strResult.contains("successfully activated",Qt::CaseInsensitive);
-    //qDebug() << ConnectResult;
-    if(ConnectResult == 1)
+    if(ConnectResult == true)
     {
         strResult = "build successful!";
         qDebug() << "--line--: " << __LINE__<< strResult;
@@ -350,17 +343,16 @@ QString wifi_bt_interface::hotspot_connect(QString HtName,QString HtPasswd)
     return strResult;
 }
 
-bool wifi_bt_interface::hotspot_disconnect(QString HtName)
+bool wifi_bt_interface::hotspot_disconnect()
 {
     QString strCmd;
     QString strResult;
 
-    strCmd = QString("nmcli con down %1").arg(HtName);
+    strCmd = QString("nmcli con down hotspot");
     strResult = executeLinuxCmd(strCmd);
     qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__<< "strResult" << strResult;
 
     bool ConnectResult=strResult.contains("successfully deactivated",Qt::CaseInsensitive);
-    //qDebug() << ConnectResult;
     if(ConnectResult == 1)
     {
         strResult = tr("successfully deactivated.!");

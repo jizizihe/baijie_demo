@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>899</width>
-    <height>584</height>
+    <width>994</width>
+    <height>481</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,10 +57,10 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    <widget class="QPushButton" name="retBtn">
     <property name="geometry">
      <rect>
-      <x>9</x>
-      <y>9</y>
+      <x>0</x>
+      <y>0</y>
       <width>101</width>
-      <height>51</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -71,88 +71,99 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
       <normaloff>:/t507_button_image/return.png</normaloff>:/t507_button_image/return.png</iconset>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>10</y>
-      <width>311</width>
-      <height>121</height>
+      <x>280</x>
+      <y>40</y>
+      <width>371</width>
+      <height>371</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>4G Settings</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>150</y>
-      <width>311</width>
-      <height>381</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QPushButton" name="SimConnectBtn">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>50</height>
-        </size>
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
        </property>
        <property name="text">
-        <string>build connect</string>
+        <string>4G Settings</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="SimActivationBtn">
-       <property name="minimumSize">
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
         <size>
-         <width>0</width>
-         <height>50</height>
+         <width>20</width>
+         <height>18</height>
         </size>
        </property>
-       <property name="text">
-        <string>activation</string>
-       </property>
-      </widget>
+      </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="SimDisconnectBtn">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>disconnect</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="SImDeleteBtn">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>delete connect</string>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QPushButton" name="SimConnectBtn">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>build connect</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="SimActivationBtn">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>activation</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="SimDisconnectBtn">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>disconnect</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="SImDeleteBtn">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>delete connect</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </widget>
@@ -162,7 +173,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>899</width>
+     <width>994</width>
      <height>28</height>
     </rect>
    </property>

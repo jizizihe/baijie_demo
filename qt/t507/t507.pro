@@ -69,7 +69,8 @@ SOURCES += \
     switchcontrol.cpp \
     wifi.cpp \
     wificondialog.cpp \
-    sim_module.cpp
+    sim_module.cpp \
+    serialdialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -105,7 +106,8 @@ HEADERS += \
     switchcontrol.h \
     wifi.h \
     wificondialog.h \
-    sim_module.h
+    sim_module.h \
+    serialdialog.h
 
 FORMS += \
         mainwindow.ui \
@@ -126,7 +128,8 @@ FORMS += \
     sys_setting.ui \
     wifi.ui \
     wificondialog.ui \
-    sim_module.ui
+    sim_module.ui \
+    serialdialog.ui
 
 RESOURCES += \
     translation.qrc

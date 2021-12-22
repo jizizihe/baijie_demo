@@ -2,8 +2,25 @@
 #define ALL_INTERFACE_TEST_H
 
 #include <QMainWindow>
+#include "serialdialog.h"
+#include "ui_serialdialog.h"
+#include <QtSerialPort/QSerialPort>
+#include <QtSerialPort/QSerialPortInfo>
+#include <QThread>
 
-
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <termios.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <sys/poll.h>
+#include <sys/ioctl.h>
+#include <time.h>
+#include <errno.h>
+#include <pthread.h>
+#include<iostream>
 
 void camera_interface();
 
@@ -21,6 +38,11 @@ public:
     void click_str();
 
     bool event(QEvent *event);
+
+    static void *thread_serial_port(void *);
+    static int set_prop(int fd);
+    void serial_thread(serial_config config);
+
 
     void language_reload();
 private slots:
@@ -78,6 +100,9 @@ private slots:
 
     void on_auto_key_clicked();
 
+    void on_auto_serial_clicked();
+
+    void serial_config_func(serial_config);
 signals:
 
     void Mysignal();
@@ -93,7 +118,11 @@ private:
     bool network_flag = false;
     bool sim_flag = false;
     bool key_flag = false;
+    bool serial_flag = false;
     bool all_flag = false;
+
+    serialdialog *serialDialog;
+    serial_config serialConfig;
 
 };
 

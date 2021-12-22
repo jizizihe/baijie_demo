@@ -15,12 +15,13 @@
 #include <QMovie>
 #include <QRect>
 #include<QScreen>
-
+#include <QLineEdit>
+#include <QHBoxLayout>
 
 QTimer *enable_set;
 QTimer *all_check;
 int dex  = -1;
-bool check_flag[9];
+bool check_flag[10];
 
 QLabel *ll;
 QMovie *w_movie;
@@ -63,6 +64,8 @@ all_interface_test::all_interface_test(QWidget *parent) :
     ll->setMovie(w_movie);
     //pMovie->start();
 
+    serialDialog = new serialdialog(this);
+
 
     ui->check_all->setChecked(Qt::Unchecked);
 
@@ -72,18 +75,21 @@ all_interface_test::all_interface_test(QWidget *parent) :
     all_check = new QTimer();
     connect(all_check,SIGNAL(timeout()),this,SLOT(all_checkset()));
     all_check->start();
+
+    connect(serialDialog,SIGNAL(serial_config_msg(serial_config)),this,SLOT(serial_config_func(serial_config)));
 }
 
 all_interface_test::~all_interface_test()
 {
     delete ui;
+    delete serialDialog;
 }
-
 
 void all_interface_test::on_return_2_clicked()
 {
     ui->textEdit->clear();
     ui->image->clear();
+    serialDialog->close();
     emit Mysignal();
 }
 
@@ -203,7 +209,7 @@ void all_interface_test::time_test()
 void all_interface_test::all_checkset()
 {
     bool flag = true;
-    for(int i = 0; i < 9; i++)
+    for(int i = 0; i < 10; i++)
     {
 //        qDebug() << "all [" << i << "]:" << check_flag[i] << __LINE__;
         if(!check_flag[i])
@@ -558,6 +564,241 @@ void all_interface_test::on_auto_camera_clicked()
     flag = !flag;
 }
 
+void all_interface_test::on_auto_serial_clicked()
+{
+    all_check->start();
+    static bool flag = true;
+    serial_flag = false;
+
+#if 0
+    for(int i = 0;i < serialPortName.size(); i++)
+    {
+        tmp = serialPortName.at(i);
+        QListWidgetItem * item = new QListWidgetItem(serialDialog->ui->serialPortListWidget);
+        QCheckBox *checkbox = new QCheckBox;
+        checkbox->setText(QString(tmp));
+        //qDebug() << "Line:" << __LINE__<< "FILE:"  << __FILE__ << "tmp:" << tmp;
+        serialDialog->ui->serialPortListWidget->addItem(item);
+        serialDialog->ui->serialPortListWidget->setItemWidget(item,checkbox);
+    }
+#endif
+
+    if(flag)
+    {
+        serialDialog->exec();
+        check_flag[9] = true;
+        serial_flag = true;
+        ui->auto_serial->setChecked(Qt::Checked);
+    }
+    else
+    {
+        check_flag[9] = false;
+        ui->auto_serial->setChecked(Qt::Unchecked);
+    }
+    flag = !flag;
+}
+
+int all_interface_test::set_prop(int fd)
+{
+    struct termios newtio;
+
+    memset (&newtio, 0, sizeof (newtio));
+    /* Set the bitrate */
+    cfsetospeed(&newtio, B115200);
+    cfsetispeed(&newtio, B115200);
+
+    newtio.c_cflag |= CS8;
+
+    /* Set the parity */
+    newtio.c_cflag &= ~PARENB;
+
+    /* Set the number of stop bits */
+    newtio.c_cflag &= (~CSTOPB);
+
+    /* Selects raw (non-canonical) input and output */
+    newtio.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
+    newtio.c_oflag &= ~OPOST;
+    newtio.c_iflag |= IGNPAR;
+    /* Ignore parity errors!!! Windows driver does so why shouldn't I? */
+    /* Enable receiber, hang on close, ignore control line */
+    newtio.c_cflag |= CREAD | HUPCL | CLOCAL;
+
+    /* Read 1 byte minimun, no timeout specified */
+    newtio.c_cc[VMIN] = 1;
+    newtio.c_cc[VTIME] = 0;
+
+    if (tcsetattr (fd, TCSANOW, &newtio) < 0)
+        return 0;
+
+    return 1;
+}
+
+void all_interface_test::serial_config_func(serial_config config)
+{
+    serialConfig = config;
+    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "name:" << serialConfig.checkedName;
+    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "mode:" << serialConfig.mode;
+    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "num:" << serialConfig.count;
+
+    if(serialConfig.mode == "client")
+    {
+        qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "client";
+
+        serial_thread(serialConfig);
+    }
+    else if(serialConfig.mode == "service")
+    {
+        qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "seriver";
+
+        serial_thread(serialConfig);
+    }
+
+}
+
+
+void all_interface_test::serial_thread(serial_config config)
+{
+    serialConfig = config;
+
+    pthread_t thread_id = 0;
+    pthread_attr_t  attr;
+    int	i;
+
+    //int *port_num_ptr = new int();
+    if(thread_id)
+    {
+        pthread_cancel(thread_id);
+    }
+    pthread_attr_init(&attr);
+    for(i = 0; i < serialConfig.count; i++)
+    {
+        serialConfig.index = i;
+        if (pthread_create(&thread_id, &attr, thread_serial_port,(void *)&serialConfig))
+        {
+            printf("ERROR: can't create read_thread thread!\n");
+        }
+        else
+        {
+            pthread_detach(thread_id);
+        }
+        QThread::msleep(50);
+    }
+    //sleep(5);
+
+    pthread_attr_destroy(&attr);
+    return;
+}
+
+void *all_interface_test::thread_serial_port(void * date)
+{
+    int		fd;
+    int		rc;
+    int     com;
+    char	buf[10];
+    char	check_char;
+    char	*port;
+
+    serial_config * serialConfigPtr = (serial_config *)date;
+    int checkId = serialConfigPtr->checked_id[serialConfigPtr->index];
+    QString checkName = serialConfigPtr->checkedBtnList.at(checkId)->text();
+
+
+    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "mode:" << serialConfigPtr->mode;
+    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "id:" << checkId;
+    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "name:" << checkName;
+
+    //qDebug() << "part_num = "  << port_num;
+    QString port_name = QString("/dev/%1").arg(checkName);
+    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "port_name" << port_name;
+    port = port_name.toLatin1().data();
+    //cout << "port-:" <<  port <<"  line = " << __LINE__ << endl;
+
+    fd = open (port, O_RDWR | O_NOCTTY | O_SYNC | O_NONBLOCK);
+    if(fd < 0)
+    {
+        //printf("open serial port (%s) failed\n", port_name_array[port_num]);
+        return NULL;
+    }
+
+    set_prop (fd);
+
+    usleep(10);
+
+    check_char = checkId + 0x30;
+#if 0
+    switch(checkId)
+    {
+    case 0:
+        check_char = '0';
+        com = 0;
+        break;
+    case 1:
+        check_char = '0';
+        com = 1;
+        break;
+    case 2:
+        check_char = '1';
+        com = 2;
+        break;
+    case 3:
+        check_char = '3';
+        com = 3;
+        break;
+    }
+#endif
+    qDebug() << "-------in--------\n";
+    while(1)
+    {
+        if(serialConfigPtr->mode == "service")
+        {
+            rc = read(fd, buf, 1);
+            QString ag = buf;
+            //qDebug()<<"ag = "<<ag << port_num;
+            //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "ag" << ag ;
+            if(rc>0)
+            {
+                QString readBuf = buf;
+                qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "readBuf" << readBuf ;
+                if(buf[0] == check_char)
+                {
+                    //port_check_stat |= (1<<port_num);
+                    buf[0] = checkId + 0x30;
+                    write(fd, buf, 1);
+                    QString ss = buf;
+                    qDebug()<<"ss = "<<ss;
+                    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "buf:" << ss;
+                    //printf("COM=: %d dev=:%s test ok. buf:=%d \n", com, port_name_array[port_num], buf[0]);
+                }
+            }
+
+        }
+        else if(serialConfigPtr->mode == "client")
+        {
+            buf[0] = checkId + 0x30;
+            write(fd, buf, 1);
+            QString ag = buf;
+            qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "ag" << ag <<"checkId:" << checkId;
+            usleep(500000);
+            rc = read(fd, buf, 1);
+
+            if(rc>0)
+            {
+                QString ss = buf;
+                qDebug()<<"ss = "<<ss;
+
+                if(buf[0] == check_char)
+                {
+                    //port_check_stat |= (1<<port_num);
+                    qDebug() << "-------ok:"<< port << endl;
+                    //printf("COM=: %d dev=:%s test ok. \n", com, port_name_array[port_num]);
+                    return NULL;
+                }
+            }
+        }
+    }
+    return NULL;
+}
+
 void all_interface_test::on_begin_clicked()
 {
     w_movie->start();
@@ -663,4 +904,6 @@ bool all_interface_test::event(QEvent *event)
         return QWidget::event(event);
     }
 }
+
+
 

@@ -77,7 +77,7 @@ public:
     QString wifi_connect(QString WifiSsid,QString PassWd);
     bool wifi_modify(QString WifiSsid,QString PassWd);
     QString hotspot_connect(QString HtName,QString HtPasswd);
-    bool hotspot_disconnect(QString HtName);
+    bool hotspot_disconnect();
 
     QString sim_disconnect();
     QString sim_delete();

@@ -304,6 +304,7 @@ void wifi::on_HotspotConBtn_clicked()
 
     if(!HtName.isEmpty())
     {
+
         HtPasswd = wifi_bt_t->wifi_passwd_read(HtName.remove("\n"));
         ui->HtName->setText(HtName.remove(0,7));
         ui->HtPasswd->setText(HtPasswd);
@@ -420,9 +421,7 @@ void wifi::on_HotspotDownBtn_clicked()
         return ;
     }
 
-    bool retflag = wifi_bt_t->hotspot_disconnect(strResult.remove("\n"));
-    qDebug() << "FUNC:" << __FUNCTION__<< "--LINE--: " << __LINE__<< "strResult" << strResult;
-
+    bool retflag = wifi_bt_t->hotspot_disconnect();
     if(retflag == true)
     {
         QMessageBox::information(this,"information",tr("successfully deactivated!"));
