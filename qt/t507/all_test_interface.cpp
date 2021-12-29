@@ -210,6 +210,8 @@ QString sim_test()
         }
         else
         {
+            qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult";
+
             strCmd = QString("nmcli connection up ppp0");
             strResult = executeLinuxCmd(strCmd);
             qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<< strResult;
@@ -240,7 +242,7 @@ QString sim_test()
         {
             strResult = "Connection successful!";
             qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<< strResult;
-
+            sleep(3);
             strCmd = QString("ifconfig | grep ppp0");
             strResult = executeLinuxCmd(strCmd);
             qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
@@ -281,7 +283,10 @@ QString audio_test()
     strCmd = QString("arecord -d 2 -r 16000 -c 1 -t wav /data/audio.wav");
     strResult = executeLinuxCmd(strCmd);
 
-//    QThread::msleep(1000);
+    strCmd = QString("aplay /usr/ceshiluyin.wav");
+    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ ;
+    strResult = executeLinuxCmd(strCmd);
+
     strCmd = QString("aplay /data/audio.wav");
     strResult = executeLinuxCmd(strCmd);
     return NULL;

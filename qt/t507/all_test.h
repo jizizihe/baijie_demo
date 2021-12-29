@@ -46,7 +46,8 @@ public:
     ~all_test();
     bool event(QEvent *event);
 
-//    static void *thread_serial_port(void *);
+    void checkbox_disenable_func(int itemsCount);
+
     void flagSet();
 
     void testMsgDisplay(QString type,QString str,int time);
@@ -91,7 +92,7 @@ private slots:
 
     void recv_test_msg(int, QString );
 
-
+//    void serialStopTimer_func();
     void serial_stop_deal();
 
 signals:
@@ -116,6 +117,7 @@ signals:
     void serial_test_client_msg(serial_config);
     void serial_test_stop_msg();
     void serial_set_testBt_msg();
+
 private:
     Ui::all_test *ui;
 
@@ -149,7 +151,9 @@ private:
     QTime stopTime;
     int elapsed;
     int usbAddNum = 0;
-
+    QTimer * serialStopTimer;
+    int testItemsCount = 0;
+    QList<QAbstractButton*> CheckedBtnList;
 
 };
 

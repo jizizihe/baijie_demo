@@ -114,6 +114,8 @@ void serialdialog::on_serialCheckAllBtn_clicked()
         }
         ui->serialCheckAllBtn->setText("check all");
     }
+    getSerialCheckedName();
+    emit serial_config_msg(serialConfig);
 }
 
 void serialdialog::on_serialTestBtn_clicked()
