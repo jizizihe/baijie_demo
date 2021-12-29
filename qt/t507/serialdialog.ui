@@ -37,7 +37,7 @@ QListWidget {background-color:transparent; outline: none; border:1px solid gray;
    </item>
    <item>
     <property name="text">
-     <string>service</string>
+     <string>server</string>
     </property>
    </item>
   </widget>
@@ -53,16 +53,6 @@ QListWidget {background-color:transparent; outline: none; border:1px solid gray;
    <property name="title">
     <string>serial port</string>
    </property>
-   <widget class="QListWidget" name="serialPortListWidget">
-    <property name="geometry">
-     <rect>
-      <x>5</x>
-      <y>181</y>
-      <width>391</width>
-      <height>81</height>
-     </rect>
-    </property>
-   </widget>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -88,9 +78,9 @@ QListWidget {background-color:transparent; outline: none; border:1px solid gray;
   <widget class="QPushButton" name="serialOkBtn">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>270</x>
      <y>400</y>
-     <width>141</width>
+     <width>91</width>
      <height>41</height>
     </rect>
    </property>
@@ -101,14 +91,14 @@ QListWidget {background-color:transparent; outline: none; border:1px solid gray;
   <widget class="QPushButton" name="serialCancelBtn">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>380</x>
      <y>400</y>
-     <width>121</width>
+     <width>91</width>
      <height>41</height>
     </rect>
    </property>
    <property name="text">
-    <string>cancel</string>
+    <string>close</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -129,12 +119,25 @@ QListWidget {background-color:transparent; outline: none; border:1px solid gray;
     <rect>
      <x>20</x>
      <y>400</y>
-     <width>131</width>
+     <width>121</width>
      <height>41</height>
     </rect>
    </property>
    <property name="text">
     <string>check all</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="serialTestBtn">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>400</y>
+     <width>91</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>test</string>
    </property>
   </widget>
  </widget>

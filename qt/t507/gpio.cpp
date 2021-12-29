@@ -291,6 +291,7 @@ bool gpio::istrueport(QString str,int i)
     {
         return false;
     }
+    //string
     QString port = str.mid(0,1);
     QByteArray temp = port.toLatin1();
     char gpio_port = *(temp.data());

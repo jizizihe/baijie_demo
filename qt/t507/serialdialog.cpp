@@ -10,8 +10,6 @@ serialdialog::serialdialog(QWidget *parent) :
     pButtonGroup = new QButtonGroup(this);
     pButtonGroup->setExclusive(false);               //设置这个按钮组为非互斥模式
 
-    ui->serialPortListWidget->hide();
-
     //pButtonGroup->addButton(ui->btnOther, 3);
 
     QStringList serialPortName;
@@ -21,8 +19,12 @@ serialdialog::serialdialog(QWidget *parent) :
     //查找可用的串口
     foreach(const QSerialPortInfo &Info,QSerialPortInfo::availablePorts())//读取串口信息
     {
+        if(Info.portName() == QString("ttyS0"))
+        {
+            continue;
+        }
         serialPortName << Info.portName();
-        qDebug()<<"portname: "<<Info.portName();//调试时可以看的串口信息
+        //qDebug()<<"portname: "<<Info.portName();//调试时可以看的串口信息
     }
 
     for(int i = 0;i < serialPortName.size(); i++)
@@ -35,7 +37,7 @@ serialdialog::serialdialog(QWidget *parent) :
     }
 
     ui->groupBox_3->setLayout(vLayout1);
-
+    connect(pButtonGroup,SIGNAL(buttonClicked(int)),this,SLOT(pButtonGroup_pressed_func(int)));
 }
 
 serialdialog::~serialdialog()
@@ -43,14 +45,14 @@ serialdialog::~serialdialog()
     delete ui;
 }
 
-QString serialdialog::getSerialCheckedName()
+void serialdialog::getSerialCheckedName()
 {
     serialConfig.count = 0;
     serialConfig.checkedName = QString("");
     memset(serialConfig.checked_id,-1,sizeof(serialConfig.checked_id));
 
-    int n;
     serialConfig.checkedBtnList = pButtonGroup->buttons();
+    serialConfig.mode = ui->serialModeBox->currentText();
 
     for(int i =0 ;i<serialConfig.checkedBtnList.length();i++)
     {
@@ -63,23 +65,29 @@ QString serialdialog::getSerialCheckedName()
             //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "n:" << n;
         }
     }
-    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "name:" << serialConfig.checkedName;
 
-    return serialConfig.checkedName;
 }
 
+void serialdialog::pButtonGroup_pressed_func(int)
+{
+//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "button name:" << button->text();
+    getSerialCheckedName();
+    emit serial_config_msg(serialConfig);
+}
 
 void serialdialog::on_serialOkBtn_clicked()
 {
-    getSerialCheckedName();
-    serialConfig.mode = ui->serialModeBox->currentText();
-    emit serial_config_msg(serialConfig);
-
+//    getSerialCheckedName();
+//    emit serial_config_msg(serialConfig);
     this->close();
 }
 
 void serialdialog::on_serialCancelBtn_clicked()
 {
+    if(ui->serialModeBox->currentText() == "server" && ui->serialTestBtn->text() == "stop")
+    {
+        return;
+    }
     this->close();
 }
 
@@ -108,3 +116,27 @@ void serialdialog::on_serialCheckAllBtn_clicked()
     }
 }
 
+void serialdialog::on_serialTestBtn_clicked()
+{
+    if(ui->serialTestBtn->text() == "test")
+    {
+        ui->serialTestBtn->setText("stop");
+        ui->serialOkBtn->setDisabled(true);
+
+        getSerialCheckedName();
+        emit serial_config_msg(serialConfig);
+        emit serial_test_msg();
+    }
+    else if(ui->serialTestBtn->text() == "stop")
+    {
+        emit serial_dialog_stop_msg();
+        ui->serialTestBtn->setText("test");
+        ui->serialOkBtn->setDisabled(false);
+    }
+}
+
+void serialdialog::serial_set_testBt_func()
+{
+    ui->serialTestBtn->setText("test");
+    ui->serialOkBtn->setDisabled(false);
+}

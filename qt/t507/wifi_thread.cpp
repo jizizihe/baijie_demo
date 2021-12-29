@@ -93,20 +93,6 @@ void wifi_thread::sim_disconnect_thread_func()
     emit sim_send_msg(sim_disconnect_signal,strResult);
 }
 
-void wifi_thread::sim_activation_thread_func()
-{
-    QString strResult = wifi_bt_w->sim_activation();
-
-    emit sim_send_msg(sim_activation_signal,strResult);
-}
-
-void wifi_thread::sim_delete_thread_func()
-{
-    QString strResult = wifi_bt_w->sim_delete();
-
-    emit sim_send_msg(sim_delete_signal,strResult);
-}
-
 void wifi_thread::sim_connect_thread_func()
 {
     QString strResult = wifi_bt_w->sim_connect();
@@ -114,3 +100,8 @@ void wifi_thread::sim_connect_thread_func()
     emit sim_send_msg(sim_connect_signal,strResult);
 }
 
+void wifi_thread::sim_status_thread_func()
+{
+    QString strResult = wifi_bt_w->sim_status();
+    emit sim_send_msg(sim_status_signal,strResult);
+}

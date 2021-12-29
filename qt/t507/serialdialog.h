@@ -34,18 +34,25 @@ public:
     Ui::serialdialog *ui;
     QButtonGroup* pButtonGroup;
 
-    QString getSerialCheckedName();
+    void getSerialCheckedName();
 
 signals:
     void serial_config_msg(serial_config);
+    void serial_test_msg();
+    void serial_dialog_stop_msg();
 private slots:
 
     void on_serialCancelBtn_clicked();
+
+    void pButtonGroup_pressed_func(int);
 
     void on_serialOkBtn_clicked();
 
     void on_serialCheckAllBtn_clicked();
 
+    void on_serialTestBtn_clicked();
+
+    void serial_set_testBt_func();
 
 private:
 

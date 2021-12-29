@@ -55,12 +55,10 @@ SOURCES += \
     ipset.cpp \
     ipset_interface.cpp \
     gpio_interface.cpp \
-    all_interface_test.cpp \
     bluetooth.cpp \
     bluetooth_thread.cpp \
     user_manual.cpp \
     serial.cpp \
-    udev_interface.cpp \
     serial_thread.cpp \
     sys_setting.cpp \
     wifi_thread.cpp \
@@ -70,7 +68,10 @@ SOURCES += \
     wifi.cpp \
     wificondialog.cpp \
     sim_module.cpp \
-    serialdialog.cpp
+    serialdialog.cpp \
+    all_test_thread.cpp \
+    all_test_interface.cpp \
+    all_test.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -92,12 +93,10 @@ HEADERS += \
     ipset_popup.h \
     ipset.h \
     ipset_interface.h \
-    all_interface_test.h \
     bluetooth.h \
     bluetooth_thread.h \
     user_manual.h \
     serial.h \
-    udev_interface.h \
     serial_thread.h \
     sys_setting.h \
     wifi_thread.h \
@@ -107,7 +106,10 @@ HEADERS += \
     wifi.h \
     wificondialog.h \
     sim_module.h \
-    serialdialog.h
+    serialdialog.h \
+    all_test_thread.h \
+    all_test_interface.h \
+    all_test.h
 
 FORMS += \
         mainwindow.ui \
@@ -121,7 +123,6 @@ FORMS += \
     about_board.ui \
     keytest.ui \
     ipset.ui \
-    all_interface_test.ui \
     bluetooth.ui \
     user_manual.ui \
     serial.ui \
@@ -129,7 +130,8 @@ FORMS += \
     wifi.ui \
     wificondialog.ui \
     sim_module.ui \
-    serialdialog.ui
+    serialdialog.ui \
+    all_test.ui
 
 RESOURCES += \
     translation.qrc

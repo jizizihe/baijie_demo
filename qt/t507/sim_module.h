@@ -19,8 +19,6 @@ public:
     ~sim_module();
 
     QString sim_disconnect();
-    QString sim_delete();
-    bool sim_activation();
     QString sim_connect();
 
     void language_reload();
@@ -28,9 +26,8 @@ public:
 signals:
     void Mysignal();
     void sim_disconnect_msg();
-    void sim_activation_msg();
-    void sim_delete_msg();
     void sim_connect_msg();
+    void sim_status_msg();
 
 private slots:
     void on_retBtn_clicked();
@@ -39,11 +36,9 @@ private slots:
 
     void on_SimConnectBtn_clicked();
 
-    void on_SImDeleteBtn_clicked();
-
     void on_SimDisconnectBtn_clicked();
 
-    void on_SimActivationBtn_clicked();
+    void on_SimStausBtn_clicked();
 
 private:
     Ui::sim_module *ui;

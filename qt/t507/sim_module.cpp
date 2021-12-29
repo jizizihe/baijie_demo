@@ -12,9 +12,8 @@ sim_module::sim_module(QWidget *parent) :
     SimThread = new wifi_thread();
 
     connect(this,SIGNAL(sim_disconnect_msg()),SimThread,SLOT(sim_disconnect_thread_func()));
-    connect(this,SIGNAL(sim_activation_msg()),SimThread,SLOT(sim_activation_thread_func()));
-    connect(this,SIGNAL(sim_delete_msg()),SimThread,SLOT(sim_delete_thread_func()));
     connect(this,SIGNAL(sim_connect_msg()),SimThread,SLOT(sim_connect_thread_func()));
+    connect(this,SIGNAL(sim_status_msg()),SimThread,SLOT(sim_status_thread_func()));
 
     connect(SimThread,SIGNAL(sim_send_msg(int, QString)),this,SLOT(recv_msg(int, QString)));
     SimThread->moveToThread(myThread);
@@ -48,18 +47,6 @@ void sim_module::recv_msg(int signal_type, QString strResult)
             QMessageBox::critical(this,"information",tr("4G Disconnection failed!"));
         }
         break;
-    case sim_activation_signal:
-        if(strResult == QString(1))
-        {
-            qDebug() << "activate set ok!";
-            QMessageBox::information(this,"information",tr("4G activate ok!"));
-        }
-        else
-        {
-            qDebug() << "activate set failed!";
-            QMessageBox::critical(this,"information",tr("4G activate failed!"));
-        }
-        break;
     case sim_delete_signal:
         qDebug() << "FUNC:" << __FUNCTION__<< "Line:" << __LINE__ << "strResult:" << strResult;
         if(strResult == QString(1))
@@ -82,6 +69,17 @@ void sim_module::recv_msg(int signal_type, QString strResult)
             QMessageBox::critical(this,"information",tr("4G Connect failed!"));
         }
         break;
+    case sim_status_signal:
+        qDebug() << "FUNC:" << __FUNCTION__<< "Line:" << __LINE__ << "strResult:" << strResult;
+        if(strResult.isEmpty())
+        {
+            QMessageBox::critical(this,"information",tr("4G get status failed!"));
+        }
+        else
+        {
+            QMessageBox::information(this,"information",strResult);
+        }
+        break;
     default:
         break;
     }
@@ -93,23 +91,9 @@ void sim_module::on_SimDisconnectBtn_clicked()
     emit sim_disconnect_msg();
 }
 
-void sim_module::on_SimActivationBtn_clicked()
-{
-    qDebug() << "--line--: " << __LINE__<< "FILE" << __FILE__<<"func:" << __FUNCTION__;
-    emit sim_activation_msg();
-}
-
-void sim_module::on_SImDeleteBtn_clicked()
-{
-    qDebug() << "--line--: " << __LINE__<< "FILE" << __FILE__<<"func:" << __FUNCTION__;
-
-    emit sim_delete_msg();
-}
-
 void sim_module::on_SimConnectBtn_clicked()
 {
     qDebug() << "--line--: " << __LINE__<< "FILE" << __FILE__<<"func:" << __FUNCTION__;
-
     emit sim_connect_msg();
 }
 
@@ -117,4 +101,11 @@ void sim_module::on_SimConnectBtn_clicked()
 void sim_module::language_reload()
 {
     ui->retranslateUi(this);
+}
+
+void sim_module::on_SimStausBtn_clicked()
+{
+    qDebug() << "--line--: " << __LINE__<< "FILE" << __FILE__<<"func:" << __FUNCTION__;
+
+    emit sim_status_msg();
 }

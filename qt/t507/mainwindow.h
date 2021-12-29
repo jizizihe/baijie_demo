@@ -12,13 +12,14 @@
 #include "wifi.h"
 #include "ipset.h"
 #include "keytest.h"
-#include "all_interface_test.h"
+#include "all_test.h"
 #include <QTranslator>
 #include "bluetooth.h"
 #include "serial.h"
 #include "sys_setting.h"
 #include "wificondialog.h"
 #include "sim_module.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -38,7 +39,7 @@ public:
     wifi wifi_w;
     ipset eth0_w;
 //    keytest keytest_w;
-    all_interface_test all_w;
+    all_test all_w;
     bluetooth bluetooth_w;
     serial serial_w;
     sys_setting system_w;

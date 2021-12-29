@@ -60,11 +60,11 @@ QMessageBox {
 	border:1px solid gray;
 }
 
-            QListWidget {background-color:transparent; outline: none; border:1px solid gray; color: black; }
-            QListWidget::Item { width: 400px; height: 50px; }
-            QListWidget::Item:hover { background: #4CAF50; color: white; }
-            QListWidget::item:selected { background: #e7e7e7; color: #f44336; }
-            QListWidget::item:selected:!active { background: lightgreen; }
+QListWidget {background-color:transparent; outline: none; border:1px solid gray; color: black; }
+QListWidget::Item { width: 400px; height: 50px; }
+QListWidget::Item:hover { background: #4CAF50; color: white; }
+QListWidget::item:selected { background: #e7e7e7; color: #f44336; }
+QListWidget::item:selected:!active { background: lightgreen; }
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">

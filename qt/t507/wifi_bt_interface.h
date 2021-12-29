@@ -9,7 +9,7 @@
 #include <QFile>
 #include <QDir>
 #include <QMovie>
-#include<QScreen>
+#include <QScreen>
 #include <QScrollBar>
 #include <QListWidget>
 #include <QInputDialog>
@@ -37,6 +37,7 @@ enum signal_type
     sim_activation_signal = 12,
     sim_delete_signal = 13,
     sim_connect_signal = 14,
+    sim_status_signal = 15,
 };
 
 typedef struct WIFI_INFO
@@ -80,9 +81,9 @@ public:
     bool hotspot_disconnect();
 
     QString sim_disconnect();
-    QString sim_delete();
     QString sim_activation();
     QString sim_connect();
+    QString sim_status();
 
     QString bluetooth_scan();
     QString bluetooth_pair(QString BtAddress);

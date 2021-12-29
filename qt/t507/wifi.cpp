@@ -304,8 +304,9 @@ void wifi::on_HotspotConBtn_clicked()
 
     if(!HtName.isEmpty())
     {
-
+//        qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__;
         HtPasswd = wifi_bt_t->wifi_passwd_read(HtName.remove("\n"));
+//        qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__<< "HtPasswd" << HtPasswd;
         ui->HtName->setText(HtName.remove(0,7));
         ui->HtPasswd->setText(HtPasswd);
     }
