@@ -75,19 +75,40 @@ void serialdialog::pButtonGroup_pressed_func(int)
     emit serial_config_msg(serialConfig);
 }
 
+void serialdialog::on_serialModeBox_currentIndexChanged(const QString &arg1)
+{
+    serialConfig.mode = ui->serialModeBox->currentText();
+    emit serial_config_msg(serialConfig);
+}
+
 void serialdialog::on_serialOkBtn_clicked()
 {
-//    getSerialCheckedName();
-//    emit serial_config_msg(serialConfig);
+    getSerialCheckedName();
+    emit serial_config_msg(serialConfig);
     this->close();
 }
 
 void serialdialog::on_serialCancelBtn_clicked()
 {
-    if(ui->serialModeBox->currentText() == "server" && ui->serialTestBtn->text() == "stop")
+    QAbstractButton *checkBtn;
+    QList<QAbstractButton*> CheckedBtnList = pButtonGroup->buttons();
+
+    if(ui->serialTestBtn->text() == "stop")
     {
-        return;
+        emit serial_dialog_stop_msg();
+        ui->serialTestBtn->setText("test");
+        ui->serialOkBtn->setDisabled(false);
     }
+
+    for(int i = 0 ;i<CheckedBtnList.length();i++)
+    {
+        checkBtn = CheckedBtnList.at(i);
+        checkBtn->setChecked(false);
+    }
+
+    getSerialCheckedName();
+    emit serial_config_msg(serialConfig);
+
     this->close();
 }
 
@@ -122,6 +143,7 @@ void serialdialog::on_serialTestBtn_clicked()
 {
     if(ui->serialTestBtn->text() == "test")
     {
+        ui->serialTestEdit->clear();
         ui->serialTestBtn->setText("stop");
         ui->serialOkBtn->setDisabled(true);
 
@@ -141,4 +163,9 @@ void serialdialog::serial_set_testBt_func()
 {
     ui->serialTestBtn->setText("test");
     ui->serialOkBtn->setDisabled(false);
+}
+
+void serialdialog::serial_result_recv_func(QString str)
+{
+    ui->serialTestEdit->appendPlainText(str);
 }

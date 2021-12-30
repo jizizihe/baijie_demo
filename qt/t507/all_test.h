@@ -48,7 +48,7 @@ public:
 
     void checkbox_disenable_func(int itemsCount);
 
-    void flagSet();
+//    void flagSet();
 
     void testMsgDisplay(QString type,QString str,int time);
 
@@ -62,7 +62,7 @@ private slots:
 
     void on_testCheckAllBtn_clicked();
 
-    void on_begin_clicked();
+    void on_beginBtn_clicked();
 
     void on_retBtn_clicked();
 
@@ -118,6 +118,7 @@ signals:
     void serial_test_stop_msg();
     void serial_set_testBt_msg();
 
+    void serial_send_result_msg(QString);
 private:
     Ui::all_test *ui;
 

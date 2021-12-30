@@ -221,7 +221,7 @@ void all_test_thread::serialTimer_func()
     }
     else if(mode == "client")
     {
-        qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
+//        qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
         write(fd,checkStr,sizeof(checkName));
         recvStr = checkStr;
         qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "write" << recvStr ;
@@ -235,6 +235,7 @@ void all_test_thread::serialTimer_func()
                 retResult = QString("%1 OK").arg(checkName);
                 emit send_test_msg(serial_signal,retResult);
                 serialTimer->stop();
+
                 close(fd);
                 return;
             }
