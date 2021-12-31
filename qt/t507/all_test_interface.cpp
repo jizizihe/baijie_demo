@@ -316,12 +316,30 @@ QString bluetooth_test()
 {
     QString strCmd;
     QString strResult;
-    QDateTime time = QDateTime::currentDateTime();
-    QString str = time.toString("yyyy-MM-dd hh:mm:ss dddd");
-    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__<< str;
+    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__;
 
-//    strCmd = QString("hciconfig hci0 up && hciconfig hci0 piscan");
-//    strResult = executeLinuxCmd(strCmd);
+    strCmd = QString("hciconfig |grep hci0 | wc -l");
+    strResult = executeLinuxCmd(strCmd);
+    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "ScanResult:" << strResult;
+
+    if(strResult == "0\n")
+    {
+        strCmd = QString("rfkill unblock all");
+        strResult = executeLinuxCmd(strCmd);
+
+        strCmd = QString("ps -ax |grep 'hciattach -n -s 1500000 /dev/ttyBT0 sprd' |grep -v grep |wc -l");
+        strResult = executeLinuxCmd(strCmd);
+
+        if(strResult == "0\n")
+        {
+            strCmd = QString("hciattach -n -s 1500000 /dev/ttyBT0 sprd 1>/dev/null 2>/dev/null &");
+            strResult = executeLinuxCmd(strCmd);
+            //qDebug() << strResult;
+            QThread::sleep(2);
+        }
+    }
+    strCmd = QString("hciconfig hci0 up && hciconfig hci0 piscan");
+    strResult = executeLinuxCmd(strCmd);
 
     strCmd = QString("hcitool scan | wc -l");
     strResult = executeLinuxCmd(strCmd);

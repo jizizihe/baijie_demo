@@ -66,34 +66,32 @@ private slots:
 
     void on_retBtn_clicked();
 
-    void on_networkChk_clicked();
-
     void on_usbChk_clicked();
+//    void on_networkChk_clicked();
 
-    void on_rtcChk_clicked();
+//    void on_rtcChk_clicked();
 
-    void on_sdcardChk_clicked();
+//    void on_sdcardChk_clicked();
 
-    void on_keyChk_clicked();
+//    void on_cameraChk_clicked();
+
+//    void on_battaryChk_clicked();
+
+//    void on_simChk_clicked();
+
+//    void on_audioChk_clicked();
+
+//    void on_wifiChk_clicked();
+
+//    void on_bluetoothChk_clicked();
 
     void on_serialChk_clicked();
-
-    void on_cameraChk_clicked();
-
-    void on_battaryChk_clicked();
-
-    void on_simChk_clicked();
-
-    void on_audioChk_clicked();
-
-    void on_wifiChk_clicked();
-
-    void on_bluetoothChk_clicked();
 
     void recv_test_msg(int, QString );
 
 //    void serialStopTimer_func();
     void serial_stop_deal();
+    void serial_test_recv_func(QString);
 
 signals:
 
@@ -113,12 +111,12 @@ signals:
 
     void audio_aplay_msg();
 
-    void server_test_server_msg(serial_config);
+//    void server_test_server_msg(serial_config);
     void serial_test_client_msg(serial_config);
     void serial_test_stop_msg();
     void serial_set_testBt_msg();
 
-    void serial_send_result_msg(QString);
+//    void serial_send_result_msg(QString);
 private:
     Ui::all_test *ui;
 

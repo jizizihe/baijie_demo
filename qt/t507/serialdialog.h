@@ -50,13 +50,13 @@ private slots:
 
     void on_serialCheckAllBtn_clicked();
 
-    void on_serialTestBtn_clicked();
+//    void on_serialTestBtn_clicked();
 
-    void serial_set_testBt_func();
+//    void serial_set_testBt_func();
 
     void on_serialModeBox_currentIndexChanged(const QString &arg1);
 
-    void serial_result_recv_func(QString);
+//    void serial_result_recv_func(QString);
 
 private:
 

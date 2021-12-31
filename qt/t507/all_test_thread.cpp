@@ -160,7 +160,6 @@ void all_test_thread::serial_test_thread_client(serial_config serialTest)
 
     serialConfigPtr = &serialTest;
     int checkId = serialConfigPtr->checked_id[serialConfigPtr->index];
-    //    QString checkName = serialConfigPtr->checkedBtnList.at(checkId)->text();
     checkName = serialConfigPtr->checkedBtnList.at(checkId)->text();
 //    char    *checkStr = (char *)malloc(sizeof(checkName));
 
@@ -168,6 +167,10 @@ void all_test_thread::serial_test_thread_client(serial_config serialTest)
     qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "mode:" << serialConfigPtr->mode;
     qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "id:" << checkId;
     qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "name:" << checkName;
+
+    QString retResult = QString("----%1 start test-----").arg(checkName);
+//    emit send_test_msg(serial_signal,retResult);
+    emit serial_test_msg(retResult);
 
     QString port_name = QString("/dev/%1").arg(checkName);
 //    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "port_name" << port_name;
@@ -232,8 +235,9 @@ void all_test_thread::serialTimer_func()
             if(!strcasecmp(checkStr,buf))
             {
                 qDebug() << "Line:" << __LINE__<< "-------ok:";
-                retResult = QString("%1 OK").arg(checkName);
-                emit send_test_msg(serial_signal,retResult);
+                retResult = QString("---serial test: %1 OK").arg(checkName);
+//                emit send_test_msg(serial_signal,retResult);
+                emit serial_test_msg(retResult);
                 serialTimer->stop();
 
                 close(fd);
@@ -248,7 +252,7 @@ void all_test_thread::serial_test_thread_stop()
     qDebug() << "i ==============";
    // qDebug() << "Line:" << __LINE__<< "__FUNCTION__" << __FUNCTION__<<"Thread构造函数ID:"<<QThread::currentThreadId();
 
-    close(fd);
+//    close(fd);
     stopFlag = true;
     serialTimer->stop();
 }

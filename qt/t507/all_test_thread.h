@@ -33,6 +33,7 @@ public:
 
 signals:
     void send_test_msg(int ,QString );
+    void serial_test_msg(QString );
 
 public slots:
     void network_test_thread();

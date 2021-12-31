@@ -36,10 +36,10 @@ all_test::all_test(QWidget *parent) :
     serialDialog = new serialdialog(this);
 
     connect(serialDialog,SIGNAL(serial_config_msg(serial_config)),this,SLOT(serial_config_func(serial_config)));
-    connect(serialDialog,SIGNAL(serial_test_msg()),this,SLOT(serial_test_func()));
-    connect(serialDialog,SIGNAL(serial_dialog_stop_msg()),this,SLOT(serial_stop_deal()));
-    connect(this,SIGNAL(serial_set_testBt_msg()),serialDialog,SLOT(serial_set_testBt_func()));
-    connect(this,SIGNAL(serial_send_result_msg(QString)),serialDialog,SLOT(serial_result_recv_func(QString)));
+//    connect(serialDialog,SIGNAL(serial_test_msg()),this,SLOT(serial_test_func()));
+//    connect(serialDialog,SIGNAL(serial_dialog_stop_msg()),this,SLOT(serial_stop_deal()));
+//    connect(this,SIGNAL(serial_set_testBt_msg()),serialDialog,SLOT(serial_set_testBt_func()));
+//    connect(this,SIGNAL(serial_send_result_msg(QString)),serialDialog,SLOT(serial_result_recv_func(QString)));
 
 
     testButtonGroup = new QButtonGroup(this);
@@ -104,16 +104,12 @@ void all_test::serial_config_func(serial_config config)
     serialConfig = config;
     if(serialConfig.count == 0)
     {
-//        serial_flag = false;
         ui->serialChk->setChecked(Qt::Unchecked);
     }
     else
     {
-//        serial_flag = true;
         ui->serialChk->setChecked(Qt::Checked);
     }
-    //ui->serialChk->setChecked(Qt::Checked);
-//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "name:" << serialConfig.checkedName;
     qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "mode:" << serialConfig.mode;
     qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "num:" << serialConfig.count;
 
@@ -132,21 +128,18 @@ void all_test::serial_test_func()
         {
             disconnect(this,SIGNAL(serial_test_client_msg(serial_config)),serial_test_thread[i-1],SLOT(serial_test_thread_client(serial_config)));
         }
-        connect(serial_test_thread[i],SIGNAL(send_test_msg(int ,QString )),this,SLOT(recv_test_msg(int, QString )));
+        connect(serial_test_thread[i],SIGNAL(serial_test_msg(QString )),this,SLOT(serial_test_recv_func(QString )));
+
         connect(this,SIGNAL(serial_test_client_msg(serial_config)),serial_test_thread[i],SLOT(serial_test_thread_client(serial_config)));
 
         serialConfig.index = i;
 
-        if(thread_id[i]->isRunning() == true)
+        if(thread_id[i]->isRunning() == false)
         {
             qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "------2525-----";
-            return;
-        }
-//        if(false == thread_id[i]->isRunning())
-//        {
-            qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "------2525-----";
             thread_id[i]->start();
-//        }
+//            return;
+        }
 
         emit serial_test_client_msg(serialConfig);
     }
@@ -165,6 +158,9 @@ void all_test::serial_stop_deal()
     }
     if(serialStopTimer->isActive() == true)
     {
+        qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---!!!!!!!!!!!!!!!!!!!---:";
+        serial_test_recv_func(QString("serial test end"));
+//        recv_test_msg(serial_signal,QString("serial test end!"));
         serialStopTimer->stop();
     }
 //    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---FUNC---:" << __FUNCTION__;
@@ -187,27 +183,32 @@ void all_test::serial_stop_deal()
         }
 //            delete serial_test_thread[i];
     }
-    if(serialConfig.mode == "client")
-    {
-        emit serial_set_testBt_msg();
-    }
+//    if(serialConfig.mode == "client")
+//    {
+//        emit serial_set_testBt_msg();
+    //    }
+}
+
+void all_test::serial_test_recv_func(QString str)
+{
+    ui->textEdit->append(str);
 }
 
 void all_test::on_beginBtn_clicked()
 {
 //    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
+    int i = 0;
     QAbstractButton *checkBtn;
     testItemsCount = 0;
-
 
     if("begin" == ui->beginBtn->text())
     {
         qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "***************test start***************";
 
         ui->beginBtn->setText("stop");
-        serialDialog->ui->serialTestBtn->setText("");
+//        serialDialog->ui->serialTestBtn->setText("");
         QThread::usleep(10);
-        for(int i =0 ;i < CheckedBtnList.length();i++)
+        for(i =0 ;i < CheckedBtnList.length();i++)
         {
             checkBtn = CheckedBtnList.at(i);
             if(checkBtn->isChecked())
@@ -265,9 +266,9 @@ void all_test::on_beginBtn_clicked()
         if(true == ui->wifiChk->isChecked())    emit wifi_test_msg();
         if(true == ui->serialChk->isChecked())
         {
-            if(serialConfig.mode == "client")
+//            if(serialConfig.mode == "client")
             {
-                serial_test_func();
+        serial_test_func();
             }
             qDebug() << "serial_flag" << __LINE__;
         }
@@ -280,7 +281,7 @@ void all_test::on_beginBtn_clicked()
 //        ui->beginBtn->setEnabled(true);
         w_movie->stop();
         ll->close();
-        for(int i =0 ;i < CheckedBtnList.length();i++)
+        for(i =0 ;i < CheckedBtnList.length();i++)
         {
             checkBtn = CheckedBtnList.at(i);
             checkBtn->setEnabled(true);
@@ -295,16 +296,22 @@ void all_test::on_beginBtn_clicked()
             btThread->quit();
             btThread->wait();
         }
-
+        for(i = 0;i < serialConfig.count;i++)
+        {
+            if(true == thread_id[i]->isRunning())
+            {
+                thread_id[i]->quit();
+                thread_id[i]->wait();
+            }
+        }
     }
 }
-
 
 bool all_test::event(QEvent *event)
 {
     if(event->type() == QEvent::KeyPress)  //键盘按下处理,其他事件让事件处理器自己处理,不能返回false
     {
-        if(ui->keyChk->isChecked() == true)
+        if(ui->keyChk->isChecked() == true && ui->beginBtn->text() == "stop")
         {
             qDebug()<<"-key pressed!";
             ui->textEdit->append(tr("-  key pressed!"));
@@ -384,15 +391,6 @@ void all_test::checkbox_disenable_func(int itemsCount)
 }
 
 
-void all_test::on_networkChk_clicked()
-{
-    if(ui->networkChk->isChecked() == true)
-    {
-        checkbox_disenable_func(1);
-        emit network_test_msg();
-    }
-}
-
 void all_test::on_usbChk_clicked()
 {
     QStringList items; //ComboBox 列表的内容
@@ -416,20 +414,32 @@ void all_test::on_usbChk_clicked()
         {
             usbAddNum = num.toInt();
             qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__<< usbAddNum;
-            checkbox_disenable_func(1);
-            emit usb_test_msg(usbAddNum);
+//            checkbox_disenable_func(1);
+//            emit usb_test_msg(usbAddNum);
         }
-        else
-        {
+//        else
+//        {
 
-            ui->usbChk->setChecked(Qt::Unchecked);
-        }
+//            ui->usbChk->setChecked(Qt::Unchecked);
+//        }
     }
-    else
+
+
+//    else
+//    {
+//        ui->usbChk->setChecked(Qt::Unchecked);
+//    }
+
+}
+
+#if 0
+void all_test::on_networkChk_clicked()
+{
+    if(ui->networkChk->isChecked() == true)
     {
-        ui->usbChk->setChecked(Qt::Unchecked);
+        checkbox_disenable_func(1);
+        emit network_test_msg();
     }
-
 }
 
 void all_test::on_rtcChk_clicked()
@@ -449,40 +459,14 @@ void all_test::on_sdcardChk_clicked()
         emit sdcard_test_msg();
     }
 }
-
-void all_test::on_keyChk_clicked()
-{
-
-#if 0
-    if(!key_flag)
-    {
-        key_flag = true;
-        ui->keyChk->setChecked(Qt::Checked);
-    }
-    else
-    {
-        key_flag = false;
-        ui->keyChk->setChecked(Qt::Unchecked);
-    }
 #endif
-}
 
 void all_test::on_serialChk_clicked()
 {
     serialDialog->exec();
-//    if(serialConfig.count == 0)
-//    {
-//        serial_flag = false;
-//        ui->serialChk->setChecked(Qt::Unchecked);
-//    }
-//    else
-//    {
-//        ui->serialChk->setChecked(Qt::Checked);
-//    }
     qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---FUNC---:" << __FUNCTION__;
 }
-
-
+#if 0
 void all_test::on_cameraChk_clicked()
 {
     if(ui->cameraChk->isChecked() == true)
@@ -543,6 +527,7 @@ void all_test::on_bluetoothChk_clicked()
         emit bluetooth_test_msg();
     }
 }
+#endif
 
 void all_test::testMsgDisplay(QString type,QString str,int time)
 {
@@ -614,14 +599,17 @@ void all_test::recv_test_msg(int test_signal_type, QString str)
         break;
     case key_signal:
         break;
+
+#if 0
     case serial_signal:
 //        qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime.Serial";
 //        testMsgDisplay("---serial test:",str,0);
-        emit serial_send_result_msg(str);
-        str = QString(tr("---serial test: %1")).arg(str);
+//        emit serial_send_result_msg(str);
+//        str = QString(tr("---serial test: %1")).arg(str);
         ui->textEdit->append(str);
-        serial_stop_deal();
+//        serial_stop_deal();
         break;
+#endif
     case camera_signal:
         image = QImage("/data/yuv.jpg");
         ui->image->setScaledContents(true);
@@ -634,7 +622,6 @@ void all_test::recv_test_msg(int test_signal_type, QString str)
 
         str = QString(tr("---camera test: Please check the picture display? %1s")).arg(elapsed);
         ui->textEdit->append(str);
-
         break;
     case battary_signal:
         stopTime = QTime::currentTime();
@@ -673,6 +660,3 @@ void all_test::recv_test_msg(int test_signal_type, QString str)
         break;
     }
 }
-
-
-

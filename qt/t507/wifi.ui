@@ -65,7 +65,12 @@ QListWidget::Item { width: 400px; height: 50px; }
 QListWidget::Item:hover { background: #4CAF50; color: white; }
 QListWidget::item:selected { background: #e7e7e7; color: #f44336; }
 QListWidget::item:selected:!active { background: lightgreen; }
-</string>
+
+QLineEdit
+{
+background-color:transparent;
+ border:1px solid gray;color: black;
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="ReturnBtn">
@@ -108,7 +113,7 @@ QListWidget::item:selected:!active { background: lightgreen; }
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="wifihomepage">
      <widget class="QListWidget" name="WifiListWidget">
@@ -197,9 +202,9 @@ QListWidget::item:selected:!active { background: lightgreen; }
       <property name="geometry">
        <rect>
         <x>320</x>
-        <y>190</y>
+        <y>200</y>
         <width>251</width>
-        <height>51</height>
+        <height>41</height>
        </rect>
       </property>
      </widget>
@@ -209,7 +214,7 @@ QListWidget::item:selected:!active { background: lightgreen; }
         <x>320</x>
         <y>290</y>
         <width>251</width>
-        <height>51</height>
+        <height>41</height>
        </rect>
       </property>
      </widget>

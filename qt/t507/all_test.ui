@@ -58,6 +58,11 @@ QTextEdit
 {
 	background-color:transparent;
 	border:1px solid gray;
+}
+QInputDialog{
+	border:1px solid gray;
+
+	background-image: url(:/t507_button_image/all/background.jpg);
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">

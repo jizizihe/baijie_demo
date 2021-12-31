@@ -10,8 +10,6 @@ serialdialog::serialdialog(QWidget *parent) :
     pButtonGroup = new QButtonGroup(this);
     pButtonGroup->setExclusive(false);               //设置这个按钮组为非互斥模式
 
-    //pButtonGroup->addButton(ui->btnOther, 3);
-
     QStringList serialPortName;
     QString tmp;
     QGridLayout  *vLayout1 = new QGridLayout ;
@@ -93,12 +91,12 @@ void serialdialog::on_serialCancelBtn_clicked()
     QAbstractButton *checkBtn;
     QList<QAbstractButton*> CheckedBtnList = pButtonGroup->buttons();
 
-    if(ui->serialTestBtn->text() == "stop")
-    {
-        emit serial_dialog_stop_msg();
-        ui->serialTestBtn->setText("test");
-        ui->serialOkBtn->setDisabled(false);
-    }
+//    if(ui->serialTestBtn->text() == "stop")
+//    {
+//        emit serial_dialog_stop_msg();
+//        ui->serialTestBtn->setText("test");
+//        ui->serialOkBtn->setDisabled(false);
+//    }
 
     for(int i = 0 ;i<CheckedBtnList.length();i++)
     {
@@ -139,6 +137,7 @@ void serialdialog::on_serialCheckAllBtn_clicked()
     emit serial_config_msg(serialConfig);
 }
 
+#if 0
 void serialdialog::on_serialTestBtn_clicked()
 {
     if(ui->serialTestBtn->text() == "test")
@@ -159,6 +158,7 @@ void serialdialog::on_serialTestBtn_clicked()
     }
 }
 
+
 void serialdialog::serial_set_testBt_func()
 {
     ui->serialTestBtn->setText("test");
@@ -169,3 +169,4 @@ void serialdialog::serial_result_recv_func(QString str)
 {
     ui->serialTestEdit->appendPlainText(str);
 }
+#endif
