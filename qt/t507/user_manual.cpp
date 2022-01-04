@@ -13,7 +13,6 @@ user_manual::user_manual(QWidget *parent) :
     ui->treeWidget->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
     ui->textEdit->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
 
-
 }
 
 user_manual::~user_manual()
@@ -39,13 +38,30 @@ void user_manual::language_reload()
 void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 {
     QString str = item->text(column);
-    if(str == tr("wifi connect"))
+
+    if(str == tr("wifi status"))
     {
-        ui->textEdit->setText(tr("You can use the < WiFi connection > key to scan the surrounding WiFi signals and enter the password to connect. Or use and you can use the < signal quality > and < connection status > keys to view the signal strength and WiFi connection of the currently connected WiFi."));
+        ui->textEdit->setText(tr("You can use the < wifi status > button to view the current connection status, and on this page you can choose to modify the password or remove the connection."));
     }
-    else if(str == tr("hot spot"))
+    else if(str == tr("wifi connect"))
     {
-        ui->textEdit->setText(tr("You can use the < hotspot > button to turn on or off the hotspot of the board."));
+        ui->textEdit->setText(tr("When you click the < wifi connect > button, a list of connectable WiFi will appear. Click the WiFi you want to connect, and a connection dialog box will pop up for those who have not been connected before. For those who have been connected before, the connection will be activated and jump to the WiFi status interface. Switch to control the WiFi on and off, and click the < refresh > button to update the WiFi list."));
+    }
+    else if(str == tr("hotspot connect"))
+    {
+        ui->textEdit->setText(tr("When you click the < hotspot connect > button, you can choose to establish a hotspot connection or disconnect."));
+    }
+    else if(str == tr("bluetooth scan"))
+    {
+        ui->textEdit->setText(tr("When you click the < Bluetooth scan > button, scan the surrounding Bluetooth devices."));
+    }
+    else if(str == tr("bluetooth pair"))
+    {
+        ui->textEdit->setText(tr("When you select a Bluetooth, click the < Bluetooth pair > button to pair."));
+    }
+    else if(str == tr("bluetooth connect"))
+    {
+        ui->textEdit->setText(tr("When you select a Bluetooth, click the < Bluetooth connect > button to connect."));
     }
     else if(str == tr("show all ip connect"))
     {
@@ -66,7 +82,7 @@ You can use < show all connections > to view all current network connections."))
     }
     else if(str == tr("RTC"))
     {
-        ui->textEdit->setText(tr("You can use the < systimesetbt > button to set the system time, or you can use < rtcsetbt > to set the hardware time."));
+        ui->textEdit->setText(tr("You can use the < systimeSet > button to set the system time, or you can use the < RTC write > button to synchronize to the hardware time."));
     }
     else if(str == tr("brightness"))
     {
@@ -85,6 +101,10 @@ You can use < show all connections > to view all current network connections."))
         ui->textEdit->setText(tr("You can configure the input / output of GPIO port and pull it up / down when it is set to output mode.\n \
 You can also operate on multiple GPIO ports, but each two GPIO ports should be separated by ','. \n \
 Note: there should be no space between each GPIO air, otherwise this operation will fail."));
+    }
+    else if(str == tr("Serial Port"))
+    {
+        ui->textEdit->setText(tr("First, make sure that the hardware connection corresponds, then set the serial port properties, and click the < open / close > button to open / close the serial port. Enter the content you want to send in the input box, click the < send > button to send, and the receiver will receive the information."));
     }
     else if(str == tr("choose file"))
     {
@@ -114,17 +134,9 @@ Note: there should be no space between each GPIO air, otherwise this operation w
     {
         ui->textEdit->setText(tr("This function should not be clicked too often. After the previous test is displayed, it will be tested according to your needs. Pay special attention to check whether the SIM card is inserted if a prompt box appears when detecting the SIM card. If it is not inserted, please do not continue to click. Because the current operation will be delayed, it will have a bad sense of experience. During the waiting process, it is necessary to pay attention to the change of 4G LED lamp. When the card is detected or pulled out, the LED lamp will flash - after detecting the flash of card insertion, it will enter the normally on state and pause for 500ms; When it is detected that the card is pulled out, after the flash, enter the pause (on for 500ms)."));
     }
-    else if(str == tr("test"))
+    else if(str == tr("All Interface Test"))
     {
-        ui->textEdit->setText(tr("Press the < test > button to test all interfaces, the test results will be displayed in the prompt box, and the photos taken by the camera will be displayed in the lower left corner."));
-    }
-    else if(str == tr("photo"))
-    {
-        ui->textEdit->setText(tr("You can press the < photo > button to take a picture again, but you need to press the < display > button to take a good picture before it can be loaded again."));
-    }
-    else if(str == tr("Key Test"))
-    {
-        ui->textEdit->setText(tr("You can use this function to test the buttons on the board. After pressing the < start > button, when you press the button on the board, a prompt will be displayed in the prompt box, and then press the < stop > button to end the test"));
+        ui->textEdit->setText(tr("First, check the item to be tested. For USB test, select the number of external USB (0 by default), select the serial port number (none of the serial ports are selected by default), and then click the < begin > button to start the test. The results are displayed on the right."));
     }
     else if(str == tr("Chinese/English"))
     {

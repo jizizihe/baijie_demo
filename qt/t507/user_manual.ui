@@ -60,9 +60,9 @@ QTreeWidget
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>0</y>
+     <y>49</y>
      <width>420</width>
-     <height>600</height>
+     <height>551</height>
     </rect>
    </property>
    <column>
@@ -81,6 +81,11 @@ QTreeWidget
     </property>
     <item>
      <property name="text">
+      <string>wifi status</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
       <string>wifi connect</string>
      </property>
      <property name="font">
@@ -91,7 +96,7 @@ QTreeWidget
     </item>
     <item>
      <property name="text">
-      <string>hot spot</string>
+      <string>hotspot connect</string>
      </property>
      <property name="font">
       <font>
@@ -111,7 +116,7 @@ QTreeWidget
     </property>
     <item>
      <property name="text">
-      <string>BT scan</string>
+      <string>bluetooth scan</string>
      </property>
      <property name="font">
       <font>
@@ -121,7 +126,7 @@ QTreeWidget
     </item>
     <item>
      <property name="text">
-      <string>BT pair</string>
+      <string>bluetooth pair</string>
      </property>
      <property name="font">
       <font>
@@ -131,7 +136,7 @@ QTreeWidget
     </item>
     <item>
      <property name="text">
-      <string>BT connect</string>
+      <string>bluetooth connect</string>
      </property>
      <property name="font">
       <font>
@@ -343,36 +348,6 @@ QTreeWidget
    <item>
     <property name="text">
      <string>All Interface Test</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <item>
-     <property name="text">
-      <string>test</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>photo</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-   </item>
-   <item>
-    <property name="text">
-     <string>Key Test</string>
     </property>
     <property name="font">
      <font>

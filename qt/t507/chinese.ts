@@ -84,7 +84,7 @@
         <location filename="mainwindow.ui" line="616"/>
         <location filename="mainwindow.ui" line="646"/>
         <source>4G</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G</translation>
     </message>
     <message>
         <source>All Interface Test</source>
@@ -549,12 +549,14 @@
     </message>
     <message>
         <location filename="all_test.ui" line="134"/>
+        <location filename="all_test.cpp" line="336"/>
         <location filename="all_test.cpp" line="354"/>
         <source>check all</source>
         <translation>全选</translation>
     </message>
     <message>
         <location filename="all_test.ui" line="150"/>
+        <location filename="all_test.cpp" line="204"/>
         <location filename="all_test.cpp" line="279"/>
         <location filename="all_test.cpp" line="561"/>
         <source>begin</source>
@@ -632,6 +634,7 @@
     </message>
     <message>
         <location filename="all_test.cpp" line="208"/>
+        <location filename="all_test.cpp" line="314"/>
         <source>stop</source>
         <translation type="unfinished">停止</translation>
     </message>
@@ -652,6 +655,7 @@
     </message>
     <message>
         <location filename="all_test.cpp" line="344"/>
+        <location filename="all_test.cpp" line="346"/>
         <source>check none</source>
         <translation>全不选</translation>
     </message>
@@ -1271,52 +1275,52 @@ Please wait a moment...</source>
     <message>
         <location filename="keyBoard.cpp" line="241"/>
         <source>1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {1?}</translation>
     </message>
     <message>
         <location filename="keyBoard.cpp" line="246"/>
         <source>2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {2?}</translation>
     </message>
     <message>
         <location filename="keyBoard.cpp" line="251"/>
         <source>3</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {3?}</translation>
     </message>
     <message>
         <location filename="keyBoard.cpp" line="258"/>
         <source>4</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {4?}</translation>
     </message>
     <message>
         <location filename="keyBoard.cpp" line="263"/>
         <source>5</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {5?}</translation>
     </message>
     <message>
         <location filename="keyBoard.cpp" line="268"/>
         <source>6</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {6?}</translation>
     </message>
     <message>
         <location filename="keyBoard.cpp" line="273"/>
         <source>7</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {7?}</translation>
     </message>
     <message>
         <location filename="keyBoard.cpp" line="278"/>
         <source>8</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {8?}</translation>
     </message>
     <message>
         <location filename="keyBoard.cpp" line="283"/>
         <source>9</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {9?}</translation>
     </message>
     <message>
         <location filename="keyBoard.cpp" line="288"/>
         <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {0?}</translation>
     </message>
     <message>
         <location filename="keyBoard.cpp" line="292"/>
@@ -1662,61 +1666,61 @@ Please wait a moment...</source>
         <location filename="serial.ui" line="230"/>
         <location filename="serial.ui" line="314"/>
         <source>4800</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {4800?}</translation>
     </message>
     <message>
         <location filename="serial.ui" line="235"/>
         <location filename="serial.ui" line="319"/>
         <source>9600</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {9600?}</translation>
     </message>
     <message>
         <location filename="serial.ui" line="240"/>
         <location filename="serial.ui" line="324"/>
         <source>115200</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {115200?}</translation>
     </message>
     <message>
         <location filename="serial.ui" line="252"/>
         <location filename="serial.ui" line="336"/>
         <source>5</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {5?}</translation>
     </message>
     <message>
         <location filename="serial.ui" line="257"/>
         <location filename="serial.ui" line="341"/>
         <source>6</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {6?}</translation>
     </message>
     <message>
         <location filename="serial.ui" line="262"/>
         <location filename="serial.ui" line="346"/>
         <source>7</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {7?}</translation>
     </message>
     <message>
         <location filename="serial.ui" line="267"/>
         <location filename="serial.ui" line="351"/>
         <source>8</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {8?}</translation>
     </message>
     <message>
         <location filename="serial.ui" line="276"/>
         <location filename="serial.ui" line="360"/>
         <source>1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {1?}</translation>
     </message>
     <message>
         <location filename="serial.ui" line="281"/>
         <location filename="serial.ui" line="365"/>
         <source>1.5</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {1.5?}</translation>
     </message>
     <message>
         <location filename="serial.ui" line="286"/>
         <location filename="serial.ui" line="370"/>
         <source>2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4G {2?}</translation>
     </message>
     <message>
         <location filename="serial.ui" line="295"/>
@@ -2225,6 +2229,12 @@ The New SIM card is:
     <message>
         <location filename="user_manual.ui" line="84"/>
         <location filename="user_manual.cpp" line="42"/>
+        <source>wifi status</source>
+        <translation type="unfinished">wifi状态</translation>
+    </message>
+    <message>
+        <location filename="user_manual.ui" line="89"/>
+        <location filename="user_manual.cpp" line="46"/>
         <source>wifi connect</source>
         <translation type="unfinished">连接Wifi</translation>
     </message>
@@ -2233,10 +2243,8 @@ The New SIM card is:
         <translation type="obsolete">断开连接</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="94"/>
-        <location filename="user_manual.cpp" line="46"/>
         <source>hot spot</source>
-        <translation type="unfinished">热点</translation>
+        <translation type="obsolete">热点</translation>
     </message>
     <message>
         <source>signal quality</source>
@@ -2247,33 +2255,30 @@ The New SIM card is:
         <translation type="obsolete">连接状态</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="105"/>
+        <location filename="user_manual.ui" line="110"/>
         <source>Bluetooth</source>
         <translation type="unfinished">蓝牙</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="114"/>
         <source>BT scan</source>
-        <translation type="unfinished">扫描蓝牙</translation>
+        <translation type="obsolete">扫描蓝牙</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="124"/>
         <source>BT pair</source>
-        <translation type="unfinished">蓝牙配对</translation>
+        <translation type="obsolete">蓝牙配对</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="134"/>
         <source>BT connect</source>
-        <translation type="unfinished">蓝牙连接</translation>
+        <translation type="obsolete">蓝牙连接</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="145"/>
+        <location filename="user_manual.ui" line="150"/>
         <source>Ethernet</source>
         <translation type="unfinished">以太网</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="154"/>
-        <location filename="user_manual.cpp" line="50"/>
+        <location filename="user_manual.ui" line="159"/>
+        <location filename="user_manual.cpp" line="66"/>
         <source>show all ip connect</source>
         <oldsource>show all ip address</oldsource>
         <translation type="unfinished">显示所有ip地址</translation>
@@ -2283,8 +2288,8 @@ The New SIM card is:
         <translation type="obsolete">显示所有连接</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="164"/>
-        <location filename="user_manual.cpp" line="55"/>
+        <location filename="user_manual.ui" line="169"/>
+        <location filename="user_manual.cpp" line="71"/>
         <source>set dynamic ip </source>
         <translation>设置动态ip</translation>
     </message>
@@ -2301,21 +2306,21 @@ The New SIM card is:
         <translation type="obsolete">删除静态ip</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="174"/>
-        <location filename="user_manual.cpp" line="59"/>
+        <location filename="user_manual.ui" line="179"/>
+        <location filename="user_manual.cpp" line="75"/>
         <source>set static ip</source>
         <translation type="unfinished">设置静态ip</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="184"/>
-        <location filename="user_manual.cpp" line="63"/>
+        <location filename="user_manual.ui" line="189"/>
+        <location filename="user_manual.cpp" line="79"/>
         <source>network speed test</source>
         <oldsource>speed test</oldsource>
         <translation type="unfinished">网速测试</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="195"/>
-        <location filename="user_manual.cpp" line="67"/>
+        <location filename="user_manual.ui" line="200"/>
+        <location filename="user_manual.cpp" line="83"/>
         <source>RTC</source>
         <translation type="unfinished">RTC</translation>
     </message>
@@ -2328,76 +2333,101 @@ The New SIM card is:
         <translation type="obsolete">RTC设置</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="205"/>
+        <location filename="user_manual.ui" line="99"/>
+        <location filename="user_manual.cpp" line="50"/>
+        <source>hotspot connect</source>
+        <translation type="unfinished">连接热点</translation>
+    </message>
+    <message>
+        <location filename="user_manual.ui" line="119"/>
+        <location filename="user_manual.cpp" line="54"/>
+        <source>bluetooth scan</source>
+        <translation type="unfinished">蓝牙扫描</translation>
+    </message>
+    <message>
+        <location filename="user_manual.ui" line="129"/>
+        <location filename="user_manual.cpp" line="58"/>
+        <source>bluetooth pair</source>
+        <translation type="unfinished">蓝牙配对</translation>
+    </message>
+    <message>
+        <location filename="user_manual.ui" line="139"/>
+        <location filename="user_manual.cpp" line="62"/>
+        <source>bluetooth connect</source>
+        <translation type="unfinished">蓝牙连接</translation>
+    </message>
+    <message>
+        <location filename="user_manual.ui" line="210"/>
         <source>Brightness adjustment</source>
         <translation type="unfinished">亮度调节</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="214"/>
-        <location filename="user_manual.cpp" line="71"/>
+        <location filename="user_manual.ui" line="219"/>
+        <location filename="user_manual.cpp" line="87"/>
         <source>brightness</source>
         <translation type="unfinished">亮度</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="224"/>
-        <location filename="user_manual.cpp" line="75"/>
+        <location filename="user_manual.ui" line="229"/>
+        <location filename="user_manual.cpp" line="91"/>
         <source>Sleep time</source>
         <translation type="unfinished">休眠时间</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="235"/>
+        <location filename="user_manual.ui" line="240"/>
         <source>GPIO</source>
         <translation type="unfinished">GPIO</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="244"/>
-        <location filename="user_manual.cpp" line="79"/>
+        <location filename="user_manual.ui" line="249"/>
+        <location filename="user_manual.cpp" line="95"/>
         <source>scan occupied gpio</source>
         <translation type="unfinished">扫描被占用的GPIO口</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="254"/>
-        <location filename="user_manual.cpp" line="83"/>
+        <location filename="user_manual.ui" line="259"/>
+        <location filename="user_manual.cpp" line="99"/>
         <source>batch operation</source>
         <translation type="unfinished">批量操作</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="265"/>
+        <location filename="user_manual.ui" line="270"/>
+        <location filename="user_manual.cpp" line="105"/>
         <source>Serial Port</source>
         <translation type="unfinished">串口</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="275"/>
+        <location filename="user_manual.ui" line="280"/>
         <source>Voice Frequency</source>
         <translation type="unfinished">音频</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="284"/>
-        <location filename="user_manual.cpp" line="89"/>
+        <location filename="user_manual.ui" line="289"/>
+        <location filename="user_manual.cpp" line="109"/>
         <source>choose file</source>
         <oldsource>choose</oldsource>
         <translation type="unfinished">选择文件</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="294"/>
-        <location filename="user_manual.cpp" line="93"/>
+        <location filename="user_manual.ui" line="299"/>
+        <location filename="user_manual.cpp" line="113"/>
         <source>begin</source>
         <translation type="unfinished">开始</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="304"/>
-        <location filename="user_manual.cpp" line="97"/>
+        <location filename="user_manual.ui" line="309"/>
+        <location filename="user_manual.cpp" line="117"/>
         <source>play</source>
         <translation type="unfinished">播放</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="315"/>
-        <location filename="user_manual.cpp" line="101"/>
+        <location filename="user_manual.ui" line="320"/>
+        <location filename="user_manual.cpp" line="121"/>
         <source>Touch Display</source>
         <translation type="unfinished">触摸显示</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="325"/>
+        <location filename="user_manual.ui" line="330"/>
         <source>Udev</source>
         <translation type="unfinished">Udev</translation>
     </message>
@@ -2406,37 +2436,36 @@ The New SIM card is:
         <translation type="obsolete">Udev检测</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="334"/>
-        <location filename="user_manual.cpp" line="105"/>
+        <location filename="user_manual.ui" line="339"/>
+        <location filename="user_manual.cpp" line="125"/>
         <source>udev</source>
         <oldsource>USB</oldsource>
         <translation type="unfinished">USB</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="109"/>
+        <location filename="user_manual.cpp" line="129"/>
         <source>SD</source>
         <translation type="unfinished">SD</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="113"/>
+        <location filename="user_manual.cpp" line="133"/>
         <source>SIM</source>
         <translation type="unfinished">SIM</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="345"/>
+        <location filename="user_manual.ui" line="350"/>
+        <location filename="user_manual.cpp" line="137"/>
         <source>All Interface Test</source>
         <translation type="unfinished">所有接口测试</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="354"/>
-        <location filename="user_manual.cpp" line="117"/>
         <source>test</source>
-        <translation type="unfinished">测试</translation>
+        <translation type="obsolete">测试</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="431"/>
-        <location filename="user_manual.cpp" line="28"/>
-        <location filename="user_manual.cpp" line="146"/>
+        <location filename="user_manual.ui" line="406"/>
+        <location filename="user_manual.cpp" line="27"/>
+        <location filename="user_manual.cpp" line="158"/>
         <source>expand all</source>
         <translation type="unfinished">展开全部</translation>
     </message>
@@ -2445,20 +2474,16 @@ The New SIM card is:
         <translation type="obsolete">清屏</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="364"/>
-        <location filename="user_manual.cpp" line="121"/>
         <source>photo</source>
-        <translation type="unfinished">照相</translation>
+        <translation type="obsolete">照相</translation>
     </message>
     <message>
         <source>show</source>
         <translation type="obsolete">显示</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="375"/>
-        <location filename="user_manual.cpp" line="125"/>
         <source>Key Test</source>
-        <translation type="unfinished">按键测试</translation>
+        <translation type="obsolete">按键测试</translation>
     </message>
     <message>
         <source>start</source>
@@ -2469,8 +2494,8 @@ The New SIM card is:
         <translation type="obsolete">停止</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="385"/>
-        <location filename="user_manual.cpp" line="129"/>
+        <location filename="user_manual.ui" line="360"/>
+        <location filename="user_manual.cpp" line="141"/>
         <source>Chinese/English</source>
         <translation type="unfinished">中/英</translation>
     </message>
@@ -2480,27 +2505,26 @@ The New SIM card is:
     </message>
     <message>
         <location filename="user_manual.cpp" line="44"/>
-        <source>You can use the &lt; WiFi connection &gt; key to scan the surrounding WiFi signals and enter the password to connect. Or use and you can use the &lt; signal quality &gt; and &lt; connection status &gt; keys to view the signal strength and WiFi connection of the currently connected WiFi.</source>
-        <oldsource>You can use the &lt;WiFi connection&gt; button to scan the surrounding WiFi signals and enter the password to connect. Or use and you can use the key to view the signal strength and connection quality of the currently connected WiFi.</oldsource>
-        <translation type="unfinished">你可以使用&lt;wifi连接&gt;按键扫描出周围wifi信号，并输入密码连接。或者使用并且可以使用&lt;信号质量&gt;和&lt;连接状态&gt;按键查看当前连接wifi的信号强度以及wifi连接情况。</translation>
+        <source>You can use the &lt; wifi status &gt; button to view the current connection status, and on this page you can choose to modify the password or remove the connection.</source>
+        <oldsource>You can use the &lt; WiFi connection &gt; key to scan the surrounding WiFi signals and enter the password to connect. Or use and you can use the &lt; signal quality &gt; and &lt; connection status &gt; keys to view the signal strength and WiFi connection of the currently connected WiFi.</oldsource>
+        <translation type="unfinished">您可以使用&lt;WiFi状态&gt;按钮查看当前连接状态，并且在该页面可以选择修改密码或移除该连接。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="48"/>
         <source>You can use the &lt; hotspot &gt; button to turn on or off the hotspot of the board.</source>
-        <translation type="unfinished">你可以&lt;热点&gt;按钮将板子的热点开启或关闭。</translation>
+        <translation type="obsolete">你可以&lt;热点&gt;按钮将板子的热点开启或关闭。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="52"/>
+        <location filename="user_manual.cpp" line="68"/>
         <source>You can use &lt; show all IP addresses &gt; to view the IP addresses of all network configurations, which is equivalent to &apos;ifconfig&apos;. You can use &lt; show all connections &gt; to view all current network connections.</source>
         <translation type="unfinished">你可以使用&lt;显示所有ip地址&gt;按钮来查看所有网络设备的ip地址，等同于&apos;ifconfig&apos;。你可以使用&lt;显示所有连接&gt;来查看所有网络连接。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="57"/>
+        <location filename="user_manual.cpp" line="73"/>
         <source>Click the &lt; set dynamic IP &gt; button, enter the network device you want to set as dynamic IP, and the setting result will be displayed in the prompt box.</source>
         <translation type="unfinished">点击&lt;设置动态ip&gt;按钮，输入你想要设置成动态ip的网络设备，设置结果会显示在提示框内。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="61"/>
+        <location filename="user_manual.cpp" line="77"/>
         <source>You can add, delete and modify static connections, and you can view the connections you just added through the &lt; show all connections &gt; button.</source>
         <translation type="unfinished">你可以对静态连接进行增删改等操作，并且可以通过&lt;显示所有连接&gt;按钮查看你刚添加的连接。</translation>
     </message>
@@ -2510,7 +2534,7 @@ The New SIM card is:
         <translation type="obsolete">你可以通过&lt;网速测试&gt;实时查看网速。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="73"/>
+        <location filename="user_manual.cpp" line="89"/>
         <source>You can adjust the brightness of the screen through the slider.</source>
         <oldsource>You can adjust the brightness through the slider.</oldsource>
         <translation type="unfinished">你可以通过滑块来调节屏幕的亮度。</translation>
@@ -2520,28 +2544,57 @@ The New SIM card is:
         <translation type="obsolete">你可以自己调节休眠时间。但是需要注意的是，只有在你第一次设置完休眠时间后，才会自动息屏。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="65"/>
+        <location filename="user_manual.cpp" line="81"/>
         <source>You can check the network speed in real time through &lt; network speed test &gt;.However,if you select other buttons or prompt boxes, the network speed test will stop.</source>
         <oldsource>You can check the network speed in real time through &lt; network speed test &gt;.And,if you select other buttons or prompt boxes, the network speed test will stop.</oldsource>
         <translation type="unfinished">你可以通过&lt;网速测试&gt;实时查看网速。但是，如果你选中了其他按钮或是提示框，网速测试将会停止。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="69"/>
         <source>You can use the &lt; systimesetbt &gt; button to set the system time, or you can use &lt; rtcsetbt &gt; to set the hardware time.</source>
-        <translation type="unfinished">你可以使用&lt;系统时间设置&gt;按钮设置系统时间，也可以使用&lt;RTC设置&gt;按钮设置硬件时间。</translation>
+        <translation type="obsolete">你可以使用&lt;系统时间设置&gt;按钮设置系统时间，也可以使用&lt;RTC设置&gt;按钮设置硬件时间。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="77"/>
+        <location filename="user_manual.cpp" line="48"/>
+        <source>When you click the &lt; wifi connect &gt; button, a list of connectable WiFi will appear. Click the WiFi you want to connect, and a connection dialog box will pop up for those who have not been connected before. For those who have been connected before, the connection will be activated and jump to the WiFi status interface. Switch to control the WiFi on and off, and click the &lt; refresh &gt; button to update the WiFi list.</source>
+        <translation type="unfinished">当您点击&lt;wifi连接&gt;按钮时，会出现可连接wifi列表，点击想要连接的wifi，之前未连接的会弹出连接对话框，之前已经连接过的则会激活该连接，并跳到wifi状态界面。开关控制wifi通断，点击&lt;刷新&gt;按钮更新wifi列表。</translation>
+    </message>
+    <message>
+        <location filename="user_manual.cpp" line="52"/>
+        <source>When you click the &lt; hotspot connect &gt; button, you can choose to establish a hotspot connection or disconnect.</source>
+        <translation type="unfinished">当您点击&lt;热点连接&gt;按钮时，可选择建立热点连接或断开连接。</translation>
+    </message>
+    <message>
+        <location filename="user_manual.cpp" line="56"/>
+        <source>When you click the &lt; Bluetooth scan &gt; button, scan the surrounding Bluetooth devices.</source>
+        <translation type="unfinished">当您点击&lt;蓝牙扫描&gt;按钮时，扫描周围的蓝牙设备。</translation>
+    </message>
+    <message>
+        <location filename="user_manual.cpp" line="60"/>
+        <source>When you select a Bluetooth, click the &lt; Bluetooth pair &gt; button to pair.</source>
+        <translation type="unfinished">当您选中某个蓝牙时，点击&lt;蓝牙配对&gt;按钮进行配对。</translation>
+    </message>
+    <message>
+        <location filename="user_manual.cpp" line="64"/>
+        <source>When you select a Bluetooth, click the &lt; Bluetooth connect &gt; button to connect.</source>
+        <translation type="unfinished">当您选中某个蓝牙时，点击&lt;蓝牙连接&gt;按钮进行连接。</translation>
+    </message>
+    <message>
+        <location filename="user_manual.cpp" line="85"/>
+        <source>You can use the &lt; systimeSet &gt; button to set the system time, or you can use the &lt; RTC write &gt; button to synchronize to the hardware time.</source>
+        <translation type="unfinished">你可以使用&lt;系统时间设置&gt;按钮设置系统时间，也可以使用&lt;写入RTC&gt;按钮将系统时间同步到硬件时间。</translation>
+    </message>
+    <message>
+        <location filename="user_manual.cpp" line="93"/>
         <source>You can adjust the sleep time yourself.</source>
         <translation type="unfinished">你可以自己调节休眠时间。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="81"/>
+        <location filename="user_manual.cpp" line="97"/>
         <source>You can view the currently occupied GPIO port by pressing the &lt; scan &gt; button.</source>
         <translation type="unfinished">你可以通过&lt;扫描&gt;按键查看当前被占用的GPIO口。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="85"/>
+        <location filename="user_manual.cpp" line="101"/>
         <source>You can configure the input / output of GPIO port and pull it up / down when it is set to output mode.
  You can also operate on multiple GPIO ports, but each two GPIO ports should be separated by &apos;,&apos;. 
  Note: there should be no space between each GPIO air, otherwise this operation will fail.</source>
@@ -2552,61 +2605,68 @@ The New SIM card is:
 注意：每个gpio空中间不要出现空格，否则会致使此次操作失败。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="91"/>
+        <location filename="user_manual.cpp" line="107"/>
+        <source>First, make sure that the hardware connection corresponds, then set the serial port properties, and click the &lt; open / close &gt; button to open / close the serial port. Enter the content you want to send in the input box, click the &lt; send &gt; button to send, and the receiver will receive the information.</source>
+        <translation type="unfinished">首先确保硬件连接相对应，然后设置串口属性，点击&lt;打开/关闭&gt;按钮打开/关闭串口。在输入框输入想发送的内容，点击&lt;发送&gt;按钮发送，接收方则会收到信息。</translation>
+    </message>
+    <message>
+        <location filename="user_manual.cpp" line="111"/>
         <source>Note: the newly created folder should not contain spaces, otherwise the new recording file cannot be saved.</source>
         <translation type="unfinished">注意：新建的文件夹不要带空格，不然新的录音文件保存不了。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="95"/>
+        <location filename="user_manual.cpp" line="115"/>
         <source>You can press the &lt; start &gt; key to record. The next time you press this key, end the recording and save it in &apos;/ data&apos; or the file directory you choose.</source>
         <translation type="unfinished">你可以按&lt;开始&gt;键进行录音，在下一次按下这个键的时候结束录音，并将其保存在‘/data’里或者你所选择的文件目录里。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="99"/>
+        <location filename="user_manual.cpp" line="119"/>
         <source>You can adjust the volume when playing the recording.</source>
         <translation type="unfinished">你可以在播放录音的时候自行调节音量。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="103"/>
+        <location filename="user_manual.cpp" line="123"/>
         <source>This function will recognize the touch screen and display the movement track on the screen.</source>
         <translation type="unfinished">这个功能会识别到触摸屏幕，并将移动轨迹显示在屏幕上。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="107"/>
+        <location filename="user_manual.cpp" line="127"/>
         <source>You can operate files from external storage devices.</source>
         <translation type="unfinished">你可以通过外部存储设备进行文件操作。</translation>
+    </message>
+    <message>
+        <location filename="user_manual.cpp" line="139"/>
+        <source>First, check the item to be tested. For USB test, select the number of external USB (0 by default), select the serial port number (none of the serial ports are selected by default), and then click the &lt; begin &gt; button to start the test. The results are displayed on the right.</source>
+        <translation type="unfinished">首先，勾选待测试项目，USB测试需选择外部添加usb数量（默认为0），串口测试需选择串口号（默认串口都不选），然后点击&lt;开始&gt;按钮开始测试，结果显示在右侧。</translation>
     </message>
     <message>
         <source>You can use this function to detect whether a device is inserted into the USB port.</source>
         <translation type="obsolete">你可以使用此功能检测USB口是否有设备插入。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="111"/>
+        <location filename="user_manual.cpp" line="131"/>
         <source>You can test whether there is SD insertion through this function.</source>
         <translation type="unfinished">你可以通过此功能测试有无SD插入。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="115"/>
+        <location filename="user_manual.cpp" line="135"/>
         <source>This function should not be clicked too often. After the previous test is displayed, it will be tested according to your needs. Pay special attention to check whether the SIM card is inserted if a prompt box appears when detecting the SIM card. If it is not inserted, please do not continue to click. Because the current operation will be delayed, it will have a bad sense of experience. During the waiting process, it is necessary to pay attention to the change of 4G LED lamp. When the card is detected or pulled out, the LED lamp will flash - after detecting the flash of card insertion, it will enter the normally on state and pause for 500ms; When it is detected that the card is pulled out, after the flash, enter the pause (on for 500ms).</source>
         <translation type="unfinished">此项功能点击不要太过于频繁，当上一项检测情况展示后，再根据您的需求检测。特别注意检测SIM卡的时候，如果出现提示框，先检查SIM卡是否插入，如果没有插入，请不要继续点击，由于当前操作会有些延迟，对体验感会有不良。在等待途中，需要注意4g LED灯的变化，检测到卡或者从有到拔出的状态时，LED灯会快闪——检测到卡插入快闪后，进入常亮接停顿500ms；检测到卡拔出时，快闪后，进入停顿接亮500ms）。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="119"/>
         <source>Press the &lt; test &gt; button to test all interfaces, the test results will be displayed in the prompt box, and the photos taken by the camera will be displayed in the lower left corner.</source>
-        <translation type="unfinished">按下&lt;测试&gt;按钮，可以将所有接口检测一遍，测试结果将显示在提示框内，摄像头所拍到的照片将显示在左下角。</translation>
+        <translation type="obsolete">按下&lt;测试&gt;按钮，可以将所有接口检测一遍，测试结果将显示在提示框内，摄像头所拍到的照片将显示在左下角。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="123"/>
         <source>You can press the &lt; photo &gt; button to take a picture again, but you need to press the &lt; display &gt; button to take a good picture before it can be loaded again.</source>
-        <translation type="unfinished">你可以按下&lt;photo&gt;按钮再一次拍照，但是需要按下&lt;显示&gt;按钮拍好的照片才会重新加载出来。</translation>
+        <translation type="obsolete">你可以按下&lt;photo&gt;按钮再一次拍照，但是需要按下&lt;显示&gt;按钮拍好的照片才会重新加载出来。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="127"/>
         <source>You can use this function to test the buttons on the board. After pressing the &lt; start &gt; button, when you press the button on the board, a prompt will be displayed in the prompt box, and then press the &lt; stop &gt; button to end the test</source>
-        <translation>您可以使用此功能测试电路板上的按钮。按下&lt;start&gt;按钮后，当您按下电路板上的按钮时，提示框中将显示提示，然后按下&lt;stop&gt;按钮结束测试。</translation>
+        <translation type="obsolete">您可以使用此功能测试电路板上的按钮。按下&lt;start&gt;按钮后，当您按下电路板上的按钮时，提示框中将显示提示，然后按下&lt;stop&gt;按钮结束测试。</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="141"/>
+        <location filename="user_manual.cpp" line="153"/>
         <source>collapse all</source>
         <translation type="unfinished">折叠全部</translation>
     </message>
@@ -2615,7 +2675,7 @@ The New SIM card is:
         <translation type="obsolete">中/英</translation>
     </message>
     <message>
-        <location filename="user_manual.cpp" line="131"/>
+        <location filename="user_manual.cpp" line="143"/>
         <source>Support Chinese / English switching.</source>
         <translation type="unfinished">支持中/英切换。</translation>
     </message>
@@ -2870,7 +2930,7 @@ The New SIM card is:
         <translation type="obsolete">请开启wifi！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="361"/>
+        <location filename="wifi.cpp" line="362"/>
         <source>QMessageBox::question()</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2879,7 +2939,7 @@ The New SIM card is:
         <translation type="obsolete">确实要移除此连接吗？</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="361"/>
+        <location filename="wifi.cpp" line="362"/>
         <source>Are you sure you want to delete it?</source>
         <translation type="unfinished">确实要删除此连接吗？</translation>
     </message>
@@ -2888,32 +2948,32 @@ The New SIM card is:
         <translation type="obsolete">删除成功！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="383"/>
+        <location filename="wifi.cpp" line="384"/>
         <source>remove failed!</source>
         <translation type="unfinished">删除失败！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="395"/>
+        <location filename="wifi.cpp" line="396"/>
         <source>Input cannot be empty!</source>
         <translation type="unfinished">输入不能为空！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="401"/>
+        <location filename="wifi.cpp" line="402"/>
         <source>The number of password digits must be greater than 8</source>
         <translation type="unfinished">密码位数须大于8！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="421"/>
+        <location filename="wifi.cpp" line="422"/>
         <source>Hotspot not connected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="428"/>
+        <location filename="wifi.cpp" line="429"/>
         <source>successfully deactivated!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="432"/>
+        <location filename="wifi.cpp" line="433"/>
         <source>deactivated failed!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2929,12 +2989,12 @@ The New SIM card is:
 <context>
     <name>wifi_bt_interface</name>
     <message>
-        <location filename="wifi_bt_interface.cpp" line="358"/>
+        <location filename="wifi_bt_interface.cpp" line="359"/>
         <source>successfully deactivated.!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="wifi_bt_interface.cpp" line="364"/>
+        <location filename="wifi_bt_interface.cpp" line="365"/>
         <source>deactivated failed!</source>
         <translation type="unfinished"></translation>
     </message>
