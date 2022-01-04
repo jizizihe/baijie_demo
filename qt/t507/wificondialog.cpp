@@ -119,13 +119,6 @@ void WifiConDialog::SetWifiOkBtnText(QString WifiOkBtnText)
 }
 
 
-void WifiConDialog::language_reload()
-{
-    ui->retranslateUi(this);
-
-}
-
-
 bool WifiConDialog::event(QEvent *event)
 {
     /*
@@ -146,5 +139,12 @@ bool WifiConDialog::event(QEvent *event)
     }
     */
     return QWidget::event(event);
+
+}
+
+
+void WifiConDialog::language_reload()
+{
+    ui->retranslateUi(this);
 
 }

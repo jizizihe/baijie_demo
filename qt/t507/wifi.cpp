@@ -235,7 +235,8 @@ void wifi::on_ReturnBtn_clicked()
 
 void wifi::WifiStatus_show()
 {
-    QString strCmd = QString("iw dev wlan0 link | grep SSID |awk '{print $2}'");
+//    QString strCmd = QString("iw dev wlan0 link | grep SSID |awk '{print $2}'");
+    QString strCmd = QString("iw dev wlan0 link | grep SSID |awk '{for(i=2;i<=NF;i++){printf \"%s \", $i}; printf \"\\n\"}'");
     QString wifi_name = wifi_bt_t->executeLinuxCmd(strCmd);
     qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__<< "wifi_name" << wifi_name;
 
@@ -250,7 +251,7 @@ void wifi::WifiStatus_show()
     }
     else
     {
-        wifi_info_fresh(wifi_name.remove("\n"));
+        wifi_info_fresh(wifi_name.remove(" \n"));
     }
     ui->stackedWidget->setCurrentIndex(3);
 }

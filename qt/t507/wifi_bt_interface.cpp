@@ -180,18 +180,19 @@ bool wifi_bt_interface::wifi_connect_exist(QString WifiSsid)
     //qDebug() << "--line--: " << __LINE__<< strResult;
 
     strCmd = QString("nmcli connection show | grep '%1' | awk '{print $1}'").arg(WifiSsid);
+    qDebug() << "--line--: " << __LINE__<< strCmd;
     strResult = executeLinuxCmd(strCmd);
-    //qDebug() << "--line--: " << __LINE__<< strResult;
+    qDebug() << "--line--: " << __LINE__<< strResult;
 
     QString find_str = QString("%1\n").arg(WifiSsid);
-    //qDebug() << "--line--: " << __LINE__<<"find_str = " << find_str;
+    qDebug() << "--line--: " << __LINE__<<"find_str = " << find_str;
     bool checktResult=strResult.contains(find_str,Qt::CaseInsensitive);
-    //qDebug() << "--line--: " << __LINE__<< checktResult;
+    qDebug() << "--line--: " << __LINE__<< checktResult;
 
     if(checktResult == 1)
     {
         strResult = "it had connected!";
-        //qDebug() << "--line--: " << __LINE__<< strResult;
+        qDebug() << "--line--: " << __LINE__<< strResult;
 
         return true;
     }
