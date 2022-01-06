@@ -1,6 +1,5 @@
 #include "all_test_thread.h"
 
-
 all_test_thread::all_test_thread(QObject *parent) : QObject(parent)
 {
     stopFlag = false;
@@ -9,16 +8,19 @@ all_test_thread::all_test_thread(QObject *parent) : QObject(parent)
     connect(serialTimer, SIGNAL(timeout()), this, SLOT(serialTimer_func()));
 }
 
-
 all_test_thread::~all_test_thread()
 {
-    qDebug() << __LINE__ << "------------1111-------------"<<endl;
+    if(serialTimer->isActive() == true)
+    {
+        serialTimer->stop();
+    }
+    qDebug() << __LINE__ << "------------ Thread destructor -------------"<<endl;
 }
 
 void all_test_thread::network_test_thread()
 {
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
 
     QString retResult = ping_gateway();
     emit send_test_msg(network_signal,retResult);
@@ -26,8 +28,8 @@ void all_test_thread::network_test_thread()
 
 void all_test_thread::usb_test_thread(int num)
 {
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
 
     QString retResult = usb_test(num);
     emit send_test_msg(usb_signal,retResult);
@@ -35,18 +37,18 @@ void all_test_thread::usb_test_thread(int num)
 
 void all_test_thread::rtc_test_thread()
 {
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
 
     QString retResult;
     QString time,time1,time2;
     time = rtc_test();
     time1 = time.mid(20,6);
-    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---FUNC---:" << __FUNCTION__ << "time" << time << time1;
+//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---FUNC---:" << __FUNCTION__ << "time" << time << time1;
 
     time = rtc_test();
     time2 = time.mid(20,6);
-    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---FUNC---:" << __FUNCTION__ << "time" << time << time2;
+//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---FUNC---:" << __FUNCTION__ << "time" << time << time2;
 
     if(time1 == time2)
     {
@@ -58,28 +60,27 @@ void all_test_thread::rtc_test_thread()
     }
 
     emit send_test_msg(rtc_signal,retResult);
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
 }
 
 void all_test_thread::sdcard_test_thread()
 {
     QString retResult = get_new_sd();
-
     emit send_test_msg(sd_card_signal,retResult);
 }
 
 void all_test_thread::camera_test_thread()
 {
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
     camera_test();
     emit send_test_msg(camera_signal,NULL);
 }
 
 void all_test_thread::battary_test_thread()
 {
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
 //    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---FUNC---:" << __FUNCTION__;
     QString retResult = battary_test();
 
@@ -88,16 +89,16 @@ void all_test_thread::battary_test_thread()
 
 void all_test_thread::sim_test_thread()
 {
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
     QString retResult = sim_test();
     emit send_test_msg(sim_signal,retResult);
 }
 
 void all_test_thread::audio_test_thread()
 {
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
 
     QString retResult = audio_test();
     emit send_test_msg(audio_signal,retResult);
@@ -111,8 +112,8 @@ void all_test_thread::wifi_test_thread()
 
 void all_test_thread::bluetooth_test_thread()
 {
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
 
     QString retResult = bluetooth_test();
     emit send_test_msg(bluetooth_signal,retResult);
@@ -155,7 +156,7 @@ int set_prop(int fd)
 
 void all_test_thread::serial_test_thread_client(serial_config serialTest)
 {
-    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
+//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
     char	*port;
 
     serialConfigPtr = &serialTest;
@@ -164,13 +165,9 @@ void all_test_thread::serial_test_thread_client(serial_config serialTest)
 //    char    *checkStr = (char *)malloc(sizeof(checkName));
 
     mode = serialConfigPtr->mode;
-    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "mode:" << serialConfigPtr->mode;
-    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "id:" << checkId;
-    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "name:" << checkName;
-
-    QString retResult = QString("----%1 start test-----").arg(checkName);
-//    emit send_test_msg(serial_signal,retResult);
-    emit serial_test_msg(retResult);
+//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "mode:" << serialConfigPtr->mode;
+//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "id:" << checkId;
+//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "name:" << checkName;
 
     QString port_name = QString("/dev/%1").arg(checkName);
 //    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "port_name" << port_name;
@@ -202,7 +199,7 @@ void all_test_thread::serialTimer_func()
     memcpy(checkStr,checkStr_p,16);
 
     recvStr = checkStr;
-    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "recvStr:" << recvStr;
+//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "recvStr:" << recvStr;
     if(stopFlag == true)
         return;
 
@@ -236,8 +233,8 @@ void all_test_thread::serialTimer_func()
             {
                 qDebug() << "Line:" << __LINE__<< "-------ok:";
                 retResult = QString("---serial test: %1 OK").arg(checkName);
-//                emit send_test_msg(serial_signal,retResult);
-                emit serial_test_msg(retResult);
+                emit send_test_msg(serial_signal,retResult);
+//                emit serial_test_msg(retResult);
                 serialTimer->stop();
 
                 close(fd);

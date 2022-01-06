@@ -161,9 +161,8 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="all_test_interface.cpp" line="71"/>
         <source>USB Failed</source>
-        <translation type="unfinished">USB检测失败</translation>
+        <translation type="obsolete">USB检测失败</translation>
     </message>
     <message>
         <source>SD Failed</source>
@@ -549,16 +548,17 @@
     </message>
     <message>
         <location filename="all_test.ui" line="134"/>
-        <location filename="all_test.cpp" line="336"/>
-        <location filename="all_test.cpp" line="354"/>
+        <location filename="all_test.cpp" line="237"/>
+        <location filename="all_test.cpp" line="253"/>
         <source>check all</source>
         <translation>全选</translation>
     </message>
     <message>
         <location filename="all_test.ui" line="150"/>
-        <location filename="all_test.cpp" line="204"/>
-        <location filename="all_test.cpp" line="279"/>
-        <location filename="all_test.cpp" line="561"/>
+        <location filename="all_test.cpp" line="73"/>
+        <location filename="all_test.cpp" line="199"/>
+        <location filename="all_test.cpp" line="327"/>
+        <location filename="all_test.cpp" line="484"/>
         <source>begin</source>
         <translation>开始</translation>
     </message>
@@ -628,94 +628,103 @@
         <translation type="unfinished">蓝牙</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="162"/>
+        <location filename="all_test.cpp" line="474"/>
         <source>serial test end</source>
         <translation type="unfinished">串口测试结束</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="208"/>
-        <location filename="all_test.cpp" line="314"/>
+        <location filename="all_test.cpp" line="107"/>
+        <location filename="all_test.cpp" line="215"/>
         <source>stop</source>
         <translation type="unfinished">停止</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="234"/>
+        <location filename="all_test.cpp" line="85"/>
+        <source>Please select a test item first</source>
+        <translation type="unfinished">请先选择测试项目</translation>
+    </message>
+    <message>
+        <location filename="all_test.cpp" line="110"/>
         <source>***********test start***********</source>
         <translation type="unfinished">***********测试开始***********</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="262"/>
+        <location filename="all_test.cpp" line="164"/>
         <source>---please press the key to test!</source>
         <translation type="unfinished">---请点击按键进行测试！</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="317"/>
+        <location filename="all_test.cpp" line="218"/>
         <source>-  key pressed!</source>
         <translation type="unfinished">按键已按压！</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="344"/>
-        <location filename="all_test.cpp" line="346"/>
+        <location filename="all_test.cpp" line="244"/>
+        <location filename="all_test.cpp" line="246"/>
         <source>check none</source>
         <translation>全不选</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="401"/>
+        <location filename="all_test.cpp" line="272"/>
         <source>Item selection dialog box</source>
         <translation>项目选择对话框</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="402"/>
         <source>Please select the number to add</source>
-        <translation>请选择要添加的数量</translation>
+        <translation type="obsolete">请选择要添加的数量</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="578"/>
+        <location filename="all_test.cpp" line="273"/>
+        <source>Select the number to add</source>
+        <translation type="unfinished">请选择添加个数</translation>
+    </message>
+    <message>
+        <location filename="all_test.cpp" line="346"/>
         <source>---network test:</source>
         <translation type="unfinished">---网络测试：</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="585"/>
+        <location filename="all_test.cpp" line="352"/>
         <source>---usb test:    </source>
         <translation type="unfinished">---usb测试 ：</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="591"/>
+        <location filename="all_test.cpp" line="358"/>
         <source>---rtc test:    </source>
         <translation type="unfinished">---rtc测试 ：</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="598"/>
+        <location filename="all_test.cpp" line="365"/>
         <source>---sdcard test: </source>
         <translation type="unfinished">---SD卡测试：</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="623"/>
+        <location filename="all_test.cpp" line="383"/>
         <source>---camera test: Please check the picture display? %1s</source>
         <translation type="unfinished">---摄像头测试：请检查图片显示是否正常？</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="630"/>
+        <location filename="all_test.cpp" line="390"/>
         <source>---battary test:</source>
         <translation type="unfinished">---电池测试：</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="636"/>
+        <location filename="all_test.cpp" line="396"/>
         <source>---4G test:     </source>
         <translation type="unfinished">---4G测试  ：</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="643"/>
+        <location filename="all_test.cpp" line="402"/>
         <source>---audio test:  please sure sound play test yes or no? %1s</source>
         <translation type="unfinished">---录音与播放测试：请确认录音与声音播放是否正常?</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="651"/>
+        <location filename="all_test.cpp" line="409"/>
         <source>---wifi test:   </source>
         <translation type="unfinished">---wifi测试：</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="657"/>
+        <location filename="all_test.cpp" line="415"/>
         <source>---bluetooth test:</source>
         <translation type="unfinished">---蓝牙测试：</translation>
     </message>
@@ -1816,7 +1825,7 @@ Please wait a moment...</source>
     <message>
         <location filename="sim_module.ui" line="140"/>
         <source>4G status</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">连接详情</translation>
     </message>
     <message>
         <source>activation</source>

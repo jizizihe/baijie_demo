@@ -26,7 +26,6 @@ QString get_gateway()
         }
     }
     return NULL;
-
 }
 
 QString ping_gateway()
@@ -49,7 +48,7 @@ QString usb_test(int num)
 {
     QString strCmd = QString("lsusb| wc -l");
     QString strResult = executeLinuxCmd(strCmd);
-    qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
+//    qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
 
     strResult = strResult.remove("\n");
     int count = 4 + num;
@@ -65,56 +64,11 @@ QString usb_test(int num)
     return strResult;
 }
 
-QString get_new_usb()
-{
-    bool flag = false;
-    QString failed = QObject::tr("USB Failed");
-
-    QProcess *proc = new QProcess();
-    QString str = QString("lsusb | awk '{print $6}'");
-    proc->start("bash",QStringList() << "-c" << str);
-    proc->waitForFinished();
-    QString temp = proc->readAllStandardOutput();
-
-    QStringList usb_data = temp.split("\n");
-    usb_data.removeAll("");
-
-    for(int x = 0; x < usb_data.size(); x++)
-    {
-        temp = usb_data.at(x);
-        temp = temp.right(4);
-        if(temp == "0001" || temp == "0125" || temp == "0101" || temp == "0002" || temp == "772b")
-        {
-            continue;
-        }
-        else
-        {
-            flag = true;
-            break;
-        }
-    }
-    proc->close();
-    delete proc;
-    proc = 0;
-
-    if(flag)
-    {
-        qdebug("*****usb******true : %s",temp.data());
-        return temp;
-    }
-    else
-    {
-        qdebug("*****usb******flase: %s",failed.data());
-        return failed;
-    }
-
-}
-
 QString get_new_sd()
 {
     QString strCmd = QString("fdisk -l | grep /dev/mmcblk[1-9] | wc -l");
     QString strResult = executeLinuxCmd(strCmd);
-    qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
+//    qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
     if(strResult == QString("0\n"))
     {
         strResult = "failed";
@@ -241,7 +195,7 @@ QString sim_test()
         if(ConnectResult == 1)
         {
             strResult = "Connection successful!";
-            qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<< strResult;
+//            qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<< strResult;
             sleep(3);
             strCmd = QString("ifconfig | grep ppp0");
             strResult = executeLinuxCmd(strCmd);
@@ -274,8 +228,6 @@ QString sim_test()
 QString audio_test()
 {
     qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ ;
-//    QString strCmd = QString("aplay /usr/test.wav");
-//    QString strResult = executeLinuxCmd(strCmd);
 
     QString strCmd = QString("rm /data/audio.wav");
     QString strResult = executeLinuxCmd(strCmd);
@@ -320,7 +272,7 @@ QString bluetooth_test()
 
     strCmd = QString("hciconfig |grep hci0 | wc -l");
     strResult = executeLinuxCmd(strCmd);
-    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "ScanResult:" << strResult;
+//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "ScanResult:" << strResult;
 
     if(strResult == "0\n")
     {

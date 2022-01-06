@@ -28,7 +28,6 @@ enum test_signal_type
 };
 
 QString usb_test(int num);
-QString get_new_usb();
 QString get_new_sd();
 QString get_gateway();
 QString ping_gateway();

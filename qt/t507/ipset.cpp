@@ -38,13 +38,13 @@ ipset::~ipset()
     delete ui;
 }
 
-void ipset::on_retbtn_clicked()  //return main menu
+void ipset::on_retbtn_clicked()
 {
     emit Mysignal();
     ui->textEdit->setText("");
 }
 
-void ipset::on_delstaticip_clicked() //del static ip
+void ipset::on_delstaticip_clicked()
 {
     QString str = delstaticip();
 
@@ -58,8 +58,7 @@ void ipset::on_delstaticip_clicked() //del static ip
     }
 }
 
-
-void ipset::on_setstaticip_clicked() //set static ip
+void ipset::on_setstaticip_clicked()
 {
     popup.bnttype = (char *)"add ip";
     emit popup.addip();
@@ -68,7 +67,7 @@ void ipset::on_setstaticip_clicked() //set static ip
     ui->textEdit->setText("");
 }
 
-void ipset::on_modstaticip_clicked() //mod static ip
+void ipset::on_modstaticip_clicked()
 {
     if(is_staticip() == "")
     {
@@ -84,14 +83,13 @@ void ipset::on_modstaticip_clicked() //mod static ip
     }
 }
 
-
-void ipset::on_ipshowbtn_clicked()  //ifconfig
+void ipset::on_ipshowbtn_clicked()
 {
     QCoreApplication::processEvents();
     ui->textEdit->setText(getifconfig());
 }
 
-void ipset::on_networkupbtn_clicked()  //pull up network
+void ipset::on_networkupbtn_clicked()
 {
     QCoreApplication::processEvents();
     if(GetCurrentIp("eth0") != "")
@@ -103,7 +101,6 @@ void ipset::on_networkupbtn_clicked()  //pull up network
         ui->textEdit->setText(networkup());
     }
 }
-
 
 void ipset::increaseip(QString net_card,QString ip_addr)
 {
@@ -125,12 +122,8 @@ void ipset::gobackmenu()
     this->show();
 }
 
-
 void ipset::language_reload()
 {
     ui->retranslateUi(this);
     popup.language_reload();
 }
-
-
-
