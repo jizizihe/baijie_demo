@@ -3,7 +3,6 @@
 
 #include "all_test_interface.h"
 
-
 all_test::all_test(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::all_test)
@@ -46,7 +45,6 @@ all_test::all_test(QWidget *parent) :
     testButtonGroup->addButton(ui->wifiChk,10);
     testButtonGroup->addButton(ui->bluetoothChk,11);
     CheckedBtnList = testButtonGroup->buttons();
-
 }
 
 all_test::~all_test()

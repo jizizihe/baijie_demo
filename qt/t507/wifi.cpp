@@ -133,8 +133,8 @@ void wifi::recv_msg(int signal_type, QString strResult)
 
 //        ui->WifiListWidget->setStyleSheet("background-color:transparent");
 
-        ui->WifiListWidget->verticalScrollBar()->setStyleSheet("QScrollBar{width:30px;}");
-        ui->WifiListWidget->horizontalScrollBar()->setStyleSheet("QScrollBar{height:30px;}");
+//        ui->WifiListWidget->verticalScrollBar()->setStyleSheet("QScrollBar{width:30px;}");
+//        ui->WifiListWidget->horizontalScrollBar()->setStyleSheet("QScrollBar{height:30px;}");
         ui->WifiListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
         break;
     case wifi_connect_signal :
@@ -360,8 +360,8 @@ void wifi::on_WifiExistRemoveBtn_clicked()
     }
 
     reply = QMessageBox::question(this,tr("QMessageBox::question()"),tr("Are you sure you want to delete it?"),
-                                  QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel);
-    if(reply == QMessageBox::Cancel)
+                                  QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+    if(reply == QMessageBox::No)
     {
         return;
     }

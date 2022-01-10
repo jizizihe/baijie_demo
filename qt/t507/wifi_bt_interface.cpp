@@ -316,6 +316,9 @@ QString wifi_bt_interface::hotspot_connect(QString HtName,QString HtPasswd)
     {
         strCmd = QString("nmcli connection modify hotspot ssid '%1' wifi-sec.psk '%2' ").arg(HtName).arg(HtPasswd);
         strResult = executeLinuxCmd(strCmd);
+
+        strCmd = QString("nmcli connection up hotspot");
+        strResult = executeLinuxCmd(strCmd);
     }
     else
     {
@@ -562,6 +565,7 @@ QString wifi_bt_interface::sim_status()
 {
     QString strCmd;
     QString strResult;
+    QString statusResult;
 
     strCmd = QString("nmcli con show --active |grep ppp0 |wc -l");
     //qDebug() << "--line--: " << __LINE__<< "strCmd == " << strCmd;
@@ -572,15 +576,20 @@ QString wifi_bt_interface::sim_status()
         return 0;
     }
 
-    strCmd = QString("mmcli -L | awk -F / '{print $6}'| awk '{print $1}'");
-    //qDebug() << "--line--: " << __LINE__<< "strCmd == " << strCmd;
-    strResult = executeLinuxCmd(strCmd);
+    strCmd = QString("nmcli con show ppp0 |grep NAME");
+    statusResult.append(executeLinuxCmd(strCmd).simplified()+"\n");
+    strCmd = QString("nmcli con show ppp0 |grep STATE");
+    statusResult.append(executeLinuxCmd(strCmd).simplified()+"\n");
+    strCmd = QString("nmcli con show ppp0 |grep VPN");
+    statusResult.append(executeLinuxCmd(strCmd).simplified()+"\n");
+    strCmd = QString("nmcli con show ppp0 |grep autoconnect | sed -n 1p");
+    statusResult.append(executeLinuxCmd(strCmd).simplified()+"\n");
+    strCmd = QString("nmcli con show ppp0 |grep ADDRESS |sed -n 1p");
+    statusResult.append(executeLinuxCmd(strCmd).simplified()+"\n");
 
-    strCmd = QString("mmcli -m %1 | grep 'signal quality'|awk -F '|' '{print $2}'").arg(strResult.remove("\n"));
-    strResult = executeLinuxCmd(strCmd);
-    qDebug() << "--line--: " << __LINE__<< strResult;
+    qDebug() << "--line--: " << __LINE__<< statusResult;
 
-    return strResult;
+    return statusResult;
 }
 
 bool wifi_bt_interface::wifi_passwd_write(QString WifiSsid,QString PassWd)

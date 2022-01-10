@@ -71,13 +71,15 @@ void sim_module::recv_msg(int signal_type, QString strResult)
         break;
     case sim_status_signal:
         qDebug() << "FUNC:" << __FUNCTION__<< "Line:" << __LINE__ << "strResult:" << strResult;
+
         if(strResult.isEmpty())
         {
-            QMessageBox::critical(this,"information",tr("4G get status failed!"));
+            QMessageBox::critical(this,"information",tr("4G get status failed!\nPlease connect 4G first!"));
         }
         else
         {
-            QMessageBox::information(this,"information",strResult);
+            ui->textEdit->setText(strResult);
+//            QMessageBox::information(this,"information",strResult);
         }
         break;
     default:

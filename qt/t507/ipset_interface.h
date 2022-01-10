@@ -13,12 +13,14 @@
 
 QString getipconfig();
 QString getallip();
-QString addstaticip(QString netcard,QString ipaddr);
-QString modstaticip(QString ipaddr);
-QString delstaticip();
-QString networkup();
-QString getifconfig();
-QString GetCurrentIp(QString Name);
-QString is_staticip();
+bool add_static_ip(QString netname,QString ipaddr);
+bool modify_static_ip(QString ipaddr);
+bool delete_static_ip();
+bool automatically_get_ip();
+QString get_network_info();
+QString get_current_ip(QString Name);
+bool is_static_ip_exist();
+void network_enable(bool flag);
+QString executeLinuxCmd(QString strCmd);
 
 #endif // IPSET_INTERFACE_H

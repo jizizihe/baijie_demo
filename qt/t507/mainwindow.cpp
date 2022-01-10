@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(this,SIGNAL(wifi_status_msg()),&wifi_w,SLOT(WifiStatus_show()));
     connect(&wifi_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
-    connect(&eth0_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+    connect(&eth0_w,SIGNAL(ret_signal()),this,SLOT(show_main()));
     //connect(&keytest_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&all_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
     connect(&bluetooth_w,SIGNAL(Mysignal()),this,SLOT(show_main()));

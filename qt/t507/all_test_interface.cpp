@@ -164,11 +164,8 @@ QString sim_test()
         }
         else
         {
-            qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult";
-
             strCmd = QString("nmcli connection up ppp0");
             strResult = executeLinuxCmd(strCmd);
-            qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<< strResult;
 
             bool ActivateResult=strResult.contains("successfully activated",Qt::CaseInsensitive);
             if(ActivateResult == true)
@@ -192,11 +189,11 @@ QString sim_test()
         bool ConnectResult=strResult.contains("successfully added",Qt::CaseInsensitive);
         //qDebug() << ConnectResult;
 
-        if(ConnectResult == 1)
+        if(ConnectResult == true)
         {
             strResult = "Connection successful!";
 //            qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<< strResult;
-            sleep(3);
+            sleep(4);
             strCmd = QString("ifconfig | grep ppp0");
             strResult = executeLinuxCmd(strCmd);
             qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;

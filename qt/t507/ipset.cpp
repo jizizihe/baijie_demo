@@ -1,36 +1,29 @@
 #include "ipset.h"
 #include "ui_ipset.h"
-#include "ipset_interface.h"
-#include "ctouchbutton.h"
-#include <QBitmap>
-
-//bool is_virtual_network_card_or_loopback(QString str_card_name);
 
 ipset::ipset(QWidget *parent) :
-    QWidget(parent),
+    QMainWindow(parent),
     ui(new Ui::ipset)
 {
     ui->setupUi(this);
-
-    this->setAttribute(Qt::WA_StyledBackground,true);
-//    this->setStyleSheet("background-color: rgb(255,255, 255)");
-
-    //this->setStyleSheet("border-image: url(:/t507_button_image/all/3.webp)");
-
-//    this->setStyleSheet("#ipset{border-image: url(:/t507_button_image/all/2.webp)}");
-
-    /*2 * set background image3 */
-//    QPixmap bgImages(":/t507_button_image/all/3.webp");
-//    QPalette bgPalette = this->palette();
-//    bgPalette.setBrush(QPalette::Background,bgImages);
-//    this->setPalette(bgPalette);
-//    setMask(bgImages.mask());// set background mask attribute same as background's image
-
     ui->textEdit->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
 
-    connect(&popup,SIGNAL(go_back()),this,SLOT(gobackmenu()));
-    connect(&popup,SIGNAL(addipinfor(QString,QString)),this,SLOT(increaseip(QString,QString)));
-    connect(&popup,SIGNAL(modipinfor(QString)),this,SLOT(modifyip(QString)));
+    QRegExp a("\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
+    ui->ipAddrLineEdit->setValidator(new QRegExpValidator(a,this));
+
+    ui->networkSwitch->setCheckedColor(QColor(100, 225, 100));
+    connect(ui->networkSwitch,SIGNAL(toggled(bool)),this,SLOT(btnChangeFlag(bool)));
+
+    QString strCmd = QString("ifconfig | grep eth0");
+    QString retResult = executeLinuxCmd(strCmd);
+    if(false == retResult.isEmpty())
+    {
+        ui->networkSwitch->setToggle(true);
+    }
+    else
+    {
+        ui->networkSwitch->setToggle(false);
+    }
 }
 
 ipset::~ipset()
@@ -38,92 +31,176 @@ ipset::~ipset()
     delete ui;
 }
 
-void ipset::on_retbtn_clicked()
+void ipset::btnChangeFlag(bool flag)
 {
-    emit Mysignal();
-    ui->textEdit->setText("");
-}
+    //qDebug() << "LINE:" << __LINE__<<"switchflag " << switchflag;
+    flag = ui->networkSwitch->isToggled();
 
-void ipset::on_delstaticip_clicked()
-{
-    QString str = delstaticip();
-
-    if(str == "")
+    if(flag == 1) // open
     {
-        ui->textEdit->setText(tr("It's not static ip yet,please press this button after setting the static IP."));
+        network_enable(true);
+        ui->ipShowBtn->setEnabled(true);
+        ui->autoGetIpBtn->setEnabled(true);
+        ui->setStaticIpBtn->setEnabled(true);
+        ui->modStaticIpBtn->setEnabled(true);
+        ui->delStaticIpBtn->setEnabled(true);
     }
-    else
+    else //close
     {
-        ui->textEdit->setText(str);
+        network_enable(false);
+        ui->ipShowBtn->setEnabled(false);
+        ui->autoGetIpBtn->setEnabled(false);
+        ui->setStaticIpBtn->setEnabled(false);
+        ui->modStaticIpBtn->setEnabled(false);
+        ui->delStaticIpBtn->setEnabled(false);
     }
-}
-
-void ipset::on_setstaticip_clicked()
-{
-    popup.bnttype = (char *)"add ip";
-    emit popup.addip();
-    this->hide();
-    popup.show();
-    ui->textEdit->setText("");
-}
-
-void ipset::on_modstaticip_clicked()
-{
-    if(is_staticip() == "")
-    {
-        ui->textEdit->setText(tr("It's not static ip yet,please press this button after setting the static IP."));
-    }
-    else
-    {
-        popup.bnttype = (char *)"mod ip";
-        emit popup.modip();
-        this->hide();
-        popup.show();
-        ui->textEdit->setText("");
-    }
-}
-
-void ipset::on_ipshowbtn_clicked()
-{
-    QCoreApplication::processEvents();
-    ui->textEdit->setText(getifconfig());
-}
-
-void ipset::on_networkupbtn_clicked()
-{
-    QCoreApplication::processEvents();
-    if(GetCurrentIp("eth0") != "")
-    {
-        ui->textEdit->setText(tr("network is aready pull up!"));
-    }
-    else
-    {
-        ui->textEdit->setText(networkup());
-    }
-}
-
-void ipset::increaseip(QString net_card,QString ip_addr)
-{
-    popup.hide();
-    this->show();
-    ui->textEdit->setText(addstaticip(net_card, ip_addr));
-}
-
-void ipset::modifyip(QString ip_addr)
-{
-    popup.hide();
-    this->show();
-    ui->textEdit->setText(modstaticip(ip_addr));
-}
-
-void ipset::gobackmenu()
-{
-    popup.hide();
-    this->show();
 }
 
 void ipset::language_reload()
 {
     ui->retranslateUi(this);
-    popup.language_reload();
+}
+
+void ipset::on_retBtn_clicked()
+{
+    emit ret_signal();
+    ui->textEdit->setText("");
+}
+
+void ipset::on_ipShowBtn_clicked()
+{
+    QString networkInfo = get_network_info();
+    ui->textEdit->setText(networkInfo);
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void ipset::on_autoGetIpBtn_clicked()
+{
+//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << ":::::::::::::";
+
+    bool result;
+    ui->ipAddrLineEdit->clear();
+    QCoreApplication::processEvents();
+    if(get_current_ip("eth0") != "")
+    {
+        ui->textEdit->setText(tr("network is aready pull up!"));
+    }
+    else
+    {
+        result = automatically_get_ip();
+        if(result == true)
+        {
+            qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "result:"<<result;
+            QMessageBox::information(this,"information",tr("succeeded!"));
+        }
+        {
+            QMessageBox::warning(this,"information",tr("failed!"));
+        }
+    }
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void ipset::on_setStaticIpBtn_clicked()
+{
+    ui->okBtn->setText(tr("ok"));
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+void ipset::on_modStaticIpBtn_clicked()
+{
+    ui->ipAddrLineEdit->clear();
+
+    if(false == is_static_ip_exist())
+    {
+        QMessageBox::information(this,"information",tr(" The current connection is not a static IP. Please modify it to a static IP before performing this operation"));
+        QString networkInfo = get_network_info();
+        ui->textEdit->setText(networkInfo);
+        ui->stackedWidget->setCurrentIndex(0);
+    }
+    else
+    {
+        ui->textEdit->setText("");
+        ui->okBtn->setText(tr("change"));
+        ui->stackedWidget->setCurrentIndex(1);
+    }
+}
+
+void ipset::on_delStaticIpBtn_clicked()
+{
+    ui->ipAddrLineEdit->clear();
+
+    if(false == is_static_ip_exist())
+    {
+        QMessageBox::information(this,"information",tr(" The current connection is not a static IP. Please modify it to a static IP before performing this operation"));
+        QString networkInfo = get_network_info();
+        ui->textEdit->setText(networkInfo);
+        ui->stackedWidget->setCurrentIndex(0);
+        return;
+    }
+    bool result = delete_static_ip();
+    if(result == true)
+    {
+        qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "result:"<<result;
+        QMessageBox::information(this,"information",tr("delete static ip succeeded"));
+    }
+    else
+    {
+        QMessageBox::warning(this,"information",tr("delete static ip failed"));
+    }
+}
+
+void ipset::on_okBtn_clicked()
+{
+    QMessageBox::StandardButton reply;
+    bool result = false;
+    QString networkInfo;
+    if(ui->nameLineEdit->text().isEmpty() || ui->ipAddrLineEdit->text().isEmpty())
+    {
+        QMessageBox::warning(NULL,NULL,tr("Please complete the information"),tr("OK"));
+        return;
+    }
+
+    reply = QMessageBox::question(this,tr("QMessageBox::question()"),tr("Do you want to set it to current IP?"),
+                                  QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+    if(reply == QMessageBox::No)
+    {
+        return;
+    }
+    else if(reply == QMessageBox::Yes)
+    {
+        if(ui->ipAddrLineEdit->text().length() <= 9)
+        {
+            QMessageBox::information(this,"information",tr("Format error, please re-enter"));
+            return;
+        }
+
+        if(ui->okBtn->text() == QString(tr("ok")))
+        {
+//            qDebug() << "LINE:"<< __LINE__ << "ret:" << ret;
+            result = add_static_ip(ui->nameLineEdit->text(),ui->ipAddrLineEdit->text());
+        }
+        else if(ui->okBtn->text() == QString(tr("change")))
+        {
+//            qDebug() << "LINE:"<< __LINE__ << "ret:" << ret;
+            result = modify_static_ip(ui->ipAddrLineEdit->text());
+        }
+
+        if(result == true)
+        {
+            qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "result:"<<result;
+
+            networkInfo = get_network_info();
+            ui->textEdit->setText(networkInfo);
+            ui->stackedWidget->setCurrentIndex(0);
+        }
+        else
+        {
+            QMessageBox::warning(this,"information",tr("set static ip failed"));
+        }
+    }
+}
+
+void ipset::on_backBtn_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
 }

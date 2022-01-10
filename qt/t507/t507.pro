@@ -44,7 +44,6 @@ SOURCES += \
     touchscreen.cpp \
     ctouchbutton.cpp \
     timeset.cpp \
-    hotspot.cpp \
     globalapp.cpp \
     boardinfo_interface.cpp \
     keyBoard.cpp \
@@ -52,7 +51,6 @@ SOURCES += \
     keytest.cpp \
     keythread.cpp \
     ipset_popup.cpp \
-    ipset.cpp \
     ipset_interface.cpp \
     gpio_interface.cpp \
     bluetooth.cpp \
@@ -71,7 +69,8 @@ SOURCES += \
     serialdialog.cpp \
     all_test_thread.cpp \
     all_test_interface.cpp \
-    all_test.cpp
+    all_test.cpp \
+    ipset.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -82,7 +81,6 @@ HEADERS += \
     touchscreen.h \
     ctouchbutton.h \
     timeset.h \
-    hotspot.h \
     gpio_interface.h \
     globalapp.h \
     keyBoard.h \
@@ -91,7 +89,6 @@ HEADERS += \
     keytest.h \
     keythread.h \
     ipset_popup.h \
-    ipset.h \
     ipset_interface.h \
     bluetooth.h \
     bluetooth_thread.h \
@@ -109,7 +106,9 @@ HEADERS += \
     serialdialog.h \
     all_test_thread.h \
     all_test_interface.h \
-    all_test.h
+    all_test.h \
+    ipset.h \
+    common.h
 
 FORMS += \
         mainwindow.ui \
@@ -119,10 +118,8 @@ FORMS += \
     gpio.ui \
     touchscreen.ui \
     timeset.ui \
-    hotspot.ui \
     about_board.ui \
     keytest.ui \
-    ipset.ui \
     bluetooth.ui \
     user_manual.ui \
     serial.ui \
@@ -131,7 +128,8 @@ FORMS += \
     wificondialog.ui \
     sim_module.ui \
     serialdialog.ui \
-    all_test.ui
+    all_test.ui \
+    ipset.ui
 
 RESOURCES += \
     translation.qrc

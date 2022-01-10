@@ -106,7 +106,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </font>
    </property>
    <property name="text">
-    <string>Rtc</string>
+    <string>RTC</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -133,7 +133,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </font>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;User manual&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>User Manual</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -215,7 +215,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </font>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;About Board&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>About Board</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -289,7 +289,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </font>
    </property>
    <property name="text">
-    <string>Chiese/English</string>
+    <string>Chinese/English</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

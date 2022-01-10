@@ -103,7 +103,7 @@ ipset_popup::~ipset_popup()
 
 void ipset_popup::remain()
 {
-    if("add ip" == this->bnttype)
+    if((char *)"add ip" == this->bnttype)
     {
         if(this->line_addr->text().isEmpty() || this->line_netcard->text().isEmpty())
         {
@@ -121,7 +121,7 @@ void ipset_popup::remain()
         }
 
     }
-    else if("mod ip" == this->bnttype)
+    else if((char*)"mod ip" == this->bnttype)
     {
         if(this->line_addr->text().isEmpty())
         {
@@ -154,6 +154,8 @@ void ipset_popup::returnmain()
 
 void ipset_popup::getaddipinforma()
 {
+    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "FUNC:" << __FUNCTION__;
+
     label_addr->setVisible(true);
     label_netcard->setVisible(true);
     line_addr->setVisible(true);

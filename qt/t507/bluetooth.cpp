@@ -244,7 +244,6 @@ void bluetooth::on_BTConnectBtn_clicked()
     ui->BTScanBtn->setDisabled(true);
     ui->BTScanBtn->setDisabled(true);
     ui->BTScanBtn->setDisabled(true);
-
 }
 
 void bluetooth::language_reload()

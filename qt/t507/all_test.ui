@@ -61,7 +61,6 @@ QTextEdit
 }
 QInputDialog{
 	border:1px solid gray;
-
 	background-image: url(:/t507_button_image/all/background.jpg);
 }</string>
   </property>
@@ -82,7 +81,7 @@ QInputDialog{
         <x>409</x>
         <y>370</y>
         <width>151</width>
-        <height>141</height>
+        <height>131</height>
        </rect>
       </property>
       <property name="maximumSize">
