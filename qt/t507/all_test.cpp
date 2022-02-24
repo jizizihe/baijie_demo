@@ -151,7 +151,7 @@ void all_test::on_beginBtn_clicked()
 //            qDebug() << "audio_flag" << __LINE__;
 
             QProcess p;
-            p.start("bash", QStringList() <<"-c" << "aplay /usr/test.wav");
+            p.start("bash", QStringList() <<"-c" << "aplay /usr/helperboard/test.wav");
             p.waitForFinished(-1);
             p.close();
         }

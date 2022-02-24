@@ -198,20 +198,20 @@ QListWidget::item:selected:!active { background: lightgreen; }</string>
      <rect>
       <x>30</x>
       <y>150</y>
-      <width>161</width>
+      <width>81</width>
       <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string>device name</string>
+     <string>name:</string>
     </property>
    </widget>
    <widget class="QLabel" name="BtDeviceNameLab">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>120</x>
       <y>150</y>
-      <width>141</width>
+      <width>241</width>
       <height>41</height>
      </rect>
     </property>

@@ -51,7 +51,7 @@ QString usb_test(int num)
 //    qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
 
     strResult = strResult.remove("\n");
-    int count = 4 + num;
+    int count = 3 + num;
 
     if(strResult == QString::number(count))
     {
@@ -232,7 +232,7 @@ QString audio_test()
     strCmd = QString("arecord -d 2 -r 16000 -c 1 -t wav /data/audio.wav");
     strResult = executeLinuxCmd(strCmd);
 
-    strCmd = QString("aplay /usr/ceshiluyin.wav");
+    strCmd = QString("aplay /usr/helperboard/ceshiluyin.wav");
     qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ ;
     strResult = executeLinuxCmd(strCmd);
 

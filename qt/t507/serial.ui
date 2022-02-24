@@ -89,9 +89,9 @@ QTextEdit
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>0</x>
       <y>300</y>
-      <width>291</width>
+      <width>301</width>
       <height>281</height>
      </rect>
     </property>
@@ -102,7 +102,7 @@ QTextEdit
      </sizepolicy>
     </property>
     <property name="title">
-     <string>port2</string>
+     <string>part2</string>
     </property>
     <layout class="QGridLayout" name="gridLayout_7">
      <item row="0" column="0">
@@ -112,35 +112,35 @@ QTextEdit
          <item>
           <widget class="QLabel" name="PartNamelab_21">
            <property name="text">
-            <string>端口号</string>
+            <string>PortName</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="PartNamelab_22">
            <property name="text">
-            <string>波特率</string>
+            <string>BaudRate</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="PartNamelab_23">
            <property name="text">
-            <string>数据位</string>
+            <string>DataBit</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="PartNamelab_24">
            <property name="text">
-            <string>停止位</string>
+            <string>StopBit</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="PartNamelab_25">
            <property name="text">
-            <string>校验位</string>
+            <string>Parity</string>
            </property>
           </widget>
          </item>
@@ -293,13 +293,13 @@ QTextEdit
     <property name="geometry">
      <rect>
       <x>310</x>
-      <y>10</y>
+      <y>20</y>
       <width>661</width>
       <height>111</height>
      </rect>
     </property>
     <property name="title">
-     <string>send</string>
+     <string>send text</string>
     </property>
     <layout class="QGridLayout" name="gridLayout_4">
      <item row="0" column="0">
@@ -323,14 +323,14 @@ QTextEdit
    <widget class="QGroupBox" name="groupBox_4">
     <property name="geometry">
      <rect>
-      <x>299</x>
+      <x>309</x>
       <y>140</y>
-      <width>681</width>
-      <height>421</height>
+      <width>671</width>
+      <height>441</height>
      </rect>
     </property>
     <property name="title">
-     <string>recvtext</string>
+     <string>receive text</string>
     </property>
     <layout class="QGridLayout" name="gridLayout_3">
      <item row="0" column="0" colspan="3">
@@ -378,7 +378,7 @@ QTextEdit
      </rect>
     </property>
     <property name="title">
-     <string>port1</string>
+     <string>part1</string>
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
@@ -388,35 +388,35 @@ QTextEdit
          <item>
           <widget class="QLabel" name="PartNamelab_26">
            <property name="text">
-            <string>端口号</string>
+            <string>PortName</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="PartNamelab_27">
            <property name="text">
-            <string>波特率</string>
+            <string>BaudRate</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="PartNamelab_28">
            <property name="text">
-            <string>数据位</string>
+            <string>DataBit</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="PartNamelab_29">
            <property name="text">
-            <string>停止位</string>
+            <string>StopBit</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="PartNamelab_30">
            <property name="text">
-            <string>校验位</string>
+            <string>Parity</string>
            </property>
           </widget>
          </item>

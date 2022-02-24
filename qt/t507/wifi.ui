@@ -118,7 +118,7 @@ height:30px;
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="wifihomepage">
      <widget class="QListWidget" name="WifiListWidget">
@@ -457,9 +457,9 @@ height:30px;
        <property name="geometry">
         <rect>
          <x>270</x>
-         <y>140</y>
+         <y>130</y>
          <width>221</width>
-         <height>51</height>
+         <height>61</height>
         </rect>
        </property>
        <property name="text">

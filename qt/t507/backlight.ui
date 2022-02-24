@@ -44,16 +44,9 @@ QPushButton:pressed { /*按钮被按下时*/
      color:rgba(0, 0, 0, 100);
 }
 
-/****************滑块部件*******************/
 
 
-QSlider::handle:horizontal { /*水平滑块的手柄*/
-        image: url(:/image/sliderHandle.png);
-}
 
-QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
-        border-image: url(:/image/slider.png);/*边框图片*/
-}
 QTextEdit
 {
 	background-color:transparent;

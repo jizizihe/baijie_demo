@@ -1694,8 +1694,39 @@ Please wait a moment...</source>
     </message>
     <message>
         <location filename="serial.ui" line="105"/>
-        <source>port2</source>
+        <source>part2</source>
+        <oldsource>port2</oldsource>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="serial.ui" line="115"/>
+        <location filename="serial.ui" line="391"/>
+        <source>PortName</source>
+        <translation>串口号</translation>
+    </message>
+    <message>
+        <location filename="serial.ui" line="122"/>
+        <location filename="serial.ui" line="398"/>
+        <source>BaudRate</source>
+        <translation>波特率</translation>
+    </message>
+    <message>
+        <location filename="serial.ui" line="129"/>
+        <location filename="serial.ui" line="405"/>
+        <source>DataBit</source>
+        <translation>数据位</translation>
+    </message>
+    <message>
+        <location filename="serial.ui" line="136"/>
+        <location filename="serial.ui" line="412"/>
+        <source>StopBit</source>
+        <translation>停止位</translation>
+    </message>
+    <message>
+        <location filename="serial.ui" line="143"/>
+        <location filename="serial.ui" line="419"/>
+        <source>Parity</source>
+        <translation>校验位</translation>
     </message>
     <message>
         <location filename="serial.ui" line="249"/>
@@ -1714,15 +1745,15 @@ Please wait a moment...</source>
     </message>
     <message>
         <location filename="serial.ui" line="284"/>
-        <location filename="serial.ui" line="302"/>
         <location filename="serial.ui" line="582"/>
         <source>send</source>
         <translation type="unfinished">发送</translation>
     </message>
     <message>
         <location filename="serial.ui" line="333"/>
-        <source>recvtext</source>
-        <translation type="unfinished"></translation>
+        <source>receive text</source>
+        <oldsource>recvtext</oldsource>
+        <translation>接收文本框</translation>
     </message>
     <message>
         <location filename="serial.ui" line="365"/>
@@ -1732,36 +1763,6 @@ Please wait a moment...</source>
     <message>
         <source>Serial Port</source>
         <translation type="obsolete">串口</translation>
-    </message>
-    <message>
-        <location filename="serial.ui" line="115"/>
-        <location filename="serial.ui" line="391"/>
-        <source>端口号</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="serial.ui" line="122"/>
-        <location filename="serial.ui" line="398"/>
-        <source>波特率</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="serial.ui" line="129"/>
-        <location filename="serial.ui" line="405"/>
-        <source>数据位</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="serial.ui" line="136"/>
-        <location filename="serial.ui" line="412"/>
-        <source>停止位</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="serial.ui" line="143"/>
-        <location filename="serial.ui" line="419"/>
-        <source>校验位</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="serial.ui" line="161"/>
@@ -1830,8 +1831,14 @@ Please wait a moment...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="serial.ui" line="302"/>
+        <source>send text</source>
+        <translation>发送文本框</translation>
+    </message>
+    <message>
         <location filename="serial.ui" line="381"/>
-        <source>port1</source>
+        <source>part1</source>
+        <oldsource>port1</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
