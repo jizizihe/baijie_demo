@@ -69,10 +69,10 @@ QString wifi_bt_interface::wifi_scan()
     }
 
 //    QString strCmd = QString("iw dev wlan0 scan|grep SSID|awk '{for(i=2;i<=NF;i++){printf \"%s \", $i}; printf \"\\n\"}' ");
-    QString strCmd = QString("nmcli -t  device wifi list|awk -F : '{print $2}' ");
+    QString strCmd = QString("nmcli -t  device wifi list|awk -F : '{print $2\":\"$7}' ");
     //qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<<strCmd;
     QString ScanResult = executeLinuxCmd(strCmd);
-    //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "ScanResult:" << ScanResult;
+//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "ScanResult:" << ScanResult;
 
     return ScanResult;
 }
@@ -121,7 +121,8 @@ wifi_info wifi_bt_interface::get_wifistatus(QString wifi_name)
 
     WifiStatus.active = tmp.section(':', 0, 0);
     WifiStatus.name = wifi_name;
-    WifiStatus.passwd = wifi_passwd_read(wifi_name);
+    WifiStatus.passwd = database_w.select_by_name(QString("wifiPasswd"),wifi_name);
+//    WifiStatus.passwd = wifi_passwd_read(wifi_name);
     WifiStatus.secrity = tmp.section(':', 3, 3);
     WifiStatus.signal = tmp.section(':', 2, 2);
 

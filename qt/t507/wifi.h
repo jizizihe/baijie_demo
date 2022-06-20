@@ -68,6 +68,7 @@ private:
     wifi_bt_interface * wifi_bt_t;
 
     WifiConDialog *WifiConnectDialog;
+    database wifiDB;
 };
 
 #endif // WIFI_H

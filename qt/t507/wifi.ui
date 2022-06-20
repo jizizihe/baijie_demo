@@ -61,6 +61,7 @@ background-image: url(:/t507_button_image/all/background.jpg);
 }
 
 QListWidget {background-color:transparent; outline: none; border:1px solid gray; color: black; }
+/*QListWidget::Item{color:rgba(0, 0, 0, 100);}*/
 QListWidget::Item { width: 400px; height: 50px; }
 QListWidget::Item:hover { background: #4CAF50; color: white; }
 QListWidget::item:selected { background: #e7e7e7; color: #f44336; }
@@ -118,7 +119,7 @@ height:30px;
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="wifihomepage">
      <widget class="QListWidget" name="WifiListWidget">
@@ -354,12 +355,12 @@ height:30px;
         <rect>
          <x>60</x>
          <y>200</y>
-         <width>131</width>
+         <width>171</width>
          <height>41</height>
         </rect>
        </property>
        <property name="text">
-        <string>active</string>
+        <string>connection</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_5">
@@ -419,7 +420,7 @@ height:30px;
         <rect>
          <x>60</x>
          <y>130</y>
-         <width>141</width>
+         <width>171</width>
          <height>41</height>
         </rect>
        </property>
@@ -459,7 +460,7 @@ height:30px;
          <x>270</x>
          <y>130</y>
          <width>221</width>
-         <height>61</height>
+         <height>41</height>
         </rect>
        </property>
        <property name="text">

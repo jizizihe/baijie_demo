@@ -74,12 +74,9 @@ void wifi::BtnChange_flag(bool flag)
 
     if(flag == 1) // open
     {
-//        if(ui->WifiListWidget->count() == 0)
-//        {
-            LoadLabel->show();
-            pMovie->start();
-            emit wifi_scan_msg();
-//        }
+        LoadLabel->show();
+        pMovie->start();
+        emit wifi_scan_msg();
 
         for(int i = 0; i < ui->WifiListWidget->count(); i++)
         {
@@ -105,6 +102,8 @@ void wifi::recv_msg(int signal_type, QString strResult)
     QStringList scanlist;
     QString ScanResult;
     QString wifi_name;
+
+    QString tmp,nameStr,signalStr;
     pMovie->stop();
     LoadLabel->close();
 
@@ -118,16 +117,37 @@ void wifi::recv_msg(int signal_type, QString strResult)
         ui->WifiListWidget->clear();
         flag = ui->WifiSwitch->isToggled();
 
-        //qDebug() << "line:" << __LINE__ << "strResult:" << strResult;
-
+//        qDebug() << "line:" << __LINE__ << "strResult:" << strResult;
         if(flag == 0)
             return ;
 
         for(int i = 0; i < scanlist.size(); i++)
         {
-            QString tmp = scanlist.at(i);
-            //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "tmp:" << tmp;
-            ui->WifiListWidget->addItem(tmp.left(tmp.size()));
+            tmp = scanlist.at(i);
+//            qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "tmp:" << tmp;
+//            ui->WifiListWidget->addItem(tmp.left(tmp.size()));
+            nameStr = tmp.split(":").at(0);
+            if(nameStr.isEmpty())
+            {
+                continue;
+            }
+            signalStr = tmp.split(":").at(1);
+
+            QWidget *widget=new QWidget(this);
+            QHBoxLayout *horLayout = new QHBoxLayout();
+            QLabel *nameLabel = new QLabel(widget);
+            QLabel *signalLabel = new QLabel(widget);
+            QListWidgetItem *item = new QListWidgetItem();
+
+            nameLabel->setText(nameStr);
+            signalLabel->setText(signalStr);
+            horLayout->setContentsMargins(0, 0, 0, 0);
+            horLayout->addWidget(nameLabel);
+            horLayout->addWidget(signalLabel);
+            widget->setLayout(horLayout);
+
+            ui->WifiListWidget->addItem(item);
+            ui->WifiListWidget->setItemWidget(item, widget);
         }
         ui->WifiListWidget->setCurrentRow(0);
 
@@ -141,8 +161,9 @@ void wifi::recv_msg(int signal_type, QString strResult)
         qDebug() << "FUNC:" << __FUNCTION__<< "Line:" << __LINE__ << "strResult:" << strResult;
         if(strResult == QString(1))
         {
-//            QMessageBox::information(this,"information",tr("Connection succeeded!"));
             wifi_bt_t->wifi_passwd_write(WifiConnectDialog->GetWifiNameText(),WifiConnectDialog->GetPasswdText());
+
+            wifiDB.insert_table(WifiConnectDialog->GetWifiNameText(),WifiConnectDialog->GetPasswdText());
 
             wifi_info_fresh(WifiConnectDialog->GetWifiNameText());
             ui->stackedWidget->setCurrentIndex(3);
@@ -199,8 +220,13 @@ void wifi::wifi_info_fresh(QString wifi_name)
 
 void wifi::ListWidgeItem_clicked()
 {    
-    qDebug() << "line:" << __LINE__ << "istWidgeItem_clicked";
-    QString wifi_name = ui->WifiListWidget->currentItem()->text();
+    QListWidgetItem *item = ui->WifiListWidget->currentItem();
+
+    QWidget* pwig = ui->WifiListWidget->itemWidget(item); // 获取里面的QWidget
+    QList<QLabel*> labelList = pwig->findChildren<QLabel*>();  // 获取所有的Qlabel
+
+//    QString wifi_name = ui->WifiListWidget->currentItem()->text();
+    QString wifi_name = labelList.at(0)->text();
     qDebug() << "line:" << __LINE__ << "currentItem()->text = " << wifi_name;
 
     int flag = wifi_bt_t->wifi_connect_exist(wifi_name);
@@ -222,7 +248,7 @@ void wifi::ListWidgeItem_clicked()
     else
     {
         WifiConnectDialog->show();
-        WifiConnectDialog->SetWifiNameText(ui->WifiListWidget->currentItem()->text());
+        WifiConnectDialog->SetWifiNameText(wifi_name);
         WifiConnectDialog->SetWifiOkBtnText("connect");
     }
 }
@@ -235,7 +261,6 @@ void wifi::on_ReturnBtn_clicked()
 
 void wifi::WifiStatus_show()
 {
-//    QString strCmd = QString("iw dev wlan0 link | grep SSID |awk '{print $2}'");
     QString strCmd = QString("iw dev wlan0 link | grep SSID |awk '{for(i=2;i<=NF;i++){printf \"%s \", $i}; printf \"\\n\"}'");
     QString wifi_name = wifi_bt_t->executeLinuxCmd(strCmd);
     qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__<< "wifi_name" << wifi_name;
@@ -377,7 +402,8 @@ void wifi::on_WifiExistRemoveBtn_clicked()
         {
             //QMessageBox::information(this,"information",tr("remove succeeded!"));
             ui->stackedWidget->setCurrentIndex(0);
-            wifi_bt_t->wifi_passwd_delete(wifi_name);
+//            wifi_bt_t->wifi_passwd_delete(wifi_name);
+            wifiDB.delete_record_by_name(QString("wifiPasswd"),wifi_name);
         }
         else
         {

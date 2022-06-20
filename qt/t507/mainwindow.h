@@ -19,6 +19,7 @@
 #include "sys_setting.h"
 #include "wificondialog.h"
 #include "sim_module.h"
+#include "database.h"
 
 
 namespace Ui {
@@ -46,6 +47,7 @@ public:
     QSettings *setting;
     WifiConDialog WifiConDialog_w;
     sim_module sim_module_w;
+    database wifiDatabase;
     void config_file();
 
 private:

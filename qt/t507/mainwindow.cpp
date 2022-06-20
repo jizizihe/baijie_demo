@@ -24,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&system_w,SIGNAL(main_cn()),this,SLOT(cn_main()));
     connect(&sim_module_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
 
+    wifiDatabase.create_connection();
+    wifiDatabase.create_table();
 }
 
 MainWindow::~MainWindow()

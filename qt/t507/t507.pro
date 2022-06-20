@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui serialport
+QT       += core gui serialport sql
 QT       += network
 #DEFINES += QT_NO_WARNING_OUTPUT\
 #     QT_NO_DEBUG_OUTPUT
@@ -70,7 +70,8 @@ SOURCES += \
     all_test_thread.cpp \
     all_test_interface.cpp \
     all_test.cpp \
-    ipset.cpp
+    ipset.cpp \
+    database.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -108,7 +109,8 @@ HEADERS += \
     all_test_interface.h \
     all_test.h \
     ipset.h \
-    common.h
+    common.h \
+    database.h
 
 FORMS += \
         mainwindow.ui \

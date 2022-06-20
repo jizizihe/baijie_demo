@@ -16,8 +16,10 @@
 #include <QDialog>
 #include <QMessageBox>
 #include <QFileInfo>
+#include <QHBoxLayout>
 #include "gpio_interface.h"
 #include "switchcontrol.h"
+#include "database.h"
 
 enum signal_type
 {
@@ -99,6 +101,7 @@ public slots:
 
 private:
     wifi_info WifiStatus;
+    database database_w;
 
 };
 
