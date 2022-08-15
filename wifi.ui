@@ -34,7 +34,7 @@
   <property name="styleSheet">
    <string notr="true">#wifi
 {
-border-image: url(:/t507_button_image/all/background.jpg);
+border-image: url(:/button_image/all/background.jpg);
 }
 /****************按钮部件*******************/
 QPushButton{
@@ -73,7 +73,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
  }
 
 QMessageBox {
-background-image: url(:/t507_button_image/all/background.jpg);
+background-image: url(:/button_image/all/background.jpg);
 	border:1px solid gray;
 }
 
@@ -156,7 +156,7 @@ QSplitter:handle{\nbackground-color:#808080;\n}</string>
         </property>
         <property name="icon">
          <iconset resource="translation.qrc">
-          <normaloff>:/t507_button_image/return.png</normaloff>:/t507_button_image/return.png</iconset>
+          <normaloff>:/button_image/return.png</normaloff>:/button_image/return.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -305,7 +305,7 @@ QSplitter:handle{\nbackground-color:#808080;\n}</string>
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/wifi/status.png</normaloff>:/t507_button_image/wifi/status.png</iconset>
+               <normaloff>:/button_image/wifi/status.png</normaloff>:/button_image/wifi/status.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -406,7 +406,7 @@ QSplitter:handle{\nbackground-color:#808080;\n}</string>
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/wifi/connect.png</normaloff>:/t507_button_image/wifi/connect.png</iconset>
+               <normaloff>:/button_image/wifi/connect.png</normaloff>:/button_image/wifi/connect.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -504,7 +504,7 @@ QSplitter:handle{\nbackground-color:#808080;\n}</string>
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/wifi/hot spot.png</normaloff>:/t507_button_image/wifi/hot spot.png</iconset>
+               <normaloff>:/button_image/wifi/hot spot.png</normaloff>:/button_image/wifi/hot spot.png</iconset>
              </property>
              <property name="iconSize">
               <size>

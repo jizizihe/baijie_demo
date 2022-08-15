@@ -27,7 +27,7 @@ WifiConDialog::WifiConDialog(QWidget *parent) :
     wifidial_font();
     WifiLoadLabel = new QLabel(this);
     WifiLoadLabel->move(this->size().width()/2,this->size().height()/2);
-    WifiMovie = new QMovie("://t507_button_image/loading.webp");
+    WifiMovie = new QMovie("://button_image/loading.webp");
     WifiLoadLabel->setFixedSize(50, 50);
     WifiLoadLabel->setScaledContents(true);
     WifiLoadLabel->setMovie(WifiMovie);

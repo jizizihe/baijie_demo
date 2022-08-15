@@ -42,7 +42,7 @@ record::record(QWidget *parent) :
    //   connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(get_audiotime()));
 
     //ui->label_9->setText(tr("begin"));
-   // ui->begin->setIcon(QIcon(":/t507_button_image/voice/begin.png"));
+   // ui->begin->setIcon(QIcon(":/button_image/voice/begin.png"));
 
 }
 
@@ -148,7 +148,7 @@ void record::on_begin_clicked()
         str = QString("arecord -r 16000 -c 1 -t wav %1").arg(str_name);
 
         ui->label_9->setText(tr("stop"));
-        ui->begin->setIcon(QIcon(":/t507_button_image/voice/stop.png"));
+        ui->begin->setIcon(QIcon(":/button_image/voice/stop.png"));
         flag = false;
         refresh_flag = false;
         proc->start(str);
@@ -159,7 +159,7 @@ void record::on_begin_clicked()
     else
     {
         ui->label_9->setText(tr("begin"));
-        ui->begin->setIcon(QIcon(":/t507_button_image/voice/begin.png"));
+        ui->begin->setIcon(QIcon(":/button_image/voice/begin.png"));
         e_time = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss");
         time = calculatetime(s_time,e_time);
 

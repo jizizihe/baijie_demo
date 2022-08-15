@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">#WifiConDialog
 {
-	background-image: url(:/t507_button_image/all/background.jpg);
+	background-image: url(:/button_image/all/background.jpg);
    border-style: outset;
    border-radius:4px
 }

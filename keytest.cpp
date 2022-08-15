@@ -11,7 +11,7 @@ keytest::keytest(QWidget *parent) :
     retBt = new QPushButton(this);
     retBt->setFixedSize(100,40);
 //    retBt->setText(tr("return"));
-    retBt->setIcon(QIcon(":/t507_button_image/return.png"));
+    retBt->setIcon(QIcon(":/button_image/return.png"));
     retBt->move(10,10);
 
     KeyLabel = new QLabel(this);

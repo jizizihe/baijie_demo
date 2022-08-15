@@ -28,7 +28,7 @@
   <property name="styleSheet">
    <string notr="true">#backlight
 {
-border-image: url(:/t507_button_image/all/background.jpg);
+border-image: url(:/button_image/all/background.jpg);
 }
 /****************按钮部件*******************/
 QPushButton{
@@ -601,7 +601,7 @@ QTextEdit
                 <string/>
                </property>
                <property name="pixmap">
-                <pixmap resource="translation.qrc">:/t507_button_image/light_l.png</pixmap>
+                <pixmap resource="translation.qrc">:/button_image/light_l.png</pixmap>
                </property>
                <property name="scaledContents">
                 <bool>true</bool>
@@ -667,7 +667,7 @@ border-radius: 4px;
                 <string/>
                </property>
                <property name="pixmap">
-                <pixmap resource="translation.qrc">:/t507_button_image/light_h.png</pixmap>
+                <pixmap resource="translation.qrc">:/button_image/light_h.png</pixmap>
                </property>
                <property name="scaledContents">
                 <bool>true</bool>
@@ -799,7 +799,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
         </property>
         <property name="icon">
          <iconset>
-          <normalon>:/t507_button_image/return.png</normalon>
+          <normalon>:/button_image/return.png</normalon>
          </iconset>
         </property>
         <property name="iconSize">

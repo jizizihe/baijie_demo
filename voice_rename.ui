@@ -29,7 +29,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">voice_rename{
- border-image: url(:/t507_button_image/all/background.jpg);
+ border-image: url(:/button_image/all/background.jpg);
   border-style: outset;
   border-radius: 4px;
 }
@@ -46,7 +46,7 @@ QPushButton{
 	outline: none; /*去掉按钮的虚线框*/
 }
 QMessageBox {
-background-image: url(:/t507_button_image/all/background.jpg);
+background-image: url(:/button_image/all/background.jpg);
 	border:1px solid gray;
 }</string>
   </property>

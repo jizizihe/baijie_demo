@@ -38,7 +38,7 @@ bluetooth::bluetooth(QWidget *parent) :
     LoadLabel = new QLabel(this);
     //LoadLabel->resize(100,100);
     LoadLabel->move(screen_width/2 - 150,screen_height/2 -50);
-    pMovie = new QMovie("://t507_button_image/loading.webp");
+    pMovie = new QMovie("://button_image/loading.webp");
     LoadLabel->setFixedSize(50, 50);
     LoadLabel->setScaledContents(true);
     LoadLabel->setMovie(pMovie);

@@ -33,7 +33,7 @@
   <property name="styleSheet">
    <string notr="true">#MainWindow
 {
-border-image: url(:/t507_button_image/all/3.webp);
+border-image: url(:/button_image/all/3.webp);
 }
 /****************按钮部件*******************/
 QPushButton{
@@ -192,7 +192,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/gpio.png</normaloff>:/t507_button_image/gpio.png</iconset>
+               <normaloff>:/button_image/gpio.png</normaloff>:/button_image/gpio.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -337,7 +337,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/serial.png</normaloff>:/t507_button_image/serial.png</iconset>
+               <normaloff>:/button_image/serial.png</normaloff>:/button_image/serial.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -482,7 +482,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/USB.png</normaloff>:/t507_button_image/USB.png</iconset>
+               <normaloff>:/button_image/USB.png</normaloff>:/button_image/USB.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -627,7 +627,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/touch.png</normaloff>:/t507_button_image/touch.png</iconset>
+               <normaloff>:/button_image/touch.png</normaloff>:/button_image/touch.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -799,7 +799,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/wifi.png</normaloff>:/t507_button_image/wifi.png</iconset>
+               <normaloff>:/button_image/wifi.png</normaloff>:/button_image/wifi.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -938,7 +938,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/bluetooth.png</normaloff>:/t507_button_image/bluetooth.png</iconset>
+               <normaloff>:/button_image/bluetooth.png</normaloff>:/button_image/bluetooth.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -1077,7 +1077,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/ethernet.png</normaloff>:/t507_button_image/ethernet.png</iconset>
+               <normaloff>:/button_image/ethernet.png</normaloff>:/button_image/ethernet.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -1216,7 +1216,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/voice.png</normaloff>:/t507_button_image/voice.png</iconset>
+               <normaloff>:/button_image/voice.png</normaloff>:/button_image/voice.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -1422,7 +1422,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/4g.png</normaloff>:/t507_button_image/4g.png</iconset>
+               <normaloff>:/button_image/4g.png</normaloff>:/button_image/4g.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -1561,7 +1561,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/interface.png</normaloff>:/t507_button_image/interface.png</iconset>
+               <normaloff>:/button_image/interface.png</normaloff>:/button_image/interface.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -1700,7 +1700,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/system.png</normaloff>:/t507_button_image/system.png</iconset>
+               <normaloff>:/button_image/system.png</normaloff>:/button_image/system.png</iconset>
              </property>
              <property name="iconSize">
               <size>

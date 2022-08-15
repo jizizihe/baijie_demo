@@ -27,7 +27,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#bluetooth
-{border-image: url(:/t507_button_image/all/background.jpg)}
+{border-image: url(:/button_image/all/background.jpg)}
 /****************按钮部件*******************/
 QPushButton{
      background-color: rgba(100, 225, 100, 120);/*背景色*/
@@ -65,7 +65,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
 }
 
 QMessageBox {
-	background-image: url(:/t507_button_image/all/2.webp);
+	background-image: url(:/button_image/all/2.webp);
 	border:1px solid gray;
 }
 
@@ -132,7 +132,7 @@ QListWidget::item:selected:!active { background: lightgreen; }</string>
         </property>
         <property name="icon">
          <iconset resource="translation.qrc">
-          <normaloff>:/t507_button_image/return.png</normaloff>:/t507_button_image/return.png</iconset>
+          <normaloff>:/button_image/return.png</normaloff>:/button_image/return.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -270,7 +270,7 @@ QListWidget::item:selected:!active { background: lightgreen; }</string>
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/bluetooth/scan.png</normaloff>:/t507_button_image/bluetooth/scan.png</iconset>
+               <normaloff>:/button_image/bluetooth/scan.png</normaloff>:/button_image/bluetooth/scan.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -351,7 +351,7 @@ QListWidget::item:selected:!active { background: lightgreen; }</string>
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/bluetooth/pair.png</normaloff>:/t507_button_image/bluetooth/pair.png</iconset>
+               <normaloff>:/button_image/bluetooth/pair.png</normaloff>:/button_image/bluetooth/pair.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -439,7 +439,7 @@ QListWidget::item:selected:!active { background: lightgreen; }</string>
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/bluetooth/connect.png</normaloff>:/t507_button_image/bluetooth/connect.png</iconset>
+               <normaloff>:/button_image/bluetooth/connect.png</normaloff>:/button_image/bluetooth/connect.png</iconset>
              </property>
              <property name="iconSize">
               <size>

@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">#record
 {
-border-image: url(:/t507_button_image/all/background.jpg);
+border-image: url(:/button_image/all/background.jpg);
 }
 /******** combobox 滚动条  *********/
 QComboBox QScrollBar::vertical{ /*主体部分*/
@@ -188,7 +188,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </property>
     <property name="icon">
      <iconset>
-      <normalon>:/t507_button_image/return.png</normalon>
+      <normalon>:/button_image/return.png</normalon>
      </iconset>
     </property>
    </widget>
@@ -271,7 +271,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>:/t507_button_image/open.png</normaloff>:/t507_button_image/open.png</iconset>
+       <normaloff>:/button_image/open.png</normaloff>:/button_image/open.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -374,7 +374,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>:/t507_button_image/voice/begin.png</normaloff>:/t507_button_image/voice/begin.png</iconset>
+       <normaloff>:/button_image/voice/begin.png</normaloff>:/button_image/voice/begin.png</iconset>
      </property>
     </widget>
    </widget>

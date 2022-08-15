@@ -31,7 +31,7 @@
   <property name="styleSheet">
    <string notr="true">#ipset
 {
-border-image: url(:/t507_button_image/all/background.jpg);
+border-image: url(:/button_image/all/background.jpg);
 }
 /****************按钮部件*******************/
 QPushButton{
@@ -70,7 +70,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
 }
 
 QMessageBox {
-background-image: url(:/t507_button_image/all/background.jpg);
+background-image: url(:/button_image/all/background.jpg);
 	border:1px solid gray;
 }
 QTextEdit
@@ -153,7 +153,7 @@ background-color:transparent;
         </property>
         <property name="icon">
          <iconset resource="translation.qrc">
-          <normaloff>:/t507_button_image/return.png</normaloff>:/t507_button_image/return.png</iconset>
+          <normaloff>:/button_image/return.png</normaloff>:/button_image/return.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -267,7 +267,7 @@ background-color:transparent;
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/ethernet/show.png</normaloff>:/t507_button_image/ethernet/show.png</iconset>
+               <normaloff>:/button_image/ethernet/show.png</normaloff>:/button_image/ethernet/show.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -348,7 +348,7 @@ background-color:transparent;
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/ethernet/run.png</normaloff>:/t507_button_image/ethernet/run.png</iconset>
+               <normaloff>:/button_image/ethernet/run.png</normaloff>:/button_image/ethernet/run.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -423,7 +423,7 @@ background-color:transparent;
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/system.png</normaloff>:/t507_button_image/system.png</iconset>
+               <normaloff>:/button_image/system.png</normaloff>:/button_image/system.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -504,7 +504,7 @@ background-color:transparent;
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/ethernet/modify.png</normaloff>:/t507_button_image/ethernet/modify.png</iconset>
+               <normaloff>:/button_image/ethernet/modify.png</normaloff>:/button_image/ethernet/modify.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -579,7 +579,7 @@ background-color:transparent;
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/t507_button_image/del.png</normaloff>:/t507_button_image/del.png</iconset>
+               <normaloff>:/button_image/del.png</normaloff>:/button_image/del.png</iconset>
              </property>
              <property name="iconSize">
               <size>

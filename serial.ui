@@ -34,7 +34,7 @@
   <property name="styleSheet">
    <string notr="true">#serial
 {
-border-image: url(:/t507_button_image/all/background.jpg);
+border-image: url(:/button_image/all/background.jpg);
 }
 /******** combobox 滚动条  *********/
 QComboBox QScrollBar::vertical{ /*主体部分*/
@@ -42,7 +42,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
     border-radius:35px;
 }
 QMessageBox {
-background-image: url(:/t507_button_image/all/background.jpg);
+background-image: url(:/button_image/all/background.jpg);
 	border:1px solid gray;
 }
 
@@ -173,7 +173,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
         </property>
         <property name="icon">
          <iconset>
-          <normalon>:/t507_button_image/return.png</normalon>
+          <normalon>:/button_image/return.png</normalon>
          </iconset>
         </property>
         <property name="iconSize">

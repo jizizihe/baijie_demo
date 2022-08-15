@@ -277,7 +277,7 @@ void voice::get_nowlength()
      if(kk >= length)
      {
          get_length->stop();
-         ui->btn_paly->setIcon(QIcon(":/t507_button_image/voice/start.png"));
+         ui->btn_paly->setIcon(QIcon(":/button_image/voice/start.png"));
          ui->btn_paly->setText("play");
          flag_stop_play = 0;
          ui->label_timeend->setText("00:00:00");
@@ -300,7 +300,7 @@ void voice::on_btn_paly_clicked()
     if((length > kk)&&(kk != 0))
     {
         ui->btn_paly->setText("play");
-        ui->btn_paly->setIcon(QIcon(":/t507_button_image/voice/start.png"));
+        ui->btn_paly->setIcon(QIcon(":/button_image/voice/start.png"));
         kk=0;
         flag_stop_play = 0;
         ui->Slider_voicelength->setValue(kk);
@@ -313,7 +313,7 @@ void voice::on_btn_paly_clicked()
 
         //ui->label_12->setText(tr("stop"));
         ui->btn_paly->setText("stop");
-        ui->btn_paly->setIcon(QIcon(":/t507_button_image/voice/stop.png"));
+        ui->btn_paly->setIcon(QIcon(":/button_image/voice/stop.png"));
 
         QString path = QString("%1").arg(ui->pathname_2->text());
 //        QDir dir(path);
@@ -517,7 +517,7 @@ void voice::on_btn_rec_clicked()
         QString str = QString("arecord -r 16000 -c 1 -t wav %1").arg(str_name);
         proc->start(str);
         ui->btn_rec->setText(tr("stop"));
-        ui->btn_rec->setIcon(QIcon(":/t507_button_image/voice/stop.png"));
+        ui->btn_rec->setIcon(QIcon(":/button_image/voice/stop.png"));
         flag = false;
         refresh_flag = false;
         flag_record = 1;
@@ -529,7 +529,7 @@ void voice::on_btn_rec_clicked()
         ui->record_timelength->setText("00:00:00");
         flag_record = 0;
         record_length = 0;
-        ui->btn_rec->setIcon(QIcon(":/t507_button_image/voice/start.png"));
+        ui->btn_rec->setIcon(QIcon(":/button_image/voice/start.png"));
 
         file_name = QString("%1_record.wav").arg(s_time);
         flag = true;

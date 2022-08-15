@@ -42,7 +42,7 @@ ipset_popup::ipset_popup(QWidget *parent) :
                 })");
 
     btn_return = new QPushButton(this);
-    btn_return->setIcon(QIcon(":/t507_button_image/return.png"));
+    btn_return->setIcon(QIcon(":/button_image/return.png"));
 //    btn_return = new QPushButton(tr("return"),this);
     btn_return->setStyleSheet(R"(
                      QPushButton{

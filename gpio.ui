@@ -31,7 +31,7 @@
   <property name="styleSheet">
    <string notr="true">#gpio
 {
-	border-image: url(:/t507_button_image/all/background.jpg);
+	border-image: url(:/button_image/all/background.jpg);
 }
 
 
@@ -1512,7 +1512,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
        </property>
        <property name="icon">
         <iconset>
-         <normalon>:/t507_button_image/return.png</normalon>
+         <normalon>:/button_image/return.png</normalon>
         </iconset>
        </property>
        <property name="iconSize">

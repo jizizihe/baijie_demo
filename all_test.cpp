@@ -33,7 +33,7 @@ all_test::all_test(QWidget *parent) :
     all_font();
     waitLbl = new QLabel(this);
     waitLbl->move(screen_width/2 - 150,screen_height/2 -50);
-    waitMovie = new QMovie(":/t507_button_image/loading.webp");
+    waitMovie = new QMovie(":/button_image/loading.webp");
     waitLbl->setFixedSize(50, 50);
     waitLbl->setScaledContents(true);
     waitLbl->setMovie(waitMovie);

@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">#user_manual
 {
-border-image: url(:/t507_button_image/all/background.jpg);
+border-image: url(:/button_image/all/background.jpg);
 }
 /****************按钮部件*******************/
 QPushButton{
@@ -103,7 +103,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
        </property>
        <property name="icon">
         <iconset resource="translation.qrc">
-         <normaloff>:/t507_button_image/return.png</normaloff>:/t507_button_image/return.png</iconset>
+         <normaloff>:/button_image/return.png</normaloff>:/button_image/return.png</iconset>
        </property>
        <property name="iconSize">
         <size>

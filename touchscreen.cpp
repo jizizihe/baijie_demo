@@ -94,11 +94,11 @@ void touchscreen::resizeEvent(QResizeEvent *event)  //Load Images
     {
         btn_w = this->width()/7;
         btn_h = this->height()/10;
-        btnreturn->setIcon(QIcon(":/t507_button_image/rotate_return.png"));
+        btnreturn->setIcon(QIcon(":/button_image/rotate_return.png"));
         btnreturn->setIconSize(QSize(32,32));
         btnreturn->setGeometry(s_width-btn_w-10,10,btn_w,btn_h);
 
-        btnclear->setIcon(QIcon(":/t507_button_image/rotate_clean.png"));
+        btnclear->setIcon(QIcon(":/button_image/rotate_clean.png"));
         btnreturn->setIconSize(QSize(32,32));
         btnclear->setGeometry(s_width-btn_w-10,btn_h+20,btn_w,btn_h);
     }
@@ -106,11 +106,11 @@ void touchscreen::resizeEvent(QResizeEvent *event)  //Load Images
     {
         btn_w = this->width()/10;
         btn_h = this->height()/7;
-        btnreturn->setIcon(QIcon(":/t507_button_image/return.png"));
+        btnreturn->setIcon(QIcon(":/button_image/return.png"));
         btnreturn->setIconSize(QSize(32,32));
         btnreturn->setGeometry(10,10,btn_w,btn_h);
 
-        btnclear->setIcon(QIcon(":/t507_button_image/clean.png"));
+        btnclear->setIcon(QIcon(":/button_image/clean.png"));
         btnreturn->setIconSize(QSize(32,32));
         btnclear->setGeometry(btn_w+20,10,btn_w,btn_h);
       }
