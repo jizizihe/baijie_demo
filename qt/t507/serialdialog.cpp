@@ -1,11 +1,69 @@
 #include "serialdialog.h"
 #include "ui_serialdialog.h"
+#include <QScreen>
+
+static int s_width;
+static int s_height;
+static int screen_flag;
+static QScreen *screen;
 
 serialdialog::serialdialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::serialdialog)
 {
     ui->setupUi(this);
+    screen = qApp->primaryScreen();
+    s_width = screen->size().width();
+    s_height = screen->size().height();
+
+    if(s_width < s_height)
+    {
+        screen_flag = 1;
+    }
+    QFont font;
+    qreal realX = screen->physicalDotsPerInchX();
+    qreal realY = screen->physicalDotsPerInchY();
+    qreal realWidth = s_width / realX * 2.54;
+    qreal realHeight = s_height / realY *2.54;
+
+    if(screen_flag == 1)
+    {
+        if(realHeight < 15)
+        {
+            font.setPointSize(10);
+        }
+        else if (realHeight < 17)
+        {
+            font.setPointSize(12);
+        }
+        else
+        {
+            font.setPointSize(14);
+        }
+
+    }
+    else
+    {
+        if(realWidth < 15)
+        {
+            font.setPointSize(10);
+        }
+        else if (realWidth < 17)
+        {
+            font.setPointSize(12);
+        }
+        else
+        {
+            font.setPointSize(14);
+        }
+    }
+    ui->label->setFont(font);
+    ui->label_2->setFont(font);
+    ui->groupBox_3->setFont(font);
+    ui->serialModeBox->setFont(font);
+    ui->serialCancelBtn->setFont(font);
+    ui->serialCheckAllBtn->setFont(font);
+    ui->serialOkBtn->setFont(font);
 
     pButtonGroup = new QButtonGroup(this);
     pButtonGroup->setExclusive(false);               //设置这个按钮组为非互斥模式
@@ -30,6 +88,7 @@ serialdialog::serialdialog(QWidget *parent) :
         tmp = serialPortName.at(i);
         QCheckBox *checkbox = new QCheckBox;
         checkbox->setText(QString(tmp));
+        checkbox->setFont(font);
         vLayout1->addWidget(checkbox,i/2,i%2);
         pButtonGroup->addButton(checkbox,i);
     }
@@ -135,6 +194,11 @@ void serialdialog::on_serialCheckAllBtn_clicked()
     }
     getSerialCheckedName();
     emit serial_config_msg(serialConfig);
+}
+
+void serialdialog::language_reload()
+{
+    ui->retranslateUi(this);
 }
 
 #if 0

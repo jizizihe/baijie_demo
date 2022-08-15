@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1024</width>
-    <height>600</height>
+    <width>523</width>
+    <height>361</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,10 +25,10 @@ QPushButton{
      border-width:  2px;  /*边框宽度为4像素*/
      border-radius: 10px; /*边框圆角半径*/
      border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     font: bold 18px;/*字体*/
+     font: bold 24px;/*字体*/
      color:rgba(0, 0, 0, 100);/*字体颜色*/
      padding: 6px; /*填衬*/
-	outline: none; /*去掉按钮的虚线框*/
+    outline: none; /*去掉按钮的虚线框*/
 }
 
 QPushButton:hover{ /*鼠标悬停在按钮上时*/
@@ -44,368 +44,486 @@ QPushButton:pressed { /*按钮被按下时*/
      color:rgba(0, 0, 0, 100);
 }
 
-QTextEdit
-{
-	background-color:transparent;
-	border:1px solid gray;
-}
 
-QTreeWidget
-{
-	background-color:transparent;
-	border:1px solid gray;
+/****************滑块部件*******************/
+
+
+QSlider::handle:horizontal { /*水平滑块的手柄*/
+        image: url(:/image/sliderHandle.png);
+ }
+
+QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
+        border-image: url(:/image/slider.png);/*边框图片*/
+ }
+
+
+/******** combobox 滚动条  *********/
+QComboBox QScrollBar::vertical{ /*主体部分*/
+    width:35px;
+    border-radius:35px;
 }</string>
   </property>
-  <widget class="QTreeWidget" name="treeWidget">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>49</y>
-     <width>420</width>
-     <height>551</height>
-    </rect>
+  <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0,6">
+   <property name="spacing">
+    <number>0</number>
    </property>
-   <column>
-    <property name="text">
-     <string>               user manual</string>
-    </property>
-   </column>
-   <item>
-    <property name="text">
-     <string>Wifi</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <item>
-     <property name="text">
-      <string>wifi status</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>wifi connect</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>hotspot connect</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-   </item>
-   <item>
-    <property name="text">
-     <string>Bluetooth</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <item>
-     <property name="text">
-      <string>bluetooth scan</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>bluetooth pair</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>bluetooth connect</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-   </item>
-   <item>
-    <property name="text">
-     <string>Ethernet</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <item>
-     <property name="text">
-      <string>show all ip connect</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>set dynamic ip </string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>set static ip</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>network speed test</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-   </item>
-   <item>
-    <property name="text">
-     <string>RTC</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Brightness adjustment</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <item>
-     <property name="text">
-      <string>brightness</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Sleep time</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-   </item>
-   <item>
-    <property name="text">
-     <string>GPIO</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <item>
-     <property name="text">
-      <string>scan occupied gpio</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>batch operation</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-   </item>
-   <item>
-    <property name="text">
-     <string>Serial Port</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Voice Frequency</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <item>
-     <property name="text">
-      <string>choose file</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>begin</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>play</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-   </item>
-   <item>
-    <property name="text">
-     <string>Touch Display</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Udev</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <item>
-     <property name="text">
-      <string>udev</string>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-    </item>
-   </item>
-   <item>
-    <property name="text">
-     <string>All Interface Test</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Chinese/English</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-   </item>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>2</y>
-     <width>100</width>
-     <height>51</height>
-    </rect>
+   <property name="leftMargin">
+    <number>0</number>
    </property>
-   <property name="text">
-    <string/>
+   <property name="topMargin">
+    <number>0</number>
    </property>
-   <property name="icon">
-    <iconset resource="translation.qrc">
-     <normaloff>:/t507_button_image/return.png</normaloff>:/t507_button_image/return.png</iconset>
+   <property name="rightMargin">
+    <number>0</number>
    </property>
-  </widget>
-  <widget class="QTextEdit" name="textEdit">
-   <property name="geometry">
-    <rect>
-     <x>420</x>
-     <y>0</y>
-     <width>604</width>
-     <height>600</height>
-    </rect>
+   <property name="bottomMargin">
+    <number>0</number>
    </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>0</y>
-     <width>150</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>expand all</string>
-   </property>
-  </widget>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,9">
+     <property name="leftMargin">
+      <number>9</number>
+     </property>
+     <property name="topMargin">
+      <number>5</number>
+     </property>
+     <property name="bottomMargin">
+      <number>5</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="translation.qrc">
+         <normaloff>:/t507_button_image/return.png</normaloff>:/t507_button_image/return.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>2</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>2</height>
+      </size>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1">
+     <property name="spacing">
+      <number>10</number>
+     </property>
+     <property name="rightMargin">
+      <number>9</number>
+     </property>
+     <property name="bottomMargin">
+      <number>9</number>
+     </property>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="5,1">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QTreeWidget" name="treeWidget">
+         <property name="styleSheet">
+          <string notr="true">background-color:rgba(0,0,0, 0);</string>
+         </property>
+         <column>
+          <property name="text">
+           <string>               user manual</string>
+          </property>
+         </column>
+         <item>
+          <property name="text">
+           <string>Wifi</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>wifi status</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>wifi connect</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>hotspot connect</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+         </item>
+         <item>
+          <property name="text">
+           <string>Bluetooth</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>bluetooth scan</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>bluetooth pair</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>bluetooth connect</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+         </item>
+         <item>
+          <property name="text">
+           <string>Ethernet</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>show all ip connect</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>set dynamic ip </string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>set static ip</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>network speed test</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+         </item>
+         <item>
+          <property name="text">
+           <string>RTC</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Brightness adjustment</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>brightness</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Sleep time</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+         </item>
+         <item>
+          <property name="text">
+           <string>GPIO</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>scan occupied gpio</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>batch operation</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+         </item>
+         <item>
+          <property name="text">
+           <string>Serial Port</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Voice Frequency</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>choose file</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>begin</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>play</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+         </item>
+         <item>
+          <property name="text">
+           <string>Touch Display</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Udev</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>udev</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+         </item>
+         <item>
+          <property name="text">
+           <string>All Interface Test</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Chinese/English</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,0">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>9</number>
+         </property>
+         <property name="topMargin">
+          <number>9</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>expand all</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="textEdit">
+       <property name="styleSheet">
+        <string notr="true">  background-color:rgba(0,0,0, 15);</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <resources>
   <include location="translation.qrc"/>

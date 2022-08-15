@@ -10,13 +10,22 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QDebug>
+#include <QScreen>
+#include <QDesktopWidget>
 
+QGraphicsView *vieww;
+static int ration_flag = 0;
+int Width;
+int Height;
 keyBoard::keyBoard(QWidget *parent) :
     QWidget(parent)
 {
     this->InitWindow();
-//    this->InitProperty();
+
     this->InitForm();
+
+    connect(qApp, SIGNAL(focusChanged(QWidget *, QWidget *)),this, SLOT(focusChanged(QWidget *, QWidget *)));
+    //connect(&LineEdit_mousew,SIGNAL(key_show()),this,SLOT(keyboard_show()));
 
     QDesktopWidget* w = QApplication::desktop();
     deskWidth = w->screenGeometry().width();
@@ -24,11 +33,35 @@ keyBoard::keyBoard(QWidget *parent) :
     frmWidth = this->width();
     frmHeight = this->height();
 
+    QScreen *screen = qApp->primaryScreen();
+    Width = screen->size().width();			//屏幕宽
+    Height = screen->size().height();
 //    // 自动填充在底部
 //    this->setGeometry(0,deskHeight-frmWidth,deskWidth,frmWidth);
 //    // 居中显示
 //    QPoint movePoint(deskWidth / 2 - frmWidth / 2, deskHeight / 2 - frmHeight / 2);
 //    this->move(movePoint);
+    if(deskWidth < deskHeight)
+    {
+
+        ration_flag = 1;
+    }
+//    QGraphicsScene *scene = new QGraphicsScene;
+//    QGraphicsProxyWidget *ww = scene->addWidget(this);
+//    ww->setRotation(90);
+
+//    vieww = new QGraphicsView(scene);
+
+//    vieww->setWindowFlags(Qt::FramelessWindowHint);//无边框
+//    vieww->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+//    vieww->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+//    vieww->resize(deskWidth/2,deskHeight/2);
+//    this->resize(deskHeight/2,deskWidth/2);
+
+//    connect(this,SIGNAL(vieew_hide()),this,SLOT(view_hide()));
+    this->setFocusPolicy(Qt::NoFocus);
+
 }
 
 keyBoard::~keyBoard()
@@ -47,6 +80,8 @@ void keyBoard::mouseMoveEvent(QMouseEvent *e)
 
 void keyBoard::mousePressEvent(QMouseEvent *e)
 {
+    qDebug() << "press";
+     emit wifi_setfocus();
     if (e->button() == Qt::LeftButton)
     {
         mousePressed = true;
@@ -67,49 +102,98 @@ void keyBoard::mouseReleaseEvent(QMouseEvent *)
 // 输出参数： 无
 // 返 回 值： 无
 //============================================================
-void keyBoard::focusChanged(QWidget *, QWidget *nowWidget)
+//void keyBoard::focusChanged(QWidget *, QWidget *nowWidget)
+//{
+//qDebug() << "111";
+//#if 1
+//   if (nowWidget != 0 && !this->isAncestorOf(nowWidget))
+//    {
+//        if (nowWidget->inherits("QLineEdit"))
+//        {
+//            currentLineEdit = (QLineEdit *)nowWidget;
+
+//            QPoint movePoint;
+
+//            // 鼠标点击位置坐标
+//            if (QCursor::pos().y() > deskHeight / 2)
+//            {
+//                // 靠上居中显示
+//               // movePoint = QPoint(deskWidth/2 - frmWidth/2, 0);
+
+//                movePoint = QPoint(0,0);
+//            }
+//            else
+//            {
+//                // 靠下居中显示
+//             //   movePoint = QPoint(deskWidth/2 - frmWidth/2, deskHeight - frmHeight);
+//                 movePoint = QPoint(0,0);
+//            }
+
+ //           this->move(movePoint);
+ //           this->repaint();
+//            this->setVisible(true);
+           // vieww->show();
+ //           this->show();
+ //          qDebug() << "222";
+//        }
+//       else
+//      {
+//            currentLineEdit = 0;
+//            //qDebug() << "BBB";
+//            this->setVisible(false);
+//           // emit vieew_hide();
+//            this->hide();
+//            //vieww->hide();
+//            // 需要将输入法切换到最初的原始状态--小写
+//            currentType="min";
+//            changeType(currentType);
+//            currentStyle = 0;
+//            changeStyle(currentStyle);
+//            keyWindow->setCurrentIndex(0);
+ //           qDebug() << "333";
+//      }
+//    }
+//#endif   currentTextEdit
+//}
+
+void keyBoard::focusChanged(QWidget *oldWidget, QWidget *nowWidget)
 {
-#if 1
+
+    //qDebug() << 'oldWidget:' << oldWidget << 'nowWidget:' << nowWidget;
     if (nowWidget != 0 && !this->isAncestorOf(nowWidget))
     {
-        if (nowWidget->inherits("QLineEdit"))
-        {
+         if (nowWidget->inherits("QLineEdit"))
+         {
             currentLineEdit = (QLineEdit *)nowWidget;
-
-            QPoint movePoint;
-
-            // 鼠标点击位置坐标
-            if (QCursor::pos().y() > deskHeight / 2)
-            {
-                // 靠上居中显示
-                movePoint = QPoint(deskWidth/2 - frmWidth/2, 0);
-            }
-            else
-            {
-                // 靠下居中显示
-                movePoint = QPoint(deskWidth/2 - frmWidth/2, deskHeight - frmHeight);
-            }
-
-            this->move(movePoint);
-            this->repaint();
             this->setVisible(true);
+            qDebug() << 22;
         }
-        else
-        {
+         else  if(nowWidget->inherits("QPushButton"))
+         {
+             qDebug() << "btn";
+         }
+         else  if(nowWidget->inherits("QMainWindow"))
+         {
+             qDebug() << "ww";
+         }
+         else  if(nowWidget->inherits("QGraphicsScene"))
+         {
+             qDebug() << "ss";
+         }
+         else  if(nowWidget->inherits("QGraphicsView"))
+         {
+             qDebug() << "vv";
+         }
+         else {
             currentLineEdit = 0;
-            //qDebug() << "BBB";
             this->setVisible(false);
-            // 需要将输入法切换到最初的原始状态--小写
-            currentType="min";
-            changeType(currentType);
-            currentStyle = 0;
-            changeStyle(currentStyle);
-            keyWindow->setCurrentIndex(0);
+            qDebug() << 33;
+            //需要将输入法切换到最初的原始状态--小写
+          //  currentType='min';
+          //  changeType(currentType);
         }
     }
-#endif   currentTextEdit
 }
-
 //============================================================
 // 函数名称： slotBtnClicked
 // 功能描述： 槽:所有按键的处理函数,根据objectName
@@ -119,6 +203,7 @@ void keyBoard::focusChanged(QWidget *, QWidget *nowWidget)
 //============================================================
 void keyBoard::slotBtnClicked()
 {
+      emit wifi_editname();
     QPushButton *btn = (QPushButton *)sender();
     QString objectName = btn->objectName();
 
@@ -160,6 +245,9 @@ void keyBoard::slotBtnClicked()
         this->move(-500, -500);
 #else
         this->setVisible(false);
+       // emit vieew_hide();
+        //this->hide();
+       // vieww->hide();
 #endif
         currentType="min";
         changeType(currentType);
@@ -167,6 +255,7 @@ void keyBoard::slotBtnClicked()
         changeStyle(currentStyle);
         keyWindow->setCurrentIndex(0);
         //close();
+
     }
     else
     {
@@ -595,8 +684,7 @@ void keyBoard::InitForm()
     }
 
     // 绑定全局改变焦点信号槽
-    connect(qApp, SIGNAL(focusChanged(QWidget *, QWidget *)),
-            this, SLOT(focusChanged(QWidget *, QWidget *)));
+
     // 绑定按键事件过滤器
 //    qApp->installEventFilter(this);
 }
@@ -727,4 +815,14 @@ void keyBoard::setStyle(QString topColor, QString bottomColor, QString borderCol
     this->setStyleSheet(qss.join(""));
 }
 
+void keyBoard::view_hide()
+{
+    this->hide();
+    vieww->hide();
+}
 
+void keyBoard::keyboard_show()
+{
+    qDebug()  << 1223;
+    this->show();
+}

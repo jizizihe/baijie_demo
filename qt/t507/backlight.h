@@ -40,6 +40,7 @@ public:
     ~backlight();
     QTimer *timing;
     void language_reload();
+    void backlight_font();
 
 private:
     Ui::backlight *ui;
@@ -60,6 +61,8 @@ private slots:
 
 
 
+    void on_btn_ligth_clicked();
+    void on_btn_sleep_clicked();
 };
 
 #endif // BACKLIGHT_H

@@ -2,6 +2,13 @@
 #include "ui_user_manual.h"
 #include <QDebug>
 #include <QString>
+#include <QScreen>
+
+static int s_width;
+static int s_height;
+static QScreen *screen;
+static int screen_flag;
+
 user_manual::user_manual(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::user_manual)
@@ -12,7 +19,10 @@ user_manual::user_manual(QWidget *parent) :
     ui->textEdit->setReadOnly(true);
     ui->treeWidget->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
     ui->textEdit->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
-
+    screen = qApp->primaryScreen();
+    s_width = screen->size().width();
+    s_height = screen->size().height();
+    user_font();
 }
 
 user_manual::~user_manual()
@@ -160,4 +170,45 @@ void user_manual::on_pushButton_2_clicked()
     catalogueflag = !catalogueflag;
 }
 
+void user_manual::user_font()
+{
+    qreal realX = screen->physicalDotsPerInchX();
+    qreal realY = screen->physicalDotsPerInchY();
+    qreal realWidth = s_width / realX * 2.54;
+    qreal realHeight = s_height / realY *2.54;
+    QFont font;
+    if(screen_flag)
+    {
+        if(realHeight < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realHeight < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(17);
+        }
 
+    }
+    else
+    {
+        if(realWidth < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realWidth < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(17);
+        }
+    }
+  ui->treeWidget->setFont(font);
+  ui->pushButton_2->setFont(font);
+  ui->textEdit->setFont(font);
+}

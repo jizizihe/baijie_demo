@@ -330,7 +330,6 @@ int get_occupied_gpio(int *save_gpio,int nLine)
         return -1;
     }
     sscanf(match, "gpio-%d", save_gpio);
-
     return 0;
 }
 

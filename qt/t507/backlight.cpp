@@ -1,5 +1,6 @@
 #include "backlight.h"
 #include "ui_backlight.h"
+#include <QScreen>
 
 #define qd
 #ifdef qd
@@ -11,7 +12,10 @@
 static int light_value;
 static int index_number;
 static unsigned int timer_array[7] = {15,30,60,120,300,600,429499999};
-
+static QScreen *screen;
+static int screen_flag;
+static int Width;
+static int Height;
 QTimer *timeUp;
 
 enum index_value
@@ -73,6 +77,16 @@ backlight::backlight(QWidget *parent) :
     ui->horizontalSlider->setValue(255);
     light_value = 255;
 
+    screen = qApp->primaryScreen();
+    Width = screen->size().width();			//屏幕宽
+    Height = screen->size().height();
+    if(Width < Height)
+    {
+        screen_flag = 1;
+    }
+    backlight_font();
+    ui->label_num->setText(tr("255"));
+    ui->label_3->setText(tr("light:"));
     timing = new QTimer(this);
     timing->start();
     connect(timing,SIGNAL(timeout()),this,SLOT(light_screen()));
@@ -95,7 +109,7 @@ backlight::~backlight()
 
 void backlight::show_time()
 {
-    ui->time->setText(QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss"));
+    //ui->time->setText(QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss"));
 }
 
 void backlight::light_screen()      //Click on the light screen
@@ -124,26 +138,26 @@ void backlight::timerUp()       //check whether events are generated
         {
             now = QDateTime::currentDateTime().addSecs((unsigned)timer_array[index_number]);
             shade = QDateTime::currentDateTime().addSecs((unsigned)timer_array[index_number] - 1);
-            set_backlight(light_value);
+       //     set_backlight(light_value);
             touch_flag = false;
         }
 
         if(QDateTime::currentDateTime() > shade)
         {
-            set_backlight(140);
+         //   set_backlight(140);
         }
 
         QCoreApplication::processEvents(QEventLoop::AllEvents,100);
     }
     timeUp->stop();
     set_backlight(0);
-//    qDebug() << "black_screen" << QTime::currentTime();
-
 }
 
 void backlight::on_horizontalSlider_valueChanged(int value)
 {
     light_value = set_backlight(value);
+    QString v = QString("%1").arg(value);
+    ui->label_num->setText(tr(QString("%1").arg(v).toUtf8()));
 }
 
 void backlight::on_comboBox_currentIndexChanged(int index)
@@ -159,4 +173,60 @@ void backlight::on_return_2_clicked()
 void backlight::language_reload()
 {
     ui->retranslateUi(this);
+}
+
+void backlight::on_btn_ligth_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+void backlight::on_btn_sleep_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+void backlight::backlight_font()
+{
+    qreal realX = screen->physicalDotsPerInchX();
+    qreal realY = screen->physicalDotsPerInchY();
+    qreal realWidth = Width / realX * 2.54;
+    qreal realHeight = Height / realY *2.54;
+    QFont font;
+    if(screen_flag)
+    {
+        if(realHeight < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realHeight < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(17);
+        }
+    }
+    else
+    {
+        if(realWidth < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realWidth < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(17);
+        }
+    }
+
+    ui->btn_ligth->setFont(font);
+    ui->btn_sleep->setFont(font);
+    ui->label_3->setFont(font);
+    ui->label_num->setFont(font);
+    ui->comboBox->setFont(font);
+    ui->label->setFont(font);
 }

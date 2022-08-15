@@ -3,6 +3,11 @@
 
 #include <QWidget>
 #include <QTextEdit>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QGraphicsProxyWidget>
+//#include "lineedit_mouse.h"
+
 class QStackedWidget;
 class QLabel;
 class QLineEdit;
@@ -27,8 +32,18 @@ protected:
 private slots:
     void focusChanged(QWidget *, QWidget *nowWidget);
     void slotBtnClicked();         // 按键处理
+    void view_hide();
+
+    void keyboard_show();
+
+signals:
+    void vieew_hide();
+    void wifi_editname();
+    void wifi_setfocus();
 
 private:
+    //LineEdit_mouse LineEdit_mousew;
+    //wifi *wifi_w;
     int deskWidth;                  //桌面宽度
     int deskHeight;                 //桌面高度
     int frmWidth;                   //窗体宽度

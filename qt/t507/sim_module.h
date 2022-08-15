@@ -22,6 +22,7 @@ public:
     QString sim_connect();
 
     void language_reload();
+    void sim_font();
 
 signals:
     void Mysignal();

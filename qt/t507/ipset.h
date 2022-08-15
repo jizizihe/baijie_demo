@@ -18,6 +18,7 @@ public:
     ~ipset();
 
     void language_reload();
+    void ipset_font();
 signals:
     void ret_signal();
 
@@ -39,6 +40,7 @@ private slots:
     void on_okBtn_clicked();
 
     void on_backBtn_clicked();
+
 
 private:
     Ui::ipset *ui;

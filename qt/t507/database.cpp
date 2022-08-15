@@ -1,4 +1,5 @@
 #include "database.h"
+#include <QFileInfo>
 
 database::database()
 {
@@ -25,18 +26,22 @@ bool database::create_connection()
 
 bool database::create_table()
 {
-    QSqlQuery query;
-    QString create_table_sql = "create table wifiPasswd (name varchar(64) primary key,password varchar(32))";
-    query.prepare(create_table_sql);
-    if(!query.exec())
+    QFileInfo file("info");
+    if(file.exists()==false)
     {
-        qDebug() << "Error: Fail to create table."<< query.lastError();
-        return false;
-    }
-    else
-    {
-        qDebug() << "create table succeed!";
-        return true;
+        QSqlQuery query;
+        QString create_table_sql = "create table wifiPasswd (name varchar(64) primary key,password varchar(32))";
+        query.prepare(create_table_sql);
+        if(!query.exec())
+        {
+            qDebug() << "Error: Fail to create table."<< query.lastError();
+            return false;
+        }
+        else
+        {
+            qDebug() << "create table succeed!";
+            return true;
+        }
     }
 }
 
@@ -153,5 +158,4 @@ bool database::delete_table(QString tableName)
     }
     return false;
 }
-
 

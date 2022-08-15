@@ -1,7 +1,13 @@
 #include "all_test.h"
 #include "ui_all_test.h"
-
 #include "all_test_interface.h"
+#include <QDebug>
+
+static QScreen *screen;
+static int screen_flag;
+static int Width;
+static int Height;
+//static int camera_flag;
 
 all_test::all_test(QWidget *parent) :
     QMainWindow(parent),
@@ -12,11 +18,19 @@ all_test::all_test(QWidget *parent) :
     qRegisterMetaType<serial_config>("serial_config");
     serialConfig.count = 0;
 
-    QScreen *screen=QGuiApplication::primaryScreen ();
+    screen=QGuiApplication::primaryScreen ();
     QRect mm=screen->availableGeometry() ;
     int screen_width = mm.width();
     int screen_height = mm.height();
 
+    Width = screen->size().width();			//屏幕宽
+    Height = screen->size().height();
+    if(Width < Height)
+    {
+        screen_flag = 1;
+    }
+
+    all_font();
     waitLbl = new QLabel(this);
     waitLbl->move(screen_width/2 - 150,screen_height/2 -50);
     waitMovie = new QMovie(":/t507_button_image/loading.webp");
@@ -58,6 +72,7 @@ all_test::~all_test()
 void all_test::language_reload()
 {
     ui->retranslateUi(this);
+    serialDialog->language_reload();
 }
 
 void all_test::on_beginBtn_clicked()
@@ -104,7 +119,7 @@ void all_test::on_beginBtn_clicked()
         }
         ui->beginBtn->setText(tr("stop"));
         QThread::usleep(10);
-        ui->image->clear();
+        //myLabel->clear();
         ui->textEdit->setText(tr("***********test start***********"));
         startTime = QTime::currentTime();
 
@@ -149,7 +164,6 @@ void all_test::on_beginBtn_clicked()
         {
             emit audio_test_msg();
 //            qDebug() << "audio_flag" << __LINE__;
-
             QProcess p;
             p.start("bash", QStringList() <<"-c" << "aplay /usr/helperboard/test.wav");
             p.waitForFinished(-1);
@@ -227,7 +241,6 @@ bool all_test::event(QEvent *event)
     }
 }
 
-
 void all_test::on_testCheckAllBtn_clicked()
 {
     QAbstractButton *checkBtn;
@@ -250,7 +263,6 @@ void all_test::on_testCheckAllBtn_clicked()
         }
         ui->testCheckAllBtn->setText(tr("check all"));
     }
-
 }
 
 void all_test::on_retBtn_clicked()
@@ -290,7 +302,17 @@ void all_test::on_usbChk_clicked()
 
 void all_test::on_serialChk_clicked()
 {
+    if(screen_flag == 1)
+    {
+      serialDialog->resize(Height*2/3,Width*2/3);
+      serialDialog->move(Width-((Width-serialDialog->height())/2),Height/2-serialDialog->width()/2);
+    }
+    else
+    {
+      serialDialog->resize(Width/2,Height*3/4);
+    }
     serialDialog->exec();
+
 }
 
 void all_test::testMsgDisplay(QString type,QString str,int time)
@@ -369,23 +391,20 @@ void all_test::recv_test_msg(int test_signal_type, QString str)
         ui->textEdit->append(str);
         break;
     case camera_signal:
-        image = QImage("/data/yuv.jpg");
-        ui->image->setScaledContents(true);
-        ui->image->setPixmap(QPixmap::fromImage(image));
-        ui->image->show();
-
         stopTime = QTime::currentTime();
         elapsed = startTime.secsTo(stopTime);
         qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime:camera ="<<elapsed<<"s";
 
         str = QString(tr("---camera test: Please check the picture display? %1s")).arg(elapsed);
         ui->textEdit->append(str);
+        image_show();
         break;
     case battary_signal:
         stopTime = QTime::currentTime();
         elapsed = startTime.secsTo(stopTime);
         qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime:battary ="<<elapsed<<"s";
         testMsgDisplay(tr("---battary test:"),str,elapsed);
+
         break;
     case sim_signal:
         stopTime = QTime::currentTime();
@@ -509,4 +528,72 @@ void all_test::serial_stop_deal()
         }
 //            delete serial_test_thread[i];
     }
+}
+void all_test::image_show()
+{
+    ui->textEdit->append("\n");
+    QTextCursor cursor = ui->textEdit->textCursor();
+    cursor.movePosition(QTextCursor::End);
+    QTextImageFormat imageFormat;
+    imageFormat.setName("/data/yuv.jpg");
+    imageFormat.setWidth(ui->textEdit->width()/2);
+    imageFormat.setHeight(ui->textEdit->height()/2);
+    cursor.insertImage(imageFormat);
+}
+
+void all_test::all_font()
+{
+    qreal realX = screen->physicalDotsPerInchX();
+    qreal realY = screen->physicalDotsPerInchY();
+    qreal realWidth = Width / realX * 2.54;
+    qreal realHeight = Height / realY *2.54;
+    QFont font;
+    if(screen_flag)
+    {
+        if(realHeight < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realHeight < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(17);
+        }
+
+    }
+    else
+    {
+        if(realWidth < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realWidth < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(17);
+        }
+    }
+
+    ui->groupBox_2->setFont(font);
+    ui->networkChk->setFont(font);
+    ui->bluetoothChk->setFont(font);
+    ui->sdcardChk->setFont(font);
+    ui->battaryChk->setFont(font);
+    ui->cameraChk->setFont(font);
+    ui->audioChk->setFont(font);
+    ui->serialChk->setFont(font);
+    ui->keyChk->setFont(font);
+    ui->wifiChk->setFont(font);
+    ui->simChk->setFont(font);
+    ui->usbChk->setFont(font);
+    ui->rtcChk->setFont(font);
+    ui->testCheckAllBtn->setFont(font);
+    ui->beginBtn->setFont(font);
+    ui->textEdit->setFont(font);
 }

@@ -1,10 +1,13 @@
 #include "about_board.h"
 #include "ui_about_board.h"
 
-//extern "C"
-//{
-    #include "boardinfo_interface.h"
-//}
+#include <QScreen>
+#include "boardinfo_interface.h"
+
+static QScreen *screen;
+static int screen_flag;
+static int Width;
+static int Height;
 
 about_board::about_board(QWidget *parent) :
     QWidget(parent),
@@ -13,20 +16,16 @@ about_board::about_board(QWidget *parent) :
     ui->setupUi(this);
 
     this->setAttribute(Qt::WA_StyledBackground,true);
-
-//    QScrollArea *m_pScroll = new QScrollArea(ui->widget);
-//    m_pScroll->setWidget(ui->widget_2);
-//    m_pScroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-//    ui->widget_2->setMinimumSize(1500,1000);
-//    QHBoxLayout *pLayout = new QHBoxLayout;
-//    pLayout->addWidget(m_pScroll);
-//    pLayout->setMargin(0);
-//    pLayout->setSpacing(0);
-//    ui->widget->setLayout(pLayout);
     ui->progressBar->setAlignment(Qt::AlignLeft | Qt::AlignCenter);
 
-    QTversion = new QLabel(ui->groupBox_3);
-    QTversion->move(20,140);
+    screen = qApp->primaryScreen();
+    Width = screen->size().width();			//屏幕宽
+    Height = screen->size().height();
+    if(Width < Height)
+    {
+        screen_flag = 1;
+    }
+    about_font();
     boardname_update();
     kernelname_update();
     battery_update();
@@ -56,43 +55,42 @@ void about_board::battery_update()
 {
     tr("Unknown");tr("Uncharged");tr("charge");tr("Full");
     int battery_level = get_battery_level();
-    ui->batterylevel_label->setText(QString(tr("battery level:")));
+   // ui->batterylevel_label->setText(QString(tr("battery level:")));
     ui->progressBar->setValue(battery_level);
     char *battery_status = get_battery_status();
-    ui->batterystatus_label->setText(QString(tr("battery status: %1")).arg(battery_status));
+    ui->batterystatus_label->setText(QString(tr(" %1")).arg(battery_status));
 }
 
 void about_board::CPU_temp_update()
 {
     float temp = get_CPU_temp();
-    ui->CPU_temp_label->setText(QString(tr("CPU temp: %1")).arg(temp));
+    ui->CPU_temp_label->setText(QString(tr(" %1")).arg(temp));
 }
 
 void about_board::boardname_update()
 {
     char *boardname = get_boardname();
-    ui->name_label->setText(QString(tr("Board name: %1")).arg(boardname));
+    ui->name_label->setText(QString(tr(" %1")).arg(boardname));
 }
 
 void about_board::kernelname_update()
 {
     char *kernel;
     kernel = get_kernel();
-    ui->kernel_label->setText(QString(tr("kernel: %1")).arg(kernel));
-
+    ui->kernel_label->setText(QString(tr(" %1")).arg(kernel));
 }
 
 void about_board::OSname_update()
 {
     char *OSname = get_OSname();
-    ui->OS_label->setText(QString(tr("OS: %1")).arg(OSname));
+    ui->OS_label->setText(QString(tr(" %1")).arg(OSname));
 }
 
 void about_board::resolution_update()
 {
     int x,y;
     get_resolution(&x,&y);
-    ui->resolution_label->setText(QString(tr("resolution: %1 * %2")).arg(x).arg(y));
+    ui->resolution_label->setText(QString(tr(" %1 * %2")).arg(x).arg(y));
 }
 
 void about_board::QTversion_update()
@@ -102,14 +100,13 @@ void about_board::QTversion_update()
     {
          if(get_QTversion("/usr/lib/","libQt4Core",vQT) == 0)
          {
-             QTversion->setText(QString(tr("QT version: Unknow")));
+             ui->QTversion->setText(QString(tr(" Unknow")));
          }
     }
     else
     {
-        QTversion->setText(QString(tr("QT version: %1")).arg(vQT));
+        ui->QTversion->setText(QString(tr(" %1")).arg(vQT));
     }
-
 }
 
 void about_board::language_reload()
@@ -123,4 +120,60 @@ void about_board::language_reload()
     OSname_update();
     QTversion_update();
 
+}
+
+void about_board::about_font()
+{
+    qreal realX = screen->physicalDotsPerInchX();
+    qreal realY = screen->physicalDotsPerInchY();
+    qreal realWidth = Width / realX * 2.54;
+    qreal realHeight = Height / realY *2.54;
+    QFont font;
+    if(screen_flag)
+    {
+        if(realHeight < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realHeight < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(17);
+        }
+    }
+    else
+    {
+        if(realWidth < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realWidth < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(17);
+        }
+    }
+    ui->label_3->setFont(font);
+    ui->batterylevel_label->setFont(font);
+    ui->label_5->setFont(font);
+    ui->label_6->setFont(font);
+    ui->label_7->setFont(font);
+    ui->label_9->setFont(font);
+    ui->label_8->setFont(font);
+    ui->label_2->setFont(font);
+    ui->label->setFont(font);
+    ui->name_label->setFont(font);
+    ui->batterystatus_label->setFont(font);
+    ui->CPU_temp_label->setFont(font);
+    ui->resolution_label->setFont(font);
+    ui->OS_label->setFont(font);
+    ui->kernel_label->setFont(font);
+    ui->QTversion->setFont(font);
+    ui->label_4->setFont(font);
 }

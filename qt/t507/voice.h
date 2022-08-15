@@ -11,6 +11,17 @@
 #include <QTimer>
 #include <qfileinfo.h>
 #include <QProcess>
+#include <QSlider>
+#include <QMouseEvent>
+#include <QTranslator>
+#include <QGraphicsView>
+#include <QGraphicsProxyWidget>
+#include <QScreen>
+#include <QApplication>
+
+#include "voice_savefile_name.h"
+#include "voice_rename.h"
+#include "file_opration.h"
 
 namespace Ui {
 class voice;
@@ -26,14 +37,20 @@ public:
 
     void language_reload();
     void refresh(QString);
+    QString record_timelength(int length);
+    int time_length(QString length);
+    void set_volume();
+    void settext_size();
+    void voice_font();
+    void closeEvent(QCloseEvent *event);
 
 private slots:
 
-
+    void file_path(QString);
     void on_return_2_clicked();
+    void file_choose_show();
 
-
-    void on_choose_3_clicked();
+    void refile_hide();
 
     void on_begin_clicked();
 
@@ -41,7 +58,34 @@ private slots:
 
     void show_time();
 
-    void on_horizontalSlider_valueChanged(int value);
+   // void on_horizontalSlider_valueChanged(int value);
+
+
+    void get_nowlength();
+    float wav_time(QString s);
+    void record_save(QString);
+    void update_file();
+
+    void on_btn_paly_clicked();
+
+    void on_btn_paly_2_clicked();
+
+    void on_btn_rename_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_btn_rec_clicked();
+
+    void on_Slider_volume_valueChanged(int value);
+
+
+    void on_choose_btn_clicked();
+
+public slots:
+    void save_fileshow();
+    void rename_fileshow();
+    void savew_hide();
+    void renamew_hide();
 
 signals:
     void Mysignal();
@@ -49,6 +93,10 @@ signals:
 private:
     Ui::voice *ui;
     QString file_name;
+    voice_savefile_name changname;
+    voice_rename rename_w;
+    QProcess pro_path;
+    File_opration File_oprationw;
 };
 
 #endif // VOICE_H

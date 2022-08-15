@@ -1,7 +1,13 @@
-#include "wifi.h"
+ #include "wifi.h"
 #include "ui_wifi.h"
 #include <QSpinBox>
 #include <QToolBox>
+#include <QScreen>
+
+static int s_width;
+static int s_height;
+static int screen_flag;
+static QScreen *screen;
 
 wifi::wifi(QWidget *parent) :
     QMainWindow(parent),
@@ -9,21 +15,30 @@ wifi::wifi(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    qApp->installEventFilter(this);
     wifi_bt_t = new wifi_bt_interface(this);
 
     WifiConnectDialog = new WifiConDialog(this);
 
+    screen = qApp->primaryScreen();
+    s_width = screen->size().width();
+    s_height = screen->size().height();
+
+    if(s_width < s_height)
+    {
+        screen_flag = 1;
+    }
+    wifi_font();
     // 设置状态、样式
     ui->WifiSwitch->setToggle(true);
     ui->WifiSwitch->setCheckedColor(QColor(100, 225, 100));
     connect(ui->WifiSwitch,SIGNAL(toggled(bool)),this,SLOT(BtnChange_flag(bool)));
 
-    QScreen *screen=QGuiApplication::primaryScreen ();
+    screen=QGuiApplication::primaryScreen ();
     QRect mm=screen->availableGeometry() ;
     int screen_width = mm.width();
     int screen_height = mm.height();
     //qDebug()<<screen_width<<screen_height;
-
     LoadLabel = new QLabel(this);
     //LoadLabel->resize(100,100);
     LoadLabel->move(screen_width/2 ,screen_height/2);
@@ -35,6 +50,10 @@ wifi::wifi(QWidget *parent) :
 
     myThread = new QThread(this);
     WifiThread = new wifi_thread();
+
+    ui->HtName->installEventFilter(this);
+    ui->HtPasswd->installEventFilter(this);
+
     connect(this,SIGNAL(ToThread()),WifiThread,SLOT(Thread_Fun()));
     connect(this,SIGNAL(wifi_scan_msg()),WifiThread,SLOT(wifi_scan_thread()));
     connect(this,SIGNAL(wifi_activation_msg(QString)),WifiThread,SLOT(wifi_activation_thread(QString)));
@@ -53,7 +72,6 @@ wifi::wifi(QWidget *parent) :
     connect(WifiConnectDialog,SIGNAL(wifi_connect_dialog_signal(QString,QString)),WifiThread,SLOT(wifi_connect_thread(QString,QString)));
     connect(WifiConnectDialog,SIGNAL(wifi_info_fresh_msg(QString)),this,SLOT(wifi_info_fresh(QString)));
     connect(WifiThread,SIGNAL(wifi_wait_end_msg()),WifiConnectDialog,SLOT(wifi_wait_end_func()));
-
 }
 
 wifi::~wifi()
@@ -247,9 +265,19 @@ void wifi::ListWidgeItem_clicked()
     }
     else
     {
+        if(screen_flag == 1)
+        {
+           WifiConnectDialog->resize(s_height*2/3,s_width*3/5);
+           WifiConnectDialog->move(s_width-((s_width-WifiConnectDialog->height())/2),s_height/2-WifiConnectDialog->width()/2);
+        }
+        else
+        {
+           WifiConnectDialog->resize(width()*3/5,height()*3/5);
+        }
         WifiConnectDialog->show();
+        WifiConnectDialog->activateWindow();WifiConnectDialog->setFocus();
         WifiConnectDialog->SetWifiNameText(wifi_name);
-        WifiConnectDialog->SetWifiOkBtnText("connect");
+        WifiConnectDialog->SetWifiOkBtnText(tr("connect"));
     }
 }
 
@@ -314,12 +342,13 @@ void wifi::on_WifiStatusBtn_clicked()
 
 void wifi::on_WifiConnectBtn_clicked()
 {
-
     ui->stackedWidget->setCurrentIndex(0);
 }
 
 void wifi::on_HotspotConBtn_clicked()
 {
+    ui->HotspotBuildBtn->setFocus();
+
     QString HtPasswd;
     ui->HtName->clear();
     ui->HtPasswd->clear();
@@ -338,6 +367,7 @@ void wifi::on_HotspotConBtn_clicked()
     }
 
     ui->stackedWidget->setCurrentIndex(2);
+   // this->activateWindow();this->setFocus();
 }
 
 void wifi::on_RefreshBtn_clicked()
@@ -359,13 +389,23 @@ void wifi::on_RefreshBtn_clicked()
 void wifi::on_ChangePasswdBtn_clicked()
 {
     QString wifi_name = ui->WifiInfoNameLab->text();
-    qDebug() << "--LINE--: " << __LINE__<< "FUNC:" << __FUNCTION__<< "currentItem()->text = " << wifi_name;
+    //qDebug() << "--LINE--: " << __LINE__<< "FUNC:" << __FUNCTION__<< "currentItem()->text = " << wifi_name;
     if(wifi_name == QString("Not connected"))
     {
         return ;
     }
-
+    if(screen_flag == 1)
+    {
+       WifiConnectDialog->resize(s_height*2/3,s_width*3/5);
+       WifiConnectDialog->move(s_width-((s_width-WifiConnectDialog->height())/2),s_height/2-WifiConnectDialog->width()/2);
+    }
+    else
+    {
+       WifiConnectDialog->resize(width()*3/5,height()*3/5);
+    }
     WifiConnectDialog->show();
+    WifiConnectDialog->activateWindow();WifiConnectDialog->setFocus();
+
     WifiConnectDialog->SetWifiNameText(wifi_name);
     WifiConnectDialog->SetWifiOkBtnText("OK");
 }
@@ -419,20 +459,41 @@ void wifi::on_HotspotBuildBtn_clicked()
 
     if(HtName.isEmpty() || HtPasswd.isEmpty())
     {
-        QMessageBox::information(this,"information",tr("Input cannot be empty!"));
+        QMessageBox mesg(QMessageBox::Information,
+                         tr("QMessageBox::information()"),
+                         tr("Input cannot be empty!"),
+                         0,this);
+         mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
+         mesg.setFocusPolicy(Qt::NoFocus);
+         mesg.addButton(tr("OK"),QMessageBox::YesRole);
+         if(screen_flag == 1)
+         mesg.move(s_width*2/3,s_height/3);
+         else
+         mesg.move(s_width/3,s_height/3);
+         mesg.exec();
         return;
     }
 
     if(HtPasswd.length() < 8)
     {
-        QMessageBox::information(this,"information",tr("The number of password digits must be greater than 8"));
+        QMessageBox mesg(QMessageBox::Information,
+                         tr("QMessageBox::information()"),
+                         tr("The number of password digits must be greater than 8"),
+                         0,this);
+         mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
+         mesg.setFocusPolicy(Qt::NoFocus);
+         mesg.addButton(tr("OK"),QMessageBox::YesRole);
+         if(screen_flag == 1)
+         mesg.move(s_width*2/3,s_height/3);
+         else
+         mesg.move(s_width/3,s_height/3);
+         mesg.exec();
         return ;
     }
 
     emit hotspot_build_msg(HtName,HtPasswd);
     LoadLabel->show();
     pMovie->start();
-
 }
 
 void wifi::on_HotspotDownBtn_clicked()
@@ -463,5 +524,74 @@ void wifi::on_HotspotDownBtn_clicked()
 void wifi::language_reload()
 {
     ui->retranslateUi(this);
+    WifiConnectDialog->language_reload();
 }
 
+void wifi::wifi_font()
+{
+    qreal realX = screen->physicalDotsPerInchX();
+    qreal realY = screen->physicalDotsPerInchY();
+    qreal realWidth = s_width / realX * 2.54;
+    qreal realHeight = s_height / realY *2.54;
+    QFont font;
+    if(screen_flag)
+    {
+        if(realHeight < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realHeight < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(18);
+        }
+    }
+    else
+    {
+        if(realWidth < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realWidth < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(18);
+        }
+    }
+  ui->groupBox->setFont(font);
+  ui->WifiStatusBtn->setFont(font);
+  ui->WifiConnectBtn->setFont(font);
+  ui->HotspotConBtn->setFont(font);
+  ui->ChangePasswdBtn->setFont(font);
+  ui->WifiExistRemoveBtn->setFont(font);
+  ui->label_1->setFont(font);
+  ui->label_2->setFont(font);
+  ui->label_3->setFont(font);
+  ui->label_4->setFont(font);
+  ui->label_5->setFont(font);
+  ui->label_6->setFont(font);
+  ui->label_7->setFont(font);
+  ui->HotspotPasswd->setFont(font);
+  ui->HotspotBuildBtn->setFont(font);
+  ui->HotspotDownBtn->setFont(font);
+  ui->HotspotName->setFont(font);
+  ui->WifiInfoNameLab->setFont(font);
+  ui->WifiInfoIpaddressLab->setFont(font);
+  ui->WifiInfoPasswdLab->setFont(font);
+  ui->WifiInfoSignalLab->setFont(font);
+  ui->WifiInfoSecurityLab->setFont(font);
+  ui->WifiInfoActiveLab->setFont(font);
+  ui->RefreshBtn->setFont(font);
+}
+
+void wifi::closeEvent(QCloseEvent *event)
+{
+   WifiConnectDialog->show();
+   WifiConnectDialog->hide();
+}

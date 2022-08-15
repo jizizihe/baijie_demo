@@ -22,6 +22,7 @@ class sys_setting : public QWidget
 public:
     explicit sys_setting(QWidget *parent = 0);
     ~sys_setting();
+    void sys_font();
 
 private slots:
     void on_return_2_clicked();
@@ -36,14 +37,16 @@ private slots:
 
     void on_about_clicked();
 
-    void show_me();
-
-    void out();
+    void backlight_back();
+    void time_back();
+    void user_back();
+    void board_back();
 
 signals:
     void sigmain();
     void sys_cn();
     void main_cn();
+    void voice_cn();
 
 private:
     Ui::sys_setting *ui;

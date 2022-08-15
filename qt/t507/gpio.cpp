@@ -1,6 +1,16 @@
 #include "gpio.h"
 #include "ui_gpio.h"
 
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QGraphicsProxyWidget>
+#include <QScreen>
+#include <QDesktopWidget>
+
+static int s_width;
+static int s_height;
+static int screen_flag;
+static QScreen *screen;
 
 gpio::gpio(QWidget *parent) :
     QWidget(parent),
@@ -21,47 +31,51 @@ gpio::gpio(QWidget *parent) :
     QValidator *validator = new QRegExpValidator(regx, ui->lineedit1_1);
     ui->lineedit1_1->setValidator( validator );
 
-    display = new QTextEdit(this);
-    display->setReadOnly(true);
-    display->resize(330,320);
-    display->move(480,130);
-    display->verticalScrollBar()->setStyleSheet("QScrollBar{width:35px;}");
+      ui->display->setReadOnly(true);
 
-    stateGroup = new QGroupBox(this);
-    stateGroup->setTitle(tr("state"));
-    stateGroup->setGeometry(200, 120, 200, 150);
+      screen = qApp->primaryScreen();
+      s_width = screen->size().width();
+      s_height = screen->size().height();
 
-    rBtnout = new QRadioButton(tr("out"), stateGroup);
-    rBtnin = new QRadioButton(tr("in"), stateGroup);
+      if(s_width < s_height)
+      {
+          screen_flag = 1;
+      }
+     gpio_font();
 
-    QVBoxLayout *stateLayout = new QVBoxLayout(stateGroup);
-    stateLayout->addWidget(rBtnout);
-    stateLayout->addWidget(rBtnin);
+//    stateGroup = new QGroupBox(this);
+//    stateGroup->setTitle(tr("state"));
+//    stateGroup->setGeometry(200, 120, 200, 150);
 
-    stateGroup->setLayout(stateLayout);
+    //rBtnout = new QRadioButton(tr("out"), stateGroup);
+   // rBtnin = new QRadioButton(tr("in"), stateGroup);
 
-    valueGroup = new QGroupBox(this);
-    valueGroup->setTitle(tr("value"));
-    valueGroup->setGeometry(200, 300, 200, 150);
+   // QVBoxLayout *stateLayout = new QVBoxLayout(stateGroup);
+   // stateLayout->addWidget(rBtnout);
+   // stateLayout->addWidget(rBtnin);
 
-    rBtnhigh = new QRadioButton(tr("high"), valueGroup);
-    rBtnlow = new QRadioButton(tr("low"), valueGroup);
+   // stateGroup->setLayout(stateLayout);
 
-    QVBoxLayout *valueLayout = new QVBoxLayout(valueGroup);
-    valueLayout->addWidget(rBtnhigh);
-    valueLayout->addWidget(rBtnlow);
+    //valueGroup = new QGroupBox(this);
+    //valueGroup->setTitle(tr("value"));
+    //valueGroup->setGeometry(200, 300, 200, 150);
 
-    ret = new QPushButton(this);
-    ret->setFixedSize(100,40);
-    ret->move(10,10);
-    ret->setIcon(QIcon(":/t507_button_image/return.png"));
+    //rBtnhigh = new QRadioButton(tr("high"), valueGroup);
+    //rBtnlow = new QRadioButton(tr("low"), valueGroup);
 
-    connect(rBtnin,SIGNAL(clicked(bool)),this,SLOT(rBtnin_clicked()));
-    connect(rBtnout,SIGNAL(clicked(bool)),this,SLOT(rBtnout_clicked()));
-    connect(rBtnhigh,SIGNAL(clicked(bool)),this,SLOT(rBtnhigh_clicked()));
-    connect(rBtnlow,SIGNAL(clicked(bool)),this,SLOT(rBtnlow_clicked()));
-    connect(ret,SIGNAL(clicked(bool)),this,SLOT(ret_clicked()));
+   // QVBoxLayout *valueLayout = new QVBoxLayout(valueGroup);
+    //valueLayout->addWidget(rBtnhigh);
+    //valueLayout->addWidget(rBtnlow);
+
+    ui->stackedWidget->setCurrentIndex(1);
+
+    connect(ui->rBtnin,SIGNAL(clicked(bool)),this,SLOT(rBtnin_clicked()));
+    connect(ui->rBtnout,SIGNAL(clicked(bool)),this,SLOT(rBtnout_clicked()));
+    connect(ui->rBtnhigh,SIGNAL(clicked(bool)),this,SLOT(rBtnhigh_clicked()));
+    connect(ui->rBtnlow,SIGNAL(clicked(bool)),this,SLOT(rBtnlow_clicked()));
+    connect(ui->ret,SIGNAL(clicked(bool)),this,SLOT(ret_clicked()));
     connect(this,SIGNAL(Mysignal()),this,SLOT(srceenclear()));
+
 }
 
 gpio::~gpio()
@@ -81,76 +95,82 @@ void gpio::ret_clicked()
     }
     memset(port_num,0,sizeof(port_num));
     num = 0;
+
 }
 
 void gpio::srceenclear()
 {
-    display->clear();
+    ui->display->clear();
     ui->lineedit1_1->clear();
-    rBtnout->setCheckable(false);
-    rBtnin->setCheckable(false);
-    rBtnhigh->setCheckable(false);
-    rBtnlow->setCheckable(false);
-    rBtnout->setCheckable(true);
-    rBtnin->setCheckable(true);
-    rBtnhigh->setCheckable(true);
-    rBtnlow->setCheckable(true);
-    rBtnhigh->setEnabled(true);
-    rBtnlow->setEnabled(true);
+    ui->rBtnout->setCheckable(false);
+    ui->rBtnin->setCheckable(false);
+    ui->rBtnhigh->setCheckable(false);
+    ui->rBtnlow->setCheckable(false);
+    ui->rBtnout->setCheckable(true);
+    ui->rBtnin->setCheckable(true);
+    ui->rBtnhigh->setCheckable(true);
+    ui->rBtnlow->setCheckable(true);
+    ui->rBtnhigh->setEnabled(true);
+    ui->rBtnlow->setEnabled(true);
 }
 
 void gpio::rBtnin_clicked()
 {
-    rBtnhigh->setDisabled(true);
-    rBtnlow->setDisabled(true);
-    rBtnhigh->setCheckable(false);
-    rBtnlow->setCheckable(false);
+    ui->rBtnhigh->setDisabled(true);
+    ui->rBtnlow->setDisabled(true);
+    ui->rBtnhigh->setCheckable(false);
+    ui->rBtnlow->setCheckable(false);
 
     if(!warning())
     {
         return;
     }
-    display->clear();
+    ui->display->clear();
 
     for(int i = count;i < num;i++)
     {
         gpio_set_state(port_num[i], (char *)"in");
-
-        display->append(QString(tr("gpio_port: %1")).arg(portnum[i]));
-        display->append(QString(tr("state: %1")).arg(tr("in")));
-        display->append(QString(tr("value: %1")).arg((gpio_get_value(port_num[i]))));
+        ui->display->setAlignment(Qt::AlignCenter);
+        ui->display->setAlignment(Qt::AlignCenter);
+        ui->display->append(QString(tr("\n")));
+        ui->display->append(QString(tr("  gpio_port: %1")).arg(portnum[i]));
+        ui->display->append(QString(tr("  state: %1")).arg(tr("in")));
+        ui->display->append(QString(tr("  value: %1")).arg((gpio_get_value(port_num[i]))));
     }
 }
 
 void gpio::rBtnout_clicked()
 {
-    rBtnhigh->setEnabled(true);
-    rBtnlow->setEnabled(true);
-    rBtnhigh->setCheckable(true);
-    rBtnlow->setCheckable(true);
+    ui->rBtnhigh->setEnabled(true);
+    ui->rBtnlow->setEnabled(true);
+    ui->rBtnhigh->setCheckable(true);
+    ui->rBtnlow->setCheckable(true);
 
-    if(rBtnhigh->isChecked() || rBtnlow->isChecked())
+    if(ui->rBtnhigh->isChecked() || ui->rBtnlow->isChecked())
     {
         if(!warning())
         {
             return;
         }
-        display->clear();
+        ui->display->clear();
         for(int i = count;i < num;i++)
         {
             gpio_set_state(port_num[i], (char *)"out");
             portnum_cal(port_num[i],portnum[i]);
-            display->append(QString(tr("gpio_port: %1")).arg(portnum[i]));
-            display->append(QString(tr("state: %1")).arg(tr("out")));
-            if(rBtnhigh->isChecked())
+            ui->display->setAlignment(Qt::AlignCenter);
+
+            ui->display->append(QString(tr("  gpio_port: %1")).arg(portnum[i]));
+
+            ui->display->append(QString(tr("  state: %1")).arg(tr("out")));
+            if(ui->rBtnhigh->isChecked())
             {
                 gpio_set_value(port_num[i], 1);
-                display->append(QString(tr("value: %1")).arg(tr("high")));
+                ui->display->append(QString(tr("  value: %1")).arg(tr("high")));
             }
-            else if(rBtnlow->isChecked())
+            else if(ui->rBtnlow->isChecked())
             {
                 gpio_set_value(port_num[i], 0);
-                display->append(QString(tr("value: %1")).arg(tr("low")));
+                ui->display->append(QString(tr("  value: %1")).arg(tr("low")));
             }
         }
     }
@@ -158,42 +178,45 @@ void gpio::rBtnout_clicked()
 
 void gpio::rBtnhigh_clicked()
 {
-    if(rBtnout->isChecked())
+    if(ui->rBtnout->isChecked())
     {
         if(!warning())
         {
             return;
         }
-        display->clear();
+        ui->display->clear();
         for(int i = count;i < num;i++)
         {
             gpio_set_state(port_num[i], (char *)"out");
             portnum_cal(port_num[i],portnum[i]);
-            display->append(QString(tr("gpio_port: %1")).arg(portnum[i]));
-            display->append(QString(tr("state: %1")).arg(tr("out")));
+            ui->display->setAlignment(Qt::AlignCenter);
+            ui-> display->append(QString(tr("  gpio_port: %1")).arg(portnum[i]));
+            ui->display->append(QString(tr("  state: %1")).arg(tr("out")));
             gpio_set_value(port_num[i], 1);
-            display->append(QString(tr("value: %1")).arg(tr("high")));
+            ui->display->append(QString(tr("  value: %1")).arg(tr("high")));
         }
     }
 }
 
 void gpio::rBtnlow_clicked()
 {
-    if(rBtnout->isChecked())
+    if(ui->rBtnout->isChecked())
     {
         if(!warning())
         {
             return;
         }
-        display->clear();
+        ui->display->clear();
         for(int i = count;i < num;i++)
         {
             gpio_set_state(port_num[i], (char *)"out");
             portnum_cal(port_num[i],portnum[i]);
-            display->append(QString(tr("gpio_port: %1")).arg(portnum[i]));
-            display->append(QString(tr("state: %1")).arg(tr("out")));
+            ui->display->setAlignment(Qt::AlignCenter);
+            ui->display->append(QString(tr("\n")).arg(portnum[i]));
+            ui->display->append(QString(tr("  gpio_port: %1")).arg(portnum[i]));
+            ui->display->append(QString(tr("  state: %1")).arg(tr("out")));
             gpio_set_value(port_num[i], 0);
-            display->append(QString(tr("value: %1")).arg(tr("low")));
+            ui->display->append(QString(tr("  value: %1")).arg(tr("low")));
         }
     }
 }
@@ -213,7 +236,16 @@ bool gpio::warning()
             gpio = str.mid(j+1,(i-j-1));
             if(!istrueport(gpio,num))
             {
-                QMessageBox::information(NULL, NULL, tr("Please input true GPIO!"), QMessageBox::Ok);
+                QMessageBox mesg(QMessageBox::Information,
+                                 tr("QMessageBox::information()"),
+                                 tr("Please input true GPIO!"),
+                                 0,this);
+                mesg.addButton(tr("OK"),QMessageBox::YesRole);
+                if(screen_flag == 1)
+                mesg.move(s_width*2/3,s_height/3);
+                else
+                mesg.move(s_width/3,s_height/3);
+                mesg.exec();
                 return false;
             }
             portnum_cal(port_num[num],portnum[num]);
@@ -221,7 +253,17 @@ bool gpio::warning()
             {
                 if(occupied_gpio.gpio[k] == port_num[num])
                 {
-                    QMessageBox::information(NULL, NULL, QString(tr("P%1 is occupied!You can't mobilize it!")).arg(portnum[num]), QMessageBox::Ok);
+                    QString str = QString(tr("P%1 is occupied!You can't mobilize it!")).arg(portnum[num]);
+                    QMessageBox mesg(QMessageBox::Information,
+                                     tr("QMessageBox::information()"),
+                                     tr(str.toUtf8()),
+                                     0,this);
+                    mesg.addButton(tr("OK"),QMessageBox::YesRole);
+                    if(screen_flag == 1)
+                    mesg.move(s_width*2/3,s_height/3);
+                    else
+                    mesg.move(s_width/3,s_height/3);
+                    mesg.exec();
                     return false;
                 }
             }
@@ -237,7 +279,17 @@ bool gpio::warning()
             gpio = str.mid(j+1,(i-j));
             if(!istrueport(gpio,num))
             {
-                QMessageBox::information(NULL, NULL, tr("Please input true GPIO!"), QMessageBox::Ok);
+                QString str = QString(tr("Please input true GPIO!")).arg(portnum[num]);
+                QMessageBox mesg(QMessageBox::Information,
+                                 tr("QMessageBox::information()"),
+                                 tr(str.toUtf8()),
+                                 0,this);
+                mesg.addButton(tr("OK"),QMessageBox::YesRole);
+                if(screen_flag == 1)
+                mesg.move(s_width*2/3,s_height/3);
+                else
+                mesg.move(s_width/3,s_height/3);
+                mesg.exec();
                 return false;
             }
             portnum_cal(port_num[num],portnum[num]);
@@ -245,7 +297,16 @@ bool gpio::warning()
             {
                 if(occupied_gpio.gpio[k] == port_num[num])
                 {
-                    QMessageBox::information(NULL, NULL, QString(tr("P%1 is occupied!You can't mobilize it!")).arg(portnum[num]), QMessageBox::Ok);
+                    QString str = QString(tr("P%1 is occupied!You can't mobilize it!")).arg(portnum[num]);
+                    QMessageBox mesg(QMessageBox::Information,
+                                     tr("QMessageBox::information()"),
+                                     tr(str.toUtf8()),
+                                     0,this);
+                    mesg.addButton(tr("OK"),QMessageBox::YesRole);
+                    if(screen_flag == 1)
+                    mesg.move(s_width*2/3,s_height/3);
+                    else
+                    mesg.move(s_width/3,s_height/3);
                     return false;
                 }
             }
@@ -259,7 +320,6 @@ bool gpio::warning()
     }
     return true;
 }
-
 
 bool gpio::istrueport(QString str,int i)
 {
@@ -384,13 +444,72 @@ void gpio::language_reload()
     pe.setColor(QPalette::WindowText, Qt::red);
     ui->label_2->setPalette(pe);
     ui->label_3->setPalette(pe);
-    stateGroup->setTitle(tr("state"));
-    valueGroup->setTitle(tr("value"));
-//    ret->setText(tr("return"));
-    rBtnout->setText(tr("out"));
-    rBtnin->setText(tr("in"));
-    rBtnhigh->setText(tr("high"));
-    rBtnlow->setText(tr("low"));
+    ui->stateGroup->setTitle(tr("state"));
+    ui->valueGroup->setTitle(tr("value"));
+    ui->rBtnout->setText(tr("out"));
+    ui->rBtnin->setText(tr("in"));
+    ui->rBtnhigh->setText(tr("high"));
+    ui->rBtnlow->setText(tr("low"));
 }
 
+void gpio::on_btn_tips_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
+}
+void gpio::on_btn_tips_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
 
+void gpio::gpio_font()
+{
+    qreal realX = screen->physicalDotsPerInchX();
+    qreal realY = screen->physicalDotsPerInchY();
+    qreal realWidth = s_width / realX * 2.54;
+    qreal realHeight = s_height / realY *2.54;
+    QFont font;
+    if(screen_flag)
+    {
+        if(realHeight < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realHeight < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(17);
+        }
+
+    }
+    else
+    {
+        if(realWidth < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realWidth < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(17);
+        }
+    }
+    ui->btn_tips->setFont(font);
+    ui->btn_tips_2->setFont(font);
+    ui->label->setFont(font);
+    ui->lineedit1_1->setFont(font);
+    ui->rBtnhigh->setFont(font);
+    ui->rBtnin->setFont(font);
+    ui->rBtnlow->setFont(font);
+    ui->rBtnout->setFont(font);
+    ui->display->setFont(font);
+    ui->stateGroup->setFont(font);
+    ui->valueGroup->setFont(font);
+    ui->label_2->setFont(font);
+    ui->label_3->setFont(font);
+}

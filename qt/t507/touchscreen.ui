@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>817</width>
-    <height>467</height>
+    <width>691</width>
+    <height>427</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@ QPushButton{
      border-width:  2px;  /*边框宽度为4像素*/
      border-radius: 10px; /*边框圆角半径*/
      border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     font: bold 25px;/*字体*/
+     font: bold 24px;/*字体*/
      color:rgba(0, 0, 0, 100);/*字体颜色*/
      padding: 6px; /*填衬*/
 	outline: none; /*去掉按钮的虚线框*/
@@ -51,6 +51,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
         border-image: url(:/image/slider.png);/*边框图片*/
  }</string>
   </property>
+  <layout class="QGridLayout" name="gridLayout_2"/>
  </widget>
  <resources/>
  <connections/>

@@ -1,4 +1,4 @@
-#ifndef TOUCHSCREEN_H
+﻿#ifndef TOUCHSCREEN_H
 #define TOUCHSCREEN_H
 
 #include <QMainWindow>
@@ -14,6 +14,8 @@
 #include <QPushButton>
 #include <QDebug>
 #include "ctouchbutton.h"
+#include <QGraphicsView>
+#include <QWidget>
 
 
 namespace Ui {

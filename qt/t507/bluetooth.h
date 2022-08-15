@@ -34,6 +34,7 @@ public:
     ~bluetooth();
 
     void language_reload();
+    void blue_font();
 
 private slots:
     void recv_msg(int,QString);

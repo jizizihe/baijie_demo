@@ -6,6 +6,7 @@
 
 QT       += core gui serialport sql
 QT       += network
+QT          += gui-private widgets
 #DEFINES += QT_NO_WARNING_OUTPUT\
 #     QT_NO_DEBUG_OUTPUT
 TRANSLATIONS += chinese.ts
@@ -71,7 +72,15 @@ SOURCES += \
     all_test_interface.cpp \
     all_test.cpp \
     ipset.cpp \
-    database.cpp
+    database.cpp \
+    myslider.cpp \
+    voice_savefile_name.cpp \
+    voice_rename.cpp \
+    myslider_ver.cpp \
+    serial_set.cpp \
+    serial_set_port2.cpp \
+    input_method.cpp \
+    file_opration.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -110,7 +119,15 @@ HEADERS += \
     all_test.h \
     ipset.h \
     common.h \
-    database.h
+    database.h \
+    myslider.h \
+    voice_savefile_name.h \
+    voice_rename.h \
+    myslider_ver.h \
+    serial_set.h \
+    serial_set_port2.h \
+    input_method.h \
+    file_opration.h
 
 FORMS += \
         mainwindow.ui \
@@ -131,7 +148,14 @@ FORMS += \
     sim_module.ui \
     serialdialog.ui \
     all_test.ui \
-    ipset.ui
+    ipset.ui \
+    voice_savefile_name.ui \
+    voice_rename.ui \
+    serial_set.ui \
+    serial_set_port2.ui \
+    input_method.ui \
+    input_method.ui \
+    file_opration.ui
 
 RESOURCES += \
     translation.qrc

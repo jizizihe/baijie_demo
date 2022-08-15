@@ -15,7 +15,10 @@
 #include <QMessageBox>
 #include <QPalette>
 #include <qfileinfo.h>
-
+#include "file_opration.h"
+#include <QGraphicsView>
+#include <QGraphicsProxyWidget>
+#include <QScreen>
 
 //#include <unistd.h>
 //#include <stdio.h>
@@ -45,6 +48,8 @@ public:
     void umount_device();
     void show_file(QString);
     void language_reload();
+    void udev_font();
+    void file_choose_show();
 
 private slots:
 
@@ -66,6 +71,9 @@ private slots:
 
     void on_mount_currentIndexChanged(int index);
 
+    void file_pathre(QString,QString);
+    void file_pathre2(QString);
+    void re_file_hide();
 
 
 signals:
@@ -81,6 +89,7 @@ private:
     QStringList insert_device;
     QStringList mount_device;
     QStringList user_show;
+    File_opration File_oprationw;
     int device_index=0;
 
 //    QProcess *proc;

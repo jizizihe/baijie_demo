@@ -17,10 +17,12 @@
 #include "bluetooth.h"
 #include "serial.h"
 #include "sys_setting.h"
-#include "wificondialog.h"
 #include "sim_module.h"
 #include "database.h"
-
+#include "voice_rename.h"
+#include "voice_savefile_name.h"
+#include <QGraphicsView>
+#include <QGraphicsProxyWidget>
 
 namespace Ui {
 class MainWindow;
@@ -39,24 +41,36 @@ public:
     touchscreen touch_w;
     wifi wifi_w;
     ipset eth0_w;
-//    keytest keytest_w;
+    keytest keytest_w;
     all_test all_w;
     bluetooth bluetooth_w;
     serial serial_w;
     sys_setting system_w;
     QSettings *setting;
-    WifiConDialog WifiConDialog_w;
     sim_module sim_module_w;
     database wifiDatabase;
+    voice_rename voice_renamew;
+    voice_savefile_name voice_savefile_namew;
+
     void config_file();
+    void view();
+    void keyBoardration();
+    void setFocusObject(QObject *object);
+    void main_font();
+
+    void voice_show();
+    void gpio_show();
+    void wifi_show();
+    void ipset_show();
+    void serial_show();
+
+    void closeEvent(QCloseEvent *event);
 
 private:
     Ui::MainWindow *ui;
     QTranslator *translator;
 
 private slots:
-    void show_main();
-
     void on_vf_clicked();
     void on_udev_clicked();
     void on_gpio_clicked();
@@ -72,6 +86,18 @@ private slots:
     void on_sim_module_clicked();
 
     void cn_main();
+
+    void voice_back();
+    void udev_back();
+    void gpio_back();
+    void touch_back();
+    void wifi_back();
+    void eth0_back();
+    void all_back();
+    void bluetooth_back();
+    void serial_back();
+    void sim_module_back();
+    void sys_back();
 
 signals:
     void again();

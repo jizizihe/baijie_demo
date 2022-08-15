@@ -35,6 +35,7 @@ public:
     QButtonGroup* pButtonGroup;
 
     void getSerialCheckedName();
+    void language_reload();
 
 signals:
     void serial_config_msg(serial_config);

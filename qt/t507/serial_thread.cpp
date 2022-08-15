@@ -1,6 +1,6 @@
 #include "serial_thread.h"
 
-serial_thread::serial_thread(int portId,QString port,long baud,int *OpenFlag,QObject *parent) : QObject(parent)
+serial_thread::serial_thread(int portId,QString port,long baud,int Databit,QString Stopbit,int *OpenFlag,QObject *parent) : QObject(parent)
 {
     my_thread = new QThread();
     //show_fun_id();
@@ -10,7 +10,7 @@ serial_thread::serial_thread(int portId,QString port,long baud,int *OpenFlag,QOb
     m_portId = portId;
 
     *OpenFlag = 0;
-    init_port(port,baud,OpenFlag);
+    init_port(port,baud,Databit,Stopbit,OpenFlag);
 
     this->moveToThread(my_thread);
     m_port->moveToThread(my_thread);
@@ -29,13 +29,14 @@ void serial_thread::show_slots_id()
     show_fun_id();
 }
 
-void serial_thread::init_port(QString port,long baud,int *OpenFlag)
+void serial_thread::init_port(QString port,long baud,int Databit,QString Stopbit,int *OpenFlag)
 {
     m_port->setPortName(port);
     m_port->setBaudRate(baud);//波特率
-    m_port->setDataBits(QSerialPort::Data8);//数据位
+    init_Databit(Databit);//数据位
     m_port->setParity(QSerialPort::NoParity);//奇偶校验
-    m_port->setStopBits(QSerialPort::OneStop);//停止位
+    init_Stopbit(Stopbit);
+    //m_port->setStopBits(QSerialPort::OneStop);//停止位
     m_port->setFlowControl(QSerialPort::NoFlowControl);//控制位
 
     if(m_port->open(QIODevice::ReadWrite) == false)//读写方式打开
@@ -70,7 +71,7 @@ void serial_thread::closePort(int portId)
         my_thread->wait();
         my_thread->deleteLater();
     }
-    qDebug()<<m_portId<<"Thread_id is:"<<QThread::currentThreadId();
+    qDebug()<<m_portId<<"Thread_id is:" << QThread::currentThreadId();
     emit thread_sig();
 }
 
@@ -94,3 +95,23 @@ void serial_thread::write_data(int portId,QByteArray buff)
 //     emit thread_sig();
 }
 
+void serial_thread::init_Databit(int Databit)
+{
+    switch (Databit) {
+    case 5:m_port->setDataBits(QSerialPort::Data5);break;
+    case 6:m_port->setDataBits(QSerialPort::Data6);break;
+    case 7:m_port->setDataBits(QSerialPort::Data7);break;
+    case 8:m_port->setDataBits(QSerialPort::Data8);break;
+    default:break;
+    }
+}
+
+void serial_thread::init_Stopbit(QString Stopbit)
+{
+    if(!QString::compare(Stopbit,QString("1"),Qt::CaseSensitive)){
+          m_port->setStopBits(QSerialPort::OneStop);
+       }
+    if(!QString::compare(Stopbit,QString("2"),Qt::CaseSensitive)){
+          m_port->setStopBits(QSerialPort::TwoStop);
+       }
+}

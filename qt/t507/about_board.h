@@ -23,6 +23,8 @@ public:
     ~about_board();
 
     void language_reload();
+    void about_font();
+
 signals:
     void Mysignal();
 

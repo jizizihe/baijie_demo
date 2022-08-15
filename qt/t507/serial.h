@@ -7,8 +7,10 @@
 #include <QtSerialPort/QSerialPortInfo>
 #include <QMessageBox>
 #include <QDebug>
-
-
+#include <QGraphicsView>
+#include <QGraphicsProxyWidget>
+#include <QScreen>
+#include <QApplication>
 
 #include <stdio.h>
 #include <string.h>
@@ -23,6 +25,14 @@
 #include <errno.h>
 #include <pthread.h>
 #include<iostream>
+
+#include <serial_set.h>
+#include <serial_set_port2.h>
+
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QGraphicsProxyWidget>
+#include <QScreen>
 
 #define SerialNumMax 10
 
@@ -48,6 +58,9 @@ public:
 
     QStringList getPortNameList();
     void language_reload();
+    void serialp1_show();
+    void serialp2_show();
+    void serial_font();
 
 signals:
     void Mysignal();
@@ -71,12 +84,23 @@ private slots:
 
     void on_retBtn_clicked();
 
+    void on_part1_btn_clicked();
+
+    void rec_port1set(QString,QString,int,QString);
+    void rec_port2set(QString,QString,int,QString);
+
+    void on_part2_btn_clicked();
+    void port1_return();
+    void port2_return();
+
 private:
     Ui::serial *ui;
 
     serial_thread *PortA;
     serial_thread *PortB;
     QStringList m_portNameList;
+    serial_set serialset_port1;
+    serial_set_port2 serialset_port2;
 };
 
 #endif // SERIAL_H

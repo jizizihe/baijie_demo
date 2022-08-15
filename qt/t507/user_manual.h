@@ -17,6 +17,8 @@ public:
     ~user_manual();
 
     void language_reload();
+    void user_font();
+
 signals:
     void Mysignal();
 

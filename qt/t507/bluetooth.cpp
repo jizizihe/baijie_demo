@@ -1,20 +1,33 @@
 #include "bluetooth.h"
 #include "ui_bluetooth.h"
+#include <QScreen>
 
 using namespace std;
+static QScreen *screen;
+static int screen_flag;
+static int Width;
+static int Height;
 
 bluetooth::bluetooth(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::bluetooth)
 {
     ui->setupUi(this);
+    screen = qApp->primaryScreen();
+    Width = screen->size().width();			//屏幕宽
+    Height = screen->size().height();
+    if(Width < Height)
+    {
+        screen_flag = 1;
+    }
 
     wifi_bt_t = new wifi_bt_interface(this);
-
     ui->BtSwitch->setToggle(true);
     ui->BtSwitch->setCheckedColor(QColor(100, 225, 100));
     connect(ui->BtSwitch,SIGNAL(toggled(bool)),this,SLOT(BtnChange_flag(bool)));
-
+    ui->label_2->setText(QString(tr("name:")));
+    ui->label_2->hide();
+    blue_font();
 
     QScreen *screen=QGuiApplication::primaryScreen ();
     QRect mm=screen->availableGeometry() ;
@@ -124,22 +137,58 @@ void bluetooth::recv_msg(int signal_type,QString str)
     {
         if(str == "successful")
         {
-            QMessageBox::information(this,"information",tr("pair success!"));
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("pair success!"),
+                             0,this);
+             mesg.addButton(tr("OK"), QMessageBox::ActionRole);
+             if(screen_flag == 1)
+             mesg.move(Width*2/3,Height/3);
+             else
+             mesg.move(Width/3,Height/3);
+             mesg.exec();
         }
         else if(str == "failed")
         {
-            QMessageBox::critical(this,"information",tr("pair failed!"));
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("pair failed!"),
+                             0,this);
+             mesg.addButton(tr("OK"), QMessageBox::ActionRole);
+             if(screen_flag == 1)
+             mesg.move(Width*2/3,Height/3);
+             else
+             mesg.move(Width/3,Height/3);
+             mesg.exec();
         }
     }
     else if(signal_type == Bt_connect_signal)
     {
         if(str == "successful")
         {
-            QMessageBox::information(this,"information",tr("connect success!"));
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("connect success!"),
+                             0,this);
+             mesg.addButton(tr("OK"), QMessageBox::ActionRole);
+             if(screen_flag == 1)
+             mesg.move(Width*2/3,Height/3);
+             else
+             mesg.move(Width/3,Height/3);
+             mesg.exec();
         }
         else if(str == "failed")
         {
-            QMessageBox::critical(this,"information",tr("connect failed!"));
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("connect failed!"),
+                             0,this);
+             mesg.addButton(tr("OK"), QMessageBox::ActionRole);
+             if(screen_flag == 1)
+             mesg.move(Width*2/3,Height/3);
+             else
+             mesg.move(Width/3,Height/3);
+             mesg.exec();
         }
     }
 
@@ -157,8 +206,9 @@ void bluetooth::recv_msg(int signal_type,QString str)
     strResult.remove(0,1);
     strResult.remove(strResult.length()-2,2);
     //qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__ << "strResult:" << strResult;
-
-    ui->BtDeviceNameLab->setText(strResult);
+    QString name = QString(tr("%1")).arg(strResult);
+    ui->label_2->show();
+    ui->BtDeviceNameLab->setText(name);
 
 }
 
@@ -188,7 +238,16 @@ void bluetooth::on_BTPairBtn_clicked()
 //    qDebug() << "LINE: "<< __LINE__ << "count:" << count;
     if(count == 0)
     {
-        QMessageBox::information(this,"information",tr("Please scan Bluetooth first!"));
+        QMessageBox mesg(QMessageBox::Information,
+                         tr("QMessageBox::information()"),
+                         tr("Please scan Bluetooth first!"),
+                         0,this);
+         mesg.addButton(tr("OK"), QMessageBox::ActionRole);
+         if(screen_flag == 1)
+         mesg.move(Width*2/3,Height/3);
+         else
+         mesg.move(Width/3,Height/3);
+         mesg.exec();
         return ;
     }
 
@@ -251,3 +310,48 @@ void bluetooth::language_reload()
     ui->retranslateUi(this);
 }
 
+void  bluetooth::blue_font()
+{
+    qreal realX = screen->physicalDotsPerInchX();
+    qreal realY = screen->physicalDotsPerInchY();
+    qreal realWidth = Width / realX * 2.54;
+    qreal realHeight = Height / realY *2.54;
+    QFont font;
+    if(screen_flag)
+    {
+        if(realHeight < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realHeight < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(17);
+        }
+
+    }
+    else
+    {
+        if(realWidth < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realWidth < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(17);
+        }
+    }
+
+    ui->BTConnectBtn->setFont(font);
+    ui->BTPairBtn->setFont(font);
+    ui->BTScanBtn->setFont(font);
+    ui->label->setFont(font);
+    ui->label_2->setFont(font);
+}

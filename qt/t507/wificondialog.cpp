@@ -1,21 +1,38 @@
 #include "wificondialog.h"
 #include "ui_wificondialog.h"
+#include <QScreen>
 
+static int s_width;
+static int s_height;
+static int screen_flag;
+static QScreen *screen;
+static qreal realX;
+static qreal realY;
 WifiConDialog::WifiConDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::WifiConDialog)
 {
     ui->setupUi(this);
     wifi_bt_t = new wifi_bt_interface(this);
+    screen = qApp->primaryScreen();
+    s_width = screen->size().width();
+    s_height = screen->size().height();
 
+    if(s_width < s_height)
+    {
+        screen_flag = 1;
+    }
+    realX = screen->physicalDotsPerInchX();
+    realY = screen->physicalDotsPerInchY();
+    wifidial_font();
     WifiLoadLabel = new QLabel(this);
     WifiLoadLabel->move(this->size().width()/2,this->size().height()/2);
     WifiMovie = new QMovie("://t507_button_image/loading.webp");
     WifiLoadLabel->setFixedSize(50, 50);
     WifiLoadLabel->setScaledContents(true);
     WifiLoadLabel->setMovie(WifiMovie);
+    ui->PasswdlineEdit->setPlaceholderText(tr("enter password"));
     //pMovie->start();
-
 }
 
 WifiConDialog::~WifiConDialog()
@@ -43,6 +60,11 @@ void WifiConDialog::on_WifiOkBtn_clicked()
     if(length < 8)
     {
         QMessageBox::information(this,"information",tr("The number of password digits must be greater than 8"));
+        QMessageBox msge(QMessageBox::Information,
+                            tr("QMessageBox::information()"),
+                            tr("The number of password digits must be greater than 8"),
+                            0,this);
+        msge.addButton(tr("OK"),QMessageBox::AcceptRole);
         return ;
     }
 
@@ -53,7 +75,6 @@ void WifiConDialog::on_WifiOkBtn_clicked()
     {
         WifiLoadLabel->show();
         WifiMovie->start();
-
         emit wifi_connect_dialog_signal(wifi_name, wifi_passwd);
     }
     else if(WifiOkBtnText == "OK")  //wifi change password
@@ -84,7 +105,6 @@ void WifiConDialog::on_WifiCancelBtn_clicked()
     ui->NamelineEdit->clear();
     ui->PasswdlineEdit->clear();
     this->close();
-
 }
 
 void WifiConDialog::SetWifiNameText(QString wifinanme)
@@ -147,4 +167,50 @@ void WifiConDialog::language_reload()
 {
     ui->retranslateUi(this);
 
+}
+
+void WifiConDialog::wifidial_font()
+{
+    qreal realWidth = s_width / realX * 2.54;
+    qreal realHeight = s_height / realY *2.54;
+    QFont font;
+    if(screen_flag)
+    {
+        if(realHeight < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realHeight < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(17);
+        }
+
+    }
+    else
+    {
+        if(realWidth < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realWidth < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(17);
+        }
+    }
+
+    ui->label->setFont(font);
+    ui->label_2->setFont(font);
+    ui->label_3->setFont(font);
+    ui->NamelineEdit->setFont(font);
+    ui->PasswdlineEdit->setFont(font);
+    ui->WifiCancelBtn->setFont(font);
+    ui->WifiOkBtn->setFont(font);
 }

@@ -1,5 +1,11 @@
 #include "ipset.h"
 #include "ui_ipset.h"
+#include <QScreen>
+
+static int s_width;
+static int s_height;
+static int screen_flag;
+static QScreen *screen;
 
 ipset::ipset(QWidget *parent) :
     QMainWindow(parent),
@@ -7,6 +13,16 @@ ipset::ipset(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->textEdit->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
+
+    screen = qApp->primaryScreen();
+    s_width = screen->size().width();
+    s_height = screen->size().height();
+
+    if(s_width < s_height)
+    {
+        screen_flag = 1;
+    }
+    ipset_font();
 
     QRegExp a("\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
     ui->ipAddrLineEdit->setValidator(new QRegExpValidator(a,this));
@@ -91,10 +107,29 @@ void ipset::on_autoGetIpBtn_clicked()
         if(result == true)
         {
             qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "result:"<<result;
-            QMessageBox::information(this,"information",tr("succeeded!"));
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("succeeded!"),
+                             0,this);
+            mesg.addButton(tr("OK"),QMessageBox::YesRole);
+            if(screen_flag == 1)
+            mesg.move(s_width*2/3,s_height/3);
+            else
+            mesg.move(s_width/3,s_height/3);
+            mesg.exec();
         }
+        else
         {
-            QMessageBox::warning(this,"information",tr("failed!"));
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("failed!"),
+                             0,this);
+            mesg.addButton(tr("OK"),QMessageBox::YesRole);
+            if(screen_flag == 1)
+            mesg.move(s_width*2/3,s_height/3);
+            else
+            mesg.move(s_width/3,s_height/3);
+            mesg.exec();
         }
     }
     ui->stackedWidget->setCurrentIndex(0);
@@ -112,7 +147,16 @@ void ipset::on_modStaticIpBtn_clicked()
 
     if(false == is_static_ip_exist())
     {
-        QMessageBox::information(this,"information",tr(" The current connection is not a static IP. Please modify it to a static IP before performing this operation"));
+        QMessageBox mesg(QMessageBox::Information,
+                         tr("QMessageBox::information()"),
+                         tr("The current connection is not a static IP. Please modify it to a static IP before performing this operation"),
+                         0,this);
+        mesg.addButton(tr("OK"),QMessageBox::YesRole);
+        if(screen_flag == 1)
+        mesg.move(s_width*2/3,s_height/3);
+        else
+        mesg.move(s_width/3,s_height/3);
+        mesg.exec();
         QString networkInfo = get_network_info();
         ui->textEdit->setText(networkInfo);
         ui->stackedWidget->setCurrentIndex(0);
@@ -131,7 +175,17 @@ void ipset::on_delStaticIpBtn_clicked()
 
     if(false == is_static_ip_exist())
     {
-        QMessageBox::information(this,"information",tr(" The current connection is not a static IP. Please modify it to a static IP before performing this operation"));
+        QMessageBox mesg(QMessageBox::Information,
+                         tr("QMessageBox::information()"),
+                         tr("The current connection is not a static IP. Please modify it to a static IP before performing this operation"),
+                         0,this);
+        mesg.addButton(tr("OK"),QMessageBox::YesRole);
+        if(screen_flag == 1)
+        mesg.move(s_width*2/3,s_height/3);
+        else
+        mesg.move(s_width/3,s_height/3);
+        mesg.exec();
+
         QString networkInfo = get_network_info();
         ui->textEdit->setText(networkInfo);
         ui->stackedWidget->setCurrentIndex(0);
@@ -141,66 +195,163 @@ void ipset::on_delStaticIpBtn_clicked()
     if(result == true)
     {
         qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "result:"<<result;
-        QMessageBox::information(this,"information",tr("delete static ip succeeded"));
+        QMessageBox mesg(QMessageBox::Information,
+                         tr("QMessageBox::information()"),
+                         tr("delete static ip succeeded"),
+                         0,this);
+        mesg.addButton(tr("OK"),QMessageBox::YesRole);
+        if(screen_flag == 1)
+        mesg.move(s_width*2/3,s_height/3);
+        else
+        mesg.move(s_width/3,s_height/3);
+        mesg.exec();
     }
     else
     {
-        QMessageBox::warning(this,"information",tr("delete static ip failed"));
+        QMessageBox mesg(QMessageBox::Information,
+                         tr("QMessageBox::information()"),
+                         tr("delete static ip failed"),
+                         0,this);
+        mesg.addButton(tr("OK"),QMessageBox::YesRole);
+        if(screen_flag == 1)
+        mesg.move(s_width*2/3,s_height/3);
+        else
+        mesg.move(s_width/3,s_height/3);
+        mesg.exec();
     }
 }
 
 void ipset::on_okBtn_clicked()
 {
-    QMessageBox::StandardButton reply;
     bool result = false;
     QString networkInfo;
     if(ui->nameLineEdit->text().isEmpty() || ui->ipAddrLineEdit->text().isEmpty())
     {
-        QMessageBox::warning(NULL,NULL,tr("Please complete the information"),tr("OK"));
-        return;
-    }
-
-    reply = QMessageBox::question(this,tr("QMessageBox::question()"),tr("Do you want to set it to current IP?"),
-                                  QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
-    if(reply == QMessageBox::No)
-    {
-        return;
-    }
-    else if(reply == QMessageBox::Yes)
-    {
-        if(ui->ipAddrLineEdit->text().length() <= 9)
-        {
-            QMessageBox::information(this,"information",tr("Format error, please re-enter"));
-            return;
-        }
-
-        if(ui->okBtn->text() == QString(tr("ok")))
-        {
-//            qDebug() << "LINE:"<< __LINE__ << "ret:" << ret;
-            result = add_static_ip(ui->nameLineEdit->text(),ui->ipAddrLineEdit->text());
-        }
-        else if(ui->okBtn->text() == QString(tr("change")))
-        {
-//            qDebug() << "LINE:"<< __LINE__ << "ret:" << ret;
-            result = modify_static_ip(ui->ipAddrLineEdit->text());
-        }
-
-        if(result == true)
-        {
-            qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "result:"<<result;
-
-            networkInfo = get_network_info();
-            ui->textEdit->setText(networkInfo);
-            ui->stackedWidget->setCurrentIndex(0);
-        }
+        QMessageBox mesg(QMessageBox::Information,
+                         tr("QMessageBox::information()"),
+                         tr("Please complete the information"),
+                         0,this);
+        mesg.addButton(tr("OK"),QMessageBox::YesRole);
+        if(screen_flag == 1)
+        mesg.move(s_width*2/3,s_height/3);
         else
-        {
-            QMessageBox::warning(this,"information",tr("set static ip failed"));
-        }
+        mesg.move(s_width/3,s_height/3);
+        mesg.exec();
+
+        return;
     }
+
+    QMessageBox mesg(QMessageBox::Question,
+                     tr("QMessageBox::question()"),
+                     tr("Do you want to set it to current IP?"),
+                     0,this);
+     QPushButton *yesButton = mesg.addButton(tr("Yes"), QMessageBox::ActionRole);
+     QPushButton *noButton = mesg.addButton(tr("No"),QMessageBox::ActionRole);
+     if(screen_flag == 1)
+     mesg.move(s_width*2/3,s_height/3);
+     else
+     mesg.move(s_width/3,s_height/3);
+     mesg.exec();
+
+       if (mesg.clickedButton() == yesButton) {
+           if(ui->ipAddrLineEdit->text().length() <= 9)
+           {
+               QMessageBox::information(this,"information",tr("Format error, please re-enter"));
+               return;
+           }
+
+           if(ui->okBtn->text() == QString(tr("ok")))
+           {
+   //            qDebug() << "LINE:"<< __LINE__ << "ret:" << ret;
+               result = add_static_ip(ui->nameLineEdit->text(),ui->ipAddrLineEdit->text());
+           }
+           else if(ui->okBtn->text() == QString(tr("change")))
+           {
+   //            qDebug() << "LINE:"<< __LINE__ << "ret:" << ret;
+               result = modify_static_ip(ui->ipAddrLineEdit->text());
+           }
+
+           if(result == true)
+           {
+               qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "result:"<<result;
+
+               networkInfo = get_network_info();
+               ui->textEdit->setText(networkInfo);
+               ui->stackedWidget->setCurrentIndex(0);
+           }
+           else
+           {
+               QMessageBox mesg(QMessageBox::Information,
+                                tr("QMessageBox::information()"),
+                                tr("set static ip failed"),
+                                0,this);
+               mesg.addButton(tr("OK"),QMessageBox::YesRole);
+               if(screen_flag == 1)
+               mesg.move(s_width*2/3,s_height/3);
+               else
+               mesg.move(s_width/3,s_height/3);
+               mesg.exec();
+           }
+       }
+       else if (mesg.clickedButton() == noButton)
+       {
+           return;
+       }
 }
 
 void ipset::on_backBtn_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+} 
+
+void ipset::ipset_font()
+{
+    qreal realX = screen->physicalDotsPerInchX();
+    qreal realY = screen->physicalDotsPerInchY();
+    qreal realWidth = s_width / realX * 2.54;
+    qreal realHeight = s_height / realY *2.54;
+    QFont font;
+    if(screen_flag)
+    {
+        if(realHeight < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realHeight < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(17);
+        }
+
+    }
+    else
+    {
+        if(realWidth < 15)
+        {
+            font.setPointSize(12);
+        }
+        else if (realWidth < 17)
+        {
+            font.setPointSize(14);
+        }
+        else
+        {
+            font.setPointSize(17);
+        }
+    }
+    ui->autoGetIpBtn->setFont(font);
+    ui->delStaticIpBtn->setFont(font);
+    ui->ipShowBtn->setFont(font);
+    ui->modStaticIpBtn->setFont(font);
+    ui->setStaticIpBtn->setFont(font);
+    ui->nameLineEdit->setFont(font);
+    ui->ipAddrLineEdit->setFont(font);
+    ui->label_6->setFont(font);
+    ui->label_7->setFont(font);
+    ui->textEdit->setFont(font);
+    ui->backBtn->setFont(font);
+    ui->okBtn->setFont(font);
 }

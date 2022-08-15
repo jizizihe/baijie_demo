@@ -2,7 +2,6 @@
 #define WIFICONDIALOG_H
 
 #include "wifi_bt_interface.h"
-
 #include <QDialog>
 #include <QMessageBox>
 #include <QDebug>
@@ -30,6 +29,7 @@ public:
 
     QString GetWifiOkBtnText();
     void SetWifiOkBtnText(QString);
+    void wifidial_font();
 
 signals:
     void wifi_connect_dialog_signal(QString,QString);
@@ -42,7 +42,6 @@ private slots:
 
     void wifi_wait_end_func();
 
-
 private:
     Ui::WifiConDialog *ui;
 
@@ -50,7 +49,6 @@ private:
 
     QLabel *WifiLoadLabel;
     QMovie *WifiMovie;
-
 };
 
 #endif // WIFICONDIALOG_H

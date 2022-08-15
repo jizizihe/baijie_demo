@@ -1,68 +1,34 @@
 #include "timeset.h"
 #include "ui_timeset.h"
+#include <QScreen>
+
+static int s_width;
+static int s_height;
+static int screen_flag;
+
+static qreal realX;
+static qreal realY;
 
 timeset::timeset(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::timeset)
 {
     ui->setupUi(this);
+    QScreen *screen = qApp->primaryScreen();
+    s_width = screen->size().width();
+    s_height = screen->size().height();
 
-    this->resize(1024,600);
+    if(s_width < s_height)
+    {
+        screen_flag = 1;
+    }
 
-    retBt = new QPushButton(this);
-    retBt->setFixedSize(100,40);
-//    retBt->setText(tr("return"));
-    retBt->setIcon(QIcon(":/t507_button_image/return.png"));
-    QString imagepath = ":/t507_button_image/return.png";
-    QPixmap image0(imagepath);
-    QPixmap image = image0.scaled(QSize(128,128));
-
-    QIcon icon = QIcon(image);
-    retBt->setIcon(icon);
-    retBt->move(10,10);
-
-    pLabel = new QLabel(this);
-    pLabel->setText(tr("Time Settings"));
-    pLabel->resize(400,100);
-    pLabel->move(350,20);
-    QFont ft;
-    ft.setPointSize(18);
-    pLabel->setFont(ft);
-
-    SystimeReadLabel = new QLabel(this);
-    SystimeReadLabel->setText(tr("Systime"));
-    SystimeReadLabel->resize(200,100);
-    SystimeReadLabel->move(150,150);
-
-    RTCReadLabel = new QLabel(this);
-    RTCReadLabel->setText(tr("RTCtime"));
-    RTCReadLabel->resize(200,100);
-    RTCReadLabel->move(150,220);
-
-    datetime = new QDateTimeEdit(this);
-    datetime->resize(350,50);
-    datetime->move(300,350);
-    datetime->setDisplayFormat("yyyy-MM-dd HH:mm:ss");
-    datetime->setTime(QTime::currentTime());
-    datetime->setDate(QDate::currentDate());
-
-    SystimeSetBt = new QPushButton(tr("SystimeSet"), this);
-    SystimeSetBt->resize(200,50);
-    SystimeSetBt->move(300,450);
-
-    RTCSetBt = new QPushButton(tr("RTC Write"), this);
-    RTCSetBt->resize(200,50);
-    RTCSetBt->move(510,450);
-
-    SystimepLabel = new QLabel(this);
-//    SystimepLabel->setText(tr("Time Settings"));
-    SystimepLabel->resize(400,100);
-    SystimepLabel->move(300,150);
-
-    RTCtimepLabel = new QLabel(this);
-//    RTCtimepLabel->setText(tr("Time Settings"));
-    RTCtimepLabel->resize(500,100);
-    RTCtimepLabel->move(300,220);
+    realX = screen->physicalDotsPerInchX();
+    realY = screen->physicalDotsPerInchY();
+    timeset_font();
+    ui->datetime->setDisplayFormat("yyyy-MM-dd HH:mm:ss");
+    ui->datetime->setTime(QTime::currentTime());
+    ui->datetime->setDate(QDate::currentDate());
 
     SysTimer = new QTimer(this);
     connect(SysTimer,SIGNAL(timeout()),this,SLOT(SystimerUpdate()));
@@ -71,9 +37,9 @@ timeset::timeset(QWidget *parent) :
     connect(RTCTimer,SIGNAL(timeout()),this,SLOT(RTCtimerUpdate()));
     RTCTimer->start(1000);
 
-    connect(retBt,SIGNAL(clicked(bool)),this,SLOT(retBt_clicked()));
-    connect(SystimeSetBt,SIGNAL(clicked()),this,SLOT(SystimeSetBt_clicked()));
-    connect(RTCSetBt,SIGNAL(clicked()),this,SLOT(RTCSetBt_clicked()));
+    connect(ui->retBt,SIGNAL(clicked(bool)),this,SLOT(retBt_clicked()));
+    connect(ui->SystimeSetBt,SIGNAL(clicked()),this,SLOT(SystimeSetBt_clicked()));
+    connect(ui->RTCSetBt,SIGNAL(clicked()),this,SLOT(RTCSetBt_clicked()));
 
 }
 
@@ -85,9 +51,9 @@ timeset::~timeset()
 void timeset::SystimerUpdate(void)
 {
     QDateTime time = QDateTime::currentDateTime();
-    QString str = time.toString("yyyy-MM-dd hh:mm:ss dddd");
+    QString str = time.toString("yyyy-MM-dd hh:mm:ss");
 
-    SystimepLabel->setText(str);
+    ui->SystimepLabel->setText(str);
 }
 
 void timeset::RTCtimerUpdate(void)
@@ -95,7 +61,6 @@ void timeset::RTCtimerUpdate(void)
     RTCTimer->stop();
 
     QString strCmd = QString("hwclock -w");
-    //qDebug() << "text == " << strCmd;
     QProcess process;
     process.start("bash", QStringList() <<"-c" << strCmd);
     process.waitForFinished();
@@ -104,7 +69,7 @@ void timeset::RTCtimerUpdate(void)
     process.waitForFinished();
     QString strResult = process.readAllStandardOutput();
     //qDebug() << "strResult == " << strResult.mid(0,19);
-    RTCtimepLabel->setText(strResult.mid(0,19));
+   ui->RTCtimepLabel->setText(strResult.mid(0,19));
 
     RTCTimer->start(20000);
 }
@@ -137,7 +102,7 @@ QString timeset::SystimeSet(QString  datetext)
 
 void timeset::SystimeSetBt_clicked()
 {
-      QString  datetext = this->datetime->text();
+      QString  datetext = ui->datetime->text();
       qDebug() << "text === " << datetext;
 
       QString ret = SystimeSet(datetext);
@@ -176,13 +141,13 @@ QString timeset::RTCSet(QString  datetext)
 
 void timeset::RTCSetBt_clicked()
 {
-    QString  datetext = this->datetime->text();
+    QString  datetext = ui->datetime->text();
     qDebug() << "text === " << datetext;
 
     QString ret = RTCSet(datetext);
     if(ret == "0\n")
     {
-        qDebug() << "RTC set ok!";
+        //qDebug() << "RTC set ok!";
         QMessageBox::information(this,"information",tr("RTC set ok!"));
     }
     else
@@ -196,8 +161,51 @@ void timeset::RTCSetBt_clicked()
 void timeset::language_reload()
 {
     ui->retranslateUi(this);
-//    retBt->setText(tr("return"));
-    pLabel->setText(tr("Time Settings"));
-    SystimeSetBt->setText(tr("SystimeSet"));
-    RTCSetBt->setText(tr("RTC Write"));
+    //ui->pLabel->setText(tr("Time Settings"));
+   // ui->SystimeSetBt->setText(tr("SystimeSet"));
+   // ui->RTCSetBt->setText(tr("RTCSet"));
+}
+
+void timeset::timeset_font()
+{
+    qreal realWidth = s_width / realX * 2.54;
+    qreal realHeight = s_height / realY *2.54;
+        QFont font;
+        if(screen_flag)
+        {
+            if(realHeight < 15)
+            {
+                font.setPointSize(12);
+            }
+            else if (realHeight < 17)
+            {
+                font.setPointSize(14);
+            }
+            else
+            {
+                font.setPointSize(17);
+            }
+        }
+        else
+        {
+            if(realWidth < 15)
+            {
+                font.setPointSize(12);
+            }
+            else if (realWidth < 17)
+            {
+                font.setPointSize(14);
+            }
+            else
+            {
+                font.setPointSize(17);
+            }
+        }
+        ui->datetime->setFont(font);
+        ui->RtcReadLabel->setFont(font);
+        ui->RTCSetBt->setFont(font);
+        ui->RTCtimepLabel->setFont(font);
+        ui->SystimepLabel->setFont(font);
+        ui->SystimeReadLabel->setFont(font);
+        ui->SystimeSetBt->setFont(font);
 }

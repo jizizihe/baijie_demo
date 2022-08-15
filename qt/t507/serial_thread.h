@@ -15,11 +15,12 @@ class serial_thread : public QObject
 {
     Q_OBJECT
 public:
-    explicit serial_thread(int portId,QString port,long baud,int *OpenFlag,QObject *parent = nullptr);
+    explicit serial_thread(int portId,QString port,long baud,int Databit,QString Stopbit,int *OpenFlag,QObject *parent = nullptr);
 
     void show_fun_id();
-    void init_port(QString port,long baud,int *OpenFlag);//初始化串口
-
+    void init_port(QString port,long baud,int Databit,QString Stopbit,int *OpenFlag);//初始化串口
+    void init_Databit(int Databit);
+    void init_Stopbit(QString Stopbit);
 signals:
     void receive_data(QString buff);//向主线程发送接收到的串口数据
     void thread_sig();

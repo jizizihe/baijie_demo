@@ -5,6 +5,8 @@
 #include "wifi_bt_interface.h"
 #include "wifi_thread.h"
 #include "wificondialog.h"
+#include "input_method.h"
+
 
 namespace Ui {
 class wifi;
@@ -17,8 +19,11 @@ class wifi : public QMainWindow
 public:
     explicit wifi(QWidget *parent = 0);
     ~wifi();
-
     void language_reload();
+    void key_show();
+    void key_hide();
+    void wifi_font();
+    void closeEvent(QCloseEvent *event);
 
 signals:
     void Mysignal();
@@ -55,6 +60,7 @@ private slots:
 
     void on_WifiStatusBtn_clicked();
     void WifiStatus_show();
+
 private:
     Ui::wifi *ui;
 
@@ -69,6 +75,8 @@ private:
 
     WifiConDialog *WifiConnectDialog;
     database wifiDB;
+    input_method input_methodw;
+
 };
 
 #endif // WIFI_H

@@ -30,6 +30,7 @@
 #include <errno.h>
 #include <pthread.h>
 #include<iostream>
+#include <QScreen>
 
 static QString serial_ret;
 
@@ -49,6 +50,8 @@ public:
     void testMsgDisplay(QString type,QString str,int time);
 
     void language_reload();
+    void image_show();
+    void all_font();
 
 private slots:
 
@@ -68,6 +71,7 @@ private slots:
     void recv_test_msg(int, QString );
 
     void serial_stop_deal();
+
 
 signals:
     void Mysignal();

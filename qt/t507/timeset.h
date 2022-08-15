@@ -25,6 +25,7 @@ public:
     ~timeset();
 
     void language_reload();
+    void timeset_font();
 
 signals:
     void Mysignal();
