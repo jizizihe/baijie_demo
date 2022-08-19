@@ -704,8 +704,6 @@ QString wifi_bt_interface::bluetooth_scan()
 
     char * data;
     int i = 0;
-    if(bluetooth_flag == 0)
-    {
         QString out = executeLinuxCmd("cat /usr/bin/bluetooth_set.sh");
         QStringList list = out.split("\n");
         QStringList BtPairList;
@@ -716,6 +714,8 @@ QString wifi_bt_interface::bluetooth_scan()
             QString str = QString(list[i]);
             if(str.contains("bluetoothctl",Qt::CaseSensitive))
                 continue;
+            if(str.contains("hciattach",Qt::CaseSensitive))
+            bluetooth_flag = 1;
             BtPairList << str + "\n";
         }
 
@@ -735,11 +735,15 @@ QString wifi_bt_interface::bluetooth_scan()
         }
         file.close();
         executeLinuxCmd("chmod +x /bt_scan.sh");
-
+        if(bluetooth_flag == 1)
+        {
+            strCmd = QString("killall hciattach");
+            strResult = executeLinuxCmd(strCmd);
+        }
         strCmd = QString("/bt_scan.sh");
         strResult = executeLinuxCmd_bluetooth(strCmd);
-        bluetooth_flag++;
-    }
+        bluetooth_flag=0;
+
     strCmd = QString("hcitool scan | sed \"1d\" ");
     strResult = executeLinuxCmd(strCmd);
     qDebug() << strResult;

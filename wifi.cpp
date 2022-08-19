@@ -217,6 +217,7 @@ void wifi::recv_msg(int signal_type, QString strResult)
             {
                 hotconnect_falg = 0;
             }
+             ui->stackedWidget->setCurrentIndex(3);
         }
         else
         {
