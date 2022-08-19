@@ -105,6 +105,7 @@ void WifiConDialog::on_WifiCancelBtn_clicked()
     ui->NamelineEdit->clear();
     ui->PasswdlineEdit->clear();
     this->close();
+    emit wifidial_close();
 }
 
 void WifiConDialog::SetWifiNameText(QString wifinanme)

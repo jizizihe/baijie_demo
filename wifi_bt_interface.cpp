@@ -1,4 +1,6 @@
 #include "wifi_bt_interface.h"
+static int bluetooth_flag;
+static int bluetooth_func;
 
 wifi_bt_interface::wifi_bt_interface(QObject *parent) : QObject(parent)
 {
@@ -14,6 +16,10 @@ QString wifi_bt_interface::executeLinuxCmd(QString strCmd)
 {
     QProcess p;
     p.start("bash", QStringList() <<"-c" << strCmd);
+   // if(bluetooth_func == 1)
+   // {
+   //     QThread::sleep(1);qDebug() << 11;
+   // }
     p.waitForFinished(-1);
     QString strResult = p.readAllStandardOutput();
     p.close();
@@ -105,7 +111,7 @@ wifi_info wifi_bt_interface::get_wifistatus(QString wifi_name)
         findString = tmp.section(':', 1, 1);
         if(findString == wifi_name)
         {
-            index = i;
+            index = i;break;
             //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "index:" << index;
         }
     }
@@ -298,7 +304,7 @@ bool wifi_bt_interface::wifi_modify(QString WifiSsid,QString PassWd)
     return false;
 }
 
-QString wifi_bt_interface::hotspot_connect(QString HtName,QString HtPasswd)
+QString wifi_bt_interface::hotspot_connect(QString HtWlan,QString HtName,QString HtPasswd)
 {
     QString strCmd;
     QString strResult;
@@ -323,7 +329,7 @@ QString wifi_bt_interface::hotspot_connect(QString HtName,QString HtPasswd)
     }
     else
     {
-        strCmd = QString("nmcli device wifi hotspot con-name hotspot ifname wlan0 ssid '%1' password '%2' ").arg(HtName).arg(HtPasswd);
+        strCmd = QString("nmcli device wifi hotspot con-name hotspot ifname '%1' ssid '%2' password '%3' ").arg(HtWlan).arg(HtName).arg(HtPasswd);
         strResult = executeLinuxCmd(strCmd);
     }
     qDebug() << "--line--: " << __LINE__<< "FILE: " << __FILE__<< "FUNC:" << __FUNCTION__<< strResult;
@@ -693,39 +699,50 @@ void wifi_bt_interface::wifi_passwd_change(QString WifiSsid,QString PassWd)
 
 QString wifi_bt_interface::bluetooth_scan()
 {
-    QString strCmd = QString("rfkill unblock all");
-    //qDebug() << "strCmd == " << strCmd;
-    QString strResult = executeLinuxCmd(strCmd);
-    //qDebug() << strResult;
+    QString strCmd;
+    QString strResult;
 
-//    strCmd = QString("killall hciattach");
-//    //qDebug() << "strCmd == " << strCmd;
-//    strResult = executeLinuxCmd(strCmd);
-//    //qDebug() << strResult;
-//    QThread::msleep(100);
-
-    strCmd = QString("ps -ax |grep 'hciattach -n -s 1500000 /dev/ttyBT0 sprd' |grep -v grep |wc -l");
-    strResult = executeLinuxCmd(strCmd);
-
-    if(strResult == "0\n")
+    char * data;
+    int i = 0;
+    if(bluetooth_flag == 0)
     {
-        strCmd = QString("hciattach -n -s 1500000 /dev/ttyBT0 sprd 1>/dev/null 2>/dev/null &");
-        strResult = executeLinuxCmd(strCmd);
-        //qDebug() << strResult;
-        QThread::sleep(2);
+        QString out = executeLinuxCmd("cat /usr/bin/bluetooth_set.sh");
+        QStringList list = out.split("\n");
+        QStringList BtPairList;
+
+        list.removeAll("");
+        for(int i = 0;i<list.size();i++)
+        {
+            QString str = QString(list[i]);
+            if(str.contains("bluetoothctl",Qt::CaseSensitive))
+                continue;
+            BtPairList << str + "\n";
+        }
+
+        QFile file("/bt_scan.sh");
+        if (file.exists())
+        {
+            file.remove();
+        }
+        if(file.open( QIODevice::WriteOnly))
+        {
+            for(i = 0; i< BtPairList.size();++i)
+            {
+                QString tmp = BtPairList.at(i);
+                data = tmp.toLatin1().data();
+                file.write(data);
+            }
+        }
+        file.close();
+        executeLinuxCmd("chmod +x /bt_scan.sh");
+
+        strCmd = QString("/bt_scan.sh");
+        strResult = executeLinuxCmd_bluetooth(strCmd);
+        bluetooth_flag++;
     }
-
-    strCmd = QString("hciconfig hci0 up && hciconfig hci0 piscan");
-    //qDebug() << "strCmd == " << strCmd;
-    strResult = executeLinuxCmd(strCmd);
-    //qDebug() << strResult;
-    QThread::sleep(1);
-
     strCmd = QString("hcitool scan | sed \"1d\" ");
-    //qDebug() << "strCmd == " << strCmd;
     strResult = executeLinuxCmd(strCmd);
-    //qDebug() << strResult;
-
+    qDebug() << strResult;
     return strResult;
 }
 
@@ -911,5 +928,23 @@ QString wifi_bt_interface::set_bluetooth_name(QString bluetooth_name)
     QString strResult = executeLinuxCmd(strCmd);
     qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__ << "strResult:" << strResult;
 
+    return strResult;
+}
+
+QString wifi_bt_interface::scan_wlan()
+{
+    QString strCmd = QString("ifconfig | grep 'wlan' \n");
+    QString strResult = executeLinuxCmd(strCmd);
+    return strResult;
+}
+
+QString wifi_bt_interface::executeLinuxCmd_bluetooth(QString strCmd)
+{
+    QProcess p;
+    p.start("bash", QStringList() <<"-c" << strCmd);
+    QThread::sleep(1);
+    p.waitForFinished(-1);
+    QString strResult = p.readAllStandardOutput();
+    p.close();
     return strResult;
 }

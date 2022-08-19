@@ -7,6 +7,7 @@ static QScreen *screen;
 static int screen_flag;
 static int Width;
 static int Height;
+static int open_flag;
 
 bluetooth::bluetooth(QWidget *parent) :
     QMainWindow(parent),
@@ -20,12 +21,9 @@ bluetooth::bluetooth(QWidget *parent) :
     {
         screen_flag = 1;
     }
-
+    open_flag = 1;
     wifi_bt_t = new wifi_bt_interface(this);
-    ui->BtSwitch->setToggle(true);
-    ui->BtSwitch->setCheckedColor(QColor(100, 225, 100));
-    connect(ui->BtSwitch,SIGNAL(toggled(bool)),this,SLOT(BtnChange_flag(bool)));
-    ui->label_2->setText(QString(tr("name:")));
+    ui->label_2->setText(QString(tr("bluetooth name:")));
     ui->label_2->hide();
     blue_font();
 
@@ -68,7 +66,7 @@ bluetooth::~bluetooth()
 
 void bluetooth::BtnChange_flag(bool btflag)
 {
-    btflag = ui->BtSwitch->isToggled();
+    btflag = open_flag;
 
     if(btflag == 1) // open
     {
@@ -113,12 +111,10 @@ void bluetooth::recv_msg(int signal_type,QString str)
     {
         //qDebug() << "Line "<< __LINE__<< "recvmsg: "<< str;
         ui->BtNameListWidget->clear();
-        flag = ui->BtSwitch->isToggled();
+        flag = open_flag;
         //qDebug() << "line:" << __LINE__ << "flag:" << flag;
-
         if(flag == 0)
             return ;
-
         BtScanList.clear();
         BtScanList = str.split("\n");
         BtScanList.removeAll(QString(""));
@@ -219,7 +215,11 @@ void bluetooth::on_retBtn_clicked()
 
 void bluetooth::on_BTScanBtn_clicked()
 {
-    //qDebug() << "BTScanBtn_clicked";
+    if(open_flag == 0)
+    {
+        QMessageBox::information(this,"information",tr("Please open Bluetooth first!"));
+        return;
+    }
     ui->BtNameListWidget->clear();
 
     ui->BTScanBtn->setDisabled(true);
@@ -264,7 +264,6 @@ void bluetooth::on_BTPairBtn_clicked()
     pMovie->start();
 
     emit bluetooth_pair_msg(BtAddress);
-
 }
 
 void bluetooth::on_BTConnectBtn_clicked()
@@ -352,6 +351,22 @@ void  bluetooth::blue_font()
     ui->BTConnectBtn->setFont(font);
     ui->BTPairBtn->setFont(font);
     ui->BTScanBtn->setFont(font);
-    ui->label->setFont(font);
     ui->label_2->setFont(font);
+    ui->pushButton->setFont(font);
+
+}
+
+void bluetooth::on_pushButton_clicked()
+{
+    if(open_flag == 0)
+    {
+        open_flag = 1;
+        ui->pushButton->setText(tr("close"));
+    }
+   else
+   {
+        open_flag = 0;
+        ui->pushButton->setText(tr("open"));
+        ui->BtNameListWidget->clear();
+    }
 }

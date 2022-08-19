@@ -34,6 +34,7 @@ public:
 signals:
     void wifi_connect_dialog_signal(QString,QString);
     void wifi_info_fresh_msg(QString);
+    void wifidial_close();
 
 private slots:
     void on_WifiOkBtn_clicked();

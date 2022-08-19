@@ -24,6 +24,7 @@ public:
     void key_hide();
     void wifi_font();
     void closeEvent(QCloseEvent *event);
+    void showEvent(QShowEvent *event);
 
 signals:
     void Mysignal();
@@ -31,7 +32,8 @@ signals:
     void wifi_scan_msg();
     void wifi_connect_msg(QString, QString );
     void wifi_activation_msg(QString);
-    void hotspot_build_msg(QString,QString);
+    void hotspot_build_msg(QString,QString,QString);
+    void scan_wlan();
 
 private slots:
     void on_ReturnBtn_clicked();
@@ -44,7 +46,8 @@ private slots:
 
     void recv_msg(int, QString );
 
-    void on_RefreshBtn_clicked();
+    void scan_hotwlan(QString);
+
 
     void wifi_info_fresh(QString wifi_name);
 
@@ -60,6 +63,10 @@ private slots:
 
     void on_WifiStatusBtn_clicked();
     void WifiStatus_show();
+    void wifi_refresh();
+    void wifidailog_hide();
+
+    void on_open_btn_clicked();
 
 private:
     Ui::wifi *ui;

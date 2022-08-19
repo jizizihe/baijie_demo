@@ -32,7 +32,7 @@ udev::udev(QWidget *parent) :
         screen_flag = 1;
     }
     udev_font();
-    connect(&File_oprationw,SIGNAL(file_rev1(QString,QString)),this,SLOT(file_pathre(QString,QString)));
+    connect(&File_oprationw,SIGNAL(file_rev2(QString)),this,SLOT(file_pathre(QString)));
     connect(&File_oprationw,SIGNAL(file_rev2(QString)),this,SLOT(file_pathre2(QString)));
     connect(&File_oprationw,SIGNAL(file_hide()),this,SLOT(re_file_hide()));
 }
@@ -110,7 +110,7 @@ void udev::on_choose_clicked()   //选择其他路径的文件
 //    file_path = info.path();
 //    show_file(file_path);
 //    ui->files->setCurrentText(info.fileName());
-    File_oprationw.filepath_flag = 0;
+    File_oprationw.filepath_flag = 1;
     file_choose_show();
 }
 
@@ -174,11 +174,11 @@ void udev::re_file_hide()
 
 }
 
-void udev::file_pathre(QString path,QString file)
+void udev::file_pathre(QString path)
 {
     ui->label->setText(path);
-    show_file(path);
-    ui->files->setCurrentText(file);
+    show_file(path);qDebug() << 11;
+   // ui->files->setCurrentText(file);
 }
 
 void udev::file_pathre2(QString path)
@@ -224,7 +224,7 @@ void udev::file_pathre2(QString path)
             mesg.exec();
         }
     }
-    else
+   if(cp_ct_flag == 2)
     {
         QString cut_to_path = choose_filepath;
 
@@ -309,7 +309,7 @@ void udev::on_umount_clicked()  //安全退出
     device_index = 0;
     ui->files->clear();
     if(mount_device.size() != 0)
-        on_mount_currentIndexChanged(0);
+    on_mount_currentIndexChanged(0);
 }
 
 void udev::on_cp_clicked()
@@ -327,6 +327,7 @@ void udev::on_cp_clicked()
         else
         mesg.move(s_width/3,s_height/3);
         mesg.exec();
+        cp_ct_flag = 0;
         return;
     }
 
@@ -357,6 +358,7 @@ void udev::on_cut_clicked()
         mesg.move(s_width/3,s_height/3);
         mesg.exec();
         ui->label->setText(file_path);
+        cp_ct_flag = 0;
         return;
     }
     QStringList str = cut_file.split(',');
@@ -426,7 +428,6 @@ void udev::on_del_clicked()
               show_file(file_path);
           }
       }
-
 }
 
 void udev::on_mount_currentIndexChanged(int index)  //更改挂载的外部存储设备随之显示该设备的内容
@@ -465,7 +466,6 @@ void udev::on_return_2_clicked()
     {
         File_oprationw.hide();
     }
-
 }
 
 

@@ -47,7 +47,6 @@ SOURCES += \
     timeset.cpp \
     globalapp.cpp \
     boardinfo_interface.cpp \
-    keyBoard.cpp \
     about_board.cpp \
     keytest.cpp \
     keythread.cpp \
@@ -93,7 +92,6 @@ HEADERS += \
     timeset.h \
     gpio_interface.h \
     globalapp.h \
-    keyBoard.h \
     about_board.h \
     boardinfo_interface.h \
     keytest.h \

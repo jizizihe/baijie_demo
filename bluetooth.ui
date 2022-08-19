@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>699</width>
-    <height>373</height>
+    <width>696</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -94,9 +94,9 @@ QListWidget::item:selected:!active { background: lightgreen; }</string>
      <number>0</number>
     </property>
     <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,9">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,8">
       <property name="spacing">
-       <number>0</number>
+       <number>6</number>
       </property>
       <property name="leftMargin">
        <number>9</number>
@@ -139,6 +139,19 @@ QListWidget::item:selected:!active { background: lightgreen; }</string>
           <width>32</width>
           <height>32</height>
          </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>close</string>
         </property>
        </widget>
       </item>
@@ -501,9 +514,15 @@ QListWidget::item:selected:!active { background: lightgreen; }</string>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="5,1">
+        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="7,1">
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <property name="leftMargin">
           <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>5</number>
          </property>
          <property name="rightMargin">
           <number>0</number>
@@ -514,6 +533,12 @@ QListWidget::item:selected:!active { background: lightgreen; }</string>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,12,1">
            <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>12</number>
+           </property>
+           <property name="bottomMargin">
             <number>0</number>
            </property>
            <item>
@@ -583,79 +608,22 @@ QListWidget::item:selected:!active { background: lightgreen; }</string>
              <height>0</height>
             </size>
            </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,1,4,8,1,4,2">
+           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,4,3,6">
+            <property name="spacing">
+             <number>0</number>
+            </property>
             <property name="leftMargin">
              <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>2</number>
             </property>
             <property name="rightMargin">
              <number>0</number>
             </property>
-            <item>
-             <spacer name="horizontalSpacer_11">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QLabel" name="label">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="layoutDirection">
-               <enum>Qt::LeftToRight</enum>
-              </property>
-              <property name="text">
-               <string>bluetooth</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="SwitchControl" name="BtSwitch" native="true">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>45</height>
-               </size>
-              </property>
-             </widget>
-            </item>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
             <item>
              <spacer name="horizontalSpacer_2">
               <property name="orientation">
@@ -671,8 +639,14 @@ QListWidget::item:selected:!active { background: lightgreen; }</string>
             </item>
             <item>
              <widget class="QLabel" name="label_2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="text">
-               <string>name:</string>
+               <string>bluetooth name:</string>
               </property>
              </widget>
             </item>
@@ -735,20 +709,12 @@ QListWidget::item:selected:!active { background: lightgreen; }</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>699</width>
+     <width>696</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>SwitchControl</class>
-   <extends>QWidget</extends>
-   <header>switchcontrol.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="translation.qrc"/>
  </resources>

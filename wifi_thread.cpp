@@ -44,6 +44,12 @@ void wifi_thread::wifi_activation_thread(QString wifi_name)
 
 }
 
+void wifi_thread::wlan_scan()
+{
+    QString strResult;
+    strResult = wifi_bt_w->scan_wlan();
+    emit rewlan_scan(strResult);
+}
 
 void wifi_thread::wifi_connect_thread(QString wifi_name,QString wifi_passwd)
 {
@@ -75,13 +81,12 @@ void wifi_thread::wifi_connect_thread(QString wifi_name,QString wifi_passwd)
     emit send_msg(wifi_connect_signal,strResult);
 }
 
-void wifi_thread::hotspot_build_thread(QString HtName,QString HtPasswd)
+void wifi_thread::hotspot_build_thread(QString hotspot_connect,QString HtName,QString HtPasswd)
 {
     QString strResult;
 
-    strResult = wifi_bt_w->hotspot_connect(HtName,HtPasswd);
+    strResult = wifi_bt_w->hotspot_connect(hotspot_connect,HtName,HtPasswd);
     qDebug() << "Line:" << __LINE__ << "FUNC:" << __FUNCTION__<< "strResult:" << strResult;
-
 
     emit send_msg(hotspot_build_signal ,strResult);
 }

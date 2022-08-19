@@ -71,7 +71,7 @@ private slots:
 
     void on_mount_currentIndexChanged(int index);
 
-    void file_pathre(QString,QString);
+    void file_pathre(QString);
     void file_pathre2(QString);
     void re_file_hide();
 

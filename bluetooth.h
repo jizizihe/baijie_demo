@@ -49,6 +49,8 @@ private slots:
 
     void on_retBtn_clicked();
 
+    void on_pushButton_clicked();
+
 signals:
     void bluetooth_scan_msg();
     void bluetooth_pair_msg(QString);

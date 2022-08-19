@@ -60,6 +60,7 @@ public:
     ~wifi_bt_interface();
 
     QString executeLinuxCmd(QString strCmd);
+    QString executeLinuxCmd_bluetooth(QString strCmd);
     bool wifi_passwd_write(QString WifiSsid,QString PassWd);
     QString wifi_passwd_read(QString WifiSsid);
 
@@ -79,7 +80,7 @@ public:
     QString wifi_connection_remove(QString WifiSsid);
     QString wifi_connect(QString WifiSsid,QString PassWd);
     bool wifi_modify(QString WifiSsid,QString PassWd);
-    QString hotspot_connect(QString HtName,QString HtPasswd);
+    QString hotspot_connect(QString hotspot_connect,QString HtName,QString HtPasswd);
     bool hotspot_disconnect();
 
     QString sim_disconnect();
@@ -93,6 +94,7 @@ public:
     void bluetooth_enable(bool);
     QString get_bluetooth_name();
     QString set_bluetooth_name(QString bluetooth_name);
+    QString scan_wlan();
 
 
 signals:
