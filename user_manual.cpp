@@ -102,9 +102,9 @@ You can use < show all connections > to view all current network connections."))
     {
         ui->textEdit->setText(tr("You can adjust the sleep time yourself."));
     }
-    else if(str == tr("scan occupied gpio"))
+    else if(str == tr("Using tips"))
     {
-        ui->textEdit->setText(tr("You can view the currently occupied GPIO port by pressing the < scan > button."));
+        ui->textEdit->setText(tr("For example: If you want to check GPIOG13 ,please input 'g13'"));
     }
     else if(str == tr("batch operation"))
     {

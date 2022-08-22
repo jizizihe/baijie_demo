@@ -60,5 +60,7 @@
         <file>button_image/clean.png</file>
         <file>button_image/rotate_clean.png</file>
         <file>button_image/rotate_return.png</file>
+        <file>button_image/voice/sound_cross.svg</file>
+        <file>button_image/voice/sound_open.svg</file>
     </qresource>
 </RCC>

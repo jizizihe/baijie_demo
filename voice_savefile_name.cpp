@@ -48,7 +48,6 @@ void voice_savefile_name::on_pushButton_2_clicked()
     QString str = QString("rm %1 \n").arg(name_start);
     QProcess *pro = new QProcess();
     pro->start(str);
-    //QMessageBox::information(this,"information",tr("fail to save!"));
     emit save_back();
 }
 
@@ -65,20 +64,11 @@ void voice_savefile_name::get_filename(QString file_pn)
     name_start = QString("%1/%2").arg(path1).arg(name1);
 }
 
-//void voice_savefile_name::on_pushButton_3_clicked()
-//{
-//        QString path = QFileDialog::getExistingDirectory(NULL,tr("choose"),"/data",QFileDialog::ShowDirsOnly);
-//        QDir dir1(path);
-//        QFileInfoList list1 = dir1.entryInfoList();
-
-//        ui->label_2->setText(list1.at(0).path());
-//}
-
 void voice_savefile_name::save_as()
 {
     path = ui->label_2->text();
     QString name = QString("%1").arg(ui->lineEdit->text());
-    QString path_name = QString("%1/%2").arg(path).arg(name);
+    QString path_name = QString("%1%2").arg(path).arg(name);
 
     if(path_name.compare(name_start) != 0)
     {
@@ -89,16 +79,24 @@ void voice_savefile_name::save_as()
     pro->start(str);
     pro->write(strr.toUtf8());
     }
+    emit save_path(path,name);
 }
 
 void voice_savefile_name::on_pushButton_clicked()
 {
     save_as();
-   // QMessageBox::information(this,"information",tr("Save successfully!"));
-    //this->hide();
+    QMessageBox mesg(QMessageBox::Information,
+                     tr("QMessageBox::information()"),
+                     tr("Save successfully!"),
+                     0,this);
+    mesg.addButton(tr("OK"),QMessageBox::YesRole);
+    if(screen_flag == 1)
+    mesg.move(s_width*2/3,s_height/3);
+    else
+    mesg.move(s_width/3,s_height/3);
+    mesg.exec();
     emit save_back();
 }
-
 
 void voice_savefile_name::voice_savefile_font()
 {
@@ -121,7 +119,7 @@ void voice_savefile_name::voice_savefile_font()
         {
             font.setPointSize(17);
         }
-     ui->opefile_btn->setIconSize(QSize(45,45));
+        ui->opefile_btn->setIconSize(QSize(45,45));
     }
     else
     {
@@ -180,12 +178,12 @@ void voice_savefile_name::file_choose_show()
             file_vview->move(s_width/5,s_height/4);
             file_flag++;
         }
-    else
-    {
-        File_oprationw.show();
-        file_vview->show();
-        file_vview->move(s_width/4,s_height/4);
-    }
+        else
+        {
+            File_oprationw.show();
+            file_vview->show();
+            file_vview->move(s_width/4,s_height/4);
+        }
     }
     else
     {

@@ -276,7 +276,7 @@ background-color:transparent;
               <string notr="true"/>
              </property>
              <property name="text">
-              <string>ip info</string>
+              <string>ip Information</string>
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">

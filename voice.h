@@ -39,7 +39,7 @@ public:
     void refresh(QString);
     QString record_timelength(int length);
     int time_length(QString length);
-    void set_volume();
+    void set_volume(int value);
     void settext_size();
     void voice_font();
     void closeEvent(QCloseEvent *event);
@@ -60,7 +60,6 @@ private slots:
 
    // void on_horizontalSlider_valueChanged(int value);
 
-
     void get_nowlength();
     float wav_time(QString s);
     void record_save(QString);
@@ -78,8 +77,9 @@ private slots:
 
     void on_Slider_volume_valueChanged(int value);
 
-
     void on_choose_btn_clicked();
+
+    void save_path(QString,QString);
 
 public slots:
     void save_fileshow();

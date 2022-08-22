@@ -39,10 +39,12 @@ static int flag_record = 0;
 static int flag_stop_play = 0;
 
 static int slider_flag = 0;
-//static int volume_flag;
+static int volume_flag;
 static QString file_path;
 static QScreen *screenn;
 static int show_num;
+static QString savepath;
+static QString savefile;
 QTimer *get_length;
 
 voice::voice(QWidget *parent) :
@@ -59,20 +61,15 @@ voice::voice(QWidget *parent) :
         screen_flag = 1;
     }
     voice_font();
-  //  ui->comB_path ->addItem("/data/");
-  //  ui->comB_path->setCurrentText("/data/");
+    volume_flag = 1;
 
     ui->stackedWidget->setCurrentIndex(0);
-
     ui->Slider_volume->setRange(0,30);
     ui->Slider_volume->setValue(0);
     ui->label_timestart->setText("00:00:00");
     ui->label_timeend->setText("00:00:00");
-    ui->pathname_2->setText("/data/");
 
-    refresh("/data/");
     pro_path.start("bash");
-    //pro_path.write("mkdir /data");
     QTimer *show_time = new QTimer(this);
     get_length = new QTimer(this);
 
@@ -82,16 +79,14 @@ voice::voice(QWidget *parent) :
     connect(&rename_w,SIGNAL(rename_finish()),this,SLOT(update_file()));
     connect(&rename_w,SIGNAL(rename_back()),this,SLOT(renamew_hide()));
     connect(&changname,SIGNAL(save_back()),this,SLOT(savew_hide()));
- //   connect(&sys_w,SIGNAL(voice_cn()),this,SLOT(cn_voice()));
     connect(&File_oprationw,SIGNAL(file_rev2(QString)),this,SLOT(file_path(QString)));
     connect(&File_oprationw,SIGNAL(file_hide()),this,SLOT(refile_hide()));
+    connect(&changname,SIGNAL(save_path(QString,QString)),this,SLOT(save_path(QString,QString)));
 
     ui->btn_rec->setText(tr("start"));
-    ui->Slider_volume->show();
     ui->begin->setText("record");
     ui->play->setText("paly");
 }
-
 
 voice::~voice()
 {
@@ -101,7 +96,6 @@ voice::~voice()
 void voice::refresh(QString dir_path)
 { 
     QDir dir(dir_path);
-
     QStringList filters;
 
     filters << "*.wav" << "*.mp3" << "*.mp4";
@@ -117,11 +111,23 @@ void voice::refresh(QString dir_path)
     files.removeAll("\n");
     ui->combox->clear();
     ui->combox->addItems(files);
+    if(!savefile.isEmpty())
+    {
+        for(int i = 0; i < ui->combox->count(); i++)
+        {
+            ui->combox->setCurrentIndex(i);
+            if(ui->combox->currentText() == savefile)
+            {
+                break;
+            }
+        }
+        savefile = "";
+    }
 }
 
-void voice::set_volume()
+void voice::set_volume(int value)
 {
-    int value = ui->Slider_volume->value();
+
     QProcess *proc = new QProcess();
     //qdebug("sound_value:%d",value);
     int sound = 31 - value;
@@ -142,7 +148,8 @@ void voice::show_time()
     }
     if(slider_flag == 1)
     {
-      set_volume();
+       int value = ui->Slider_volume->value();
+       set_volume(value);
     }
 }
 
@@ -164,7 +171,6 @@ void voice::on_return_2_clicked()
     QProcess proc;
     proc.start("killall aplay");
     proc.waitForFinished(-1);
-    //changname.hide();
     emit Mysignal();
     proc.close();
     if(screen_flag == 1)
@@ -251,10 +257,17 @@ void voice::on_play_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
     ui->play->setText(tr("play"));
-    ui->pathname_2->setText("/data/");
-
+    if(savepath.isEmpty())
+    {
+        ui->pathname_2->setText("/data");
+    }
+    else
+    {
+       ui->pathname_2->setText(savepath);
+    }
     QString p = ui->pathname_2->text();
     refresh(p);
+    savepath = "";
 }
 
 void voice::language_reload()
@@ -490,16 +503,21 @@ void voice::update_file()     //updata combox file
 
 void voice::on_pushButton_clicked()
 {
-//    if(volume_flag == 0)
-//    {
-//      ui->Slider_volume->hide();
-//      volume_flag = 1;
-//    }
-//    else
-//    {
-//        ui->Slider_volume->show();
-//        volume_flag = 0;
-//    }
+    if(volume_flag == 0)
+    {
+      set_volume(0);
+      volume_flag = 1;
+      ui->pushButton->setIcon(QIcon(":/button_image/voice/sound_cross.svg"));
+      ui->Slider_volume->setEnabled(false);
+    }
+    else
+    {
+       int value = ui->Slider_volume->value();
+       set_volume(value);
+       volume_flag = 0;
+       ui->pushButton->setIcon(QIcon(":/button_image/voice/sound_open.svg"));
+       ui->Slider_volume->setEnabled(true);
+    }
 }
 
 void voice::on_btn_rec_clicked()
@@ -785,4 +803,9 @@ void voice::refile_hide()
     }
 }
 
+void voice::save_path(QString path,QString file)
+{
+   savepath = path;
+   savefile = file;
+}
 

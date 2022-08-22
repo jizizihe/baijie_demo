@@ -381,6 +381,6 @@ void ipset::on_btn_open_clicked()
         ui->setStaticIpBtn->setEnabled(false);
         ui->modStaticIpBtn->setEnabled(false);
         ui->delStaticIpBtn->setEnabled(false);
-        ui->ipAddrLineEdit->clear();
+         ui->textEdit->setText("");
     }
 }

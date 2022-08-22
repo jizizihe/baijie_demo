@@ -44,10 +44,6 @@ private slots:
     void rBtnlow_clicked();
     bool warning();
 
-    void on_btn_tips_clicked();
-
-    void on_btn_tips_2_clicked();
-
 signals:
     void Mysignal();
 private:

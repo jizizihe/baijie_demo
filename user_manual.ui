@@ -349,7 +349,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
           </property>
           <item>
            <property name="text">
-            <string>scan occupied gpio</string>
+            <string>Using tips</string>
            </property>
            <property name="font">
             <font>

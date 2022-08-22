@@ -125,3 +125,4 @@ void voice_rename::voice_rename_font()
     ui->label_2->setFont(font);
     ui->lineEdit->setFont(font);
 }
+

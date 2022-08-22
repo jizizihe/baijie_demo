@@ -22,11 +22,6 @@ gpio::gpio(QWidget *parent) :
 
     occupied_gpio = get_debug_gpio();
 
-    QPalette pe;
-    pe.setColor(QPalette::WindowText, Qt::red);
-    ui->label_2->setPalette(pe);
-    ui->label_3->setPalette(pe);
-
     QRegExp regx("[a-zA-Z0-9|,]{1,}$");
     QValidator *validator = new QRegExpValidator(regx, ui->lineedit1_1);
     ui->lineedit1_1->setValidator( validator );
@@ -42,32 +37,7 @@ gpio::gpio(QWidget *parent) :
           screen_flag = 1;
       }
      gpio_font();
-
-//    stateGroup = new QGroupBox(this);
-//    stateGroup->setTitle(tr("state"));
-//    stateGroup->setGeometry(200, 120, 200, 150);
-
-    //rBtnout = new QRadioButton(tr("out"), stateGroup);
-   // rBtnin = new QRadioButton(tr("in"), stateGroup);
-
-   // QVBoxLayout *stateLayout = new QVBoxLayout(stateGroup);
-   // stateLayout->addWidget(rBtnout);
-   // stateLayout->addWidget(rBtnin);
-
-   // stateGroup->setLayout(stateLayout);
-
-    //valueGroup = new QGroupBox(this);
-    //valueGroup->setTitle(tr("value"));
-    //valueGroup->setGeometry(200, 300, 200, 150);
-
-    //rBtnhigh = new QRadioButton(tr("high"), valueGroup);
-    //rBtnlow = new QRadioButton(tr("low"), valueGroup);
-
-   // QVBoxLayout *valueLayout = new QVBoxLayout(valueGroup);
-    //valueLayout->addWidget(rBtnhigh);
-    //valueLayout->addWidget(rBtnlow);
-
-    ui->stackedWidget->setCurrentIndex(1);
+     ui->lineedit1_1->setPlaceholderText(tr("please enter gpio port. example: g13"));
 
     connect(ui->rBtnin,SIGNAL(clicked(bool)),this,SLOT(rBtnin_clicked()));
     connect(ui->rBtnout,SIGNAL(clicked(bool)),this,SLOT(rBtnout_clicked()));
@@ -440,25 +410,12 @@ bool gpio::isNumber(QString &qstrSrc)
 void gpio::language_reload()
 {
     ui->retranslateUi(this);
-    QPalette pe;
-    pe.setColor(QPalette::WindowText, Qt::red);
-    ui->label_2->setPalette(pe);
-    ui->label_3->setPalette(pe);
     ui->stateGroup->setTitle(tr("state"));
     ui->valueGroup->setTitle(tr("value"));
     ui->rBtnout->setText(tr("out"));
     ui->rBtnin->setText(tr("in"));
     ui->rBtnhigh->setText(tr("high"));
     ui->rBtnlow->setText(tr("low"));
-}
-
-void gpio::on_btn_tips_clicked()
-{
-    ui->stackedWidget->setCurrentIndex(2);
-}
-void gpio::on_btn_tips_2_clicked()
-{
-    ui->stackedWidget->setCurrentIndex(0);
 }
 
 void gpio::gpio_font()
@@ -499,8 +456,6 @@ void gpio::gpio_font()
             font.setPointSize(17);
         }
     }
-    ui->btn_tips->setFont(font);
-    ui->btn_tips_2->setFont(font);
     ui->label->setFont(font);
     ui->lineedit1_1->setFont(font);
     ui->rBtnhigh->setFont(font);
@@ -510,6 +465,4 @@ void gpio::gpio_font()
     ui->display->setFont(font);
     ui->stateGroup->setFont(font);
     ui->valueGroup->setFont(font);
-    ui->label_2->setFont(font);
-    ui->label_3->setFont(font);
 }
