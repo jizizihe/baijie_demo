@@ -46,20 +46,14 @@ public:
     explicit udev(QWidget *parent = 0);
     ~udev();
     void umount_device();
-    void show_file(QString);
     void language_reload();
     void udev_font();
-    void file_choose_show();
+    void showEvent(QShowEvent *event);
+    void file_reflesh(QString p);
 
 private slots:
 
-    void find_device();
-
     void on_return_2_clicked();
-
-    void on_choose_clicked();
-
-    void on_refresh_clicked();
 
     void on_umount_clicked();
 
@@ -69,12 +63,19 @@ private slots:
 
     void on_del_clicked();
 
-    void on_mount_currentIndexChanged(int index);
+    void readBashStandardOutputInfo();
 
-    void file_pathre(QString);
-    void file_pathre2(QString);
-    void re_file_hide();
+    void on_treeWidget_itemClicked(QTreeWidgetItem *item, int column);
 
+    void on_pushButton_clicked();
+
+    void on_btn_paste_clicked();
+
+    void on_treeWidget_itemPressed(QTreeWidgetItem *item, int column);
+
+    void on_btn_cancel_clicked();
+
+    void on_btn_mount_clicked();
 
 signals:
     void Mysignal();
@@ -91,6 +92,7 @@ private:
     QStringList user_show;
     File_opration File_oprationw;
     int device_index=0;
+    QProcess pro_path;
 
 //    QProcess *proc;
 //    QString file_name;

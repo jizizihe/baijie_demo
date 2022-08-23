@@ -61,6 +61,8 @@ public:
     void serialp1_show();
     void serialp2_show();
     void serial_font();
+    void serialport1_open();
+    void serialport2_open();
 
 signals:
     void Mysignal();
@@ -69,10 +71,6 @@ signals:
 
 private slots:
     void on_showData(QString buff);//用于显示数据
-
-    void on_OpenBtn_clicked();
-
-    void on_OpenBtn_2_clicked();
 
     void on_SendBtn_clicked();
 

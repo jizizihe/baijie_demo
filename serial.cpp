@@ -72,33 +72,33 @@ QStringList serial::getPortNameList()
     return serialPortName;
 }
 
-void serial::on_OpenBtn_clicked()
+void serial::serialport1_open()
 {
     int OpenFlag = 0;
     //对串口进行一些初始化
-    if(ui->OpenBtn->text()==tr("open port1"))
+   if(flag_port1 == 0)
     {
          PortA = new serial_thread(COM0,port1, baud1.toInt(),data1,stopbit1,&OpenFlag);
          if(OpenFlag == 1)
          {
-             QMessageBox mesg(QMessageBox::Information,
-                              tr("QMessageBox::information()"),
-                              tr("open success!"),
-                              0,this);
-              mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
-              mesg.setFocusPolicy(Qt::NoFocus);
-              mesg.addButton(tr("OK"),QMessageBox::YesRole);
-              if(screen_flag == 1)
-              mesg.move(Width*2/3,Height/3);
-              else
-              mesg.move(Width/3,Height/3);
-              mesg.exec();
+//             QMessageBox mesg(QMessageBox::Information,
+//                              tr("QMessageBox::information()"),
+//                              tr("open success!"),
+//                              0,this);
+//              mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
+//              mesg.setFocusPolicy(Qt::NoFocus);
+//              mesg.addButton(tr("OK"),QMessageBox::YesRole);
+//              if(screen_flag == 1)
+//              mesg.move(Width*2/3,Height/3);
+//              else
+//              mesg.move(Width/3,Height/3);
+//              mesg.exec();
          }
          else
          {
              QMessageBox mesg(QMessageBox::Information,
                               tr("QMessageBox::information()"),
-                              tr("pen failed!"),
+                              tr("open failed!"),
                               0,this);
               mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
               mesg.setFocusPolicy(Qt::NoFocus);
@@ -117,47 +117,35 @@ void serial::on_OpenBtn_clicked()
         //关闭设置菜单使能
 //        ui->SerialCb->setEnabled(false);
 //        ui->BaudrateCb->setEnabled(false);
-        ui->OpenBtn->setText(tr("close port1"));
+        ui->part1_btn->setText(tr("close port1"));
         flag_port1 = 1;
-    }
-    else
-    {
-        //关闭线程
-        if(PortA!=nullptr)
-        {
-            emit closePort_sig(COM0);
-        }
-        //恢复设置菜单使能
-//        ui->SerialCb->setEnabled(true);
-//        ui->BaudrateCb->setEnabled(true);
-        ui->OpenBtn->setText(tr("open port1"));
-        flag_port1 = 0;
+        qDebug() << "open";
     }
 
 }
 
-void serial::on_OpenBtn_2_clicked()
+void serial::serialport2_open()
 {
     int OpenFlag = 0;
     //对串口进行一些初始化
-    if(ui->OpenBtn_2->text()==tr("open port2"))
+    if(flag_port2 == 0)
     {
         PortB = new serial_thread(COM1,port2,baud2.toInt(),data2,stopbit2,&OpenFlag);
 
         if(OpenFlag == 1)
-        {    
-            QMessageBox mesg(QMessageBox::Information,
-                             tr("QMessageBox::information()"),
-                             tr("pen success!"),
-                             0,this);
-             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
-             mesg.setFocusPolicy(Qt::NoFocus);
-             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-             if(screen_flag == 1)
-             mesg.move(Width*2/3,Height/3);
-             else
-             mesg.move(Width/3,Height/3);
-             mesg.exec();
+        {
+//            QMessageBox mesg(QMessageBox::Information,
+//                             tr("QMessageBox::information()"),
+//                             tr("open success!"),
+//                             0,this);
+//             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
+//             mesg.setFocusPolicy(Qt::NoFocus);
+//             mesg.addButton(tr("OK"),QMessageBox::YesRole);
+//             if(screen_flag == 1)
+//             mesg.move(Width*2/3,Height/3);
+//             else
+//             mesg.move(Width/3,Height/3);
+//             mesg.exec();
         }
         else
         {
@@ -180,22 +168,10 @@ void serial::on_OpenBtn_2_clicked()
         connect(this,SIGNAL(closePort_sig(int)),PortB,SLOT(closePort(int)));
 
        //关闭设置菜单使能
-       ui->OpenBtn_2->setText(tr("close port2"));
+       ui->part2_btn->setText(tr("close port2"));
        flag_port2 = 1;
     }
-    else
-    {
-        qDebug() << "LINE: " << __LINE__ << "CLOSE BUTTON" << endl;
-        //关闭线程
-        if(PortB!=nullptr)
-        {
-             emit closePort_sig(COM1);
-        }
-        //恢复设置菜单使能
-        ui->part2_btn->setEnabled(true);
-        ui->OpenBtn_2->setText(tr("open port2"));
-        flag_port2 = 0;
-    }
+
 }
 
 void serial::on_showData(QString buff)//用于显示数据
@@ -296,24 +272,23 @@ void serial::on_part1_btn_clicked()
 {
     if(flag_port1 == 0)
     {
-
         serialp1_show();
-     }
+    }
     else
     {
-        QMessageBox mesg(QMessageBox::Information,
-                         tr("QMessageBox::information()"),
-                         tr("port1 is opening!"),
-                         0,this);
-         mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
-         mesg.setFocusPolicy(Qt::NoFocus);
-         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-         if(screen_flag == 1)
-         mesg.move(Width*2/3,Height/3);
-         else
-         mesg.move(Width/3,Height/3);
-         mesg.exec();
+        //关闭线程
+        if(PortA!=nullptr)
+        {
+            emit closePort_sig(COM0);
+        }
+        //恢复设置菜单使能
+        //        ui->SerialCb->setEnabled(true);
+        //        ui->BaudrateCb->setEnabled(true);
+        ui->part1_btn->setText(tr("open port1"));
+        flag_port1 = 0;
+        qDebug() << "CLOSE 1";
     }
+
 }
 
 void serial::rec_port1set(QString port,QString baud,int Databit,QString Stopbit)
@@ -336,22 +311,20 @@ void serial::on_part2_btn_clicked()
 {
     if(flag_port2 == 0)
     {
-       serialp2_show();
+        serialp2_show();
     }
     else
     {
-        QMessageBox mesg(QMessageBox::Information,
-                         tr("QMessageBox::information()"),
-                         tr("port2 is opening!"),
-                         0,this);
-         mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
-         mesg.setFocusPolicy(Qt::NoFocus);
-         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-         if(screen_flag == 1)
-         mesg.move(Width*2/3,Height/3);
-         else
-         mesg.move(Width/3,Height/3);
-         mesg.exec();
+        qDebug() << "pot2 close";
+        //关闭线程
+        if(PortB!=nullptr)
+        {
+           emit closePort_sig(COM1);
+        }
+        //恢复设置菜单使能
+        ui->part2_btn->setEnabled(true);
+        ui->part2_btn->setText(tr("open port2"));
+        flag_port2 = 0;
     }
 }
 
@@ -413,7 +386,6 @@ void serial::serialp2_show()
             w->setRotation(90);
 
             serialp2_view = new QGraphicsView(scene);
-
             serialp2_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
             serialp2_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
             serialp2_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -449,6 +421,10 @@ void serial::port1_return()
     }
     else
       serialset_port1.hide();
+    if(serialset_port1.hide_flag == 1)
+    {
+       serialport1_open();qDebug() << "ll";
+     }
 }
 
 void serial::port2_return()
@@ -463,6 +439,10 @@ void serial::port2_return()
     }
     else
         serialset_port2.hide();
+    if(serialset_port2.hide_flag == 1)
+    {
+       serialport2_open();
+    }
 }
 
 
@@ -512,9 +492,7 @@ void serial::serial_font()
     ui->label->setFont(font);
     ui->CleanBtn->setFont(font);
     ui->SendEdit->setFont(font);
-    ui->OpenBtn->setFont(font);
     ui->SendBtn->setFont(font);
-    ui->OpenBtn_2->setFont(font);
     ui->SendBtn_2->setFont(font);
 }
 

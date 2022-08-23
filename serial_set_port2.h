@@ -20,6 +20,7 @@ public:
     QStringList getPortNameList();
     void language_reload();
     void serial_set2_font();
+    int hide_flag;
 
 signals:
     void port2_set(QString,QString,int,QString);

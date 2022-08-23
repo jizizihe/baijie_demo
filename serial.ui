@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>785</width>
-    <height>471</height>
+    <width>827</width>
+    <height>427</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -103,9 +103,9 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <number>0</number>
     </property>
     <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="1,9">
+     <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="1,2,2,5">
       <property name="spacing">
-       <number>0</number>
+       <number>6</number>
       </property>
       <property name="leftMargin">
        <number>9</number>
@@ -181,6 +181,44 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
           <width>32</width>
           <height>32</height>
          </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="CleanBtn_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>clean recvtext </string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="CleanBtn">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>clean sendtext</string>
         </property>
        </widget>
       </item>
@@ -271,7 +309,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </sizepolicy>
             </property>
             <property name="text">
-             <string>set port1</string>
+             <string>open port1</string>
             </property>
            </widget>
           </item>
@@ -330,7 +368,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </sizepolicy>
             </property>
             <property name="text">
-             <string>set port2</string>
+             <string>open port2</string>
             </property>
            </widget>
           </item>
@@ -392,7 +430,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="9">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout" stretch="2,4,1,15,2,4,1,4,7,1">
+         <layout class="QVBoxLayout" name="verticalLayout" stretch="4,15,2,4,4,1">
           <property name="spacing">
            <number>0</number>
           </property>
@@ -406,23 +444,10 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
            <number>15</number>
           </property>
           <property name="bottomMargin">
-           <number>0</number>
+           <number>5</number>
           </property>
           <item>
-           <spacer name="verticalSpacer_7">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,6,2">
+           <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,6">
             <property name="spacing">
              <number>0</number>
             </property>
@@ -453,7 +478,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                <string>receive text</string>
               </property>
               <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -470,39 +495,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
               </property>
              </spacer>
             </item>
-            <item>
-             <widget class="QPushButton" name="CleanBtn_2">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>clean </string>
-              </property>
-             </widget>
-            </item>
            </layout>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
           </item>
           <item>
            <widget class="QPlainTextEdit" name="recvEdit">
@@ -528,9 +521,9 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
            </spacer>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,6,2">
+           <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,3,1,1">
             <property name="spacing">
-             <number>0</number>
+             <number>6</number>
             </property>
             <property name="rightMargin">
              <number>0</number>
@@ -562,7 +555,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                <string>send text</string>
               </property>
               <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -580,38 +573,32 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="CleanBtn">
+             <widget class="QPushButton" name="SendBtn">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
+              <property name="text">
+               <string>send port1</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="SendBtn_2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
               </property>
               <property name="text">
-               <string>clean </string>
+               <string>send port2</string>
               </property>
              </widget>
             </item>
            </layout>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_6">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
           </item>
           <item>
            <widget class="QLineEdit" name="SendEdit">
@@ -621,115 +608,6 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QWidget" name="widget" native="true">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,1,0,1,0,1,2">
-             <property name="spacing">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>9</number>
-             </property>
-             <item>
-              <widget class="QPushButton" name="OpenBtn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>open port1</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QPushButton" name="SendBtn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>send poert1</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_3">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QPushButton" name="OpenBtn_2">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>open port2</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_10">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QPushButton" name="SendBtn_2">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>send port2</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
            </widget>
           </item>
           <item>
@@ -758,7 +636,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>785</width>
+     <width>827</width>
      <height>22</height>
     </rect>
    </property>

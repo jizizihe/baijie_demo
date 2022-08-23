@@ -20,6 +20,7 @@ public:
     QStringList getPortNameList();
      void language_reload();
      void serial_set_font();
+     int hide_flag;
 
 private slots:
     void on_OpenBtn_clicked();

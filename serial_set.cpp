@@ -66,14 +66,17 @@ void serial_set::on_OpenBtn_clicked()
     if(screen_flag == 1)
     mesg.move(s_width*2/3,s_height/3);
     mesg.exec();
-
+    hide_flag = 1;
    emit port1_re();
+
 }
 
 void serial_set::on_SendBtn_clicked()
 {
     //QMessageBox::information(this,"information",tr("set failed!"));
-    emit port1_re();
+     hide_flag = 0;
+     emit port1_re();
+
 }
 
 void serial_set::language_reload()

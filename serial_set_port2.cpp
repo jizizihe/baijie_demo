@@ -45,20 +45,32 @@ QStringList serial_set_port2::getPortNameList()
     }
     return serialPortName;
 }
+
 void serial_set_port2::on_OK_Btn_clicked()
 {
     QString port = ui->SerialCb_2->currentText();
     QString baud = ui->BaudrateCb_2->currentText();
     int data = ui->DatabitsCb_2->currentText().toInt();
     QString Stopbit = ui->StopbitCb_2->currentText();
-    QMessageBox::information(this,"information",tr("set successfully!"));
+
+    QMessageBox mesg(QMessageBox::Information,
+                     tr("QMessageBox::information()"),
+                     tr("set successfully!"),
+                     0,this);
+     mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
+     mesg.setFocusPolicy(Qt::NoFocus);
+     mesg.addButton(tr("OK"),QMessageBox::YesRole);
+     if(screen_flag == 1)
+     mesg.move(s_width*2/3,s_height/3);
+     mesg.exec();
     emit port2_set(port,baud,data,Stopbit);
+    hide_flag = 1;
     emit port2_re();
 }
 
 void serial_set_port2::on_SendBtn_2_clicked()
 {
-   // QMessageBox::information(this,"information",tr("set failed!"));
+    hide_flag = 0;
     emit port2_re();
 }
 
@@ -88,7 +100,6 @@ void serial_set_port2::serial_set2_font()
         {
             font.setPointSize(17);
         }
-
     }
     else
     {

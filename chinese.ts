@@ -1187,9 +1187,8 @@ Please wait a moment...</source>
         <translation type="vanished">你可以批量操作GPIO口，但是请在每个GPIO口之间加上一个逗号。</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="41"/>
         <source>ok</source>
-        <translation type="unfinished">好的</translation>
+        <translation type="obsolete">好的</translation>
     </message>
     <message>
         <source>scan</source>
@@ -1201,23 +1200,23 @@ Please wait a moment...</source>
     </message>
     <message>
         <location filename="gpio.ui" line="289"/>
-        <location filename="gpio.cpp" line="414"/>
+        <location filename="gpio.cpp" line="413"/>
         <source>state</source>
         <translation>状态</translation>
     </message>
     <message>
         <location filename="gpio.ui" line="308"/>
-        <location filename="gpio.cpp" line="135"/>
-        <location filename="gpio.cpp" line="165"/>
-        <location filename="gpio.cpp" line="188"/>
-        <location filename="gpio.cpp" line="416"/>
+        <location filename="gpio.cpp" line="134"/>
+        <location filename="gpio.cpp" line="164"/>
+        <location filename="gpio.cpp" line="187"/>
+        <location filename="gpio.cpp" line="415"/>
         <source>out</source>
         <translation>输出</translation>
     </message>
     <message>
         <location filename="gpio.ui" line="301"/>
-        <location filename="gpio.cpp" line="108"/>
-        <location filename="gpio.cpp" line="417"/>
+        <location filename="gpio.cpp" line="107"/>
+        <location filename="gpio.cpp" line="416"/>
         <source>in</source>
         <translation>输入</translation>
     </message>
@@ -1236,23 +1235,23 @@ Please wait a moment...</source>
     </message>
     <message>
         <location filename="gpio.ui" line="321"/>
-        <location filename="gpio.cpp" line="415"/>
+        <location filename="gpio.cpp" line="414"/>
         <source>value</source>
         <translation>值</translation>
     </message>
     <message>
         <location filename="gpio.ui" line="343"/>
-        <location filename="gpio.cpp" line="139"/>
-        <location filename="gpio.cpp" line="167"/>
-        <location filename="gpio.cpp" line="418"/>
+        <location filename="gpio.cpp" line="138"/>
+        <location filename="gpio.cpp" line="166"/>
+        <location filename="gpio.cpp" line="417"/>
         <source>high</source>
         <translation>高</translation>
     </message>
     <message>
         <location filename="gpio.ui" line="336"/>
-        <location filename="gpio.cpp" line="144"/>
-        <location filename="gpio.cpp" line="190"/>
-        <location filename="gpio.cpp" line="419"/>
+        <location filename="gpio.cpp" line="143"/>
+        <location filename="gpio.cpp" line="189"/>
+        <location filename="gpio.cpp" line="418"/>
         <source>low</source>
         <translation>低</translation>
     </message>
@@ -1265,60 +1264,61 @@ Please wait a moment...</source>
         <translation type="obsolete">输入的GPIO口为空！</translation>
     </message>
     <message>
+        <location filename="gpio.cpp" line="40"/>
         <source>please enter gpio port. example: g13</source>
-        <translation type="vanished">请输入gpio端口。提示:g13</translation>
+        <translation>请输入gpio端口。提示:g13</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="106"/>
-        <location filename="gpio.cpp" line="186"/>
+        <location filename="gpio.cpp" line="105"/>
+        <location filename="gpio.cpp" line="185"/>
         <source>
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="107"/>
-        <location filename="gpio.cpp" line="133"/>
-        <location filename="gpio.cpp" line="164"/>
-        <location filename="gpio.cpp" line="187"/>
+        <location filename="gpio.cpp" line="106"/>
+        <location filename="gpio.cpp" line="132"/>
+        <location filename="gpio.cpp" line="163"/>
+        <location filename="gpio.cpp" line="186"/>
         <source>  gpio_port: %1</source>
         <translation>gpio口:%1</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="108"/>
-        <location filename="gpio.cpp" line="135"/>
-        <location filename="gpio.cpp" line="165"/>
-        <location filename="gpio.cpp" line="188"/>
+        <location filename="gpio.cpp" line="107"/>
+        <location filename="gpio.cpp" line="134"/>
+        <location filename="gpio.cpp" line="164"/>
+        <location filename="gpio.cpp" line="187"/>
         <source>  state: %1</source>
         <translation>状态：%1</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="109"/>
-        <location filename="gpio.cpp" line="139"/>
-        <location filename="gpio.cpp" line="144"/>
-        <location filename="gpio.cpp" line="167"/>
-        <location filename="gpio.cpp" line="190"/>
+        <location filename="gpio.cpp" line="108"/>
+        <location filename="gpio.cpp" line="138"/>
+        <location filename="gpio.cpp" line="143"/>
+        <location filename="gpio.cpp" line="166"/>
+        <location filename="gpio.cpp" line="189"/>
         <source>  value: %1</source>
         <translation>值:%1</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="211"/>
-        <location filename="gpio.cpp" line="229"/>
-        <location filename="gpio.cpp" line="255"/>
-        <location filename="gpio.cpp" line="273"/>
+        <location filename="gpio.cpp" line="210"/>
+        <location filename="gpio.cpp" line="228"/>
+        <location filename="gpio.cpp" line="254"/>
+        <location filename="gpio.cpp" line="272"/>
         <source>QMessageBox::information()</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="214"/>
-        <location filename="gpio.cpp" line="232"/>
-        <location filename="gpio.cpp" line="258"/>
-        <location filename="gpio.cpp" line="276"/>
+        <location filename="gpio.cpp" line="213"/>
+        <location filename="gpio.cpp" line="231"/>
+        <location filename="gpio.cpp" line="257"/>
+        <location filename="gpio.cpp" line="275"/>
         <source>OK</source>
         <translation>好的</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="227"/>
-        <location filename="gpio.cpp" line="271"/>
+        <location filename="gpio.cpp" line="226"/>
+        <location filename="gpio.cpp" line="270"/>
         <source>P%1 is occupied!You can&apos;t mobilize it!</source>
         <translation>P%1口已被占用！你无法调用它！</translation>
     </message>
@@ -1339,8 +1339,8 @@ Please wait a moment...</source>
         <translation type="obsolete">请输入正确的GPIO口！</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="212"/>
-        <location filename="gpio.cpp" line="253"/>
+        <location filename="gpio.cpp" line="211"/>
+        <location filename="gpio.cpp" line="252"/>
         <source>Please input true GPIO!</source>
         <translation>请输入正确的GPIO口！</translation>
     </message>
@@ -1989,6 +1989,21 @@ Please wait a moment...</source>
         <translation>重命名</translation>
     </message>
     <message>
+        <location filename="serial.ui" line="202"/>
+        <source>clean recvtext </source>
+        <translation>清除接收框</translation>
+    </message>
+    <message>
+        <location filename="serial.ui" line="221"/>
+        <source>clean sendtext</source>
+        <translation>清除发送框</translation>
+    </message>
+    <message>
+        <location filename="serial.ui" line="584"/>
+        <source>send port1</source>
+        <translation>发送端口1</translation>
+    </message>
+    <message>
         <source>PortName</source>
         <translation type="obsolete">串口号</translation>
     </message>
@@ -2013,16 +2028,13 @@ Please wait a moment...</source>
         <translation type="obsolete">打开</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="488"/>
-        <location filename="serial.ui" line="597"/>
         <source>clean </source>
         <oldsource>clean sendtext</oldsource>
-        <translation>清除</translation>
+        <translation type="vanished">清除</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="702"/>
-        <location filename="serial.cpp" line="143"/>
-        <location filename="serial.cpp" line="196"/>
+        <location filename="serial.ui" line="371"/>
+        <location filename="serial.cpp" line="326"/>
         <source>open port2</source>
         <translation>打开端口2</translation>
     </message>
@@ -2031,46 +2043,42 @@ Please wait a moment...</source>
         <translation type="vanished">发送</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="453"/>
+        <location filename="serial.ui" line="478"/>
         <source>receive text</source>
         <oldsource>recvtext</oldsource>
         <translation>接收文本框</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="274"/>
         <source>set port1</source>
         <oldsource>set port</oldsource>
-        <translation type="unfinished">端口1设置</translation>
+        <translation type="obsolete">端口1设置</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="333"/>
         <source>set port2</source>
         <oldsource>port2_set</oldsource>
-        <translation type="unfinished">端口2设置</translation>
+        <translation type="obsolete">端口2设置</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="650"/>
-        <location filename="serial.cpp" line="79"/>
-        <location filename="serial.cpp" line="133"/>
+        <location filename="serial.ui" line="312"/>
+        <location filename="serial.cpp" line="287"/>
         <source>open port1</source>
         <translation>打开端口1</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="676"/>
         <source>send poert1</source>
-        <translation type="unfinished">发送端口1</translation>
+        <translation type="obsolete">发送端口1</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="728"/>
+        <location filename="serial.ui" line="597"/>
         <source>send port2</source>
-        <translation type="unfinished">发送端口2</translation>
+        <translation>发送端口2</translation>
     </message>
     <message>
         <source>Serial Port</source>
         <translation type="obsolete">串口</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="562"/>
+        <location filename="serial.ui" line="555"/>
         <source>send text</source>
         <translation>发送文本框</translation>
     </message>
@@ -2087,41 +2095,32 @@ Please wait a moment...</source>
         <translation type="obsolete">关闭</translation>
     </message>
     <message>
-        <location filename="serial.cpp" line="86"/>
         <source>open success!</source>
-        <translation>打开成功！</translation>
+        <translation type="vanished">打开成功！</translation>
     </message>
     <message>
+        <location filename="serial.cpp" line="101"/>
         <source>open failed!</source>
-        <translation type="vanished">打开失败！</translation>
+        <translation>打开失败！</translation>
     </message>
     <message>
-        <location filename="serial.cpp" line="85"/>
         <location filename="serial.cpp" line="100"/>
-        <location filename="serial.cpp" line="150"/>
-        <location filename="serial.cpp" line="165"/>
+        <location filename="serial.cpp" line="153"/>
+        <location filename="serial.cpp" line="193"/>
         <location filename="serial.cpp" line="217"/>
-        <location filename="serial.cpp" line="241"/>
-        <location filename="serial.cpp" line="305"/>
-        <location filename="serial.cpp" line="344"/>
         <source>QMessageBox::information()</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="serial.cpp" line="90"/>
         <location filename="serial.cpp" line="105"/>
-        <location filename="serial.cpp" line="155"/>
-        <location filename="serial.cpp" line="170"/>
+        <location filename="serial.cpp" line="158"/>
+        <location filename="serial.cpp" line="198"/>
         <location filename="serial.cpp" line="222"/>
-        <location filename="serial.cpp" line="246"/>
-        <location filename="serial.cpp" line="310"/>
-        <location filename="serial.cpp" line="349"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="serial.cpp" line="101"/>
-        <location filename="serial.cpp" line="166"/>
+        <location filename="serial.cpp" line="154"/>
         <source>pen failed!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2131,34 +2130,27 @@ Please wait a moment...</source>
         <translation>关闭端口1</translation>
     </message>
     <message>
-        <location filename="serial.cpp" line="151"/>
-        <source>pen success!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="serial.cpp" line="183"/>
+        <location filename="serial.cpp" line="171"/>
         <source>close port2</source>
         <translation>关闭端口2</translation>
     </message>
     <message>
-        <location filename="serial.cpp" line="218"/>
+        <location filename="serial.cpp" line="194"/>
         <source>Please open port1!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="serial.cpp" line="242"/>
+        <location filename="serial.cpp" line="218"/>
         <source>Please open port2!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="serial.cpp" line="306"/>
         <source>port1 is opening!</source>
-        <translation>端口1正在打开！</translation>
+        <translation type="vanished">端口1正在打开！</translation>
     </message>
     <message>
-        <location filename="serial.cpp" line="345"/>
         <source>port2 is opening!</source>
-        <translation>端口2正在打开！</translation>
+        <translation type="vanished">端口2正在打开！</translation>
     </message>
 </context>
 <context>
@@ -2372,6 +2364,7 @@ Please wait a moment...</source>
     </message>
     <message>
         <location filename="serial_set_port2.ui" line="435"/>
+        <location filename="serial_set_port2.cpp" line="62"/>
         <source>OK</source>
         <translation>确认</translation>
     </message>
@@ -2381,7 +2374,12 @@ Please wait a moment...</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="serial_set_port2.cpp" line="54"/>
+        <location filename="serial_set_port2.cpp" line="57"/>
+        <source>QMessageBox::information()</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="serial_set_port2.cpp" line="58"/>
         <source>set successfully!</source>
         <translation>设置成功!</translation>
     </message>
@@ -2696,39 +2694,58 @@ Please connect 4G first!</source>
         <translation type="obsolete">文件夹路径：</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="745"/>
         <source>mount device:</source>
         <oldsource>mount_device:</oldsource>
-        <translation type="unfinished">外部设备：</translation>
+        <translation type="obsolete">外部设备：</translation>
     </message>
     <message>
         <source>move</source>
         <translation type="obsolete">剪切</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="463"/>
+        <location filename="udev.ui" line="535"/>
         <source>Safe exit</source>
         <translation>安全退出</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="648"/>
+        <location filename="udev.ui" line="640"/>
         <source>folder path:</source>
         <oldsource>path:</oldsource>
         <translation>文件夹路径：</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="580"/>
+        <location filename="udev.ui" line="733"/>
+        <source>cancel</source>
+        <translation type="unfinished">取消</translation>
+    </message>
+    <message>
+        <location filename="udev.ui" line="746"/>
+        <source>back</source>
+        <translation type="unfinished">返回</translation>
+    </message>
+    <message>
+        <location filename="udev.ui" line="757"/>
+        <source>Directory</source>
+        <translation type="unfinished">目录</translation>
+    </message>
+    <message>
+        <location filename="udev.ui" line="814"/>
         <source>choose file:</source>
         <oldsource>choose_file:</oldsource>
         <translation type="unfinished">选择文件：</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="823"/>
+        <location filename="udev.ui" line="214"/>
         <source>copy</source>
         <translation>复制</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="925"/>
+        <location filename="udev.ui" line="283"/>
+        <source>paste</source>
+        <translation>粘贴</translation>
+    </message>
+    <message>
+        <location filename="udev.ui" line="451"/>
         <source>delete</source>
         <translation>删除</translation>
     </message>
@@ -2737,16 +2754,15 @@ Please connect 4G first!</source>
         <translation type="obsolete">选择文件夹</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="379"/>
         <source>refresh</source>
-        <translation>刷新</translation>
+        <translation type="vanished">刷新</translation>
     </message>
     <message>
         <source>safe withdrawing</source>
         <translation type="obsolete">安全退出</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="874"/>
+        <location filename="udev.ui" line="367"/>
         <source>cut</source>
         <translation>剪切</translation>
     </message>
@@ -2854,9 +2870,8 @@ The New SIM card is:
         <translation type="obsolete">可能会花很长时间！！请注意电路板上的4G指示灯是否快速闪烁！！</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="288"/>
         <source>choose</source>
-        <translation>选择文件</translation>
+        <translation type="vanished">选择文件</translation>
     </message>
     <message>
         <source>All devices have been safely logged out, please check whether the device is inserted, or try to reinsert!!</source>
@@ -2864,28 +2879,25 @@ The New SIM card is:
         <translation type="vanished">所有设备已安全注销，请检查设备是否已插入，或尝试重新插入!!</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="295"/>
+        <location filename="udev.cpp" line="204"/>
         <source>umount %1 successful!</source>
         <translation>%1已安全退出！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="322"/>
+        <location filename="udev.cpp" line="245"/>
         <source>Please select the file that you want to copy!</source>
         <translation>请选择要复制的文件!</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="201"/>
         <source>CP OK</source>
-        <translation>复制成功</translation>
+        <translation type="vanished">复制成功</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="217"/>
-        <location filename="udev.cpp" line="257"/>
         <source>Please select a legal path!</source>
-        <translation>请选择一个合法路径！</translation>
+        <translation type="vanished">请选择一个合法路径！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="352"/>
+        <location filename="udev.cpp" line="311"/>
         <source>Please select the file that you want to cut!</source>
         <oldsource>Please select the file that you want to move!</oldsource>
         <translation>请选择要剪切的文件!</translation>
@@ -2896,72 +2908,116 @@ The New SIM card is:
         <translation type="vanished">剪切成功</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="200"/>
-        <location filename="udev.cpp" line="216"/>
-        <location filename="udev.cpp" line="241"/>
-        <location filename="udev.cpp" line="256"/>
-        <location filename="udev.cpp" line="275"/>
-        <location filename="udev.cpp" line="297"/>
-        <location filename="udev.cpp" line="321"/>
-        <location filename="udev.cpp" line="351"/>
-        <location filename="udev.cpp" line="381"/>
-        <location filename="udev.cpp" line="419"/>
+        <location filename="udev.cpp" line="184"/>
+        <location filename="udev.cpp" line="206"/>
+        <location filename="udev.cpp" line="229"/>
+        <location filename="udev.cpp" line="244"/>
+        <location filename="udev.cpp" line="278"/>
+        <location filename="udev.cpp" line="296"/>
+        <location filename="udev.cpp" line="310"/>
+        <location filename="udev.cpp" line="332"/>
+        <location filename="udev.cpp" line="350"/>
+        <location filename="udev.cpp" line="399"/>
+        <location filename="udev.cpp" line="563"/>
+        <location filename="udev.cpp" line="584"/>
+        <location filename="udev.cpp" line="602"/>
         <source>QMessageBox::information()</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="203"/>
-        <location filename="udev.cpp" line="219"/>
-        <location filename="udev.cpp" line="244"/>
-        <location filename="udev.cpp" line="259"/>
-        <location filename="udev.cpp" line="278"/>
-        <location filename="udev.cpp" line="300"/>
-        <location filename="udev.cpp" line="324"/>
-        <location filename="udev.cpp" line="354"/>
-        <location filename="udev.cpp" line="384"/>
-        <location filename="udev.cpp" line="422"/>
+        <location filename="udev.cpp" line="187"/>
+        <location filename="udev.cpp" line="209"/>
+        <location filename="udev.cpp" line="232"/>
+        <location filename="udev.cpp" line="247"/>
+        <location filename="udev.cpp" line="281"/>
+        <location filename="udev.cpp" line="299"/>
+        <location filename="udev.cpp" line="313"/>
+        <location filename="udev.cpp" line="335"/>
+        <location filename="udev.cpp" line="353"/>
+        <location filename="udev.cpp" line="402"/>
+        <location filename="udev.cpp" line="566"/>
+        <location filename="udev.cpp" line="587"/>
+        <location filename="udev.cpp" line="605"/>
         <source>OK</source>
         <translation>好的</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="242"/>
         <source>CUT OK!</source>
-        <translation>剪切成功！</translation>
+        <translation type="vanished">剪切成功！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="276"/>
+        <location filename="udev.cpp" line="185"/>
         <source>All devices have been safely logged out, please check whether the device is inserted, or try to reinsert!</source>
         <translation type="unfinished">所有设备已安全注销，请检查设备是否已插入，或尝试重新插入! </translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="382"/>
+        <location filename="udev.cpp" line="230"/>
+        <source>The current state is cut!</source>
+        <translation>当前是剪切状态！</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="279"/>
+        <source>Copy complete!</source>
+        <translation>复制成功！</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="297"/>
+        <source>The current state is copy!</source>
+        <translation type="unfinished">当前是复制状态！</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="333"/>
+        <source>Enter the cut state!</source>
+        <translation type="unfinished">进入剪切状态！</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="351"/>
         <source>Please select the file that you want to delete!</source>
         <translation>请选择要删除的文件!</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="402"/>
+        <location filename="udev.cpp" line="361"/>
+        <source>Do you want to delete the file?</source>
+        <translation>你想要删除这个文件吗？</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="363"/>
         <source>QMessageBox::question()</source>
         <translation type="unfinished">你想要删除这个文件吗</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="403"/>
-        <source>Are you sure you want to delete this file ?</source>
-        <translation>你确定删除这个文件？</translation>
+        <location filename="udev.cpp" line="400"/>
+        <source>Delete complete!</source>
+        <translation>删除成功！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="405"/>
+        <location filename="udev.cpp" line="564"/>
+        <source>The current path is the most forward path!</source>
+        <translation type="unfinished">当前路径已是最前路径！</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="585"/>
+        <location filename="udev.cpp" line="603"/>
+        <source>Paste complete!</source>
+        <translation type="unfinished">粘贴完成!</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete this file ?</source>
+        <translation type="vanished">你确定删除这个文件？</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="367"/>
         <source>Yes</source>
         <translation>是的</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="406"/>
+        <location filename="udev.cpp" line="368"/>
         <source>No</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="420"/>
         <source>DEL OK!</source>
-        <translation>删除成功！</translation>
+        <translation type="vanished">删除成功！</translation>
     </message>
     <message>
         <source>DEL OK</source>
@@ -3461,7 +3517,7 @@ The New SIM card is:
     <message>
         <location filename="voice.ui" line="576"/>
         <location filename="voice.cpp" line="86"/>
-        <location filename="voice.cpp" line="542"/>
+        <location filename="voice.cpp" line="546"/>
         <source>start</source>
         <translation>开始</translation>
     </message>
@@ -3584,7 +3640,7 @@ The New SIM card is:
         <translation>删除成功</translation>
     </message>
     <message>
-        <location filename="voice.cpp" line="533"/>
+        <location filename="voice.cpp" line="537"/>
         <source>stop</source>
         <translation>停止</translation>
     </message>

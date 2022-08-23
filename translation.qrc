@@ -62,5 +62,10 @@
         <file>button_image/rotate_return.png</file>
         <file>button_image/voice/sound_cross.svg</file>
         <file>button_image/voice/sound_open.svg</file>
+        <file>button_image/folder.svg</file>
+        <file>button_image/paste.svg</file>
+        <file>button_image/file.svg</file>
+        <file>button_image/up.svg</file>
+        <file>button_image/sdcard.svg</file>
     </qresource>
 </RCC>
