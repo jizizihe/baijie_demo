@@ -6,6 +6,8 @@ static QScreen *screen;
 static int s_width;
 static int s_height;
 static int screen_flag;
+static int open_flag;
+static int con_flag;
 
 sim_module::sim_module(QWidget *parent) :
     QMainWindow(parent),
@@ -20,7 +22,7 @@ sim_module::sim_module(QWidget *parent) :
     {
         screen_flag = 1;
     }
-
+    open_flag = 1;
     sim_font();
     wifi_bt_interface_w = new wifi_bt_interface(this);
     myThread = new QThread(this);
@@ -114,11 +116,11 @@ void sim_module::recv_msg(int signal_type, QString strResult)
         qDebug() << "FUNC:" << __FUNCTION__<< "Line:" << __LINE__ << "strResult:" << strResult;
         if(strResult == QString(1))
         {
-            QMessageBox::information(this,"information",tr("4G Connect succeeded!"));
+            QMessageBox::information(this,"information",tr("4G Connect succeeded!"));con_flag = 1;
         }
         else
         {
-            QMessageBox::critical(this,"information",tr("4G Connect failed!"));
+            QMessageBox::critical(this,"information",tr("4G Connect failed!"));con_flag = 0;
         }
         break;
     case sim_status_signal:
@@ -126,7 +128,7 @@ void sim_module::recv_msg(int signal_type, QString strResult)
 
         if(strResult.isEmpty())
         {
-            QMessageBox::critical(this,"information",tr("4G get status failed!\nPlease connect 4G first!"));
+           // QMessageBox::critical(this,"information",tr("4G get status failed!\nPlease connect 4G first!"));
         }
         else
         {
@@ -141,14 +143,72 @@ void sim_module::recv_msg(int signal_type, QString strResult)
 
 void sim_module::on_SimDisconnectBtn_clicked()
 {
-    qDebug() << "--line--: " << __LINE__<< "FILE" << __FILE__<<"func:" << __FUNCTION__;
-    emit sim_disconnect_msg();
+    if(open_flag == 1)
+    {
+        if(con_flag == 1)
+        {
+            qDebug() << "--line--: " << __LINE__<< "FILE" << __FILE__<<"func:" << __FUNCTION__;
+            emit sim_disconnect_msg();
+            emit sim_status_msg();
+            con_flag = 0;
+        }
+        else
+        {
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("Please connecte the 4g!"),
+                             0,this);
+            mesg.addButton(tr("OK"),QMessageBox::YesRole);
+            if(screen_flag == 1)
+                mesg.move(s_width*2/3,s_height/3);
+            else
+                mesg.move(s_width/3,s_height/3);
+            mesg.exec();
+        }
+    }
+    else
+    {
+        QMessageBox mesg(QMessageBox::Information,
+                         tr("QMessageBox::information()"),
+                         tr("Please open the 4g!"),
+                         0,this);
+        mesg.addButton(tr("OK"),QMessageBox::YesRole);
+        if(screen_flag == 1)
+            mesg.move(s_width*2/3,s_height/3);
+        else
+            mesg.move(s_width/3,s_height/3);
+        mesg.exec();
+    }
 }
 
 void sim_module::on_SimConnectBtn_clicked()
 {
-    qDebug() << "--line--: " << __LINE__<< "FILE" << __FILE__<<"func:" << __FUNCTION__;
-    emit sim_connect_msg();
+    if(open_flag == 1)
+    {
+        if(con_flag == 1)
+        {
+            emit sim_status_msg();
+        }
+        else
+        {
+            qDebug() << "--line--: " << __LINE__<< "FILE" << __FILE__<<"func:" << __FUNCTION__;
+            emit sim_disconnect_msg();
+            emit sim_status_msg();
+        }
+    }
+    else
+    {
+        QMessageBox mesg(QMessageBox::Information,
+                         tr("QMessageBox::information()"),
+                         tr("Please open the 4g!"),
+                         0,this);
+        mesg.addButton(tr("OK"),QMessageBox::YesRole);
+        if(screen_flag == 1)
+            mesg.move(s_width*2/3,s_height/3);
+        else
+            mesg.move(s_width/3,s_height/3);
+        mesg.exec();
+    }
 }
 
 
@@ -157,12 +217,12 @@ void sim_module::language_reload()
     ui->retranslateUi(this);
 }
 
-void sim_module::on_SimStausBtn_clicked()
-{
-    qDebug() << "--line--: " << __LINE__<< "FILE" << __FILE__<<"func:" << __FUNCTION__;
+//void sim_module::on_SimStausBtn_clicked()
+//{
+//    qDebug() << "--line--: " << __LINE__<< "FILE" << __FILE__<<"func:" << __FUNCTION__;
 
-    emit sim_status_msg();
-}
+//    emit sim_status_msg();
+//}
 
 void sim_module::sim_font()
 {
@@ -205,6 +265,21 @@ void sim_module::sim_font()
     ui->SimConnectBtn->setFont(font);
     ui->SimDisconnectBtn->setFont(font);
     ui->textEdit->setFont(font);
-    ui->SimStausBtn->setFont(font);
+//    ui->SimStausBtn->setFont(font);
     ui->label->setFont(font);
+}
+
+void sim_module::on_btn_open_clicked()
+{
+    if(open_flag == 0)
+    {
+        open_flag = 1;
+        ui->btn_open->setText(tr("close"));
+    }
+    else
+    {
+        open_flag = 0;
+        ui->btn_open->setText(tr("open"));
+        ui->textEdit->clear();
+    }
 }

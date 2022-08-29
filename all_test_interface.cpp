@@ -306,7 +306,6 @@ QString bluetooth_test()
     return strResult;
 }
 
-
 QString executeLinuxCmd(QString strCmd)
 {
     QProcess p;

@@ -46,6 +46,7 @@ public slots:
     void audio_test_thread();
     void wifi_test_thread();
     void bluetooth_test_thread();
+    void key_test_thread();
 
 
     void serial_test_thread_client(serial_config serialTest);

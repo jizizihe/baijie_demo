@@ -426,7 +426,7 @@ void udev::on_return_2_clicked()
     {
         if(view_show == 1)
         {
-            File_oprationw.hide();qDebug() << 11;
+            File_oprationw.hide();
             file_view->hide();
         }
     }

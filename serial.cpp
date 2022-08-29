@@ -151,7 +151,7 @@ void serial::serialport2_open()
         {
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
-                             tr("pen failed!"),
+                             tr("open failed!"),
                              0,this);
              mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
              mesg.setFocusPolicy(Qt::NoFocus);

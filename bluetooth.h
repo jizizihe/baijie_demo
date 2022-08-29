@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "bluetooth_thread.h"
 #include "wifi_bt_interface.h"
+#include "database.h"
 
 #include <QMainWindow>
 #include <QDebug>
@@ -35,6 +36,8 @@ public:
 
     void language_reload();
     void blue_font();
+    void bluetooth_sql();
+    void showEvent(QShowEvent *event);
 
 private slots:
     void recv_msg(int,QString);
@@ -63,13 +66,14 @@ private:
     Ui::bluetooth *ui;
 
     QStringList BtScanList;
-
+    QStringList BtPairList;
     QLabel *LoadLabel;
     QMovie *pMovie;
 
     QThread * myThread;
     bluetooth_thread * BluetoothThread;
     wifi_bt_interface * wifi_bt_t;
+    database database_w;
 };
 
 #endif // BLUETOOTH_H

@@ -32,6 +32,7 @@ public:
     void language_reload();
     void gpio_font();
 
+
 private slots:
     void rBtnout_clicked();
     void rBtnin_clicked();
@@ -43,9 +44,11 @@ private slots:
     void rBtnhigh_clicked();
     void rBtnlow_clicked();
     bool warning();
+    void translater(int);
 
 signals:
     void Mysignal();
+
 private:
     Ui::gpio *ui;
     QGroupBox *stateGroup;

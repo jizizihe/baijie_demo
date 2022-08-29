@@ -1,6 +1,7 @@
 #include "bluetooth.h"
 #include "ui_bluetooth.h"
 #include <QScreen>
+#include <QProcess>
 
 using namespace std;
 static QScreen *screen;
@@ -8,6 +9,9 @@ static int screen_flag;
 static int Width;
 static int Height;
 static int open_flag;
+static QString BtAddress;
+static QString Btname;
+static int pair_index;
 
 bluetooth::bluetooth(QWidget *parent) :
     QMainWindow(parent),
@@ -31,7 +35,6 @@ bluetooth::bluetooth(QWidget *parent) :
     QRect mm=screen->availableGeometry() ;
     int screen_width = mm.width();
     int screen_height = mm.height();
-    //qDebug()<<screen_width<<screen_height;
 
     LoadLabel = new QLabel(this);
     //LoadLabel->resize(100,100);
@@ -40,7 +43,6 @@ bluetooth::bluetooth(QWidget *parent) :
     LoadLabel->setFixedSize(50, 50);
     LoadLabel->setScaledContents(true);
     LoadLabel->setMovie(pMovie);
-    //pMovie->start();
 
     myThread = new QThread(this);
     BluetoothThread = new bluetooth_thread();
@@ -51,7 +53,6 @@ bluetooth::bluetooth(QWidget *parent) :
     connect(BluetoothThread,SIGNAL(send_msg(int, QString)),this,SLOT(recv_msg(int, QString)));
     BluetoothThread->moveToThread(myThread);
     myThread->start();
-
     emit bluetooth_scan_msg();
 }
 
@@ -109,10 +110,8 @@ void bluetooth::recv_msg(int signal_type,QString str)
     int flag;
     if(signal_type == Bt_scan_signal)
     {
-        //qDebug() << "Line "<< __LINE__<< "recvmsg: "<< str;
         ui->BtNameListWidget->clear();
         flag = open_flag;
-        //qDebug() << "line:" << __LINE__ << "flag:" << flag;
         if(flag == 0)
             return ;
         BtScanList.clear();
@@ -122,7 +121,26 @@ void bluetooth::recv_msg(int signal_type,QString str)
         {
             QString tmp = BtScanList.at(i);
             tmp = tmp.trimmed().section("\t",1,1);
-            ui->BtNameListWidget->addItem(tmp);
+            if(BtPairList.size()<= 0)
+            {
+                ui->BtNameListWidget->addItem(tmp);
+            }
+            else
+            {
+                for(int j = 0; j < BtPairList.size(); j++)
+                {
+                    if(tmp == QString(BtPairList.at(j)))
+                    {
+                        j++;
+                        continue;
+                    }
+                    else
+                    {
+                        j++;
+                        ui->BtNameListWidget->addItem(tmp);
+                    }
+                }
+            }
         }
         ui->BtNameListWidget->setCurrentRow(0);
         ui->BtNameListWidget->verticalScrollBar()->setStyleSheet("QScrollBar{width:40px;}");
@@ -143,6 +161,9 @@ void bluetooth::recv_msg(int signal_type,QString str)
              else
              mesg.move(Width/3,Height/3);
              mesg.exec();
+             database_w.insert_bluetooth(Btname,BtAddress);
+             bluetooth_sql();
+             ui->BtNameListWidget->takeItem(pair_index);
         }
         else if(str == "failed")
         {
@@ -195,17 +216,6 @@ void bluetooth::recv_msg(int signal_type,QString str)
     pMovie->stop();
     LoadLabel->close();
 
-    QString strCmd = QString("hciconfig hci0 name |grep Name |awk '{print $2}'");
-    QString strResult = wifi_bt_t->executeLinuxCmd(strCmd);
-    //qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__ << "strResult:" << strResult;
-
-    strResult.remove(0,1);
-    strResult.remove(strResult.length()-2,2);
-    //qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__ << "strResult:" << strResult;
-    QString name = QString(tr("%1")).arg(strResult);
-    ui->label_2->show();
-    ui->BtDeviceNameLab->setText(name);
-
 }
 
 void bluetooth::on_retBtn_clicked()
@@ -227,6 +237,7 @@ void bluetooth::on_BTScanBtn_clicked()
     ui->BTConnectBtn->setDisabled(true);
 
     LoadLabel->show();
+    LoadLabel->move(this->width()/2,this->height()/2);
     pMovie->start();
 
     emit bluetooth_scan_msg();
@@ -235,7 +246,6 @@ void bluetooth::on_BTScanBtn_clicked()
 void bluetooth::on_BTPairBtn_clicked()
 {
     int count = ui->BtNameListWidget->count();
-//    qDebug() << "LINE: "<< __LINE__ << "count:" << count;
     if(count == 0)
     {
         QMessageBox mesg(QMessageBox::Information,
@@ -252,7 +262,9 @@ void bluetooth::on_BTPairBtn_clicked()
     }
 
     int BtNameIndex = ui->BtNameListWidget->currentRow();
-    QString BtAddress = BtScanList.at(BtNameIndex);
+    pair_index = BtNameIndex;
+    BtAddress = BtScanList.at(BtNameIndex);
+    Btname = BtAddress.trimmed().section("\t",1,1);
     BtAddress = BtAddress.trimmed().section("\t",0,0);
     qDebug() << BtAddress;
 
@@ -268,11 +280,10 @@ void bluetooth::on_BTPairBtn_clicked()
 
 void bluetooth::on_BTConnectBtn_clicked()
 {
-    int count = ui->BtNameListWidget->count();
-//    qDebug() << "LINE: "<< __LINE__ << "count:" << count;
+    int count = ui->Bt_pairedListwidget->count();
     if(count == 0)
     {
-        QMessageBox::information(this,"information",tr("Please scan Bluetooth first!"));
+        QMessageBox::information(this,"information",tr("Please pari Bluetooth first!"));
         return ;
     }
 
@@ -280,21 +291,18 @@ void bluetooth::on_BTConnectBtn_clicked()
     pMovie->start();
 
     QString strCmd = QString("ps -x|grep pulseaudio | grep -v grep |wc -l");
-    qDebug() << "strCmd == " << strCmd;
+    //qDebug() << "strCmd == " << strCmd;
     QString strResult = wifi_bt_t->executeLinuxCmd(strCmd);
-    qDebug() << strResult;
 
     if(strResult == QString("0\n"))
     {
         strCmd = QString("pulseaudio --start");
-        qDebug() << "strCmd == " << strCmd;
         strResult = wifi_bt_t->executeLinuxCmd(strCmd);
-        qDebug() << strResult;
+        //qDebug() << strResult;
     }
 
-    int BtNameIndex = ui->BtNameListWidget->currentRow();
-    QString BtAddress = BtScanList.at(BtNameIndex);
-    BtAddress = BtAddress.trimmed().section("\t",0,0);
+    int BtNameIndex = ui->Bt_pairedListwidget->currentRow();
+    BtAddress = BtPairList.at(BtNameIndex+1);
     qDebug() << BtAddress;
 
     emit bluetooth_connect_msg(BtAddress);
@@ -353,7 +361,8 @@ void  bluetooth::blue_font()
     ui->BTScanBtn->setFont(font);
     ui->label_2->setFont(font);
     ui->pushButton->setFont(font);
-
+    ui->label->setFont(font);
+    ui->label_3->setFont(font);
 }
 
 void bluetooth::on_pushButton_clicked()
@@ -362,11 +371,41 @@ void bluetooth::on_pushButton_clicked()
     {
         open_flag = 1;
         ui->pushButton->setText(tr("close"));
+        bluetooth_sql();
     }
    else
    {
         open_flag = 0;
         ui->pushButton->setText(tr("open"));
         ui->BtNameListWidget->clear();
+        ui->Bt_pairedListwidget->clear();
     }
+}
+
+void bluetooth::bluetooth_sql()
+{
+   // BtPairList = database_w.bluetooth_tableshow();
+    ui->Bt_pairedListwidget->clear();
+    BtPairList = database_w.table_show("bluetooth");
+
+    for(int i = 0;i<BtPairList.size();i++)
+    {
+        QString tmp = BtPairList.at(i);
+        i++;
+        ui->Bt_pairedListwidget->addItem(tmp);
+    }
+
+     ui->Bt_pairedListwidget->setCurrentRow(0);
+}
+
+void bluetooth::showEvent(QShowEvent *event)
+{
+    bluetooth_sql();
+    QString strCmd = QString("hciconfig hci0 name |grep Name |awk '{print $2}'");
+    QString strResult = wifi_bt_t->executeLinuxCmd(strCmd);
+    strResult.remove(0,1);
+    strResult.remove(strResult.length()-2,2);
+    QString name = QString(tr("%1")).arg(strResult);
+    ui->label_2->show();
+    ui->BtDeviceNameLab->setText(name);
 }

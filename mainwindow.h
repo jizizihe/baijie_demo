@@ -19,8 +19,6 @@
 #include "sys_setting.h"
 #include "sim_module.h"
 #include "database.h"
-#include "voice_rename.h"
-#include "voice_savefile_name.h"
 #include <QGraphicsView>
 #include <QGraphicsProxyWidget>
 
@@ -48,9 +46,7 @@ public:
     sys_setting system_w;
     QSettings *setting;
     sim_module sim_module_w;
-    database wifiDatabase;
-    voice_rename voice_renamew;
-    voice_savefile_name voice_savefile_namew;
+    database database_w;
 
     void config_file();
     void view();
@@ -102,6 +98,7 @@ private slots:
 signals:
     void again();
     void wifi_status_msg();
+    void gpio_translater(int);
 };
 
 #endif // MAINWINDOW_H

@@ -31,7 +31,6 @@ WifiConDialog::WifiConDialog(QWidget *parent) :
     WifiLoadLabel->setFixedSize(50, 50);
     WifiLoadLabel->setScaledContents(true);
     WifiLoadLabel->setMovie(WifiMovie);
-    ui->PasswdlineEdit->setPlaceholderText(tr("enter password"));
     //pMovie->start();
 }
 

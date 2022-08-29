@@ -96,9 +96,9 @@ void about_board::resolution_update()
 void about_board::QTversion_update()
 {
     char vQT[64];
-    if(get_QTversion("/usr/lib/","libQt5Core",vQT) == 0)
+    if(get_QTversion("/usr/helperboard/qt/lib/","libQt5Core",vQT) == 0)
     {
-         if(get_QTversion("/usr/lib/","libQt4Core",vQT) == 0)
+         if(get_QTversion("/usr/helperboard/qt/lib/","libQt4Core",vQT) == 0)
          {
              ui->QTversion->setText(QString(tr(" Unknow")));
          }

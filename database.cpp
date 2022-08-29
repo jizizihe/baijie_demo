@@ -1,5 +1,6 @@
 #include "database.h"
 #include <QFileInfo>
+#include <QSqlRecord>
 
 database::database()
 {
@@ -26,26 +27,44 @@ bool database::create_connection()
 
 bool database::create_table()
 {
-    QFileInfo file("info");
-    if(file.exists()==false)
+    QSqlQuery query;
+    QString create_table_wifi = "create table wifiPasswd (name varchar(64) primary key,password varchar(32))";
+    query.prepare(create_table_wifi);
+    if(query.exec())
     {
-        QSqlQuery query;
-        QString create_table_sql = "create table wifiPasswd (name varchar(64) primary key,password varchar(32))";
-        query.prepare(create_table_sql);
-        if(!query.exec())
-        {
-            qDebug() << "Error: Fail to create table."<< query.lastError();
-            return false;
-        }
-        else
-        {
-            qDebug() << "create table succeed!";
-            return true;
-        }
+        //qDebug() << "create table_wifi succeed!";
     }
+
+    QString create_table_hostpot = "create table hostpot (name varchar(64) primary key,password varchar(32),wlan varchar(64))";
+    query.prepare(create_table_hostpot);
+    if(query.exec())
+    {
+        //qDebug() << "create table_hostpot succeed!";
+    }
+
+    QString create_table_bluetooth = "create table bluetooth (name varchar(64) primary key,address varchar(32))";
+    query.prepare(create_table_bluetooth);
+    if(query.exec())
+    {
+        //qDebug() << "create table_bluetooth succeed!";
+    }
+
+    QString create_table_ip_static = "create table ip_static (name varchar(64) primary key)";
+    query.prepare(create_table_ip_static);
+    if(query.exec())
+    {
+        qDebug() << "create table_ipstatic succeed!";
+    }
+
+//    QString create_table_gpio = "create table gpio (name varchar(64) primary key,state varchar(64),value varchar(64))";
+//    query.prepare(create_table_gpio);
+//    if(query.exec())
+//    {
+//        qDebug() << "create table_ipstatic succeed!";
+//    }
 }
 
-bool database::insert_table(QString name, QString passwd)
+bool database::insert_wifitable(QString name, QString passwd)
 {
     QSqlQuery query;
 
@@ -63,6 +82,58 @@ bool database::insert_table(QString name, QString passwd)
     }
 }
 
+bool database::insert_hotstop(QString name, QString passwd, QString port)
+{
+    QSqlQuery query;
+
+    QString insert_sql = QString("insert into hostpot values ('%1','%2','%3')").arg(name).arg(passwd).arg(port);
+    qDebug()<< "insert_sql:" << insert_sql;
+    if(!query.exec(insert_sql))
+    {
+        qDebug() << "Error: Failed to insert into table"<<query.lastError();
+        return false;
+    }
+    else
+    {
+        qDebug() << "insert into table succed!";
+        return true;
+    }
+}
+
+bool database::insert_bluetooth(QString name,QString address)
+{
+    QSqlQuery query;
+
+    QString insert_sql = QString("insert into bluetooth values ('%1','%2')").arg(name).arg(address);
+    qDebug()<< "insert_sql:" << insert_sql;
+    if(!query.exec(insert_sql))
+    {
+        qDebug() << "Error: Failed to insert into table"<<query.lastError();
+        return false;
+    }
+    else
+    {
+        qDebug() << "insert into table succed!";
+        return true;
+    }
+}
+
+bool database::insert_ip_static(QString ipaddress)
+{
+    QSqlQuery query;
+    QString insert_sql = QString("insert into ip_static values ('%1')").arg(ipaddress);
+    qDebug() << "insert_sql" << insert_sql;
+    if(!query.exec(insert_sql))
+    {
+        qDebug() << "Error: Failed to insert into table"<< query.lastError();
+        return false;
+    }
+    else
+    {
+        qDebug() << "insert into table succed!";
+        return true;
+    }
+}
 
 bool database::select_table(QString name)
 {
@@ -159,3 +230,57 @@ bool database::delete_table(QString tableName)
     return false;
 }
 
+QStringList database::hostpot_tabelshow()
+{
+    QSqlQuery query;
+    query.exec("select * from hostpot");
+    QStringList list;
+    QString str;
+    QSqlRecord rec = query.record();
+    while(query.next())
+    {
+        for(int index = 0; index < rec.count(); index++)
+        {
+            str = str + query.value(index).toString() + ",";
+        }
+        list = str.split(",");
+        list.removeAll("");
+    }
+    return list;
+}
+
+QStringList database::table_show(QString tablename)
+{
+    QSqlQuery query;
+    QString strr =QString("select * from %1").arg(tablename);
+    query.exec(strr);
+    QStringList list;
+    QSqlRecord rec = query.record();
+    QString str;
+    while (query.next())
+    {
+       for(int index = 0;index < rec.count();index++)
+       {
+           str = str + query.value(index).toString() + ",";
+       }
+       list = str.split(",");
+       list.removeAll("");
+    }
+    return list;
+}
+
+void database::table_debug(QString tablename)
+{
+    QSqlQuery query;
+    QString str = QString("select * from %1").arg(tablename);
+    query.exec(str);
+    QSqlRecord rec = query.record();
+    while(query.next())
+    {
+        for(int index = 0; index < rec.count(); index++)
+        {
+            qDebug() << query.value(index);
+        }
+    }
+
+}

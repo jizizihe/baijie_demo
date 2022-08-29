@@ -36,9 +36,9 @@ gpio::gpio(QWidget *parent) :
       {
           screen_flag = 1;
       }
-     gpio_font();
-     ui->lineedit1_1->setPlaceholderText(tr("please enter gpio port. example: g13"));
 
+     ui->lineedit1_1->setPlaceholderText(tr("please enter gpio port. example: g13"));
+    gpio_font();
     connect(ui->rBtnin,SIGNAL(clicked(bool)),this,SLOT(rBtnin_clicked()));
     connect(ui->rBtnout,SIGNAL(clicked(bool)),this,SLOT(rBtnout_clicked()));
     connect(ui->rBtnhigh,SIGNAL(clicked(bool)),this,SLOT(rBtnhigh_clicked()));
@@ -465,4 +465,16 @@ void gpio::gpio_font()
     ui->display->setFont(font);
     ui->stateGroup->setFont(font);
     ui->valueGroup->setFont(font);
+}
+
+void gpio::translater(int flag)
+{
+    if(flag == 1)
+    {
+      ui->lineedit1_1->setPlaceholderText(tr("请输入gpio端口。例如：g13"));
+    }
+    else
+    {
+      ui->lineedit1_1->setPlaceholderText(tr("please enter gpio port. example: g13"));
+    }
 }

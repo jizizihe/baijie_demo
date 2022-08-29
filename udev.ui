@@ -606,7 +606,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
               <string notr="true"/>
              </property>
              <property name="text">
-              <string>Safe exit</string>
+              <string>safe exit</string>
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
@@ -667,6 +667,9 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
       <item>
        <widget class="QWidget" name="widget_3" native="true">
         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,1,6">
+         <property name="spacing">
+          <number>8</number>
+         </property>
          <property name="bottomMargin">
           <number>15</number>
          </property>
@@ -711,7 +714,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
                </font>
               </property>
               <property name="text">
-               <string>folder path:</string>
+               <string>path:</string>
               </property>
              </widget>
             </item>
@@ -794,7 +797,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
                </sizepolicy>
               </property>
               <property name="text">
-               <string>mount device</string>
+               <string>USB flash disk/sdcard</string>
               </property>
              </widget>
             </item>

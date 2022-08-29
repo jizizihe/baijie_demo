@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>523</width>
-    <height>361</height>
+    <width>704</width>
+    <height>479</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -184,7 +184,12 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
           </property>
           <item>
            <property name="text">
-            <string>wifi status</string>
+            <string>wifi and hotspot status</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
            </property>
           </item>
           <item>
@@ -259,17 +264,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
           </property>
           <item>
            <property name="text">
-            <string>show all ip connect</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>set dynamic ip </string>
+            <string>ip information</string>
            </property>
            <property name="font">
             <font>
@@ -289,7 +284,17 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
           </item>
           <item>
            <property name="text">
-            <string>network speed test</string>
+            <string>mod static ip</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>set auto ip</string>
            </property>
            <property name="font">
             <font>
@@ -389,17 +394,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
           </property>
           <item>
            <property name="text">
-            <string>choose file</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>begin</string>
+            <string>record</string>
            </property>
            <property name="font">
             <font>
@@ -439,12 +434,27 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
           </property>
           <item>
            <property name="text">
-            <string>udev</string>
+            <string>copy</string>
            </property>
            <property name="font">
             <font>
              <pointsize>12</pointsize>
             </font>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>cut</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>delete</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>safe exit</string>
            </property>
           </item>
          </item>

@@ -39,7 +39,9 @@ private slots:
 
     void on_SimDisconnectBtn_clicked();
 
-    void on_SimStausBtn_clicked();
+//    void on_SimStausBtn_clicked();
+
+    void on_btn_open_clicked();
 
 private:
     Ui::sim_module *ui;

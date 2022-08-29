@@ -17,6 +17,7 @@ static int bluetooth_flag = 0;
 static int serial_flag = 0;
 static int sim_module_flag = 0;
 static int sys_flag = 0;
+static int wifi_showf = 0;
 
 QGraphicsView *voice_view;
 QGraphicsView *udev_view;
@@ -56,7 +57,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this,SIGNAL(wifi_status_msg()),&wifi_w,SLOT(WifiStatus_show()));
     connect(&wifi_w,SIGNAL(Mysignal()),this,SLOT(wifi_back()));
     connect(&eth0_w,SIGNAL(ret_signal()),this,SLOT(eth0_back()));
-    //connect(&keytest_w,SIGNAL(Mysignal()),this,SLOT(show_main()));
+    connect(this,SIGNAL(gpio_translater(int)),&gpio_w,SLOT(translater(int)));
     connect(&all_w,SIGNAL(Mysignal()),this,SLOT(all_back()));
     connect(&bluetooth_w,SIGNAL(Mysignal()),this,SLOT(bluetooth_back()));
     connect(&serial_w,SIGNAL(Mysignal()),this,SLOT(serial_back()));
@@ -64,8 +65,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&system_w,SIGNAL(main_cn()),this,SLOT(cn_main()));
     connect(&sim_module_w,SIGNAL(Mysignal()),this,SLOT(sim_module_back()));
 
-    wifiDatabase.create_connection();
-    wifiDatabase.create_table();
+    database_w.create_connection();
+    database_w.create_table();
 }
 
 MainWindow::~MainWindow()
@@ -154,7 +155,12 @@ void MainWindow::on_touchca_clicked()
 
 void MainWindow::on_wifi_clicked()
 {
-    emit wifi_status_msg();
+    if(wifi_showf == 0)
+    {
+        emit wifi_status_msg();
+        wifi_w.hotspot_sql();
+        wifi_showf++;
+    }
     this->close();
     wifi_show();
 }
@@ -172,12 +178,15 @@ void MainWindow::cn_main()
         qApp->removeTranslator(translator);
         delete translator;
         translator = NULL;
+        emit gpio_translater(0);        
     }
     else
     {
         translator = new QTranslator();
         translator->load(":/chinese");
         qApp->installTranslator(translator);
+        emit gpio_translater(1);
+        //emit wifidia_translater(1);
     }
     languageflag = !languageflag;
     ui->retranslateUi(this);
@@ -187,7 +196,6 @@ void MainWindow::cn_main()
     voice_w.language_reload();
     touch_w.language_reload();
     udev_w.language_reload();
-    //keytest_w.language_reload();
     bluetooth_w.language_reload();
     all_w.language_reload();
     serial_w.language_reload();

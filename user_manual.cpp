@@ -44,55 +44,54 @@ void user_manual::language_reload()
     ui->retranslateUi(this);
 }
 
-
 void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 {
     QString str = item->text(column);
 
-    if(str == tr("wifi status"))
+    if(str == tr("wifi and hotspot status"))
     {
-        ui->textEdit->setText(tr("You can use the < wifi status > button to view the current connection status, and on this page you can choose to modify the password or remove the connection."));
+        ui->textEdit->setText(tr("You can use the the switch button control the WiFi on and off. You can click the < status > button to view the WiFi current connection status and hotspot status, and on Wifi Status page you can choose to modify the password or remove the connection."));
     }
     else if(str == tr("wifi connect"))
     {
-        ui->textEdit->setText(tr("When you click the < wifi connect > button, a list of connectable WiFi will appear. Click the WiFi you want to connect, and a connection dialog box will pop up for those who have not been connected before. For those who have been connected before, the connection will be activated and jump to the WiFi status interface. Switch to control the WiFi on and off, and click the < refresh > button to update the WiFi list."));
+        ui->textEdit->setText(tr("When you click the < wifi > button, a list of connectable WiFi will appear,and the list is refreshed every 5 seconds. Click the WiFi you want to connect, and a connection dialog box will pop up for those who have not been connected before.You can enter the password in the dialog box to connect. For those who have been connected before, the connection will be activated and jump to the WiFi status interface."));
     }
     else if(str == tr("hotspot connect"))
     {
-        ui->textEdit->setText(tr("When you click the < hotspot connect > button, you can choose to establish a hotspot connection or disconnect."));
+        ui->textEdit->setText(tr("When you click the < hotspot > button, you can choose to establish a hotspot connection or disconnect."));
     }
     else if(str == tr("bluetooth scan"))
     {
-        ui->textEdit->setText(tr("When you click the < Bluetooth scan > button, scan the surrounding Bluetooth devices."));
+        ui->textEdit->setText(tr("When you click the < scan > button, scan the surrounding Bluetooth devices."));
     }
     else if(str == tr("bluetooth pair"))
     {
-        ui->textEdit->setText(tr("When you select a Bluetooth, click the < Bluetooth pair > button to pair."));
+        ui->textEdit->setText(tr("When you select a Bluetooth, click the < pair > button to pair."));
     }
     else if(str == tr("bluetooth connect"))
     {
-        ui->textEdit->setText(tr("When you select a Bluetooth, click the < Bluetooth connect > button to connect."));
+        ui->textEdit->setText(tr("When you select a Bluetooth, click the < connect > button to connect."));
     }
-    else if(str == tr("show all ip connect"))
+    else if(str == tr("ip information"))
     {
-        ui->textEdit->setText(tr("You can use < show all IP addresses > to view the IP addresses of all network configurations, which is equivalent to 'ifconfig'. \
-You can use < show all connections > to view all current network connections."));
+        ui->textEdit->setText(tr("You can use < ip information> to view the IP addresses of all network configurations, which is equivalent to 'ifconfig'."));
     }
-    else if(str == tr("set dynamic ip "))
+    else if(str == tr("set static ip "))
     {
-        ui->textEdit->setText(tr("Click the < set dynamic IP > button, enter the network device you want to set as dynamic IP, and the setting result will be displayed in the prompt box."));
+        ui->textEdit->setText(tr("You can set a static IP by clicking the < set static ip > button and entering the ip you want to set."));
     }
-    else if(str == tr("set static ip"))
+    else if(str == tr("mod static ip"))
     {
-        ui->textEdit->setText(tr("You can add, delete and modify static connections, and you can view the connections you just added through the < show all connections > button."));
+        ui->textEdit->setText(tr("You can modify a static IP by clicking the < mod static ip > button and entering the ip you want to modify."));
     }
-    else if(str == tr("network speed test"))
+    else if(str == tr("set auto ip"))
     {
-        ui->textEdit->setText(tr("You can check the network speed in real time through < network speed test >.However,if you select other buttons or prompt boxes, the network speed test will stop."));
+        ui->textEdit->setText(tr("When you click the < set auto ip > button, the set static ip will be removed and the network will become a dynamic IP."));
     }
+
     else if(str == tr("RTC"))
     {
-        ui->textEdit->setText(tr("You can use the < systimeSet > button to set the system time, or you can use the < RTC write > button to synchronize to the hardware time."));
+        ui->textEdit->setText(tr("You can use the < systimeSet > button to set the system time, or you can use the < RTCSet > button to synchronize to the hardware time."));
     }
     else if(str == tr("brightness"))
     {
@@ -114,27 +113,35 @@ Note: there should be no space between each GPIO air, otherwise this operation w
     }
     else if(str == tr("Serial Port"))
     {
-        ui->textEdit->setText(tr("First, make sure that the hardware connection corresponds, then set the serial port properties, and click the < open / close > button to open / close the serial port. Enter the content you want to send in the input box, click the < send > button to send, and the receiver will receive the information."));
+        ui->textEdit->setText(tr("First, make sure that the hardware connection corresponds, then click the set serial port button to set the serial port properties.  Enter the content you want to send in the input box, click the < send > button to send, and the receiver will receive the information."));
     }
-    else if(str == tr("choose file"))
+    else if(str == tr("record"))
     {
-        ui->textEdit->setText(tr("Note: the newly created folder should not contain spaces, otherwise the new recording file cannot be saved."));
-    }
-    else if(str == tr("begin"))
-    {
-        ui->textEdit->setText(tr("You can press the < start > key to record. The next time you press this key, end the recording and save it in '/ data' or the file directory you choose."));
+        ui->textEdit->setText(tr("You can click the < start > button to record. The next time you press this button, end the recording and save it in '/ data' or the file directory you choose,and you can select the default name for saving recordings or change the name in the input box.Note: the newly created folder should not contain spaces, otherwise the new recording file cannot be saved."));
     }
     else if(str == tr("play"))
     {
-        ui->textEdit->setText(tr("You can adjust the volume when playing the recording."));
+        ui->textEdit->setText(tr("You can click the < Play > button to switch to the playback screen, select the path where the recording you want to play is located, click the < Play > button to play, slide the volume bar to adjust the volume, click the < Rename > button to rename the recording file, and click the < Delete > button to delete the recording file."));
     }
     else if(str == tr("Touch Display"))
     {
         ui->textEdit->setText(tr("This function will recognize the touch screen and display the movement track on the screen."));
     }
-    else if(str == tr("udev"))
+    else if(str == tr("copy"))
     {
-        ui->textEdit->setText(tr("You can operate files from external storage devices."));
+        ui->textEdit->setText(tr("Select the file that you want to copy in the directory, you can select multiple files. Click the < copy > button to copy, and then select the directory you want to paste and click the < Paste > button to paste or click the < cancel > to cancel copy."));
+    }
+    else if(str == tr("cut"))
+    {
+        ui->textEdit->setText(tr("Select the file that you want to cut in the directory, you can select multiple files. Click the < cut > button to cut, and then select the directory you want to paste and click the < Paste > button to cut or click the < cancel > cancel to cut."));
+    }
+    else if(str == tr("delete"))
+    {
+        ui->textEdit->setText(tr("Select the file that you want to delete in the directory, you can select multiple files. Click the < delete > button to delete."));
+    }
+    else if(str == tr("safe exit"))
+    {
+        ui->textEdit->setText(tr("You can click the < USB flash disk/sdcard > to jump to the appropriate directory, select the file that you want to unmount. Click the < safe exit > button to unmount."));
     }
     else if(str == tr("SD"))
     {

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>735</width>
-    <height>407</height>
+    <width>946</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -91,7 +91,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <number>0</number>
     </property>
     <item row="3" column="0" colspan="4">
-     <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="1,1,1,1,1,1,1,1,1">
+     <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="2,1,1,1,1,1,1,1,2">
       <property name="spacing">
        <number>0</number>
       </property>
@@ -482,7 +482,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/button_image/USB.png</normaloff>:/button_image/USB.png</iconset>
+               <normaloff>:/button_image/storage.svg</normaloff>:/button_image/storage.svg</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -704,7 +704,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      </spacer>
     </item>
     <item row="1" column="0" colspan="4">
-     <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="1,1,1,1,1,1,1,1,1">
+     <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="2,1,1,1,1,1,1,1,2">
       <property name="spacing">
        <number>0</number>
       </property>
@@ -799,7 +799,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/button_image/wifi.png</normaloff>:/button_image/wifi.png</iconset>
+               <normaloff>:/button_image/wifi.svg</normaloff>:/button_image/wifi.svg</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -1313,7 +1313,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      </spacer>
     </item>
     <item row="5" column="0" colspan="4">
-     <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="1,1,1,1,1,1,1,1,1">
+     <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="2,1,1,1,1,1,1,1,2">
       <property name="spacing">
        <number>0</number>
       </property>
@@ -1794,7 +1794,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>735</width>
+     <width>946</width>
      <height>22</height>
     </rect>
    </property>

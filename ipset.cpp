@@ -102,7 +102,6 @@ void ipset::on_ipShowBtn_clicked()
 //        result = automatically_get_ip();
 //        if(result == true)
 //        {
-//            qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "result:"<<result;
 //            QMessageBox mesg(QMessageBox::Information,
 //                             tr("QMessageBox::information()"),
 //                             tr("succeeded!"),
@@ -139,7 +138,7 @@ void ipset::on_setStaticIpBtn_clicked()
 
 void ipset::on_modStaticIpBtn_clicked()
 {
-    ui->ipAddrLineEdit->clear();
+   // ui->ipAddrLineEdit->clear();
 
     if(false == is_static_ip_exist())
     {
@@ -167,8 +166,6 @@ void ipset::on_modStaticIpBtn_clicked()
 
 void ipset::on_delStaticIpBtn_clicked()
 {
-    ui->ipAddrLineEdit->clear();
-
     if(false == is_static_ip_exist())
     {
         QMessageBox mesg(QMessageBox::Information,
@@ -204,6 +201,9 @@ void ipset::on_delStaticIpBtn_clicked()
         QString networkInfo = get_network_info();
         ui->textEdit->setText(networkInfo);
         ui->stackedWidget->setCurrentIndex(0);
+        database_w.table_debug("ip_static");
+        database_w.delete_record_by_name("ip_static",ui->ipAddrLineEdit->text());
+        ui->ipAddrLineEdit->clear();
     }
     else
     {
@@ -279,10 +279,10 @@ void ipset::on_okBtn_clicked()
            if(result == true)
            {
               // qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "result:"<<result;
-
                networkInfo = get_network_info();
                ui->textEdit->setText(networkInfo);
                ui->stackedWidget->setCurrentIndex(0);
+               database_w.insert_ip_static(ui->ipAddrLineEdit->text());
            }
            else
            {
@@ -383,4 +383,13 @@ void ipset::on_btn_open_clicked()
         ui->delStaticIpBtn->setEnabled(false);
          ui->textEdit->setText("");
     }
+}
+
+void ipset::showEvent(QShowEvent *event)
+{
+     if(true == is_static_ip_exist())
+     {
+         QStringList list = database_w.table_show("ip_static");
+         ui->ipAddrLineEdit->setText(list.at(0));
+     }
 }

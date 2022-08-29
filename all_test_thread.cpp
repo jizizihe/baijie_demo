@@ -26,6 +26,12 @@ void all_test_thread::network_test_thread()
     emit send_test_msg(network_signal,retResult);
 }
 
+void all_test_thread::key_test_thread()
+{
+    QString retResult = "---please press the key to test!";
+    emit send_test_msg(key_signal,retResult);
+}
+
 void all_test_thread::usb_test_thread(int num)
 {
 //    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
@@ -209,8 +215,8 @@ void all_test_thread::serialTimer_func()
         if(rc>0)
         {
             recvStr = buf;
-            qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "read" << recvStr ;
-
+        //    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "read" << recvStr ;
+            emit send_test_msg(serial_signal,recvStr);
             if(!strcasecmp(checkStr,buf))
             {
                 write(fd,checkStr,sizeof(checkStr));
@@ -228,7 +234,7 @@ void all_test_thread::serialTimer_func()
         usleep(100000);
         rc = read(fd, buf,sizeof(buf));
         if(rc>0)
-        {
+        {qDebug()<< 1;
             if(!strcasecmp(checkStr,buf))
             {
                 qDebug() << "Line:" << __LINE__<< "-------ok:";

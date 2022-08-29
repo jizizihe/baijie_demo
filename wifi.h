@@ -23,8 +23,10 @@ public:
     void key_show();
     void key_hide();
     void wifi_font();
+    void hotspot_sql();
     void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);
+    void wifi_signalshow(QString,int);
 
 signals:
     void Mysignal();
@@ -41,8 +43,6 @@ private slots:
     void on_WifiConnectBtn_clicked();
 
     void on_HotspotConBtn_clicked();
-
-    void BtnChange_flag(bool);
 
     void recv_msg(int, QString );
 

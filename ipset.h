@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "ipset_interface.h"
 #include "common.h"
+#include "database.h"
 
 namespace Ui {
 class ipset;
@@ -19,6 +20,8 @@ public:
 
     void language_reload();
     void ipset_font();
+    void showEvent(QShowEvent *event);
+
 signals:
     void ret_signal();
 
@@ -46,6 +49,7 @@ private slots:
 
 private:
     Ui::ipset *ui;
+    database database_w;
 };
 
 #endif // IPSET_H
