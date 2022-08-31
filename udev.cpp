@@ -12,7 +12,6 @@ static QString choose_filepath;
 static int cp_ct_flag;
 static QString cp_file;
 static QString ct_file;
-static int file_flag;
 static QGraphicsView *file_view;
 static int view_show;
 static QStringList list_filecheck;
@@ -23,7 +22,6 @@ udev::udev(QWidget *parent) :
     ui(new Ui::udev)
 {
     ui->setupUi(this);
-
     proc = new QProcess();
 
     //find_device();
@@ -36,9 +34,6 @@ udev::udev(QWidget *parent) :
         screen_flag = 1;
     }
     udev_font();
-  //  connect(&File_oprationw,SIGNAL(file_rev2(QString)),this,SLOT(file_pathre(QString)));
-  //  connect(&File_oprationw,SIGNAL(file_rev2(QString)),this,SLOT(file_pathre2(QString)));
-  //  connect(&File_oprationw,SIGNAL(file_hide()),this,SLOT(re_file_hide()));
     connect(&pro_path, SIGNAL(readyReadStandardOutput()), this, SLOT(readBashStandardOutputInfo()));
     pro_path.start("bash");
 }
@@ -539,6 +534,7 @@ void udev::readBashStandardOutputInfo()
 void udev::showEvent(QShowEvent *event)
 {
        file_reflesh("/");
+       QWidget::showEvent(event);
 }
 
 void udev::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)

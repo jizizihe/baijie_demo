@@ -79,6 +79,13 @@ void voice_savefile_name::save_as()
     pro->start(str);
     pro->write(strr.toUtf8());
     }
+    QStringList list = database_w.table_show("voice");
+    if(!list.isEmpty())
+    {
+        QString name = list.at(0);
+        database_w.delete_record_by_name("voice",name);
+    }
+    database_w.insert_table2("voice",path,name);
     emit save_path(path,name);
 }
 
@@ -95,6 +102,7 @@ void voice_savefile_name::on_pushButton_clicked()
     else
     mesg.move(s_width/3,s_height/3);
     mesg.exec();
+
     emit save_back();
 }
 

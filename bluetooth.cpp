@@ -12,6 +12,7 @@ static int open_flag;
 static QString BtAddress;
 static QString Btname;
 static int pair_index;
+static int con_flag;
 
 bluetooth::bluetooth(QWidget *parent) :
     QMainWindow(parent),
@@ -31,14 +32,13 @@ bluetooth::bluetooth(QWidget *parent) :
     ui->label_2->hide();
     blue_font();
 
-    QScreen *screen=QGuiApplication::primaryScreen ();
-    QRect mm=screen->availableGeometry() ;
-    int screen_width = mm.width();
-    int screen_height = mm.height();
+   // QScreen *screen=QGuiApplication::primaryScreen ();
+    //QRect mm=screen->availableGeometry() ;
+    //int screen_width = mm.width();
+    //int screen_height = mm.height();
 
     LoadLabel = new QLabel(this);
-    //LoadLabel->resize(100,100);
-    LoadLabel->move(screen_width/2 - 150,screen_height/2 -50);
+   // LoadLabel->move(screen_width/2 - 150,screen_height/2 -50);
     pMovie = new QMovie("://button_image/loading.webp");
     LoadLabel->setFixedSize(50, 50);
     LoadLabel->setScaledContents(true);
@@ -53,13 +53,15 @@ bluetooth::bluetooth(QWidget *parent) :
     connect(BluetoothThread,SIGNAL(send_msg(int, QString)),this,SLOT(recv_msg(int, QString)));
     BluetoothThread->moveToThread(myThread);
     myThread->start();
+    LoadLabel->show();
+    LoadLabel->move(this->width()/2,this->height()/2);
+    pMovie->start();
     emit bluetooth_scan_msg();
 }
 
 bluetooth::~bluetooth()
 {
     delete ui;
-
     delete BluetoothThread;
     delete myThread;
 
@@ -120,6 +122,7 @@ void bluetooth::recv_msg(int signal_type,QString str)
         for(int i = 0; i < BtScanList.size(); i++)
         {
             QString tmp = BtScanList.at(i);
+            QString tmp_address = tmp.trimmed().section("\t",0,0);
             tmp = tmp.trimmed().section("\t",1,1);
             if(BtPairList.size()<= 0)
             {
@@ -129,16 +132,19 @@ void bluetooth::recv_msg(int signal_type,QString str)
             {
                 for(int j = 0; j < BtPairList.size(); j++)
                 {
-                    if(tmp == QString(BtPairList.at(j)))
+                    if(tmp_address == QString(BtPairList.at(j+1)))
                     {
-                        j++;
-                        continue;
+                        break;
                     }
                     else
                     {
                         j++;
-                        ui->BtNameListWidget->addItem(tmp);
+                        if(j+1 == BtPairList.size())
+                        {
+                            ui->BtNameListWidget->addItem(tmp);
+                        }
                     }
+
                 }
             }
         }
@@ -161,7 +167,7 @@ void bluetooth::recv_msg(int signal_type,QString str)
              else
              mesg.move(Width/3,Height/3);
              mesg.exec();
-             database_w.insert_bluetooth(Btname,BtAddress);
+             database_w.insert_table2("bluetooth",Btname,BtAddress);
              bluetooth_sql();
              ui->BtNameListWidget->takeItem(pair_index);
         }
@@ -193,12 +199,26 @@ void bluetooth::recv_msg(int signal_type,QString str)
              else
              mesg.move(Width/3,Height/3);
              mesg.exec();
+             con_flag = 1;
         }
         else if(str == "failed")
         {
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
                              tr("connect failed!"),
+                             0,this);
+             mesg.addButton(tr("OK"), QMessageBox::ActionRole);
+             if(screen_flag == 1)
+             mesg.move(Width*2/3,Height/3);
+             else
+             mesg.move(Width/3,Height/3);
+             mesg.exec();
+        }
+        else if(str == "connected")
+        {
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("please disconnect the connected bluetooth device first!"),
                              0,this);
              mesg.addButton(tr("OK"), QMessageBox::ActionRole);
              if(screen_flag == 1)
@@ -215,7 +235,6 @@ void bluetooth::recv_msg(int signal_type,QString str)
 
     pMovie->stop();
     LoadLabel->close();
-
 }
 
 void bluetooth::on_retBtn_clicked()
@@ -231,7 +250,6 @@ void bluetooth::on_BTScanBtn_clicked()
         return;
     }
     ui->BtNameListWidget->clear();
-
     ui->BTScanBtn->setDisabled(true);
     ui->BTPairBtn->setDisabled(true);
     ui->BTConnectBtn->setDisabled(true);
@@ -266,7 +284,7 @@ void bluetooth::on_BTPairBtn_clicked()
     BtAddress = BtScanList.at(BtNameIndex);
     Btname = BtAddress.trimmed().section("\t",1,1);
     BtAddress = BtAddress.trimmed().section("\t",0,0);
-    qDebug() << BtAddress;
+    //qDebug() << BtAddress;
 
     ui->BTScanBtn->setDisabled(true);
     ui->BTScanBtn->setDisabled(true);
@@ -287,6 +305,12 @@ void bluetooth::on_BTConnectBtn_clicked()
         return ;
     }
 
+//    if(con_flag == 1)
+//    {
+//        QMessageBox::information(this,"information",tr("Please disconnect the connected devices first!"));
+//        return ;
+//    }
+
     LoadLabel->show();
     pMovie->start();
 
@@ -303,7 +327,7 @@ void bluetooth::on_BTConnectBtn_clicked()
 
     int BtNameIndex = ui->Bt_pairedListwidget->currentRow();
     BtAddress = BtPairList.at(BtNameIndex+1);
-    qDebug() << BtAddress;
+    //qDebug() << BtAddress;
 
     emit bluetooth_connect_msg(BtAddress);
 
@@ -408,4 +432,5 @@ void bluetooth::showEvent(QShowEvent *event)
     QString name = QString(tr("%1")).arg(strResult);
     ui->label_2->show();
     ui->BtDeviceNameLab->setText(name);
+    QWidget::showEvent(event);
 }

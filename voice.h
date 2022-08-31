@@ -22,6 +22,7 @@
 #include "voice_savefile_name.h"
 #include "voice_rename.h"
 #include "file_opration.h"
+#include "database.h"
 
 namespace Ui {
 class voice;
@@ -97,6 +98,7 @@ private:
     voice_rename rename_w;
     QProcess pro_path;
     File_opration File_oprationw;
+    database database_w;
 };
 
 #endif // VOICE_H

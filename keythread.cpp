@@ -102,7 +102,6 @@ void keythread::run()
         for(;;)
         {
             QString str = QString(path);
-            //qDebug() << str;
 
             int key_status = key_test(path);
             if(key_status == 1)

@@ -68,7 +68,7 @@ void WifiConDialog::on_WifiOkBtn_clicked()
     }
 
     WifiOkBtnText = GetWifiOkBtnText();
-    qDebug() << "LINE:" << __LINE__ << "__FUNC:"<<__FUNCTION__<< "WifiOkBtnText"<< WifiOkBtnText;
+    //qDebug() << "LINE:" << __LINE__ << "__FUNC:"<<__FUNCTION__<< "WifiOkBtnText"<< WifiOkBtnText;
 
     if(WifiOkBtnText == "connect")  //wifi connect
     {
@@ -84,12 +84,14 @@ void WifiConDialog::on_WifiOkBtn_clicked()
         if(strResult == true)
         {
             QMessageBox::information(this,"information",tr("change succeeded!"));
+            database_w.update_wifitable("wifiPasswd",wifi_name,wifi_passwd);
             wifi_bt_t->wifi_passwd_change(wifi_name,wifi_passwd);
 
             emit wifi_info_fresh_msg(wifi_name);
             ui->NamelineEdit->clear();
             ui->PasswdlineEdit->clear();
             this->close();
+            database_w.table_debug("wifiPasswd");
         }
         else
         {

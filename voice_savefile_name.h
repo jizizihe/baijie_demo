@@ -8,6 +8,7 @@
 #include <QProcess>
 #include <QMessageBox>
 #include "file_opration.h"
+#include "database.h"
 
 namespace Ui {
 class voice_savefile_name;
@@ -44,6 +45,7 @@ private:
     Ui::voice_savefile_name *ui;
     QProcess pro_pathh;
     File_opration File_oprationw;
+    database database_w;
 };
 
 #endif // VOICE_SAVEFILE_NAME_H

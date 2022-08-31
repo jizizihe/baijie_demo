@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>626</width>
-    <height>487</height>
+    <width>783</width>
+    <height>410</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -102,6 +102,25 @@ background-image: url(:/button_image/all/background.jpg);
     <property name="spacing">
      <number>0</number>
     </property>
+    <item row="1" column="0">
+     <widget class="Line" name="line">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>2</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>2</height>
+       </size>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,8">
       <property name="spacing">
@@ -178,25 +197,6 @@ background-image: url(:/button_image/all/background.jpg);
        </spacer>
       </item>
      </layout>
-    </item>
-    <item row="1" column="0">
-     <widget class="Line" name="line">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>2</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>2</height>
-       </size>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
     </item>
     <item row="2" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="2,0,7">
@@ -665,7 +665,7 @@ background-image: url(:/button_image/all/background.jpg);
                 </sizepolicy>
                </property>
                <property name="text">
-                <string>pair devices:</string>
+                <string>scan devices:</string>
                </property>
               </widget>
              </item>
@@ -708,7 +708,7 @@ background-image: url(:/button_image/all/background.jpg);
              <item>
               <widget class="QListWidget" name="BtNameListWidget">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
@@ -807,7 +807,7 @@ background-image: url(:/button_image/all/background.jpg);
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>connecte devices:</string>
+                 <string>pair devices:</string>
                 </property>
                </widget>
               </item>
@@ -846,6 +846,12 @@ background-image: url(:/button_image/all/background.jpg);
               </item>
               <item>
                <widget class="QListWidget" name="Bt_pairedListwidget">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>16777215</width>
@@ -893,7 +899,7 @@ background-image: url(:/button_image/all/background.jpg);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>626</width>
+     <width>783</width>
      <height>22</height>
     </rect>
    </property>

@@ -39,7 +39,7 @@
     </message>
     <message>
         <location filename="file_opration.cpp" line="101"/>
-        <location filename="file_opration.cpp" line="182"/>
+        <location filename="file_opration.cpp" line="183"/>
         <source>QMessageBox::information()</source>
         <translation></translation>
     </message>
@@ -50,12 +50,12 @@
     </message>
     <message>
         <location filename="file_opration.cpp" line="104"/>
-        <location filename="file_opration.cpp" line="185"/>
+        <location filename="file_opration.cpp" line="186"/>
         <source>OK</source>
         <translation>好的</translation>
     </message>
     <message>
-        <location filename="file_opration.cpp" line="183"/>
+        <location filename="file_opration.cpp" line="184"/>
         <source>Please choose file!</source>
         <translation>请选择文件！</translation>
     </message>
@@ -253,14 +253,12 @@
         <translation>密码</translation>
     </message>
     <message>
-        <location filename="wificondialog.cpp" line="34"/>
-        <location filename="wificondialog.cpp" line="229"/>
         <source>enter password</source>
-        <translation>输入密码</translation>
+        <translation type="vanished">输入密码</translation>
     </message>
     <message>
         <location filename="wificondialog.ui" line="231"/>
-        <location filename="wificondialog.cpp" line="67"/>
+        <location filename="wificondialog.cpp" line="66"/>
         <source>OK</source>
         <translation>确认</translation>
     </message>
@@ -275,30 +273,25 @@
         <translation type="vanished">请输入密码</translation>
     </message>
     <message>
-        <location filename="wificondialog.cpp" line="62"/>
-        <location filename="wificondialog.cpp" line="65"/>
+        <location filename="wificondialog.cpp" line="61"/>
+        <location filename="wificondialog.cpp" line="64"/>
         <source>The number of password digits must be greater than 8</source>
         <translation>密码位数须大于8</translation>
     </message>
     <message>
-        <location filename="wificondialog.cpp" line="64"/>
+        <location filename="wificondialog.cpp" line="63"/>
         <source>QMessageBox::information()</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="wificondialog.cpp" line="87"/>
+        <location filename="wificondialog.cpp" line="86"/>
         <source>change succeeded!</source>
         <translation>修改成功！</translation>
     </message>
     <message>
-        <location filename="wificondialog.cpp" line="97"/>
+        <location filename="wificondialog.cpp" line="98"/>
         <source>change failed!</source>
         <translation>修改失败！</translation>
-    </message>
-    <message>
-        <location filename="wificondialog.cpp" line="224"/>
-        <source>请输入密码</source>
-        <translation></translation>
     </message>
 </context>
 <context>
@@ -677,17 +670,18 @@
     </message>
     <message>
         <location filename="all_test.ui" line="688"/>
-        <location filename="all_test.cpp" line="248"/>
-        <location filename="all_test.cpp" line="264"/>
+        <location filename="all_test.cpp" line="255"/>
+        <location filename="all_test.cpp" line="271"/>
         <source>check all</source>
         <translation>全选</translation>
     </message>
     <message>
         <location filename="all_test.ui" line="723"/>
         <location filename="all_test.cpp" line="86"/>
-        <location filename="all_test.cpp" line="211"/>
-        <location filename="all_test.cpp" line="347"/>
-        <location filename="all_test.cpp" line="501"/>
+        <location filename="all_test.cpp" line="217"/>
+        <location filename="all_test.cpp" line="385"/>
+        <location filename="all_test.cpp" line="390"/>
+        <location filename="all_test.cpp" line="534"/>
         <source>begin</source>
         <translation>开始</translation>
     </message>
@@ -752,13 +746,13 @@
         <translation>蓝牙</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="491"/>
+        <location filename="all_test.cpp" line="524"/>
         <source>serial test end</source>
         <translation>串口测试结束</translation>
     </message>
     <message>
         <location filename="all_test.cpp" line="120"/>
-        <location filename="all_test.cpp" line="227"/>
+        <location filename="all_test.cpp" line="234"/>
         <source>stop</source>
         <translation>停止</translation>
     </message>
@@ -768,28 +762,26 @@
         <translation>请先选择测试项目</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="123"/>
         <source>***********test start***********</source>
-        <translation>***********测试开始***********</translation>
+        <translation type="vanished">***********测试开始***********</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="176"/>
         <source>---please press the key to test!</source>
-        <translation>---请点击按键进行测试！</translation>
+        <translation type="vanished">---请点击按键进行测试！</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="230"/>
+        <location filename="all_test.cpp" line="237"/>
         <source>-  key pressed!</source>
         <translation>按键已按压！</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="255"/>
-        <location filename="all_test.cpp" line="257"/>
+        <location filename="all_test.cpp" line="262"/>
+        <location filename="all_test.cpp" line="264"/>
         <source>check none</source>
         <translation>全不选</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="282"/>
+        <location filename="all_test.cpp" line="295"/>
         <source>Item selection dialog box</source>
         <translation>项目选择对话框</translation>
     </message>
@@ -798,57 +790,62 @@
         <translation type="obsolete">请选择要添加的数量</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="283"/>
+        <location filename="all_test.cpp" line="123"/>
+        <source>---test start:</source>
+        <translation>--测试开始：</translation>
+    </message>
+    <message>
+        <location filename="all_test.cpp" line="296"/>
         <source>Select the number to add</source>
         <translation>请选择添加个数</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="366"/>
+        <location filename="all_test.cpp" line="398"/>
         <source>---network test:</source>
         <translation>---网络测试：</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="372"/>
+        <location filename="all_test.cpp" line="404"/>
         <source>---usb test:    </source>
         <translation>---usb测试 ：</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="378"/>
+        <location filename="all_test.cpp" line="410"/>
         <source>---rtc test:    </source>
         <translation>---rtc测试 ：</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="385"/>
+        <location filename="all_test.cpp" line="417"/>
         <source>---sdcard test: </source>
         <translation>---SD卡测试：</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="398"/>
+        <location filename="all_test.cpp" line="431"/>
         <source>---camera test: Please check the picture display? %1s</source>
         <translation>---摄像头测试：请检查图片显示是否正常？</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="406"/>
+        <location filename="all_test.cpp" line="439"/>
         <source>---battary test:</source>
         <translation>---电池测试：</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="413"/>
+        <location filename="all_test.cpp" line="446"/>
         <source>---4G test:     </source>
         <translation>---4G测试  ：</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="419"/>
+        <location filename="all_test.cpp" line="452"/>
         <source>---audio test:  please sure sound play test yes or no? %1s</source>
         <translation>---录音与播放测试：请确认录音与声音播放是否正常?</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="426"/>
+        <location filename="all_test.cpp" line="459"/>
         <source>---wifi test:   </source>
         <translation>---wifi测试：</translation>
     </message>
     <message>
-        <location filename="all_test.cpp" line="432"/>
+        <location filename="all_test.cpp" line="465"/>
         <source>---bluetooth test:</source>
         <translation>---蓝牙测试：</translation>
     </message>
@@ -957,8 +954,8 @@
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="bluetooth.ui" line="163"/>
-        <location filename="bluetooth.cpp" line="373"/>
+        <location filename="bluetooth.ui" line="182"/>
+        <location filename="bluetooth.cpp" line="397"/>
         <source>close</source>
         <translation>关闭</translation>
     </message>
@@ -980,19 +977,19 @@
     </message>
     <message>
         <location filename="bluetooth.ui" line="585"/>
-        <location filename="bluetooth.cpp" line="30"/>
+        <location filename="bluetooth.cpp" line="31"/>
         <source>bluetooth name:</source>
         <translation>蓝牙名称：</translation>
     </message>
     <message>
         <location filename="bluetooth.ui" line="668"/>
-        <source>pair devices:</source>
-        <translation>配对设备：</translation>
+        <source>scan devices:</source>
+        <translation>扫描设备：</translation>
     </message>
     <message>
         <location filename="bluetooth.ui" line="810"/>
-        <source>connecte devices:</source>
-        <translation>连接设备：</translation>
+        <source>pair devices:</source>
+        <translation>配对设备：</translation>
     </message>
     <message>
         <source>bluetooth scan</source>
@@ -1059,65 +1056,73 @@ Please wait a moment...</source>
         <translation type="obsolete">开始连接！请稍等一会...</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="155"/>
-        <location filename="bluetooth.cpp" line="171"/>
-        <location filename="bluetooth.cpp" line="187"/>
-        <location filename="bluetooth.cpp" line="200"/>
-        <location filename="bluetooth.cpp" line="252"/>
+        <location filename="bluetooth.cpp" line="161"/>
+        <location filename="bluetooth.cpp" line="177"/>
+        <location filename="bluetooth.cpp" line="193"/>
+        <location filename="bluetooth.cpp" line="207"/>
+        <location filename="bluetooth.cpp" line="220"/>
+        <location filename="bluetooth.cpp" line="270"/>
         <source>QMessageBox::information()</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="156"/>
+        <location filename="bluetooth.cpp" line="162"/>
         <source>pair success!</source>
         <translation>配对成功！</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="158"/>
-        <location filename="bluetooth.cpp" line="174"/>
-        <location filename="bluetooth.cpp" line="190"/>
-        <location filename="bluetooth.cpp" line="203"/>
-        <location filename="bluetooth.cpp" line="255"/>
+        <location filename="bluetooth.cpp" line="164"/>
+        <location filename="bluetooth.cpp" line="180"/>
+        <location filename="bluetooth.cpp" line="196"/>
+        <location filename="bluetooth.cpp" line="210"/>
+        <location filename="bluetooth.cpp" line="223"/>
+        <location filename="bluetooth.cpp" line="273"/>
         <source>OK</source>
         <translation>好的</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="172"/>
+        <location filename="bluetooth.cpp" line="178"/>
         <source>pair failed!</source>
         <translation>配对失败！</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="188"/>
+        <location filename="bluetooth.cpp" line="194"/>
         <source>connect success!</source>
         <translation>连接成功！</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="201"/>
+        <location filename="bluetooth.cpp" line="208"/>
         <source>connect failed!</source>
         <translation>连接失败！</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="286"/>
-        <source>Please pari Bluetooth first!</source>
-        <translation type="unfinished">请先配对设备！</translation>
+        <location filename="bluetooth.cpp" line="221"/>
+        <source>please disconnect the connected bluetooth device first!</source>
+        <oldsource>please disconnect the bluetooth device first!</oldsource>
+        <translation type="unfinished">请先断开正在连接的蓝牙！</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="408"/>
+        <location filename="bluetooth.cpp" line="304"/>
+        <source>Please pari Bluetooth first!</source>
+        <translation>请先配对蓝牙设备！</translation>
+    </message>
+    <message>
+        <location filename="bluetooth.cpp" line="432"/>
         <source>%1</source>
         <translation>%1</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="230"/>
+        <location filename="bluetooth.cpp" line="249"/>
         <source>Please open Bluetooth first!</source>
         <translation>请先打开蓝牙！</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="253"/>
+        <location filename="bluetooth.cpp" line="271"/>
         <source>Please scan Bluetooth first!</source>
         <translation>请先扫描设备！</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="379"/>
+        <location filename="bluetooth.cpp" line="403"/>
         <source>open</source>
         <translation>打开</translation>
     </message>
@@ -1258,7 +1263,7 @@ Please wait a moment...</source>
         <location filename="gpio.ui" line="420"/>
         <source>gpio port:</source>
         <oldsource>please enter gpio port</oldsource>
-        <translation type="unfinished">请输入gpio口</translation>
+        <translation>gpio端口：</translation>
     </message>
     <message>
         <location filename="gpio.ui" line="321"/>
@@ -1353,7 +1358,7 @@ Please wait a moment...</source>
     <message>
         <location filename="gpio.cpp" line="474"/>
         <source>请输入gpio端口。例如：g13</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>gpio_port: %1</source>
@@ -1603,19 +1608,19 @@ Please wait a moment...</source>
         <location filename="ipset.cpp" line="40"/>
         <location filename="ipset.cpp" line="368"/>
         <source>close</source>
-        <translation type="unfinished">关闭</translation>
+        <translation>关闭</translation>
     </message>
     <message>
         <location filename="ipset.ui" line="279"/>
         <source>ip information</source>
         <oldsource>ip Information</oldsource>
-        <translation type="unfinished">ip 信息</translation>
+        <translation>ip 信息</translation>
     </message>
     <message>
         <location filename="ipset.ui" line="510"/>
         <source>set auto  ip</source>
         <oldsource>set auto ip</oldsource>
-        <translation type="unfinished">设置动态ip</translation>
+        <translation>设置动态ip</translation>
     </message>
     <message>
         <location filename="ipset.ui" line="690"/>
@@ -1626,7 +1631,7 @@ Please wait a moment...</source>
     <message>
         <location filename="ipset.ui" line="783"/>
         <source>ip address:</source>
-        <translation type="unfinished">ip地址：</translation>
+        <translation>ip地址：</translation>
     </message>
     <message>
         <source>ip address</source>
@@ -1640,7 +1645,7 @@ Please wait a moment...</source>
         <location filename="ipset.ui" line="435"/>
         <source>mod static  ip</source>
         <oldsource>mod static ip</oldsource>
-        <translation type="unfinished">修改静态ip</translation>
+        <translation>修改静态ip</translation>
     </message>
     <message>
         <source>del static ip</source>
@@ -1655,7 +1660,7 @@ Please wait a moment...</source>
         <location filename="ipset.ui" line="354"/>
         <source>set static  ip</source>
         <oldsource>set static ip</oldsource>
-        <translation type="unfinished">设置静态ip</translation>
+        <translation>设置静态ip</translation>
     </message>
     <message>
         <source>modify static ip</source>
@@ -1753,7 +1758,7 @@ Please wait a moment...</source>
         <location filename="ipset.cpp" line="230"/>
         <location filename="ipset.cpp" line="290"/>
         <source>QMessageBox::information()</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>succeeded!</source>
@@ -2032,13 +2037,15 @@ Please wait a moment...</source>
     </message>
     <message>
         <location filename="serial.ui" line="202"/>
-        <source>clean recvtext </source>
+        <source>clean receive</source>
+        <oldsource>clean recvtext </oldsource>
         <translation>清除接收框</translation>
     </message>
     <message>
         <location filename="serial.ui" line="221"/>
-        <source>clean sendtext</source>
-        <translation>清除发送框</translation>
+        <source>clean send</source>
+        <oldsource>clean sendtext</oldsource>
+        <translation type="unfinished">清除发送框</translation>
     </message>
     <message>
         <location filename="serial.ui" line="584"/>
@@ -2076,7 +2083,7 @@ Please wait a moment...</source>
     </message>
     <message>
         <location filename="serial.ui" line="371"/>
-        <location filename="serial.cpp" line="326"/>
+        <location filename="serial.cpp" line="324"/>
         <source>open port2</source>
         <translation>打开端口2</translation>
     </message>
@@ -2702,22 +2709,22 @@ Please connect 4G first!</source>
         <translation type="obsolete">写入RTC</translation>
     </message>
     <message>
-        <location filename="timeset.cpp" line="112"/>
+        <location filename="timeset.cpp" line="109"/>
         <source>Systime set ok!</source>
         <translation>设置成功！</translation>
     </message>
     <message>
-        <location filename="timeset.cpp" line="117"/>
+        <location filename="timeset.cpp" line="114"/>
         <source>Systime set failed!</source>
         <translation>设置失败！</translation>
     </message>
     <message>
-        <location filename="timeset.cpp" line="151"/>
+        <location filename="timeset.cpp" line="148"/>
         <source>RTC set ok!</source>
         <translation>设置成功！</translation>
     </message>
     <message>
-        <location filename="timeset.cpp" line="156"/>
+        <location filename="timeset.cpp" line="153"/>
         <source>RTC set failed!</source>
         <translation>设置是白！</translation>
     </message>
@@ -2767,34 +2774,34 @@ Please connect 4G first!</source>
         <translation type="obsolete">剪切</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="609"/>
+        <location filename="udev.ui" line="610"/>
         <source>safe exit</source>
         <oldsource>Safe exit</oldsource>
         <translation>安全退出</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="717"/>
+        <location filename="udev.ui" line="718"/>
         <source>path:</source>
         <oldsource>folder path:</oldsource>
         <translation>路径：</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="800"/>
+        <location filename="udev.ui" line="801"/>
         <source>USB flash disk/sdcard</source>
         <translation>u盘/sd卡</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="826"/>
+        <location filename="udev.ui" line="827"/>
         <source>cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="852"/>
+        <location filename="udev.ui" line="853"/>
         <source>back</source>
         <translation>返回</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="863"/>
+        <location filename="udev.ui" line="927"/>
         <source>Directory</source>
         <translation>目录</translation>
     </message>
@@ -2804,17 +2811,17 @@ Please connect 4G first!</source>
         <translation type="obsolete">选择文件：</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="288"/>
+        <location filename="udev.ui" line="289"/>
         <source>copy</source>
         <translation>复制</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="357"/>
+        <location filename="udev.ui" line="358"/>
         <source>paste</source>
         <translation>粘贴</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="525"/>
+        <location filename="udev.ui" line="526"/>
         <source>delete</source>
         <translation>删除</translation>
     </message>
@@ -2831,7 +2838,7 @@ Please connect 4G first!</source>
         <translation type="obsolete">安全退出</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="441"/>
+        <location filename="udev.ui" line="442"/>
         <source>cut</source>
         <translation>剪切</translation>
     </message>
@@ -2952,7 +2959,7 @@ The New SIM card is:
         <translation type="vanished">%1已安全退出！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="229"/>
+        <location filename="udev.cpp" line="224"/>
         <source>Please select the file that you want to copy!</source>
         <translation>请选择要复制的文件!</translation>
     </message>
@@ -2965,7 +2972,7 @@ The New SIM card is:
         <translation type="vanished">请选择一个合法路径！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="295"/>
+        <location filename="udev.cpp" line="290"/>
         <source>Please select the file that you want to cut!</source>
         <oldsource>Please select the file that you want to move!</oldsource>
         <translation>请选择要剪切的文件!</translation>
@@ -2976,47 +2983,47 @@ The New SIM card is:
         <translation type="vanished">剪切成功</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="116"/>
-        <location filename="udev.cpp" line="163"/>
-        <location filename="udev.cpp" line="180"/>
-        <location filename="udev.cpp" line="195"/>
-        <location filename="udev.cpp" line="213"/>
-        <location filename="udev.cpp" line="228"/>
-        <location filename="udev.cpp" line="262"/>
-        <location filename="udev.cpp" line="280"/>
-        <location filename="udev.cpp" line="294"/>
-        <location filename="udev.cpp" line="316"/>
-        <location filename="udev.cpp" line="334"/>
-        <location filename="udev.cpp" line="383"/>
-        <location filename="udev.cpp" line="568"/>
-        <location filename="udev.cpp" line="589"/>
-        <location filename="udev.cpp" line="607"/>
-        <location filename="udev.cpp" line="674"/>
+        <location filename="udev.cpp" line="111"/>
+        <location filename="udev.cpp" line="158"/>
+        <location filename="udev.cpp" line="175"/>
+        <location filename="udev.cpp" line="190"/>
+        <location filename="udev.cpp" line="208"/>
+        <location filename="udev.cpp" line="223"/>
+        <location filename="udev.cpp" line="257"/>
+        <location filename="udev.cpp" line="275"/>
+        <location filename="udev.cpp" line="289"/>
+        <location filename="udev.cpp" line="311"/>
+        <location filename="udev.cpp" line="329"/>
+        <location filename="udev.cpp" line="378"/>
+        <location filename="udev.cpp" line="564"/>
+        <location filename="udev.cpp" line="585"/>
+        <location filename="udev.cpp" line="603"/>
+        <location filename="udev.cpp" line="670"/>
         <source>QMessageBox::information()</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="117"/>
+        <location filename="udev.cpp" line="112"/>
         <source>Please select the file that you want to umount!</source>
         <translation>请选择你想要卸载的文件！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="119"/>
-        <location filename="udev.cpp" line="166"/>
-        <location filename="udev.cpp" line="183"/>
-        <location filename="udev.cpp" line="198"/>
-        <location filename="udev.cpp" line="216"/>
-        <location filename="udev.cpp" line="231"/>
-        <location filename="udev.cpp" line="265"/>
-        <location filename="udev.cpp" line="283"/>
-        <location filename="udev.cpp" line="297"/>
-        <location filename="udev.cpp" line="319"/>
-        <location filename="udev.cpp" line="337"/>
-        <location filename="udev.cpp" line="386"/>
-        <location filename="udev.cpp" line="571"/>
-        <location filename="udev.cpp" line="592"/>
-        <location filename="udev.cpp" line="610"/>
-        <location filename="udev.cpp" line="677"/>
+        <location filename="udev.cpp" line="114"/>
+        <location filename="udev.cpp" line="161"/>
+        <location filename="udev.cpp" line="178"/>
+        <location filename="udev.cpp" line="193"/>
+        <location filename="udev.cpp" line="211"/>
+        <location filename="udev.cpp" line="226"/>
+        <location filename="udev.cpp" line="260"/>
+        <location filename="udev.cpp" line="278"/>
+        <location filename="udev.cpp" line="292"/>
+        <location filename="udev.cpp" line="314"/>
+        <location filename="udev.cpp" line="332"/>
+        <location filename="udev.cpp" line="381"/>
+        <location filename="udev.cpp" line="567"/>
+        <location filename="udev.cpp" line="588"/>
+        <location filename="udev.cpp" line="606"/>
+        <location filename="udev.cpp" line="673"/>
         <source>OK</source>
         <translation>好的</translation>
     </message>
@@ -3029,73 +3036,73 @@ The New SIM card is:
         <translation type="obsolete">所有设备已安全注销，请检查设备是否已插入，或尝试重新插入! </translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="164"/>
+        <location filename="udev.cpp" line="159"/>
         <source>It is umount!</source>
         <translation>文件已经卸载了！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="181"/>
+        <location filename="udev.cpp" line="176"/>
         <source>umount successful!</source>
         <translation>退出成功！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="196"/>
+        <location filename="udev.cpp" line="191"/>
         <source>Please select the correct path!</source>
         <translation>请选择正确的路径！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="214"/>
+        <location filename="udev.cpp" line="209"/>
         <source>The current state is cut!</source>
         <translation>当前是剪切状态！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="263"/>
+        <location filename="udev.cpp" line="258"/>
         <source>Copy complete!</source>
         <translation>复制成功！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="281"/>
+        <location filename="udev.cpp" line="276"/>
         <source>The current state is copy!</source>
         <translation>当前是复制状态！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="317"/>
+        <location filename="udev.cpp" line="312"/>
         <source>Enter the cut state!</source>
         <translation>进入剪切状态！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="335"/>
+        <location filename="udev.cpp" line="330"/>
         <source>Please select the file that you want to delete!</source>
         <translation>请选择要删除的文件!</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="345"/>
+        <location filename="udev.cpp" line="340"/>
         <source>Do you want to delete the file?</source>
         <translation>你想要删除这个文件吗？</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="347"/>
+        <location filename="udev.cpp" line="342"/>
         <source>QMessageBox::question()</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="384"/>
+        <location filename="udev.cpp" line="379"/>
         <source>Delete complete!</source>
         <translation>删除成功！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="569"/>
+        <location filename="udev.cpp" line="565"/>
         <source>The current path is the most forward path!</source>
         <translation>当前路径已是最前路径！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="590"/>
-        <location filename="udev.cpp" line="608"/>
+        <location filename="udev.cpp" line="586"/>
+        <location filename="udev.cpp" line="604"/>
         <source>Paste complete!</source>
         <translation>粘贴完成!</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="675"/>
+        <location filename="udev.cpp" line="671"/>
         <source>No mount device!</source>
         <translation>没有挂载的文件！</translation>
     </message>
@@ -3104,12 +3111,12 @@ The New SIM card is:
         <translation type="vanished">你确定删除这个文件？</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="351"/>
+        <location filename="udev.cpp" line="346"/>
         <source>Yes</source>
         <translation>是的</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="352"/>
+        <location filename="udev.cpp" line="347"/>
         <source>No</source>
         <translation>取消</translation>
     </message>
@@ -3521,15 +3528,15 @@ The New SIM card is:
     </message>
     <message>
         <location filename="user_manual.cpp" line="69"/>
-        <source>When you select a Bluetooth, click the &lt; pair &gt; button to pair.</source>
-        <oldsource>When you select a Bluetooth, click the &lt; Bluetooth pair &gt; button to pair.</oldsource>
-        <translation>当您选中某个蓝牙时，点击&lt; 配对 &gt;按钮进行配对。</translation>
+        <source>You can select a Bluetooth in scan devices, click the &lt; pair &gt; button to pair.</source>
+        <oldsource>You can select a Bluetooth in pair devices, click the &lt; pair &gt; button to pair.</oldsource>
+        <translation>您可以在扫描设备中选择一个蓝牙，点击&lt; 匹配 &gt;按钮进行匹配。</translation>
     </message>
     <message>
         <location filename="user_manual.cpp" line="73"/>
-        <source>When you select a Bluetooth, click the &lt; connect &gt; button to connect.</source>
-        <oldsource>When you select a Bluetooth, click the &lt; Bluetooth connect &gt; button to connect.</oldsource>
-        <translation>当您选中某个蓝牙时，点击&lt; 连接 &gt;按钮进行连接。</translation>
+        <source>You can select a Bluetooth in pair devices, click the &lt; connect &gt; button to connect.</source>
+        <oldsource>You can select a Bluetooth in connecte devices, click the &lt; connect &gt; button to connect.</oldsource>
+        <translation>您可以在匹配设备中选择一个蓝牙时，点击&lt; 连接 &gt;按钮进行连接。</translation>
     </message>
     <message>
         <location filename="user_manual.cpp" line="79"/>
@@ -3700,7 +3707,7 @@ The New SIM card is:
     <message>
         <location filename="voice.ui" line="576"/>
         <location filename="voice.cpp" line="86"/>
-        <location filename="voice.cpp" line="546"/>
+        <location filename="voice.cpp" line="552"/>
         <source>start</source>
         <translation>开始</translation>
     </message>
@@ -3798,32 +3805,32 @@ The New SIM card is:
         <translation type="obsolete">结束</translation>
     </message>
     <message>
-        <location filename="voice.cpp" line="459"/>
+        <location filename="voice.cpp" line="465"/>
         <source>Do you want to delete %1?</source>
         <translation>你想要删除这个文件吗？</translation>
     </message>
     <message>
-        <location filename="voice.cpp" line="463"/>
+        <location filename="voice.cpp" line="469"/>
         <source>QMessageBox::question()</source>
         <translation>你想要删除这个文件吗</translation>
     </message>
     <message>
-        <location filename="voice.cpp" line="467"/>
+        <location filename="voice.cpp" line="473"/>
         <source>Yes</source>
         <translation>是的</translation>
     </message>
     <message>
-        <location filename="voice.cpp" line="468"/>
+        <location filename="voice.cpp" line="474"/>
         <source>No</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="voice.cpp" line="481"/>
+        <location filename="voice.cpp" line="487"/>
         <source>Remove successfully!</source>
         <translation>删除成功</translation>
     </message>
     <message>
-        <location filename="voice.cpp" line="537"/>
+        <location filename="voice.cpp" line="543"/>
         <source>stop</source>
         <translation>停止</translation>
     </message>
@@ -3916,7 +3923,7 @@ The New SIM card is:
     </message>
     <message>
         <location filename="voice_savefile_name.ui" line="312"/>
-        <location filename="voice_savefile_name.cpp" line="92"/>
+        <location filename="voice_savefile_name.cpp" line="99"/>
         <source>OK</source>
         <translation>确认</translation>
     </message>
@@ -3940,12 +3947,12 @@ The New SIM card is:
         <translation type="vanished">保存失败！</translation>
     </message>
     <message>
-        <location filename="voice_savefile_name.cpp" line="89"/>
+        <location filename="voice_savefile_name.cpp" line="96"/>
         <source>QMessageBox::information()</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="voice_savefile_name.cpp" line="90"/>
+        <location filename="voice_savefile_name.cpp" line="97"/>
         <source>Save successfully!</source>
         <translation>保存成功！</translation>
     </message>
@@ -3999,9 +4006,9 @@ The New SIM card is:
     </message>
     <message>
         <location filename="wifi.ui" line="751"/>
-        <location filename="wifi.cpp" line="276"/>
-        <location filename="wifi.cpp" line="392"/>
-        <location filename="wifi.cpp" line="420"/>
+        <location filename="wifi.cpp" line="284"/>
+        <location filename="wifi.cpp" line="400"/>
+        <location filename="wifi.cpp" line="428"/>
         <source>Not connected</source>
         <translation>未连接</translation>
     </message>
@@ -4022,7 +4029,7 @@ The New SIM card is:
     </message>
     <message>
         <location filename="wifi.ui" line="178"/>
-        <location filename="wifi.cpp" line="654"/>
+        <location filename="wifi.cpp" line="664"/>
         <source>close</source>
         <translation>关闭</translation>
     </message>
@@ -4058,7 +4065,7 @@ The New SIM card is:
         <translation type="vanished">密码</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="257"/>
+        <location filename="wifi.cpp" line="264"/>
         <source>connect</source>
         <translation>连接</translation>
     </message>
@@ -4145,8 +4152,8 @@ The New SIM card is:
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="466"/>
-        <location filename="wifi.cpp" line="483"/>
+        <location filename="wifi.cpp" line="474"/>
+        <location filename="wifi.cpp" line="491"/>
         <source>OK</source>
         <translation>好的</translation>
     </message>
@@ -4189,7 +4196,7 @@ The New SIM card is:
     </message>
     <message>
         <location filename="wifi.cpp" line="157"/>
-        <location filename="wifi.cpp" line="190"/>
+        <location filename="wifi.cpp" line="197"/>
         <source>Connection failed!</source>
         <translation>连接失败！</translation>
     </message>
@@ -4198,7 +4205,7 @@ The New SIM card is:
         <translation type="obsolete">请开启wifi！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="425"/>
+        <location filename="wifi.cpp" line="433"/>
         <source>QMessageBox::question()</source>
         <translation>你想要删除这个文件吗</translation>
     </message>
@@ -4207,7 +4214,7 @@ The New SIM card is:
         <translation type="obsolete">确实要移除此连接吗？</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="425"/>
+        <location filename="wifi.cpp" line="433"/>
         <source>Are you sure you want to delete it?</source>
         <translation>确实要删除此连接吗？</translation>
     </message>
@@ -4216,53 +4223,53 @@ The New SIM card is:
         <translation type="obsolete">删除成功！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="334"/>
+        <location filename="wifi.cpp" line="342"/>
         <source>Please turn off the hotspot first!</source>
         <translation>请先关闭热点！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="447"/>
+        <location filename="wifi.cpp" line="455"/>
         <source>remove failed!</source>
         <translation>删除失败！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="461"/>
-        <location filename="wifi.cpp" line="478"/>
+        <location filename="wifi.cpp" line="469"/>
+        <location filename="wifi.cpp" line="486"/>
         <source>QMessageBox::information()</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="462"/>
+        <location filename="wifi.cpp" line="470"/>
         <source>Input cannot be empty!</source>
         <translation>输入不能为空！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="479"/>
+        <location filename="wifi.cpp" line="487"/>
         <source>The number of password digits must be greater than 8</source>
         <translation>密码位数须大于8！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="501"/>
+        <location filename="wifi.cpp" line="509"/>
         <source>no connection</source>
-        <translation type="unfinished">未连接</translation>
+        <translation>未连接</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="511"/>
+        <location filename="wifi.cpp" line="519"/>
         <source>Hotspot not connected!</source>
         <translation>热点没有连接！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="518"/>
+        <location filename="wifi.cpp" line="526"/>
         <source>successfully deactivated!</source>
         <translation>断开成功！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="525"/>
+        <location filename="wifi.cpp" line="533"/>
         <source>deactivated failed!</source>
         <translation>断开失败！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="668"/>
+        <location filename="wifi.cpp" line="678"/>
         <source>open</source>
         <translation>打开</translation>
     </message>
@@ -4278,12 +4285,16 @@ The New SIM card is:
 <context>
     <name>wifi_bt_interface</name>
     <message>
-        <location filename="wifi_bt_interface.cpp" line="364"/>
         <source>successfully deactivated.!</source>
+        <translation type="vanished">断开成功！</translation>
+    </message>
+    <message>
+        <location filename="wifi_bt_interface.cpp" line="359"/>
+        <source>successfully deactivated!</source>
         <translation>断开成功！</translation>
     </message>
     <message>
-        <location filename="wifi_bt_interface.cpp" line="370"/>
+        <location filename="wifi_bt_interface.cpp" line="365"/>
         <source>deactivated failed!</source>
         <translation>断开失败！</translation>
     </message>

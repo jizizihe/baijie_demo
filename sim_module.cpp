@@ -54,7 +54,7 @@ void sim_module::recv_msg(int signal_type, QString strResult)
     switch (signal_type)
     {
     case sim_disconnect_signal:
-        qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__ << "strResult:" << strResult;
+       // qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__ << "strResult:" << strResult;
         if(strResult == QString(1))
         {
             QMessageBox mesg(QMessageBox::Information,
@@ -84,7 +84,7 @@ void sim_module::recv_msg(int signal_type, QString strResult)
         }
         break;
     case sim_delete_signal:
-        qDebug() << "FUNC:" << __FUNCTION__<< "Line:" << __LINE__ << "strResult:" << strResult;
+        //qDebug() << "FUNC:" << __FUNCTION__<< "Line:" << __LINE__ << "strResult:" << strResult;
         if(strResult == QString(1))
         {
             QMessageBox mesg(QMessageBox::Information,
@@ -113,7 +113,7 @@ void sim_module::recv_msg(int signal_type, QString strResult)
         }
         break;
     case sim_connect_signal:
-        qDebug() << "FUNC:" << __FUNCTION__<< "Line:" << __LINE__ << "strResult:" << strResult;
+        //qDebug() << "FUNC:" << __FUNCTION__<< "Line:" << __LINE__ << "strResult:" << strResult;
         if(strResult == QString(1))
         {
             QMessageBox::information(this,"information",tr("4G Connect succeeded!"));con_flag = 1;
@@ -124,7 +124,7 @@ void sim_module::recv_msg(int signal_type, QString strResult)
         }
         break;
     case sim_status_signal:
-        qDebug() << "FUNC:" << __FUNCTION__<< "Line:" << __LINE__ << "strResult:" << strResult;
+        //qDebug() << "FUNC:" << __FUNCTION__<< "Line:" << __LINE__ << "strResult:" << strResult;
 
         if(strResult.isEmpty())
         {
@@ -147,7 +147,7 @@ void sim_module::on_SimDisconnectBtn_clicked()
     {
         if(con_flag == 1)
         {
-            qDebug() << "--line--: " << __LINE__<< "FILE" << __FILE__<<"func:" << __FUNCTION__;
+            //qDebug() << "--line--: " << __LINE__<< "FILE" << __FILE__<<"func:" << __FUNCTION__;
             emit sim_disconnect_msg();
             emit sim_status_msg();
             con_flag = 0;

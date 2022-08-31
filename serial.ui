@@ -199,7 +199,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          </size>
         </property>
         <property name="text">
-         <string>clean recvtext </string>
+         <string>clean receive</string>
         </property>
        </widget>
       </item>
@@ -218,7 +218,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          </size>
         </property>
         <property name="text">
-         <string>clean sendtext</string>
+         <string>clean send</string>
         </property>
        </widget>
       </item>

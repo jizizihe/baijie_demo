@@ -104,7 +104,7 @@ void all_test::on_beginBtn_clicked()
         }
         else if(ui->keyChk->isChecked() == true)
             testItemsCount = testItemsCount - 1;
-        qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "testItemsCount:" << testItemsCount;
+        //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "testItemsCount:" << testItemsCount;
 
         if(testItemsCount != 0)
         {
@@ -233,7 +233,7 @@ bool all_test::event(QEvent *event)
     {
         if(ui->keyChk->isChecked() == true && ui->beginBtn->text() == tr("stop"))
         {
-            qDebug()<<"-key pressed!";
+            //qDebug()<<"-key pressed!";
             ui->textEdit->append(tr("-  key pressed!"));
             return true;
         }
@@ -394,26 +394,26 @@ void all_test::recv_test_msg(int test_signal_type, QString str)
     case network_signal:
         stopTime = QTime::currentTime();
         elapsed = startTime.secsTo(stopTime);
-        qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime.netwotk ="<<elapsed<<"s";
+        //qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime.netwotk ="<<elapsed<<"s";
         testMsgDisplay(tr("---network test:"),str,elapsed);
         break;
     case usb_signal:
         stopTime = QTime::currentTime();
         elapsed = startTime.secsTo(stopTime);
-        qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime.rtc ="<<elapsed<<"s";
+        //qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime.rtc ="<<elapsed<<"s";
         testMsgDisplay(tr("---usb test:    "),str,elapsed);
         break;
     case rtc_signal:
         stopTime = QTime::currentTime();
         elapsed = startTime.secsTo(stopTime);
-        qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime.rtc ="<<elapsed<<"s";
+        //qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime.rtc ="<<elapsed<<"s";
         testMsgDisplay(tr("---rtc test:    "),str,elapsed);
 
         break;
     case sd_card_signal:
         stopTime = QTime::currentTime();
         elapsed = startTime.secsTo(stopTime);
-        qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime.sdcard ="<<elapsed<<"s";
+        //qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime.sdcard ="<<elapsed<<"s";
         testMsgDisplay(tr("---sdcard test: "),str,elapsed);
         break;
     case key_signal:
@@ -426,7 +426,7 @@ void all_test::recv_test_msg(int test_signal_type, QString str)
     case camera_signal:
         stopTime = QTime::currentTime();
         elapsed = startTime.secsTo(stopTime);
-        qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime:camera ="<<elapsed<<"s";
+        //qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime:camera ="<<elapsed<<"s";
 
         str = QString(tr("---camera test: Please check the picture display? %1s")).arg(elapsed);
         ui->textEdit->append(str);
@@ -435,33 +435,33 @@ void all_test::recv_test_msg(int test_signal_type, QString str)
     case battary_signal:
         stopTime = QTime::currentTime();
         elapsed = startTime.secsTo(stopTime);
-        qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime:battary ="<<elapsed<<"s";
+        //qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime:battary ="<<elapsed<<"s";
         testMsgDisplay(tr("---battary test:"),str,elapsed);
 
         break;
     case sim_signal:
         stopTime = QTime::currentTime();
         elapsed = startTime.secsTo(stopTime);
-        qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime:sim ="<<elapsed<<"s";
+        //qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime:sim ="<<elapsed<<"s";
         testMsgDisplay(tr("---4G test:     "),str,elapsed);
         break;
     case audio_signal:
         stopTime = QTime::currentTime();
         elapsed = startTime.secsTo(stopTime);
-        qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime:audio ="<<elapsed<<"s";
+        //qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime:audio ="<<elapsed<<"s";
         str = QString(tr("---audio test:  please sure sound play test yes or no? %1s")).arg(elapsed);
         ui->textEdit->append(str);
         break;
     case wifi_signal:
         stopTime = QTime::currentTime();
         elapsed = startTime.secsTo(stopTime);
-        qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime:wifi ="<<elapsed<<"s";
+        //qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime:wifi ="<<elapsed<<"s";
         testMsgDisplay(tr("---wifi test:   "),str,elapsed);
         break;
     case bluetooth_signal:
         stopTime = QTime::currentTime();
         elapsed = startTime.secsTo(stopTime);
-        qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime:bluetooth ="<<elapsed<<"s";
+        //qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__ <<"QTime:bluetooth ="<<elapsed<<"s";
         testMsgDisplay(tr("---bluetooth test:"),str,elapsed);
         btThread->quit();
         btThread->wait();
@@ -489,7 +489,7 @@ void all_test::serial_test_func()
 {
     for(int i = 0; i < serialConfig.count;i++)
     {
-        qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---FUNC---:" << __FUNCTION__<< i;
+        //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---FUNC---:" << __FUNCTION__<< i;
         thread_id[i] = new QThread(this);
         serial_test_thread[i] = new all_test_thread();
         serial_test_thread[i]->moveToThread(thread_id[i]);
@@ -520,7 +520,7 @@ void all_test::serial_stop_deal()
 
     if(serialStopTimer->isActive() == true)
     {
-        qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---!!!!!!!!!!!!!!!!!!!---:";
+        //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---!!!!!!!!!!!!!!!!!!!---:";
         ui->textEdit->append(QString(tr("serial test end")));
 //        serial_test_recv_func(QString(tr("serial test end")));
         serialStopTimer->stop();
@@ -553,7 +553,7 @@ void all_test::serial_stop_deal()
 
         if(thread_id[i]->isRunning() == true)
         {
-            qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---FUNC---:" << __FUNCTION__;
+            //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---FUNC---:" << __FUNCTION__;
 
             emit serial_test_stop_msg();
             thread_id[i]->quit();

@@ -76,22 +76,22 @@ MainWindow::~MainWindow()
 
 void MainWindow::config_file()
 {
-    QString localSettingsPath("/data");
-    QDir dir(localSettingsPath);
-    if (!dir.exists()) {
-        dir.mkpath(localSettingsPath);  // mkdir如果上层路径不存在就会创建失败, 因此用mkpath
-    }
+//    QString localSettingsPath("/data");
+//    QDir dir(localSettingsPath);
+//    if (!dir.exists()) {
+//        dir.mkpath(localSettingsPath);  // mkdir如果上层路径不存在就会创建失败, 因此用mkpath
+//    }
 
-    QString localSettingsFile = localSettingsPath + QDir::separator()  + "HelperBoard.ini";
-    QFile file(localSettingsFile);
-    if (!file.exists() && !file.open(QIODevice::WriteOnly|QIODevice::Text)) {  // 如果文件的上层路径不存在就会创建失败
-        qDebug()<<"failed";
-     }
-    file.close();
+//    QString localSettingsFile = localSettingsPath + QDir::separator()  + "HelperBoard.ini";
+//    QFile file(localSettingsFile);
+//    if (!file.exists() && !file.open(QIODevice::WriteOnly|QIODevice::Text)) {  // 如果文件的上层路径不存在就会创建失败
+//        qDebug()<<"failed";
+//     }
+//    file.close();
 
-    setting = new QSettings(localSettingsFile,QSettings::IniFormat);
-    setting->SystemScope;
-    setting->setIniCodec("UTF-8");
+//    setting = new QSettings(localSettingsFile,QSettings::IniFormat);
+//    setting->SystemScope;
+//    setting->setIniCodec("UTF-8");
 }
 
 void MainWindow::on_vf_clicked()
@@ -756,4 +756,5 @@ void MainWindow::closeEvent(QCloseEvent *event)
         voice_show();voice_back();
         show_num++;
     }
+    QWidget::closeEvent(event);
 }

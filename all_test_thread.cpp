@@ -252,7 +252,7 @@ void all_test_thread::serialTimer_func()
 
 void all_test_thread::serial_test_thread_stop()
 {
-    qDebug() << "i ==============";
+    //qDebug() << "i ==============";
    // qDebug() << "Line:" << __LINE__<< "__FUNCTION__" << __FUNCTION__<<"Thread构造函数ID:"<<QThread::currentThreadId();
 
 //    close(fd);

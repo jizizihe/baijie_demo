@@ -68,7 +68,6 @@ void timeset::RTCtimerUpdate(void)
     process.start("hwclock -r");
     process.waitForFinished();
     QString strResult = process.readAllStandardOutput();
-    //qDebug() << "strResult == " << strResult.mid(0,19);
    ui->RTCtimepLabel->setText(strResult.mid(0,19));
 
     RTCTimer->start(20000);
@@ -84,7 +83,6 @@ QString timeset::SystimeSet(QString  datetext)
 {
     //  QString text = "\"2021-09-23 18:30:50\"";
       QString strCmd = QString("date -s \"%1\"").arg(datetext);
-      qDebug() << "text == " << strCmd;
       QProcess process;
       process.start("bash", QStringList() <<"-c" << strCmd);
       process.waitForFinished();
@@ -95,7 +93,6 @@ QString timeset::SystimeSet(QString  datetext)
       process.waitForFinished();
 
       QString strResult = process.readAllStandardOutput();
-      //qDebug() << "strResult == " << strResult;
 
       return strResult;
 }

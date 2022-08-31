@@ -1,6 +1,5 @@
 #include "wifi_bt_interface.h"
 static int bluetooth_flag;
-static int bluetooth_func;
 
 wifi_bt_interface::wifi_bt_interface(QObject *parent) : QObject(parent)
 {
@@ -16,10 +15,6 @@ QString wifi_bt_interface::executeLinuxCmd(QString strCmd)
 {
     QProcess p;
     p.start("bash", QStringList() <<"-c" << strCmd);
-   // if(bluetooth_func == 1)
-   // {
-   //     QThread::sleep(1);qDebug() << 11;
-   // }
     p.waitForFinished(-1);
     QString strResult = p.readAllStandardOutput();
     p.close();
@@ -361,7 +356,7 @@ bool wifi_bt_interface::hotspot_disconnect()
     bool ConnectResult=strResult.contains("successfully deactivated",Qt::CaseInsensitive);
     if(ConnectResult == 1)
     {
-        strResult = tr("successfully deactivated.!");
+        strResult = tr("successfully deactivated!");
         qDebug() << "--line--: " << __LINE__<< strResult;
         return true;
     }
@@ -694,55 +689,55 @@ void wifi_bt_interface::wifi_passwd_change(QString WifiSsid,QString PassWd)
 
 QString wifi_bt_interface::bluetooth_scan()
 {
-//    QString strCmd;
-//    QString strResult;
+    QString strCmd;
+    QString strResult;
 
-//    char * data;
-//    int i = 0;
-//        QString out = executeLinuxCmd("cat /usr/bin/bluetooth_set.sh");
-//        QStringList list = out.split("\n");
-//        QStringList BtPairList;
+    char * data;
+    int i = 0;
+        QString out = executeLinuxCmd("cat /usr/bin/bluetooth_set.sh");
+        QStringList list = out.split("\n");
+        QStringList BtPairList;
 
-//        list.removeAll("");
-//        for(int i = 0;i<list.size();i++)
-//        {
-//            QString str = QString(list[i]);
-//            if(str.contains("bluetoothctl",Qt::CaseSensitive))
-//                continue;
-//            if(str.contains("hciattach",Qt::CaseSensitive))
-//            bluetooth_flag = 1;
-//            BtPairList << str + "\n";
-//        }
+        list.removeAll("");
+        for(int i = 0;i<list.size();i++)
+        {
+            QString str = QString(list[i]);
+            if(str.contains("bluetoothctl",Qt::CaseSensitive))
+                continue;
+            if(str.contains("hciattach",Qt::CaseSensitive))
+            bluetooth_flag = 1;
+            BtPairList << str + "\n";
+        }
 
-//        QFile file("/bt_scan.sh");
-//        if (file.exists())
-//        {
-//            file.remove();
-//        }
-//        if(file.open( QIODevice::WriteOnly))
-//        {
-//            for(i = 0; i< BtPairList.size();++i)
-//            {
-//                QString tmp = BtPairList.at(i);
-//                data = tmp.toLatin1().data();
-//                file.write(data);
-//            }
-//        }
-//        file.close();
-//        executeLinuxCmd("chmod +x /bt_scan.sh");
-//        if(bluetooth_flag == 1)
-//        {
-//            strCmd = QString("killall hciattach");
-//            strResult = executeLinuxCmd(strCmd);
-//        }
-//        strCmd = QString("/bt_scan.sh");
-//        strResult = executeLinuxCmd_bluetooth(strCmd);
-//        bluetooth_flag=0;
+        QFile file("/bt_scan.sh");
+        if (file.exists())
+        {
+            file.remove();
+        }
+        if(file.open( QIODevice::WriteOnly))
+        {
+            for(i = 0; i< BtPairList.size();++i)
+            {
+                QString tmp = BtPairList.at(i);
+                data = tmp.toLatin1().data();
+                file.write(data);
+            }
+        }
+        file.close();
+        executeLinuxCmd("chmod +x /bt_scan.sh");
+        if(bluetooth_flag == 1)
+        {
+            strCmd = QString("killall hciattach");
+            strResult = executeLinuxCmd(strCmd);
+        }
+        strCmd = QString("/bt_scan.sh");
+        strResult = executeLinuxCmd_bluetooth(strCmd);
+        bluetooth_flag=0;
 
-//    strCmd = QString("hcitool scan | sed \"1d\" ");
-//    strResult = executeLinuxCmd(strCmd);
-//    qDebug() << strResult;
-    //return strResult;
+    strCmd = QString("hcitool scan | sed \"1d\" ");
+    strResult = executeLinuxCmd(strCmd);
+    qDebug() << strResult;
+    return strResult;
 }
 
 QString wifi_bt_interface::bluetooth_pair(QString BtAddress)
@@ -835,7 +830,11 @@ QString wifi_bt_interface::bluetooth_connect(QString BtAddress)
             << "log_user 1                      \n"
             << "spawn bluetoothctl              \n"
             << "expect $prompt                  \n"
-            << "send \"connect $address\\r\"    \n"
+            << "send \"info $address\\r\"       \n"
+            << "expect {                        \n"
+            << "\"Connected: yes\" { exit; exp_continue } \n"
+            << "\"Connected: no\" { send \"connect $address\\r\" }     \n"
+            << "}                                \n"
             << "expect \"Connection successful\"\n"
             << "expect $prompt                  \n"
             << "send \"quit\\r\"                \n"
@@ -869,8 +868,9 @@ QString wifi_bt_interface::bluetooth_connect(QString BtAddress)
     BtAddress = BtAddress.replace(QString("\n"), QString(""));
     strCmd = QString("/bt_connect.sh %1").arg(BtAddress);
     strResult = executeLinuxCmd(strCmd);
-
-    bool ConnectResult=strResult.contains("Connection successful",Qt::CaseInsensitive);
+    //qDebug() << strResult;
+    QString str = QString("Device %1 Connected: yes").arg(BtAddress);
+    bool ConnectResult=strResult.contains(str,Qt::CaseInsensitive);
 
     if(ConnectResult == 1)
     {
@@ -878,9 +878,17 @@ QString wifi_bt_interface::bluetooth_connect(QString BtAddress)
     }
     else
     {
-        strResult = "failed";
+        str = "Connected: yes";
+        ConnectResult=strResult.contains(str,Qt::CaseInsensitive);
+        if(ConnectResult == 1)
+        {
+            strResult = "connected";
+        }
+        else
+        {
+            strResult = "failed";
+        }
     }
-
     return strResult;
 }
 
@@ -959,7 +967,7 @@ bool wifi_bt_interface::hotspot_sql()
             num = i+1;
             QString strCmd = QString(" nmcli con show | awk 'NR==%1'| awk '{print $1}' \n").arg(num);
             QString strResult = executeLinuxCmd(strCmd);
-            strResult.trimmed();
+            //strResult.trimmed();
             if(strResult == "hotspot\n")
                 return true;
         }

@@ -257,6 +257,12 @@ void voice::on_play_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
     ui->play->setText(tr("play"));
+    QStringList list = database_w.table_show("voice");
+    if(!list.isEmpty())
+    {
+        savepath = list.at(0);
+        savefile = list.at(1);
+    }
     if(savepath.isEmpty())
     {
         ui->pathname_2->setText("/data");
@@ -413,17 +419,17 @@ int voice::time_length(QString length)   //处理计算的时间
     int h,m,len;
     QString str_h,str_m,str_s;
 
-    if(m>60)
+    if(mm>60)
     {
         h = mm/60;
         m = mm%60;
-        s=s-1;
+        //s=s-1;
     }
     else
-     {
+    {
         h = 0;
         m = mm;
-        s=s-1;
+         //s=s-1;
     }
     len = h*60*60+m*60+s;
 
@@ -740,6 +746,7 @@ void voice::closeEvent(QCloseEvent *event)
         renamew_hide();
         show_num++;
     }
+    QWidget::closeEvent(event);
 }
 
 void voice::on_choose_btn_clicked()
@@ -805,7 +812,7 @@ void voice::refile_hide()
 
 void voice::save_path(QString path,QString file)
 {
-   savepath = path;
-   savefile = file;
+   //savepath = path;
+   //savefile = file;
 }
 

@@ -282,7 +282,7 @@ void ipset::on_okBtn_clicked()
                networkInfo = get_network_info();
                ui->textEdit->setText(networkInfo);
                ui->stackedWidget->setCurrentIndex(0);
-               database_w.insert_ip_static(ui->ipAddrLineEdit->text());
+               database_w.insert_table1("ip_static",ui->ipAddrLineEdit->text());
            }
            else
            {
@@ -392,4 +392,5 @@ void ipset::showEvent(QShowEvent *event)
          QStringList list = database_w.table_show("ip_static");
          ui->ipAddrLineEdit->setText(list.at(0));
      }
+     QWidget::showEvent(event);
 }

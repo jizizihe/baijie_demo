@@ -5,6 +5,7 @@
 #include <QDialog>
 #include <QMessageBox>
 #include <QDebug>
+#include "database.h"
 
 namespace Ui {
 class WifiConDialog;
@@ -50,6 +51,7 @@ private:
 
     QLabel *WifiLoadLabel;
     QMovie *WifiMovie;
+    database database_w;
 };
 
 #endif // WIFICONDIALOG_H

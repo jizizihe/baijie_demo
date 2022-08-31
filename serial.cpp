@@ -286,7 +286,6 @@ void serial::on_part1_btn_clicked()
         //        ui->BaudrateCb->setEnabled(true);
         ui->part1_btn->setText(tr("open port1"));
         flag_port1 = 0;
-        qDebug() << "CLOSE 1";
     }
 
 }
@@ -315,7 +314,6 @@ void serial::on_part2_btn_clicked()
     }
     else
     {
-        qDebug() << "pot2 close";
         //关闭线程
         if(PortB!=nullptr)
         {
@@ -423,7 +421,7 @@ void serial::port1_return()
       serialset_port1.hide();
     if(serialset_port1.hide_flag == 1)
     {
-       serialport1_open();qDebug() << "ll";
+       serialport1_open();
      }
 }
 

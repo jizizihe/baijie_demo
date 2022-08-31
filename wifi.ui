@@ -595,7 +595,7 @@ QSplitter:handle{\nbackground-color:#808080;\n}</string>
          <enum>Qt::WheelFocus</enum>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="wifihomepage">
          <property name="focusPolicy">

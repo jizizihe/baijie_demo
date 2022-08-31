@@ -45,7 +45,6 @@ void myslider_ver::mousePressEvent(QMouseEvent *event)
 void myslider_ver::mouseMoveEvent(QMouseEvent *event)
 {
     QSlider::mouseMoveEvent(event);
-    //qDebug()<<"mouseMoveEvent";
     double pos = event->pos().y() / (double)height();
     double value = pos * (maximum() - minimum()) + minimum();
     value = maximum()-value;

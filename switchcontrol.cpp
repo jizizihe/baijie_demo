@@ -100,7 +100,7 @@ void SwitchControl::resizeEvent(QResizeEvent *event)
 QSize SwitchControl::sizeHint() const
 {
     return minimumSizeHint();
-    qDebug() << "line:" << __LINE__ << "Height:" << m_nHeight;
+    //qDebug() << "line:" << __LINE__ << "Height:" << m_nHeight;
 }
 
 // 最小大小

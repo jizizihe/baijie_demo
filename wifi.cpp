@@ -142,7 +142,7 @@ void wifi::recv_msg(int signal_type, QString strResult)
         {
             wifi_bt_t->wifi_passwd_write(WifiConnectDialog->GetWifiNameText(),WifiConnectDialog->GetPasswdText());
 
-            wifiDB.insert_wifitable(WifiConnectDialog->GetWifiNameText(),WifiConnectDialog->GetPasswdText());
+            wifiDB.insert_table2("wifiPasswd",WifiConnectDialog->GetWifiNameText(),WifiConnectDialog->GetPasswdText());
 
             wifi_info_fresh(WifiConnectDialog->GetWifiNameText());
             ui->stackedWidget->setCurrentIndex(3);
@@ -174,7 +174,14 @@ void wifi::recv_msg(int signal_type, QString strResult)
             ui->label_hotspass->setText(HtPasswd);
             ui->label_WLAN->setText(HtWlan);
             ui->label_hoststaus->setText("connection");
-            wifiDB.insert_hotstop(HtName,HtPasswd,HtWlan);
+            QStringList list = wifiDB.table_show("hostpot");
+            if(!list.isEmpty())
+            {
+                QString name = list.at(0);
+                wifiDB.delete_record_by_name("hostpot",name);
+            }
+            wifiDB.insert_table3("hostpot",HtName,HtPasswd,HtWlan);
+            //wifiDB.table_debug("hotspot");
             if(HtWlan == "wlan0")
             {
                 hotconnect_falg = 1;
@@ -270,8 +277,9 @@ void wifi::WifiStatus_show()
     QString strCmd = QString("iw dev wlan0 link | grep SSID |awk '{for(i=2;i<=NF;i++){printf \"%s \", $i}; printf \"\\n\"}'");
     QString wifi_name = wifi_bt_t->executeLinuxCmd(strCmd);
     //qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__<< "wifi_name" << wifi_name;
+    QStringList list = wifiDB.table_show("wifiPasswd");
 
-    if(wifi_name.isEmpty() || (hotconnect_falg == 1) || (open_flag == 0))
+    if(wifi_name.isEmpty() || (hotconnect_falg == 1) || (open_flag == 0)||(list.isEmpty()))
     {
         ui->WifiInfoNameLab->setText(tr("Not connected"));
         ui->WifiInfoPasswdLab->clear();
@@ -622,11 +630,13 @@ void wifi::closeEvent(QCloseEvent *event)
 {
    WifiConnectDialog->show();
    WifiConnectDialog->hide();
+   QWidget::closeEvent(event);
 }
 
 void wifi::showEvent(QShowEvent *event)
 {
     timer->start();
+    QWidget::showEvent(event);
 }
 
 void wifi::wifidailog_hide()
@@ -681,27 +691,31 @@ void wifi::hotspot_sql()
     if(wifi_bt_t->hotspot_sql())
     {
         QStringList list = wifiDB.table_show("hostpot");
-        ui->label_hostpotname->setText(list.at(0));
-        ui->label_hotspass->setText(list.at(1));
-        ui->label_WLAN->setText(list.at(2));
-        ui->label_hoststaus->setText("connection");
-        ui->comboBox->setCurrentText(list.at(2));
-        HtName = list.at(0);
-        HtPasswd = list.at(1);
+        if(!list.isEmpty())
+        {
+            ui->label_hostpotname->setText(list.at(0));
+            ui->label_hotspass->setText(list.at(1));
+            ui->label_WLAN->setText(list.at(2));
+            ui->label_hoststaus->setText("connection");
+            ui->comboBox->setCurrentText(list.at(2));
+            HtName = list.at(0);
+            HtPasswd = list.at(1);
 
-        if( ui->label_WLAN->text() == "wlan0")
-        {
-            hotconnect_falg = 1;
+            if( ui->label_WLAN->text() == "wlan0")
+            {
+                hotconnect_falg = 1;
+            }
+            else
+            {
+                hotconnect_falg = 0;
+            }
+            ui->stackedWidget->setCurrentIndex(1);
         }
-        else
-        {
-            hotconnect_falg = 0;
-        }
-         ui->stackedWidget->setCurrentIndex(1);
     }
 }
 
 void wifi::wifi_signalshow(QString nameStr,int signal)
+
 {
     QWidget *widget=new QWidget(this);
     QHBoxLayout *horLayout = new QHBoxLayout();

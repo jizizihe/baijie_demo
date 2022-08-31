@@ -66,11 +66,11 @@ void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
     }
     else if(str == tr("bluetooth pair"))
     {
-        ui->textEdit->setText(tr("When you select a Bluetooth, click the < pair > button to pair."));
+        ui->textEdit->setText(tr("You can select a Bluetooth in scan devices, click the < pair > button to pair."));
     }
     else if(str == tr("bluetooth connect"))
     {
-        ui->textEdit->setText(tr("When you select a Bluetooth, click the < connect > button to connect."));
+        ui->textEdit->setText(tr("You can select a Bluetooth in pair devices, click the < connect > button to connect."));
     }
     else if(str == tr("ip information"))
     {

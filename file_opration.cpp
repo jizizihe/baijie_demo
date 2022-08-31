@@ -158,6 +158,7 @@ void File_opration::showEvent(QShowEvent *event)
        pro_path.write(s.toUtf8());
        pro_path.write("ls -ap| grep / \n");
    }
+   QWidget::showEvent(event);
 
 }
 void File_opration::on_btn_cancel_clicked()
