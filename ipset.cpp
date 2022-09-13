@@ -132,36 +132,13 @@ void ipset::on_ipShowBtn_clicked()
 
 void ipset::on_setStaticIpBtn_clicked()
 {
-    ui->okBtn->setText(tr("ok"));
+    //ui->okBtn->setText(tr("up"));
     ui->stackedWidget->setCurrentIndex(1);
 }
 
 void ipset::on_modStaticIpBtn_clicked()
 {
-   // ui->ipAddrLineEdit->clear();
-
-    if(false == is_static_ip_exist())
-    {
-        QMessageBox mesg(QMessageBox::Information,
-                         tr("QMessageBox::information()"),
-                         tr("The current connection is not a static IP. Please modify it to a static IP before performing this operation"),
-                         0,this);
-        mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screen_flag == 1)
-        mesg.move(s_width*2/3,s_height/3);
-        else
-        mesg.move(s_width/3,s_height/3);
-        mesg.exec();
-        QString networkInfo = get_network_info();
-        ui->textEdit->setText(networkInfo);
-        ui->stackedWidget->setCurrentIndex(0);
-    }
-    else
-    {
-        ui->textEdit->setText("");
-        ui->okBtn->setText(tr("change"));
-        ui->stackedWidget->setCurrentIndex(1);
-    }
+    ui->ipAddrLineEdit->clear();
 }
 
 void ipset::on_delStaticIpBtn_clicked()
@@ -201,9 +178,9 @@ void ipset::on_delStaticIpBtn_clicked()
         QString networkInfo = get_network_info();
         ui->textEdit->setText(networkInfo);
         ui->stackedWidget->setCurrentIndex(0);
-        database_w.table_debug("ip_static");
         database_w.delete_record_by_name("ip_static",ui->ipAddrLineEdit->text());
         ui->ipAddrLineEdit->clear();
+        ui->okBtn->setText(tr("up"));
     }
     else
     {
@@ -230,7 +207,7 @@ void ipset::on_okBtn_clicked()
                          tr("QMessageBox::information()"),
                          tr("Please complete the information"),
                          0,this);
-        mesg.addButton(tr("OK"),QMessageBox::YesRole);
+        mesg.addButton(tr("up"),QMessageBox::YesRole);
         if(screen_flag == 1)
         mesg.move(s_width*2/3,s_height/3);
         else
@@ -259,7 +236,7 @@ void ipset::on_okBtn_clicked()
                return;
            }
 
-           if(ui->okBtn->text() == QString(tr("ok")))
+           if(ui->okBtn->text() == QString(tr("up")))
            {
                if(static_ip == ui->ipAddrLineEdit->text())
                {
@@ -282,7 +259,18 @@ void ipset::on_okBtn_clicked()
                networkInfo = get_network_info();
                ui->textEdit->setText(networkInfo);
                ui->stackedWidget->setCurrentIndex(0);
+               QStringList list = database_w.table_show("ip_static");
+               if(!list.isEmpty())
+               {
+                   QString ipstr = list.at(0);
+                   database_w.delete_record_by_name("ip_static",ipstr);
+               }
                database_w.insert_table1("ip_static",ui->ipAddrLineEdit->text());
+               QString str = ui->okBtn->text();
+               if(!QString::compare(str,QString("up"),Qt::CaseSensitive))
+               {
+                   ui->okBtn->setText(tr("change"));
+               }
            }
            else
            {
@@ -303,11 +291,6 @@ void ipset::on_okBtn_clicked()
            return;
        }
 }
-
-void ipset::on_backBtn_clicked()
-{
-    ui->stackedWidget->setCurrentIndex(0);
-} 
 
 void ipset::ipset_font()
 {
@@ -356,7 +339,6 @@ void ipset::ipset_font()
     ui->label_6->setFont(font);
     ui->label_7->setFont(font);
     ui->textEdit->setFont(font);
-    ui->backBtn->setFont(font);
     ui->okBtn->setFont(font);
 }
 
@@ -390,7 +372,11 @@ void ipset::showEvent(QShowEvent *event)
      if(true == is_static_ip_exist())
      {
          QStringList list = database_w.table_show("ip_static");
-         ui->ipAddrLineEdit->setText(list.at(0));
+         if(!list.isEmpty())
+         {
+             ui->ipAddrLineEdit->setText(list.at(0));
+             ui->okBtn->setText(tr("change"));
+         }
      }
      QWidget::showEvent(event);
 }

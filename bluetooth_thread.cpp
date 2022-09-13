@@ -28,7 +28,6 @@ QString bluetooth_thread::bluetooth_connect_thread(QString BtAddress)
 
 }
 
-
 /*
 
 void bluetooth_thread::run()

@@ -20,7 +20,7 @@ bool database::create_connection()
     }
     else
     {
-        //qDebug() << "open succeed!";
+       // qDebug() << "open succeed!";
         return true;
     }
 }
@@ -70,7 +70,7 @@ bool database::insert_table2(QString table, QString unit1, QString unit2)
     QSqlQuery query;
 
     QString insert_sql = QString("insert into %1 values ('%2','%3')").arg(table).arg(unit1).arg(unit2);
-    qDebug()<< "insert_sql:" << insert_sql;
+   // qDebug()<< "insert_sql:" << insert_sql;
     if(!query.exec(insert_sql))
     {
         qDebug() << "Error: Failed to insert into table"<<query.lastError();
@@ -78,7 +78,7 @@ bool database::insert_table2(QString table, QString unit1, QString unit2)
     }
     else
     {
-        qDebug() << "insert into table succed!";
+       // qDebug() << "insert into table succed!";
         return true;
     }
 }
@@ -87,7 +87,7 @@ bool database::insert_table3(QString table, QString unit1, QString unit2, QStrin
 {
     QSqlQuery query;
     QString insert_sql = QString("insert into %1 values ('%2','%3','%4')").arg(table).arg(unit1).arg(unit2).arg(unit3);
-    qDebug()<< "insert_sql:" << insert_sql;
+   // qDebug()<< "insert_sql:" << insert_sql;
     if(!query.exec(insert_sql))
     {
         qDebug() << "Error: Failed to insert into table"<<query.lastError();
@@ -95,7 +95,7 @@ bool database::insert_table3(QString table, QString unit1, QString unit2, QStrin
     }
     else
     {
-        qDebug() << "insert into table succed!";
+   //     qDebug() << "insert into table succed!";
         return true;
     }
 }
@@ -121,7 +121,7 @@ bool database::select_table(QString name)
 {
     QSqlQuery query;
 
-    qDebug() <<"--LINE--: " << __LINE__<< name;
+    //qDebug() <<"--LINE--: " << __LINE__<< name;
     QString select_sql = QString("select * from wifiPasswd where name = '%1'").arg(name);
     if(!query.exec(select_sql))
     {
@@ -143,7 +143,7 @@ QString database::select_by_name(QString tableName, QString name)
 {
     QSqlQuery query;
     QString select_by_name_sql = QString("select * from %1 where name='%2';").arg(tableName).arg(name);
-    qDebug() << "--LINE--: " << __LINE__<< "select_by_name_sql="<<select_by_name_sql;
+    //qDebug() << "--LINE--: " << __LINE__<< "select_by_name_sql="<<select_by_name_sql;
     if(!query.exec(select_by_name_sql))
     {
         qDebug() << "Error: Failed select from table by name."<<query.lastError();
@@ -153,7 +153,7 @@ QString database::select_by_name(QString tableName, QString name)
     {
         if(query.first())
         {
-            qDebug() << "select from table succeed!";
+          //  qDebug() << "select from table succeed!";
           //  qDebug() << "--LINE--: " << __LINE__<< query.value(0).toString()<<query.value(1).toString();
             return query.value(1).toString();
         }
@@ -173,7 +173,7 @@ bool database::update_wifitable(QString tableName, QString name, QString passwd)
     }
     else
     {
-        qDebug() << "update table succeed!";
+      //  qDebug() << "update table succeed!";
         return true;
     }
     return false;

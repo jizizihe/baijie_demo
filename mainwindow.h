@@ -98,7 +98,6 @@ private slots:
 signals:
     void again();
     void wifi_status_msg();
-    void gpio_translater(int);
 };
 
 #endif // MAINWINDOW_H

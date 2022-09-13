@@ -58,8 +58,6 @@ public:
 
     QStringList getPortNameList();
     void language_reload();
-    void serialp1_show();
-    void serialp2_show();
     void serial_font();
     void serialport1_open();
     void serialport2_open();
@@ -72,24 +70,38 @@ signals:
 private slots:
     void on_showData(QString buff);//用于显示数据
 
+    void on_showData1(QString buff);//用于显示数据
     void on_SendBtn_clicked();
 
     void on_SendBtn_2_clicked();
-
-    void on_CleanBtn_clicked();
-
-    void on_CleanBtn_2_clicked();
 
     void on_retBtn_clicked();
 
     void on_part1_btn_clicked();
 
-    void rec_port1set(QString,QString,int,QString);
-    void rec_port2set(QString,QString,int,QString);
-
     void on_part2_btn_clicked();
     void port1_return();
     void port2_return();
+
+    void on_btn_set1_clicked();
+
+    void on_btn_set1_2_clicked();
+
+    void on_btn_ok2_clicked();
+
+    void on_btn_cancel2_clicked();
+
+    void on_btn_ok1_clicked();
+
+    void on_btn_cancel1_clicked();
+
+    void on_btn_open1_clicked();
+
+    void on_btn_open2_clicked();
+
+    void on_btn_clear1_clicked();
+
+    void on_btn_clear1_2_clicked();
 
 private:
     Ui::serial *ui;

@@ -171,7 +171,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
    </item>
    <item row="2" column="0">
     <widget class="QWidget" name="widget_6" native="true">
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="2,6,2,6,2">
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="2,7,2,7,2">
       <property name="spacing">
        <number>0</number>
       </property>
@@ -201,7 +201,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
        </spacer>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,6,3,6,3,6,3">
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="4,6,3,6,3,6,4">
         <item>
          <spacer name="horizontalSpacer_4">
           <property name="orientation">
@@ -546,7 +546,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
        </spacer>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="6,6,6,6,6">
+       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="7,6,6,6,7">
         <item>
          <spacer name="horizontalSpacer_7">
           <property name="orientation">

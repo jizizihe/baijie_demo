@@ -2,23 +2,28 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <QDebug>
-
+#include <QLabel>
+#include <QHBoxLayout>
 SwitchControl::SwitchControl(QWidget *parent)
     : QWidget(parent),
-      m_bChecked(false),
-      m_background(Qt::black),
+      m_bChecked(true),
+    //  m_background(Qt::black),
+      m_background(98, 200, 182,180),
       m_checkedColor(0, 160, 230),
       m_disabledColor(190, 190, 190),
-      m_thumbColor(Qt::white),
-      m_radius(8.0),
-      m_nHeight(20),
+    //  m_thumbColor(Qt::white),
+      m_thumbColor(98, 200, 182,255),
+      m_radius(20.0),
+      m_nHeight(43),
       m_nMargin(4)
 {
     // 鼠标滑过光标形状 - 手型
     setCursor(Qt::PointingHandCursor);
 
+    m_bChecked = true;
     // 连接信号槽
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(onTimeout()));
+
 }
 
 // 绘制开关
@@ -52,13 +57,22 @@ void SwitchControl::paintEvent(QPaintEvent *event)
     // 绘制大椭圆
     painter.setBrush(background);
     painter.setOpacity(dOpacity);
+
+   // path.addRoundedRect(QRectF(m_nMargin, m_nMargin, width() - 2 * m_nMargin, height() - 2 * m_nMargin), m_radius, m_radius);
     path.addRoundedRect(QRectF(m_nMargin, m_nMargin, width() - 2 * m_nMargin, height() - 2 * m_nMargin), m_radius, m_radius);
+
+
+    //QRect textRect(0, 0,width()-10, height()-20); painter.setPen(QPen(QColor(0, 0, 0)));
+    //painter.drawText(textRect, Qt::AlignRight, "On");painter.setPen(QPen(background));
     painter.drawPath(path.simplified());
+   // painter.setPen(QPen(thumbColor));
 
     // 绘制小椭圆
     painter.setBrush(thumbColor);
     painter.setOpacity(1.0);
-    painter.drawEllipse(QRectF(m_nX - (m_nHeight / 2), m_nY - (m_nHeight / 2), height(), height()));
+   // painter.drawEllipse(QRectF(m_nX - (m_nHeight / 2), m_nY - (m_nHeight / 2), height(), height()));
+    painter.drawEllipse(QRectF(m_nX - (m_nHeight/2), m_nY - (m_nHeight/2), height(), height()));
+
 }
 
 // 鼠标按下事件
@@ -81,7 +95,8 @@ void SwitchControl::mouseReleaseEvent(QMouseEvent *event)
             event->accept();
             m_bChecked = !m_bChecked;
             emit toggled(m_bChecked);
-            m_timer.start();
+            //m_timer.start();
+            onTimeout();
         } else {
             event->ignore();
         }
@@ -91,7 +106,8 @@ void SwitchControl::mouseReleaseEvent(QMouseEvent *event)
 // 大小改变事件
 void SwitchControl::resizeEvent(QResizeEvent *event)
 {
-    m_nX = m_nHeight / 2;
+   // m_nX = m_nHeight / 2;
+    m_nX = width() - m_nHeight;
     m_nY = m_nHeight / 2;
     QWidget::resizeEvent(event);
 }
@@ -113,13 +129,15 @@ QSize SwitchControl::minimumSizeHint() const
 void SwitchControl::onTimeout()
 {
     if (m_bChecked) {
-        m_nX += 1;
-        if (m_nX >= width() - m_nHeight)
-            m_timer.stop();
+       // m_nX += 1;
+       // if (m_nX >= width() - m_nHeight)
+       //     m_timer.stop();
+        m_nX = width() - m_nHeight;
     } else {
-        m_nX -= 1;
-        if (m_nX <= m_nHeight / 2)
-            m_timer.stop();
+        //m_nX -= 1;
+       // if (m_nX <= m_nHeight / 2)
+        //    m_timer.stop();
+        m_nX = m_nHeight / 2;
     }
     update();
 }
@@ -133,8 +151,10 @@ bool SwitchControl::isToggled() const
 // 设置开关状态
 void SwitchControl::setToggle(bool checked)
 {
+    emit toggled(m_bChecked);
     m_bChecked = checked;
-    m_timer.start(1);
+    onTimeout();
+   // m_timer.start(1);
 }
 
 // 设置背景颜色

@@ -57,7 +57,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this,SIGNAL(wifi_status_msg()),&wifi_w,SLOT(WifiStatus_show()));
     connect(&wifi_w,SIGNAL(Mysignal()),this,SLOT(wifi_back()));
     connect(&eth0_w,SIGNAL(ret_signal()),this,SLOT(eth0_back()));
-    connect(this,SIGNAL(gpio_translater(int)),&gpio_w,SLOT(translater(int)));
     connect(&all_w,SIGNAL(Mysignal()),this,SLOT(all_back()));
     connect(&bluetooth_w,SIGNAL(Mysignal()),this,SLOT(bluetooth_back()));
     connect(&serial_w,SIGNAL(Mysignal()),this,SLOT(serial_back()));
@@ -177,15 +176,13 @@ void MainWindow::cn_main()
     {
         qApp->removeTranslator(translator);
         delete translator;
-        translator = NULL;
-        emit gpio_translater(0);        
+        translator = NULL;        
     }
     else
     {
         translator = new QTranslator();
         translator->load(":/chinese");
         qApp->installTranslator(translator);
-        emit gpio_translater(1);
         //emit wifidia_translater(1);
     }
     languageflag = !languageflag;

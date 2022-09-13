@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>603</width>
-    <height>431</height>
+    <width>677</width>
+    <height>477</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -216,6 +216,9 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
           </property>
           <property name="title">
            <string>autotest</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
           <layout class="QGridLayout" name="gridLayout" columnstretch="1,3,1,3">
            <property name="leftMargin">
@@ -638,7 +641,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
         </item>
         <item>
          <widget class="QWidget" name="widget" native="true">
-          <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,2,1,1">
+          <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -654,19 +657,6 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
            <property name="bottomMargin">
             <number>5</number>
            </property>
-           <item>
-            <spacer name="horizontalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
            <item>
             <widget class="QPushButton" name="testCheckAllBtn">
              <property name="sizePolicy">
@@ -724,19 +714,6 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </property>
             </widget>
            </item>
-           <item>
-            <spacer name="horizontalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
           </layout>
          </widget>
         </item>
@@ -774,7 +751,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>603</width>
+     <width>677</width>
      <height>22</height>
     </rect>
    </property>

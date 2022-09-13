@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>704</width>
-    <height>479</height>
+    <width>664</width>
+    <height>401</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,6 @@ QPushButton{
      border-width:  2px;  /*边框宽度为4像素*/
      border-radius: 10px; /*边框圆角半径*/
      border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     font: bold 24px;/*字体*/
      color:rgba(0, 0, 0, 100);/*字体颜色*/
      padding: 6px; /*填衬*/
     outline: none; /*去掉按钮的虚线框*/
@@ -166,11 +165,24 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
        <item>
         <widget class="QTreeWidget" name="treeWidget">
          <property name="styleSheet">
-          <string notr="true">background-color:rgba(0,0,0, 0);</string>
+          <string notr="true">background-color:rgba(0,0,0, 0);
+
+</string>
          </property>
+         <attribute name="headerVisible">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="headerDefaultSectionSize">
+          <number>100</number>
+         </attribute>
          <column>
           <property name="text">
            <string>               user manual</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
           </property>
          </column>
          <item>
@@ -481,7 +493,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,0">
+        <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,1">
          <property name="spacing">
           <number>0</number>
          </property>
@@ -508,7 +520,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="pushButton_3">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -527,7 +539,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
      <item>
       <widget class="QTextEdit" name="textEdit">
        <property name="styleSheet">
-        <string notr="true">  background-color:rgba(0,0,0, 15);</string>
+        <string notr="true"> background-color:rgba(255, 255, 255, 80);</string>
        </property>
       </widget>
      </item>

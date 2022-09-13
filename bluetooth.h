@@ -38,6 +38,7 @@ public:
     void blue_font();
     void bluetooth_sql();
     void showEvent(QShowEvent *event);
+    QStringList BtPairList;
 
 private slots:
     void recv_msg(int,QString);
@@ -46,27 +47,37 @@ private slots:
 
     void on_BTScanBtn_clicked();
 
-    void on_BTPairBtn_clicked();
-
     void on_BTConnectBtn_clicked();
 
     void on_retBtn_clicked();
 
     void on_pushButton_clicked();
 
+    void on_BtNameListWidget_itemClicked(QListWidgetItem *item);
+
+    void on_Bt_pairedListwidget_itemClicked(QListWidgetItem *item);
+
+    void connect_refresh();
+
+    void on_btn_status_clicked();
+
+    void on_btn_disconnect_clicked();
+
+    void on_btn_remove_clicked();
+
 signals:
     void bluetooth_scan_msg();
     void bluetooth_pair_msg(QString);
     void bluetooth_connect_msg(QString);
-
+    void bluetooth_disscan();
     void Mysignal();
+    void rm_shell();
     //void bluetooth_signal(int signal_type,QString BtAddress);//signal_type:1--scan;2--pair;3--connect
 
 private:
     Ui::bluetooth *ui;
 
     QStringList BtScanList;
-    QStringList BtPairList;
     QLabel *LoadLabel;
     QMovie *pMovie;
 

@@ -1,8 +1,8 @@
-﻿#include "udev.h"
+#include "udev.h"
 #include "ui_udev.h"
 #include "xcombobox.h"
-
-#include <QTreeWidgetItemIterator>
+#include <QDebug>
+#include <QThread>
 
 static int s_width;
 static int s_height;
@@ -214,6 +214,8 @@ void udev::on_cp_clicked()
         else
         mesg.move(s_width/3,s_height/3);
         mesg.exec();
+        QThread::sleep(1);
+        mesg.close();
         return;
     }
     int flag;
@@ -228,7 +230,12 @@ void udev::on_cp_clicked()
         mesg.move(s_width*2/3,s_height/3);
         else
         mesg.move(s_width/3,s_height/3);
+       // QTimer::singleShot(1500,mesg,SLOT(close()));
+       // mesg.button(QMessageBox::Ok)->hide();
+
         mesg.exec();
+      //  QThread::sleep(2);
+      //  mesg.close();
         return;
     }
     cp_ct_flag = 1;
@@ -431,7 +438,6 @@ void udev::on_return_2_clicked()
     }
 }
 
-
 void udev::language_reload()
 {
     File_oprationw.language_reload();
@@ -483,7 +489,6 @@ void udev::udev_font()
    ui->label_2->setFont(font);
    ui->umount->setFont(font);
    ui->btn_paste->setFont(font);
-   ui->btn_cancel->setFont(font);
    ui->btn_mount->setFont(font);
 }
 
@@ -504,13 +509,13 @@ void udev::readBashStandardOutputInfo()
         {
             str = str.remove(0,str.length()-1);
             if(str == "/")
-            g->setIcon(0,QIcon(":/button_image/up.svg"));
+                g->setIcon(0,QIcon(":/button_image/up.svg"));
         }
         else if(ui->label->text() == "/media/sdcard/")
         {
             str = str.remove(0,str.length()-1);
             if(str == "/")
-            g->setIcon(0,QIcon(":/button_image/sdcard.svg"));
+                g->setIcon(0,QIcon(":/button_image/sdcard.svg"));
         }
         else if((ui->label->text() == "/media/")&&(str == "udisk/"))
         {
@@ -522,19 +527,19 @@ void udev::readBashStandardOutputInfo()
         }
         else
         {
-           str = str.remove(0,str.length()-1);
-           if(str == "/")
-           g->setIcon(0,QIcon(":/button_image/folder.svg"));
-           else
-           g->setIcon(0,QIcon(":/button_image/file.svg"));
+            str = str.remove(0,str.length()-1);
+            if(str == "/")
+                g->setIcon(0,QIcon(":/button_image/folder.svg"));
+            else
+                g->setIcon(0,QIcon(":/button_image/file.svg"));
         }
     }
 }
 
 void udev::showEvent(QShowEvent *event)
 {
-       file_reflesh("/");
-       QWidget::showEvent(event);
+    file_reflesh("/");
+    QWidget::showEvent(event);
 }
 
 void udev::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
@@ -637,12 +642,6 @@ void udev::file_reflesh(QString p)
     QString s = QString("cd %1 \n").arg(p);
     pro_path.write(s.toUtf8());
     pro_path.write("ls -ap \n");
-}
-
-void udev::on_btn_cancel_clicked()
-{
-    cp_file.clear();
-    ct_file.clear();
 }
 
 void udev::on_btn_mount_clicked()

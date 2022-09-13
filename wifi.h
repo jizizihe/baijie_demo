@@ -53,6 +53,8 @@ private slots:
 
     void ListWidgeItem_clicked();
 
+    void ListWidgeItem2_clicked();
+
     void on_HotspotBuildBtn_clicked();
 
     void on_HotspotDownBtn_clicked();
@@ -67,6 +69,8 @@ private slots:
     void wifidailog_hide();
 
     void on_open_btn_clicked();
+
+    void on_pushButton_clicked();
 
 private:
     Ui::wifi *ui;

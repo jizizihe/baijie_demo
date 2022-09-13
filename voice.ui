@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>770</width>
-    <height>458</height>
+    <width>710</width>
+    <height>427</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -452,7 +452,7 @@ QPushButton{
          <enum>Qt::LeftToRight</enum>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="page"/>
         <widget class="QWidget" name="page_2">
@@ -728,7 +728,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
               <number>0</number>
              </property>
              <property name="topMargin">
-              <number>0</number>
+              <number>5</number>
              </property>
              <property name="rightMargin">
               <number>0</number>
@@ -751,12 +751,12 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </item>
              <item row="1" column="0">
               <widget class="QWidget" name="widget_6" native="true">
-               <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="1,2,2,12,1">
+               <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="1,2,2,11,1">
                 <property name="leftMargin">
                  <number>0</number>
                 </property>
                 <property name="topMargin">
-                 <number>2</number>
+                 <number>0</number>
                 </property>
                 <property name="rightMargin">
                  <number>0</number>
@@ -1378,7 +1378,7 @@ border-radius: 4px;
                  <height>16777215</height>
                 </size>
                </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="7,4,7,4,7,1">
+               <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,7,4,7,4,7,1">
                 <property name="spacing">
                  <number>0</number>
                 </property>
@@ -1394,6 +1394,19 @@ border-radius: 4px;
                 <property name="bottomMargin">
                  <number>9</number>
                 </property>
+                <item>
+                 <spacer name="horizontalSpacer_19">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
                 <item>
                  <widget class="QPushButton" name="btn_rename">
                   <property name="sizePolicy">
@@ -1431,7 +1444,7 @@ border-radius: 4px;
                   </property>
                   <property name="icon">
                    <iconset resource="translation.qrc">
-                    <normaloff>:/button_image/cp.png</normaloff>:/button_image/cp.png</iconset>
+                    <normaloff>:/button_image/rename.svg</normaloff>:/button_image/rename.svg</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1594,7 +1607,7 @@ border-radius: 4px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>770</width>
+     <width>710</width>
      <height>22</height>
     </rect>
    </property>

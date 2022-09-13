@@ -31,20 +31,19 @@ public:
     void key_hide();
     void language_reload();
     void gpio_font();
-
+    void settext_statusbtn(int);
+    void settext_valuebtn(int);
 
 private slots:
-    void rBtnout_clicked();
-    void rBtnin_clicked();
     void ret_clicked();
     void srceenclear();
     bool isEnglish(QString &qstrSrc);
     bool isNumber(QString &qstrSrc);
     bool istrueport(QString,int i);
-    void rBtnhigh_clicked();
-    void rBtnlow_clicked();
     bool warning();
-    void translater(int);
+    void on_pushButton_clicked();
+    void BtnChange_flag1(bool flag);
+    void BtnChange_flag2(bool flag);
 
 signals:
     void Mysignal();

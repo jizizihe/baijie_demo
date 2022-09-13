@@ -61,6 +61,7 @@ public:
 
     QString executeLinuxCmd(QString strCmd);
     QString executeLinuxCmd_bluetooth(QString strCmd);
+    QString executeLinuxCmd_bluetooth_connect(QString strCmd);
     bool wifi_passwd_write(QString WifiSsid,QString PassWd);
     QString wifi_passwd_read(QString WifiSsid);
 
@@ -95,12 +96,19 @@ public:
     void bluetooth_enable(bool);
     QString get_bluetooth_name();
     QString set_bluetooth_name(QString bluetooth_name);
+    int bluetooth_connectflag();
+    void bluetooth_sh_delete();
+    void bluetooth_disconnect(QString);
+    void bluetooth_remove(QString BtAddress);
+
     QString scan_wlan();
+    void bluetooth_scan_2();
 
 
 signals:
 
 public slots:
+    void rm_bluetoothshell();
 
 private:
     wifi_info WifiStatus;

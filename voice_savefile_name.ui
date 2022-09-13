@@ -83,7 +83,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
  }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout" rowstretch="1,2,2,1,2,3,2">
+   <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,2,1,2,1,2">
     <property name="leftMargin">
      <number>0</number>
     </property>

@@ -73,8 +73,6 @@ private slots:
 
     void on_treeWidget_itemPressed(QTreeWidgetItem *item, int column);
 
-    void on_btn_cancel_clicked();
-
     void on_btn_mount_clicked();
 
 signals:

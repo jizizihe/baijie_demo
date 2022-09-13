@@ -186,7 +186,6 @@ void ipset_popup::screen_clear()
 
 void ipset_popup::language_reload()
 {
-
     label->setText(tr("Please do not have spaces in the name, otherwise the operation will fail!"));
     btn_OK->setText(tr("OK"));
 //    btn_return->setText(tr("return"));

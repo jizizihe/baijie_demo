@@ -32,8 +32,6 @@ private slots:
 
     void on_ipShowBtn_clicked();
 
-    //void on_autoGetIpBtn_clicked();
-
     void on_setStaticIpBtn_clicked();
 
     void on_modStaticIpBtn_clicked();
@@ -41,9 +39,6 @@ private slots:
     void on_delStaticIpBtn_clicked();
 
     void on_okBtn_clicked();
-
-    void on_backBtn_clicked();
-
 
     void on_btn_open_clicked();
 

@@ -26,7 +26,6 @@
         <file>button_image/system.png</file>
         <file>button_image/cut.png</file>
         <file>button_image/log.png</file>
-        <file>button_image/all/photo.png</file>
         <file>button_image/all/show.png</file>
         <file>button_image/all/test.png</file>
         <file>button_image/bluetooth/connect.png</file>
@@ -68,5 +67,10 @@
         <file>button_image/sdcard.svg</file>
         <file>button_image/wifi.svg</file>
         <file>button_image/storage.svg</file>
+        <file>button_image/net.svg</file>
+        <file>button_image/prompt.svg</file>
+        <file>button_image/wifi/Search-Wifi.svg</file>
+        <file>button_image/rename.svg</file>
+        <file>button_image/tips.svg</file>
     </qresource>
 </RCC>

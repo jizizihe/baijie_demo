@@ -34,7 +34,7 @@ void user_manual::on_pushButton_clicked()
 {
     emit Mysignal();
     ui->textEdit->clear();
-    ui->pushButton_2->setText(tr("expand all"));
+    ui->pushButton_3->setText(tr("expand all"));
     catalogueflag = true;
     ui->treeWidget->collapseAll();
 }
@@ -162,21 +162,6 @@ Note: there should be no space between each GPIO air, otherwise this operation w
 
 }
 
-void user_manual::on_pushButton_2_clicked()
-{
-    if(catalogueflag)
-    {
-        ui->treeWidget->expandAll();
-        ui->pushButton_2->setText(tr("collapse all"));
-    }
-    else
-    {
-        ui->treeWidget->collapseAll();
-        ui->pushButton_2->setText(tr("expand all"));
-    }
-    catalogueflag = !catalogueflag;
-}
-
 void user_manual::user_font()
 {
     qreal realX = screen->physicalDotsPerInchX();
@@ -216,6 +201,21 @@ void user_manual::user_font()
         }
     }
   ui->treeWidget->setFont(font);
-  ui->pushButton_2->setFont(font);
+  ui->pushButton_3->setFont(font);
   ui->textEdit->setFont(font);
+}
+
+void user_manual::on_pushButton_3_clicked()
+{
+    if(catalogueflag)
+        {
+            ui->treeWidget->expandAll();
+            ui->pushButton_3->setText(tr("collapse all"));
+        }
+        else
+        {
+            ui->treeWidget->collapseAll();
+            ui->pushButton_3->setText(tr("expand all"));
+        }
+        catalogueflag = !catalogueflag;
 }

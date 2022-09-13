@@ -54,6 +54,7 @@ void voice_savefile_name::on_pushButton_2_clicked()
 void voice_savefile_name::language_reload()
 {
     ui->retranslateUi(this);
+    File_oprationw.language_reload();
 }
 
 void voice_savefile_name::get_filename(QString file_pn)

@@ -281,6 +281,7 @@ void voice::language_reload()
     ui->retranslateUi(this);
     rename_w.language_reload();
     changname.language_reload();
+    File_oprationw.language_reload();
 }
 
 void voice::get_nowlength()
