@@ -7,7 +7,7 @@ static QScreen *screen;
 static int screen_flag;
 static int Width;
 static int Height;
-//static int camera_flag;
+static int begin_flag;
 
 all_test::all_test(QWidget *parent) :
     QMainWindow(parent),
@@ -83,7 +83,8 @@ void all_test::on_beginBtn_clicked()
     QAbstractButton *checkBtn;
     testItemsCount = 0;
 
-    if(tr("begin") == ui->beginBtn->text())
+   // if(tr("begin") == ui->beginBtn->text())
+    if(begin_flag == 0)
     {
         for(i =0 ;i < CheckedBtnList.length();i++)
         {
@@ -179,6 +180,7 @@ void all_test::on_beginBtn_clicked()
         if(true == ui->wifiChk->isChecked())    emit wifi_test_msg();
         if(true == ui->keyChk->isChecked())     emit key_test_msg();
         if(true == ui->serialChk->isChecked())  serial_test_func();
+        begin_flag = 1;
     }
     else
     {
@@ -223,7 +225,7 @@ void all_test::on_beginBtn_clicked()
                 checkBtn = CheckedBtnList.at(i);
                 checkBtn->setEnabled(true);
             }
-
+            begin_flag = 0;
     }
 }
 
@@ -234,7 +236,7 @@ bool all_test::event(QEvent *event)
         if(ui->keyChk->isChecked() == true && ui->beginBtn->text() == tr("stop"))
         {
             //qDebug()<<"-key pressed!";
-            ui->textEdit->append(tr("-  key pressed!"));
+            ui->textEdit->append(tr("---key pressed!"));
             return true;
         }
         else
@@ -307,7 +309,7 @@ void all_test::on_usbChk_clicked()
         if (ok && !num.isEmpty())
         {
             usbAddNum = num.toInt();
-            qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__<< usbAddNum;
+            //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__<< usbAddNum;
         }
     }
 }
@@ -487,6 +489,7 @@ void all_test::serial_config_func(serial_config config)
 
 void all_test::serial_test_func()
 {
+
     for(int i = 0; i < serialConfig.count;i++)
     {
         //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---FUNC---:" << __FUNCTION__<< i;
@@ -512,6 +515,10 @@ void all_test::serial_test_func()
     {
         serialStopTimer->start(1500);
     }
+    else
+    {
+      ui->textEdit->append(QString(tr("---serial test: waiting to read data as server")));
+    }
 }
 
 void all_test::serial_stop_deal()
@@ -520,10 +527,9 @@ void all_test::serial_stop_deal()
 
     if(serialStopTimer->isActive() == true)
     {
-        //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---!!!!!!!!!!!!!!!!!!!---:";
-        ui->textEdit->append(QString(tr("serial test end")));
+       ui->textEdit->append(QString(tr("---serial test: send completed as client")));
 //        serial_test_recv_func(QString(tr("serial test end")));
-        serialStopTimer->stop();
+       serialStopTimer->stop();
     }
 
     for(int i = 0; i < serialConfig.count; i++)
@@ -629,4 +635,5 @@ void all_test::all_font()
     ui->testCheckAllBtn->setFont(font);
     ui->beginBtn->setFont(font);
     ui->textEdit->setFont(font);
+    ui->label->setFont(font);
 }

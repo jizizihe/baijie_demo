@@ -17,6 +17,7 @@ static int backlight_flag = 0;
 static int time_flag = 0;
 static int user_flag = 0;
 static int board_flag = 0;
+static int show_num;
 
 sys_setting::sys_setting(QWidget *parent) :
     QWidget(parent),
@@ -102,6 +103,7 @@ void sys_setting::on_rtc_clicked()
     {
        timeset_w.resize(Width,Height);
        timeset_w.show();
+       timeset_w.activateWindow();timeset_w.setFocus();
     }
     else
     {
@@ -121,6 +123,8 @@ void sys_setting::on_rtc_clicked()
             timeset_w.resize(Height,Width);
             timeset_w.show();
             time_view->show();
+            time_view->activateWindow();time_view->setFocus();
+            timeset_w.activateWindow();timeset_w.setFocus();
             time_flag++;
         }
         else
@@ -129,6 +133,8 @@ void sys_setting::on_rtc_clicked()
             timeset_w.show();
             time_view->resize(Width,Height);
             time_view->show();
+            time_view->activateWindow();time_view->setFocus();
+            timeset_w.activateWindow();timeset_w.setFocus();
         }
     }
 }
@@ -255,6 +261,7 @@ void sys_setting::time_back()
     }
     timeset_w.hide();    
     this->show();
+    this->activateWindow();this->setFocus();
 }
 
 void sys_setting::board_back()
@@ -319,4 +326,16 @@ void sys_setting::sys_font()
     ui->label_30->setFont(font);
     ui->label_key_6->setFont(font);
     ui->label_key_8->setFont(font);
+    ui->label->setFont(font);
+}
+
+void sys_setting::closeEvent(QCloseEvent *event)
+{
+    if(show_num == 0)
+    {
+        on_rtc_clicked();
+        time_back();
+        show_num++;
+    }
+   QWidget::closeEvent(event);
 }

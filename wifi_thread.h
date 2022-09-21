@@ -19,6 +19,7 @@ signals:
     void wifi_info_fresh_msg(QString);
     void wifi_wait_end_msg();
     void rewlan_scan(QString);
+    void wifi_modify(bool);
 
 public slots:
     void Thread_Fun();
@@ -29,7 +30,10 @@ public slots:
     void sim_connect_thread_func();
     void sim_disconnect_thread_func();
     void sim_status_thread_func();
+    void sim_4gstatus();
+    void sim_activation(int);
     void wlan_scan();
+    void wifi_modyfypass(QString WifiSsid,QString PassWd);
 
 private:
     wifi_bt_interface * wifi_bt_w;

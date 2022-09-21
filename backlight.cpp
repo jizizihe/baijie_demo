@@ -84,6 +84,7 @@ backlight::backlight(QWidget *parent) :
     {
         screen_flag = 1;
     }
+    ui->stackedWidget->setCurrentIndex(1);
     backlight_font();
     ui->label_num->setText(tr("255"));
     ui->label_3->setText(tr("light:"));
@@ -177,12 +178,12 @@ void backlight::language_reload()
 
 void backlight::on_btn_ligth_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(2);
+    ui->stackedWidget->setCurrentIndex(1);
 }
 
 void backlight::on_btn_sleep_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(1);
+    ui->stackedWidget->setCurrentIndex(0);
 }
 
 void backlight::backlight_font()
@@ -229,4 +230,5 @@ void backlight::backlight_font()
     ui->label_num->setFont(font);
     ui->comboBox->setFont(font);
     ui->label->setFont(font);
+    ui->label_5->setFont(font);
 }

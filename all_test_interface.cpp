@@ -126,7 +126,7 @@ QString sim_test()
 
     char *state = (char *)"out";
     int port_num = calc_port_num('h',12);
-    qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "port_num == " << port_num;
+ //   qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "port_num == " << port_num;
 
     bool isExist = getFileName(port_num);
     if(isExist == false)
@@ -155,7 +155,7 @@ QString sim_test()
     {
         strCmd = QString("ifconfig | grep ppp0");
         strResult = executeLinuxCmd(strCmd);
-        qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
+  //      qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
 
         if(!strResult.isEmpty())
         {
@@ -184,7 +184,7 @@ QString sim_test()
         strCmd = QString("nmcli connection add con-name ppp0 ifname ttyUSB2 autoconnect yes type gsm apn 3gnet user uninet password uninet");
         //qDebug() << "--line--: " << __LINE__<< "strCmd == " << strCmd;
         strResult = executeLinuxCmd(strCmd);
-        qDebug() << "--line--: " << __LINE__<< strResult;
+ //       qDebug() << "--line--: " << __LINE__<< strResult;
 
         bool ConnectResult=strResult.contains("successfully added",Qt::CaseInsensitive);
         //qDebug() << ConnectResult;
@@ -195,7 +195,7 @@ QString sim_test()
 //            qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<< strResult;
             sleep(4);
             strCmd = QString("ifconfig | grep ppp0");
-            strResult = executeLinuxCmd(strCmd);
+  //          strResult = executeLinuxCmd(strCmd);
             qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
 
             if(!strResult.isEmpty())
@@ -210,11 +210,11 @@ QString sim_test()
         else
         {
             strResult = "Connection failed!";
-            qDebug() << "--line--: " << __LINE__<< strResult;
+     //       qDebug() << "--line--: " << __LINE__<< strResult;
             strCmd = QString("nmcli connection delete ppp0");
             //qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "strCmd == " << strCmd;
             strResult = executeLinuxCmd(strCmd);
-            qDebug() << "--line--: " << __LINE__<< strResult;
+   //         qDebug() << "--line--: " << __LINE__<< strResult;
             strResult = "failed";
             return strResult;
         }
@@ -224,7 +224,7 @@ QString sim_test()
 
 QString audio_test()
 {
-    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ ;
+  //  qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ ;
 
     QString strCmd = QString("rm /data/audio.wav");
     QString strResult = executeLinuxCmd(strCmd);
@@ -233,7 +233,7 @@ QString audio_test()
     strResult = executeLinuxCmd(strCmd);
 
     strCmd = QString("aplay /usr/helperboard/ceshiluyin.wav");
-    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ ;
+ //   qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ ;
     strResult = executeLinuxCmd(strCmd);
 
     strCmd = QString("aplay /data/audio.wav");
@@ -265,7 +265,7 @@ QString bluetooth_test()
 {
     QString strCmd;
     QString strResult;
-    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__;
+  //  qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__;
 
     strCmd = QString("hciconfig |grep hci0 | wc -l");
     strResult = executeLinuxCmd(strCmd);
@@ -292,7 +292,7 @@ QString bluetooth_test()
 
     strCmd = QString("hcitool scan | wc -l");
     strResult = executeLinuxCmd(strCmd);
-    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "ScanResult:" << strResult;
+  //  qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "ScanResult:" << strResult;
 
     if(strResult == QString("0\n"))
     {

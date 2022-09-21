@@ -36,6 +36,7 @@ signals:
     void wifi_activation_msg(QString);
     void hotspot_build_msg(QString,QString,QString);
     void scan_wlan();
+    void wifi_connect(QString,QString);
 
 private slots:
     void on_ReturnBtn_clicked();
@@ -71,6 +72,7 @@ private slots:
     void on_open_btn_clicked();
 
     void on_pushButton_clicked();
+    void changepass_fresh();
 
 private:
     Ui::wifi *ui;

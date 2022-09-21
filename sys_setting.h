@@ -23,6 +23,7 @@ public:
     explicit sys_setting(QWidget *parent = 0);
     ~sys_setting();
     void sys_font();
+    void closeEvent(QCloseEvent *event);
 
 private slots:
     void on_return_2_clicked();

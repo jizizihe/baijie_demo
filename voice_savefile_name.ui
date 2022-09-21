@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>540</width>
-    <height>333</height>
+    <width>557</width>
+    <height>344</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -36,9 +36,10 @@
   </property>
   <property name="styleSheet">
    <string notr="true">voice_savefile_name{
-  border-image: url(:/button_image/all/background.jpg);
+  background-image: url(:/button_image/all/background.jpg);
   border-style: outset;
   border-radius: 4px;
+  border:1px solid gray;
 }
 QMainWindow {border:1px solid gray;}
 /****************按钮部件*******************/
@@ -83,12 +84,15 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
  }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,2,1,2,1,2">
+   <layout class="QGridLayout" name="gridLayout" rowstretch="2,2,4,1,4,3,3">
     <property name="leftMargin">
      <number>0</number>
     </property>
     <property name="rightMargin">
      <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>15</number>
     </property>
     <item row="2" column="0">
      <widget class="QWidget" name="widget_4" native="true">
@@ -388,7 +392,10 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,12,1">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,15,1">
+       <property name="spacing">
+        <number>2</number>
+       </property>
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -441,14 +448,23 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>40</height>
+           <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
            <width>16777215</width>
-           <height>45</height>
+           <height>16777215</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">    border-style: outset; /*边框样式*/
+     border-width:  1px;  /*边框宽度为4像素*/
+     border-radius: 12px; /*边框圆角半径*/
+     border-color: rgba(0, 0, 0,130);/*边框颜色*/
+background-color:transparent;
+     padding: 6px; /*填衬*/
+	outline: none; /*去掉按钮的虚线框*/</string>
          </property>
         </widget>
        </item>

@@ -30,6 +30,7 @@ serial::serial(QWidget *parent) :
     Height = screen->size().height();
 
     m_portNameList = getPortNameList();
+    m_portNameList.removeAll("ttyS0");
     ui->SerialCb_1->addItems(m_portNameList);
     ui->SerialCb_2->addItems(m_portNameList);
     if(ui->SerialCb_2->count()>2)
@@ -48,8 +49,6 @@ serial::serial(QWidget *parent) :
    serial_font();  
    ui->stackedWidget->setCurrentIndex(0);
    ui->stackedWidget_2->setCurrentIndex(0);
-  // connect(&serialset_port1,SIGNAL(port1_re()),this,SLOT(port1_return()));
-  // connect(&serialset_port2,SIGNAL(port2_re()),this,SLOT(port2_return()));
 }
 
 serial::~serial()
@@ -75,6 +74,30 @@ void serial::serialport1_open()
     //对串口进行一些初始化
    if(flag_port1 == 0)
     {
+         QStringList list = database_w.table_show("serial_port");
+         if(!list.isEmpty())
+         {
+             for(int i=0;i<list.size();i++)
+             {
+                 QString str = list.at(i);
+                 if(str == port1)
+                 {
+                     QMessageBox mesg(QMessageBox::Information,
+                                      tr("QMessageBox::information()"),
+                                      tr("The serial is occupied!"),
+                                      0,this);
+                      mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
+                      mesg.setFocusPolicy(Qt::NoFocus);
+                      mesg.addButton(tr("OK"),QMessageBox::YesRole);
+                      if(screen_flag == 1)
+                      mesg.move(Width*2/3,Height/3);
+                      else
+                      mesg.move(Width/3,Height/3);
+                      mesg.exec();
+                      return;
+                 }
+             }
+         }
          PortA = new serial_thread(COM0,port1, baud1.toInt(),data1,stopbit1,&OpenFlag);
          if(OpenFlag == 1)
          {
@@ -90,6 +113,9 @@ void serial::serialport1_open()
               else
               mesg.move(Width/3,Height/3);
               mesg.exec();
+              ui->btn_open1->setText(tr("close"));
+              flag_port1 = 1;
+              database_w.insert_table1("serial_port",port1);
          }
          else
          {
@@ -112,11 +138,7 @@ void serial::serialport1_open()
         connect(this,SIGNAL(writePort_sig(int,QByteArray)),PortA,SLOT(write_data(int,QByteArray)));
         connect(this,SIGNAL(closePort_sig(int)),PortA,SLOT(closePort(int)));
         //关闭设置菜单使能
-//        ui->SerialCb->setEnabled(false);
 //        ui->BaudrateCb->setEnabled(false);
-        ui->btn_open1->setText(tr("close"));
-        flag_port1 = 1;
-        qDebug() << "open";
     }
 
 }
@@ -127,6 +149,30 @@ void serial::serialport2_open()
     //对串口进行一些初始化
     if(flag_port2 == 0)
     {
+        QStringList list = database_w.table_show("serial_port");
+        if(!list.isEmpty())
+        {
+            for(int i=0;i<list.size();i++)
+            {
+                QString str = list.at(i);
+                if(str == port2)
+                {
+                    QMessageBox mesg(QMessageBox::Information,
+                                     tr("QMessageBox::information()"),
+                                     tr("The serial is occupied!"),
+                                     0,this);
+                     mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
+                     mesg.setFocusPolicy(Qt::NoFocus);
+                     mesg.addButton(tr("OK"),QMessageBox::YesRole);
+                     if(screen_flag == 1)
+                     mesg.move(Width*2/3,Height/3);
+                     else
+                     mesg.move(Width/3,Height/3);
+                     mesg.exec();
+                     return;
+                }
+            }
+        }
         PortB = new serial_thread(COM1,port2,baud2.toInt(),data2,stopbit2,&OpenFlag);
 
         if(OpenFlag == 1)
@@ -143,6 +189,9 @@ void serial::serialport2_open()
             else
                 mesg.move(Width/3,Height/3);
             mesg.exec();
+            ui->btn_open2->setText(tr("close"));
+            flag_port2 = 1;
+            database_w.insert_table1("serial_port",port2);
         }
         else
         {
@@ -163,10 +212,6 @@ void serial::serialport2_open()
         connect(PortB,SIGNAL(receive_data(QString)),this,SLOT(on_showData1(QString)));//,Qt::QueuedConnection
         connect(this,SIGNAL(writePort_sig(int,QByteArray)),PortB,SLOT(write_data(int,QByteArray)));
         connect(this,SIGNAL(closePort_sig(int)),PortB,SLOT(closePort(int)));
-
-       //关闭设置菜单使能
-       ui->btn_open2->setText(tr("close"));
-       flag_port2 = 1;
     }
 
 }
@@ -239,92 +284,21 @@ void serial::on_retBtn_clicked()
 void serial::language_reload()
 {
     ui->retranslateUi(this);
-    serialset_port1.language_reload();
-    serialset_port2.language_reload();
+   // serialset_port1.language_reload();
+   // serialset_port2.language_reload();
 }
 
 void serial::on_part1_btn_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
     ui->stackedWidget_2->setCurrentIndex(0);
-//    if(flag_port1 == 0)
-//    {
-//        serialp1_show();
-//    }
-//    else
-//    {
-//        //关闭线程
-//        if(PortA!=nullptr)
-//        {
-//            emit closePort_sig(COM0);
-//        }
-//        //恢复设置菜单使能
-//        //        ui->SerialCb->setEnabled(true);
-//        //        ui->BaudrateCb->setEnabled(true);
-//        ui->part1_btn->setText(tr("open port1"));
-//        flag_port1 = 0;
-//    }
-
 }
 
 void serial::on_part2_btn_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
     ui->stackedWidget_3->setCurrentIndex(0);
-//    if(flag_port2 == 0)
-//    {
-//        serialp2_show();
-//    }
-//    else
-//    {
-//        //关闭线程
-//        if(PortB!=nullptr)
-//        {
-//           emit closePort_sig(COM1);
-//        }
-//        //恢复设置菜单使能
-//        ui->part2_btn->setEnabled(true);
-//        ui->part2_btn->setText(tr("open port2"));
-//        flag_port2 = 0;
-//    }
 }
-
-void serial::port1_return()
-{
-//    if(screen_flag == 1)
-//    {
-//      serialset_port1.hide();
-//      serialp1_view->hide();
-//      this->hide();
-//      this->show();
-//      this->activateWindow();this->setFocus();port1_show=0;
-//    }
-//    else
-//      serialset_port1.hide();
-//    if(serialset_port1.hide_flag == 1)
-//    {
-//       serialport1_open();
-//     }
-}
-
-void serial::port2_return()
-{
-//    if(screen_flag == 1)
-//    {
-//      serialset_port2.hide();
-//      serialp2_view->hide();
-//      this->hide();
-//      this->show();
-//      this->activateWindow();this->setFocus();port2_show=0;
-//    }
-//    else
-//        serialset_port2.hide();
-//    if(serialset_port2.hide_flag == 1)
-//    {
-//       serialport2_open();
-//    }
-}
-
 
 void serial::serial_font()
 {
@@ -382,6 +356,7 @@ void serial::serial_font()
     ui->btn_set1_2->setFont(font);
     ui->label_3->setFont(font);
     ui->label_4->setFont(font);
+    ui->label_5->setFont(font);
 }
 
 void serial::on_btn_set1_clicked()
@@ -401,17 +376,18 @@ void serial::on_btn_ok2_clicked()
     data2 = ui->DatabitsCb_2->currentText().toInt();
     stopbit2 = ui->StopbitCb_2->currentText();
 
-    QMessageBox mesg(QMessageBox::Information,
-                     tr("QMessageBox::information()"),
-                     tr("set successfully!"),
-                     0,this);
-     mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
-     mesg.setFocusPolicy(Qt::NoFocus);
-     mesg.addButton(tr("OK"),QMessageBox::YesRole);
-     if(screen_flag == 1)
-     mesg.move(Width*2/3,Height/3);
-     mesg.exec();
-    ui->stackedWidget_3->setCurrentIndex(0);
+//    QMessageBox mesg(QMessageBox::Information,
+//                     tr("QMessageBox::information()"),
+//                     tr("set successfully!"),
+//                     0,this);
+//     mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
+//     mesg.setFocusPolicy(Qt::NoFocus);
+//     mesg.addButton(tr("OK"),QMessageBox::YesRole);
+//     if(screen_flag == 1)
+//     mesg.move(Width*2/3,Height/3);
+//     mesg.exec();
+     serialport2_open();
+     ui->stackedWidget_3->setCurrentIndex(0);
 }
 
 void serial::on_btn_cancel2_clicked()
@@ -425,17 +401,18 @@ void serial::on_btn_ok1_clicked()
     baud1 = ui->BaudrateCb_1->currentText();
     data1 = ui->DatabitsCb_1->currentText().toInt();
     stopbit1 = ui->StopbitCb_1->currentText();
-    QMessageBox mesg(QMessageBox::Information,
-                     tr("QMessageBox::information()"),
-                     tr("set successfully!"),
-                     0,this);
-     mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
-     mesg.setFocusPolicy(Qt::NoFocus);
-     mesg.addButton(tr("OK"),QMessageBox::YesRole);
-     if(screen_flag == 1)
-     mesg.move(Width*2/3,Height/3);
-     mesg.exec();
-   ui->stackedWidget_2->setCurrentIndex(0);
+//    QMessageBox mesg(QMessageBox::Information,
+//                     tr("QMessageBox::information()"),
+//                     tr("set successfully!"),
+//                     0,this);
+//     mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
+//     mesg.setFocusPolicy(Qt::NoFocus);
+//     mesg.addButton(tr("OK"),QMessageBox::YesRole);
+//     if(screen_flag == 1)
+//     mesg.move(Width*2/3,Height/3);
+//     mesg.exec();
+     serialport1_open();
+     ui->stackedWidget_2->setCurrentIndex(0);
 }
 
 void serial::on_btn_cancel1_clicked()
@@ -475,6 +452,7 @@ void serial::on_btn_open1_clicked()
         //        ui->BaudrateCb->setEnabled(true);
         ui->btn_open1->setText(tr("open"));
         flag_port1 = 0;
+        database_w.delete_record_by_name("serial_port",port1);
     }
 }
 
@@ -509,6 +487,7 @@ void serial::on_btn_open2_clicked()
         //ui->part2_btn->setEnabled(true);
         ui->btn_open2->setText(tr("open"));
         flag_port2 = 0;
+        database_w.delete_record_by_name("serial_port",port2);
     }
 }
 

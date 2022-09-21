@@ -29,20 +29,23 @@ public:
     QString GetPasswdText();
 
     QString GetWifiOkBtnText();
-    void SetWifiOkBtnText(QString);
+    void SetWifiOkBtnText(int);
     void wifidial_font();
 
 signals:
     void wifi_connect_dialog_signal(QString,QString);
     void wifi_info_fresh_msg(QString);
     void wifidial_close();
+    void wifi_showrefresh();
+    void wifi_modify_pass(QString,QString);
 
 private slots:
     void on_WifiOkBtn_clicked();
-
     void on_WifiCancelBtn_clicked();
-
     void wifi_wait_end_func();
+
+public slots:
+    void wifi_modifypass(bool);
 
 private:
     Ui::WifiConDialog *ui;

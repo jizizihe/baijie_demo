@@ -238,7 +238,6 @@ bool gpio::istrueport(QString str,int i)
         {
             return false;
         }
-
     }
     else
     {
@@ -347,10 +346,9 @@ void gpio::gpio_font()
     ui->label->setFont(font);
     ui->lineedit1_1->setFont(font);
     ui->display->setFont(font);
-    ui->label_2->setFont(font);
-    //ui->label_3->setFont(font);
+    //ui->label_2->setFont(font);
+    ui->label_3->setFont(font);
     ui->label_4->setFont(font);
-    ui->label_5->setFont(font);
 }
 
 void gpio::on_pushButton_clicked()
@@ -490,38 +488,7 @@ void gpio::BtnChange_flag2(bool flag)
 //    {
 //        gpio_set_state(port_num[i], (char *)"out");
 //        portnum_cal(port_num[i],portnum[i]);
-//        ui->display->setAlignment(Qt::AlignCenter);
-
-//        ui->display->append(QString(tr("  gpio_port: %1")).arg(portnum[i]));
-
-//        ui->display->append(QString(tr("  state: %1")).arg(tr("out")));
-//        flag = ui->value_Switch->isToggled();
-//        if(flag == 1)
-//        {
-//            gpio_set_value(port_num[i], 1);
-//            ui->display->append(QString(tr("  value: %1")).arg(tr("high")));
-//        }
-//        else
-//        {
-//            gpio_set_value(port_num[i], 0);
-//            ui->display->append(QString(tr("  value: %1")).arg(tr("low")));
-//        }
-//    }
-//    }
-//    else
-//    {
-//        for(int i = count;i < num;i++)
-//        {
-//            gpio_set_state(port_num[i], (char *)"in");
-//            ui->display->setAlignment(Qt::AlignCenter);
-//            ui->display->setAlignment(Qt::AlignCenter);
-//            ui->display->append(QString(tr("\n")));
-//            ui->display->append(QString(tr("  gpio_port: %1")).arg(portnum[i]));
-//            ui->display->append(QString(tr("  state: %1")).arg(tr("in")));
-//            ui->display->append(QString(tr("  value: %1")).arg((gpio_get_value(port_num[i]))));
-//        }
-//    }
-//}
+//        ui->display->setA
 
 void gpio::settext_statusbtn(int flag)
 {
@@ -532,11 +499,15 @@ void gpio::settext_statusbtn(int flag)
         QHBoxLayout *horLayout = new QHBoxLayout();
         if(flag == 0)
         {
-            nameLabel2->setText("in ");
+            nameLabel2->setText("direction: in   ");
+            horLayout->setStretchFactor(nameLabel1,1);
+            horLayout->setStretchFactor(nameLabel2,2);
         }
         else if(flag == 1)
         {
-            nameLabel1->setText(" out");
+            nameLabel1->setText("   direction: out");
+            horLayout->setStretchFactor(nameLabel1,2);
+            horLayout->setStretchFactor(nameLabel2,1);
         }
 
         nameLabel2->setAlignment(Qt::AlignVCenter);
@@ -545,23 +516,27 @@ void gpio::settext_statusbtn(int flag)
         nameLabel1->setAlignment(Qt::AlignRight);
         horLayout->addWidget(nameLabel1);
         horLayout->addWidget(nameLabel2);
-        horLayout->setStretchFactor(nameLabel1,1);
-        horLayout->setStretchFactor(nameLabel2,1);        
+//        horLayout->setStretchFactor(nameLabel1,1);
+//        horLayout->setStretchFactor(nameLabel2,1);
         ui->status_Switch->setLayout(horLayout);
-        horLayout->setContentsMargins(0,4,0,0);
+        horLayout->setContentsMargins(0,10,0,0);
         status_flag++;
     }
     else
     {
         if(flag == 1)
         {
-            nameLabel1->setText(" out");
+            nameLabel1->setText("  direction: out");
             nameLabel2->setText("");
+            horLayout->setStretchFactor(nameLabel1,2);
+            horLayout->setStretchFactor(nameLabel2,1);
         }
         else
         {
             nameLabel1->setText("");
-            nameLabel2->setText("in ");
+            nameLabel2->setText("direction: in  ");
+            horLayout->setStretchFactor(nameLabel1,1);
+            horLayout->setStretchFactor(nameLabel2,2);
         }
     }
 }
@@ -575,7 +550,7 @@ void gpio::settext_valuebtn(int flag)
         horLayout = new QHBoxLayout();
         if(flag == 0)
         {
-            nameLabel4->setText("low");
+            nameLabel4->setText("value: low");
             nameLabel3->setText(" ");
             horLayout->addWidget(nameLabel3);
             horLayout->addWidget(nameLabel4);
@@ -584,12 +559,11 @@ void gpio::settext_valuebtn(int flag)
         }
         else if(flag == 1)
         {
-
             horLayout->setContentsMargins(0,5,0,0);
             horLayout->addWidget(nameLabel3);
             horLayout->addWidget(nameLabel4);
             nameLabel4->setText(" ");
-            nameLabel3->setText(" high");
+            nameLabel3->setText(" value: high");
             horLayout->setStretchFactor(nameLabel4,1);
             horLayout->setStretchFactor(nameLabel3,2);
         }
@@ -605,7 +579,7 @@ void gpio::settext_valuebtn(int flag)
     {
         if(flag == 0)
         {
-            nameLabel4->setText("low");
+            nameLabel4->setText("value: low");
             nameLabel3->setText(" ");
             horLayout->setContentsMargins(0,0,0,1);
             horLayout->setStretchFactor(nameLabel4,2);
@@ -614,7 +588,7 @@ void gpio::settext_valuebtn(int flag)
         else
         {
             nameLabel4->setText(" ");
-            nameLabel3->setText(" high");
+            nameLabel3->setText(" value:  high");
             horLayout->setContentsMargins(0,5,0,0);
             horLayout->setStretchFactor(nameLabel4,1);
             horLayout->setStretchFactor(nameLabel3,2);

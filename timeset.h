@@ -26,6 +26,7 @@ public:
 
     void language_reload();
     void timeset_font();
+    void showEvent(QShowEvent *event);
 
 signals:
     void Mysignal();

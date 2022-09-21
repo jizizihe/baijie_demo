@@ -66,16 +66,6 @@ void voice_rename::rename_chang(QString filename,QString filepath)
 
 void voice_rename::on_btn_cel_clicked()
 {
-//    QMessageBox mesg(QMessageBox::Information,
-//                     tr("QMessageBox::information()"),
-//                     tr("Rename failed!"),
-//                     0,this);
-//    mesg.addButton(tr("OK"),QMessageBox::YesRole);
-//    if(screen_flag == 1)
-//    mesg.move(s_width*2/3,s_height/3);
-//    else
-//    mesg.move(s_width/3,s_height/3);
-//    mesg.exec();
     emit rename_back();
 }
 void voice_rename::language_reload()

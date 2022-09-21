@@ -157,3 +157,13 @@ FORMS += \
 
 RESOURCES += \
     translation.qrc
+
+DISTFILES += \
+    button_image/all/home.jpg \
+    button_image/all/home.jpg \
+    button_image/all/back1.jpg \
+    button_image/disconnect.svg \
+    button_image/connect.svg \
+    button_image/light.svg \
+    button_image/voice/stop.png \
+    button_image/voice/stop.png

@@ -26,13 +26,11 @@
 #include <pthread.h>
 #include<iostream>
 
-#include <serial_set.h>
-#include <serial_set_port2.h>
-
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsProxyWidget>
 #include <QScreen>
+#include "database.h"
 
 #define SerialNumMax 10
 
@@ -80,8 +78,6 @@ private slots:
     void on_part1_btn_clicked();
 
     void on_part2_btn_clicked();
-    void port1_return();
-    void port2_return();
 
     void on_btn_set1_clicked();
 
@@ -109,8 +105,8 @@ private:
     serial_thread *PortA;
     serial_thread *PortB;
     QStringList m_portNameList;
-    serial_set serialset_port1;
-    serial_set_port2 serialset_port2;
+    database database_w;
+
 };
 
 #endif // SERIAL_H

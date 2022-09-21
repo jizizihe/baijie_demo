@@ -14,7 +14,7 @@ all_test_thread::~all_test_thread()
     {
         serialTimer->stop();
     }
-    qDebug() << __LINE__ << "------------ Thread destructor -------------"<<endl;
+    //qDebug() << __LINE__ << "------------ Thread destructor -------------"<<endl;
 }
 
 void all_test_thread::network_test_thread()
@@ -230,14 +230,14 @@ void all_test_thread::serialTimer_func()
 //        qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
         write(fd,checkStr,sizeof(checkName));
         recvStr = checkStr;
-        qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "write" << recvStr ;
+       // qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "write" << recvStr ;
         usleep(100000);
         rc = read(fd, buf,sizeof(buf));
         if(rc>0)
-        {qDebug()<< 1;
+        {
             if(!strcasecmp(checkStr,buf))
             {
-                qDebug() << "Line:" << __LINE__<< "-------ok:";
+                //qDebug() << "Line:" << __LINE__<< "-------ok:";
                 retResult = QString("---serial test: %1 OK").arg(checkName);
                 emit send_test_msg(serial_signal,retResult);
 //                emit serial_test_msg(retResult);

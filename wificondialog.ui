@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>532</width>
-    <height>329</height>
+    <width>502</width>
+    <height>366</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -186,7 +186,10 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
       </spacer>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="2,3,2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -220,12 +223,22 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="2,3,2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
        <property name="rightMargin">
         <number>0</number>
        </property>
        <item>
-        <widget class="QLineEdit" name="NamelineEdit"/>
+        <widget class="QLineEdit" name="NamelineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
        </item>
        <item>
         <spacer name="verticalSpacer_3">
@@ -241,7 +254,14 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
         </spacer>
        </item>
        <item>
-        <widget class="QLineEdit" name="PasswdlineEdit"/>
+        <widget class="QLineEdit" name="PasswdlineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>

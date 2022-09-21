@@ -33,6 +33,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    database database_w;
     voice voice_w;
     udev udev_w;
     gpio gpio_w;
@@ -46,7 +47,6 @@ public:
     sys_setting system_w;
     QSettings *setting;
     sim_module sim_module_w;
-    database database_w;
 
     void config_file();
     void view();
@@ -59,7 +59,7 @@ public:
     void wifi_show();
     void ipset_show();
     void serial_show();
-
+    void system_show();
     void closeEvent(QCloseEvent *event);
 
 private:

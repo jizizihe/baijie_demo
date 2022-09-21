@@ -88,7 +88,7 @@ QString timeset::SystimeSet(QString  datetext)
       process.waitForFinished();
 
       strCmd = QString("echo $?").arg(datetext);
-      qDebug() << "text == " << strCmd;
+      //qDebug() << "text == " << strCmd;
       process.start("bash", QStringList() <<"-c" << strCmd);
       process.waitForFinished();
 
@@ -100,17 +100,17 @@ QString timeset::SystimeSet(QString  datetext)
 void timeset::SystimeSetBt_clicked()
 {
       QString  datetext = ui->datetime->text();
-      qDebug() << "text === " << datetext;
+     // qDebug() << "text === " << datetext;
 
       QString ret = SystimeSet(datetext);
       if(ret == "0\n")
       {
-          qDebug() << "Systime set ok!";
+     //     qDebug() << "Systime set ok!";
           QMessageBox::information(this,"information",tr("Systime set ok!"));
       }
       else
       {
-          qDebug() << "Systime set failed!";
+          //qDebug() << "Systime set failed!";
           QMessageBox::critical(this,"information",tr("Systime set failed!"));
       }
 }
@@ -120,13 +120,13 @@ QString timeset::RTCSet(QString  datetext)
 {
     //  QString text = "\"2021-09-23 18:30:50\"";
     QString strCmd = QString("hwclock -w");
-    qDebug() << "text == " << strCmd;
+ //   qDebug() << "text == " << strCmd;
     QProcess process;
     process.start("bash", QStringList() <<"-c" << strCmd);
     process.waitForFinished();
 
     strCmd = QString("echo $?").arg(datetext);
-    qDebug() << "text == " << strCmd;
+  //  qDebug() << "text == " << strCmd;
     process.start("bash", QStringList() <<"-c" << strCmd);
     process.waitForFinished();
 
@@ -136,10 +136,15 @@ QString timeset::RTCSet(QString  datetext)
     return strResult;
 }
 
+void timeset::showEvent(QShowEvent *event)
+{
+    ui->datetime->setFocus();
+}
+
 void timeset::RTCSetBt_clicked()
 {
     QString  datetext = ui->datetime->text();
-    qDebug() << "text === " << datetext;
+   // qDebug() << "text === " << datetext;
 
     QString ret = RTCSet(datetext);
     if(ret == "0\n")
@@ -205,4 +210,5 @@ void timeset::timeset_font()
         ui->SystimepLabel->setFont(font);
         ui->SystimeReadLabel->setFont(font);
         ui->SystimeSetBt->setFont(font);
+        ui->label->setFont(font);
 }

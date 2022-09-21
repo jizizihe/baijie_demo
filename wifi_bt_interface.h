@@ -40,6 +40,7 @@ enum signal_type
     sim_delete_signal = 13,
     sim_connect_signal = 14,
     sim_status_signal = 15,
+    sim_4gstatus_signal = 16,
 };
 
 typedef struct WIFI_INFO
@@ -62,11 +63,11 @@ public:
     QString executeLinuxCmd(QString strCmd);
     QString executeLinuxCmd_bluetooth(QString strCmd);
     QString executeLinuxCmd_bluetooth_connect(QString strCmd);
-    bool wifi_passwd_write(QString WifiSsid,QString PassWd);
-    QString wifi_passwd_read(QString WifiSsid);
+    //bool wifi_passwd_write(QString WifiSsid,QString PassWd);
+   // QString wifi_passwd_read(QString WifiSsid);
 
-    void wifi_passwd_delete(QString info);
-    void wifi_passwd_change(QString WifiSsid,QString PassWd);
+    //void wifi_passwd_delete(QString info);
+   // void wifi_passwd_change(QString WifiSsid,QString PassWd);
 
     bool get_wifiopenorno();
     QString wifi_enable(bool flag);
@@ -86,9 +87,10 @@ public:
     bool hotspot_sql();
 
     QString sim_disconnect();
-    QString sim_activation();
+    void sim_activation(int);
     QString sim_connect();
     QString sim_status();
+    QString sim_4gstatus();
 
     QString bluetooth_scan();
     QString bluetooth_pair(QString BtAddress);

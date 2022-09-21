@@ -31,11 +31,11 @@ char * keytest_scan(char* keypath)
         bzero(buf,sizeof(buf));
         read(fd,buf,sizeof(buf));
         QString str1 = QString(buf);
-        qDebug() << "buf" <<str1;
+        //qDebug() << "buf" <<str1;
         bzero(path,sizeof(path));
         snprintf(path,sizeof(path),"%s\n",keypath);
         QString str2 = QString(path);
-        qDebug() << "path" <<str2;
+        //qDebug() << "path" <<str2;
         if(strcmp(buf,path) == 0)
         {
             snprintf(path,sizeof(path),"/dev/input/event%d",i);
@@ -45,7 +45,7 @@ char * keytest_scan(char* keypath)
         close(fd);
     }
     QString str = QString(path);
-    qDebug() << path;
+    //qDebug() << path;
     return NULL;
 }
 

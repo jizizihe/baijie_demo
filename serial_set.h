@@ -19,13 +19,9 @@ public:
     ~serial_set();
     QStringList getPortNameList();
      void language_reload();
-     void serial_set_font();
      int hide_flag;
 
 private slots:
-    void on_OpenBtn_clicked();
-
-    void on_SendBtn_clicked();
 
 signals:
     void port1_set(QString,QString,int,QString);

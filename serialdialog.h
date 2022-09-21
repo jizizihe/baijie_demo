@@ -9,6 +9,8 @@
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QDebug>
+#include <QMessageBox>
+#include "database.h"
 
 typedef struct SERIALCONFIG
 {
@@ -62,7 +64,7 @@ private slots:
 private:
 
     serial_config serialConfig;
-
+    database database_w;
 };
 
 #endif // SERIALDIALOG_H

@@ -14,10 +14,8 @@ MySlider::~MySlider()
 
 }
 
-
 void MySlider::mousePressEvent(QMouseEvent *event)
 {
-
     QSlider::mousePressEvent(event);
     m_isMoving = false;
     m_mousePress = true;
@@ -36,8 +34,6 @@ void MySlider::mousePressEvent(QMouseEvent *event)
     //emit sliderMoved( m_value );
     //向父窗口发送自定义事件event type，这样就可以在父窗口中捕获这个事件进行处理
     QEvent evEvent(static_cast<QEvent::Type>(QEvent::User + 1));
-
-
 }
 
 void MySlider::mouseMoveEvent(QMouseEvent *event)
@@ -66,7 +62,6 @@ void MySlider::mouseMoveEvent(QMouseEvent *event)
 
 void MySlider::mouseReleaseEvent(QMouseEvent *event)
 {
-
     QSlider::mouseReleaseEvent(event);
     m_mousePress = false;
     m_isMoving=false;

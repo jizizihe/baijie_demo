@@ -141,6 +141,42 @@ void serialdialog::on_serialModeBox_currentIndexChanged(const QString &arg1)
 void serialdialog::on_serialOkBtn_clicked()
 {
     getSerialCheckedName();
+    QString str = QString(serialConfig.checkedName);
+    QStringList list_test = str.split(",");list_test.removeAll("");
+    QStringList list = database_w.table_show("serial_port");str.clear();
+    if(!list.isEmpty())
+    {
+        for(int i=0;i<list.size();i++)
+        {
+            QString str1 = list.at(i);
+            for(int j=0;j<list_test.size();j++)
+            {
+                QString str2 = list_test.at(j);
+                if(str1 == str2)
+                {
+                    str = QString("%1,%2").arg(str).arg(str1);
+                }
+            }
+        }
+        if(!str.isEmpty())
+        {
+            str.remove(0,1);
+            str = QString("The %1 is occupied!").arg(str);
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr(str.toUtf8()),
+                             0,this);
+            mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
+            mesg.setFocusPolicy(Qt::NoFocus);
+            mesg.addButton(tr("OK"),QMessageBox::YesRole);
+            if(screen_flag == 1)
+                mesg.move(s_width*2/3,s_height/3);
+            else
+                mesg.move(s_width/3,s_height/3);
+            mesg.exec();
+            return;
+        }
+    }
     emit serial_config_msg(serialConfig);
     this->close();
 }

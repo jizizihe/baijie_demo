@@ -13,7 +13,7 @@
 
 QString getipconfig();
 QString getallip();
-bool add_static_ip(QString netname,QString ipaddr);
+bool add_static_ip(QString netname,QString ipaddr,QString mask,QString gate);
 bool modify_static_ip(QString ipaddr);
 bool delete_static_ip();
 bool automatically_get_ip();

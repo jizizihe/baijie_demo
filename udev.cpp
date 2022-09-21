@@ -119,7 +119,7 @@ void udev::on_umount_clicked()  //安全退出
         mesg.exec();
         return;
     }
-    QString path = ui->label->text();qDebug() << path;
+    QString path = ui->label->text();//qDebug() << path;
     if((!QString::compare(QString(path),QString("/media/udisk/"),Qt::CaseSensitive)) || (!QString::compare(QString(path),QString("/media/sdcard/"),Qt::CaseSensitive)))
     {
 
@@ -130,50 +130,50 @@ void udev::on_umount_clicked()  //安全退出
         QString out = proc->readAllStandardOutput();
         QStringList list = out.split("\n");
         list.removeAll("");
-        qDebug() << list;
+        //qDebug() << list;
 
         QString umount_file;
-        for(int i = 0; i< list_filecheck.size();++i)
+        for(int i = 0; i< list_filecheck.size();i++)
         {
-            for(int j;j<list.size();++j)
+            QString dev = QString(list_filecheck.at(i));
+            dev.remove(dev.length()-1,dev.length()-2);
+            dev = QString("/dev/%1").arg(dev);
+            for(int j=0;j<list.size();j++)
             {
-                QString dev = QString(list_filecheck.at(i));
-                dev.remove(dev.length()-1,dev.length()-2);
-                dev = QString("/dev/%1").arg(dev);qDebug() << dev;
-
                 if(dev == list.at(j))
                 {
                     flag = 1;
                     str = list_filecheck.at(i);
+                    umount_file = QString("%1%2%3 ").arg(umount_file).arg("/dev/").arg(str);
                 }
             }
-            if(flag == 1)
-            {
-                qDebug() << str;
-                umount_file = QString("%1%2%3 ").arg(umount_file).arg("/dev/").arg(str);
-            }
-            else
-            {
-                QMessageBox mesg(QMessageBox::Information,
-                                 tr("QMessageBox::information()"),
-                                 tr("It is umount!"),
-                                 0,this);
-                mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                if(screen_flag == 1)
-                    mesg.move(s_width*2/3,s_height/3);
-                else
-                    mesg.move(s_width/3,s_height/3);
-                mesg.exec();
-                return;
-            }
-        }
 
-        umount_file = QString("umount %1 \n").arg(umount_file);
-        qDebug() << umount_file;
+        }
+        if(flag == 1)
+        {
+          //  umount_file = QString("%1%2%3 ").arg(umount_file).arg("/dev/").arg(str);
+        }
+        else
+        {
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("It is safe exit!"),
+                             0,this);
+            mesg.addButton(tr("OK"),QMessageBox::YesRole);
+            if(screen_flag == 1)
+                mesg.move(s_width*2/3,s_height/3);
+            else
+                mesg.move(s_width/3,s_height/3);
+            mesg.exec();
+            return;
+        }
+        pro_path.write("sync\n");
+        pro_path.write("sync\n");
+        umount_file = QString("umount %1 \n").arg(umount_file);qDebug() << umount_file;
         pro_path.write(umount_file.toUtf8());
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),
-                         tr("umount successful!"),
+                         tr("safe exit successful!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
         if(screen_flag == 1)
@@ -182,7 +182,7 @@ void udev::on_umount_clicked()  //安全退出
             mesg.move(s_width/3,s_height/3);
         mesg.exec();
         list_filecheck.clear();
-        file_reflesh(ui->label->text());
+        file_reflesh(path);
     }
     else
     {
@@ -204,19 +204,7 @@ void udev::on_cp_clicked()
 {
     if(cp_ct_flag == 2)
     {
-        QMessageBox mesg(QMessageBox::Information,
-                         tr("QMessageBox::information()"),
-                         tr("The current state is cut!"),
-                         0,this);
-        mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screen_flag == 1)
-        mesg.move(s_width*2/3,s_height/3);
-        else
-        mesg.move(s_width/3,s_height/3);
-        mesg.exec();
-        QThread::sleep(1);
-        mesg.close();
-        return;
+         ct_file.clear();
     }
     int flag;
     if(list_filecheck.isEmpty())
@@ -238,7 +226,7 @@ void udev::on_cp_clicked()
       //  mesg.close();
         return;
     }
-    cp_ct_flag = 1;
+    cp_ct_flag = 1;cp_file.clear();
     QString path = ui->label->text();
     for(int i = 0; i< list_filecheck.size();++i)
     {
@@ -271,24 +259,14 @@ void udev::on_cp_clicked()
         mesg.move(s_width/3,s_height/3);
     mesg.exec();
     list_filecheck.clear();
-    file_reflesh("/");
+   // file_reflesh("/");
 }
 
 void udev::on_cut_clicked()
 {
      if(cp_ct_flag == 1)
      {
-         QMessageBox mesg(QMessageBox::Information,
-                          tr("QMessageBox::information()"),
-                          tr("The current state is copy!"),
-                          0,this);
-         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-         if(screen_flag == 1)
-         mesg.move(s_width*2/3,s_height/3);
-         else
-         mesg.move(s_width/3,s_height/3);
-         mesg.exec();
-         return;
+         cp_file.clear();
      }
      if(list_filecheck.isEmpty())
      {
@@ -304,12 +282,12 @@ void udev::on_cut_clicked()
          mesg.exec();
          return;
      }
-     cp_ct_flag = 2;
+     cp_ct_flag = 2;ct_file.clear();
      QString path = ui->label->text();
      for(int i = 0; i< list_filecheck.size();++i)
      {
-         QString str = list_filecheck.at(i); qDebug() << str;
-         ct_file = QString("%1%2%3 ").arg(cp_file).arg(path).arg(str);
+         QString str = list_filecheck.at(i); //qDebug() << str;
+         ct_file = QString("%1%2%3 ").arg(ct_file).arg(path).arg(str);
      }
 
      ct_file = QString("mv %1 ").arg(ct_file);
@@ -325,7 +303,7 @@ void udev::on_cut_clicked()
          mesg.move(s_width/3,s_height/3);
      mesg.exec();
      list_filecheck.clear();
-     file_reflesh("/");
+   //  file_reflesh("/");
 }
 
 void udev::on_del_clicked()
@@ -490,6 +468,7 @@ void udev::udev_font()
    ui->umount->setFont(font);
    ui->btn_paste->setFont(font);
    ui->btn_mount->setFont(font);
+   ui->label_3->setFont(font);
 }
 
 void udev::readBashStandardOutputInfo()
@@ -546,7 +525,20 @@ void udev::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 {
     if(Qt::Checked==item->checkState(0))
     {
-     list_filecheck << item->text(column);
+        if(!list_filecheck.isEmpty())
+        {
+            for(int i = 0;i<list_filecheck.size();i++)
+            {
+                if(item->text(column)==list_filecheck.at(i))
+                {
+                    return;
+                }
+            }
+            list_filecheck << item->text(column);
+        }
+
+        else
+            list_filecheck << item->text(column);
     }
 }
 
@@ -585,7 +577,7 @@ void udev::on_btn_paste_clicked()
    {
        QString str = QString("%1%2 \n").arg(cp_file).arg(path);
        pro_path.write(str.toUtf8());
-       qDebug() << str;
+       //qDebug() << str;
        QMessageBox mesg(QMessageBox::Information,
                         tr("QMessageBox::information()"),
                         tr("Paste complete!"),
@@ -632,8 +624,9 @@ void udev::on_treeWidget_itemPressed(QTreeWidgetItem *item, int column)
         pro_path.write(s.toUtf8());
         pro_path.write("ls -ap \n");
         ui->label->setText(path);
+        list_filecheck.clear();
     }
-    list_filecheck.clear();
+
 }
 
 void udev::file_reflesh(QString p)
@@ -679,8 +672,28 @@ void udev::on_btn_mount_clicked()
     }
     else
     {
-        QString open_mount = "/media/";
-        file_path = QString("%1").arg(open_mount);
+        QString path;
+        QDir dir;
+        dir.setPath("/media/udisk");
+        dir.setFilter(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
+        QFileInfoList list = dir.entryInfoList();
+        if (list.count() > 0)
+        {
+             path = "/media/udisk/";
+        }
+        dir.setPath("/media/sdcard");
+        dir.setFilter(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
+        list = dir.entryInfoList();
+        if (list.count() > 0)
+        {
+            if(path.isEmpty())
+            {
+              path = "/media/sdcard/";
+            }
+            else
+             path = "/media/";
+        }
+        file_path = QString("%1").arg(path);
         ui->label->setText(file_path);
         file_reflesh(file_path);
     }

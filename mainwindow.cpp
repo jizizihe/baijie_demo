@@ -17,7 +17,6 @@ static int bluetooth_flag = 0;
 static int serial_flag = 0;
 static int sim_module_flag = 0;
 static int sys_flag = 0;
-static int wifi_showf = 0;
 
 QGraphicsView *voice_view;
 QGraphicsView *udev_view;
@@ -64,8 +63,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&system_w,SIGNAL(main_cn()),this,SLOT(cn_main()));
     connect(&sim_module_w,SIGNAL(Mysignal()),this,SLOT(sim_module_back()));
 
-    database_w.create_connection();
-    database_w.create_table();
+//    database_w.create_connection();
+//    database_w.create_table();
 }
 
 MainWindow::~MainWindow()
@@ -154,12 +153,12 @@ void MainWindow::on_touchca_clicked()
 
 void MainWindow::on_wifi_clicked()
 {
-    if(wifi_showf == 0)
-    {
-        emit wifi_status_msg();
-        wifi_w.hotspot_sql();
-        wifi_showf++;
-    }
+//    if(wifi_showf == 0)
+//    {
+
+//       emit wifi_status_msg();
+//        wifi_showf++;
+//    }
     this->close();
     wifi_show();
 }
@@ -176,7 +175,7 @@ void MainWindow::cn_main()
     {
         qApp->removeTranslator(translator);
         delete translator;
-        translator = NULL;        
+        translator = NULL;
     }
     else
     {
@@ -197,6 +196,8 @@ void MainWindow::cn_main()
     all_w.language_reload();
     serial_w.language_reload();
     sim_module_w.language_reload();
+    emit wifi_status_msg();
+    wifi_w.hotspot_sql();
 }
 
 void MainWindow::on_bluetooth_clicked()
@@ -258,7 +259,6 @@ void MainWindow::on_alltest_clicked()
             w->setRotation(90);
 
             all_view = new QGraphicsView(scene);
-
             all_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
             all_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
             all_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -291,42 +291,7 @@ void MainWindow::on_serialport_clicked()
 void MainWindow::on_system_clicked()
 {
     this->hide();
-    if(screen_flag == 0)
-    {
-        system_w.resize(Width,Height);
-        system_w.show();
-        system_w.activateWindow();system_w.setFocus();
-    }
-    else
-    {
-        if(sys_flag == 0)
-        {
-            QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&system_w);
-            w->setRotation(90);
-
-            system_view = new QGraphicsView(scene);
-
-            system_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
-            system_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            system_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-            system_view->resize(Width,Height);
-            system_w.resize(Height,Width);
-            system_w.show();
-            system_view->show();
-            system_view->activateWindow();system_view->setFocus();
-            system_w.activateWindow();system_w.setFocus();
-            sys_flag++;
-        }
-        else
-        {
-            system_w.show();
-            system_view->show();
-            system_view->activateWindow();system_view->setFocus();
-            system_w.activateWindow();system_w.setFocus();
-        }
-    }
+    system_show();
 }
 
 void MainWindow::on_sim_module_clicked()
@@ -481,7 +446,7 @@ void MainWindow::sys_back()
     {
       system_view->hide();
     }
-    system_w.hide();   
+    system_w.close();
     this->show();
     this->activateWindow();this->setFocus();
 }
@@ -497,14 +462,20 @@ void MainWindow::main_font()
     {
         if(realHeight < 15)
         {
+            font.setPointSize(13);
+            ui->label->setFont(font);
             font.setPointSize(12);
         }
         else if (realHeight < 17)
         {
+            font.setPointSize(16);
+            ui->label->setFont(font);
             font.setPointSize(15);
         }
         else
         {
+            font.setPointSize(19);
+            ui->label->setFont(font);
             font.setPointSize(18);
         }
     }
@@ -512,14 +483,20 @@ void MainWindow::main_font()
     {
         if(realWidth < 15)
         {
+            font.setPointSize(13);
+            ui->label->setFont(font);
             font.setPointSize(12);
         }
         else if (realWidth < 17)
         {
+            font.setPointSize(16);
+            ui->label->setFont(font);
             font.setPointSize(15);
         }
         else
         {
+            font.setPointSize(19);
+            ui->label->setFont(font);
             font.setPointSize(18);
         }
     }
@@ -702,6 +679,45 @@ void MainWindow::gpio_show()
     }
 }
 
+void MainWindow::system_show()
+{
+    if(screen_flag == 0)
+    {
+        system_w.resize(Width,Height);
+        system_w.show();
+        system_w.activateWindow();system_w.setFocus();
+    }
+    else
+    {
+        if(sys_flag == 0)
+        {
+            QGraphicsScene *scene = new QGraphicsScene;
+            QGraphicsProxyWidget *w = scene->addWidget(&system_w);
+            w->setRotation(90);
+
+            system_view = new QGraphicsView(scene);
+            system_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
+            system_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            system_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+            system_view->resize(Width,Height);
+            system_w.resize(Height,Width);
+            system_w.show();
+            system_view->show();
+            system_view->activateWindow();system_view->setFocus();
+            system_w.activateWindow();system_w.setFocus();
+            sys_flag++;
+        }
+        else
+        {
+            system_w.show();
+            system_view->show();
+            system_view->activateWindow();system_view->setFocus();
+            system_w.activateWindow();system_w.setFocus();
+        }
+    }
+}
+
 void MainWindow::wifi_show()
 {
     if(screen_flag == 0)
@@ -751,6 +767,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
         ipset_show();eth0_back();
         gpio_show();gpio_back();
         voice_show();voice_back();
+        system_show();sys_back();
         show_num++;
     }
     QWidget::closeEvent(event);

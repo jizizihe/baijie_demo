@@ -1,4 +1,4 @@
-#ifndef ALL_TEST_H
+﻿#ifndef ALL_TEST_H
 #define ALL_TEST_H
 
 #include <QMainWindow>
@@ -6,6 +6,7 @@
 #include "gpio_interface.h"
 #include "serialdialog.h"
 #include "ui_serialdialog.h"
+#include "database.h"
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
 #include <QThread>
@@ -118,7 +119,7 @@ private:
     QTimer * serialStopTimer;
     int testItemsCount = 0;
     QList<QAbstractButton*> CheckedBtnList;
-
+    database database_w;
 };
 
 #endif // ALL_TEST_H

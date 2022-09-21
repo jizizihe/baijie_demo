@@ -7,14 +7,14 @@
 SwitchControl::SwitchControl(QWidget *parent)
     : QWidget(parent),
       m_bChecked(true),
-    //  m_background(Qt::black),
       m_background(98, 200, 182,180),
       m_checkedColor(0, 160, 230),
-      m_disabledColor(190, 190, 190),
+     // m_disabledColor(190, 190, 190),
+      m_disabledColor(98, 200, 182,100),
     //  m_thumbColor(Qt::white),
       m_thumbColor(98, 200, 182,255),
       m_radius(20.0),
-      m_nHeight(43),
+      m_nHeight(46),
       m_nMargin(4)
 {
     // 鼠标滑过光标形状 - 手型
@@ -23,7 +23,6 @@ SwitchControl::SwitchControl(QWidget *parent)
     m_bChecked = true;
     // 连接信号槽
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(onTimeout()));
-
 }
 
 // 绘制开关
@@ -51,7 +50,8 @@ void SwitchControl::paintEvent(QPaintEvent *event)
         }
     } else {  // 不可用状态
         background = m_background;
-        dOpacity = 0.260;
+        //dOpacity = 0.260;
+         dOpacity = 0.500;
         thumbColor = m_disabledColor;
     }
     // 绘制大椭圆
@@ -60,7 +60,6 @@ void SwitchControl::paintEvent(QPaintEvent *event)
 
    // path.addRoundedRect(QRectF(m_nMargin, m_nMargin, width() - 2 * m_nMargin, height() - 2 * m_nMargin), m_radius, m_radius);
     path.addRoundedRect(QRectF(m_nMargin, m_nMargin, width() - 2 * m_nMargin, height() - 2 * m_nMargin), m_radius, m_radius);
-
 
     //QRect textRect(0, 0,width()-10, height()-20); painter.setPen(QPen(QColor(0, 0, 0)));
     //painter.drawText(textRect, Qt::AlignRight, "On");painter.setPen(QPen(background));
@@ -72,7 +71,6 @@ void SwitchControl::paintEvent(QPaintEvent *event)
     painter.setOpacity(1.0);
    // painter.drawEllipse(QRectF(m_nX - (m_nHeight / 2), m_nY - (m_nHeight / 2), height(), height()));
     painter.drawEllipse(QRectF(m_nX - (m_nHeight/2), m_nY - (m_nHeight/2), height(), height()));
-
 }
 
 // 鼠标按下事件

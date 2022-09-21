@@ -81,11 +81,14 @@ voice::voice(QWidget *parent) :
     connect(&changname,SIGNAL(save_back()),this,SLOT(savew_hide()));
     connect(&File_oprationw,SIGNAL(file_rev2(QString)),this,SLOT(file_path(QString)));
     connect(&File_oprationw,SIGNAL(file_hide()),this,SLOT(refile_hide()));
-    connect(&changname,SIGNAL(save_path(QString,QString)),this,SLOT(save_path(QString,QString)));
+    //connect(&changname,SIGNAL(save_path(QString,QString)),this,SLOT(save_path(QString,QString)));
 
     ui->btn_rec->setText(tr("start"));
     ui->begin->setText("record");
     ui->play->setText("paly");
+    ui->combox->view()->parentWidget()->setWindowFlags(Qt::Popup | Qt::FramelessWindowHint);
+    ui->combox->view()->parentWidget()->setAttribute(Qt::WA_TranslucentBackground);
+
 }
 
 voice::~voice()
@@ -462,45 +465,57 @@ void voice::record_save(QString filen)   //record save file
 
 void voice::on_btn_paly_2_clicked()  //delete
 {
-    QString str = ui->combox->currentText(); 
-    QString strr = QString(tr("Do you want to delete %1?")).arg(str);
+    if(!ui->combox->currentText().isEmpty())
+    {
+        QString str = ui->combox->currentText();
+        QString strr = QString(tr("Do you want to delete %1?")).arg(str);
+        QMessageBox mesg(QMessageBox::Question,
+                         tr("QMessageBox::question()"),
+                         tr(strr.toUtf8()),
+                         0,this);
 
+        QPushButton *yesButton = mesg.addButton(tr("Yes"), QMessageBox::ActionRole);
+        QPushButton *noButton = mesg.addButton(tr("No"),QMessageBox::ActionRole);
+        if(screen_flag == 1)
+            mesg.move(Width*2/3,Height/3);
+        else
+            mesg.move(Width/3,Height/3);
+        mesg.exec();
 
-    QMessageBox mesg(QMessageBox::Question,
-                     tr("QMessageBox::question()"),
-                     tr(strr.toUtf8()),
-                     0,this);
-
-     QPushButton *yesButton = mesg.addButton(tr("Yes"), QMessageBox::ActionRole);
-     QPushButton *noButton = mesg.addButton(tr("No"),QMessageBox::ActionRole);
-     if(screen_flag == 1)
-     mesg.move(Width*2/3,Height/3);
-     else
-     mesg.move(Width/3,Height/3);
-     mesg.exec();
-
-       if (mesg.clickedButton() == yesButton) {
-           QProcess *pro = new QProcess();
-                   QString name = ui->combox->currentText();
-                   QString path = QString("%1").arg(ui->pathname_2->text());
-                   QString str = QString("rm %1%2").arg(path).arg(name);
-                   pro->start(str);
-                   QMessageBox::information(this,"information",tr("Remove successfully!"));
-                   refresh(path);
-                   pro->close();
-       }
-       else if (mesg.clickedButton() == noButton)
-       {
-           return;
-       }
+        if (mesg.clickedButton() == yesButton) {
+            QProcess *pro = new QProcess();
+            QString name = ui->combox->currentText();
+            QString path = QString("%1").arg(ui->pathname_2->text());
+            QString str = QString("rm %1%2").arg(path).arg(name);
+            pro->start(str);
+            QMessageBox::information(this,"information",tr("Remove successfully!"));
+            refresh(path);
+            pro->close();
+        }
+        else if (mesg.clickedButton() == noButton)
+        {
+            return;
+        }
+    }
+    else
+    {
+        QMessageBox::information(this,"information",tr("No file to delete!"));
+    }
 }
 
 void voice::on_btn_rename_clicked()  //rename
 {   
-    rename_fileshow();
-    QString name = ui->combox->currentText();
-    QString path = QString("%1").arg(ui->pathname_2->text());
-    rename_w.rename_chang(name,path);
+    if(!ui->combox->currentText().isEmpty())
+    {
+        rename_fileshow();
+        QString name = ui->combox->currentText();
+        QString path = QString("%1").arg(ui->pathname_2->text());
+        rename_w.rename_chang(name,path);
+    }
+    else
+    {
+        QMessageBox::information(this,"information",tr("No file to rename!"));
+    }
 }
 void voice::update_file()     //updata combox file
 {
@@ -510,10 +525,10 @@ void voice::update_file()     //updata combox file
 
 void voice::on_pushButton_clicked()
 {
-    if(volume_flag == 0)
+    if(volume_flag == 1)
     {
       set_volume(0);
-      volume_flag = 1;
+      volume_flag = 0;
       ui->pushButton->setIcon(QIcon(":/button_image/voice/sound_cross.svg"));
       ui->Slider_volume->setEnabled(false);
     }
@@ -521,7 +536,7 @@ void voice::on_pushButton_clicked()
     {
        int value = ui->Slider_volume->value();
        set_volume(value);
-       volume_flag = 0;
+       volume_flag = 1;
        ui->pushButton->setIcon(QIcon(":/button_image/voice/sound_open.svg"));
        ui->Slider_volume->setEnabled(true);
     }
@@ -573,52 +588,63 @@ void voice::save_fileshow()
 {
     if(screen_flag == 0)
     {
-      changname.move(this->size().width()/5,this->size().height()/6);
-      changname.resize(Width*31/50,Height*2/3);
-      changname.show();
-      changname.activateWindow();changname.setFocus();
-    }
-    else
-    {
-
-    if(save_flag == 0)
-    {
-    QGraphicsScene *scene = new QGraphicsScene;
-    QGraphicsProxyWidget *w = scene->addWidget(&changname);
-    w->setRotation(90);
-
-    save_view = new QGraphicsView(scene);
-
-    save_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
-    save_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    save_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    changname.resize(Height*2/3,Width*2/3);
-    save_view->resize(Width*2/3,Height*2/3);
-    changname.show();
-    save_view->show();
-    save_view->activateWindow();save_view->setFocus();
-    changname.activateWindow();changname.setFocus();
-    save_view->move(Width/4,Height/4);
-    save_flag++;
-    }
-    else
-    {
+        int w_fun = ui->function->width();
+        int w_sta = ui->stackedWidget->width();
+        int w = w_fun+(w_sta/2-Width*31/50/2);
+        QPoint p = ui->btn_rec->mapToGlobal(QPoint(0, 0));
+        int h_btn = p.y()+ui->btn_rec->height();
+        int h = Height-(Height - h_btn)-Height*2/3;
+        changname.move(w,h);
+        changname.resize(Width*31/50,Height*2/3);
         changname.show();
-        save_view->show();
-        save_view->activateWindow();save_view->setFocus();
         changname.activateWindow();changname.setFocus();
-        save_view->move(Width/4,Height/4);
     }
- }
+    else
+    {
+
+        if(save_flag == 0)
+        {
+            QGraphicsScene *scene = new QGraphicsScene;
+            QGraphicsProxyWidget *w = scene->addWidget(&changname);
+            w->setRotation(90);
+
+            save_view = new QGraphicsView(scene);
+
+            save_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
+            save_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            save_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            changname.resize(Height*2/3,Width*2/3);
+            save_view->resize(Width*2/3,Height*2/3);
+            changname.show();
+            save_view->show();
+            save_view->activateWindow();save_view->setFocus();
+            changname.activateWindow();changname.setFocus();
+            save_view->move(Width/4,Height/4);
+            save_flag++;
+        }
+        else
+        {
+            changname.show();
+            save_view->show();
+            save_view->activateWindow();save_view->setFocus();
+            changname.activateWindow();changname.setFocus();
+            save_view->move(Width/4,Height/4);
+        }
+    }
 }
 void voice::rename_fileshow()
 {
     if(screen_flag == 0)
     {
-        rename_w.move(this->size().width()/6,this->size().height()/6);
+        int w_fun = ui->function->width();
+        int w_sta = ui->stackedWidget->width();
+        int w = w_fun+(w_sta/2-Width*31/50/2);
+        QPoint p = ui->stackedWidget->mapToGlobal(QPoint(0, 0));
+        int h = p.y();
+        rename_w.move(w,h);
         rename_w.show();
         rename_w.activateWindow();rename_w.setFocus();
-        rename_w.resize(Width*3/5,Height/2);
+        rename_w.resize(Width*3/5,ui->stackedWidget->height()*3/4);
     }
     else
     {
@@ -735,6 +761,8 @@ void voice::voice_font()
   ui->combox->setFont(font);
   ui->btn_rec->setFont(font);
   ui->record_timelength->setFont(font);
+  ui->label_3->setFont(font);
+  ui->pathname_2->setFont(font);
 }
 
 void voice::closeEvent(QCloseEvent *event)
@@ -792,7 +820,11 @@ void voice::file_choose_show()
     }
     else
     {
-        File_oprationw.show();
+        int w_fun = ui->function->width();
+        int w = w_fun;
+         QPoint p = ui->stackedWidget->mapToGlobal(QPoint(0, 0));
+        int h = p.y();
+        File_oprationw.show();File_oprationw.move(w,h);
     }
 }
 
@@ -809,11 +841,5 @@ void voice::refile_hide()
     {
         File_oprationw.hide();
     }
-}
-
-void voice::save_path(QString path,QString file)
-{
-   //savepath = path;
-   //savefile = file;
 }
 

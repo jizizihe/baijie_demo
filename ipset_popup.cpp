@@ -154,7 +154,7 @@ void ipset_popup::returnmain()
 
 void ipset_popup::getaddipinforma()
 {
-    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "FUNC:" << __FUNCTION__;
+    //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "FUNC:" << __FUNCTION__;
 
     label_addr->setVisible(true);
     label_netcard->setVisible(true);

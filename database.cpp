@@ -1,17 +1,27 @@
 #include "database.h"
 #include <QFileInfo>
 #include <QSqlRecord>
+static int create_falg;
 
 database::database()
 {
-
+    if(create_falg == 0)
+    {
+        create_connection();
+        create_table();
+        create_falg++;
+    }
 }
 
 bool database::create_connection()
 {
     QSqlDatabase db;
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("info.db"); //如果本目录下没有该文件,则会在本目录下生成,否则连接该文件 
+    if(QSqlDatabase::contains("qt_sql_default_connection"))
+      db = QSqlDatabase::database("qt_sql_default_connection");
+    else
+      db = QSqlDatabase::addDatabase("QSQLITE");
+
+    db.setDatabaseName("/info.db"); //如果本目录下没有该文件,则会在本目录下生成,否则连接该文件
 
     if(!db.open())
     {
@@ -27,6 +37,7 @@ bool database::create_connection()
 
 bool database::create_table()
 {
+    delete_table("serial_port");
     QSqlQuery query;
     QString create_table_wifi = "create table wifiPasswd (name varchar(64) primary key,password varchar(32))";
     query.prepare(create_table_wifi);
@@ -49,7 +60,7 @@ bool database::create_table()
         //qDebug() << "create table_bluetooth succeed!";
     }
 
-    QString create_table_ip_static = "create table ip_static (name varchar(64) primary key)";
+    QString create_table_ip_static = "create table serial_port (name varchar(64) primary key)";
     query.prepare(create_table_ip_static);
     if(query.exec())
     {
@@ -202,12 +213,12 @@ bool database::delete_table(QString tableName)
     QString delete_table_sql = QString("drop table %1;").arg(tableName);
     if(!query.exec(delete_table_sql))
     {
-        qDebug() << "Error: Failed delete record by name."<<query.lastError();
+    //    qDebug() << "Error: Failed delete record by name."<<query.lastError();
         return false;
     }
     else
     {
-        qDebug() << "delete record succeed!";
+       // qDebug() << "delete record succeed!";
         return true;
     }
     return false;

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>609</width>
-    <height>385</height>
+    <width>456</width>
+    <height>350</height>
    </rect>
   </property>
   <property name="font">
@@ -22,8 +22,7 @@
    <string notr="true">#File_opration
 {
 	background-image: url(:/button_image/all/background.jpg);
-
-border: 2px solid gray;
+   border: 2px solid gray;
 }
 /******** combobox 滚动条  *********/
 QComboBox QScrollBar::vertical{ /*主体部分*/
@@ -82,7 +81,7 @@ QScrollBar{ width:30px;}
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>45</height>
+            <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
@@ -107,7 +106,7 @@ QScrollBar{ width:30px;}
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>45</height>
+            <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
@@ -127,11 +126,26 @@ QScrollBar{ width:30px;}
     </item>
     <item row="1" column="0">
      <widget class="QTreeWidget" name="treeWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="styleSheet">
        <string notr="true"> background-color:rgba(255, 255, 255, 100);</string>
       </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
+      </property>
       <attribute name="headerVisible">
        <bool>false</bool>
+      </attribute>
+      <attribute name="headerDefaultSectionSize">
+       <number>0</number>
+      </attribute>
+      <attribute name="headerMinimumSectionSize">
+       <number>0</number>
       </attribute>
       <column>
        <property name="text">
@@ -166,7 +180,7 @@ QScrollBar{ width:30px;}
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>45</height>
+          <height>16777215</height>
          </size>
         </property>
         <property name="styleSheet">
@@ -186,7 +200,7 @@ QScrollBar{ width:30px;}
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>609</width>
+     <width>456</width>
      <height>22</height>
     </rect>
    </property>

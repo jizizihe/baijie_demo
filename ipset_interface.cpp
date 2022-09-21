@@ -14,22 +14,25 @@ bool automatically_get_ip()
     }
 }
 
-bool add_static_ip(QString netname,QString ipaddr)
+bool add_static_ip(QString netname,QString ipaddr,QString mask,QString gate)
 {
-    QString gateway;
+//    QString gateway;
 
-    for(int i = 9;i < 12;i++)
-    {
-        if(ipaddr.at(i) == '.')
-        {
-            gateway = ipaddr.left(i+1);
-            gateway.append("1");
-            break;
-        }
-    }
-    QString strCmd = QString("nmcli con add con-name static_ip ifname %1 autoconnect yes type ethernet ip4 %2 gw4 %3") \
-            .arg(netname).arg(ipaddr).arg(gateway);
+//    for(int i = 9;i < 12;i++)
+//    {
+//        if(ipaddr.at(i) == '.')
+//        {
+//            gateway = ipaddr.left(i+1);
+//            gateway.append("1");
+//            break;
+//        }
+//    }
+    QString strCmd = QString("nmcli con delete static_ip");
     QString strResult = executeLinuxCmd(strCmd);
+    strCmd = QString("nmcli con add con-name static_ip ifname %1 autoconnect yes type ethernet ip4 %2/%3 gw4 %4") \
+            .arg(netname).arg(ipaddr).arg(mask).arg(gate);
+    qDebug() << strCmd;
+    strResult = executeLinuxCmd(strCmd);
 
     bool result=strResult.contains("successfully added",Qt::CaseInsensitive);
     if(result == true)
@@ -66,7 +69,7 @@ bool modify_static_ip(QString ipaddr)
     }
     QString strCmd = QString("nmcli con mod static_ip ipv4.address %2,%3").arg(ipaddr).arg(gateway);
     QString strResult = executeLinuxCmd(strCmd);
-
+    qDebug() << strCmd;
     strCmd = QString("nmcli connection up static_ip");
     strResult = executeLinuxCmd(strCmd);
     bool result=strResult.contains("successfully activated",Qt::CaseInsensitive);

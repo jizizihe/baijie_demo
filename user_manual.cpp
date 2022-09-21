@@ -48,41 +48,33 @@ void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 {
     QString str = item->text(column);
 
-    if(str == tr("wifi and hotspot status"))
+    if(str == tr("scan wifi"))
     {
-        ui->textEdit->setText(tr("You can use the the switch button control the WiFi on and off. You can click the < status > button to view the WiFi current connection status and hotspot status, and on Wifi Status page you can choose to modify the password or remove the connection."));
+        ui->textEdit->setText(tr("You can use the the switch button control the wifi on and off.You can click the < scan > button to dispaly a list of connectable wifi,and the list is refreshed every 5 seconds.Click the WiFi you want to connect, and a connection dialog box will pop up for those who have not been connected before.You can enter the password in the dialog box to connect.For those who have been connected before, the click will be connected and jump to the WiFi status interface."));
     }
     else if(str == tr("wifi connect"))
     {
-        ui->textEdit->setText(tr("When you click the < wifi > button, a list of connectable WiFi will appear,and the list is refreshed every 5 seconds. Click the WiFi you want to connect, and a connection dialog box will pop up for those who have not been connected before.You can enter the password in the dialog box to connect. For those who have been connected before, the connection will be activated and jump to the WiFi status interface."));
+        ui->textEdit->setText(tr("When you click the < wifi > button can view the wifi current connection status.you can click <connect devices> button can view ,and you can choose to modify the password or remove the connection."));
     }
     else if(str == tr("hotspot connect"))
     {
-        ui->textEdit->setText(tr("When you click the < hotspot > button, you can choose to establish a hotspot connection or disconnect."));
+        ui->textEdit->setText(tr("When you click the < hotspot > button, you can choose to establish a hotspot connection or disconnect.After connecting the hotspot, click <change> button to modify the hotspot."));
     }
     else if(str == tr("bluetooth scan"))
     {
-        ui->textEdit->setText(tr("When you click the < scan > button, scan the surrounding Bluetooth devices."));
-    }
-    else if(str == tr("bluetooth pair"))
-    {
-        ui->textEdit->setText(tr("You can select a Bluetooth in scan devices, click the < pair > button to pair."));
+        ui->textEdit->setText(tr("When you click the < scan > button to scan the surrounding bluetooth devices,and click < stop > to stop scan.You can click on the bluetooth in the list to pair."));
     }
     else if(str == tr("bluetooth connect"))
     {
-        ui->textEdit->setText(tr("You can select a Bluetooth in pair devices, click the < connect > button to connect."));
+        ui->textEdit->setText(tr("You can click the < connect > button to enter the connection interface,click the < connected devices > can dispaly Bluetooth list that has been paired,and you can click on the bluetooth in the list to connect. You can disconnect and remove after you connect"));
     }
     else if(str == tr("ip information"))
     {
         ui->textEdit->setText(tr("You can use < ip information> to view the IP addresses of all network configurations, which is equivalent to 'ifconfig'."));
     }
-    else if(str == tr("set static ip "))
+    else if(str == tr("set static ip"))
     {
-        ui->textEdit->setText(tr("You can set a static IP by clicking the < set static ip > button and entering the ip you want to set."));
-    }
-    else if(str == tr("mod static ip"))
-    {
-        ui->textEdit->setText(tr("You can modify a static IP by clicking the < mod static ip > button and entering the ip you want to modify."));
+        ui->textEdit->setText(tr("You can set a static IP by clicking the < set static ip > button and entering the ip you want to set.You can modify a static IP by clicking the < change > button and entering the ip you want to modify after you set static IP."));
     }
     else if(str == tr("set auto ip"))
     {
@@ -100,11 +92,7 @@ void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
     else if(str == tr("Sleep time"))
     {
         ui->textEdit->setText(tr("You can adjust the sleep time yourself."));
-    }
-    else if(str == tr("Using tips"))
-    {
-        ui->textEdit->setText(tr("For example: If you want to check GPIOG13 ,please input 'g13'"));
-    }
+    }   
     else if(str == tr("batch operation"))
     {
         ui->textEdit->setText(tr("You can configure the input / output of GPIO port and pull it up / down when it is set to output mode.\n \
@@ -113,7 +101,7 @@ Note: there should be no space between each GPIO air, otherwise this operation w
     }
     else if(str == tr("Serial Port"))
     {
-        ui->textEdit->setText(tr("First, make sure that the hardware connection corresponds, then click the set serial port button to set the serial port properties.  Enter the content you want to send in the input box, click the < send > button to send, and the receiver will receive the information."));
+        ui->textEdit->setText(tr("First, make sure that the hardware connection corresponds, then Click the <set> button to configure the serial port properties, click the serial port button switch.Enter the content you want to send in the input box, click the < send > button to send, and the receiver will receive the information."));
     }
     else if(str == tr("record"))
     {
@@ -129,11 +117,11 @@ Note: there should be no space between each GPIO air, otherwise this operation w
     }
     else if(str == tr("copy"))
     {
-        ui->textEdit->setText(tr("Select the file that you want to copy in the directory, you can select multiple files. Click the < copy > button to copy, and then select the directory you want to paste and click the < Paste > button to paste or click the < cancel > to cancel copy."));
+        ui->textEdit->setText(tr("Select the file that you want to copy in the directory, you can select multiple files. Click the < copy > button to copy, and then select the directory you want to paste and click the < Paste > button to paste."));
     }
     else if(str == tr("cut"))
     {
-        ui->textEdit->setText(tr("Select the file that you want to cut in the directory, you can select multiple files. Click the < cut > button to cut, and then select the directory you want to paste and click the < Paste > button to cut or click the < cancel > cancel to cut."));
+        ui->textEdit->setText(tr("Select the file that you want to cut in the directory, you can select multiple files. Click the < cut > button to cut, and then select the directory you want to paste and click the < Paste > button to cut."));
     }
     else if(str == tr("delete"))
     {
@@ -183,7 +171,6 @@ void user_manual::user_font()
         {
             font.setPointSize(17);
         }
-
     }
     else
     {
@@ -203,19 +190,20 @@ void user_manual::user_font()
   ui->treeWidget->setFont(font);
   ui->pushButton_3->setFont(font);
   ui->textEdit->setFont(font);
+  ui->label->setFont(font);
 }
 
 void user_manual::on_pushButton_3_clicked()
 {
     if(catalogueflag)
-        {
-            ui->treeWidget->expandAll();
-            ui->pushButton_3->setText(tr("collapse all"));
-        }
-        else
-        {
-            ui->treeWidget->collapseAll();
-            ui->pushButton_3->setText(tr("expand all"));
-        }
-        catalogueflag = !catalogueflag;
+    {
+        ui->treeWidget->expandAll();
+        ui->pushButton_3->setText(tr("collapse all"));
+    }
+    else
+    {
+        ui->treeWidget->collapseAll();
+        ui->pushButton_3->setText(tr("expand all"));
+    }
+    catalogueflag = !catalogueflag;
 }

@@ -80,8 +80,6 @@ private slots:
 
     void on_choose_btn_clicked();
 
-    void save_path(QString,QString);
-
 public slots:
     void save_fileshow();
     void rename_fileshow();

@@ -61,7 +61,7 @@ bool keytest::event(QEvent *event)
 {
     if(event->type() == QEvent::KeyPress)  //键盘按下处理,其他事件让事件处理器自己处理,不能返回false
     {
-        qDebug()<<"key pressed!";
+        //qDebug()<<"key pressed!";
         this->keyText->append(tr("key pressed!"));
         return true;
     }
@@ -73,7 +73,7 @@ bool keytest::event(QEvent *event)
 
 void keytest::startBt_clicked()
 {
-    qDebug() << "startBt_clicked!";
+    //qDebug() << "startBt_clicked!";
     this->keyText->append(tr("start test!"));
     //this->task->start();
 }
@@ -87,7 +87,7 @@ void keytest::stopBt_clicked()
 
 void keytest::recvmsg(QString str)
 {
-    qDebug() << str;
+    //qDebug() << str;
     this->keyText->append(tr("key pressed!"));
 }
 

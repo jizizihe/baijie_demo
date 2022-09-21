@@ -29,26 +29,25 @@ signals:
     void sim_disconnect_msg();
     void sim_connect_msg();
     void sim_status_msg();
+    void sim_4gstatus();
+    void sim_activation(int);
 
 private slots:
     void on_retBtn_clicked();
-
     void recv_msg(int, QString );
-
     void on_SimConnectBtn_clicked();
-
     void on_SimDisconnectBtn_clicked();
-
-//    void on_SimStausBtn_clicked();
-
     void on_btn_open_clicked();
+    void on_statusBtn_clicked();
+    void status_4g_refresh();
 
 private:
     Ui::sim_module *ui;
-
+    QLabel *LoadLabel;
+    QMovie *pMovie;
     QThread * myThread;
     wifi_thread * SimThread;
-
+    QTimer *timer;
     wifi_bt_interface * wifi_bt_interface_w;
 };
 

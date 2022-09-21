@@ -87,7 +87,7 @@ void voice_savefile_name::save_as()
         database_w.delete_record_by_name("voice",name);
     }
     database_w.insert_table2("voice",path,name);
-    emit save_path(path,name);
+    //emit save_path(path,name);
 }
 
 void voice_savefile_name::on_pushButton_clicked()

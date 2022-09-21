@@ -8,6 +8,7 @@ static int screen_flag;
 static QScreen *screen;
 static int open_flag;
 static QString static_ip;
+static int btn_up_flag;
 
 ipset::ipset(QWidget *parent) :
     QMainWindow(parent),
@@ -28,6 +29,9 @@ ipset::ipset(QWidget *parent) :
 
     QRegExp a("\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
     ui->ipAddrLineEdit->setValidator(new QRegExpValidator(a,this));
+    ui->gatewaylineEdit->setValidator(new QRegExpValidator(a,this));
+    ui->nameLineEdit->setReadOnly(true);
+    ui->masklineEdit->setPlaceholderText("0-32");
 
     //ui->networkSwitch->setCheckedColor(QColor(100, 225, 100));
    // connect(ui->networkSwitch,SIGNAL(toggled(bool)),this,SLOT(btnChangeFlag(bool)));
@@ -46,6 +50,8 @@ ipset::ipset(QWidget *parent) :
         ui->btn_open->setText(tr("open"));
         open_flag = 1;
     }
+
+    ip_settext();
 }
 
 ipset::~ipset()
@@ -139,6 +145,8 @@ void ipset::on_setStaticIpBtn_clicked()
 void ipset::on_modStaticIpBtn_clicked()
 {
     ui->ipAddrLineEdit->clear();
+    ui->gatewaylineEdit->clear();
+    ui->masklineEdit->clear();
 }
 
 void ipset::on_delStaticIpBtn_clicked()
@@ -164,7 +172,7 @@ void ipset::on_delStaticIpBtn_clicked()
     bool result = delete_static_ip();
     if(result == true)
     {
-        qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "result:"<<result;
+        //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "result:"<<result;
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),
                          tr("set auto ip succeeded!"),
@@ -178,9 +186,11 @@ void ipset::on_delStaticIpBtn_clicked()
         QString networkInfo = get_network_info();
         ui->textEdit->setText(networkInfo);
         ui->stackedWidget->setCurrentIndex(0);
-        database_w.delete_record_by_name("ip_static",ui->ipAddrLineEdit->text());
+       // database_w.delete_record_by_name("ip_static",ui->ipAddrLineEdit->text());
         ui->ipAddrLineEdit->clear();
-        ui->okBtn->setText(tr("up"));
+        ui->gatewaylineEdit->clear();
+        ui->masklineEdit->clear();
+        ui->okBtn->setText(tr("up"));btn_up_flag = 0;
     }
     else
     {
@@ -201,7 +211,7 @@ void ipset::on_okBtn_clicked()
 {
     bool result = false;
     QString networkInfo;
-    if(ui->nameLineEdit->text().isEmpty() || ui->ipAddrLineEdit->text().isEmpty())
+    if(ui->nameLineEdit->text().isEmpty() || ui->ipAddrLineEdit->text().isEmpty() || ui->gatewaylineEdit->text().isEmpty() || ui->masklineEdit->text().isEmpty())
     {
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),
@@ -209,9 +219,9 @@ void ipset::on_okBtn_clicked()
                          0,this);
         mesg.addButton(tr("up"),QMessageBox::YesRole);
         if(screen_flag == 1)
-        mesg.move(s_width*2/3,s_height/3);
+            mesg.move(s_width*2/3,s_height/3);
         else
-        mesg.move(s_width/3,s_height/3);
+            mesg.move(s_width/3,s_height/3);
         mesg.exec();
 
         return;
@@ -221,75 +231,89 @@ void ipset::on_okBtn_clicked()
                      tr("QMessageBox::question()"),
                      tr("Do you want to set it to current IP?"),
                      0,this);
-     QPushButton *yesButton = mesg.addButton(tr("Yes"), QMessageBox::ActionRole);
-     QPushButton *noButton = mesg.addButton(tr("No"),QMessageBox::ActionRole);
-     if(screen_flag == 1)
-     mesg.move(s_width*2/3,s_height/3);
-     else
-     mesg.move(s_width/3,s_height/3);
-     mesg.exec();
+    QPushButton *yesButton = mesg.addButton(tr("Yes"), QMessageBox::ActionRole);
+    QPushButton *noButton = mesg.addButton(tr("No"),QMessageBox::ActionRole);
+    if(screen_flag == 1)
+        mesg.move(s_width*2/3,s_height/3);
+    else
+        mesg.move(s_width/3,s_height/3);
+    mesg.exec();
 
-       if (mesg.clickedButton() == yesButton) {
-           if(ui->ipAddrLineEdit->text().length() <= 9)
-           {
-               QMessageBox::information(this,"information",tr("Format error, please re-enter"));
-               return;
-           }
+    if(mesg.clickedButton() == yesButton)
+    {
+        if((ui->ipAddrLineEdit->text().length() <= 9) || (ui->gatewaylineEdit->text().length() <= 9))
+        {
+            QMessageBox::information(this,"information",tr("Format error, please re-enter."));
+            return;
+        }
+        int mask = ui->masklineEdit->text().toInt();
+        if((mask > 32)||(mask < 0))
+        {
+            QMessageBox::information(this,"information",tr("Please enter the correct subnet mask."));
+            return;
+        }
+        if((ui->ipAddrLineEdit->text().length() <= 9) || (ui->gatewaylineEdit->text().length() <= 9))
+        {
+            QMessageBox::information(this,"information",tr("Format error, please re-enter"));
+            return;
+        }
 
-           if(ui->okBtn->text() == QString(tr("up")))
-           {
-               if(static_ip == ui->ipAddrLineEdit->text())
-               {
-                  result = modify_static_ip(ui->ipAddrLineEdit->text());
-               }
-               else
-               {
-                  result = add_static_ip(ui->nameLineEdit->text(),ui->ipAddrLineEdit->text());
-               }
-               static_ip = ui->ipAddrLineEdit->text();
-           }
-           else if(ui->okBtn->text() == QString(tr("change")))
-           {
-               result = modify_static_ip(ui->ipAddrLineEdit->text());
-           }
+//        if(btn_up_flag == 0)
+//        {
+//            if(static_ip == ui->ipAddrLineEdit->text())
+//            {
+//                result = modify_static_ip(ui->ipAddrLineEdit->text());
+//            }
+//            else
+//            {
+                result = add_static_ip(ui->nameLineEdit->text(),ui->ipAddrLineEdit->text(),ui->masklineEdit
+                                       ->text(),ui->gatewaylineEdit->text());
+//            }
+//            static_ip = ui->ipAddrLineEdit->text();
+//        }
+//        else if(btn_up_flag == 1)
+//        {
+//            result = modify_static_ip(ui->ipAddrLineEdit->text());
+//        }
 
-           if(result == true)
-           {
-              // qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "result:"<<result;
-               networkInfo = get_network_info();
-               ui->textEdit->setText(networkInfo);
-               ui->stackedWidget->setCurrentIndex(0);
-               QStringList list = database_w.table_show("ip_static");
-               if(!list.isEmpty())
-               {
-                   QString ipstr = list.at(0);
-                   database_w.delete_record_by_name("ip_static",ipstr);
-               }
-               database_w.insert_table1("ip_static",ui->ipAddrLineEdit->text());
-               QString str = ui->okBtn->text();
-               if(!QString::compare(str,QString("up"),Qt::CaseSensitive))
-               {
-                   ui->okBtn->setText(tr("change"));
-               }
-           }
-           else
-           {
-               QMessageBox mesg(QMessageBox::Information,
-                                tr("QMessageBox::information()"),
-                                tr("set static ip failed"),
-                                0,this);
-               mesg.addButton(tr("OK"),QMessageBox::YesRole);
-               if(screen_flag == 1)
-               mesg.move(s_width*2/3,s_height/3);
-               else
-               mesg.move(s_width/3,s_height/3);
-               mesg.exec();
-           }
-       }
-       else if (mesg.clickedButton() == noButton)
-       {
-           return;
-       }
+        if(result == true)
+        {
+            networkInfo = get_network_info();
+            ui->textEdit->setText(networkInfo);
+            ui->stackedWidget->setCurrentIndex(0);
+           // QStringList list = database_w.table_show("ip_static");
+          //  if(!list.isEmpty())
+          //  {
+          //      QString ipstr = list.at(0);
+          //      database_w.delete_record_by_name("ip_static",ipstr);
+          //  }
+          //  database_w.insert_table1("ip_static",ui->ipAddrLineEdit->text());
+            //              QString str = ui->okBtn->text();
+            //               if(!QString::compare(str,QString("up"),Qt::CaseSensitive))
+            //               {
+            //                   ui->okBtn->setText(tr("change"));
+            //               }
+            if(btn_up_flag == 0)
+            {  btn_up_flag = 1;ui->okBtn->setText(tr("change"));}
+        }
+        else
+        {
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("set static ip failed"),
+                             0,this);
+            mesg.addButton(tr("OK"),QMessageBox::YesRole);
+            if(screen_flag == 1)
+                mesg.move(s_width*2/3,s_height/3);
+            else
+                mesg.move(s_width/3,s_height/3);
+            mesg.exec();
+        }
+    }
+    else if (mesg.clickedButton() == noButton)
+    {
+        return;
+    }
 }
 
 void ipset::ipset_font()
@@ -340,6 +364,12 @@ void ipset::ipset_font()
     ui->label_7->setFont(font);
     ui->textEdit->setFont(font);
     ui->okBtn->setFont(font);
+    ui->btn_open->setFont(font);
+    ui->label->setFont(font);
+    ui->label_2->setFont(font);
+    ui->label_3->setFont(font);
+    ui->gatewaylineEdit->setFont(font);
+    ui->masklineEdit->setFont(font);
 }
 
 void ipset::on_btn_open_clicked()
@@ -353,6 +383,9 @@ void ipset::on_btn_open_clicked()
         ui->setStaticIpBtn->setEnabled(true);
         ui->modStaticIpBtn->setEnabled(true);
         ui->delStaticIpBtn->setEnabled(true);
+        QString networkInfo = get_network_info();
+        ui->textEdit->setText(networkInfo);
+        ui->stackedWidget->setCurrentIndex(0);
     }
     else
     {
@@ -369,14 +402,41 @@ void ipset::on_btn_open_clicked()
 
 void ipset::showEvent(QShowEvent *event)
 {
-     if(true == is_static_ip_exist())
-     {
-         QStringList list = database_w.table_show("ip_static");
-         if(!list.isEmpty())
-         {
-             ui->ipAddrLineEdit->setText(list.at(0));
-             ui->okBtn->setText(tr("change"));
-         }
-     }
+//     if(true == is_static_ip_exist())
+//     {
+//         QStringList list = database_w.table_show("ip_static");
+//         if(!list.isEmpty())
+//         {
+//             ui->ipAddrLineEdit->setText(list.at(0));
+//             ui->okBtn->setText(tr("change"));btn_up_flag = 1;
+//         }
+//     }
      QWidget::showEvent(event);
+}
+
+void ipset::ip_settext()
+{
+    if(true == is_static_ip_exist())
+    {
+        QString strCmd = QString("ip route show");
+        QString strResult = executeLinuxCmd(strCmd);
+        strResult = strResult.section(" ",2,2);
+        ui->gatewaylineEdit->setText(strResult);
+        strCmd = QString("ifconfig eth0 | awk '{print $2}'|awk 'NR==2'");
+        strResult = executeLinuxCmd(strCmd);
+        ui->ipAddrLineEdit->setText(strResult);
+
+//        QString gateway;
+
+//        for(int i = 9;i < 12;i++)
+//        {
+//            if(strResult.at(i) == '.')
+//            {
+//                gateway = strResult.left(i+1);
+//                gateway.append("1");
+//                break;
+//            }
+//        }
+//        qDebug() << gateway;
+    }
 }

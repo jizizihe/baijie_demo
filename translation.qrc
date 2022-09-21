@@ -2,16 +2,12 @@
     <qresource prefix="/">
         <file>chinese.ts</file>
         <file>chinese.qm</file>
-        <file>button_image/voice.png</file>
         <file>button_image/USB.png</file>
         <file>button_image/touch.png</file>
         <file>button_image/serial.png</file>
-        <file>button_image/rtc .png</file>
         <file>button_image/key.png</file>
         <file>button_image/interface.png</file>
         <file>button_image/gpio.png</file>
-        <file>button_image/ethernet.png</file>
-        <file>button_image/cn.png</file>
         <file>button_image/bluetooth.png</file>
         <file>button_image/backlight.png</file>
         <file>button_image/about.png</file>
@@ -19,7 +15,6 @@
         <file>button_image/user_manual.png</file>
         <file>button_image/cp.png</file>
         <file>button_image/del.png</file>
-        <file>button_image/event.png</file>
         <file>button_image/exit.png</file>
         <file>button_image/flush.png</file>
         <file>button_image/open.png</file>
@@ -29,24 +24,16 @@
         <file>button_image/all/show.png</file>
         <file>button_image/all/test.png</file>
         <file>button_image/bluetooth/connect.png</file>
-        <file>button_image/bluetooth/pair.png</file>
         <file>button_image/bluetooth/scan.png</file>
         <file>button_image/ethernet/modify.png</file>
         <file>button_image/ethernet/run.png</file>
         <file>button_image/ethernet/show.png</file>
-        <file>button_image/ethernet/static.png</file>
         <file>button_image/serial/clean.png</file>
-        <file>button_image/serial/send.png</file>
         <file>button_image/voice/begin.png</file>
         <file>button_image/voice/play.png</file>
-        <file>button_image/voice/sound.png</file>
         <file>button_image/voice/stop.png</file>
-        <file>button_image/wifi/connect.png</file>
-        <file>button_image/wifi/disconnect.png</file>
         <file>button_image/wifi/hot spot.png</file>
-        <file>button_image/wifi/signal.png</file>
         <file>button_image/wifi/status.png</file>
-        <file>button_image/wifi/close.png</file>
         <file>button_image/loading.webp</file>
         <file>button_image/wait.gif</file>
         <file>button_image/light_h.png</file>
@@ -68,9 +55,14 @@
         <file>button_image/wifi.svg</file>
         <file>button_image/storage.svg</file>
         <file>button_image/net.svg</file>
-        <file>button_image/prompt.svg</file>
         <file>button_image/wifi/Search-Wifi.svg</file>
         <file>button_image/rename.svg</file>
         <file>button_image/tips.svg</file>
+        <file>button_image/voice/voice.svg</file>
+        <file>button_image/disconnect.svg</file>
+        <file>button_image/connect.svg</file>
+        <file>button_image/COM.svg</file>
+        <file>button_image/times.svg</file>
+        <file>button_image/cn2.svg</file>
     </qresource>
 </RCC>

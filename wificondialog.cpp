@@ -8,6 +8,8 @@ static int screen_flag;
 static QScreen *screen;
 static qreal realX;
 static qreal realY;
+static int btn_connectflag;
+
 WifiConDialog::WifiConDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::WifiConDialog)
@@ -51,7 +53,6 @@ void WifiConDialog::wifi_wait_end_func()
 
 void WifiConDialog::on_WifiOkBtn_clicked()
 {
-    QString WifiOkBtnText;
     QString wifi_name =  ui->NamelineEdit->text();
     QString wifi_passwd =  ui->PasswdlineEdit->text();
 
@@ -66,38 +67,40 @@ void WifiConDialog::on_WifiOkBtn_clicked()
         msge.addButton(tr("OK"),QMessageBox::AcceptRole);
         return ;
     }
-
-    WifiOkBtnText = GetWifiOkBtnText();
-    //qDebug() << "LINE:" << __LINE__ << "__FUNC:"<<__FUNCTION__<< "WifiOkBtnText"<< WifiOkBtnText;
-
-    if(WifiOkBtnText == "connect")  //wifi connect
+    WifiLoadLabel->show();
+    WifiMovie->start();
+    if(btn_connectflag == 0)  //wifi connect
     {
-        WifiLoadLabel->show();
-        WifiMovie->start();
         emit wifi_connect_dialog_signal(wifi_name, wifi_passwd);
     }
-    else if(WifiOkBtnText == "OK")  //wifi change password
+    else if(btn_connectflag == 1)  //wifi change password
     {
-        bool strResult = wifi_bt_t->wifi_modify(wifi_name,wifi_passwd);
-        //qDebug() << "FUNC:" << __FUNCTION__<< "--LINE--: " << __LINE__<< strResult;
+        emit wifi_modify_pass(wifi_name,wifi_passwd);
+    }
+}
 
-        if(strResult == true)
-        {
-            QMessageBox::information(this,"information",tr("change succeeded!"));
-            database_w.update_wifitable("wifiPasswd",wifi_name,wifi_passwd);
-            wifi_bt_t->wifi_passwd_change(wifi_name,wifi_passwd);
-
-            emit wifi_info_fresh_msg(wifi_name);
-            ui->NamelineEdit->clear();
-            ui->PasswdlineEdit->clear();
-            this->close();
-            database_w.table_debug("wifiPasswd");
-        }
-        else
-        {
-            QMessageBox::critical(this,"information",tr("change failed!"));
-        }
-
+void WifiConDialog::wifi_modifypass(bool strResult)
+{
+    QString wifi_name =  ui->NamelineEdit->text();
+    QString wifi_passwd =  ui->PasswdlineEdit->text();
+    WifiLoadLabel->close();
+    WifiMovie->stop();
+    if(strResult == true)
+    {
+        QMessageBox::information(this,"information",tr("change succeeded!"));
+        database_w.update_wifitable("wifiPasswd",wifi_name,wifi_passwd);
+        emit wifi_showrefresh();
+        ui->NamelineEdit->clear();
+        ui->PasswdlineEdit->clear();
+        this->close();
+    }
+    else
+    {
+        WifiLoadLabel->close();
+        WifiMovie->stop();
+        database_w.update_wifitable("wifiPasswd",wifi_name,wifi_passwd);
+        QMessageBox::critical(this,"information",tr("connect failed,the password wrong!"));
+        emit wifi_showrefresh();
     }
 }
 
@@ -135,9 +138,19 @@ QString WifiConDialog::GetWifiOkBtnText()
     return (ui->WifiOkBtn->text());
 }
 
-void WifiConDialog::SetWifiOkBtnText(QString WifiOkBtnText)
+void WifiConDialog::SetWifiOkBtnText(int flag)
 {
-    ui->WifiOkBtn->setText(WifiOkBtnText);
+    if(flag == 0)
+    {
+        ui->WifiOkBtn->setText(tr("connect"));
+    }
+    else
+    {
+      ui->WifiOkBtn->setText(tr("ok"));
+    }
+    btn_connectflag = flag;
+   // WifiLoadLabel->show();
+   // WifiMovie->start();
 }
 
 

@@ -39,7 +39,7 @@ private slots:
 signals:
     void fiel_pn(QString);
     void save_back();
-    void save_path(QString,QString);
+   // void save_path(QString,QString);
 
 private:
     Ui::voice_savefile_name *ui;

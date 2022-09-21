@@ -126,8 +126,6 @@ char *get_OSname()
     OS=ba.data();
 
     fclose(fd);
-
-
     return OS;
 }
 
