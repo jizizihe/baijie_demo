@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>677</width>
-    <height>477</height>
+    <width>604</width>
+    <height>427</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -795,7 +795,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>677</width>
+     <width>604</width>
      <height>22</height>
     </rect>
    </property>

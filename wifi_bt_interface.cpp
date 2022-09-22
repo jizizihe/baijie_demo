@@ -601,7 +601,7 @@ QString wifi_bt_interface::sim_4gstatus()
     QString str = strResult.section("/",5,5);str = str.section(" ",0,0);
     if(str.isEmpty())
     {
-        return 0;
+        return "";
     }
     strCmd = QString("mmcli -m %1 |grep revision").arg(str);
     strCmd = executeLinuxCmd(strCmd);
@@ -629,16 +629,25 @@ QString wifi_bt_interface::sim_4gstatus()
 
     strCmd = QString("mmcli -m %1 |grep state").arg(str);
     strCmd = executeLinuxCmd(strCmd);
-    QString str1 = QString("nmcli con show --active |grep ppp0 |wc -l");
-    str1 = executeLinuxCmd(str1);
-    if(str1 == "0\n")
+    if(strCmd.contains("failed",Qt::CaseInsensitive))
     {
-        strCmd = strCmd.section("\n",0,0);strCmd = strCmd.section(":",1,1);strCmd = strCmd+"\n";
+        strCmd = strCmd.section("\n",0,0);strCmd = strCmd.section("m",1,1);
+        strCmd = strCmd.remove(6,strCmd.size()-1);
+        strCmd = " "+strCmd+"\n";
     }
     else
     {
-        strCmd = strCmd.section("\n",0,0);strCmd = strCmd.section("m",1,1);strCmd.remove(9,strCmd.size()-1);
-        strCmd = " "+strCmd+"\n";
+        QString str1 = QString("nmcli con show --active |grep ppp0 |wc -l");
+        str1 = executeLinuxCmd(str1);
+        if(str1 == "0\n")
+        {
+            strCmd = strCmd.section("\n",0,0);strCmd = strCmd.section(":",1,1);strCmd = strCmd+"\n";
+        }
+        else
+        {
+            strCmd = strCmd.section("\n",0,0);strCmd = strCmd.section("m",1,1);strCmd.remove(9,strCmd.size()-1);
+            strCmd = " "+strCmd+"\n";
+        }
     }
     statusResult.append(strCmd);
 
@@ -650,9 +659,15 @@ QString wifi_bt_interface::sim_4gstatus()
     strCmd = QString("mmcli -m %1 |grep access").arg(str);
     strCmd = executeLinuxCmd(strCmd);
     strCmd = strCmd.section(":",1,1);
-    //strCmd = "access tech:"+strCmd;
-    statusResult.append(strCmd)+"\n";
-
+    if(strCmd.isEmpty())
+    {
+        strCmd = QString(" %1 \n").arg("no");
+        statusResult.append(strCmd);
+    }
+    else
+    {
+        statusResult.append(strCmd)+"\n";
+    }
     strCmd = QString("mmcli -m %1 |grep signal").arg(str);
     strCmd = executeLinuxCmd(strCmd);
     strCmd = strCmd.section(":",1,1);
@@ -667,8 +682,15 @@ QString wifi_bt_interface::sim_4gstatus()
     strCmd = QString("mmcli -m %1 |grep name").arg(str);
     strCmd = executeLinuxCmd(strCmd);
     strCmd = strCmd.section(":",1,1);
-   // strCmd = "operator name:"+strCmd;
-    statusResult.append(strCmd)+"\n";
+    if(strCmd.isEmpty())
+    {
+        strCmd = QString(" %1 \n").arg("no");
+        statusResult.append(strCmd);
+    }
+    else
+    {
+        statusResult.append(strCmd)+"\n";
+    }
     return statusResult;
 }
 
@@ -902,10 +924,12 @@ QString wifi_bt_interface::bluetooth_scan()
          for(int i=0;i<list2.size();i++)
          {
              tmp1 = list2.at(i);
-             tmp1 = tmp1.section('\r', 2, 2);//qDebug() << tmp1;
-             address = tmp1.section(' ', 2, 2);
-             strname = tmp1.section(' ', 3, 3);
-             tmp1.indexOf(address);
+             tmp1 = tmp1.section('\r', 2, 2);
+             address = tmp1.section(' ', 2, 2);int ind =tmp1.indexOf(address);
+          //   strname = tmp1.section(' ', 3, 3);
+             strname = tmp1;
+             strname = strname.remove(0,ind);
+             strname = strname.remove(0,address.size()+1);
              //if(strname.contains("-",Qt::CaseSensitive))
              tmp1 = address.section(':',2,2);
              tmp2 = strname.section('-',2,2);
@@ -915,7 +939,7 @@ QString wifi_bt_interface::bluetooth_scan()
          }
          list3.removeAll("");
          strResult = list3.join("\n");
-         strResult.remove(strResult.size()-2,2);
+        // strResult.remove(strResult.size()-2,2);
          qDebug() << strResult;
          return strResult;
 }
@@ -1027,16 +1051,18 @@ QString wifi_bt_interface::bluetooth_connect(QString BtAddress)
     strCmd = QString("/bt_connect.sh %1").arg(BtAddress);
     strResult = executeLinuxCmd(strCmd);
     //qDebug() << strResult;
-    QString str = QString("Device %1 Connected: yes").arg(BtAddress);
-    bool ConnectResult=strResult.contains(str,Qt::CaseInsensitive);
+    //QString str = QString("Device %1 Connected: yes").arg(BtAddress);
+    QString flag = bluetooth_connectflag();
+    //QString str = QString("Connection successful");
+    //bool ConnectResult=strResult.contains(str,Qt::CaseInsensitive);
 
-    if(ConnectResult == 1)
+    if(flag == "1")
     {
-        strResult = "successful";
+        strResult = "failed";
     }
     else
     {
-        strResult = "failed";
+        strResult = "successful";
     }
    // strCmd = QString("rm /bt_connect.sh");
    // strResult = executeLinuxCmd(strCmd);
@@ -1136,7 +1162,7 @@ QString wifi_bt_interface::executeLinuxCmd_bluetooth_connect(QString strCmd)
     return strResult;
 }
 
-int wifi_bt_interface::bluetooth_connectflag()
+QString wifi_bt_interface::bluetooth_connectflag()
 {
     QStringList list;
     list << "#!/usr/bin/expect -f \n"
@@ -1169,11 +1195,17 @@ int wifi_bt_interface::bluetooth_connectflag()
     QString str = QString("Missing device address argument");
     if(strResult.contains(str,Qt::CaseInsensitive))
     {
-       return 1;
+       return "1";
     }
     else
     {
-       return 0;
+        QString tmp1 = "Agent registered";
+        int n = strResult.indexOf(tmp1);
+        strResult = strResult.remove(0,n);
+       QStringList s = strResult.split("\n");
+       str = s.at(3); str = str.section(":",1,1);
+       str.remove("\r");str.remove(0,1);
+       return str;
     }
 }
 

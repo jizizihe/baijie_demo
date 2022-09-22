@@ -98,7 +98,7 @@ public:
     void bluetooth_enable(bool);
     QString get_bluetooth_name();
     QString set_bluetooth_name(QString bluetooth_name);
-    int bluetooth_connectflag();
+    QString bluetooth_connectflag();
     void bluetooth_sh_delete();
     void bluetooth_disconnect(QString);
     void bluetooth_remove(QString BtAddress);

@@ -379,6 +379,12 @@ void wifi::on_WifiStatusBtn_clicked()
         QThread::sleep(3);
     }
     */
+
+    if(open_flag == 0)
+    {
+        QMessageBox::information(this,"information",tr("Please open the wifi!"));
+        return;
+    }
     if(hotconnect_falg == 1)
     {
         QMessageBox::critical(this,"information",tr("Please turn off the hotspot first!"));
@@ -399,21 +405,29 @@ void wifi::on_WifiConnectBtn_clicked()
     timer->start(5000);
     if(hotconnect_falg == 1)
     {
-      QMessageBox::critical(this,"information",tr("Please turn off the hotspot first!"));
+        QMessageBox::critical(this,"information",tr("Please turn off the hotspot first!"));
+        return;
     }
-    else
+    if(open_flag == 0)
     {
-        ui->stackedWidget->setCurrentIndex(0);
-        int flag = open_flag;
-        if(flag == 1)
-        {
-          emit wifi_scan_msg();
-        }
+        QMessageBox::information(this,"information",tr("Please open the wifi!"));
+        return;
+    }
+    ui->stackedWidget->setCurrentIndex(0);
+    int flag = open_flag;
+    if(flag == 1)
+    {
+        emit wifi_scan_msg();
     }
 }
 
 void wifi::on_HotspotConBtn_clicked()
 {
+    if(open_flag == 0)
+    {
+        QMessageBox::information(this,"information",tr("Please open the wifi!"));
+        return;
+    }
     if((ui->stackedWidget_3->currentIndex() == 0)&&(hotup_flag == 1))
     {
         ui->stackedWidget_3->setCurrentIndex(1);

@@ -87,6 +87,11 @@ void ipset::on_retBtn_clicked()
 
 void ipset::on_ipShowBtn_clicked()
 {
+    if(open_flag == 0)
+    {
+        QMessageBox::information(this,"information",tr("Please open the ethernet!"));
+        return;
+    }
     QString networkInfo = get_network_info();
     ui->textEdit->setText(networkInfo);
     ui->stackedWidget->setCurrentIndex(0);
@@ -138,6 +143,11 @@ void ipset::on_ipShowBtn_clicked()
 
 void ipset::on_setStaticIpBtn_clicked()
 {
+    if(open_flag == 0)
+    {
+        QMessageBox::information(this,"information",tr("Please open the ethernet!"));
+        return;
+    }
     //ui->okBtn->setText(tr("up"));
     ui->stackedWidget->setCurrentIndex(1);
 }
@@ -151,6 +161,11 @@ void ipset::on_modStaticIpBtn_clicked()
 
 void ipset::on_delStaticIpBtn_clicked()
 {
+    if(open_flag == 0)
+    {
+        QMessageBox::information(this,"information",tr("Please open the ethernet!"));
+        return;
+    }
     if(false == is_static_ip_exist())
     {
         QMessageBox mesg(QMessageBox::Information,
@@ -379,10 +394,6 @@ void ipset::on_btn_open_clicked()
         open_flag = 1;
         ui->btn_open->setText(tr("close"));
         network_enable(true);
-        ui->ipShowBtn->setEnabled(true);
-        ui->setStaticIpBtn->setEnabled(true);
-        ui->modStaticIpBtn->setEnabled(true);
-        ui->delStaticIpBtn->setEnabled(true);
         QString networkInfo = get_network_info();
         ui->textEdit->setText(networkInfo);
         ui->stackedWidget->setCurrentIndex(0);
@@ -392,26 +403,8 @@ void ipset::on_btn_open_clicked()
         open_flag = 0;
         ui->btn_open->setText(tr("open"));
         network_enable(false);
-        ui->ipShowBtn->setEnabled(false);
-        ui->setStaticIpBtn->setEnabled(false);
-        ui->modStaticIpBtn->setEnabled(false);
-        ui->delStaticIpBtn->setEnabled(false);
-         ui->textEdit->setText("");
+        ui->textEdit->setText("");
     }
-}
-
-void ipset::showEvent(QShowEvent *event)
-{
-//     if(true == is_static_ip_exist())
-//     {
-//         QStringList list = database_w.table_show("ip_static");
-//         if(!list.isEmpty())
-//         {
-//             ui->ipAddrLineEdit->setText(list.at(0));
-//             ui->okBtn->setText(tr("change"));btn_up_flag = 1;
-//         }
-//     }
-     QWidget::showEvent(event);
 }
 
 void ipset::ip_settext()

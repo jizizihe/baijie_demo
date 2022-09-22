@@ -510,16 +510,20 @@ void gpio::settext_statusbtn(int flag)
             horLayout->setStretchFactor(nameLabel2,1);
         }
 
-        nameLabel2->setAlignment(Qt::AlignVCenter);
-        nameLabel2->setAlignment(Qt::AlignLeft);
+//        nameLabel2->setAlignment(Qt::AlignVCenter);
+//        nameLabel2->setAlignment(Qt::AlignLeft);
+//        nameLabel1->setAlignment(Qt::AlignVCenter);
+//        nameLabel1->setAlignment(Qt::AlignRight);
         nameLabel1->setAlignment(Qt::AlignVCenter);
-        nameLabel1->setAlignment(Qt::AlignRight);
+        nameLabel2->setAlignment(Qt::AlignVCenter);
+        nameLabel2->setAlignment(Qt::AlignCenter);
+        nameLabel1->setAlignment(Qt::AlignCenter);
         horLayout->addWidget(nameLabel1);
         horLayout->addWidget(nameLabel2);
-//        horLayout->setStretchFactor(nameLabel1,1);
-//        horLayout->setStretchFactor(nameLabel2,1);
         ui->status_Switch->setLayout(horLayout);
-        horLayout->setContentsMargins(0,10,0,0);
+        int height_switch = ui->status_Switch->height();
+        height_switch = height_switch/2;
+        horLayout->setContentsMargins(0,0,0,0);
         status_flag++;
     }
     else
@@ -551,7 +555,7 @@ void gpio::settext_valuebtn(int flag)
         if(flag == 0)
         {
             nameLabel4->setText("value: low");
-            nameLabel3->setText(" ");
+            nameLabel3->setText("");
             horLayout->addWidget(nameLabel3);
             horLayout->addWidget(nameLabel4);
             horLayout->setStretchFactor(nameLabel4,2);
@@ -559,10 +563,10 @@ void gpio::settext_valuebtn(int flag)
         }
         else if(flag == 1)
         {
-            horLayout->setContentsMargins(0,5,0,0);
+           // horLayout->setContentsMargins(0,5,0,0);
             horLayout->addWidget(nameLabel3);
             horLayout->addWidget(nameLabel4);
-            nameLabel4->setText(" ");
+            nameLabel4->setText("");
             nameLabel3->setText(" value: high");
             horLayout->setStretchFactor(nameLabel4,1);
             horLayout->setStretchFactor(nameLabel3,2);
@@ -572,7 +576,7 @@ void gpio::settext_valuebtn(int flag)
         nameLabel4->setAlignment(Qt::AlignCenter);
         nameLabel3->setAlignment(Qt::AlignCenter);
         ui->value_Switch->setLayout(horLayout);
-        horLayout->setContentsMargins(0,5,0,0);
+        horLayout->setContentsMargins(0,0,0,0);
         value_flag++;
     }
     else
@@ -581,7 +585,6 @@ void gpio::settext_valuebtn(int flag)
         {
             nameLabel4->setText("value: low");
             nameLabel3->setText(" ");
-            horLayout->setContentsMargins(0,0,0,1);
             horLayout->setStretchFactor(nameLabel4,2);
             horLayout->setStretchFactor(nameLabel3,1);
         }
@@ -589,7 +592,6 @@ void gpio::settext_valuebtn(int flag)
         {
             nameLabel4->setText(" ");
             nameLabel3->setText(" value:  high");
-            horLayout->setContentsMargins(0,5,0,0);
             horLayout->setStretchFactor(nameLabel4,1);
             horLayout->setStretchFactor(nameLabel3,2);
         }

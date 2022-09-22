@@ -19,7 +19,6 @@ public:
 
     void language_reload();
     void ipset_font();
-    void showEvent(QShowEvent *event);
     void ip_settext();
 
 signals:

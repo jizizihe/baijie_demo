@@ -161,7 +161,7 @@ void serialdialog::on_serialOkBtn_clicked()
         if(!str.isEmpty())
         {
             str.remove(0,1);
-            str = QString("The %1 is occupied!").arg(str);
+            str = QString(tr("The %1 is occupied!")).arg(str);
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
                              tr(str.toUtf8()),

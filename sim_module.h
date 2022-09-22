@@ -23,6 +23,7 @@ public:
 
     void language_reload();
     void sim_font();
+    void showEvent(QShowEvent *event);
 
 signals:
     void Mysignal();

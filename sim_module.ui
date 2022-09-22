@@ -636,7 +636,7 @@ height:30px;
             <item>
              <widget class="QLabel" name="label_3">
               <property name="text">
-               <string>4g status</string>
+               <string>4G status</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>

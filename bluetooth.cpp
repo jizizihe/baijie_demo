@@ -15,8 +15,12 @@ static QString Btname;
 static QString Btcon;
 static int pair_index;
 static QTimer *timer;
-static int connect_flag;
-//static int scan_flag;
+static QTimer *timer_scan;
+static QString connect_flag;
+static int scan_flag;
+static int scan_first;
+static int show_flag;
+static int pair_flag;
 
 bluetooth::bluetooth(QWidget *parent) :
     QMainWindow(parent),
@@ -35,7 +39,7 @@ bluetooth::bluetooth(QWidget *parent) :
     blue_font();
 
     LoadLabel = new QLabel(this);
-   // LoadLabel->move(screen_width/2 - 150,screen_height/2 -50);
+    LoadLabel->move(Width/2 - 150,Height/2 -50);
     pMovie = new QMovie("://button_image/loading.webp");
     LoadLabel->setFixedSize(50, 50);
     LoadLabel->setScaledContents(true);
@@ -44,6 +48,8 @@ bluetooth::bluetooth(QWidget *parent) :
     myThread = new QThread(this);
     BluetoothThread = new bluetooth_thread();
     timer = new QTimer(this);
+    timer_scan = new QTimer(this);
+    connect(timer_scan,SIGNAL(timeout()),this,SLOT(scan_refresh()));
     connect(timer,SIGNAL(timeout()),this,SLOT(connect_refresh()));
     connect(this,SIGNAL(bluetooth_scan_msg()),BluetoothThread,SLOT(bluetooth_scan_thread()));
     connect(this,SIGNAL(bluetooth_pair_msg(QString)),BluetoothThread,SLOT(bluetooth_pair_thread(QString)));
@@ -53,13 +59,15 @@ bluetooth::bluetooth(QWidget *parent) :
     BluetoothThread->moveToThread(myThread);
     myThread->start();
     LoadLabel->show();
-    LoadLabel->move(this->width()/2,this->height()/2);
+    //LoadLabel->move(this->width()/2,this->height()/2);
     pMovie->start();
     ui->stackedWidget->setCurrentIndex(0);
     ui->BTConnectBtn->setDisabled(true);
     ui->BtNameListWidget->setDisabled(true);
     emit bluetooth_scan_msg();
     ui->BTScanBtn->setText("stop");
+    //connect_refresh();
+    scan_flag = 2;
 }
 
 bluetooth::~bluetooth()
@@ -115,9 +123,15 @@ void bluetooth::recv_msg(int signal_type,QString str)
     int flag;
     if(signal_type == Bt_scan_signal)
     {
-        if(LoadLabel->isHidden())
+        //if(LoadLabel->isHidden())
+//        if(ui->stackedWidget->currentIndex()==1)
+//        {
+//           return;
+//        }
+        if(pair_flag == 1)
         {
-           return;
+            scan_first = 0;
+            return;
         }
         ui->BtNameListWidget->clear();
         flag = open_flag;
@@ -158,12 +172,54 @@ void bluetooth::recv_msg(int signal_type,QString str)
         ui->BtNameListWidget->verticalScrollBar()->setStyleSheet("QScrollBar{width:40px;}");
         ui->BtNameListWidget->horizontalScrollBar()->setStyleSheet("QScrollBar{height:30px;}");
         ui->BtNameListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
-        ui->BTScanBtn->setText("scan");
+
+        if(scan_first == 1)
+        {qDebug() << 111;
+            if(scan_flag == 2)
+            {
+                ui->BTConnectBtn->setEnabled(true);
+                ui->BtNameListWidget->setEnabled(true);
+                pMovie->stop();
+                LoadLabel->hide();
+                ui->BTScanBtn->setText("scan");
+                scan_flag = 1;
+                if(show_flag == 1)
+                timer_scan->start(3000);
+            }
+            else
+            {
+                if(pair_flag == 1)
+                {
+                    scan_first = 0;
+                    return;
+                }
+               // emit bluetooth_scan_msg();
+                timer_scan->start(2000);
+            }
+        }
+        else
+        {
+            if(scan_flag == 0)
+            {
+                emit bluetooth_scan_msg();
+            }
+            else
+            {
+                ui->BTConnectBtn->setEnabled(true);
+                ui->BtNameListWidget->setEnabled(true);
+                pMovie->stop();
+                LoadLabel->hide();
+                ui->BTScanBtn->setText("scan");
+                if(show_flag == 1)
+                timer_scan->start(3000);
+            }
+        }
     }
     else if(signal_type == Bt_pair_signal)
     {
         if(str == "successful")
         {
+            pair_flag = 0;
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
                              tr("pair success!"),
@@ -180,6 +236,7 @@ void bluetooth::recv_msg(int signal_type,QString str)
         }
         else if(str == "failed")
         {
+            pair_flag = 0;
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
                              tr("pair failed!"),
@@ -190,7 +247,14 @@ void bluetooth::recv_msg(int signal_type,QString str)
              else
              mesg.move(Width/3,Height/3);
              mesg.exec();
+             timer_scan->start(3000);
         }
+        ui->BTScanBtn->setEnabled(true);
+        ui->BTConnectBtn->setEnabled(true);
+        ui->BtNameListWidget->setEnabled(true);
+
+        pMovie->stop();
+        LoadLabel->hide();
     }
     else if(signal_type == Bt_connect_signal)
     {
@@ -244,18 +308,19 @@ void bluetooth::recv_msg(int signal_type,QString str)
              mesg.move(Width/3,Height/3);
              mesg.exec();
         }
+        ui->BTScanBtn->setEnabled(true);
+        ui->BTConnectBtn->setEnabled(true);
+        ui->BtNameListWidget->setEnabled(true);
+
+        pMovie->stop();
+        LoadLabel->hide();
     }
-
-    ui->BTScanBtn->setEnabled(true);
-    ui->BTConnectBtn->setEnabled(true);
-    ui->BtNameListWidget->setEnabled(true);
-
-    pMovie->stop();
-    LoadLabel->hide();
 }
 
 void bluetooth::on_retBtn_clicked()
 {
+    scan_first = 0;
+    show_flag = 0;
     emit Mysignal();
     timer->stop();
     emit rm_shell();
@@ -273,6 +338,7 @@ void bluetooth::on_BTScanBtn_clicked()
     if(ind == 1)
     {
         ui->stackedWidget->setCurrentIndex(0);
+        timer_scan->start(3000);
         return;
     }
 
@@ -284,6 +350,8 @@ void bluetooth::on_BTScanBtn_clicked()
         pMovie->stop();
         wifi_bt_t->executeLinuxCmd("kill");
         ui->BTScanBtn->setText(tr("scan"));
+        scan_flag = 1;
+        //emit bluetooth_scan_msg();
         return;
     }
 
@@ -291,19 +359,35 @@ void bluetooth::on_BTScanBtn_clicked()
     ui->BTConnectBtn->setDisabled(true);
     ui->BtNameListWidget->setDisabled(true);
     LoadLabel->show();
-    LoadLabel->move(this->width()/2,this->height()/2);
+    //LoadLabel->move(this->width()/2,this->height()/2);
     pMovie->start();
     emit bluetooth_scan_msg();
     //scan_flag = 0;
     ui->BTScanBtn->setText(tr("stop"));
+    scan_flag = 0;
+    scan_first = 0;
 }
 
 void bluetooth::on_BTConnectBtn_clicked()
 {    
+    scan_first = 0;
     if(open_flag == 0)
     {
         QMessageBox::information(this,"information",tr("Please open Bluetooth first!"));
         return;
+    }
+    ui->stackedWidget->setCurrentIndex(1);
+    if(!Btcon.isEmpty())
+    {
+      ui->stackedWidget_2->setCurrentIndex(1);
+      timer->stop();
+    }
+    else
+    {
+       ui->stackedWidget_2->setCurrentIndex(0);
+       Btcon = "";
+       bluetooth_sql();
+       timer->start(3000);
     }
     QString tmp;
     QString strResult = wifi_bt_t->executeLinuxCmd("hciconfig");
@@ -329,9 +413,7 @@ void bluetooth::on_BTConnectBtn_clicked()
     {
         ui->status_label->setText(tr("not connect"));
     }
-    ui->stackedWidget->setCurrentIndex(1);
-    ui->stackedWidget_2->setCurrentIndex(1);
-    timer->stop();
+
 }
 
 void bluetooth::language_reload()
@@ -407,14 +489,18 @@ void bluetooth::on_pushButton_clicked()
         ui->BTConnectBtn->setDisabled(true);
         ui->BtNameListWidget->setDisabled(true);
         LoadLabel->show();
-        LoadLabel->move(this->width()/2,this->height()/2);
+        //LoadLabel->move(this->width()/2,this->height()/2);
         pMovie->start();
         emit bluetooth_scan_msg();
         ui->BTScanBtn->setText("stop");
+        timer_scan->start(3000);
     }
    else
    {
+        scan_first = 0;
         open_flag = 0;
+        LoadLabel->hide();
+        pMovie->stop();
         ui->pushButton->setText(tr("open"));
         ui->BtNameListWidget->clear();
         ui->stackedWidget->setCurrentIndex(0);
@@ -474,11 +560,13 @@ void bluetooth::showEvent(QShowEvent *event)
     ui->stackedWidget->setCurrentIndex(0);
     QString name = wifi_bt_t->get_bluetooth_name();
     ui->BtDeviceNameLab->setText(name);
+    show_flag = 1;timer_scan->start(3000);
     QWidget::showEvent(event);
 }
 
 void bluetooth::on_BtNameListWidget_itemClicked(QListWidgetItem *item)
 {
+    pair_flag = 1;
     int BtNameIndex = ui->BtNameListWidget->currentRow();
     pair_index = BtNameIndex;
     BtAddress = BtScanList.at(BtNameIndex);
@@ -536,11 +624,15 @@ void bluetooth::on_Bt_pairedListwidget_itemClicked(QListWidgetItem *item)
 void bluetooth::connect_refresh()
 {
     connect_flag = wifi_bt_t->bluetooth_connectflag();
-    if(connect_flag == 1)
+    if(connect_flag == "1")
     {
-        Btcon = "";
-        bluetooth_sql();
+        Btcon = "";     
     }
+    else
+    {
+       Btcon = connect_flag;
+    }
+    bluetooth_sql();
 }
 
 void bluetooth::on_btn_status_clicked()
@@ -552,7 +644,7 @@ void bluetooth::on_btn_status_clicked()
 
 void bluetooth::on_btn_disconnect_clicked()
 {
-    if(connect_flag == 1)
+    if(Btcon.isEmpty())
     {
         QMessageBox::information(this,"information",tr("No device is connected!"));
     }
@@ -572,6 +664,8 @@ void bluetooth::on_btn_disconnect_clicked()
 void bluetooth::on_btn_remove_clicked()
 {
     int row = ui->Bt_pairedListwidget->currentRow();
+    if(row < 0)
+        return;
     Btname = BtPairList.at(row);
     QString address = database_w.select_by_name("bluetooth",Btname);
     wifi_bt_t->bluetooth_remove(address);
@@ -581,4 +675,19 @@ void bluetooth::on_btn_remove_clicked()
     ui->bus_label->setText(tr("no"));
     bluetooth_sql();
     ui->stackedWidget_2->setCurrentIndex(0);
+}
+
+void bluetooth::scan_refresh()
+{
+    if(pair_flag == 1)
+    {
+        scan_first = 0;
+        return;
+    }
+  if(ui->stackedWidget->currentIndex() == 0)
+  {
+      scan_first=1;
+      emit bluetooth_scan_msg();
+      timer_scan->stop();
+  }
 }

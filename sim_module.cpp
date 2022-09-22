@@ -41,7 +41,7 @@ sim_module::sim_module(QWidget *parent) :
     connect(this,SIGNAL(sim_activation(int)),SimThread,SLOT(sim_activation(int)));
     SimThread->moveToThread(myThread);
     myThread->start();
-    emit sim_4gstatus();timer->start(3000);
+    emit sim_4gstatus();
 
     emit sim_status_msg();ui->stackedWidget->setCurrentIndex(2);
 }
@@ -50,6 +50,11 @@ sim_module::~sim_module()
 {
     delete ui;
     delete wifi_bt_interface_w;
+}
+
+void sim_module::showEvent(QShowEvent *event)
+{
+    timer->start(3000);
 }
 
 void sim_module::on_retBtn_clicked()
@@ -142,6 +147,12 @@ void sim_module::recv_msg(int signal_type, QString strResult)
         break;
     case sim_4gstatus_signal:
         //ui->textEdit_2->setText(strResult);
+        if(strResult.isEmpty())
+        {
+            ui->stackedWidget->setCurrentIndex(3);
+            timer->stop();
+            return;
+        }
         list = strResult.split("\n");
         for(int i=0;i<list.size();i++)
         {
@@ -167,6 +178,7 @@ void sim_module::recv_msg(int signal_type, QString strResult)
            else if(i==9)
                ui->operat_label->setText(tmp);
         }
+        //ui->stackedWidget->setCurrentIndex(2);
         break;
     case sim_status_signal:
 
@@ -215,7 +227,16 @@ void sim_module::recv_msg(int signal_type, QString strResult)
 }
 
 void sim_module::on_SimDisconnectBtn_clicked()
-{  
+{
+    QString strCmd = QString("mmcli --list-modems");
+    QString strResult =  wifi_bt_interface_w->executeLinuxCmd(strCmd);
+    QString str = strResult.section("/",5,5);str = str.section(" ",0,0);
+    if(str.isEmpty())
+    {
+        QMessageBox::information(this,"information",tr("No 4G devices!"));
+        timer->stop();
+        return;
+    }
     QString result = wifi_bt_interface_w->executeLinuxCmd("nmcli con show --active |grep ppp0 |wc -l");
     timer->stop();
     if(open_flag == 1)
@@ -259,6 +280,15 @@ void sim_module::on_SimDisconnectBtn_clicked()
 
 void sim_module::on_SimConnectBtn_clicked()
 {  
+    QString strCmd = QString("mmcli --list-modems");
+    QString strResult =  wifi_bt_interface_w->executeLinuxCmd(strCmd);
+    QString str = strResult.section("/",5,5);str = str.section(" ",0,0);
+    if(str.isEmpty())
+    {
+        QMessageBox::information(this,"information",tr("No 4G devices!"));
+        timer->stop();
+        return;
+    }
     timer->stop();
     LoadLabel->show();
     LoadLabel->move(this->width()/2,this->height()/2);
@@ -367,7 +397,6 @@ void sim_module::sim_font()
     ui->state_label->setFont(font);
     ui->auto_label->setFont(font);
     ui->address_label->setFont(font);
-    ui->ip_label->setFont(font);
     ui->vpn_label->setFont(font);
 }
 
@@ -375,11 +404,23 @@ void sim_module::on_btn_open_clicked()
 {
     if(open_flag == 0)
     {
-        ui->stackedWidget->setCurrentIndex(2);
         open_flag = 1;
         ui->btn_open->setText(tr("close"));
         emit sim_activation(1);
-        timer->start(3000);
+        QString strCmd = QString("mmcli --list-modems");
+        QString strResult =  wifi_bt_interface_w->executeLinuxCmd(strCmd);
+        QString str = strResult.section("/",5,5);str = str.section(" ",0,0);
+        if(str.isEmpty())
+        {
+            timer->stop();
+            return;
+        }
+        else
+        {
+            ui->stackedWidget->setCurrentIndex(2);
+            emit sim_4gstatus();
+            timer->start(3000);
+        }
     }
     else
     {
@@ -393,10 +434,19 @@ void sim_module::on_btn_open_clicked()
 
 void sim_module::on_statusBtn_clicked()
 {
+    QString strCmd = QString("mmcli --list-modems");
+    QString strResult =  wifi_bt_interface_w->executeLinuxCmd(strCmd);
+    QString str = strResult.section("/",5,5);str = str.section(" ",0,0);
+    if(str.isEmpty())
+    {
+        QMessageBox::information(this,"information",tr("No 4G devices!"));
+        timer->stop();
+        return;
+    }
     if(open_flag == 1)
     {
-        emit sim_4gstatus();
-        ui->stackedWidget->setCurrentIndex(2);
+        emit sim_4gstatus();ui->stackedWidget->setCurrentIndex(2);
+     //    ui->stackedWidget->setCurrentIndex(2);
         timer->start(3000);
     }
     else

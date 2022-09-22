@@ -290,7 +290,7 @@ void MainWindow::on_serialport_clicked()
 
 void MainWindow::on_system_clicked()
 {
-    this->hide();
+    this->close();
     system_show();
 }
 
@@ -340,7 +340,6 @@ void MainWindow::voice_back()
     {
        voice_view->hide();
     }
-    //voice_w.hide();
     voice_w.close();
     this->show();
 }
