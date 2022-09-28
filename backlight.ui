@@ -55,8 +55,14 @@ QPushButton:pressed { /*按钮被按下时*/
      color:rgba(0, 0, 0, 100);
 }
 
-
-
+QComboBox QAbstractItemView {
+outline:0px;
+background-color:rgba(255, 255, 255, 180);
+}
+QComboBox {
+outline:0px;
+background-color:rgba(255, 255, 255, 200);
+}
 
 QTextEdit
 {
@@ -94,6 +100,9 @@ QTextEdit
         <width>16777215</width>
         <height>2</height>
        </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -179,8 +188,8 @@ QTextEdit
              </property>
              <property name="minimumSize">
               <size>
-               <width>120</width>
-               <height>60</height>
+               <width>0</width>
+               <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
@@ -191,6 +200,16 @@ QTextEdit
              </property>
              <property name="text">
               <string>backlight</string>
+             </property>
+             <property name="icon">
+              <iconset resource="translation.qrc">
+               <normaloff>:/button_image/backlight_2.svg</normaloff>:/button_image/backlight_2.svg</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
              </property>
             </widget>
            </item>
@@ -250,8 +269,8 @@ QTextEdit
              </property>
              <property name="minimumSize">
               <size>
-               <width>120</width>
-               <height>60</height>
+               <width>0</width>
+               <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
@@ -262,6 +281,16 @@ QTextEdit
              </property>
              <property name="text">
               <string>sleep</string>
+             </property>
+             <property name="icon">
+              <iconset resource="translation.qrc">
+               <normaloff>:/button_image/moon1.svg</normaloff>:/button_image/moon1.svg</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
              </property>
             </widget>
            </item>
@@ -722,15 +751,18 @@ border-radius: 4px;
      </layout>
     </item>
     <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1,3,3">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,2,3,2,1">
       <property name="spacing">
-       <number>6</number>
+       <number>0</number>
       </property>
       <property name="leftMargin">
        <number>9</number>
       </property>
       <property name="topMargin">
        <number>5</number>
+      </property>
+      <property name="rightMargin">
+       <number>9</number>
       </property>
       <property name="bottomMargin">
        <number>5</number>
@@ -823,7 +855,17 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
        </spacer>
       </item>
       <item>
-       <spacer name="horizontalSpacer_11">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Backlight Interface</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -836,17 +878,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>Backlight Interface</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_2">
+       <spacer name="horizontalSpacer_11">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>

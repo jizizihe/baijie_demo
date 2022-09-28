@@ -28,7 +28,17 @@ voice_savefile_name::voice_savefile_name(QWidget *parent) :
 
     if(s_width < s_height)
     {
-        screen_flag = 1;
+        screen_flag = 1; this->setStyleSheet("voice_savefile_name{border-image: url(:/button_image/all/background.jpg);}"
+                                            "QMessageBox {background-image: url(:/button_image/all/background.jpg);border:1px solid gray;}"
+                                            "QPushButton{"
+                                            "background-color: rgba(100, 225, 100, 120);"
+                                             "border-style: outset;"
+                                             "border-width:  2px;"
+                                             "border-radius: 10px;"
+                                             "border-color: rgba(255, 225, 255, 30);"
+                                             "color:rgba(0, 0, 0, 100);"
+                                             "padding: 6px; "
+                                             "outline: none; }");
     }
     voice_savefile_font();
     ui->label_2->setText("/data/");
@@ -184,21 +194,27 @@ void voice_savefile_name::file_choose_show()
             file_vview->resize(File_oprationw.height(),File_oprationw.width());
             File_oprationw.show();
             file_vview->show();
-            file_vview->move(s_width/5,s_height/4);
+            int w1=(s_width-s_width/6)/2-this->height()/2;
+            int h=s_height*2/9+(s_height*7/9/2-this->width()/2);
+            file_vview->move(w1,h);
             file_flag++;
         }
         else
         {
             File_oprationw.show();
             file_vview->show();
-            file_vview->move(s_width/4,s_height/4);
+            int w1=(s_width-s_width/6)/2-this->height()/2;
+            int h=s_height*2/9+(s_height*7/9/2-this->width()/2);
+            file_vview->move(w1,h);
         }
     }
     else
     {
         File_oprationw.resize(s_width/2,s_height*2/3);
-        File_oprationw.move(s_width/2-File_oprationw.width()/2,s_height/2-File_oprationw.height()/2);
         File_oprationw.show();
+        int w = s_width*2/9+(s_width-s_width*2/9)/2-(File_oprationw.width()/2);
+        int h = s_height/6+((s_height-s_height/6)/2-File_oprationw.height()/2);
+        File_oprationw.move(w,h);
     }
 }
 

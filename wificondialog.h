@@ -23,7 +23,7 @@ public:
 
     void language_reload();
 
-    void SetWifiNameText(QString );
+    void SetWifiNameText(QString);
     void SetPasswdText(QString );
     QString GetWifiNameText();
     QString GetPasswdText();

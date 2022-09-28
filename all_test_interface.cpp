@@ -7,6 +7,7 @@
 #define qdebug(format, ...)
 #endif
 
+static int camera_first;
 
 QString get_gateway()
 {
@@ -71,7 +72,7 @@ QString get_new_sd()
 //    qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
     if(strResult == QString("0\n"))
     {
-        strResult = "failed";
+        strResult = "No sd card deteted";
     }
     else
     {
@@ -94,8 +95,16 @@ QString rtc_test()
 
 void camera_test()
 {
-    QString strCmd = QString("rm /data/yuv.jpg");
-    QString strResult = executeLinuxCmd(strCmd);
+    QString strCmd;
+    QString strResult;
+    if(camera_first == 0)
+    {
+        strCmd = QString("photo_csi.sh ");
+        strResult = executeLinuxCmd(strCmd);
+        camera_first++;
+    }
+    strCmd = QString("rm /data/yuv.jpg");
+    strResult = executeLinuxCmd(strCmd);
 
     strCmd = QString("cd /data && csi_test_mplane");
     strResult = executeLinuxCmd(strCmd);
@@ -131,14 +140,14 @@ QString sim_test()
     bool isExist = getFileName(port_num);
     if(isExist == false)
     {
-        qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "not Exist";
+       // qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "not Exist";
         if(gpio_export(port_num) == 0)
         {
             if(gpio_set_state(port_num, state) == 0)
             {
                 if(gpio_set_value(port_num, 1) == 0)
                 {
-                    qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "build connect";
+               //     qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "build connect";
                     sleep(5);
                 }
             }
@@ -196,7 +205,7 @@ QString sim_test()
             sleep(4);
             strCmd = QString("ifconfig | grep ppp0");
   //          strResult = executeLinuxCmd(strCmd);
-            qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
+  //          qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
 
             if(!strResult.isEmpty())
             {

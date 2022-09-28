@@ -138,6 +138,9 @@ QScrollBar{ width:30px;}
       <property name="sizeAdjustPolicy">
        <enum>QAbstractScrollArea::AdjustToContents</enum>
       </property>
+      <property name="itemsExpandable">
+       <bool>false</bool>
+      </property>
       <attribute name="headerVisible">
        <bool>false</bool>
       </attribute>

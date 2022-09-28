@@ -38,7 +38,7 @@ static int record_length;
 static int flag_record = 0;
 static int flag_stop_play = 0;
 
-static int slider_flag = 0;
+//static int slider_flag = 0;
 static int volume_flag;
 static QString file_path;
 static QScreen *screenn;
@@ -58,7 +58,7 @@ voice::voice(QWidget *parent) :
 
     if(Width < Height)
     {
-        screen_flag = 1;
+        screen_flag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
     voice_font();
     volume_flag = 1;
@@ -81,6 +81,7 @@ voice::voice(QWidget *parent) :
     connect(&changname,SIGNAL(save_back()),this,SLOT(savew_hide()));
     connect(&File_oprationw,SIGNAL(file_rev2(QString)),this,SLOT(file_path(QString)));
     connect(&File_oprationw,SIGNAL(file_hide()),this,SLOT(refile_hide()));
+    connect(this,SIGNAL(sliderchange(int)),this,SLOT(slider_change(int)));
     //connect(&changname,SIGNAL(save_path(QString,QString)),this,SLOT(save_path(QString,QString)));
 
     ui->btn_rec->setText(tr("start"));
@@ -130,14 +131,13 @@ void voice::refresh(QString dir_path)
 
 void voice::set_volume(int value)
 {
-
     QProcess *proc = new QProcess();
     //qdebug("sound_value:%d",value);
     int sound = 31 - value;
     proc->start(QString("amixer cset numid=6 %1").arg(sound));
     proc->waitForStarted(-1);
     proc->waitForFinished(-1);
-    slider_flag = 0;
+    //slider_flag = 0;
 }
 
 void voice::show_time()
@@ -149,11 +149,11 @@ void voice::show_time()
         QString length = record_timelength(record_length);
         ui->record_timelength->setText(length);
     }
-    if(slider_flag == 1)
-    {
-       int value = ui->Slider_volume->value();
-       set_volume(value);
-    }
+//    if(slider_flag == 1)
+//    {
+//       int value = ui->Slider_volume->value();
+//       set_volume(value);
+//    }
 }
 
 //void voice::on_horizontalSlider_valueChanged(int value)
@@ -183,10 +183,20 @@ void voice::on_return_2_clicked()
             File_oprationw.hide();
             file_vview->hide();
         }
+        if(view_show == 2)
+        {
+            changname.hide();
+            save_view->hide();
+        }
+        if(view_show == 3)
+        {
+            rename_view->hide();
+            rename_w.hide();
+        }
     }
     else
     {
-        File_oprationw.hide();
+        File_oprationw.hide();rename_w.hide();changname.hide();
     }
 }
 //void voice::on_choose_3_clicked()
@@ -530,7 +540,6 @@ void voice::on_pushButton_clicked()
       set_volume(0);
       volume_flag = 0;
       ui->pushButton->setIcon(QIcon(":/button_image/voice/sound_cross.svg"));
-      ui->Slider_volume->setEnabled(false);
     }
     else
     {
@@ -538,7 +547,6 @@ void voice::on_pushButton_clicked()
        set_volume(value);
        volume_flag = 1;
        ui->pushButton->setIcon(QIcon(":/button_image/voice/sound_open.svg"));
-       ui->Slider_volume->setEnabled(true);
     }
 }
 
@@ -581,7 +589,8 @@ void voice::on_btn_rec_clicked()
 
 void voice::on_Slider_volume_valueChanged(int value)
 {
-    slider_flag = 1;
+    //slider_flag = 1;
+    emit sliderchange(value);
 }
 
 void voice::save_fileshow()
@@ -594,14 +603,17 @@ void voice::save_fileshow()
         QPoint p = ui->btn_rec->mapToGlobal(QPoint(0, 0));
         int h_btn = p.y()+ui->btn_rec->height();
         int h = Height-(Height - h_btn)-Height*2/3;
-        changname.move(w,h);
         changname.resize(Width*31/50,Height*2/3);
+        w = Width*2/9+((Width-Width*2/9)/2-changname.width()/2);
+        h = Height/6+((Height-Height/6)/2-changname.height()/2);
+        changname.move(w,h);
+
         changname.show();
         changname.activateWindow();changname.setFocus();
     }
     else
     {
-
+        view_show = 2;
         if(save_flag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
@@ -619,7 +631,9 @@ void voice::save_fileshow()
             save_view->show();
             save_view->activateWindow();save_view->setFocus();
             changname.activateWindow();changname.setFocus();
-            save_view->move(Width/4,Height/4);
+            int w1=(Width-Width/6)/2-changname.height()/2;
+            int h=Height*2/9+(Height*7/9/2-changname.width()/2);
+            save_view->move(w1,h);
             save_flag++;
         }
         else
@@ -628,7 +642,9 @@ void voice::save_fileshow()
             save_view->show();
             save_view->activateWindow();save_view->setFocus();
             changname.activateWindow();changname.setFocus();
-            save_view->move(Width/4,Height/4);
+            int w1=(Width-Width/6)/2-changname.height()/2;
+            int h=Height*2/9+(Height*7/9/2-changname.width()/2);
+            save_view->move(w1,h);
         }
     }
 }
@@ -659,28 +675,34 @@ void voice::rename_fileshow()
             rename_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
             rename_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
             rename_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            rename_w.resize(Height*2/3,Width/2);
-            rename_view->resize(Width/2,Height*2/3);
+            rename_w.resize(Height*2/3,Width*2/3);
+            rename_view->resize(Width*2/3,Height*2/3);
             rename_w.show();
             rename_view->show();
-            rename_view->move(Width/4,Height/4);
+            int w1=(Width-Width/6)/2-rename_w.height()/2;
+            int h=Height-Height*7/9+(Height*7/9/2-rename_w.width()/2);
+            rename_view->move(w1,h);
             rename_view->activateWindow();rename_view->setFocus();
             rename_w.activateWindow();rename_w.setFocus();
             rename_flag++;
         }
         else
         {
+            view_show = 3;
             rename_w.show();
             rename_view->show();
             rename_view->activateWindow();rename_view->setFocus();
             rename_w.activateWindow();rename_w.setFocus();
-            rename_view->move(Width/4,Height/4);
+            int w1=(Width-Width/6)/2-rename_w.height()/2;
+            int h=Height*2/9+(Height*7/9/2-rename_w.width()/2);
+            rename_view->move(w1,h);
         }
     }
 }
 
 void voice::savew_hide()
 {
+    view_show = 0;
     if(screen_flag == 1)
     {
       changname.hide();
@@ -695,6 +717,7 @@ void voice::savew_hide()
 
 void voice::renamew_hide()
 {
+    view_show = 0;
     if(screen_flag == 1)
     {
       rename_w.hide();
@@ -794,7 +817,7 @@ void voice::file_choose_show()
 {
     if(screen_flag == 1)
     {
-        view_show++;
+        view_show=1;
         if(file_flag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
@@ -808,21 +831,24 @@ void voice::file_choose_show()
             file_vview->resize(File_oprationw.height(),File_oprationw.width());
             File_oprationw.show();
             file_vview->show();
-            file_vview->move(Width/5,Height/4);
+            int w1=Width*5/6-File_oprationw.height();
+            int h=Height*2/9+(Height*7/9/2-File_oprationw.width()/2);
+            file_vview->move(w1,h);
             file_flag++;
         }
         else
         {
             File_oprationw.show();
             file_vview->show();
-            file_vview->move(Width/4,Height/4);
+            int w1=Width*5/6-File_oprationw.height();
+            int h=Height*2/9+(Height*7/9/2-File_oprationw.width()/2);
+            file_vview->move(w1,h);
         }
     }
     else
     {
-        int w_fun = ui->function->width();
-        int w = w_fun;
-         QPoint p = ui->stackedWidget->mapToGlobal(QPoint(0, 0));
+        int w = Width*2/9+((Width-Width*2/9)/2-File_oprationw.width()/2);
+        QPoint p = ui->stackedWidget->mapToGlobal(QPoint(0, 0));
         int h = p.y();
         File_oprationw.show();File_oprationw.move(w,h);
     }
@@ -830,6 +856,7 @@ void voice::file_choose_show()
 
 void voice::refile_hide()
 {
+    view_show = 0;
     if(screen_flag == 1)
     {
         File_oprationw.hide();
@@ -843,3 +870,12 @@ void voice::refile_hide()
     }
 }
 
+void voice::slider_change(int value)
+{
+    if(volume_flag == 0)
+    {
+        volume_flag = 1;
+        ui->pushButton->setIcon(QIcon(":/button_image/voice/sound_open.svg"));
+    }
+    set_volume(value);
+}

@@ -3,6 +3,7 @@
 #include "xcombobox.h"
 #include <QDebug>
 #include <QThread>
+#include <QTimer>
 
 static int s_width;
 static int s_height;
@@ -16,6 +17,7 @@ static QGraphicsView *file_view;
 static int view_show;
 static QStringList list_filecheck;
 static QString mount_file;
+static QTimer *timer;
 
 udev::udev(QWidget *parent) :
     QMainWindow(parent),
@@ -31,11 +33,14 @@ udev::udev(QWidget *parent) :
     s_height = screen->size().height();
     if(s_width < s_height)
     {
-        screen_flag = 1;
+        screen_flag = 1;ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
     udev_font();
+    timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),this,SLOT(mount_refresh()));
     connect(&pro_path, SIGNAL(readyReadStandardOutput()), this, SLOT(readBashStandardOutputInfo()));
     pro_path.start("bash");
+    mount_refresh();
 }
 
 udev::~udev()
@@ -103,101 +108,126 @@ udev::~udev()
 
 void udev::on_umount_clicked()  //安全退出
 {
-    int flag;
-    QString str;
-    if(list_filecheck.isEmpty())
-    {
-        QMessageBox mesg(QMessageBox::Information,
-                         tr("QMessageBox::information()"),
-                         tr("Please select the file that you want to umount!"),
-                         0,this);
-        mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screen_flag == 1)
+    // int flag;
+    //    QString str;
+    //    if(list_filecheck.isEmpty())
+    //    {
+    //        QMessageBox mesg(QMessageBox::Information,
+    //                         tr("QMessageBox::information()"),
+    //                         tr("Please select the file that you want to safe exit!"),
+    //                         0,this);
+    //        mesg.addButton(tr("OK"),QMessageBox::YesRole);
+    //        if(screen_flag == 1)
+    //        mesg.move(s_width*2/3,s_height/3);
+    //        else
+    //        mesg.move(s_width/3,s_height/3);
+    //        mesg.exec();
+    //        return;
+    //    }
+    //    QString path = ui->label->text();//qDebug() << path;
+    //    if((!QString::compare(QString(path),QString("/media/udisk/"),Qt::CaseSensitive)) || (!QString::compare(QString(path),QString("/media/sdcard/"),Qt::CaseSensitive)))
+    //    {
+
+    //        QString strr = "df | awk '{print $1}'|grep /dev ";
+    //        proc->start("bash", QStringList() << "-c" << strr);
+    //        proc->waitForFinished(-1);
+
+    //        QString out = proc->readAllStandardOutput();
+    //        QStringList list = out.split("\n");
+    //        list.removeAll("");
+    //        //qDebug() << list;
+
+    //        QString umount_file;
+    //        for(int i = 0; i< list_filecheck.size();i++)
+    //        {
+    //            QString dev = QString(list_filecheck.at(i));
+    //            dev.remove(dev.length()-1,dev.length()-2);
+    //            dev = QString("/dev/%1").arg(dev);
+    //            for(int j=0;j<list.size();j++)
+    //            {
+    //                if(dev == list.at(j))
+    //                {
+    //                   // flag = 1;
+    //                    str = list_filecheck.at(i);
+    //                    umount_file = QString("%1%2%3 ").arg(umount_file).arg("/dev/").arg(str);
+    //                }
+    //            }
+
+    //        }
+    //        if(flag == 1)
+    //        {
+    //  umount_file = QString("%1%2%3 ").arg(umount_file).arg("/dev/").arg(str);
+    // }
+    //        else
+    //        {
+    //            QMessageBox mesg(QMessageBox::Information,
+    //                             tr("QMessageBox::information()"),
+    //                             tr("It is safe exit!"),
+    //                             0,this);
+    //            mesg.addButton(tr("OK"),QMessageBox::YesRole);
+    //            if(screen_flag == 1)
+    //                mesg.move(s_width*2/3,s_height/3);
+    //            else
+    //                mesg.move(s_width/3,s_height/3);
+    //            mesg.exec();
+    //            return;
+    //        }
+
+
+//    QRegExp reg("/dev/sd[a-z]1");
+//    QString str_text = QString("df -h | awk '{print $1}'");
+//    proc->start("bash",QStringList() << "-c" << str_text);
+//    proc->waitForFinished(-1);
+//    QString ss = proc->readAllStandardOutput().data();
+//    QStringList data = ss.split("\n");
+
+//    mount_device.clear();
+//    int globall_index = 0;
+//    for(int x = 0; x < data.size();x++)   //查找设备
+//    {
+//        if(reg.exactMatch(data.at(x)) || data.at(x) == "/dev/mmcblk1p1")
+//        {
+//            mount_device << data.at(x);
+//            globall[globall_index++] = data.at(x);
+//        }
+//    }
+//    if(mount_device.isEmpty())
+//    {
+//        ui->umount->setStyleSheet("background-color: rgba(211, 215, 207,180);");
+//        ui->umount->setEnabled(false);
+//        return;
+//    }
+    pro_path.write("sync\n");
+    pro_path.write("sync\n");
+    // umount_file = QString("umount %1 \n").arg(umount_file);qDebug() << umount_file;
+    // pro_path.write(umount_file.toUtf8());
+    QMessageBox mesg(QMessageBox::Information,
+                     tr("QMessageBox::information()"),
+                     tr("safe exit successful!"),
+                     0,this);
+    mesg.addButton(tr("OK"),QMessageBox::YesRole);
+    if(screen_flag == 1)
         mesg.move(s_width*2/3,s_height/3);
-        else
-        mesg.move(s_width/3,s_height/3);
-        mesg.exec();
-        return;
-    }
-    QString path = ui->label->text();//qDebug() << path;
-    if((!QString::compare(QString(path),QString("/media/udisk/"),Qt::CaseSensitive)) || (!QString::compare(QString(path),QString("/media/sdcard/"),Qt::CaseSensitive)))
-    {
-
-        QString strr = "df | awk '{print $1}'|grep /dev ";
-        proc->start("bash", QStringList() << "-c" << strr);
-        proc->waitForFinished(-1);
-
-        QString out = proc->readAllStandardOutput();
-        QStringList list = out.split("\n");
-        list.removeAll("");
-        //qDebug() << list;
-
-        QString umount_file;
-        for(int i = 0; i< list_filecheck.size();i++)
-        {
-            QString dev = QString(list_filecheck.at(i));
-            dev.remove(dev.length()-1,dev.length()-2);
-            dev = QString("/dev/%1").arg(dev);
-            for(int j=0;j<list.size();j++)
-            {
-                if(dev == list.at(j))
-                {
-                    flag = 1;
-                    str = list_filecheck.at(i);
-                    umount_file = QString("%1%2%3 ").arg(umount_file).arg("/dev/").arg(str);
-                }
-            }
-
-        }
-        if(flag == 1)
-        {
-          //  umount_file = QString("%1%2%3 ").arg(umount_file).arg("/dev/").arg(str);
-        }
-        else
-        {
-            QMessageBox mesg(QMessageBox::Information,
-                             tr("QMessageBox::information()"),
-                             tr("It is safe exit!"),
-                             0,this);
-            mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screen_flag == 1)
-                mesg.move(s_width*2/3,s_height/3);
-            else
-                mesg.move(s_width/3,s_height/3);
-            mesg.exec();
-            return;
-        }
-        pro_path.write("sync\n");
-        pro_path.write("sync\n");
-        umount_file = QString("umount %1 \n").arg(umount_file);qDebug() << umount_file;
-        pro_path.write(umount_file.toUtf8());
-        QMessageBox mesg(QMessageBox::Information,
-                         tr("QMessageBox::information()"),
-                         tr("safe exit successful!"),
-                         0,this);
-        mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screen_flag == 1)
-            mesg.move(s_width*2/3,s_height/3);
-        else
-            mesg.move(s_width/3,s_height/3);
-        mesg.exec();
-        list_filecheck.clear();
-        file_reflesh(path);
-    }
     else
-    {
-        QMessageBox mesg(QMessageBox::Information,
-                         tr("QMessageBox::information()"),
-                         tr("Please select the correct path!"),
-                         0,this);
-        mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screen_flag == 1)
-            mesg.move(s_width*2/3,s_height/3);
-        else
-            mesg.move(s_width/3,s_height/3);
-        mesg.exec();
-        return;
-    }
+        mesg.move(s_width/3,s_height/3);
+    mesg.exec();
+    list_filecheck.clear();
+    //        file_reflesh(path);
+    //    }
+    //    else
+    //    {
+    //        QMessageBox mesg(QMessageBox::Information,
+    //                         tr("QMessageBox::information()"),
+    //                         tr("Please select the correct path!"),
+    //                         0,this);
+    //        mesg.addButton(tr("OK"),QMessageBox::YesRole);
+    //        if(screen_flag == 1)
+    //            mesg.move(s_width*2/3,s_height/3);
+    //        else
+    //            mesg.move(s_width/3,s_height/3);
+    //        mesg.exec();
+    //        return;
+    //    }
 }
 
 void udev::on_cp_clicked()
@@ -258,7 +288,7 @@ void udev::on_cp_clicked()
     else
         mesg.move(s_width/3,s_height/3);
     mesg.exec();
-    list_filecheck.clear();
+   // list_filecheck.clear();
    // file_reflesh("/");
 }
 
@@ -402,6 +432,7 @@ void udev::on_del_clicked()
 void udev::on_return_2_clicked()
 {
     emit Mysignal();
+    timer->stop();
     if(screen_flag == 1)
     {
         if(view_show == 1)
@@ -518,6 +549,7 @@ void udev::readBashStandardOutputInfo()
 void udev::showEvent(QShowEvent *event)
 {
     file_reflesh("/");
+    timer->start(5000);
     QWidget::showEvent(event);
 }
 
@@ -540,6 +572,17 @@ void udev::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
         else
             list_filecheck << item->text(column);
     }
+    else
+    {
+        for(int i = 0;i<list_filecheck.size();i++)
+        {
+            if(item->text(column)==list_filecheck.at(i))
+            {
+                list_filecheck.removeAt(i);break;
+            }
+        }
+    }
+    qDebug() << list_filecheck;
 }
 
 void udev::on_pushButton_clicked()
@@ -554,6 +597,7 @@ void udev::on_pushButton_clicked()
       pro_path.write(s.toUtf8());
       pro_path.write("ls -ap \n");
       ui->label->setText(file_path);
+      list_filecheck.clear();
     }
     else
     {
@@ -589,7 +633,7 @@ void udev::on_btn_paste_clicked()
        mesg.move(s_width/3,s_height/3);
        mesg.exec();
        cp_file.clear();
-       file_reflesh(path);
+       file_reflesh(path); list_filecheck.clear();
    }
    else if(!ct_file.isEmpty())
    {
@@ -607,8 +651,9 @@ void udev::on_btn_paste_clicked()
        mesg.move(s_width/3,s_height/3);
        mesg.exec();
        ct_file.clear();
-       file_reflesh(path);
+       file_reflesh(path);list_filecheck.clear();
    }
+
     cp_ct_flag = 0;
 }
 
@@ -626,7 +671,17 @@ void udev::on_treeWidget_itemPressed(QTreeWidgetItem *item, int column)
         ui->label->setText(path);
         list_filecheck.clear();
     }
-
+    else
+    {
+       if(Qt::Checked==item->checkState(0))
+       {
+           item->setCheckState(column,Qt::Unchecked);
+       }
+       else
+       {
+           item->setCheckState(column,Qt::Checked);
+       }
+    }
 }
 
 void udev::file_reflesh(QString p)
@@ -696,5 +751,41 @@ void udev::on_btn_mount_clicked()
         file_path = QString("%1").arg(path);
         ui->label->setText(file_path);
         file_reflesh(file_path);
+    }
+}
+
+void udev::mount_refresh()
+{
+    QRegExp reg("/dev/sd[a-z]1");
+    QString str_text = QString("df -h | awk '{print $1}'");
+    proc->start("bash",QStringList() << "-c" << str_text);
+    proc->waitForFinished(-1);
+    QString ss = proc->readAllStandardOutput().data();
+    QStringList data = ss.split("\n");
+
+    mount_device.clear();
+    int globall_index = 0;
+    for(int x = 0; x < data.size();x++)   //查找设备
+    {
+        if(reg.exactMatch(data.at(x)) || data.at(x) == "/dev/mmcblk1p1")
+        {
+            mount_device << data.at(x);
+            globall[globall_index++] = data.at(x);
+        }
+    }
+    if(mount_device.isEmpty())
+    {
+        ui->umount->setStyleSheet("background-color: rgba(211, 215, 207,180);border-style: outset;border-width:  2px;"
+                                          "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(186, 189, 182);"
+                                          "padding: 6px;outline: none; ");
+        ui->umount->setEnabled(false);
+        return;
+    }
+    else
+    {
+        ui->umount->setEnabled(true);
+        ui->umount->setStyleSheet("background-color: rgba(100, 225, 100, 120);border-style: outset;border-width:  2px;"
+                                 "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(0, 0, 0, 100);"
+                                 "padding: 6px;outline: none; ");
     }
 }

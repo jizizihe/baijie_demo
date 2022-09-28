@@ -22,6 +22,10 @@ user_manual::user_manual(QWidget *parent) :
     screen = qApp->primaryScreen();
     s_width = screen->size().width();
     s_height = screen->size().height();
+    if(s_width < s_height)
+    {
+        ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
+    }
     user_font();
 }
 

@@ -44,7 +44,7 @@ serial::serial(QWidget *parent) :
 
    if(Width < Height)
    {
-     screen_flag = 1;
+     screen_flag = 1;ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
    }
    serial_font();  
    ui->stackedWidget->setCurrentIndex(0);

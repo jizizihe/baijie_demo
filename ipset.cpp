@@ -23,7 +23,7 @@ ipset::ipset(QWidget *parent) :
 
     if(s_width < s_height)
     {
-        screen_flag = 1;
+        screen_flag = 1;ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
     ipset_font();
 
@@ -50,7 +50,17 @@ ipset::ipset(QWidget *parent) :
         ui->btn_open->setText(tr("open"));
         open_flag = 1;
     }
-
+    ui->widget->setEnabled(false);
+    ui->widget->setStyleSheet("border-radius: 12px;padding: 6px;"
+                              "background-color: rgb(217, 217, 217,30);border:1px solid gray;");
+    ui->okBtn->setStyleSheet("background-color: rgba(211, 215, 207,180);border-style: outset;border-width:  2px;"
+                             "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(186, 189, 182);"
+                             "padding: 6px;outline: none; ");
+    ui->modStaticIpBtn->setStyleSheet("background-color: rgba(211, 215, 207,180);border-style: outset;border-width:  2px;"
+                                      "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(186, 189, 182);"
+                                      "padding: 6px;outline: none; ");
+    ui->nameLineEdit->setStyleSheet("color: rgb(186, 189, 182);");
+    ui->masklineEdit->setStyleSheet("color: rgb(186, 189, 182);");
     ip_settext();
 }
 
@@ -166,6 +176,17 @@ void ipset::on_delStaticIpBtn_clicked()
         QMessageBox::information(this,"information",tr("Please open the ethernet!"));
         return;
     }
+    ui->widget->setEnabled(false);
+    ui->widget->setStyleSheet("border-radius: 12px;padding: 6px;"
+                              "background-color: rgb(217, 217, 217,30);border:1px solid gray;");
+    ui->okBtn->setStyleSheet("background-color: rgba(211, 215, 207,180);border-style: outset;border-width:  2px;"
+                             "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(186, 189, 182);"
+                             "padding: 6px;outline: none; ");
+    ui->modStaticIpBtn->setStyleSheet("background-color: rgba(211, 215, 207,180);border-style: outset;border-width:  2px;"
+                                      "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(186, 189, 182);"
+                                      "padding: 6px;outline: none; ");
+    ui->nameLineEdit->setStyleSheet("color: rgb(186, 189, 182);");
+    ui->masklineEdit->setStyleSheet("color: rgb(186, 189, 182);");
     if(false == is_static_ip_exist())
     {
         QMessageBox mesg(QMessageBox::Information,
@@ -182,8 +203,10 @@ void ipset::on_delStaticIpBtn_clicked()
         QString networkInfo = get_network_info();
         ui->textEdit->setText(networkInfo);
         ui->stackedWidget->setCurrentIndex(0);
+        network_enable(true);
         return;
     }
+
     bool result = delete_static_ip();
     if(result == true)
     {
@@ -206,6 +229,7 @@ void ipset::on_delStaticIpBtn_clicked()
         ui->gatewaylineEdit->clear();
         ui->masklineEdit->clear();
         ui->okBtn->setText(tr("up"));btn_up_flag = 0;
+        network_enable(true);
     }
     else
     {
@@ -385,6 +409,7 @@ void ipset::ipset_font()
     ui->label_3->setFont(font);
     ui->gatewaylineEdit->setFont(font);
     ui->masklineEdit->setFont(font);
+    ui->pushButton->setFont(font);
 }
 
 void ipset::on_btn_open_clicked()
@@ -418,7 +443,17 @@ void ipset::ip_settext()
         strCmd = QString("ifconfig eth0 | awk '{print $2}'|awk 'NR==2'");
         strResult = executeLinuxCmd(strCmd);
         ui->ipAddrLineEdit->setText(strResult);
-
+        ui->widget->setEnabled(true);
+        ui->widget->setStyleSheet("border-radius: 12px;padding: 6px;background-color:rgba(255, 255, 255, 80);"
+                                  "border:1px solid gray;");
+        ui->okBtn->setStyleSheet("background-color: rgba(100, 225, 100, 120);border-style: outset;border-width:  2px;"
+                                 "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(0, 0, 0, 100);"
+                                 "padding: 6px;outline: none; ");
+        ui->modStaticIpBtn->setStyleSheet("background-color: rgba(100, 225, 100, 120);border-style: outset;border-width:  2px;"
+                                          "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(0, 0, 0, 100);"
+                                          "padding: 6px;outline: none; ");
+        ui->nameLineEdit->setStyleSheet("color: rgb(0, 0, 0);");
+        ui->masklineEdit->setStyleSheet("color: rgb(0, 0, 0);");
 //        QString gateway;
 
 //        for(int i = 9;i < 12;i++)
@@ -432,4 +467,19 @@ void ipset::ip_settext()
 //        }
 //        qDebug() << gateway;
     }
+}
+
+void ipset::on_pushButton_clicked()
+{
+    ui->widget->setEnabled(true);
+    ui->widget->setStyleSheet("border-radius: 12px;padding: 6px;background-color:rgba(255, 255, 255, 60);"
+                              "border:1px solid gray;");
+    ui->okBtn->setStyleSheet("background-color: rgba(100, 225, 100, 120);border-style: outset;border-width:  2px;"
+                             "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(0, 0, 0, 100);"
+                             "padding: 6px;outline: none; ");
+    ui->modStaticIpBtn->setStyleSheet("background-color: rgba(100, 225, 100, 120);border-style: outset;border-width:  2px;"
+                                      "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(0, 0, 0, 100);"
+                                      "padding: 6px;outline: none; ");
+    ui->nameLineEdit->setStyleSheet("color: rgb(0, 0, 0);");
+    ui->masklineEdit->setStyleSheet("color: rgb(0, 0, 0);");
 }

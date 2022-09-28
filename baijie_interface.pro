@@ -166,4 +166,6 @@ DISTFILES += \
     button_image/connect.svg \
     button_image/light.svg \
     button_image/voice/stop.png \
-    button_image/voice/stop.png
+    button_image/voice/stop.png \
+    button_image/蓝牙.svg \
+    button_image/d_ip.svg

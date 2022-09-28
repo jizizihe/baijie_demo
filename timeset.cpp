@@ -20,7 +20,7 @@ timeset::timeset(QWidget *parent) :
 
     if(s_width < s_height)
     {
-        screen_flag = 1;
+        screen_flag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
 
     realX = screen->physicalDotsPerInchX();
@@ -68,9 +68,9 @@ void timeset::RTCtimerUpdate(void)
     process.start("hwclock -r");
     process.waitForFinished();
     QString strResult = process.readAllStandardOutput();
-   ui->RTCtimepLabel->setText(strResult.mid(0,19));
+    ui->RTCtimepLabel->setText(strResult.mid(0,19));
 
-    RTCTimer->start(20000);
+    RTCTimer->start(10000);
 }
 
 

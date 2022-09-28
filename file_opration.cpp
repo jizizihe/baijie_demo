@@ -23,6 +23,13 @@ File_opration::File_opration(QWidget *parent) :
     if(s_width < s_height)
     {
         screen_flag = 1;
+        this->setStyleSheet("#File_opration{border-image: url(:/button_image/all/background.jpg);}"
+        "QComboBox QScrollBar::vertical{width:35px; border-radius:35px;}"
+        "QMessageBox {background-image: url(:/button_image/all/background.jpg);border:1px solid gray;}"
+        "QPushButton{background-color: rgba(100, 225, 100, 120); border-style: outset; "
+        "border-width:  2px;border-radius: 10px; border-color: rgba(255, 225, 255, 30);color:rgba(0, 0, 0, 100);"
+        "padding: 6px;  outline: none; }"
+        "QScrollBar{ width:30px;}");
         this->setMinimumSize(s_height*2/3,s_width*3/4);
         this->setMaximumSize(s_height*2/3,s_width*3/4);
     }
@@ -33,7 +40,6 @@ File_opration::File_opration(QWidget *parent) :
     }
     connect(&pro_path, SIGNAL(readyReadStandardOutput()), this, SLOT(readBashStandardOutputInfo()));
     this->setWindowModality(Qt::ApplicationModal);
-
     pro_path.start("bash");
 }
 

@@ -6,6 +6,7 @@
 #include "wifi_thread.h"
 #include "wificondialog.h"
 #include "input_method.h"
+#include "ipset_interface.h"
 
 
 namespace Ui {
@@ -26,7 +27,7 @@ public:
     void hotspot_sql();
     void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);
-    void wifi_signalshow(QString,int);
+    void wifi_signalshow(QString,int,QString);
 
 signals:
     void Mysignal();
@@ -54,7 +55,7 @@ private slots:
 
     void ListWidgeItem_clicked();
 
-    void ListWidgeItem2_clicked();
+ //   void ListWidgeItem2_clicked();
 
     void on_HotspotBuildBtn_clicked();
 
@@ -63,16 +64,12 @@ private slots:
     void on_ChangePasswdBtn_clicked();
 
     void on_WifiExistRemoveBtn_clicked();
-
-    void on_WifiStatusBtn_clicked();
     void WifiStatus_show();
     void wifi_refresh();
     void wifidailog_hide();
-
     void on_open_btn_clicked();
-
-    void on_pushButton_clicked();
     void changepass_fresh();
+    void wifi_status_refresh();
 
 private:
     Ui::wifi *ui;

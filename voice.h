@@ -85,9 +85,11 @@ public slots:
     void rename_fileshow();
     void savew_hide();
     void renamew_hide();
+    void slider_change(int);
 
 signals:
     void Mysignal();
+    void sliderchange(int);
 
 private:
     Ui::voice *ui;

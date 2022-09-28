@@ -41,6 +41,8 @@ private slots:
 
     void on_btn_open_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::ipset *ui;
 };

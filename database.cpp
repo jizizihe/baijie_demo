@@ -21,7 +21,7 @@ bool database::create_connection()
     else
       db = QSqlDatabase::addDatabase("QSQLITE");
 
-    db.setDatabaseName("/info.db"); //如果本目录下没有该文件,则会在本目录下生成,否则连接该文件
+    db.setDatabaseName("/helperapp.db"); //如果本目录下没有该文件,则会在本目录下生成,否则连接该文件
 
     if(!db.open())
     {

@@ -42,7 +42,7 @@ gpio::gpio(QWidget *parent) :
 
     if(s_width < s_height)
     {
-        screen_flag = 1;
+        screen_flag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
 
     ui->status_Switch->setCheckedColor(QColor(100, 225, 100, 150));
@@ -583,15 +583,31 @@ void gpio::settext_valuebtn(int flag)
     {
         if(flag == 0)
         {
-            nameLabel4->setText("value: low");
-            nameLabel3->setText(" ");
+            if(screen_flag == 1)
+            {
+                nameLabel3->setText("");
+                nameLabel4->setText("value: low  ");
+            }
+            else
+            {
+                nameLabel4->setText("value: low");
+                nameLabel3->setText(" ");
+            }
             horLayout->setStretchFactor(nameLabel4,2);
             horLayout->setStretchFactor(nameLabel3,1);
         }
         else
         {
-            nameLabel4->setText(" ");
-            nameLabel3->setText(" value:  high");
+            if(screen_flag == 1)
+            {
+                nameLabel4->setText("");
+                nameLabel3->setText("  value:  high");
+            }
+            else
+            {
+                nameLabel4->setText(" ");
+                nameLabel3->setText("  value:  high");
+            }
             horLayout->setStretchFactor(nameLabel4,1);
             horLayout->setStretchFactor(nameLabel3,2);
         }

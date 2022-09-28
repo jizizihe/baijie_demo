@@ -111,7 +111,8 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">color: rgb(0, 0, 0,180);
+</string>
         </property>
         <property name="text">
          <string>Baijie Technology  Interface Software</string>
@@ -230,14 +231,14 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true"/>
+                <string notr="true">background-color: rgb(65, 167, 244);</string>
                </property>
                <property name="text">
                 <string/>
                </property>
                <property name="icon">
                 <iconset resource="translation.qrc">
-                 <normaloff>:/button_image/wifi.svg</normaloff>:/button_image/wifi.svg</iconset>
+                 <normaloff>:/button_image/wifi1.svg</normaloff>:/button_image/wifi1.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -269,7 +270,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
               </font>
              </property>
              <property name="text">
-              <string>Wifi</string>
+              <string>WLAN</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -366,14 +367,14 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true"/>
+                <string notr="true">background-color: rgb(52, 157, 229);</string>
                </property>
                <property name="text">
                 <string/>
                </property>
                <property name="icon">
                 <iconset resource="translation.qrc">
-                 <normaloff>:/button_image/bluetooth.png</normaloff>:/button_image/bluetooth.png</iconset>
+                 <normaloff>:/button_image/bluetooth.svg</normaloff>:/button_image/bluetooth.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -505,14 +506,15 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true"/>
+                <string notr="true">background-color: rgb(138, 226, 52);
+background-color: rgb(68, 202, 189,200);</string>
                </property>
                <property name="text">
                 <string/>
                </property>
                <property name="icon">
                 <iconset resource="translation.qrc">
-                 <normaloff>:/button_image/net.svg</normaloff>:/button_image/net.svg</iconset>
+                 <normaloff>:/button_image/net1.svg</normaloff>:/button_image/net1.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -824,7 +826,9 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true"/>
+                <string notr="true">background-color: rgb(164, 181, 188);
+background-color: rgb(175, 173, 168);
+background-color: rgb(109, 161, 197);background-color: rgb(203, 150, 183);</string>
                </property>
                <property name="text">
                 <string/>
@@ -963,14 +967,15 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true"/>
+                <string notr="true">background-color: rgb(233, 185, 110);
+background-color: rgb(77, 166, 209,200);</string>
                </property>
                <property name="text">
                 <string/>
                </property>
                <property name="icon">
                 <iconset resource="translation.qrc">
-                 <normaloff>:/button_image/serial.png</normaloff>:/button_image/serial.png</iconset>
+                 <normaloff>:/button_image/serial1.svg</normaloff>:/button_image/serial1.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -1108,7 +1113,8 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true"/>
+                <string notr="true">
+background-color: rgb(112, 225, 158);background-color: rgb(247, 199, 112);</string>
                </property>
                <property name="text">
                 <string/>
@@ -1253,7 +1259,8 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true"/>
+                <string notr="true">background-color: rgb(130, 226, 109);
+background-color: rgb(69, 169, 174,180);</string>
                </property>
                <property name="text">
                 <string/>
@@ -1434,7 +1441,8 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true"/>
+                <string notr="true">background-color: rgb(59, 163, 228,200);
+background-color: rgb(84, 210, 156);</string>
                </property>
                <property name="text">
                 <string/>
@@ -1579,7 +1587,8 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true"/>
+                <string notr="true">background-color: rgb(178, 176, 176);
+background-color: rgb(164, 182, 182);</string>
                </property>
                <property name="text">
                 <string/>
@@ -1618,7 +1627,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
               </font>
              </property>
              <property name="text">
-              <string>Test</string>
+              <string>testport</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1718,7 +1727,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true"/>
+                <string notr="true">background-color: rgb(186, 189, 182);</string>
                </property>
                <property name="text">
                 <string/>
@@ -1829,6 +1838,9 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
     </item>
     <item row="1" column="0">
      <widget class="Line" name="line">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(186, 189, 182,180);</string>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>

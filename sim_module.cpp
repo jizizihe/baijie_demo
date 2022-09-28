@@ -19,7 +19,7 @@ sim_module::sim_module(QWidget *parent) :
 
     if(s_width < s_height)
     {
-        screen_flag = 1;
+        screen_flag = 1;ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
     open_flag = 1;
     sim_font();

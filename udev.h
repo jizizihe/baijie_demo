@@ -75,6 +75,8 @@ private slots:
 
     void on_btn_mount_clicked();
 
+    void mount_refresh();
+
 signals:
     void Mysignal();
 

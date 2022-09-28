@@ -7,7 +7,6 @@ static QScreen *screen;
 static int screen_flag;
 static int Width;
 static int Height;
-static int begin_flag;
 
 all_test::all_test(QWidget *parent) :
     QMainWindow(parent),
@@ -27,7 +26,7 @@ all_test::all_test(QWidget *parent) :
     Height = screen->size().height();
     if(Width < Height)
     {
-        screen_flag = 1;
+        screen_flag = 1;ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
 
     all_font();
@@ -82,9 +81,7 @@ void all_test::on_beginBtn_clicked()
     int i = 0;
     QAbstractButton *checkBtn;
     testItemsCount = 0;
-
-   // if(tr("begin") == ui->beginBtn->text())
-    if(begin_flag == 0)
+    if(tr("begin") == ui->beginBtn->text())
     {
         for(i =0 ;i < CheckedBtnList.length();i++)
         {
@@ -180,25 +177,25 @@ void all_test::on_beginBtn_clicked()
         if(true == ui->wifiChk->isChecked())    emit wifi_test_msg();
         if(true == ui->keyChk->isChecked())     emit key_test_msg();
         if(true == ui->serialChk->isChecked())  serial_test_func();
-        begin_flag = 1;
     }
     else
     {
+        ui->beginBtn->setEnabled(false);
         if(true == mainTestThread->isRunning())
         {
-            //mainTestThread->terminate();
-            //delete allTestThread;
-            mainTestThread->quit();
-            mainTestThread->wait();
+            mainTestThread->terminate();
+            delete allTestThread;
+           // mainTestThread->quit();
+           // mainTestThread->wait();
         }
         if(ui->bluetoothChk->isChecked() == true)
         {
             if(true == btThread->isRunning())
             {
-               // btThread->terminate();
-               // delete btTestThead;
-                btThread->quit();
-                btThread->wait();
+                btThread->terminate();
+                delete btTestThead;
+               // btThread->quit();
+               // btThread->wait();
             }
         }
         for(i = 0;i < serialConfig.count;i++)
@@ -210,12 +207,11 @@ void all_test::on_beginBtn_clicked()
                 {
                     serialStopTimer->stop();
                 }
-                //thread_id[i]->terminate();
-                thread_id[i]->quit();
-                thread_id[i]->wait();
+                thread_id[i]->terminate();
+               // thread_id[i]->quit();
+               // thread_id[i]->wait();
             }
         }
-
             ui->beginBtn->setText(tr("begin"));
             ui->testCheckAllBtn->setEnabled(true);
             waitMovie->stop();
@@ -225,7 +221,7 @@ void all_test::on_beginBtn_clicked()
                 checkBtn = CheckedBtnList.at(i);
                 checkBtn->setEnabled(true);
             }
-            begin_flag = 0;
+            ui->beginBtn->setEnabled(true);
     }
 }
 
@@ -362,8 +358,7 @@ void all_test::recv_test_msg(int test_signal_type, QString str)
 
         ui->testCheckAllBtn->setEnabled(true);
         ui->beginBtn->setEnabled(true);
-        waitMovie->stop();
-        waitLbl->close();
+
         for(int i =0 ;i < CheckedBtnList.length();i++)
         {
             checkBtn = CheckedBtnList.at(i);
@@ -371,8 +366,12 @@ void all_test::recv_test_msg(int test_signal_type, QString str)
         }
         mainTestThread->quit();
         mainTestThread->wait();
-    }
+
     if(ui->keyChk->isChecked() == true)
+    {
+
+    }
+    else if(ui->bluetoothChk->isChecked() == true)
     {
 
     }
@@ -389,9 +388,11 @@ void all_test::recv_test_msg(int test_signal_type, QString str)
     }
     else
     {
+        waitMovie->stop();
+        waitLbl->close();
         ui->beginBtn->setText(tr("begin"));
     }
-
+ }
     switch (test_signal_type) {
     case network_signal:
         stopTime = QTime::currentTime();
@@ -467,6 +468,15 @@ void all_test::recv_test_msg(int test_signal_type, QString str)
         testMsgDisplay(tr("---bluetooth test:"),str,elapsed);
         btThread->quit();
         btThread->wait();
+        if(ui->beginBtn->text() == "stop")
+        {
+            waitMovie->stop();
+            waitLbl->close();
+            if(ui->keyChk->isChecked() == false)
+           {
+                ui->beginBtn->setText(tr("begin"));
+            }
+        }
         delete btTestThead;
         break;
     default:

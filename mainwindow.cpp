@@ -3,6 +3,7 @@
 #include <sys/stat.h>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QGraphicsDropShadowEffect>
 
 static int screen_flag = 0;
 static int Width;  //屏幕宽
@@ -65,6 +66,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
 //    database_w.create_connection();
 //    database_w.create_table();
+    QGraphicsDropShadowEffect *shadow_effect = new QGraphicsDropShadowEffect(this);
+    shadow_effect->setOffset(4, 4);
+    shadow_effect->setColor(QColor (136, 138, 133));
+    shadow_effect->setBlurRadius(5);
+    ui->label->setGraphicsEffect(shadow_effect);
 }
 
 MainWindow::~MainWindow()
@@ -511,6 +517,7 @@ void MainWindow::main_font()
     ui->label_9->setFont(font);
     ui->label_10->setFont(font);
     ui->label_11->setFont(font);
+  //  ui->label->setFont(font);
 }
 
 void MainWindow::voice_show()

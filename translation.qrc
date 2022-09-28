@@ -54,7 +54,6 @@
         <file>button_image/sdcard.svg</file>
         <file>button_image/wifi.svg</file>
         <file>button_image/storage.svg</file>
-        <file>button_image/net.svg</file>
         <file>button_image/wifi/Search-Wifi.svg</file>
         <file>button_image/rename.svg</file>
         <file>button_image/tips.svg</file>
@@ -64,5 +63,14 @@
         <file>button_image/COM.svg</file>
         <file>button_image/times.svg</file>
         <file>button_image/cn2.svg</file>
+        <file>button_image/backlight_2.svg</file>
+        <file>button_image/moon1.svg</file>
+        <file>button_image/bluetooth.svg</file>
+        <file>button_image/wifi1.svg</file>
+        <file>button_image/net1.svg</file>
+        <file>button_image/serial1.svg</file>
+        <file>button_image/voice4.svg</file>
+        <file>button_image/d_ip.svg</file>
+        <file>button_image/s_ip.svg</file>
     </qresource>
 </RCC>

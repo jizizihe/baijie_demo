@@ -82,7 +82,7 @@ backlight::backlight(QWidget *parent) :
     Height = screen->size().height();
     if(Width < Height)
     {
-        screen_flag = 1;
+        screen_flag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
     ui->stackedWidget->setCurrentIndex(1);
     backlight_font();

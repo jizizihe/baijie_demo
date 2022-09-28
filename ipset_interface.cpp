@@ -101,7 +101,7 @@ bool delete_static_ip()
 
 bool is_static_ip_exist()
 {
-    QString isExistCmd = QString("nmcli con show |grep static_ip");
+    QString isExistCmd = QString("nmcli con show |grep static");
     QString retResult = executeLinuxCmd(isExistCmd);
 
     if(true == retResult.isEmpty())

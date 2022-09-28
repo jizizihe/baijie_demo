@@ -31,7 +31,7 @@ sys_setting::sys_setting(QWidget *parent) :
 
     if(Width < Height)
     {
-        screen_flag = 1;
+        screen_flag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
     sys_font();
     this->setAttribute(Qt::WA_StyledBackground,true);

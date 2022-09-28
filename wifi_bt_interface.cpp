@@ -1,27 +1,20 @@
 #include "wifi_bt_interface.h"
 static int bluetooth_flag;
 static int bluetoothscan_flag;
+//QProcess *pro_bluetooth_scan;
 
 wifi_bt_interface::wifi_bt_interface(QObject *parent) : QObject(parent)
 {
-
+      //pro_bluetooth_scan = new QProcess;
 }
 wifi_bt_interface::~wifi_bt_interface()
 {
 
 }
 
-
 QString wifi_bt_interface::executeLinuxCmd(QString strCmd)
 {
-
     QProcess p;
-    if(strCmd == "kill")
-    {
-        p.kill();
-        p.close();
-        return "";
-    }
     p.start("bash", QStringList() <<"-c" << strCmd);
     p.waitForFinished(-1);
     QString strResult = p.readAllStandardOutput();
@@ -183,11 +176,12 @@ bool wifi_bt_interface::wifi_connect_exist(QString WifiSsid)
 {
     QString strCmd = QString("ifconfig wlan0 up");
     QString strResult = executeLinuxCmd(strCmd);
+    WifiSsid = WifiSsid + " ";
+    strCmd = QString("nmcli connection show | grep '%1' |awk 'NR==1'").arg(WifiSsid);
+    strResult = executeLinuxCmd(strCmd);qDebug() << strResult;
+    WifiSsid.remove(WifiSsid.size()-1,1);
+    QString find_str = QString("%1").arg(WifiSsid);qDebug() << find_str;
 
-    strCmd = QString("nmcli connection show | grep '%1' | awk '{print $1}'").arg(WifiSsid);
-    strResult = executeLinuxCmd(strCmd);
-
-    QString find_str = QString("%1\n").arg(WifiSsid);
     //qDebug() << "--line--: " << __LINE__<<"find_str = " << find_str;
     bool checktResult=strResult.contains(find_str,Qt::CaseInsensitive);
 
@@ -225,7 +219,7 @@ QString wifi_bt_interface::wifi_connect(QString WifiSsid,QString PassWd)
 {
     QString strCmd;
     QString strResult;
-    strCmd = QString("nmcli device wifi connect \"%1\" password \"%2\" name \"%3\" ").arg(WifiSsid).arg(PassWd).arg(WifiSsid);
+    strCmd = QString("nmcli device wifi connect '%1' password '%2' name '%3' ").arg(WifiSsid).arg(PassWd).arg(WifiSsid);qDebug() << strCmd;
     strResult = executeLinuxCmd(strCmd);
 
     bool ConnectResult=strResult.contains("successfully activated",Qt::CaseInsensitive);
@@ -270,10 +264,10 @@ bool wifi_bt_interface::wifi_modify(QString WifiSsid,QString PassWd)
         return false;
     }
 
-    QString strCmd = QString("nmcli connection modify \"%1\" wifi-sec.psk \"%2\" ").arg(WifiSsid).arg(PassWd);
+    QString strCmd = QString("nmcli connection modify '%1' wifi-sec.psk '%2' ").arg(WifiSsid).arg(PassWd);
     QString strResult = executeLinuxCmd_bluetooth_connect(strCmd);
-    strCmd = QString("nmcli connection up %1").arg(WifiSsid);
-    strResult = executeLinuxCmd_bluetooth_connect(strCmd);//qDebug() << strResult;
+    strCmd = QString("nmcli connection up '%1'").arg(WifiSsid);qDebug() <<strCmd;
+    strResult = executeLinuxCmd_bluetooth_connect(strCmd);
    // strCmd = QString("echo $?");
    // strResult = executeLinuxCmd(strCmd);
     if(strResult.contains("successfully",Qt::CaseSensitive))
@@ -893,7 +887,7 @@ QString wifi_bt_interface::bluetooth_scan()
 
          strCmd = QString("/bt_scan2.sh ");
          strResult = executeLinuxCmd(strCmd);
-
+        // strResult = executeLinuxCmd_bluetooth_scan(strCmd);
          QString tmp1 = "devices";
          int n = strResult.indexOf(tmp1);
          strResult = strResult.remove(0,n);
@@ -924,13 +918,12 @@ QString wifi_bt_interface::bluetooth_scan()
          for(int i=0;i<list2.size();i++)
          {
              tmp1 = list2.at(i);
-             tmp1 = tmp1.section('\r', 2, 2);
-             address = tmp1.section(' ', 2, 2);int ind =tmp1.indexOf(address);
-          //   strname = tmp1.section(' ', 3, 3);
+             int ind =tmp1.indexOf("Device"); tmp1 = tmp1.remove(0,ind);
+             address = tmp1.section(' ', 1, 1);
+             ind = tmp1.indexOf(address);
              strname = tmp1;
-             strname = strname.remove(0,ind);
-             strname = strname.remove(0,address.size()+1);
-             //if(strname.contains("-",Qt::CaseSensitive))
+             strname = strname.remove(0,ind);strname = strname.remove(0,address.size()+1);
+             strname = strname.remove(strname.size()-1,1);
              tmp1 = address.section(':',2,2);
              tmp2 = strname.section('-',2,2);
              if(!QString::compare(tmp2,tmp1,Qt::CaseSensitive))
@@ -946,6 +939,9 @@ QString wifi_bt_interface::bluetooth_scan()
 
 QString wifi_bt_interface::bluetooth_pair(QString BtAddress)
 {
+    QString strCmd = QString("ls");
+    QString strResult = executeLinuxCmd_bluetooth_connect(strCmd);
+    qDebug() << strResult;
     char * data;
     int i = 0;
     QStringList BtPairList;
@@ -984,13 +980,12 @@ QString wifi_bt_interface::bluetooth_pair(QString BtAddress)
     }
     file.close();
 
-    QString strCmd = QString("chmod +x /bt_pair.sh");
-    QString strResult = executeLinuxCmd(strCmd);
-    //qDebug() << strResult;
+     strCmd = QString("chmod +x /bt_pair.sh");
+     strResult = executeLinuxCmd_bluetooth_connect(strCmd);
 
     BtAddress = BtAddress.replace(QString("\n"), QString(""));
     strCmd = QString("/bt_pair.sh %1").arg(BtAddress);
-    strResult = executeLinuxCmd(strCmd);
+    strResult = executeLinuxCmd_bluetooth_connect(strCmd);
 
     bool PairResult=strResult.contains("Pairing successful",Qt::CaseInsensitive);
     //qDebug() << PairResult;
@@ -1044,12 +1039,12 @@ QString wifi_bt_interface::bluetooth_connect(QString BtAddress)
     file.close();
 
     QString strCmd = QString("chmod +x /bt_connect.sh");
-    QString strResult = executeLinuxCmd(strCmd);
+    QString strResult = executeLinuxCmd_bluetooth_connect(strCmd);
     //qDebug() << strResult;
 
     BtAddress = BtAddress.replace(QString("\n"), QString(""));
     strCmd = QString("/bt_connect.sh %1").arg(BtAddress);
-    strResult = executeLinuxCmd(strCmd);
+    strResult = executeLinuxCmd_bluetooth_connect(strCmd);
     //qDebug() << strResult;
     //QString str = QString("Device %1 Connected: yes").arg(BtAddress);
     QString flag = bluetooth_connectflag();
@@ -1397,4 +1392,14 @@ void wifi_bt_interface::rm_bluetoothshell()
     executeLinuxCmd(strCmd);
     strCmd = QString("rm /bt_pair.sh");
     executeLinuxCmd(strCmd);
+}
+
+QString wifi_bt_interface::executeLinuxCmd_bluetooth_scan(QString strCmd)
+{
+
+//    pro_bluetooth_scan.start("bash", QStringList() <<"-c" << strCmd);
+//    pro_bluetooth_scan.waitForFinished(-1);
+//    QString strResult = pro_bluetooth_scan.readAllStandardOutput();
+//    pro_bluetooth_scan.close();
+//    return strResult;
 }

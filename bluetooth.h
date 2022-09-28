@@ -36,7 +36,10 @@ public:
 
     void language_reload();
     void blue_font();
-    void bluetooth_sql();
+   // void bluetooth_sql();
+    void bluetooth_listshow(QString,QString);
+    void bluetooth_status();
+    void bluetooth_scan();
     void showEvent(QShowEvent *event);
     QStringList BtPairList;
 
@@ -44,13 +47,13 @@ private slots:
     void recv_msg(int,QString);
     void BtnChange_flag(bool);
     void on_BTScanBtn_clicked();
-    void on_BTConnectBtn_clicked();
+   // void on_BTConnectBtn_clicked();
     void on_retBtn_clicked();
     void on_pushButton_clicked();
     void on_BtNameListWidget_itemClicked(QListWidgetItem *item);
-    void on_Bt_pairedListwidget_itemClicked(QListWidgetItem *item);
+    //void on_Bt_pairedListwidget_itemClicked(QListWidgetItem *item);
     void connect_refresh();
-    void on_btn_status_clicked();
+   // void on_btn_status_clicked();
     void on_btn_disconnect_clicked();
     void on_btn_remove_clicked();
     void scan_refresh();
@@ -73,6 +76,7 @@ private:
 
     QThread * myThread;
     bluetooth_thread * BluetoothThread;
+    QThread * blutooth;
     wifi_bt_interface * wifi_bt_t;
     database database_w;
 };

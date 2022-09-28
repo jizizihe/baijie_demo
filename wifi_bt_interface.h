@@ -63,6 +63,7 @@ public:
     QString executeLinuxCmd(QString strCmd);
     QString executeLinuxCmd_bluetooth(QString strCmd);
     QString executeLinuxCmd_bluetooth_connect(QString strCmd);
+    QString executeLinuxCmd_bluetooth_scan(QString strCmd);
     //bool wifi_passwd_write(QString WifiSsid,QString PassWd);
    // QString wifi_passwd_read(QString WifiSsid);
 

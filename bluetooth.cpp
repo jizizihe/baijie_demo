@@ -3,6 +3,7 @@
 #include <QScreen>
 #include <QProcess>
 #include <QTimer>
+#include <QListWidgetItem>
 
 using namespace std;
 static QScreen *screen;
@@ -13,7 +14,6 @@ static int open_flag;
 static QString BtAddress;
 static QString Btname;
 static QString Btcon;
-static int pair_index;
 static QTimer *timer;
 static QTimer *timer_scan;
 static QString connect_flag;
@@ -21,6 +21,7 @@ static int scan_flag;
 static int scan_first;
 static int show_flag;
 static int pair_flag;
+static int connecting_flag;
 
 bluetooth::bluetooth(QWidget *parent) :
     QMainWindow(parent),
@@ -32,14 +33,21 @@ bluetooth::bluetooth(QWidget *parent) :
     Height = screen->size().height();
     if(Width < Height)
     {
-        screen_flag = 1;
+        screen_flag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
     open_flag = 1;
     wifi_bt_t = new wifi_bt_interface(this);
     blue_font();
 
     LoadLabel = new QLabel(this);
-    LoadLabel->move(Width/2 - 150,Height/2 -50);
+    if(screen_flag == 1)
+    {
+
+    }
+    else
+    {
+      LoadLabel->move(Width/2 - 150,Height/2 -50);
+    }
     pMovie = new QMovie("://button_image/loading.webp");
     LoadLabel->setFixedSize(50, 50);
     LoadLabel->setScaledContents(true);
@@ -56,18 +64,18 @@ bluetooth::bluetooth(QWidget *parent) :
     connect(this,SIGNAL(bluetooth_connect_msg(QString)),BluetoothThread,SLOT(bluetooth_connect_thread(QString)));
     connect(this,SIGNAL(rm_shell()),wifi_bt_t,SLOT(rm_bluetoothshell()));
     connect(BluetoothThread,SIGNAL(send_msg(int, QString)),this,SLOT(recv_msg(int, QString)));
+
     BluetoothThread->moveToThread(myThread);
     myThread->start();
     LoadLabel->show();
     //LoadLabel->move(this->width()/2,this->height()/2);
     pMovie->start();
     ui->stackedWidget->setCurrentIndex(0);
-    ui->BTConnectBtn->setDisabled(true);
     ui->BtNameListWidget->setDisabled(true);
     emit bluetooth_scan_msg();
     ui->BTScanBtn->setText("stop");
-    //connect_refresh();
-    scan_flag = 2;
+
+    scan_flag = 2;Btcon = "Btname";
 }
 
 bluetooth::~bluetooth()
@@ -98,7 +106,6 @@ void bluetooth::BtnChange_flag(bool btflag)
             ui->BtNameListWidget->setItemHidden(ui->BtNameListWidget->item(i), false);
         }
         ui->BTScanBtn->setDisabled(false);
-        ui->BTConnectBtn->setDisabled(false);
         ui->BtNameListWidget->setDisabled(false);
     }
     else //close
@@ -112,7 +119,6 @@ void bluetooth::BtnChange_flag(bool btflag)
         pMovie->stop();
         LoadLabel->hide();
         ui->BTScanBtn->setDisabled(true);
-        ui->BTConnectBtn->setDisabled(true);
         ui->BtNameListWidget->setDisabled(true);
     }
 
@@ -123,12 +129,12 @@ void bluetooth::recv_msg(int signal_type,QString str)
     int flag;
     if(signal_type == Bt_scan_signal)
     {
-        //if(LoadLabel->isHidden())
-//        if(ui->stackedWidget->currentIndex()==1)
-//        {
-//           return;
-//        }
         if(pair_flag == 1)
+        {
+            scan_first = 0;
+            return;
+        }
+        if(connecting_flag == 1)
         {
             scan_first = 0;
             return;
@@ -138,17 +144,47 @@ void bluetooth::recv_msg(int signal_type,QString str)
         if(flag == 0)
             return ;
         BtScanList.clear();
-        BtScanList = str.split("\n");
+        ui->BtNameListWidget->clear();
+        BtPairList = database_w.table_show("bluetooth");
+        QString name,status;
+        QStringList paried_list1 = BtPairList;
+        if(!BtPairList.isEmpty())
+        {
+            for(int i = 0;i<paried_list1.size();i++)
+            {
+                name = paried_list1.at(i);
+                if(!QString::compare(Btcon,name,Qt::CaseSensitive))
+                {
+                    status = tr("connect");
+                    bluetooth_listshow(name,status);
+                    paried_list1.removeAt(i);
+                    paried_list1.removeAt(i);
+                    break;
+                }
+                i++;
+            };
+            for(int i = 0;i<paried_list1.size();i++)
+            {
+                name = paried_list1.at(i);
+                status = "saved";
+                i++;
+                bluetooth_listshow(name,status);
+            }
+        }
+        QStringList Btscan1 = str.split("\n"); int num=0;
+        BtScanList = Btscan1;
         BtScanList.removeAll(QString(""));BtScanList.removeAll(QString("\t"));
         BtPairList = database_w.table_show("bluetooth");
-        for(int i = 0; i < BtScanList.size(); i++)
+
+        for(int i = 0; i < Btscan1.size(); i++)
         {
-            QString tmp = BtScanList.at(i);
+            QString tmp = Btscan1.at(i);
             QString tmp_address = tmp.trimmed().section("\t",0,0);
             tmp = tmp.trimmed().section("\t",1,1);
             if(BtPairList.size()<= 0)
             {
-                ui->BtNameListWidget->addItem(tmp);
+                bluetooth_listshow(tmp,"");
+                //ui->BtNameListWidget->addItem(tmp);
             }
             else
             {
@@ -156,28 +192,39 @@ void bluetooth::recv_msg(int signal_type,QString str)
                 {
                     if(tmp_address == QString(BtPairList.at(j+1)))
                     {
+                        int num1 = 0;
+                        if(num > 0)
+                        {
+                            num1 = i-num;
+                        }
+                        else
+                        {
+                            num1 = i;
+                        }
+                        num++;
+                        BtScanList.removeAt(num1);
                         break;
                     }
                     else
                     {
                         j++;
                         if(j+1 == BtPairList.size())
-                        ui->BtNameListWidget->addItem(tmp);
+                            bluetooth_listshow(tmp,"");
+                       // ui->BtNameListWidget->addItem(tmp);
                     }
 
                 }
             }
         }
-        ui->BtNameListWidget->setCurrentRow(0);
-        ui->BtNameListWidget->verticalScrollBar()->setStyleSheet("QScrollBar{width:40px;}");
-        ui->BtNameListWidget->horizontalScrollBar()->setStyleSheet("QScrollBar{height:30px;}");
-        ui->BtNameListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+       // ui->BtNameListWidget->setCurrentRow(0);
+//        ui->BtNameListWidget->verticalScrollBar()->setStyleSheet("QScrollBar{width:40px;}");
+//        ui->BtNameListWidget->horizontalScrollBar()->setStyleSheet("QScrollBar{height:30px;}");
+//        ui->BtNameListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 
         if(scan_first == 1)
-        {qDebug() << 111;
+        {
             if(scan_flag == 2)
             {
-                ui->BTConnectBtn->setEnabled(true);
                 ui->BtNameListWidget->setEnabled(true);
                 pMovie->stop();
                 LoadLabel->hide();
@@ -205,7 +252,6 @@ void bluetooth::recv_msg(int signal_type,QString str)
             }
             else
             {
-                ui->BTConnectBtn->setEnabled(true);
                 ui->BtNameListWidget->setEnabled(true);
                 pMovie->stop();
                 LoadLabel->hide();
@@ -230,9 +276,53 @@ void bluetooth::recv_msg(int signal_type,QString str)
              else
              mesg.move(Width/3,Height/3);
              mesg.exec();
+             int BtNameIndex = ui->BtNameListWidget->currentRow();
+             BtNameIndex = BtNameIndex-BtPairList.size()/2;
+             BtScanList.removeAt(BtNameIndex);
              database_w.insert_table2("bluetooth",Btname,BtAddress);
-             bluetooth_sql();
-             ui->BtNameListWidget->takeItem(pair_index);
+             ui->BtNameListWidget->clear();
+             BtPairList = database_w.table_show("bluetooth");
+             QString name,status;
+             if(!BtPairList.isEmpty())
+             {
+
+                 for(int i = 0;i<BtPairList.size();i++)
+                 {
+                     name = BtPairList.at(i);
+                     status = "saved";
+                     i++;
+                     bluetooth_listshow(name,status);
+                 }
+             }
+
+             for(int i = 0; i < BtScanList.size(); i++)
+             {
+                 QString tmp = BtScanList.at(i);
+                 QString tmp_address = tmp.trimmed().section("\t",0,0);
+                 tmp = tmp.trimmed().section("\t",1,1);
+                 if(BtPairList.size()<= 0)
+                 {
+                     bluetooth_listshow(tmp,"");
+                 }
+                 else
+                 {
+                     for(int j = 0; j < BtPairList.size(); j++)
+                     {
+                         if(tmp_address == QString(BtPairList.at(j+1)))
+                         {
+                             break;
+                         }
+                         else
+                         {
+                             j++;
+                             if(j+1 == BtPairList.size())
+                                 bluetooth_listshow(tmp,"");
+                         }
+
+                     }
+                 }
+             }
+             timer_scan->start(3000);
         }
         else if(str == "failed")
         {
@@ -250,7 +340,6 @@ void bluetooth::recv_msg(int signal_type,QString str)
              timer_scan->start(3000);
         }
         ui->BTScanBtn->setEnabled(true);
-        ui->BTConnectBtn->setEnabled(true);
         ui->BtNameListWidget->setEnabled(true);
 
         pMovie->stop();
@@ -258,6 +347,7 @@ void bluetooth::recv_msg(int signal_type,QString str)
     }
     else if(signal_type == Bt_connect_signal)
     {
+        timer_scan->stop();
         if(str == "successful")
         {
             QMessageBox mesg(QMessageBox::Information,
@@ -271,16 +361,71 @@ void bluetooth::recv_msg(int signal_type,QString str)
              mesg.move(Width/3,Height/3);
              mesg.exec();
 
-             int row = ui->Bt_pairedListwidget->currentRow();
-             if(row != 0)
-             {
-                 row=row*2;
-             }
-             Btcon = BtPairList.at(row);
+            // int row = ui->BtNameListWidget->currentRow();
+             BtPairList = database_w.table_show("bluetooth");
+            // row=row*2;
+            // Btcon = BtPairList.at(row);
+             ui->BtNameListWidget->clear();
              ui->status_label->setText(tr("connect"));
              ui->bus_label->setText(Btname);
-             bluetooth_sql();
+             Btcon=Btname;
+             ui->stackedWidget->setCurrentIndex(1);
              ui->stackedWidget_2->setCurrentIndex(1);
+             bluetooth_status();
+             QString name,status;
+             if(!BtPairList.isEmpty())
+             {
+                 QStringList pair_scanlist = BtPairList;
+                 for(int i = 0;i<pair_scanlist.size();i++)
+                 {
+                     name = pair_scanlist.at(i);
+                     if(!QString::compare(Btcon,name,Qt::CaseSensitive))
+                     {
+                         status = "connect";
+                         bluetooth_listshow(name,status);
+                         pair_scanlist.removeAt(i);
+                         pair_scanlist.removeAt(i);
+                         break;
+                     }
+                     i++;
+                 }
+                 for(int i = 0;i<pair_scanlist.size();i++)
+                 {
+                     name = pair_scanlist.at(i);
+                     status = "saved";
+                     i++;
+                     bluetooth_listshow(name,status);
+                 }
+             }
+             for(int i = 0; i < BtScanList.size(); i++)
+             {
+                 QString tmp = BtScanList.at(i);
+                 QString tmp_address = tmp.trimmed().section("\t",0,0);
+                 tmp = tmp.trimmed().section("\t",1,1);
+                 if(BtPairList.size()<= 0)
+                 {
+                     bluetooth_listshow(tmp,"");
+                     //ui->BtNameListWidget->addItem(tmp);
+                 }
+                 else
+                 {
+                     for(int j = 0; j < BtPairList.size(); j++)
+                     {
+                         if(tmp_address == QString(BtPairList.at(j+1)))
+                         {
+                             break;
+                         }
+                         else
+                         {
+                             j++;
+                             if(j+1 == BtPairList.size())
+                                 bluetooth_listshow(tmp,"");
+                         }
+
+                     }
+                 }
+             }
+             connecting_flag = 0;
         }
         else if(str == "failed")
         {
@@ -294,6 +439,49 @@ void bluetooth::recv_msg(int signal_type,QString str)
              else
              mesg.move(Width/3,Height/3);
              mesg.exec();
+
+             ui->BtNameListWidget->clear();
+             BtPairList = database_w.table_show("bluetooth");
+             QString name,status;
+             if(!BtPairList.isEmpty())
+             {
+                 for(int i = 0;i<BtPairList.size();i++)
+                 {
+                     name = BtPairList.at(i);
+                     status = "saved";
+                     i++;
+                     bluetooth_listshow(name,status);
+                 }
+             }
+             for(int i = 0; i < BtScanList.size(); i++)
+             {
+                 QString tmp = BtScanList.at(i);
+                 QString tmp_address = tmp.trimmed().section("\t",0,0);
+                 tmp = tmp.trimmed().section("\t",1,1);
+                 if(BtPairList.size()<= 0)
+                 {
+                     bluetooth_listshow(tmp,"");
+                 }
+                 else
+                 {
+                     for(int j = 0; j < BtPairList.size(); j++)
+                     {
+                         if(tmp_address == QString(BtPairList.at(j+1)))
+                         {
+                             break;
+                         }
+                         else
+                         {
+                             j++;
+                             if(j+1 == BtPairList.size())
+                                 bluetooth_listshow(tmp,"");
+                         }
+
+                     }
+                 }
+             }
+             connecting_flag = 0;
+             timer_scan->start(3000);
         }
         else if(str == "connected")
         {
@@ -309,7 +497,6 @@ void bluetooth::recv_msg(int signal_type,QString str)
              mesg.exec();
         }
         ui->BTScanBtn->setEnabled(true);
-        ui->BTConnectBtn->setEnabled(true);
         ui->BtNameListWidget->setEnabled(true);
 
         pMovie->stop();
@@ -345,18 +532,15 @@ void bluetooth::on_BTScanBtn_clicked()
     if(!LoadLabel->isHidden())
     {
         ui->BtNameListWidget->setDisabled(false);
-        ui->BTConnectBtn->setDisabled(false);
         LoadLabel->hide();
         pMovie->stop();
-        wifi_bt_t->executeLinuxCmd("kill");
+       // wifi_bt_t->executeLinuxCmd("kill");
         ui->BTScanBtn->setText(tr("scan"));
         scan_flag = 1;
         //emit bluetooth_scan_msg();
         return;
     }
 
-    //ui->BtNameListWidget->clear();
-    ui->BTConnectBtn->setDisabled(true);
     ui->BtNameListWidget->setDisabled(true);
     LoadLabel->show();
     //LoadLabel->move(this->width()/2,this->height()/2);
@@ -368,53 +552,53 @@ void bluetooth::on_BTScanBtn_clicked()
     scan_first = 0;
 }
 
-void bluetooth::on_BTConnectBtn_clicked()
-{    
-    scan_first = 0;
-    if(open_flag == 0)
-    {
-        QMessageBox::information(this,"information",tr("Please open Bluetooth first!"));
-        return;
-    }
-    ui->stackedWidget->setCurrentIndex(1);
-    if(!Btcon.isEmpty())
-    {
-      ui->stackedWidget_2->setCurrentIndex(1);
-      timer->stop();
-    }
-    else
-    {
-       ui->stackedWidget_2->setCurrentIndex(0);
-       Btcon = "";
-       bluetooth_sql();
-       timer->start(3000);
-    }
-    QString tmp;
-    QString strResult = wifi_bt_t->executeLinuxCmd("hciconfig");
-    QStringList list = strResult.split("\n");
-    list.removeAll("");
-    for(int i=0; i<list.size();i++)
-    {
-        QString str = list.at(i);
-        if(str.contains("Type",Qt::CaseInsensitive))
-        {
-            tmp = str.section(' ',1,1);
-            ui->type_label->setText(tmp);
-           // tmp = str.section(' ',4,4);
-           // ui->bus_label->setText(tmp);
-        }
-        else if(str.contains("Address",Qt::CaseInsensitive))
-        {
-            tmp = str.section(' ',2,2);
-            ui->address_label->setText(tmp);
-        }
-    }
-    if(!ui->status_label->text().contains(tr("connect"),Qt::CaseInsensitive))
-    {
-        ui->status_label->setText(tr("not connect"));
-    }
+//void bluetooth::on_BTConnectBtn_clicked()
+//{
+//    scan_first = 0;
+//    if(open_flag == 0)
+//    {
+//        QMessageBox::information(this,"information",tr("Please open Bluetooth first!"));
+//        return;
+//    }
+//    ui->stackedWidget->setCurrentIndex(1);
+//    if(!Btcon.isEmpty())
+//    {
+//      ui->stackedWidget_2->setCurrentIndex(1);
+//      timer->stop();
+//    }
+//    else
+//    {
+//       ui->stackedWidget_2->setCurrentIndex(0);
+//       Btcon = "";
+//       //bluetooth_sql();
+//       timer->start(3000);
+//    }
+//    QString tmp;
+//    QString strResult = wifi_bt_t->executeLinuxCmd("hciconfig");
+//    QStringList list = strResult.split("\n");
+//    list.removeAll("");
+//    for(int i=0; i<list.size();i++)
+//    {
+//        QString str = list.at(i);
+//        if(str.contains("Type",Qt::CaseInsensitive))
+//        {
+//            tmp = str.section(' ',1,1);
+//            ui->type_label->setText(tmp);
+//           // tmp = str.section(' ',4,4);
+//           // ui->bus_label->setText(tmp);
+//        }
+//        else if(str.contains("Address",Qt::CaseInsensitive))
+//        {
+//            tmp = str.section(' ',2,2);
+//            ui->address_label->setText(tmp);
+//        }
+//    }
+//    if(!ui->status_label->text().contains(tr("connect"),Qt::CaseInsensitive))
+//    {
+//        ui->status_label->setText(tr("not connect"));
+//    }
 
-}
+//}
 
 void bluetooth::language_reload()
 {
@@ -460,14 +644,12 @@ void  bluetooth::blue_font()
         }
     }
 
-    ui->BTConnectBtn->setFont(font);
     ui->BTScanBtn->setFont(font);
     ui->label_2->setFont(font);
     ui->pushButton->setFont(font);
     ui->BtDeviceNameLab->setFont(font);
     ui->btn_disconnect->setFont(font);
     ui->btn_remove->setFont(font);
-    ui->btn_status->setFont(font);
     ui->label->setFont(font);
     ui->label_3->setFont(font);
     ui->label_4->setFont(font);
@@ -485,8 +667,7 @@ void bluetooth::on_pushButton_clicked()
     {
         open_flag = 1;
         ui->pushButton->setText(tr("close"));
-        bluetooth_sql();
-        ui->BTConnectBtn->setDisabled(true);
+       // bluetooth_sql();
         ui->BtNameListWidget->setDisabled(true);
         LoadLabel->show();
         //LoadLabel->move(this->width()/2,this->height()/2);
@@ -505,54 +686,77 @@ void bluetooth::on_pushButton_clicked()
         ui->BtNameListWidget->clear();
         ui->stackedWidget->setCurrentIndex(0);
         timer->stop();
-        if(connect_flag != 1)
+        if(connect_flag != "1")
         {
             wifi_bt_t->bluetooth_disconnect(BtAddress);
             ui->bus_label->setText(tr("no"));
             ui->stackedWidget_2->setCurrentIndex(0);
             Btcon = "";
-            bluetooth_sql();
+            //bluetooth_sql();
             ui->status_label->setText(tr("not connect"));
         }
     }
 }
 
-void bluetooth::bluetooth_sql()
-{
-    ui->Bt_pairedListwidget->clear();
-    BtPairList = database_w.table_show("bluetooth");
-    //wifi_bt_t->bluetooth_sqllist(BtPairList) ;
+//void bluetooth::bluetooth_sql()
+//{
+//    ui->Bt_pairedListwidget->clear();
+//    BtPairList = database_w.table_show("bluetooth");
 
-    for(int i = 0;i<BtPairList.size();i++)
-    {
-        QString tmp = BtPairList.at(i);
+//    for(int i = 0;i<BtPairList.size();i++)
+//    {
+//        QString tmp = BtPairList.at(i);
+//        QHBoxLayout *horLayout = new QHBoxLayout();
+//        horLayout->setContentsMargins(10,0,0,0);
+//        QWidget *widget=new QWidget(this);
+//        QLabel *nameLabel = new QLabel(widget);
+//        QLabel *connectLabel = new QLabel(widget);
+//        QListWidgetItem *item = new QListWidgetItem();
+//        nameLabel->setText(tmp);
+//        if(!QString::compare(Btcon,tmp,Qt::CaseSensitive))
+//        {
+//            connectLabel->setText(tr("connect"));
+//        }
+//        else
+//        {
+//            connectLabel->setText(tr("not connect"));
+//        }
+//        horLayout->addWidget(nameLabel);
+//        horLayout->addWidget(connectLabel);
+//        widget->setLayout(horLayout);
+//        horLayout->setStretchFactor(nameLabel,3);
+//        horLayout->setStretchFactor(connectLabel,1);
+//        horLayout->setSpacing(0);
+//        ui->Bt_pairedListwidget->addItem(item);
+//        ui->Bt_pairedListwidget->setItemWidget(item, widget);
+//        i++;
+//    }
+
+//     ui->Bt_pairedListwidget->setCurrentRow(0);
+//}
+
+void bluetooth::bluetooth_listshow(QString name,QString status)
+{
         QHBoxLayout *horLayout = new QHBoxLayout();
-        horLayout->setContentsMargins(10,0,0,0);
+        horLayout->setContentsMargins(5,0,0,0);
         QWidget *widget=new QWidget(this);
         QLabel *nameLabel = new QLabel(widget);
         QLabel *connectLabel = new QLabel(widget);
         QListWidgetItem *item = new QListWidgetItem();
-        nameLabel->setText(tmp);
-        if(!QString::compare(Btcon,tmp,Qt::CaseSensitive))
-        {
-            connectLabel->setText(tr("connect"));
-        }
-        else
-        {
-            connectLabel->setText(tr("not connect"));
-        }
+        nameLabel->setText(name);
+        connectLabel->setText(tr(status.toUtf8()));
         horLayout->addWidget(nameLabel);
         horLayout->addWidget(connectLabel);
         widget->setLayout(horLayout);
         horLayout->setStretchFactor(nameLabel,3);
         horLayout->setStretchFactor(connectLabel,1);
         horLayout->setSpacing(0);
-        ui->Bt_pairedListwidget->addItem(item);
-        ui->Bt_pairedListwidget->setItemWidget(item, widget);
-        i++;
-    }
-
-     ui->Bt_pairedListwidget->setCurrentRow(0);
+        ui->BtNameListWidget->addItem(item);
+        ui->BtNameListWidget->setItemWidget(item, widget);
+        ui->BtNameListWidget->setCurrentRow(0);
+        ui->BtNameListWidget->verticalScrollBar()->setStyleSheet("QScrollBar{width:40px;}");
+        ui->BtNameListWidget->horizontalScrollBar()->setStyleSheet("QScrollBar{height:30px;}");
+        ui->BtNameListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 }
 
 void bluetooth::showEvent(QShowEvent *event)
@@ -566,81 +770,125 @@ void bluetooth::showEvent(QShowEvent *event)
 
 void bluetooth::on_BtNameListWidget_itemClicked(QListWidgetItem *item)
 {
-    pair_flag = 1;
+    QListWidgetItem *item1 = ui->BtNameListWidget->currentItem();
+    QWidget* pwig = ui->BtNameListWidget->itemWidget(item1); // 获取里面的QWidget
+    QList<QLabel*> labelList = pwig->findChildren<QLabel*>();  // 获取所有的Qlabel
+    QString status = labelList.at(1)->text();
+    QString name = labelList.at(0)->text();
+    if(status == tr("connect"))
+    {
+        ui->stackedWidget->setCurrentIndex(1);
+        ui->stackedWidget_2->setCurrentIndex(1);
+        return;
+    }
+    BtPairList = database_w.table_show("bluetooth");
     int BtNameIndex = ui->BtNameListWidget->currentRow();
-    pair_index = BtNameIndex;
+    if(!BtPairList.isEmpty())
+    {
+        if(BtPairList.size()/2>BtNameIndex)
+        {
+            connect_refresh();
+            if(connect_flag != "1")
+            {
+                QString address = database_w.select_by_name("bluetooth",connect_flag);
+                wifi_bt_t->bluetooth_disconnect(address);
+                ui->status_label->setText(tr("not connect"));
+                ui->bus_label->setText(tr("no"));
+                ui->stackedWidget->setCurrentIndex(0);
+                Btcon = "";
+            }
+            connecting_flag = 1;Btname = name;
+            BtAddress = database_w.select_by_name("bluetooth",name);qDebug() << BtAddress;
+            LoadLabel->show();
+            pMovie->start();
+            QString strCmd = QString("ps -x|grep pulseaudio | grep -v grep |wc -l");
+            QString strResult = wifi_bt_t->executeLinuxCmd(strCmd);
+
+            if(strResult == QString("0\n"))
+            {
+                strCmd = QString("pulseaudio --start");
+                strResult = wifi_bt_t->executeLinuxCmd(strCmd);
+            }
+            emit bluetooth_connect_msg(BtAddress);
+
+            ui->BTScanBtn->setDisabled(true);
+            return;
+        }
+    }
+    pair_flag = 1;
+    BtNameIndex = BtNameIndex-BtPairList.size()/2;
     BtAddress = BtScanList.at(BtNameIndex);
     Btname = BtAddress.trimmed().section("\t",1,1);
     BtAddress = BtAddress.trimmed().section("\t",0,0);
-   // qDebug() << ui->Bt_pairedListwidget->currentItem()->text();
     ui->BTScanBtn->setDisabled(true);
-    ui->BTConnectBtn->setDisabled(true);
     LoadLabel->show();
     pMovie->start();
 
     emit bluetooth_pair_msg(BtAddress);
 }
 
-void bluetooth::on_Bt_pairedListwidget_itemClicked(QListWidgetItem *item)
-{
-    if(!Btcon.isEmpty())
-    {
-        QMessageBox mesg(QMessageBox::Information,
-                         tr("QMessageBox::information()"),
-                         tr("please disconnect the \"%1\" device first!").arg(Btcon),
-                         0,this);
-        mesg.addButton(tr("OK"), QMessageBox::ActionRole);
-        if(screen_flag == 1)
-            mesg.move(Width*2/3,Height/3);
-        else
-            mesg.move(Width/3,Height/3);
-        mesg.exec();
-        return;
-    }
-    LoadLabel->show();
-    pMovie->start();
-    QString strCmd = QString("ps -x|grep pulseaudio | grep -v grep |wc -l");
-    QString strResult = wifi_bt_t->executeLinuxCmd(strCmd);
+//void bluetooth::on_Bt_pairedListwidget_itemClicked(QListWidgetItem *item)
+//{
+//    if(!Btcon.isEmpty())
+//    {
+//        QMessageBox mesg(QMessageBox::Information,
+//                         tr("QMessageBox::information()"),
+//                         tr("please disconnect the \"%1\" device first!").arg(Btcon),
+//                         0,this);
+//        mesg.addButton(tr("OK"), QMessageBox::ActionRole);
+//        if(screen_flag == 1)
+//            mesg.move(Width*2/3,Height/3);
+//        else
+//            mesg.move(Width/3,Height/3);
+//        mesg.exec();
+//        return;
+//    }
+//    LoadLabel->show();
+//    pMovie->start();
+//    QString strCmd = QString("ps -x|grep pulseaudio | grep -v grep |wc -l");
+//    QString strResult = wifi_bt_t->executeLinuxCmd(strCmd);
 
-    if(strResult == QString("0\n"))
-    {
-        strCmd = QString("pulseaudio --start");
-        strResult = wifi_bt_t->executeLinuxCmd(strCmd);
-    }
-    int BtNameIndex = ui->Bt_pairedListwidget->currentRow();
-    if(BtNameIndex != 0)
-    {
-        BtNameIndex = BtNameIndex*2;
-    }
-    Btname = BtPairList.at(BtNameIndex);
-    BtAddress = BtPairList.at(BtNameIndex+1);
-    // qDebug() << Btname; qDebug() << BtAddress;
-    emit bluetooth_connect_msg(BtAddress);
+//    if(strResult == QString("0\n"))
+//    {
+//        strCmd = QString("pulseaudio --start");
+//        strResult = wifi_bt_t->executeLinuxCmd(strCmd);
+//    }
+//    int BtNameIndex = ui->Bt_pairedListwidget->currentRow();
+//    if(BtNameIndex != 0)
+//    {
+//        BtNameIndex = BtNameIndex*2;
+//    }
+//    Btname = BtPairList.at(BtNameIndex);
+//    BtAddress = BtPairList.at(BtNameIndex+1);
+//    // qDebug() << Btname; qDebug() << BtAddress;
+//    emit bluetooth_connect_msg(BtAddress);
 
-    ui->BTScanBtn->setDisabled(true);
-    ui->BTConnectBtn->setDisabled(true);
-}
+//    ui->BTScanBtn->setDisabled(true);
+//    ui->BTConnectBtn->setDisabled(true);
+//}
 
 void bluetooth::connect_refresh()
 {
     connect_flag = wifi_bt_t->bluetooth_connectflag();
     if(connect_flag == "1")
     {
-        Btcon = "";     
+        Btcon = "";
+        ui->bus_label->setText(tr("no"));
+        ui->status_label->setText(tr("not connect"));
     }
     else
     {
-       Btcon = connect_flag;
+      // Btcon = connect_flag;qDebug() << 11;
     }
-    bluetooth_sql();
+   // bluetooth_sql();
 }
 
-void bluetooth::on_btn_status_clicked()
-{
-    ui->stackedWidget_2->setCurrentIndex(0);
-    connect_refresh();
-    timer->start(3000);
-}
+//void bluetooth::on_btn_status_clicked()
+//{
+//    ui->stackedWidget_2->setCurrentIndex(0);
+//    connect_refresh();
+//    timer->start(3000);
+//}
 
 void bluetooth::on_btn_disconnect_clicked()
 {
@@ -654,27 +902,64 @@ void bluetooth::on_btn_disconnect_clicked()
         QMessageBox::information(this,"information",tr("Disconnect successful!"));
         ui->status_label->setText(tr("not connect"));
         ui->bus_label->setText(tr("no"));
-        ui->stackedWidget_2->setCurrentIndex(0);
+        timer->stop();timer_scan->start(3000);
+        ui->stackedWidget->setCurrentIndex(0);
         Btcon = "";
-        timer->start(3000);
-        bluetooth_sql();
+        QString name,status;
+        ui->BtNameListWidget->clear();
+        BtPairList = database_w.table_show("bluetooth");
+        if(!BtPairList.isEmpty())
+        {
+            for(int i = 0;i<BtPairList.size();i++)
+            {
+                name = BtPairList.at(i);
+                status = "saved";
+                i++;
+                bluetooth_listshow(name,status);
+            }
+        }
+        for(int i = 0; i < BtScanList.size(); i++)
+        {
+            QString tmp = BtScanList.at(i);
+            tmp = tmp.trimmed().section("\t",1,1);
+            bluetooth_listshow(tmp,"");
+        }
     }
 }
 
 void bluetooth::on_btn_remove_clicked()
 {
-    int row = ui->Bt_pairedListwidget->currentRow();
-    if(row < 0)
-        return;
-    Btname = BtPairList.at(row);
     QString address = database_w.select_by_name("bluetooth",Btname);
     wifi_bt_t->bluetooth_remove(address);
     QMessageBox::information(this,"information",tr("Remove successful!"));
     database_w.delete_record_by_name("bluetooth",Btname);
     ui->status_label->setText(tr("not connect"));
     ui->bus_label->setText(tr("no"));
-    bluetooth_sql();
-    ui->stackedWidget_2->setCurrentIndex(0);
+
+
+    ui->BtNameListWidget->clear();
+    BtPairList = database_w.table_show("bluetooth");
+    QString name,status;
+    if(!BtPairList.isEmpty())
+    {
+        for(int i = 0;i<BtPairList.size();i++)
+        {
+            name = BtPairList.at(i);
+            status = "saved";
+            i++;
+            bluetooth_listshow(name,status);
+        }
+    }
+    for(int i = 0; i < BtScanList.size(); i++)
+    {
+        QString tmp = BtScanList.at(i);
+        tmp = tmp.trimmed().section("\t",1,1);
+        bluetooth_listshow(tmp,"");
+    }
+
+
+    timer->stop();timer_scan->start(3000);
+    ui->stackedWidget->setCurrentIndex(0);
 }
 
 void bluetooth::scan_refresh()
@@ -682,6 +967,13 @@ void bluetooth::scan_refresh()
     if(pair_flag == 1)
     {
         scan_first = 0;
+         timer_scan->stop();
+        return;
+    }
+    if(connecting_flag == 1)
+    {
+        scan_first = 0;
+         timer_scan->stop();
         return;
     }
   if(ui->stackedWidget->currentIndex() == 0)
@@ -690,4 +982,30 @@ void bluetooth::scan_refresh()
       emit bluetooth_scan_msg();
       timer_scan->stop();
   }
+}
+
+void bluetooth::bluetooth_status()
+{
+    QString tmp;
+    QString strResult = wifi_bt_t->executeLinuxCmd_bluetooth_connect("hciconfig");
+    QStringList list = strResult.split("\n");
+    list.removeAll("");
+    for(int i=0; i<list.size();i++)
+    {
+        QString str = list.at(i);
+        if(str.contains("Type",Qt::CaseInsensitive))
+        {
+            tmp = str.section(' ',1,1);
+            ui->type_label->setText(tmp);
+        }
+        else if(str.contains("Address",Qt::CaseInsensitive))
+        {
+            tmp = str.section(' ',2,2);
+            ui->address_label->setText(tmp);
+        }
+    }
+    if(!ui->status_label->text().contains(tr("connect"),Qt::CaseInsensitive))
+    {
+        ui->status_label->setText(tr("not connect"));
+    }
 }
