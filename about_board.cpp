@@ -177,4 +177,6 @@ void about_board::about_font()
     ui->QTversion->setFont(font);
     ui->label_4->setFont(font);
     ui->label_10->setFont(font);
+    ui->website->setFont(font);
+    ui->label_12->setFont(font);
 }

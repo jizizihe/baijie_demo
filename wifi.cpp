@@ -29,7 +29,6 @@ wifi::wifi(QWidget *parent) :
 
     qApp->installEventFilter(this);
     wifi_bt_t = new wifi_bt_interface(this);
-
     WifiConnectDialog = new WifiConDialog(this);
 
     screen = qApp->primaryScreen();
@@ -59,6 +58,9 @@ wifi::wifi(QWidget *parent) :
 
     timer = new QTimer(this);
     timer_status_show = new QTimer(this);
+    ui->wifi_Switch->setCheckedColor(QColor(100, 225, 100, 150));
+
+    connect(ui->wifi_Switch,SIGNAL(toggled(bool)),this,SLOT(BtnChange_flag(bool)));
     connect(timer,SIGNAL(timeout()),this,SLOT(wifi_refresh()));
     connect(timer_status_show,SIGNAL(timeout()),this,SLOT(wifi_status_refresh()));
     connect(this,SIGNAL(ToThread()),WifiThread,SLOT(Thread_Fun()));
@@ -72,7 +74,6 @@ wifi::wifi(QWidget *parent) :
     ui->stackedWidget_3->setCurrentIndex(0);
 
     connect(ui->WifiListWidget,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(ListWidgeItem_clicked()));
- //   connect(ui->WifiListWidget_2,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(ListWidgeItem2_clicked()));
     connect(this,SIGNAL(hotspot_build_msg(QString,QString,QString)),WifiThread,SLOT(hotspot_build_thread(QString,QString,QString)));
     connect(WifiThread,SIGNAL(wifi_info_fresh_msg(QString)),this,SLOT(wifi_info_fresh(QString)));
     connect(WifiConnectDialog,SIGNAL(wifi_modify_pass(QString,QString)),WifiThread,SLOT(wifi_modyfypass(QString,QString)));
@@ -85,7 +86,6 @@ wifi::wifi(QWidget *parent) :
     connect(WifiThread,SIGNAL(rewlan_scan(QString)),this,SLOT(scan_hotwlan(QString)));
     emit scan_wlan();
     emit wifi_scan_msg(); ui->stackedWidget->setCurrentIndex(0);
-    //WifiStatus_show();
     hotspot_sql();
 }
 
@@ -118,11 +118,11 @@ void wifi::recv_msg(int signal_type, QString strResult)
         scanlist.removeAll(QString(""));
         scroll_value = ui->WifiListWidget->verticalScrollBar()->value();
         list_row = ui->WifiListWidget->currentRow();
-        ui->WifiListWidget->clear();
+
         save_scanlist.clear();
         flag = open_flag;
         if(flag == 0)
-        return ;
+        return ;ui->WifiListWidget->clear();
         save_list = wifiDB.table_show("wifiPasswd");
         for(int i = 0; i < scanlist.size(); i++)
         {
@@ -243,7 +243,6 @@ void wifi::recv_msg(int signal_type, QString strResult)
         {
             ui->WifiListWidget->setCurrentRow(list_row);
         }
-
         break;
     case wifi_connect_signal :
         if(strResult == QString(1))
@@ -264,7 +263,7 @@ void wifi::recv_msg(int signal_type, QString strResult)
             QMessageBox::critical(this,"information",tr("Connection failed!"));
             QMessageBox mesg(QMessageBox::Critical,
                              tr("QMessageBox::critical()"),
-                             tr("Connect failed!!"),
+                             tr("Connect failed!"),
                              0,this);
              mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
              mesg.setFocusPolicy(Qt::NoFocus);
@@ -531,9 +530,6 @@ void wifi::changepass_fresh()
 
 void wifi::on_WifiConnectBtn_clicked()
 {
-    LoadLabel->show();
-    pMovie->start();
-    timer->start(10000);timer_status_show->stop();
     if(hotconnect_falg == 1)
     {
         QMessageBox::information(this,"information",tr("Please turn off the hotspot first!"));
@@ -544,6 +540,9 @@ void wifi::on_WifiConnectBtn_clicked()
         QMessageBox::information(this,"information",tr("Please open the wifi!"));
         return;
     }
+    LoadLabel->show();
+    pMovie->start();
+    timer->start(10000);timer_status_show->stop();
     ui->stackedWidget->setCurrentIndex(0);
     int flag = open_flag;
     if(flag == 1)
@@ -672,9 +671,10 @@ void wifi::on_WifiExistRemoveBtn_clicked()
 
 void wifi::on_HotspotBuildBtn_clicked()
 {
-    QString strCmd = QString("nmcli connection show --active | grep eth0 |wc -l");
+    QString strCmd = QString("nmcli con show --active");
     QString strResult = wifi_bt_t->executeLinuxCmd(strCmd);
-    if(strResult == "0\n")
+    QStringList list = strResult.split("\n");strResult.remove("");int num = list.size();
+    if(num == 1)
     {
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),
@@ -694,6 +694,55 @@ void wifi::on_HotspotBuildBtn_clicked()
          ui->HotspotBuildBtn->setText(tr("up"));hotup_flag = 0;
          ui->stackedWidget_3->setCurrentIndex(0);
         return;
+    }
+    else
+    {
+        list.removeAt(0);
+        QString device; QStringList list_device,list_device1;int has_net=0;
+        for(int i=0;i<list.size();i++)
+        {
+             device = list.at(i);
+             list_device = device.split(" ");
+             list_device.removeAll("");
+             if(!list_device.isEmpty())
+             {
+                 device = list_device.at(list_device.size()-1);
+                 list_device1 << device;
+             }
+        }
+        for(int i=0;i<list_device1.size();i++)
+        {
+            if(list_device1.at(i) == "wlan0")
+            {
+                continue;
+            }
+            else
+            {
+                has_net = 1;break;
+            }
+        }
+
+        if(has_net == 0)
+        {
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("Connect to hotspot failed!No network is currently available,please connect to the network first"),
+                             0,this);
+             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
+             mesg.setFocusPolicy(Qt::NoFocus);
+             mesg.addButton(tr("OK"),QMessageBox::YesRole);
+             if(screen_flag == 1)
+             mesg.move(s_width*2/3,s_height/3);
+             else
+             mesg.move(s_width/3,s_height/3);
+             mesg.exec();
+             wifi_bt_t->hotspot_disconnect();
+             hotconnect_falg = 0;
+             HtName.clear();
+             ui->HotspotBuildBtn->setText(tr("up"));hotup_flag = 0;
+             ui->stackedWidget_3->setCurrentIndex(0);
+           return;
+        }
     }
 
     int ind = ui->stackedWidget_3->currentIndex();
@@ -871,7 +920,7 @@ void wifi::wifi_font()
     ui->HtName->setFont(font);
     ui->HtPasswd->setFont(font);
     ui->groupBox->setFont(font);
-    ui->open_btn->setFont(font);
+    //ui->open_btn->setFont(font);
     ui->label_6->setFont(font);
 }
 
@@ -906,44 +955,44 @@ void wifi::scan_hotwlan(QString wlan)
     }
 }
 
-void wifi::on_open_btn_clicked()
-{
-    if(open_flag == 0)
-    {
-        open_flag = 1;
-        ui->open_btn->setText(tr("close"));
-        LoadLabel->show();
-        pMovie->start();
-        emit wifi_scan_msg();
-        timer->start();
-        for(int i = 0; i < ui->WifiListWidget->count(); i++)
-        {
-            ui->WifiListWidget->setItemHidden(ui->WifiListWidget->item(i), false);
-        }
-        wifi_bt_t->wifi_enable(true);
-        WifiStatus_show();
-        ui->stackedWidget->setCurrentIndex(0);
-        ui->WifiExistRemoveBtn->setEnabled(true);
-        ui->ChangePasswdBtn->setEnabled(true);
-    }
-    else
-    {
-        open_flag = 0;
-        ui->open_btn->setText(tr("open"));
-        for(int i = 0; i < ui->WifiListWidget->count(); i++)
-        {
-            ui->WifiListWidget->setItemHidden(ui->WifiListWidget->item(i), true);
-        }
-        wifi_bt_t->wifi_enable(false);
-        wifi_bt_t->wifi_disconnect();
-        pMovie->stop();
-        timer->stop();timer_status_show->stop();
-        LoadLabel->close();
-        WifiStatus_show();
-        ui->WifiExistRemoveBtn->setEnabled(false);
-        ui->ChangePasswdBtn->setEnabled(false);
-    }
-}
+//void wifi::on_open_btn_clicked()
+//{
+//    if(open_flag == 0)
+//    {
+//        open_flag = 1;
+//        ui->open_btn->setText(tr("close"));
+//        LoadLabel->show();
+//        pMovie->start();
+//        emit wifi_scan_msg();
+//        timer->start();
+//        for(int i = 0; i < ui->WifiListWidget->count(); i++)
+//        {
+//            ui->WifiListWidget->setItemHidden(ui->WifiListWidget->item(i), false);
+//        }
+//        wifi_bt_t->wifi_enable(true);
+//        WifiStatus_show();
+//        ui->stackedWidget->setCurrentIndex(0);
+//        ui->WifiExistRemoveBtn->setEnabled(true);
+//        ui->ChangePasswdBtn->setEnabled(true);
+//    }
+//    else
+//    {
+//        open_flag = 0;
+//        ui->open_btn->setText(tr("open"));
+//        for(int i = 0; i < ui->WifiListWidget->count(); i++)
+//        {
+//            ui->WifiListWidget->setItemHidden(ui->WifiListWidget->item(i), true);
+//        }
+//        wifi_bt_t->wifi_enable(false);
+//        wifi_bt_t->wifi_disconnect();
+//        pMovie->stop();
+//        timer->stop();timer_status_show->stop();
+//        LoadLabel->close();
+//        WifiStatus_show();
+//        ui->WifiExistRemoveBtn->setEnabled(false);
+//        ui->ChangePasswdBtn->setEnabled(false);
+//    }
+//}
 
 void wifi::hotspot_sql()
 {
@@ -1172,3 +1221,40 @@ void wifi::wifi_status_refresh()
 //        ui->stackedWidget_2->setCurrentIndex(0);
 //    }
 //}
+
+void wifi::BtnChange_flag(bool flag)
+{
+    flag = ui->wifi_Switch->isToggled();
+    if(flag == 1)
+    {
+        open_flag = 1;
+        timer->start(10000);
+        for(int i = 0; i < ui->WifiListWidget->count(); i++)
+        {
+            ui->WifiListWidget->setItemHidden(ui->WifiListWidget->item(i), false);
+        }
+        wifi_bt_t->wifi_enable(true);
+        WifiStatus_show();
+        ui->stackedWidget->setCurrentIndex(0);
+        ui->WifiExistRemoveBtn->setEnabled(true);
+        ui->ChangePasswdBtn->setEnabled(true);
+       // emit wifi_scan_msg();
+    }
+    else
+    {
+        open_flag = 0;
+        //ui->open_btn->setText(tr("open"));
+        for(int i = 0; i < ui->WifiListWidget->count(); i++)
+        {
+            ui->WifiListWidget->setItemHidden(ui->WifiListWidget->item(i), true);
+        }
+        wifi_bt_t->wifi_enable(false);
+        wifi_bt_t->wifi_disconnect();
+        pMovie->stop();
+        timer->stop();timer_status_show->stop();
+        LoadLabel->close();
+        WifiStatus_show();
+        ui->WifiExistRemoveBtn->setEnabled(false);
+        ui->ChangePasswdBtn->setEnabled(false);
+    }
+}

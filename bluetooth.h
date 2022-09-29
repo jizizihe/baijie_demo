@@ -45,11 +45,10 @@ public:
 
 private slots:
     void recv_msg(int,QString);
-    void BtnChange_flag(bool);
     void on_BTScanBtn_clicked();
    // void on_BTConnectBtn_clicked();
     void on_retBtn_clicked();
-    void on_pushButton_clicked();
+  //  void on_pushButton_clicked();
     void on_BtNameListWidget_itemClicked(QListWidgetItem *item);
     //void on_Bt_pairedListwidget_itemClicked(QListWidgetItem *item);
     void connect_refresh();
@@ -57,6 +56,7 @@ private slots:
     void on_btn_disconnect_clicked();
     void on_btn_remove_clicked();
     void scan_refresh();
+    void BtnChange_flag(bool);
 
 signals:
     void bluetooth_scan_msg();

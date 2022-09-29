@@ -375,7 +375,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                 </font>
                </property>
                <property name="text">
-                <string>usb number</string>
+                <string>usb count</string>
                </property>
               </widget>
              </item>

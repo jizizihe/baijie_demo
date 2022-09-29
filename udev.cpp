@@ -203,7 +203,7 @@ void udev::on_umount_clicked()  //安全退出
     // pro_path.write(umount_file.toUtf8());
     QMessageBox mesg(QMessageBox::Information,
                      tr("QMessageBox::information()"),
-                     tr("safe exit successful!"),
+                     tr("safe unplug successful!"),
                      0,this);
     mesg.addButton(tr("OK"),QMessageBox::YesRole);
     if(screen_flag == 1)

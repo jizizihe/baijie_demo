@@ -175,7 +175,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
       <item>
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>Storage Interface</string>
+         <string>Storage</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -481,7 +481,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
               <string notr="true"/>
              </property>
              <property name="text">
-              <string>cut</string>
+              <string> cut </string>
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
@@ -806,7 +806,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
              <height>0</height>
             </size>
            </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="3,2,3,2,3">
+           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="4,2,4,2,4">
             <property name="spacing">
              <number>0</number>
             </property>

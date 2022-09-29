@@ -537,7 +537,7 @@ void all_test::serial_stop_deal()
 
     if(serialStopTimer->isActive() == true)
     {
-       ui->textEdit->append(QString(tr("---serial test: send completed as client")));
+       ui->textEdit->append(QString(tr("---serial test: OK!")));
 //        serial_test_recv_func(QString(tr("serial test end")));
        serialStopTimer->stop();
     }

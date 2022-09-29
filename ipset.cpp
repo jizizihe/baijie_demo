@@ -6,7 +6,7 @@ static int s_width;
 static int s_height;
 static int screen_flag;
 static QScreen *screen;
-static int open_flag;
+static int open_flag = 1;
 static QString static_ip;
 static int btn_up_flag;
 
@@ -36,20 +36,10 @@ ipset::ipset(QWidget *parent) :
     //ui->networkSwitch->setCheckedColor(QColor(100, 225, 100));
    // connect(ui->networkSwitch,SIGNAL(toggled(bool)),this,SLOT(btnChangeFlag(bool)));
 
-    QString strCmd = QString("ifconfig | grep eth0");
-    QString retResult = executeLinuxCmd(strCmd);
-    if(false == retResult.isEmpty())
-    {
-       // ui->networkSwitch->setToggle(true);
-        ui->btn_open->setText(tr("close"));
-        open_flag = 1;
-    }
-    else
-    {
-        //ui->networkSwitch->setToggle(false);
-        ui->btn_open->setText(tr("open"));
-        open_flag = 1;
-    }
+        QString networkInfo = get_network_info();
+        ui->textEdit->setText(networkInfo);
+        ui->stackedWidget->setCurrentIndex(0);
+
     ui->widget->setEnabled(false);
     ui->widget->setStyleSheet("border-radius: 12px;padding: 6px;"
                               "background-color: rgb(217, 217, 217,30);border:1px solid gray;");
@@ -62,6 +52,8 @@ ipset::ipset(QWidget *parent) :
     ui->nameLineEdit->setStyleSheet("color: rgb(186, 189, 182);");
     ui->masklineEdit->setStyleSheet("color: rgb(186, 189, 182);");
     ip_settext();
+    ui->ip_Switch->setCheckedColor(QColor(100, 225, 100, 150));
+    connect(ui->ip_Switch,SIGNAL(toggled(bool)),this,SLOT(btnChangeFlag(bool)));
 }
 
 ipset::~ipset()
@@ -102,6 +94,7 @@ void ipset::on_ipShowBtn_clicked()
         QMessageBox::information(this,"information",tr("Please open the ethernet!"));
         return;
     }
+
     QString networkInfo = get_network_info();
     ui->textEdit->setText(networkInfo);
     ui->stackedWidget->setCurrentIndex(0);
@@ -158,6 +151,7 @@ void ipset::on_setStaticIpBtn_clicked()
         QMessageBox::information(this,"information",tr("Please open the ethernet!"));
         return;
     }
+
     //ui->okBtn->setText(tr("up"));
     ui->stackedWidget->setCurrentIndex(1);
 }
@@ -187,23 +181,74 @@ void ipset::on_delStaticIpBtn_clicked()
                                       "padding: 6px;outline: none; ");
     ui->nameLineEdit->setStyleSheet("color: rgb(186, 189, 182);");
     ui->masklineEdit->setStyleSheet("color: rgb(186, 189, 182);");
+
+
     if(false == is_static_ip_exist())
     {
-        QMessageBox mesg(QMessageBox::Information,
-                         tr("QMessageBox::information()"),
-                         tr("The current connection is auto IP!"),
-                         0,this);
-        mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screen_flag == 1)
-        mesg.move(s_width*2/3,s_height/3);
+        QString strCmd = QString("nmcli con show --active |grep eth0");
+        QString strResult = executeLinuxCmd(strCmd);
+        if(strResult.isEmpty())
+        {
+            strCmd = QString("ifconfig eth0 up");
+            executeLinuxCmd(strCmd);
+            strCmd = QString("nmcli con show --active |grep eth0");
+            strResult = executeLinuxCmd(strCmd);
+            if(!strResult.isEmpty())
+            {qDebug() << 1;
+                QMessageBox mesg(QMessageBox::Information,
+                                 tr("QMessageBox::information()"),
+                                 tr("set auto ip succeeded!"),
+                                 0,this);
+                mesg.addButton(tr("OK"),QMessageBox::YesRole);
+                if(screen_flag == 1)
+                mesg.move(s_width*2/3,s_height/3);
+                else
+                mesg.move(s_width/3,s_height/3);
+                mesg.exec();
+                QString networkInfo = get_network_info();
+                ui->textEdit->setText(networkInfo);
+                ui->stackedWidget->setCurrentIndex(0);
+               // database_w.delete_record_by_name("ip_static",ui->ipAddrLineEdit->text());
+                ui->ipAddrLineEdit->clear();
+                ui->gatewaylineEdit->clear();
+                ui->masklineEdit->clear();
+                ui->okBtn->setText(tr("up"));btn_up_flag = 0;
+                network_enable(true);
+                return;
+            }
+            else
+            {
+                QMessageBox mesg(QMessageBox::Information,
+                                 tr("QMessageBox::information()"),
+                                 tr("set auto ip failed"),
+                                 0,this);
+                mesg.addButton(tr("OK"),QMessageBox::YesRole);
+                if(screen_flag == 1)
+                mesg.move(s_width*2/3,s_height/3);
+                else
+                mesg.move(s_width/3,s_height/3);
+                mesg.exec();
+            }
+        }
         else
-        mesg.move(s_width/3,s_height/3);
-        mesg.exec();
+        {
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("The current connection is auto IP!"),
+                             0,this);
+            mesg.addButton(tr("OK"),QMessageBox::YesRole);
+            if(screen_flag == 1)
+                mesg.move(s_width*2/3,s_height/3);
+            else
+                mesg.move(s_width/3,s_height/3);
+            mesg.exec();
 
-        QString networkInfo = get_network_info();
-        ui->textEdit->setText(networkInfo);
-        ui->stackedWidget->setCurrentIndex(0);
-        network_enable(true);
+            QString networkInfo = get_network_info();
+            ui->textEdit->setText(networkInfo);
+            ui->stackedWidget->setCurrentIndex(0);
+            network_enable(true);
+            return;
+        }
         return;
     }
 
@@ -403,7 +448,6 @@ void ipset::ipset_font()
     ui->label_7->setFont(font);
     ui->textEdit->setFont(font);
     ui->okBtn->setFont(font);
-    ui->btn_open->setFont(font);
     ui->label->setFont(font);
     ui->label_2->setFont(font);
     ui->label_3->setFont(font);
@@ -412,25 +456,25 @@ void ipset::ipset_font()
     ui->pushButton->setFont(font);
 }
 
-void ipset::on_btn_open_clicked()
-{
-    if(open_flag == 0)
-    {
-        open_flag = 1;
-        ui->btn_open->setText(tr("close"));
-        network_enable(true);
-        QString networkInfo = get_network_info();
-        ui->textEdit->setText(networkInfo);
-        ui->stackedWidget->setCurrentIndex(0);
-    }
-    else
-    {
-        open_flag = 0;
-        ui->btn_open->setText(tr("open"));
-        network_enable(false);
-        ui->textEdit->setText("");
-    }
-}
+//void ipset::on_btn_open_clicked()
+//{
+//    if(open_flag == 0)
+//    {
+//        open_flag = 1;
+//        ui->btn_open->setText(tr("close"));
+//        network_enable(true);
+//        QString networkInfo = get_network_info();
+//        ui->textEdit->setText(networkInfo);
+//        ui->stackedWidget->setCurrentIndex(0);
+//    }
+//    else
+//    {
+//        open_flag = 0;
+//        ui->btn_open->setText(tr("open"));
+//        network_enable(false);
+//        ui->textEdit->setText("");
+//    }
+//}
 
 void ipset::ip_settext()
 {
@@ -482,4 +526,24 @@ void ipset::on_pushButton_clicked()
                                       "padding: 6px;outline: none; ");
     ui->nameLineEdit->setStyleSheet("color: rgb(0, 0, 0);");
     ui->masklineEdit->setStyleSheet("color: rgb(0, 0, 0);");
+}
+
+void ipset::btnChangeFlag(bool flag)
+{
+    flag = ui->ip_Switch->isToggled();
+    if(flag == 1)
+    {
+        open_flag = 1;
+        network_enable(true);
+        QString networkInfo = get_network_info();
+        ui->textEdit->setText(networkInfo);
+        ui->stackedWidget->setCurrentIndex(0);
+
+    }
+    else
+    {
+        open_flag = 0;
+        network_enable(false);
+        ui->textEdit->setText("");
+    }
 }

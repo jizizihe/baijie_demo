@@ -211,7 +211,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
       <item>
        <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>Serial Interface</string>
+         <string>Serial Port</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -321,7 +321,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </sizepolicy>
             </property>
             <property name="text">
-             <string>port1</string>
+             <string>Port1</string>
             </property>
             <property name="icon">
              <iconset resource="translation.qrc">
@@ -390,7 +390,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </sizepolicy>
             </property>
             <property name="text">
-             <string>port2</string>
+             <string>Port2</string>
             </property>
             <property name="icon">
              <iconset resource="translation.qrc">

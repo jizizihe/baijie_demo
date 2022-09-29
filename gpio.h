@@ -33,6 +33,7 @@ public:
     void gpio_font();
     void settext_statusbtn(int);
     void settext_valuebtn(int);
+    void showEvent(QShowEvent *event);
 
 private slots:
     void ret_clicked();
@@ -44,6 +45,7 @@ private slots:
     void on_pushButton_clicked();
     void BtnChange_flag1(bool flag);
     void BtnChange_flag2(bool flag);
+    void gpio_refresh();
 
 signals:
     void Mysignal();

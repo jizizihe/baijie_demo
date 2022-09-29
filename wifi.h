@@ -67,9 +67,10 @@ private slots:
     void WifiStatus_show();
     void wifi_refresh();
     void wifidailog_hide();
-    void on_open_btn_clicked();
+ //   void on_open_btn_clicked();
     void changepass_fresh();
     void wifi_status_refresh();
+    void BtnChange_flag(bool);
 
 private:
     Ui::wifi *ui;

@@ -805,7 +805,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>System Interface</string>
+        <string>System</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

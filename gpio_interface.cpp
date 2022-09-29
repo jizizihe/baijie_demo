@@ -274,6 +274,32 @@ int gpio_get_value(unsigned int gpio)
     return value;
 }
 
+int gpio_get_state(unsigned int gpio)
+{
+    int fd,value;
+    char temp;
+    char buf[MAX_BUF];
+
+    snprintf(buf, sizeof(buf), SYSFS_GPIO_DIR"/gpio%d/direction", gpio);
+    fd = open(buf, O_RDONLY);
+    if(fd < 0)
+    {
+        //printf("gpio%d get direction failed!\n", gpio);
+        return -1;
+    }
+    printf("%s\n", buf);
+    read(fd, &temp, 1);
+    if(temp != 'i')
+    {
+        value = 1;
+    }
+    else
+    {
+        value = 0;
+    }
+    close(fd);
+    return value;
+}
 
 bool getFileName(unsigned int gpio)
 {
@@ -283,7 +309,7 @@ bool getFileName(unsigned int gpio)
 
     DIR *dir = opendir(buf);
     if(dir == NULL) {
-        printf("open %s failed \n",buf);
+        //printf("open %s failed \n",buf);
         return false;
     }
 

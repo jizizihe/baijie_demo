@@ -168,4 +168,5 @@ DISTFILES += \
     button_image/voice/stop.png \
     button_image/voice/stop.png \
     button_image/蓝牙.svg \
-    button_image/d_ip.svg
+    button_image/d_ip.svg \
+    button_image/sync.svg

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>742</width>
-    <height>396</height>
+    <width>898</width>
+    <height>424</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -139,7 +139,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>RTC Interface</string>
+         <string>RTC</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -174,40 +174,101 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
       </item>
      </layout>
     </item>
+    <item row="1" column="0">
+     <widget class="Line" name="line">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>2</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>2</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
     <item row="2" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="2,0,7">
+     <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="3,0,7">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="2,2,3,2,2">
+       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,8,1">
         <property name="spacing">
          <number>0</number>
         </property>
         <item>
-         <spacer name="verticalSpacer_5">
+         <spacer name="horizontalSpacer_11">
           <property name="orientation">
-           <enum>Qt::Vertical</enum>
+           <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>17</width>
-            <height>13</height>
+            <width>13</width>
+            <height>37</height>
            </size>
           </property>
          </spacer>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,8,1">
+         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,2,2,2,2,2,1">
           <property name="spacing">
            <number>0</number>
           </property>
           <item>
-           <spacer name="horizontalSpacer_3">
+           <spacer name="verticalSpacer_5">
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>40</width>
-              <height>20</height>
+              <width>17</width>
+              <height>13</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="sync_btn">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>sync network</string>
+            </property>
+            <property name="icon">
+             <iconset resource="translation.qrc">
+              <normaloff>:/button_image/sync.svg</normaloff>:/button_image/sync.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_8">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
              </size>
             </property>
            </spacer>
@@ -259,52 +320,29 @@ QPushButton:pressed { /*按钮被按下时*/
 }</string>
             </property>
             <property name="text">
-             <string>systimeset</string>
+             <string> systimeset</string>
+            </property>
+            <property name="icon">
+             <iconset resource="translation.qrc">
+              <normaloff>:/button_image/systime.svg</normaloff>:/button_image/systime.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
             </property>
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer">
+           <spacer name="verticalSpacer_7">
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_7">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>13</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,8,1">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item>
-           <spacer name="horizontalSpacer_11">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
+              <width>20</width>
+              <height>13</height>
              </size>
             </property>
            </spacer>
@@ -349,19 +387,29 @@ QPushButton:pressed { /*按钮被按下时*/
 }</string>
             </property>
             <property name="text">
-             <string>rtcset</string>
+             <string>   RTCset   </string>
+            </property>
+            <property name="icon">
+             <iconset resource="translation.qrc">
+              <normaloff>:/button_image/rtvtime.svg</normaloff>:/button_image/rtvtime.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
             </property>
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_13">
+           <spacer name="verticalSpacer_6">
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>40</width>
-              <height>20</height>
+              <width>20</width>
+              <height>13</height>
              </size>
             </property>
            </spacer>
@@ -369,14 +417,14 @@ QPushButton:pressed { /*按钮被按下时*/
          </layout>
         </item>
         <item>
-         <spacer name="verticalSpacer_6">
+         <spacer name="horizontalSpacer_15">
           <property name="orientation">
-           <enum>Qt::Vertical</enum>
+           <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>20</width>
-            <height>13</height>
+            <width>13</width>
+            <height>17</height>
            </size>
           </property>
          </spacer>
@@ -416,7 +464,7 @@ QPushButton:pressed { /*按钮被按下时*/
           </spacer>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,2,1">
+          <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="4,9,4">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -525,10 +573,13 @@ QPushButton:pressed { /*按钮被按下时*/
               </size>
              </property>
              <property name="focusPolicy">
-              <enum>Qt::WheelFocus</enum>
+              <enum>Qt::ClickFocus</enum>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
              </property>
              <property name="text">
-              <string>Systime:</string>
+              <string> Systime:</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -556,7 +607,10 @@ QPushButton:pressed { /*按钮被按下时*/
               </size>
              </property>
              <property name="focusPolicy">
-              <enum>Qt::WheelFocus</enum>
+              <enum>Qt::ClickFocus</enum>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
              </property>
              <property name="text">
               <string/>
@@ -632,8 +686,11 @@ QPushButton:pressed { /*按钮被按下时*/
              <property name="focusPolicy">
               <enum>Qt::ClickFocus</enum>
              </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
              <property name="text">
-              <string>Rtctime:</string>
+              <string> Rtctime:</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -662,6 +719,9 @@ QPushButton:pressed { /*按钮被按下时*/
              </property>
              <property name="focusPolicy">
               <enum>Qt::ClickFocus</enum>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
              </property>
              <property name="text">
               <string/>
@@ -701,28 +761,6 @@ QPushButton:pressed { /*按钮被按下时*/
       </item>
      </layout>
     </item>
-    <item row="1" column="0">
-     <widget class="Line" name="line">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>2</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>2</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -730,7 +768,7 @@ QPushButton:pressed { /*按钮被按下时*/
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>742</width>
+     <width>898</width>
      <height>22</height>
     </rect>
    </property>

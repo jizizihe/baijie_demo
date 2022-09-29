@@ -44,6 +44,7 @@ int gpio_export(unsigned int gpio);
 int gpio_unexport(unsigned int gpio);
 int gpio_set_state(unsigned int gpio, char *state);
 int gpio_set_value(unsigned int gpio, int value);
+int gpio_get_state(unsigned int gpio);
 int gpio_get_value(unsigned int gpio);
 bool getFileName(unsigned int gpio);
 struct occupied_gpio_s get_debug_gpio();

@@ -32,6 +32,8 @@ sim_module::sim_module(QWidget *parent) :
     wifi_bt_interface_w = new wifi_bt_interface(this);
     myThread = new QThread(this);
     SimThread = new wifi_thread();
+    ui->sim_Switch->setCheckedColor(QColor(100, 225, 100, 150));
+    connect(ui->sim_Switch,SIGNAL(toggled(bool)),this,SLOT(btnChangeFlag(bool)));
     connect(timer,SIGNAL(timeout()),this,SLOT(status_4g_refresh()));
     connect(this,SIGNAL(sim_disconnect_msg()),SimThread,SLOT(sim_disconnect_thread_func()));
     connect(this,SIGNAL(sim_connect_msg()),SimThread,SLOT(sim_connect_thread_func()));
@@ -385,7 +387,6 @@ void sim_module::sim_font()
     ui->SimDisconnectBtn->setFont(font);
     ui->label_2->setFont(font);
     ui->label->setFont(font);
-    ui->btn_open->setFont(font);
     ui->label_3->setFont(font);
     ui->statusBtn->setFont(font);
     ui->label_14->setFont(font);
@@ -400,37 +401,37 @@ void sim_module::sim_font()
     ui->vpn_label->setFont(font);
 }
 
-void sim_module::on_btn_open_clicked()
-{
-    if(open_flag == 0)
-    {
-        open_flag = 1;
-        ui->btn_open->setText(tr("close"));
-        emit sim_activation(1);
-        QString strCmd = QString("mmcli --list-modems");
-        QString strResult =  wifi_bt_interface_w->executeLinuxCmd(strCmd);
-        QString str = strResult.section("/",5,5);str = str.section(" ",0,0);
-        if(str.isEmpty())
-        {
-            timer->stop();
-            return;
-        }
-        else
-        {
-            ui->stackedWidget->setCurrentIndex(2);
-            emit sim_4gstatus();
-            timer->start(3000);
-        }
-    }
-    else
-    {
-        ui->stackedWidget->setCurrentIndex(3);
-        timer->stop();
-        open_flag = 0;
-        ui->btn_open->setText(tr("open"));
-        emit sim_activation(0);
-    }
-}
+//void sim_module::on_btn_open_clicked()
+//{
+//    if(open_flag == 0)
+//    {
+//        open_flag = 1;
+//        ui->btn_open->setText(tr("close"));
+//        emit sim_activation(1);
+//        QString strCmd = QString("mmcli --list-modems");
+//        QString strResult =  wifi_bt_interface_w->executeLinuxCmd(strCmd);
+//        QString str = strResult.section("/",5,5);str = str.section(" ",0,0);
+//        if(str.isEmpty())
+//        {
+//            timer->stop();
+//            return;
+//        }
+//        else
+//        {
+//            ui->stackedWidget->setCurrentIndex(2);
+//            emit sim_4gstatus();
+//            timer->start(3000);
+//        }
+//    }
+//    else
+//    {
+//        ui->stackedWidget->setCurrentIndex(3);
+//        timer->stop();
+//        open_flag = 0;
+//        ui->btn_open->setText(tr("open"));
+//        emit sim_activation(0);
+//    }
+//}
 
 void sim_module::on_statusBtn_clicked()
 {
@@ -469,4 +470,36 @@ void sim_module::on_statusBtn_clicked()
 void sim_module::status_4g_refresh()
 {
     emit sim_4gstatus();
+}
+
+void sim_module::btnChangeFlag(bool flag)
+{
+    flag = ui->sim_Switch->isToggled();
+    if(flag == 1)
+    {
+
+        open_flag = 1;
+        emit sim_activation(1);
+        QString strCmd = QString("mmcli --list-modems");
+        QString strResult =  wifi_bt_interface_w->executeLinuxCmd(strCmd);
+        QString str = strResult.section("/",5,5);str = str.section(" ",0,0);
+        if(str.isEmpty())
+        {
+            timer->stop();
+            return;
+        }
+        else
+        {
+            ui->stackedWidget->setCurrentIndex(2);
+            emit sim_4gstatus();
+            timer->start(3000);
+        }
+    }
+    else
+    {
+        ui->stackedWidget->setCurrentIndex(3);
+        timer->stop();
+        open_flag = 0;
+        emit sim_activation(0);
+    }
 }

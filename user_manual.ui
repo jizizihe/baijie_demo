@@ -134,7 +134,7 @@ QComboBox QScrollBar::vertical{ /*主体部分*/
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>User Manual Interface</string>
+        <string>User Manual</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

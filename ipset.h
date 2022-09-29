@@ -25,7 +25,7 @@ signals:
     void ret_signal();
 
 private slots:
-   // void btnChangeFlag(bool flag);
+    void btnChangeFlag(bool flag);
 
     void on_retBtn_clicked();
 
@@ -38,8 +38,6 @@ private slots:
     void on_delStaticIpBtn_clicked();
 
     void on_okBtn_clicked();
-
-    void on_btn_open_clicked();
 
     void on_pushButton_clicked();
 

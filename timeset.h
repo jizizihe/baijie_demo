@@ -27,6 +27,7 @@ public:
     void language_reload();
     void timeset_font();
     void showEvent(QShowEvent *event);
+    void sync_net();
 
 signals:
     void Mysignal();
@@ -40,6 +41,8 @@ private slots:
 
     void SystimerUpdate(void);
     void RTCtimerUpdate(void);
+    void on_sync_btn_clicked();
+    void timerUpdate();
 
 private:
     Ui::timeset *ui;
@@ -54,9 +57,12 @@ private:
     QPushButton * RTCSetBt;
     QLabel *SystimepLabel;
     QLabel *RTCtimepLabel;
+    QProcess pro_sys;
+    QProcess pro_rtc;
 
     QTimer *SysTimer;
     QTimer *RTCTimer;
+    QTimer *Timer;
 };
 
 #endif // TIMESET_H

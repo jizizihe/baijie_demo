@@ -105,17 +105,17 @@
         <translation>百杰科技接口测试</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1014"/>
+        <location filename="mainwindow.ui" line="1016"/>
         <source>SerialPort</source>
         <translation>串口测试</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1306"/>
+        <location filename="mainwindow.ui" line="1308"/>
         <source>Touch</source>
         <translation>触摸测试</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1629"/>
+        <location filename="mainwindow.ui" line="1630"/>
         <source>testport</source>
         <translation>测试接口</translation>
     </message>
@@ -128,7 +128,7 @@
         <translation type="vanished">接口测试</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1768"/>
+        <location filename="mainwindow.ui" line="1769"/>
         <source>System</source>
         <translation>系统设置</translation>
     </message>
@@ -137,12 +137,12 @@
         <translation type="obsolete">接口测试</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1489"/>
+        <location filename="mainwindow.ui" line="870"/>
         <source>Audio</source>
         <translation>录音与播放</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1160"/>
+        <location filename="mainwindow.ui" line="1162"/>
         <source>Storage</source>
         <translation>存储设备</translation>
     </message>
@@ -182,8 +182,9 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="273"/>
-        <source>Wifi</source>
-        <translation>Wifi</translation>
+        <source>WLAN</source>
+        <oldsource>Wifi</oldsource>
+        <translation>无线网</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="409"/>
@@ -199,7 +200,7 @@
         <translation type="obsolete">Udev检测</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="868"/>
+        <location filename="mainwindow.ui" line="1490"/>
         <source>Gpio</source>
         <translation>Gpio</translation>
     </message>
@@ -377,52 +378,71 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="about_board.ui" line="211"/>
         <source>About Board Interface</source>
-        <translation>关于板子界面</translation>
+        <translation type="vanished">关于板子界面</translation>
     </message>
     <message>
-        <location filename="about_board.ui" line="326"/>
-        <source>Board name:</source>
+        <location filename="about_board.ui" line="158"/>
+        <source>Board Name:</source>
+        <oldsource>Board name:</oldsource>
         <translation>开发板名称：</translation>
     </message>
     <message>
-        <location filename="about_board.ui" line="398"/>
-        <source>battery status:</source>
+        <location filename="about_board.ui" line="230"/>
+        <source>Battery Status:</source>
+        <oldsource>battery status:</oldsource>
         <translation>电池状态：</translation>
     </message>
     <message>
-        <location filename="about_board.ui" line="431"/>
-        <source>CPU temp:</source>
+        <location filename="about_board.ui" line="263"/>
+        <source>CPU Temp:</source>
+        <oldsource>CPU temp:</oldsource>
         <translation>CPU温度：</translation>
     </message>
     <message>
-        <location filename="about_board.ui" line="464"/>
-        <source>resolution:</source>
+        <location filename="about_board.ui" line="296"/>
+        <source>Resolution:</source>
+        <oldsource>resolution:</oldsource>
         <translation>分辨率：</translation>
     </message>
     <message>
-        <location filename="about_board.ui" line="497"/>
+        <location filename="about_board.ui" line="329"/>
         <source>OS:</source>
         <translation>操作系统：</translation>
     </message>
     <message>
-        <location filename="about_board.ui" line="530"/>
-        <source>kernel:</source>
+        <location filename="about_board.ui" line="362"/>
+        <source>Kernel:</source>
+        <oldsource>kernel:</oldsource>
         <translation>架构：</translation>
     </message>
     <message>
-        <location filename="about_board.ui" line="569"/>
+        <location filename="about_board.ui" line="401"/>
         <source>QT Version:</source>
         <translation>QT 版本：</translation>
     </message>
     <message>
-        <location filename="about_board.ui" line="602"/>
-        <source>Feedback email:</source>
-        <translation>反馈联系：</translation>
+        <location filename="about_board.ui" line="441"/>
+        <source>Company Website:</source>
+        <oldsource>website:</oldsource>
+        <translation>公司网站：</translation>
     </message>
     <message>
-        <location filename="about_board.ui" line="612"/>
+        <location filename="about_board.ui" line="475"/>
+        <source>Business Email:</source>
+        <translation>业务邮箱：</translation>
+    </message>
+    <message>
+        <location filename="about_board.ui" line="639"/>
+        <source>About Board</source>
+        <translation>关于板子</translation>
+    </message>
+    <message>
+        <source>Feedback email:</source>
+        <translation type="vanished">反馈联系：</translation>
+    </message>
+    <message>
+        <location filename="about_board.ui" line="485"/>
         <source> vivi.szbaijie.cn</source>
         <oldsource> vivi.szbaijie.cm</oldsource>
         <translation></translation>
@@ -502,9 +522,9 @@
         <translation>未知</translation>
     </message>
     <message>
-        <location filename="about_board.ui" line="365"/>
-        <source>battery level:</source>
-        <oldsource>battery level: %1</oldsource>
+        <location filename="about_board.ui" line="197"/>
+        <source>Battery Level:</source>
+        <oldsource>battery level:</oldsource>
         <translation>电池电量：</translation>
     </message>
     <message>
@@ -696,30 +716,29 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="all_test.ui" line="194"/>
+        <location filename="all_test.ui" line="184"/>
         <source>All Interface Tests</source>
         <oldsource>Alltest inteface</oldsource>
         <translation>所有接口测试界面</translation>
     </message>
     <message>
-        <location filename="all_test.ui" line="375"/>
         <source>usb number</source>
-        <translation>usb数目</translation>
+        <translation type="vanished">usb数目</translation>
     </message>
     <message>
-        <location filename="all_test.ui" line="465"/>
+        <location filename="all_test.ui" line="468"/>
         <source>keyboard</source>
         <translation>按键</translation>
     </message>
     <message>
-        <location filename="all_test.ui" line="723"/>
+        <location filename="all_test.ui" line="726"/>
         <location filename="all_test.cpp" line="253"/>
         <location filename="all_test.cpp" line="269"/>
         <source>check all</source>
         <translation>全选</translation>
     </message>
     <message>
-        <location filename="all_test.ui" line="758"/>
+        <location filename="all_test.ui" line="761"/>
         <location filename="all_test.cpp" line="84"/>
         <location filename="all_test.cpp" line="215"/>
         <location filename="all_test.cpp" line="386"/>
@@ -730,12 +749,12 @@
         <translation>开始</translation>
     </message>
     <message>
-        <location filename="all_test.ui" line="263"/>
+        <location filename="all_test.ui" line="266"/>
         <source>autotest</source>
         <translation>自动测试</translation>
     </message>
     <message>
-        <location filename="all_test.ui" line="315"/>
+        <location filename="all_test.ui" line="318"/>
         <source>network</source>
         <translation>网络</translation>
     </message>
@@ -744,48 +763,53 @@
         <translation type="vanished">usb</translation>
     </message>
     <message>
-        <location filename="all_test.ui" line="648"/>
+        <location filename="all_test.ui" line="651"/>
         <source>rtc</source>
         <translation>rtc</translation>
     </message>
     <message>
-        <location filename="all_test.ui" line="618"/>
+        <location filename="all_test.ui" line="621"/>
         <source>sd card</source>
         <translation>SD卡</translation>
     </message>
     <message>
-        <location filename="all_test.ui" line="558"/>
+        <location filename="all_test.ui" line="561"/>
         <source>wifi</source>
         <oldsource>key</oldsource>
         <translation>wifi</translation>
     </message>
     <message>
-        <location filename="all_test.ui" line="528"/>
+        <location filename="all_test.ui" line="531"/>
         <source>serial</source>
         <translation>串口</translation>
     </message>
     <message>
-        <location filename="all_test.ui" line="435"/>
+        <location filename="all_test.ui" line="438"/>
         <source>camera</source>
         <translation>摄像头</translation>
     </message>
     <message>
-        <location filename="all_test.ui" line="405"/>
+        <location filename="all_test.ui" line="408"/>
         <source>battary</source>
         <translation>电池</translation>
     </message>
     <message>
-        <location filename="all_test.ui" line="588"/>
+        <location filename="all_test.ui" line="378"/>
+        <source>usb count</source>
+        <translation>usb数量</translation>
+    </message>
+    <message>
+        <location filename="all_test.ui" line="591"/>
         <source>4G</source>
         <translation>4G</translation>
     </message>
     <message>
-        <location filename="all_test.ui" line="678"/>
+        <location filename="all_test.ui" line="681"/>
         <source>audio</source>
         <translation>录音</translation>
     </message>
     <message>
-        <location filename="all_test.ui" line="345"/>
+        <location filename="all_test.ui" line="348"/>
         <source>bluetooth</source>
         <translation>蓝牙</translation>
     </message>
@@ -903,8 +927,9 @@
     </message>
     <message>
         <location filename="all_test.cpp" line="540"/>
-        <source>---serial test: send completed as client</source>
-        <translation>---串口测试：作为客户端完成发送数据</translation>
+        <source>---serial test: OK!</source>
+        <oldsource>---serial test: send completed as client</oldsource>
+        <translation>---串口测试：完成！</translation>
     </message>
 </context>
 <context>
@@ -973,9 +998,13 @@
         <translation>亮度：</translation>
     </message>
     <message>
-        <location filename="backlight.ui" line="870"/>
+        <location filename="backlight.ui" line="860"/>
+        <source>Backlight</source>
+        <translation>背光</translation>
+    </message>
+    <message>
         <source>Backlight Interface</source>
-        <translation>背光界面</translation>
+        <translation type="vanished">背光界面</translation>
     </message>
     <message>
         <source>sure</source>
@@ -1017,69 +1046,72 @@
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="bluetooth.ui" line="163"/>
-        <location filename="bluetooth.cpp" line="498"/>
         <source>close</source>
-        <translation>关闭</translation>
+        <translation type="vanished">关闭</translation>
     </message>
     <message>
-        <location filename="bluetooth.ui" line="183"/>
         <source>Bluetooth Interface</source>
         <oldsource>bluetooth interface</oldsource>
-        <translation>蓝牙界面</translation>
+        <translation type="vanished">蓝牙界面</translation>
     </message>
     <message>
-        <location filename="bluetooth.ui" line="317"/>
-        <location filename="bluetooth.cpp" line="362"/>
+        <location filename="bluetooth.ui" line="372"/>
+        <location filename="bluetooth.cpp" line="501"/>
         <source>scan</source>
         <oldsource> scan</oldsource>
         <translation>扫描</translation>
     </message>
     <message>
-        <location filename="bluetooth.ui" line="532"/>
+        <location filename="bluetooth.ui" line="303"/>
         <source>device name:</source>
         <translation>设备名称：</translation>
     </message>
     <message>
-        <location filename="bluetooth.ui" line="872"/>
+        <location filename="bluetooth.ui" line="173"/>
+        <source>Bluetooth</source>
+        <translation>蓝牙</translation>
+    </message>
+    <message>
+        <location filename="bluetooth.ui" line="610"/>
         <source>type: </source>
         <translation>类型： </translation>
     </message>
     <message>
-        <location filename="bluetooth.ui" line="902"/>
+        <location filename="bluetooth.ui" line="640"/>
         <source>address: </source>
         <translation>地址： </translation>
     </message>
     <message>
-        <location filename="bluetooth.ui" line="932"/>
+        <location filename="bluetooth.ui" line="670"/>
         <source>connect device: </source>
         <translation>连接设备： </translation>
     </message>
     <message>
-        <location filename="bluetooth.ui" line="942"/>
-        <location filename="bluetooth.cpp" line="522"/>
-        <location filename="bluetooth.cpp" line="667"/>
-        <location filename="bluetooth.cpp" line="686"/>
+        <location filename="bluetooth.ui" line="680"/>
+        <location filename="bluetooth.cpp" line="692"/>
+        <location filename="bluetooth.cpp" line="801"/>
+        <location filename="bluetooth.cpp" line="891"/>
+        <location filename="bluetooth.cpp" line="919"/>
+        <location filename="bluetooth.cpp" line="952"/>
         <source>no</source>
         <translation>无</translation>
     </message>
     <message>
-        <location filename="bluetooth.ui" line="962"/>
+        <location filename="bluetooth.ui" line="700"/>
         <source>status: </source>
         <translation>状态： </translation>
     </message>
     <message>
-        <location filename="bluetooth.ui" line="1050"/>
         <source>connect devices</source>
-        <translation>连接设备</translation>
+        <translation type="vanished">连接设备</translation>
     </message>
     <message>
-        <location filename="bluetooth.ui" line="1076"/>
+        <location filename="bluetooth.ui" line="762"/>
         <source>disconnect</source>
         <translation>断开连接</translation>
     </message>
     <message>
-        <location filename="bluetooth.ui" line="1102"/>
+        <location filename="bluetooth.ui" line="788"/>
         <source>remove</source>
         <translation>取消匹配</translation>
     </message>
@@ -1088,10 +1120,10 @@
         <translation type="vanished">配对</translation>
     </message>
     <message>
-        <location filename="bluetooth.ui" line="405"/>
-        <location filename="bluetooth.cpp" line="290"/>
-        <location filename="bluetooth.cpp" line="422"/>
-        <location filename="bluetooth.cpp" line="549"/>
+        <location filename="bluetooth.cpp" line="121"/>
+        <location filename="bluetooth.cpp" line="332"/>
+        <location filename="bluetooth.cpp" line="782"/>
+        <location filename="bluetooth.cpp" line="1022"/>
         <source>connect</source>
         <translation>连接</translation>
     </message>
@@ -1172,56 +1204,55 @@ Please wait a moment...</source>
         <translation type="obsolete">开始连接！请稍等一会...</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="232"/>
-        <location filename="bluetooth.cpp" line="251"/>
-        <location filename="bluetooth.cpp" line="274"/>
-        <location filename="bluetooth.cpp" line="298"/>
-        <location filename="bluetooth.cpp" line="311"/>
-        <location filename="bluetooth.cpp" line="600"/>
+        <location filename="bluetooth.cpp" line="233"/>
+        <location filename="bluetooth.cpp" line="294"/>
+        <location filename="bluetooth.cpp" line="317"/>
+        <location filename="bluetooth.cpp" line="396"/>
+        <location filename="bluetooth.cpp" line="452"/>
         <source>QMessageBox::information()</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="233"/>
+        <location filename="bluetooth.cpp" line="234"/>
         <source>pair success!</source>
         <translation>配对成功！</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="235"/>
-        <location filename="bluetooth.cpp" line="254"/>
-        <location filename="bluetooth.cpp" line="277"/>
-        <location filename="bluetooth.cpp" line="301"/>
-        <location filename="bluetooth.cpp" line="314"/>
-        <location filename="bluetooth.cpp" line="603"/>
+        <location filename="bluetooth.cpp" line="236"/>
+        <location filename="bluetooth.cpp" line="297"/>
+        <location filename="bluetooth.cpp" line="320"/>
+        <location filename="bluetooth.cpp" line="399"/>
+        <location filename="bluetooth.cpp" line="455"/>
         <source>OK</source>
         <translation>好的</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="252"/>
+        <location filename="bluetooth.cpp" line="295"/>
         <source>pair failed!</source>
         <translation>配对失败！</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="275"/>
+        <location filename="bluetooth.cpp" line="318"/>
         <source>connect success!</source>
         <translation>连接成功！</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="299"/>
+        <location filename="bluetooth.cpp" line="397"/>
         <source>connect failed!</source>
         <translation>连接失败！</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="376"/>
+        <location filename="bluetooth.cpp" line="513"/>
         <source>stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="424"/>
-        <location filename="bluetooth.cpp" line="526"/>
-        <location filename="bluetooth.cpp" line="553"/>
-        <location filename="bluetooth.cpp" line="666"/>
-        <location filename="bluetooth.cpp" line="685"/>
+        <location filename="bluetooth.cpp" line="696"/>
+        <location filename="bluetooth.cpp" line="800"/>
+        <location filename="bluetooth.cpp" line="892"/>
+        <location filename="bluetooth.cpp" line="918"/>
+        <location filename="bluetooth.cpp" line="951"/>
+        <location filename="bluetooth.cpp" line="1024"/>
         <source>not connect</source>
         <translation>未连接</translation>
     </message>
@@ -1230,17 +1261,17 @@ Please wait a moment...</source>
         <translation type="vanished">无连接</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="660"/>
+        <location filename="bluetooth.cpp" line="912"/>
         <source>No device is connected!</source>
         <translation>没有设备连接！</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="665"/>
+        <location filename="bluetooth.cpp" line="917"/>
         <source>Disconnect successful!</source>
         <translation>断开成功！</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="683"/>
+        <location filename="bluetooth.cpp" line="949"/>
         <source>Remove successful!</source>
         <translation>取消匹配失败！</translation>
     </message>
@@ -1258,14 +1289,12 @@ Please wait a moment...</source>
         <translation type="vanished">%1</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="344"/>
-        <location filename="bluetooth.cpp" line="386"/>
+        <location filename="bluetooth.cpp" line="484"/>
         <source>Please open Bluetooth first!</source>
         <translation>请先打开蓝牙！</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="312"/>
-        <location filename="bluetooth.cpp" line="601"/>
+        <location filename="bluetooth.cpp" line="453"/>
         <source>please disconnect the &quot;%1&quot; device first!</source>
         <translation>请先断开“%1”蓝牙设备！</translation>
     </message>
@@ -1274,9 +1303,8 @@ Please wait a moment...</source>
         <translation type="vanished">请先扫描设备！</translation>
     </message>
     <message>
-        <location filename="bluetooth.cpp" line="515"/>
         <source>open</source>
-        <translation>打开</translation>
+        <translation type="vanished">打开</translation>
     </message>
 </context>
 <context>
@@ -1357,13 +1385,17 @@ Please wait a moment...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="gpio.ui" line="218"/>
-        <source>Gpio Interface</source>
-        <oldsource>Gpio INterface</oldsource>
-        <translation>Gpio 界面</translation>
+        <location filename="gpio.ui" line="208"/>
+        <source>Gpio</source>
+        <translation>Gpio</translation>
     </message>
     <message>
-        <location filename="gpio.ui" line="308"/>
+        <source>Gpio Interface</source>
+        <oldsource>Gpio INterface</oldsource>
+        <translation type="vanished">Gpio 界面</translation>
+    </message>
+    <message>
+        <location filename="gpio.ui" line="311"/>
         <source>gpio: </source>
         <translation>端口： </translation>
     </message>
@@ -1372,7 +1404,7 @@ Please wait a moment...</source>
         <translation type="vanished">方向： </translation>
     </message>
     <message>
-        <location filename="gpio.ui" line="599"/>
+        <location filename="gpio.ui" line="602"/>
         <source>gpio status</source>
         <translation>端口状态</translation>
     </message>
@@ -1415,14 +1447,14 @@ Please wait a moment...</source>
         <translation type="vanished">状态： </translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="394"/>
-        <location filename="gpio.cpp" line="450"/>
-        <location filename="gpio.cpp" line="470"/>
+        <location filename="gpio.cpp" line="408"/>
+        <location filename="gpio.cpp" line="466"/>
+        <location filename="gpio.cpp" line="487"/>
         <source>out</source>
         <translation>输出</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="424"/>
+        <location filename="gpio.cpp" line="440"/>
         <source>in</source>
         <translation>输入</translation>
     </message>
@@ -1443,16 +1475,12 @@ Please wait a moment...</source>
         <translation type="vanished">值</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="399"/>
-        <location filename="gpio.cpp" line="452"/>
         <source>high</source>
-        <translation>高</translation>
+        <translation type="vanished">高</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="404"/>
-        <location filename="gpio.cpp" line="472"/>
         <source>low</source>
-        <translation>低</translation>
+        <translation type="vanished">低</translation>
     </message>
     <message>
         <source>return</source>
@@ -1467,38 +1495,92 @@ Please wait a moment...</source>
         <translation type="vanished">请输入gpio端口。提示:g13</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="391"/>
-        <location filename="gpio.cpp" line="422"/>
-        <location filename="gpio.cpp" line="447"/>
-        <location filename="gpio.cpp" line="468"/>
+        <location filename="gpio.cpp" line="405"/>
+        <location filename="gpio.cpp" line="438"/>
+        <location filename="gpio.cpp" line="463"/>
+        <location filename="gpio.cpp" line="485"/>
+        <location filename="gpio.cpp" line="658"/>
         <source>
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="392"/>
-        <location filename="gpio.cpp" line="423"/>
-        <location filename="gpio.cpp" line="448"/>
-        <location filename="gpio.cpp" line="469"/>
+        <location filename="gpio.cpp" line="406"/>
+        <location filename="gpio.cpp" line="439"/>
+        <location filename="gpio.cpp" line="464"/>
+        <location filename="gpio.cpp" line="486"/>
+        <location filename="gpio.cpp" line="659"/>
         <source>  gpio_port: %1</source>
-        <translation>gpio口:%1</translation>
+        <translation> gpio口： %1</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="394"/>
-        <location filename="gpio.cpp" line="424"/>
-        <location filename="gpio.cpp" line="450"/>
-        <location filename="gpio.cpp" line="470"/>
+        <location filename="gpio.cpp" line="408"/>
+        <location filename="gpio.cpp" line="440"/>
+        <location filename="gpio.cpp" line="466"/>
+        <location filename="gpio.cpp" line="487"/>
+        <location filename="gpio.cpp" line="660"/>
         <source>  state: %1</source>
-        <translation>状态：%1</translation>
+        <translation> 状态： %1</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="399"/>
-        <location filename="gpio.cpp" line="404"/>
-        <location filename="gpio.cpp" line="425"/>
-        <location filename="gpio.cpp" line="452"/>
-        <location filename="gpio.cpp" line="472"/>
+        <location filename="gpio.cpp" line="414"/>
+        <location filename="gpio.cpp" line="469"/>
+        <source>  value: 1</source>
+        <translation>  值： 1</translation>
+    </message>
+    <message>
+        <location filename="gpio.cpp" line="420"/>
+        <location filename="gpio.cpp" line="490"/>
+        <source>  value: 0</source>
+        <translation>  值： 0</translation>
+    </message>
+    <message>
+        <location filename="gpio.cpp" line="441"/>
+        <location filename="gpio.cpp" line="661"/>
         <source>  value: %1</source>
-        <translation>值:%1</translation>
+        <translation>  值： %1</translation>
+    </message>
+    <message>
+        <location filename="gpio.cpp" line="520"/>
+        <source>direction: in   </source>
+        <translation>方向： 输入   </translation>
+    </message>
+    <message>
+        <location filename="gpio.cpp" line="526"/>
+        <source>   direction: out</source>
+        <translation>   方向： 输出</translation>
+    </message>
+    <message>
+        <location filename="gpio.cpp" line="547"/>
+        <source>  direction: out</source>
+        <translation>  方向： 输出</translation>
+    </message>
+    <message>
+        <location filename="gpio.cpp" line="555"/>
+        <source>direction: in  </source>
+        <translation>方向： 输入  </translation>
+    </message>
+    <message>
+        <location filename="gpio.cpp" line="571"/>
+        <location filename="gpio.cpp" line="607"/>
+        <source>value: low</source>
+        <translation>值： 低</translation>
+    </message>
+    <message>
+        <location filename="gpio.cpp" line="584"/>
+        <source> value: high</source>
+        <translation> 值： 高</translation>
+    </message>
+    <message>
+        <location filename="gpio.cpp" line="603"/>
+        <source>value: low  </source>
+        <translation>值： 低  </translation>
+    </message>
+    <message>
+        <location filename="gpio.cpp" line="618"/>
+        <location filename="gpio.cpp" line="623"/>
+        <source>  value:  high</source>
+        <translation>  值： 高</translation>
     </message>
     <message>
         <source>in </source>
@@ -1513,26 +1595,26 @@ Please wait a moment...</source>
         <translation type="vanished">高</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="104"/>
-        <location filename="gpio.cpp" line="122"/>
-        <location filename="gpio.cpp" line="148"/>
-        <location filename="gpio.cpp" line="166"/>
-        <location filename="gpio.cpp" line="360"/>
+        <location filename="gpio.cpp" line="108"/>
+        <location filename="gpio.cpp" line="126"/>
+        <location filename="gpio.cpp" line="152"/>
+        <location filename="gpio.cpp" line="170"/>
+        <location filename="gpio.cpp" line="374"/>
         <source>QMessageBox::information()</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="107"/>
-        <location filename="gpio.cpp" line="125"/>
-        <location filename="gpio.cpp" line="151"/>
-        <location filename="gpio.cpp" line="169"/>
-        <location filename="gpio.cpp" line="363"/>
+        <location filename="gpio.cpp" line="111"/>
+        <location filename="gpio.cpp" line="129"/>
+        <location filename="gpio.cpp" line="155"/>
+        <location filename="gpio.cpp" line="173"/>
+        <location filename="gpio.cpp" line="377"/>
         <source>OK</source>
         <translation>好的</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="120"/>
-        <location filename="gpio.cpp" line="164"/>
+        <location filename="gpio.cpp" line="124"/>
+        <location filename="gpio.cpp" line="168"/>
         <source>P%1 is occupied!You can&apos;t mobilize it!</source>
         <translation>P%1口已被占用！你无法调用它！</translation>
     </message>
@@ -1553,8 +1635,8 @@ Please wait a moment...</source>
         <translation type="obsolete">请输入正确的GPIO口！</translation>
     </message>
     <message>
-        <location filename="gpio.cpp" line="105"/>
-        <location filename="gpio.cpp" line="146"/>
+        <location filename="gpio.cpp" line="109"/>
+        <location filename="gpio.cpp" line="150"/>
         <source>Please input true GPIO!</source>
         <translation>请输入正确的GPIO口！</translation>
     </message>
@@ -1780,23 +1862,18 @@ Please wait a moment...</source>
         <translation type="obsolete">修改静态ip</translation>
     </message>
     <message>
-        <location filename="ipset.ui" line="908"/>
-        <location filename="ipset.cpp" line="44"/>
-        <location filename="ipset.cpp" line="397"/>
         <source>close</source>
-        <translation>关闭</translation>
+        <translation type="vanished">关闭</translation>
     </message>
     <message>
-        <location filename="ipset.ui" line="216"/>
         <source>ip information</source>
         <oldsource>ip Information</oldsource>
-        <translation>ip 信息</translation>
+        <translation type="vanished">ip 信息</translation>
     </message>
     <message>
-        <location filename="ipset.ui" line="300"/>
         <source>set auto  ip</source>
         <oldsource>set auto ip</oldsource>
-        <translation>设置动态ip</translation>
+        <translation type="vanished">设置动态ip</translation>
     </message>
     <message>
         <source>name:</source>
@@ -1808,41 +1885,70 @@ Please wait a moment...</source>
         <translation type="vanished">ip地址：</translation>
     </message>
     <message>
-        <location filename="ipset.ui" line="495"/>
+        <location filename="ipset.ui" line="187"/>
+        <source>Ethernet</source>
+        <translation>以太网</translation>
+    </message>
+    <message>
+        <location filename="ipset.ui" line="320"/>
+        <source>IP info</source>
+        <translation>网络信息</translation>
+    </message>
+    <message>
+        <location filename="ipset.ui" line="362"/>
+        <source>IP set</source>
+        <translation>网络设置</translation>
+    </message>
+    <message>
+        <location filename="ipset.ui" line="544"/>
+        <source>set auto IP</source>
+        <translation>设置动态网络</translation>
+    </message>
+    <message>
+        <location filename="ipset.ui" line="580"/>
+        <source>set static IP</source>
+        <translation>设置静态网络</translation>
+    </message>
+    <message>
+        <location filename="ipset.ui" line="668"/>
         <source>name: </source>
         <translation>网络名称: </translation>
     </message>
     <message>
-        <location filename="ipset.ui" line="530"/>
+        <location filename="ipset.ui" line="693"/>
         <source>ip address: </source>
         <translation>网络地址: </translation>
     </message>
     <message>
-        <location filename="ipset.ui" line="553"/>
+        <location filename="ipset.ui" line="706"/>
         <source>subnet mask: </source>
         <translation>子网掩码: </translation>
     </message>
     <message>
-        <location filename="ipset.ui" line="576"/>
+        <location filename="ipset.ui" line="719"/>
         <source>gateway: </source>
         <translation>网关: </translation>
     </message>
     <message>
-        <location filename="ipset.ui" line="772"/>
-        <location filename="ipset.cpp" line="209"/>
-        <location filename="ipset.cpp" line="237"/>
+        <location filename="ipset.ui" line="867"/>
+        <location filename="ipset.cpp" line="215"/>
+        <location filename="ipset.cpp" line="276"/>
+        <location filename="ipset.cpp" line="304"/>
         <source>up</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="ipset.ui" line="810"/>
-        <source>cancel</source>
-        <translation>取消</translation>
+        <location filename="ipset.ui" line="918"/>
+        <source>clear</source>
+        <translation>清除</translation>
     </message>
     <message>
-        <location filename="ipset.ui" line="928"/>
+        <source>cancel</source>
+        <translation type="vanished">取消</translation>
+    </message>
+    <message>
         <source>Ethernet Interface</source>
-        <translation>网络界面</translation>
+        <translation type="vanished">网络界面</translation>
     </message>
     <message>
         <source>ip address</source>
@@ -1862,15 +1968,14 @@ Please wait a moment...</source>
         <translation type="obsolete">删除静态ip</translation>
     </message>
     <message>
-        <location filename="ipset.ui" line="624"/>
+        <location filename="ipset.ui" line="757"/>
         <source>eth0</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ipset.ui" line="258"/>
         <source>set static  ip</source>
         <oldsource>set static ip</oldsource>
-        <translation>设置静态ip</translation>
+        <translation type="vanished">设置静态ip</translation>
     </message>
     <message>
         <source>modify static ip</source>
@@ -1957,11 +2062,13 @@ Please wait a moment...</source>
         <translation type="vanished">网络已启用！</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="172"/>
-        <location filename="ipset.cpp" line="193"/>
-        <location filename="ipset.cpp" line="215"/>
-        <location filename="ipset.cpp" line="234"/>
-        <location filename="ipset.cpp" line="319"/>
+        <location filename="ipset.cpp" line="199"/>
+        <location filename="ipset.cpp" line="222"/>
+        <location filename="ipset.cpp" line="236"/>
+        <location filename="ipset.cpp" line="260"/>
+        <location filename="ipset.cpp" line="282"/>
+        <location filename="ipset.cpp" line="301"/>
+        <location filename="ipset.cpp" line="386"/>
         <source>QMessageBox::information()</source>
         <translation></translation>
     </message>
@@ -1974,12 +2081,12 @@ Please wait a moment...</source>
         <translation type="vanished">失败！</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="251"/>
+        <location filename="ipset.cpp" line="318"/>
         <source>Yes</source>
         <translation>是的</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="252"/>
+        <location filename="ipset.cpp" line="319"/>
         <source>No</source>
         <translation>取消</translation>
     </message>
@@ -1988,7 +2095,7 @@ Please wait a moment...</source>
         <translation type="vanished">当前连接不是静态ip，请修改为静态ip之后再执行此操作</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="314"/>
+        <location filename="ipset.cpp" line="381"/>
         <source>change</source>
         <translation>修改</translation>
     </message>
@@ -2001,67 +2108,69 @@ Please wait a moment...</source>
         <translation type="vanished">删除静态ip失败</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="235"/>
+        <location filename="ipset.cpp" line="302"/>
         <source>Please complete the information</source>
         <translation>请完善您要改变的信息</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="175"/>
-        <location filename="ipset.cpp" line="196"/>
-        <location filename="ipset.cpp" line="218"/>
-        <location filename="ipset.cpp" line="322"/>
+        <location filename="ipset.cpp" line="202"/>
+        <location filename="ipset.cpp" line="225"/>
+        <location filename="ipset.cpp" line="239"/>
+        <location filename="ipset.cpp" line="263"/>
+        <location filename="ipset.cpp" line="285"/>
+        <location filename="ipset.cpp" line="389"/>
         <source>OK</source>
         <translation>好的</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="50"/>
-        <location filename="ipset.cpp" line="406"/>
         <source>open</source>
-        <translation>打开</translation>
+        <translation type="vanished">打开</translation>
     </message>
     <message>
         <source>The current connection is not a static IP. Please modify it to a static IP before performing this operation</source>
         <translation type="vanished">当前连接不是静态IP，请修改为静态IP后再执行该操作。</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="92"/>
-        <location filename="ipset.cpp" line="148"/>
-        <location filename="ipset.cpp" line="166"/>
+        <location filename="ipset.cpp" line="94"/>
+        <location filename="ipset.cpp" line="151"/>
+        <location filename="ipset.cpp" line="170"/>
         <source>Please open the ethernet!</source>
         <translation>请打开网络！</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="173"/>
+        <location filename="ipset.cpp" line="237"/>
         <source>The current connection is auto IP!</source>
         <translation>当前是动态ip！</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="194"/>
+        <location filename="ipset.cpp" line="200"/>
+        <location filename="ipset.cpp" line="261"/>
         <source>set auto ip succeeded!</source>
         <translation>设置动态ip成功！</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="216"/>
+        <location filename="ipset.cpp" line="223"/>
+        <location filename="ipset.cpp" line="283"/>
         <source>set auto ip failed</source>
         <translation>设置动态ip失败</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="249"/>
+        <location filename="ipset.cpp" line="316"/>
         <source>Do you want to set it to current IP?</source>
         <translation>你是否想将其设为当前ip地址？</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="263"/>
+        <location filename="ipset.cpp" line="330"/>
         <source>Format error, please re-enter.</source>
         <translation>格式错误，请重新输入。</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="269"/>
+        <location filename="ipset.cpp" line="336"/>
         <source>Please enter the correct subnet mask.</source>
         <translation>请输入正确的子网掩码。</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="248"/>
+        <location filename="ipset.cpp" line="315"/>
         <source>QMessageBox::question()</source>
         <translation>你想要删除这个文件吗</translation>
     </message>
@@ -2074,12 +2183,12 @@ Please wait a moment...</source>
         <translation type="obsolete">暂不</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="274"/>
+        <location filename="ipset.cpp" line="341"/>
         <source>Format error, please re-enter</source>
         <translation>格式错误，请重新输入</translation>
     </message>
     <message>
-        <location filename="ipset.cpp" line="320"/>
+        <location filename="ipset.cpp" line="387"/>
         <source>set static ip failed</source>
         <translation>设置静态ip失败</translation>
     </message>
@@ -2258,98 +2367,98 @@ Please wait a moment...</source>
         <translation type="vanished">串口1接收框 </translation>
     </message>
     <message>
-        <location filename="serial.ui" line="837"/>
-        <location filename="serial.ui" line="1813"/>
+        <location filename="serial.ui" line="840"/>
+        <location filename="serial.ui" line="1816"/>
         <source>PortName:  </source>
         <translation>端口名称：  </translation>
     </message>
     <message>
-        <location filename="serial.ui" line="891"/>
-        <location filename="serial.ui" line="1867"/>
+        <location filename="serial.ui" line="894"/>
+        <location filename="serial.ui" line="1870"/>
         <source>BaudRate:  </source>
         <translation>波特率：  </translation>
     </message>
     <message>
-        <location filename="serial.ui" line="920"/>
-        <location filename="serial.ui" line="1896"/>
+        <location filename="serial.ui" line="923"/>
+        <location filename="serial.ui" line="1899"/>
         <source>4800</source>
         <translation>4800</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="925"/>
-        <location filename="serial.ui" line="1901"/>
+        <location filename="serial.ui" line="928"/>
+        <location filename="serial.ui" line="1904"/>
         <source>9600</source>
         <translation>9600</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="930"/>
-        <location filename="serial.ui" line="1906"/>
+        <location filename="serial.ui" line="933"/>
+        <location filename="serial.ui" line="1909"/>
         <source>115200</source>
         <translation>115200</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="963"/>
-        <location filename="serial.ui" line="1939"/>
+        <location filename="serial.ui" line="966"/>
+        <location filename="serial.ui" line="1942"/>
         <source>DataBit:  </source>
         <translation>数据位：  </translation>
     </message>
     <message>
-        <location filename="serial.ui" line="995"/>
-        <location filename="serial.ui" line="1971"/>
+        <location filename="serial.ui" line="998"/>
+        <location filename="serial.ui" line="1974"/>
         <source>5</source>
         <translation>5</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="1000"/>
-        <location filename="serial.ui" line="1976"/>
+        <location filename="serial.ui" line="1003"/>
+        <location filename="serial.ui" line="1979"/>
         <source>6</source>
         <translation>6</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="1005"/>
-        <location filename="serial.ui" line="1981"/>
+        <location filename="serial.ui" line="1008"/>
+        <location filename="serial.ui" line="1984"/>
         <source>7</source>
         <translation>7</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="1010"/>
-        <location filename="serial.ui" line="1986"/>
+        <location filename="serial.ui" line="1013"/>
+        <location filename="serial.ui" line="1989"/>
         <source>8</source>
         <translation>8</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="1043"/>
-        <location filename="serial.ui" line="2019"/>
+        <location filename="serial.ui" line="1046"/>
+        <location filename="serial.ui" line="2022"/>
         <source>StopBit:  </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="serial.ui" line="1069"/>
-        <location filename="serial.ui" line="2045"/>
+        <location filename="serial.ui" line="1072"/>
+        <location filename="serial.ui" line="2048"/>
         <source>1</source>
         <translation>1</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="1074"/>
-        <location filename="serial.ui" line="2050"/>
+        <location filename="serial.ui" line="1077"/>
+        <location filename="serial.ui" line="2053"/>
         <source>2</source>
         <translation>2</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="1107"/>
-        <location filename="serial.ui" line="2083"/>
+        <location filename="serial.ui" line="1110"/>
+        <location filename="serial.ui" line="2086"/>
         <source>Parity:  </source>
         <translation>校验位：  </translation>
     </message>
     <message>
-        <location filename="serial.ui" line="1133"/>
-        <location filename="serial.ui" line="2109"/>
+        <location filename="serial.ui" line="1136"/>
+        <location filename="serial.ui" line="2112"/>
         <source>none</source>
         <translation>无</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="1206"/>
-        <location filename="serial.ui" line="2182"/>
+        <location filename="serial.ui" line="1209"/>
+        <location filename="serial.ui" line="2185"/>
         <location filename="serial.cpp" line="91"/>
         <location filename="serial.cpp" line="110"/>
         <location filename="serial.cpp" line="128"/>
@@ -2365,39 +2474,54 @@ Please wait a moment...</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="1273"/>
-        <location filename="serial.ui" line="2249"/>
+        <location filename="serial.ui" line="1276"/>
+        <location filename="serial.ui" line="2252"/>
         <source>cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="1353"/>
-        <location filename="serial.ui" line="2329"/>
+        <location filename="serial.ui" line="1356"/>
+        <location filename="serial.ui" line="2332"/>
         <source>set</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="1520"/>
+        <location filename="serial.ui" line="1523"/>
         <source>port2 </source>
         <oldsource>port2 receive </oldsource>
         <translation>串口2 </translation>
     </message>
     <message>
-        <location filename="serial.ui" line="664"/>
-        <location filename="serial.ui" line="1640"/>
+        <location filename="serial.ui" line="667"/>
+        <location filename="serial.ui" line="1643"/>
         <source>send </source>
         <oldsource>send1 </oldsource>
         <translation>发送框</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="1431"/>
-        <location filename="serial.ui" line="2407"/>
+        <location filename="serial.ui" line="214"/>
+        <source>Serial Port</source>
+        <translation>串口</translation>
+    </message>
+    <message>
+        <location filename="serial.ui" line="324"/>
+        <source>Port1</source>
+        <translation>串口1</translation>
+    </message>
+    <message>
+        <location filename="serial.ui" line="393"/>
+        <source>Port2</source>
+        <translation>串口2</translation>
+    </message>
+    <message>
+        <location filename="serial.ui" line="1434"/>
+        <location filename="serial.ui" line="2410"/>
         <source>clear</source>
         <translation>清除</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="1405"/>
-        <location filename="serial.ui" line="2381"/>
+        <location filename="serial.ui" line="1408"/>
+        <location filename="serial.ui" line="2384"/>
         <source>send</source>
         <oldsource>send2</oldsource>
         <translation>发送</translation>
@@ -2441,8 +2565,8 @@ Please wait a moment...</source>
         <translation type="obsolete">校验位</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="1379"/>
-        <location filename="serial.ui" line="2355"/>
+        <location filename="serial.ui" line="1382"/>
+        <location filename="serial.ui" line="2358"/>
         <location filename="serial.cpp" line="453"/>
         <location filename="serial.cpp" line="488"/>
         <source>open</source>
@@ -2454,10 +2578,9 @@ Please wait a moment...</source>
         <translation type="vanished">清除</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="390"/>
         <source>port2</source>
         <oldsource>open port2</oldsource>
-        <translation>串口2</translation>
+        <translation type="vanished">串口2</translation>
     </message>
     <message>
         <source>receive text</source>
@@ -2475,8 +2598,7 @@ Please wait a moment...</source>
         <translation type="obsolete">端口2设置</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="321"/>
-        <location filename="serial.ui" line="545"/>
+        <location filename="serial.ui" line="548"/>
         <source>port1</source>
         <oldsource>open port1</oldsource>
         <translation>串口1</translation>
@@ -2490,10 +2612,9 @@ Please wait a moment...</source>
         <translation type="vanished">发送端口2</translation>
     </message>
     <message>
-        <location filename="serial.ui" line="224"/>
         <source>Serial Interface</source>
         <oldsource>Serial Port</oldsource>
-        <translation>串口界面</translation>
+        <translation type="vanished">串口界面</translation>
     </message>
     <message>
         <source>send text</source>
@@ -2837,124 +2958,126 @@ Please wait a moment...</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="132"/>
-        <location filename="sim_module.cpp" line="408"/>
         <source>close</source>
-        <translation>关闭</translation>
+        <translation type="vanished">关闭</translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="152"/>
         <source>4G Interface</source>
-        <translation>4G 界面</translation>
+        <translation type="vanished">4G 界面</translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="234"/>
+        <location filename="sim_module.ui" line="142"/>
+        <source>4G</source>
+        <translation>4G</translation>
+    </message>
+    <message>
+        <location filename="sim_module.ui" line="263"/>
         <source>status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="276"/>
+        <location filename="sim_module.ui" line="305"/>
         <source> connect</source>
         <translation>连接</translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="407"/>
+        <location filename="sim_module.ui" line="436"/>
         <source>connect status</source>
         <translation>连接状态</translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="488"/>
+        <location filename="sim_module.ui" line="517"/>
         <source>name: </source>
         <translation>名称： </translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="498"/>
-        <location filename="sim_module.ui" line="743"/>
+        <location filename="sim_module.ui" line="527"/>
+        <location filename="sim_module.ui" line="772"/>
         <source>state: </source>
         <translation>状态： </translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="508"/>
+        <location filename="sim_module.ui" line="537"/>
         <source>vpn: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="518"/>
+        <location filename="sim_module.ui" line="547"/>
         <source>autocpnnect: </source>
         <translation>自动连接： </translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="528"/>
+        <location filename="sim_module.ui" line="557"/>
         <source>address: </source>
         <translation>地址： </translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="545"/>
-        <location filename="sim_module.ui" line="552"/>
-        <location filename="sim_module.ui" line="559"/>
-        <location filename="sim_module.ui" line="566"/>
-        <location filename="sim_module.ui" line="573"/>
-        <location filename="sim_module.ui" line="807"/>
-        <location filename="sim_module.ui" line="814"/>
-        <location filename="sim_module.ui" line="821"/>
-        <location filename="sim_module.ui" line="828"/>
-        <location filename="sim_module.ui" line="835"/>
-        <location filename="sim_module.ui" line="842"/>
-        <location filename="sim_module.ui" line="849"/>
-        <location filename="sim_module.ui" line="856"/>
-        <location filename="sim_module.ui" line="863"/>
-        <location filename="sim_module.ui" line="870"/>
+        <location filename="sim_module.ui" line="574"/>
+        <location filename="sim_module.ui" line="581"/>
+        <location filename="sim_module.ui" line="588"/>
+        <location filename="sim_module.ui" line="595"/>
+        <location filename="sim_module.ui" line="602"/>
+        <location filename="sim_module.ui" line="836"/>
+        <location filename="sim_module.ui" line="843"/>
+        <location filename="sim_module.ui" line="850"/>
+        <location filename="sim_module.ui" line="857"/>
+        <location filename="sim_module.ui" line="864"/>
+        <location filename="sim_module.ui" line="871"/>
+        <location filename="sim_module.ui" line="878"/>
+        <location filename="sim_module.ui" line="885"/>
+        <location filename="sim_module.ui" line="892"/>
+        <location filename="sim_module.ui" line="899"/>
         <source>no</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="639"/>
+        <location filename="sim_module.ui" line="668"/>
         <source>4G status</source>
         <oldsource>4g status</oldsource>
         <translation>4g 状态</translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="703"/>
+        <location filename="sim_module.ui" line="732"/>
         <source>revision: </source>
         <translation>版本： </translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="713"/>
+        <location filename="sim_module.ui" line="742"/>
         <source>hardware supported: </source>
         <translation>硬件支持： </translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="723"/>
+        <location filename="sim_module.ui" line="752"/>
         <source>equipment id: </source>
         <translation>设备id： </translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="733"/>
+        <location filename="sim_module.ui" line="762"/>
         <source>ports: </source>
         <translation>端口： </translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="753"/>
+        <location filename="sim_module.ui" line="782"/>
         <source>power state: </source>
         <translation>电源状态： </translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="763"/>
+        <location filename="sim_module.ui" line="792"/>
         <source>access tech: </source>
         <translation>接入技术： </translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="773"/>
+        <location filename="sim_module.ui" line="802"/>
         <source>signal quality: </source>
         <translation>信号质量： </translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="783"/>
+        <location filename="sim_module.ui" line="812"/>
         <source>ip supported: </source>
         <translation>支持ip： </translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="793"/>
+        <location filename="sim_module.ui" line="822"/>
         <source>operator name: </source>
         <translation>厂家名称： </translation>
     </message>
@@ -2984,7 +3107,7 @@ Please wait a moment...</source>
         <translation type="obsolete">删除连接</translation>
     </message>
     <message>
-        <location filename="sim_module.ui" line="318"/>
+        <location filename="sim_module.ui" line="347"/>
         <source>disconnect</source>
         <translation>断开连接</translation>
     </message>
@@ -3009,69 +3132,69 @@ Please wait a moment...</source>
         <translation type="vanished">4G删除连接成功！</translation>
     </message>
     <message>
-        <location filename="sim_module.cpp" line="77"/>
-        <location filename="sim_module.cpp" line="93"/>
-        <location filename="sim_module.cpp" line="109"/>
-        <location filename="sim_module.cpp" line="123"/>
-        <location filename="sim_module.cpp" line="254"/>
-        <location filename="sim_module.cpp" line="269"/>
-        <location filename="sim_module.cpp" line="321"/>
-        <location filename="sim_module.cpp" line="457"/>
+        <location filename="sim_module.cpp" line="79"/>
+        <location filename="sim_module.cpp" line="95"/>
+        <location filename="sim_module.cpp" line="111"/>
+        <location filename="sim_module.cpp" line="125"/>
+        <location filename="sim_module.cpp" line="256"/>
+        <location filename="sim_module.cpp" line="271"/>
+        <location filename="sim_module.cpp" line="323"/>
+        <location filename="sim_module.cpp" line="458"/>
         <source>QMessageBox::information()</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="sim_module.cpp" line="78"/>
+        <location filename="sim_module.cpp" line="80"/>
         <source>4G disconnect succeeded!</source>
         <translation>4G 断开成功！</translation>
     </message>
     <message>
-        <location filename="sim_module.cpp" line="80"/>
-        <location filename="sim_module.cpp" line="96"/>
-        <location filename="sim_module.cpp" line="112"/>
-        <location filename="sim_module.cpp" line="126"/>
-        <location filename="sim_module.cpp" line="257"/>
-        <location filename="sim_module.cpp" line="272"/>
-        <location filename="sim_module.cpp" line="324"/>
-        <location filename="sim_module.cpp" line="460"/>
+        <location filename="sim_module.cpp" line="82"/>
+        <location filename="sim_module.cpp" line="98"/>
+        <location filename="sim_module.cpp" line="114"/>
+        <location filename="sim_module.cpp" line="128"/>
+        <location filename="sim_module.cpp" line="259"/>
+        <location filename="sim_module.cpp" line="274"/>
+        <location filename="sim_module.cpp" line="326"/>
+        <location filename="sim_module.cpp" line="461"/>
         <source>OK</source>
         <translation>好的</translation>
     </message>
     <message>
-        <location filename="sim_module.cpp" line="94"/>
+        <location filename="sim_module.cpp" line="96"/>
         <source>4G disconnect failed!</source>
         <translation>4G断开失败！</translation>
     </message>
     <message>
-        <location filename="sim_module.cpp" line="110"/>
+        <location filename="sim_module.cpp" line="112"/>
         <source>4G delete succeeded!</source>
         <oldsource>4G Delete failed!</oldsource>
         <translation>4G删除连接成功！</translation>
     </message>
     <message>
-        <location filename="sim_module.cpp" line="124"/>
+        <location filename="sim_module.cpp" line="126"/>
         <source>4G delete failed!</source>
         <translation>4G删除失败！</translation>
     </message>
     <message>
-        <location filename="sim_module.cpp" line="139"/>
+        <location filename="sim_module.cpp" line="141"/>
         <source>4G connect succeeded!</source>
         <translation>4G连接成功！</translation>
     </message>
     <message>
-        <location filename="sim_module.cpp" line="145"/>
+        <location filename="sim_module.cpp" line="147"/>
         <source>4G connect failed!</source>
         <translation>4G连接失败！</translation>
     </message>
     <message>
-        <location filename="sim_module.cpp" line="236"/>
-        <location filename="sim_module.cpp" line="288"/>
-        <location filename="sim_module.cpp" line="442"/>
+        <location filename="sim_module.cpp" line="238"/>
+        <location filename="sim_module.cpp" line="290"/>
+        <location filename="sim_module.cpp" line="443"/>
         <source>No 4G devices!</source>
         <translation>没有检查到4G网络！</translation>
     </message>
     <message>
-        <location filename="sim_module.cpp" line="255"/>
+        <location filename="sim_module.cpp" line="257"/>
         <source>Please connect the 4g!</source>
         <translation>请连接4G!</translation>
     </message>
@@ -3088,16 +3211,15 @@ Please wait a moment...</source>
         <translation type="vanished">请连接4g！</translation>
     </message>
     <message>
-        <location filename="sim_module.cpp" line="270"/>
-        <location filename="sim_module.cpp" line="322"/>
-        <location filename="sim_module.cpp" line="458"/>
+        <location filename="sim_module.cpp" line="272"/>
+        <location filename="sim_module.cpp" line="324"/>
+        <location filename="sim_module.cpp" line="459"/>
         <source>Please open the 4g!</source>
         <translation>请打开4g！</translation>
     </message>
     <message>
-        <location filename="sim_module.cpp" line="430"/>
         <source>open</source>
-        <translation>打开</translation>
+        <translation type="vanished">打开</translation>
     </message>
     <message>
         <source>4G get status failed!
@@ -3130,9 +3252,13 @@ Please connect 4G first!</source>
         <translation>关于板子</translation>
     </message>
     <message>
-        <location filename="sys_setting.ui" line="818"/>
+        <location filename="sys_setting.ui" line="808"/>
+        <source>System</source>
+        <translation>系统设置</translation>
+    </message>
+    <message>
         <source>System Interface</source>
-        <translation>设置界面</translation>
+        <translation type="vanished">设置界面</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;User manual&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -3162,29 +3288,55 @@ Please connect 4G first!</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="timeset.ui" line="152"/>
-        <source>RTC Interface</source>
-        <translation>RTC 界面</translation>
+        <location filename="timeset.ui" line="142"/>
+        <source>RTC</source>
+        <translation type="unfinished">RTC</translation>
     </message>
     <message>
-        <location filename="timeset.ui" line="259"/>
-        <source>systimeset</source>
-        <translation>系统时间设置</translation>
+        <location filename="timeset.ui" line="249"/>
+        <location filename="timeset.cpp" line="239"/>
+        <source>sync network</source>
+        <translation>同步网络时间</translation>
     </message>
     <message>
-        <location filename="timeset.ui" line="349"/>
-        <source>rtcset</source>
-        <translation>rtc时间设置</translation>
+        <location filename="timeset.ui" line="323"/>
+        <source> systimeset</source>
+        <translation>设置系统时间</translation>
     </message>
     <message>
-        <location filename="timeset.ui" line="528"/>
-        <source>Systime:</source>
+        <location filename="timeset.ui" line="390"/>
+        <source>   RTCset   </source>
+        <translation>设置实时时钟</translation>
+    </message>
+    <message>
+        <location filename="timeset.ui" line="582"/>
+        <source> Systime:</source>
         <translation>系统时间：</translation>
     </message>
     <message>
-        <location filename="timeset.ui" line="633"/>
+        <location filename="timeset.ui" line="693"/>
+        <source> Rtctime:</source>
+        <translation>实时时钟：</translation>
+    </message>
+    <message>
+        <source>RTC Interface</source>
+        <translation type="vanished">RTC 界面</translation>
+    </message>
+    <message>
+        <source>systimeset</source>
+        <translation type="vanished">系统时间设置</translation>
+    </message>
+    <message>
+        <source>rtcset</source>
+        <translation type="vanished">rtc时间设置</translation>
+    </message>
+    <message>
+        <source>Systime:</source>
+        <translation type="vanished">系统时间：</translation>
+    </message>
+    <message>
         <source>Rtctime:</source>
-        <translation>RTC时间：</translation>
+        <translation type="vanished">RTC时间：</translation>
     </message>
     <message>
         <source>RTCSet</source>
@@ -3216,24 +3368,35 @@ Please connect 4G first!</source>
         <translation type="obsolete">写入RTC</translation>
     </message>
     <message>
-        <location filename="timeset.cpp" line="109"/>
+        <location filename="timeset.cpp" line="104"/>
+        <location filename="timeset.cpp" line="143"/>
+        <source>The current time is synchronized with the network time,you can click the &apos;async network&apos; button!</source>
+        <translation>当前时间是网络同步的，你可以点击“不同步网络时间”按钮！</translation>
+    </message>
+    <message>
+        <location filename="timeset.cpp" line="113"/>
         <source>Systime set ok!</source>
         <translation>设置成功！</translation>
     </message>
     <message>
-        <location filename="timeset.cpp" line="114"/>
+        <location filename="timeset.cpp" line="118"/>
         <source>Systime set failed!</source>
         <translation>设置失败！</translation>
     </message>
     <message>
-        <location filename="timeset.cpp" line="153"/>
+        <location filename="timeset.cpp" line="151"/>
         <source>RTC set ok!</source>
         <translation>设置成功！</translation>
     </message>
     <message>
-        <location filename="timeset.cpp" line="158"/>
+        <location filename="timeset.cpp" line="156"/>
         <source>RTC set failed!</source>
         <translation>设置是白！</translation>
+    </message>
+    <message>
+        <location filename="timeset.cpp" line="244"/>
+        <source>async network</source>
+        <translation>不同步网络</translation>
     </message>
     <message>
         <source>SystimeSetBt</source>
@@ -3281,13 +3444,12 @@ Please connect 4G first!</source>
         <translation type="obsolete">剪切</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="649"/>
         <source>safe exit</source>
         <oldsource>Safe exit</oldsource>
-        <translation>安全退出</translation>
+        <translation type="vanished">安全退出</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="757"/>
+        <location filename="udev.ui" line="679"/>
         <source>path:</source>
         <oldsource>folder path:</oldsource>
         <translation>路径：</translation>
@@ -3301,12 +3463,12 @@ Please connect 4G first!</source>
         <translation type="vanished">取消</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="938"/>
+        <location filename="udev.ui" line="907"/>
         <source>back</source>
         <translation>返回</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="874"/>
+        <location filename="udev.ui" line="796"/>
         <source>Directory</source>
         <translation>目录</translation>
     </message>
@@ -3316,29 +3478,43 @@ Please connect 4G first!</source>
         <translation type="obsolete">选择文件：</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="188"/>
         <source>Storage Interface</source>
-        <translation>存储设备界面</translation>
+        <translation type="vanished">存储设备界面</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="328"/>
+        <location filename="udev.ui" line="178"/>
+        <source>Storage</source>
+        <translation>存储设备</translation>
+    </message>
+    <message>
+        <location filename="udev.ui" line="331"/>
         <source>copy</source>
         <translation>复制</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="397"/>
+        <location filename="udev.ui" line="400"/>
         <source>paste</source>
         <translation>粘贴</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="565"/>
+        <location filename="udev.ui" line="484"/>
+        <source> cut </source>
+        <translation>剪切</translation>
+    </message>
+    <message>
+        <location filename="udev.ui" line="568"/>
         <source>delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="912"/>
+        <location filename="udev.ui" line="834"/>
         <source>Udisk/sdcard</source>
         <translation>U盘/sd卡</translation>
+    </message>
+    <message>
+        <location filename="udev.ui" line="875"/>
+        <source>safe unplug</source>
+        <translation>安全拔出</translation>
     </message>
     <message>
         <source>U disk/sdcard</source>
@@ -3357,9 +3533,8 @@ Please connect 4G first!</source>
         <translation type="obsolete">安全退出</translation>
     </message>
     <message>
-        <location filename="udev.ui" line="481"/>
         <source>cut</source>
-        <translation>剪切</translation>
+        <translation type="vanished">剪切</translation>
     </message>
     <message>
         <source>del</source>
@@ -3478,7 +3653,7 @@ The New SIM card is:
         <translation type="vanished">%1已安全退出！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="245"/>
+        <location filename="udev.cpp" line="244"/>
         <source>Please select the file that you want to copy!</source>
         <translation>请选择要复制的文件!</translation>
     </message>
@@ -3491,7 +3666,7 @@ The New SIM card is:
         <translation type="vanished">请选择一个合法路径！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="306"/>
+        <location filename="udev.cpp" line="305"/>
         <source>Please select the file that you want to cut!</source>
         <oldsource>Please select the file that you want to move!</oldsource>
         <translation>请选择要剪切的文件!</translation>
@@ -3502,18 +3677,17 @@ The New SIM card is:
         <translation type="vanished">剪切成功</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="190"/>
-        <location filename="udev.cpp" line="206"/>
-        <location filename="udev.cpp" line="244"/>
-        <location filename="udev.cpp" line="283"/>
-        <location filename="udev.cpp" line="305"/>
-        <location filename="udev.cpp" line="327"/>
-        <location filename="udev.cpp" line="345"/>
-        <location filename="udev.cpp" line="394"/>
-        <location filename="udev.cpp" line="592"/>
-        <location filename="udev.cpp" line="613"/>
-        <location filename="udev.cpp" line="631"/>
-        <location filename="udev.cpp" line="693"/>
+        <location filename="udev.cpp" line="205"/>
+        <location filename="udev.cpp" line="243"/>
+        <location filename="udev.cpp" line="282"/>
+        <location filename="udev.cpp" line="304"/>
+        <location filename="udev.cpp" line="326"/>
+        <location filename="udev.cpp" line="344"/>
+        <location filename="udev.cpp" line="393"/>
+        <location filename="udev.cpp" line="605"/>
+        <location filename="udev.cpp" line="626"/>
+        <location filename="udev.cpp" line="644"/>
+        <location filename="udev.cpp" line="717"/>
         <source>QMessageBox::information()</source>
         <translation></translation>
     </message>
@@ -3522,18 +3696,17 @@ The New SIM card is:
         <translation type="vanished">请选择你想要卸载的文件！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="193"/>
-        <location filename="udev.cpp" line="209"/>
-        <location filename="udev.cpp" line="247"/>
-        <location filename="udev.cpp" line="286"/>
-        <location filename="udev.cpp" line="308"/>
-        <location filename="udev.cpp" line="330"/>
-        <location filename="udev.cpp" line="348"/>
-        <location filename="udev.cpp" line="397"/>
-        <location filename="udev.cpp" line="595"/>
-        <location filename="udev.cpp" line="616"/>
-        <location filename="udev.cpp" line="634"/>
-        <location filename="udev.cpp" line="696"/>
+        <location filename="udev.cpp" line="208"/>
+        <location filename="udev.cpp" line="246"/>
+        <location filename="udev.cpp" line="285"/>
+        <location filename="udev.cpp" line="307"/>
+        <location filename="udev.cpp" line="329"/>
+        <location filename="udev.cpp" line="347"/>
+        <location filename="udev.cpp" line="396"/>
+        <location filename="udev.cpp" line="608"/>
+        <location filename="udev.cpp" line="629"/>
+        <location filename="udev.cpp" line="647"/>
+        <location filename="udev.cpp" line="720"/>
         <source>OK</source>
         <translation>好的</translation>
     </message>
@@ -3550,10 +3723,9 @@ The New SIM card is:
         <translation type="vanished">文件已经卸载了！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="207"/>
         <source>safe exit successful!</source>
         <oldsource>umount successful!</oldsource>
-        <translation>退出成功！</translation>
+        <translation type="vanished">退出成功！</translation>
     </message>
     <message>
         <source>Please select the correct path!</source>
@@ -3564,7 +3736,7 @@ The New SIM card is:
         <translation type="vanished">当前是剪切状态！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="284"/>
+        <location filename="udev.cpp" line="283"/>
         <source>Copy complete!</source>
         <translation>复制成功！</translation>
     </message>
@@ -3577,44 +3749,48 @@ The New SIM card is:
         <translation type="vanished">已经安全退出！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="328"/>
+        <location filename="udev.cpp" line="206"/>
+        <source>safe unplug successful!</source>
+        <translation>安全拔出成功！</translation>
+    </message>
+    <message>
+        <location filename="udev.cpp" line="327"/>
         <source>Enter the cut state!</source>
         <translation>进入剪切状态！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="346"/>
+        <location filename="udev.cpp" line="345"/>
         <source>Please select the file that you want to delete!</source>
         <translation>请选择要删除的文件!</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="356"/>
+        <location filename="udev.cpp" line="355"/>
         <source>Do you want to delete the file?</source>
         <translation>你想要删除这个文件吗？</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="358"/>
+        <location filename="udev.cpp" line="357"/>
         <source>QMessageBox::question()</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="395"/>
+        <location filename="udev.cpp" line="394"/>
         <source>Delete complete!</source>
         <translation>删除成功！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="593"/>
+        <location filename="udev.cpp" line="606"/>
         <source>The current path is the most forward path!</source>
         <translation>当前路径已是最前路径！</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="614"/>
-        <location filename="udev.cpp" line="632"/>
+        <location filename="udev.cpp" line="627"/>
+        <location filename="udev.cpp" line="645"/>
         <source>Paste complete!</source>
         <translation>粘贴完成!</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="191"/>
-        <location filename="udev.cpp" line="694"/>
+        <location filename="udev.cpp" line="718"/>
         <source>No mount device!</source>
         <translation>没有挂载的文件！</translation>
     </message>
@@ -3623,12 +3799,12 @@ The New SIM card is:
         <translation type="vanished">你确定删除这个文件？</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="362"/>
+        <location filename="udev.cpp" line="361"/>
         <source>Yes</source>
         <translation>是的</translation>
     </message>
     <message>
-        <location filename="udev.cpp" line="363"/>
+        <location filename="udev.cpp" line="362"/>
         <source>No</source>
         <translation>取消</translation>
     </message>
@@ -3649,17 +3825,16 @@ The New SIM card is:
         <translation>用户手册界面</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="144"/>
         <source>User Manual Interface</source>
-        <translation>用户手册界面</translation>
+        <translation type="vanished">用户手册界面</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="225"/>
+        <location filename="user_manual.ui" line="231"/>
         <source>               user manual</source>
         <translation>               用户手册</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="235"/>
+        <location filename="user_manual.ui" line="241"/>
         <source>Wifi</source>
         <translation>Wifi</translation>
     </message>
@@ -3669,7 +3844,7 @@ The New SIM card is:
         <translation type="vanished">wifi与热点状态</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="254"/>
+        <location filename="user_manual.ui" line="260"/>
         <location filename="user_manual.cpp" line="59"/>
         <source>wifi connect</source>
         <translation>连接Wifi</translation>
@@ -3691,7 +3866,7 @@ The New SIM card is:
         <translation type="obsolete">连接状态</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="275"/>
+        <location filename="user_manual.ui" line="281"/>
         <source>Bluetooth</source>
         <translation>蓝牙</translation>
     </message>
@@ -3708,7 +3883,7 @@ The New SIM card is:
         <translation type="obsolete">蓝牙连接</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="305"/>
+        <location filename="user_manual.ui" line="311"/>
         <source>Ethernet</source>
         <translation>以太网</translation>
     </message>
@@ -3722,7 +3897,7 @@ The New SIM card is:
         <translation type="obsolete">显示所有连接</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="324"/>
+        <location filename="user_manual.ui" line="330"/>
         <location filename="user_manual.cpp" line="79"/>
         <source>set static ip</source>
         <oldsource>set dynamic ip </oldsource>
@@ -3746,7 +3921,7 @@ The New SIM card is:
         <translation type="vanished">网速测试</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="345"/>
+        <location filename="user_manual.ui" line="351"/>
         <location filename="user_manual.cpp" line="88"/>
         <source>RTC</source>
         <translation>RTC</translation>
@@ -3760,26 +3935,26 @@ The New SIM card is:
         <translation type="obsolete">RTC设置</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="264"/>
+        <location filename="user_manual.ui" line="270"/>
         <location filename="user_manual.cpp" line="63"/>
         <source>hotspot connect</source>
         <translation>连接热点</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="284"/>
+        <location filename="user_manual.ui" line="290"/>
         <location filename="user_manual.cpp" line="67"/>
         <source>bluetooth scan</source>
         <translation>蓝牙扫描</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="294"/>
+        <location filename="user_manual.ui" line="300"/>
         <location filename="user_manual.cpp" line="71"/>
         <source>bluetooth connect</source>
         <oldsource>bluetooth pair</oldsource>
         <translation>蓝牙连接</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="314"/>
+        <location filename="user_manual.ui" line="320"/>
         <location filename="user_manual.cpp" line="75"/>
         <source>ip information</source>
         <translation>ip 信息</translation>
@@ -3789,36 +3964,41 @@ The New SIM card is:
         <translation type="vanished">修改静态ip</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="244"/>
+        <location filename="user_manual.ui" line="137"/>
+        <source>User Manual</source>
+        <translation>用户手册</translation>
+    </message>
+    <message>
+        <location filename="user_manual.ui" line="250"/>
         <location filename="user_manual.cpp" line="55"/>
         <source>scan wifi</source>
         <translation>扫描wifi</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="334"/>
+        <location filename="user_manual.ui" line="340"/>
         <location filename="user_manual.cpp" line="83"/>
         <source>set auto ip</source>
         <translation>设置动态ip</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="355"/>
+        <location filename="user_manual.ui" line="361"/>
         <source>Brightness adjustment</source>
         <translation>亮度调节</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="364"/>
+        <location filename="user_manual.ui" line="370"/>
         <location filename="user_manual.cpp" line="92"/>
         <source>brightness</source>
         <translation>亮度</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="374"/>
+        <location filename="user_manual.ui" line="380"/>
         <location filename="user_manual.cpp" line="96"/>
         <source>Sleep time</source>
         <translation>休眠时间</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="385"/>
+        <location filename="user_manual.ui" line="391"/>
         <source>GPIO</source>
         <translation>GPIO</translation>
     </message>
@@ -3827,31 +4007,31 @@ The New SIM card is:
         <translation type="vanished">使用提示</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="424"/>
+        <location filename="user_manual.ui" line="430"/>
         <location filename="user_manual.cpp" line="110"/>
         <source>record</source>
         <translation>录音</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="464"/>
+        <location filename="user_manual.ui" line="470"/>
         <location filename="user_manual.cpp" line="122"/>
         <source>copy</source>
         <translation>复制</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="474"/>
+        <location filename="user_manual.ui" line="480"/>
         <location filename="user_manual.cpp" line="126"/>
         <source>cut</source>
         <translation>剪切</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="479"/>
+        <location filename="user_manual.ui" line="485"/>
         <location filename="user_manual.cpp" line="130"/>
         <source>delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="484"/>
+        <location filename="user_manual.ui" line="490"/>
         <location filename="user_manual.cpp" line="134"/>
         <source>safe exit</source>
         <translation>安全退出</translation>
@@ -3861,19 +4041,19 @@ The New SIM card is:
         <translation type="vanished">扫描被占用的GPIO口</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="394"/>
+        <location filename="user_manual.ui" line="400"/>
         <location filename="user_manual.cpp" line="100"/>
         <source>batch operation</source>
         <translation>批量操作</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="405"/>
+        <location filename="user_manual.ui" line="411"/>
         <location filename="user_manual.cpp" line="106"/>
         <source>Serial Port</source>
         <translation>串口</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="415"/>
+        <location filename="user_manual.ui" line="421"/>
         <source>Voice Frequency</source>
         <translation>音频</translation>
     </message>
@@ -3887,19 +4067,19 @@ The New SIM card is:
         <translation type="vanished">开始</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="434"/>
+        <location filename="user_manual.ui" line="440"/>
         <location filename="user_manual.cpp" line="114"/>
         <source>play</source>
         <translation>播放</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="445"/>
+        <location filename="user_manual.ui" line="451"/>
         <location filename="user_manual.cpp" line="118"/>
         <source>Touch Display</source>
         <translation>触摸显示</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="455"/>
+        <location filename="user_manual.ui" line="461"/>
         <source>Udev</source>
         <translation>存储设备</translation>
     </message>
@@ -3923,7 +4103,7 @@ The New SIM card is:
         <translation>SIM</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="490"/>
+        <location filename="user_manual.ui" line="496"/>
         <location filename="user_manual.cpp" line="146"/>
         <source>All Interface Test</source>
         <translation>所有接口测试</translation>
@@ -3933,7 +4113,7 @@ The New SIM card is:
         <translation type="obsolete">测试</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="546"/>
+        <location filename="user_manual.ui" line="552"/>
         <location filename="user_manual.cpp" line="41"/>
         <location filename="user_manual.cpp" line="210"/>
         <source>expand all</source>
@@ -3964,7 +4144,7 @@ The New SIM card is:
         <translation type="obsolete">停止</translation>
     </message>
     <message>
-        <location filename="user_manual.ui" line="500"/>
+        <location filename="user_manual.ui" line="506"/>
         <location filename="user_manual.cpp" line="150"/>
         <source>Chinese/English</source>
         <translation>中/英</translation>
@@ -4222,51 +4402,55 @@ The New SIM card is:
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="182"/>
         <source>Audio Interface</source>
-        <translation>音频界面</translation>
+        <translation type="vanished">音频界面</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="623"/>
-        <location filename="voice.cpp" line="86"/>
-        <location filename="voice.cpp" line="578"/>
+        <location filename="voice.ui" line="172"/>
+        <source>Audio</source>
+        <translation>录音与播放</translation>
+    </message>
+    <message>
+        <location filename="voice.ui" line="626"/>
+        <location filename="voice.cpp" line="87"/>
+        <location filename="voice.cpp" line="576"/>
         <source>start</source>
         <translation>开始</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="880"/>
+        <location filename="voice.ui" line="883"/>
         <source>path:  </source>
         <translation>路径： </translation>
     </message>
     <message>
-        <location filename="voice.ui" line="911"/>
+        <location filename="voice.ui" line="914"/>
         <source>/ </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="voice.ui" line="1011"/>
+        <location filename="voice.ui" line="1014"/>
         <source> file:  </source>
         <translation>文件: </translation>
     </message>
     <message>
-        <location filename="voice.ui" line="1292"/>
-        <location filename="voice.ui" line="1384"/>
+        <location filename="voice.ui" line="1295"/>
+        <location filename="voice.ui" line="1387"/>
         <source>00:00:00</source>
         <translation>00:00:00</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="1499"/>
+        <location filename="voice.ui" line="1502"/>
         <source>rename</source>
         <translatorcomment>录音</translatorcomment>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="1620"/>
+        <location filename="voice.ui" line="1623"/>
         <source>delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="329"/>
+        <location filename="voice.ui" line="332"/>
         <location filename="voice.cpp" line="216"/>
         <source>record</source>
         <translation>录音</translation>
@@ -4276,8 +4460,8 @@ The New SIM card is:
         <translation type="obsolete">返回</translation>
     </message>
     <message>
-        <location filename="voice.ui" line="426"/>
-        <location filename="voice.ui" line="1559"/>
+        <location filename="voice.ui" line="429"/>
+        <location filename="voice.ui" line="1562"/>
         <location filename="voice.cpp" line="272"/>
         <source>play</source>
         <translation>播放</translation>
@@ -4362,7 +4546,7 @@ The New SIM card is:
         <translation>没有文件可以重命名！</translation>
     </message>
     <message>
-        <location filename="voice.cpp" line="569"/>
+        <location filename="voice.cpp" line="567"/>
         <source>stop</source>
         <translation>停止</translation>
     </message>
@@ -4505,79 +4689,76 @@ The New SIM card is:
         <translation type="vanished">状态</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="484"/>
+        <location filename="wifi.ui" line="429"/>
         <source>hotspot</source>
         <translation>热点</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1013"/>
+        <location filename="wifi.ui" line="958"/>
         <source>Hotspot Info</source>
         <translation>热点信息</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1063"/>
+        <location filename="wifi.ui" line="1008"/>
         <source>name:</source>
         <translation>名称：</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1079"/>
+        <location filename="wifi.ui" line="1024"/>
         <source>password:</source>
         <translation>密码：</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1095"/>
+        <location filename="wifi.ui" line="1040"/>
         <source>status:</source>
         <translation>状态：</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1105"/>
+        <location filename="wifi.ui" line="1050"/>
         <source>WLAN:  </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1136"/>
+        <location filename="wifi.ui" line="1081"/>
         <source>Not connected</source>
         <translation>未连接</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="801"/>
+        <location filename="wifi.ui" line="746"/>
         <source>SSID: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="206"/>
         <source>Wifi Interface</source>
         <oldsource>wifi interface</oldsource>
-        <translation>Wifi 界面</translation>
+        <translation type="vanished">Wifi 界面</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="351"/>
+        <location filename="wifi.ui" line="364"/>
         <source>scan</source>
         <translation>扫描</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="698"/>
+        <location filename="wifi.ui" line="643"/>
         <source>WLAN: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1701"/>
+        <location filename="wifi.ui" line="1646"/>
         <source>signal</source>
         <translation>信号质量</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="186"/>
-        <location filename="wifi.cpp" line="790"/>
         <source>close</source>
-        <translation>关闭</translation>
+        <translation type="vanished">关闭</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1615"/>
+        <location filename="wifi.ui" line="1560"/>
         <source>password</source>
         <translation>密码</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1529"/>
+        <location filename="wifi.ui" line="1474"/>
         <source>ip address</source>
         <translation>ip地址</translation>
     </message>
@@ -4594,7 +4775,7 @@ The New SIM card is:
         <translation type="vanished">wifi状态</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1468"/>
+        <location filename="wifi.ui" line="1413"/>
         <source>name</source>
         <translation>名称</translation>
     </message>
@@ -4603,66 +4784,70 @@ The New SIM card is:
         <translation type="vanished">密码</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="419"/>
-        <location filename="wifi.cpp" line="989"/>
+        <location filename="wifi.cpp" line="168"/>
         <source>connect</source>
         <translation>连接</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="922"/>
+        <location filename="wifi.ui" line="196"/>
+        <source>WiFi</source>
+        <translation>无线网</translation>
+    </message>
+    <message>
+        <location filename="wifi.ui" line="867"/>
         <source>passwd: </source>
         <translation>密码： </translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1233"/>
-        <location filename="wifi.cpp" line="567"/>
-        <location filename="wifi.cpp" line="649"/>
-        <location filename="wifi.cpp" line="843"/>
+        <location filename="wifi.ui" line="1178"/>
+        <location filename="wifi.cpp" line="694"/>
+        <location filename="wifi.cpp" line="742"/>
+        <location filename="wifi.cpp" line="825"/>
+        <location filename="wifi.cpp" line="1014"/>
         <source>up</source>
         <translation>创建</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1283"/>
+        <location filename="wifi.ui" line="1228"/>
         <source>down</source>
         <translation>断开连接</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1554"/>
+        <location filename="wifi.ui" line="1499"/>
         <source>add</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1640"/>
+        <location filename="wifi.ui" line="1585"/>
         <source>pass</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1726"/>
+        <location filename="wifi.ui" line="1671"/>
         <source>sss</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1812"/>
+        <location filename="wifi.ui" line="1757"/>
         <source>se</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1898"/>
+        <location filename="wifi.ui" line="1843"/>
         <source>winf</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="2021"/>
+        <location filename="wifi.ui" line="1925"/>
         <source>change Passwd</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1975"/>
         <source>connect devices</source>
-        <translation>连接设备</translation>
+        <translation type="vanished">连接设备</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="2062"/>
+        <location filename="wifi.ui" line="1966"/>
         <source>remove</source>
         <translation>删除网络</translation>
     </message>
@@ -4679,7 +4864,7 @@ The New SIM card is:
         <translation type="obsolete">加入网络</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1356"/>
+        <location filename="wifi.ui" line="1301"/>
         <source>Wifi info</source>
         <translation>wifi信息</translation>
     </message>
@@ -4688,7 +4873,7 @@ The New SIM card is:
         <translation type="obsolete">激活状态</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1787"/>
+        <location filename="wifi.ui" line="1732"/>
         <source>security</source>
         <translation>安全性</translation>
     </message>
@@ -4697,20 +4882,22 @@ The New SIM card is:
         <translation type="vanished">修改密码</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1873"/>
-        <location filename="wifi.cpp" line="192"/>
+        <location filename="wifi.ui" line="1818"/>
+        <location filename="wifi.cpp" line="320"/>
         <source>connection</source>
         <translation>连接</translation>
     </message>
     <message>
-        <location filename="wifi.ui" line="1443"/>
+        <location filename="wifi.ui" line="1388"/>
         <source>wifiname</source>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="558"/>
-        <location filename="wifi.cpp" line="593"/>
-        <location filename="wifi.cpp" line="610"/>
+        <location filename="wifi.cpp" line="270"/>
+        <location filename="wifi.cpp" line="685"/>
+        <location filename="wifi.cpp" line="733"/>
+        <location filename="wifi.cpp" line="769"/>
+        <location filename="wifi.cpp" line="786"/>
         <source>OK</source>
         <translation>好的</translation>
     </message>
@@ -4747,14 +4934,11 @@ The New SIM card is:
         <translation type="obsolete">连接状态</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="183"/>
         <source>Connection succeeded!</source>
-        <translation>连接成功！</translation>
+        <translation type="vanished">连接成功！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="165"/>
-        <location filename="wifi.cpp" line="174"/>
-        <location filename="wifi.cpp" line="218"/>
+        <location filename="wifi.cpp" line="263"/>
         <source>Connection failed!</source>
         <translation>连接失败！</translation>
     </message>
@@ -4763,7 +4947,7 @@ The New SIM card is:
         <translation type="obsolete">请开启wifi！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="522"/>
+        <location filename="wifi.cpp" line="648"/>
         <source>QMessageBox::question()</source>
         <translation>你想要删除这个文件吗</translation>
     </message>
@@ -4772,7 +4956,7 @@ The New SIM card is:
         <translation type="obsolete">确实要移除此连接吗？</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="522"/>
+        <location filename="wifi.cpp" line="648"/>
         <source>Are you sure you want to delete it?</source>
         <translation>确实要删除此连接吗？</translation>
     </message>
@@ -4781,62 +4965,88 @@ The New SIM card is:
         <translation type="obsolete">删除成功！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="187"/>
+        <location filename="wifi.cpp" line="315"/>
         <source>Change succeeded!</source>
         <translation>修改成功！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="213"/>
-        <location filename="wifi.cpp" line="870"/>
+        <location filename="wifi.cpp" line="341"/>
+        <location filename="wifi.cpp" line="1041"/>
         <source>change</source>
         <translation>修改</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="54"/>
-        <location filename="wifi.cpp" line="341"/>
-        <location filename="wifi.cpp" line="628"/>
-        <location filename="wifi.cpp" line="993"/>
-        <location filename="wifi.cpp" line="998"/>
+        <location filename="wifi.cpp" line="55"/>
+        <location filename="wifi.cpp" line="470"/>
+        <location filename="wifi.cpp" line="804"/>
         <source>not connect</source>
         <translation>未连接</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="385"/>
-        <location filename="wifi.cpp" line="413"/>
-        <location filename="wifi.cpp" line="428"/>
+        <location filename="wifi.cpp" line="540"/>
+        <location filename="wifi.cpp" line="559"/>
         <source>Please open the wifi!</source>
         <translation>请打开wifi!</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="390"/>
-        <location filename="wifi.cpp" line="408"/>
+        <location filename="wifi.cpp" line="535"/>
         <source>Please turn off the hotspot first!</source>
         <translation>请先关闭热点！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="541"/>
+        <location filename="wifi.cpp" line="158"/>
+        <location filename="wifi.cpp" line="176"/>
+        <source>saved</source>
+        <translation>已保存</translation>
+    </message>
+    <message>
+        <location filename="wifi.cpp" line="265"/>
+        <source>QMessageBox::critical()</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="wifi.cpp" line="266"/>
+        <location filename="wifi.cpp" line="346"/>
+        <source>Connect failed!</source>
+        <oldsource>Connect failed!!</oldsource>
+        <translation>连接失败！</translation>
+    </message>
+    <message>
+        <location filename="wifi.cpp" line="281"/>
+        <source>Connect failed!You can try changing your password.</source>
+        <translation>连接失败！你可以尝试修改你的密码。</translation>
+    </message>
+    <message>
+        <location filename="wifi.cpp" line="311"/>
+        <source>Connect succeeded!</source>
+        <translation>连接成功！</translation>
+    </message>
+    <message>
+        <location filename="wifi.cpp" line="667"/>
         <source>remove failed!</source>
         <translation>删除失败！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="553"/>
-        <location filename="wifi.cpp" line="588"/>
-        <location filename="wifi.cpp" line="605"/>
+        <location filename="wifi.cpp" line="680"/>
+        <location filename="wifi.cpp" line="728"/>
+        <location filename="wifi.cpp" line="764"/>
+        <location filename="wifi.cpp" line="781"/>
         <source>QMessageBox::information()</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="554"/>
+        <location filename="wifi.cpp" line="681"/>
+        <location filename="wifi.cpp" line="729"/>
         <source>Connect to hotspot failed!No network is currently available,please connect to the network first</source>
         <translation>连接热点失败！当前没有网络，请先连接网络。</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="589"/>
+        <location filename="wifi.cpp" line="765"/>
         <source>Input cannot be empty!</source>
         <translation>输入不能为空！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="606"/>
+        <location filename="wifi.cpp" line="782"/>
         <source>The number of password digits must be greater than 8</source>
         <translation>密码位数须大于8！</translation>
     </message>
@@ -4845,24 +5055,23 @@ The New SIM card is:
         <translation type="vanished">未连接</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="638"/>
+        <location filename="wifi.cpp" line="814"/>
         <source>Hotspot not connected!</source>
         <translation>热点没有连接！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="645"/>
+        <location filename="wifi.cpp" line="821"/>
         <source>successfully deactivated!</source>
         <translation>断开成功！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="654"/>
+        <location filename="wifi.cpp" line="830"/>
         <source>deactivated failed!</source>
         <translation>断开失败！</translation>
     </message>
     <message>
-        <location filename="wifi.cpp" line="809"/>
         <source>open</source>
-        <translation>打开</translation>
+        <translation type="vanished">打开</translation>
     </message>
     <message>
         <source>successfully disconnected!</source>
@@ -4880,12 +5089,12 @@ The New SIM card is:
         <translation type="vanished">断开成功！</translation>
     </message>
     <message>
-        <location filename="wifi_bt_interface.cpp" line="348"/>
+        <location filename="wifi_bt_interface.cpp" line="342"/>
         <source>successfully deactivated!</source>
         <translation>断开成功！</translation>
     </message>
     <message>
-        <location filename="wifi_bt_interface.cpp" line="354"/>
+        <location filename="wifi_bt_interface.cpp" line="348"/>
         <source>deactivated failed!</source>
         <translation>断开失败！</translation>
     </message>

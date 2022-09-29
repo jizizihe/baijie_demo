@@ -169,7 +169,7 @@ background-color:rgba(255, 255, 255, 150);
       <item>
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>Audio Interface</string>
+         <string>Audio</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>

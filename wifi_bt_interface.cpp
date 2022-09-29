@@ -1393,13 +1393,3 @@ void wifi_bt_interface::rm_bluetoothshell()
     strCmd = QString("rm /bt_pair.sh");
     executeLinuxCmd(strCmd);
 }
-
-QString wifi_bt_interface::executeLinuxCmd_bluetooth_scan(QString strCmd)
-{
-
-//    pro_bluetooth_scan.start("bash", QStringList() <<"-c" << strCmd);
-//    pro_bluetooth_scan.waitForFinished(-1);
-//    QString strResult = pro_bluetooth_scan.readAllStandardOutput();
-//    pro_bluetooth_scan.close();
-//    return strResult;
-}

@@ -72,5 +72,8 @@
         <file>button_image/voice4.svg</file>
         <file>button_image/d_ip.svg</file>
         <file>button_image/s_ip.svg</file>
+        <file>button_image/systime.svg</file>
+        <file>button_image/rtvtime.svg</file>
+        <file>button_image/sync.svg</file>
     </qresource>
 </RCC>

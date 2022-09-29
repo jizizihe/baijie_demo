@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>628</width>
-    <height>382</height>
+    <width>664</width>
+    <height>364</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -127,11 +127,11 @@ QTextEdit
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>468</width>
-          <height>310</height>
+          <width>494</width>
+          <height>292</height>
          </rect>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1,1,1,1,1,1,1,1">
+        <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1,1,1,1,1,1,1,1,1">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,2">
            <item>
@@ -155,7 +155,7 @@ QTextEdit
               </size>
              </property>
              <property name="text">
-              <string>Board name:</string>
+              <string>Board Name:</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -194,7 +194,7 @@ QTextEdit
               </size>
              </property>
              <property name="text">
-              <string>battery level:</string>
+              <string>Battery Level:</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -227,7 +227,7 @@ QTextEdit
               </size>
              </property>
              <property name="text">
-              <string>battery status:</string>
+              <string>Battery Status:</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -260,7 +260,7 @@ QTextEdit
               </size>
              </property>
              <property name="text">
-              <string>CPU temp:</string>
+              <string>CPU Temp:</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -293,7 +293,7 @@ QTextEdit
               </size>
              </property>
              <property name="text">
-              <string>resolution:</string>
+              <string>Resolution:</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -359,7 +359,7 @@ QTextEdit
               </size>
              </property>
              <property name="text">
-              <string>kernel:</string>
+              <string>Kernel:</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -415,6 +415,47 @@ QTextEdit
           </layout>
          </item>
          <item>
+          <widget class="QWidget" name="widget" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="1,2">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="website">
+              <property name="text">
+               <string>Company Website:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_12">
+              <property name="text">
+               <string>https://szbaijie.com/</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1,2">
            <item>
             <widget class="QLabel" name="label">
@@ -431,7 +472,7 @@ QTextEdit
               </size>
              </property>
              <property name="text">
-              <string>Feedback email:</string>
+              <string>Business Email:</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -595,7 +636,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <item>
       <widget class="QLabel" name="label_10">
        <property name="text">
-        <string>About Board Interface</string>
+        <string>About Board</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
