@@ -142,7 +142,6 @@ void voice::set_volume(int value)
 
 void voice::show_time()
 {
-    //ui->time->setText(QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss"));
     if(flag_record == 1)
     {
         record_length++;
@@ -498,7 +497,17 @@ void voice::on_btn_paly_2_clicked()  //delete
             QString path = QString("%1").arg(ui->pathname_2->text());
             QString str = QString("rm %1%2").arg(path).arg(name);
             pro->start(str);
-            QMessageBox::information(this,"information",tr("Remove successfully!"));
+           // QMessageBox::information(this,"information",tr("Remove successfully!"));
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("delete successfully!"),
+                             0,this);
+            mesg.addButton(tr("OK"),QMessageBox::YesRole);
+            if(screen_flag == 1)
+                mesg.move(Width*2/3,Height/3);
+            else
+                mesg.move(Width/3,Height/3);
+            mesg.exec();
             refresh(path);
             pro->close();
         }
@@ -509,7 +518,17 @@ void voice::on_btn_paly_2_clicked()  //delete
     }
     else
     {
-        QMessageBox::information(this,"information",tr("No file to delete!"));
+        //QMessageBox::information(this,"information",tr("No file to delete!"));
+        QMessageBox mesg(QMessageBox::Information,
+                         tr("QMessageBox::information()"),
+                         tr("No file to delete!"),
+                         0,this);
+        mesg.addButton(tr("OK"),QMessageBox::YesRole);
+        if(screen_flag == 1)
+            mesg.move(Height/3,Width*2/3);
+        else
+            mesg.move(Width/3,Height/3);
+        mesg.exec();
     }
 }
 
@@ -524,7 +543,17 @@ void voice::on_btn_rename_clicked()  //rename
     }
     else
     {
-        QMessageBox::information(this,"information",tr("No file to rename!"));
+       // QMessageBox::information(this,"information",tr("No file to rename!"));
+        QMessageBox mesg(QMessageBox::Information,
+                         tr("QMessageBox::information()"),
+                         tr("No file to rename!"),
+                         0,this);
+        mesg.addButton(tr("OK"),QMessageBox::YesRole);
+        if(screen_flag == 1)
+            mesg.move(Height/3,Width*2/3);
+        else
+            mesg.move(Width/3,Height/3);
+        mesg.exec();
     }
 }
 void voice::update_file()     //updata combox file

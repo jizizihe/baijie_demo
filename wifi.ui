@@ -34,7 +34,7 @@
   <property name="styleSheet">
    <string notr="true">#wifi
 {
-border-image: url(:/button_image/all/background.jpg);
+border-image: url(:/button_image/all/background(1).png);
 }
 /****************按钮部件*******************/
 QPushButton{
@@ -508,7 +508,7 @@ background-color:rgba(255, 255, 255, 100);
          <enum>Qt::WheelFocus</enum>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="wifihomepage">
          <property name="focusPolicy">
@@ -1922,7 +1922,7 @@ background-color:rgba(255, 255, 255, 100);
                 <string notr="true"/>
                </property>
                <property name="text">
-                <string>change Passwd</string>
+                <string>change passwd</string>
                </property>
               </widget>
              </item>

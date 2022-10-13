@@ -22,7 +22,7 @@
   <property name="styleSheet">
    <string notr="true">#serialdialog
 {
-	background-image: url(:/button_image/all/background.jpg);
+	border-image: url(:/button_image/all/background(1).png);
 }
 QDialog {border:1px solid gray;}
 QListWidget {background-color:transparent; outline: none; border:1px solid gray; color: black; }

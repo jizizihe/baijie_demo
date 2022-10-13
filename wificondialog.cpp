@@ -23,16 +23,46 @@ WifiConDialog::WifiConDialog(QWidget *parent) :
     if(s_width < s_height)
     {
         screen_flag = 1;
+        this->setStyleSheet("WifiConDialog{border-image: url(:/button_image/all/background.jpg);border-style: outset;"
+                            "border-radius:4px}"
+                            "QDialog {border:1px solid gray;}"
+                            "QPushButton{background-color: rgba(100, 225, 100, 120);border-style: outset;"
+                            "border-width:  2px; border-radius: 10px;border-color: rgba(255, 225, 255, 30);"
+                            "color:rgba(0, 0, 0, 100); padding: 6px; outline: none;}"
+                            "QSlider::handle:horizontal { image: url(:/image/sliderHandle.png);}"
+                            "QSlider::sub-page:horizontal { border-image: url(:/image/slider.png); }");
+    }
+    else
+    {
+        this->setStyleSheet("#WifiConDialog{background-image: url(:/button_image/all/background.jpg);"
+           "border-style: outset;border-radius:4px}"
+           "QDialog {border:1px solid gray;}"
+           "QPushButton{background-color: rgba(100, 225, 100, 120);border-style: outset;"
+           "border-width:  2px;border-radius: 10px; border-color: rgba(255, 225, 255, 30);"/*边框颜色*/""
+           "color:rgba(0, 0, 0, 100);padding: 6px;outline: none;}"
+           "QPushButton:hover{background-color:rgba(100,255,100, 100); border-color: rgba(255, 225, 255, 200);color:rgba(0, 0, 0, 200);}"
+           " QPushButton:pressed {background-color:rgba(100,255,100, 200);border-color: rgba(255, 225, 255, 30);"
+           "border-style: inset;color:rgba(0, 0, 0, 100);}"
+           "QSlider::handle:horizontal { image: url(:/image/sliderHandle.png);}"
+           "QSlider::sub-page:horizontal { border-image: url(:/image/slider.png); } ");
     }
     realX = screen->physicalDotsPerInchX();
     realY = screen->physicalDotsPerInchY();
     wifidial_font();
     WifiLoadLabel = new QLabel(this);
-    WifiLoadLabel->move(this->size().width()/2,this->size().height()/2);
+   // WifiLoadLabel->move(this->size().width()/2,this->size().height()/2);
     WifiMovie = new QMovie("://button_image/loading.webp");
     WifiLoadLabel->setFixedSize(50, 50);
     WifiLoadLabel->setScaledContents(true);
     WifiLoadLabel->setMovie(WifiMovie);
+    if(screen_flag == 1)
+    {
+        WifiLoadLabel->move(this->size().height()/2,this->size().width()/2);
+    }
+    else
+    {
+        WifiLoadLabel->move(this->size().width()/2,this->size().height()/2);
+    }
     //pMovie->start();
 }
 
@@ -132,7 +162,6 @@ QString WifiConDialog::GetPasswdText()
     return ui->PasswdlineEdit->text();
 }
 
-
 QString WifiConDialog::GetWifiOkBtnText()
 {
     return (ui->WifiOkBtn->text());
@@ -146,13 +175,12 @@ void WifiConDialog::SetWifiOkBtnText(int flag)
     }
     else
     {
-      ui->WifiOkBtn->setText(tr("ok"));
+        ui->WifiOkBtn->setText(tr("ok"));
     }
     btn_connectflag = flag;
    // WifiLoadLabel->show();
    // WifiMovie->start();
 }
-
 
 bool WifiConDialog::event(QEvent *event)
 {
@@ -176,7 +204,6 @@ bool WifiConDialog::event(QEvent *event)
     return QWidget::event(event);
 
 }
-
 
 void WifiConDialog::language_reload()
 {

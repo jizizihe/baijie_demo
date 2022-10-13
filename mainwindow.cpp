@@ -48,6 +48,14 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         screen_flag = 1;
     }
+    else
+    {
+        QGraphicsDropShadowEffect *shadow_effect = new QGraphicsDropShadowEffect(this);
+        shadow_effect->setOffset(4, 4);
+        shadow_effect->setColor(QColor (136, 138, 133));
+        shadow_effect->setBlurRadius(5);
+        ui->label->setGraphicsEffect(shadow_effect);
+    }
     main_font();
     connect(&voice_w,SIGNAL(Mysignal()),this,SLOT(voice_back()));
     connect(&udev_w,SIGNAL(Mysignal()),this,SLOT(udev_back()));
@@ -66,11 +74,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 //    database_w.create_connection();
 //    database_w.create_table();
-    QGraphicsDropShadowEffect *shadow_effect = new QGraphicsDropShadowEffect(this);
-    shadow_effect->setOffset(4, 4);
-    shadow_effect->setColor(QColor (136, 138, 133));
-    shadow_effect->setBlurRadius(5);
-    ui->label->setGraphicsEffect(shadow_effect);
+
 }
 
 MainWindow::~MainWindow()

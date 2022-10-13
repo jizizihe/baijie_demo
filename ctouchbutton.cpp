@@ -7,7 +7,6 @@ CTouchButton::CTouchButton(QWidget *parent)
     setAttribute(Qt::WA_AcceptTouchEvents,true);
 
     //slideButton *SwitchButton = new slideButton(this);
-
 }
 
 bool CTouchButton::event(QEvent *e)
@@ -48,7 +47,3 @@ bool CTouchButton::event(QEvent *e)
 
 /********************************/  //slide button
 
-
-
-
-/********************************/

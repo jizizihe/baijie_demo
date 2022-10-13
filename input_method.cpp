@@ -41,8 +41,8 @@ input_method::~input_method()
 
 void input_method::on_btn_0_clicked()
 {
-        str = "0";
-       emit key_str(str);
+    str = "0";
+    emit key_str(str);
 }
 
 void input_method::on_btn_1_clicked()

@@ -321,7 +321,6 @@ void udev::on_cut_clicked()
      }
 
      ct_file = QString("mv %1 ").arg(ct_file);
-
      QMessageBox mesg(QMessageBox::Information,
                       tr("QMessageBox::information()"),
                       tr("Enter the cut state!"),
@@ -582,7 +581,7 @@ void udev::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
             }
         }
     }
-    qDebug() << list_filecheck;
+    //qDebug() << list_filecheck;
 }
 
 void udev::on_pushButton_clicked()
@@ -592,7 +591,6 @@ void udev::on_pushButton_clicked()
     {
       file_path.chop(1);
       file_path = file_path.mid(0,file_path.lastIndexOf("/")+1);
-
       QString s = "cd "+ file_path + " \n";
       pro_path.write(s.toUtf8());
       pro_path.write("ls -ap \n");
@@ -639,7 +637,7 @@ void udev::on_btn_paste_clicked()
    {
        QString str = QString("%1%2 \n").arg(ct_file).arg(path);
        pro_path.write(str.toUtf8());
-       qDebug() << str;
+       //qDebug() << str;
        QMessageBox mesg(QMessageBox::Information,
                         tr("QMessageBox::information()"),
                         tr("Paste complete!"),

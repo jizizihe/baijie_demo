@@ -47,8 +47,6 @@ serial::serial(QWidget *parent) :
      screen_flag = 1;ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
    }
    serial_font();  
-   ui->stackedWidget->setCurrentIndex(0);
-   ui->stackedWidget_2->setCurrentIndex(0);
 }
 
 serial::~serial()
@@ -230,7 +228,7 @@ void serial::on_showData1(QString buff)//用于显示数据
 
 void serial::on_SendBtn_clicked()
 {
-    qDebug() << "LINE:" << __LINE__ << "on_sendBtn_clicked" << endl;
+    //qDebug() << "LINE:" << __LINE__ << "on_sendBtn_clicked" << endl;
     if(flag_port1 == 1)
     {
         emit writePort_sig(COM0,ui->SendEdit->text().toUtf8());
@@ -254,7 +252,7 @@ void serial::on_SendBtn_clicked()
 
 void serial::on_SendBtn_2_clicked()
 {
-    qDebug() << "LINE:" << __LINE__ << "on_sendBtn_2_clicked" << endl;
+    //qDebug() << "LINE:" << __LINE__ << "on_sendBtn_2_clicked" << endl;
     if(flag_port2 == 1)
     {
      emit writePort_sig(COM1,ui->SendEdit_2->text().toUtf8());
@@ -284,8 +282,6 @@ void serial::on_retBtn_clicked()
 void serial::language_reload()
 {
     ui->retranslateUi(this);
-   // serialset_port1.language_reload();
-   // serialset_port2.language_reload();
 }
 
 void serial::on_part1_btn_clicked()

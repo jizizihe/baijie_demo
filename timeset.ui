@@ -25,7 +25,7 @@
   <property name="styleSheet">
    <string notr="true">#timeset
 {
-border-image: url(:/button_image/all/background.jpg);
+border-image: url(:/button_image/all/background(1).png);
 }
 /****************按钮部件*******************/
 QPushButton{
@@ -139,7 +139,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>RTC</string>
+         <string>Time Set</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>

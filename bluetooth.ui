@@ -27,7 +27,9 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#bluetooth
-{border-image: url(:/button_image/all/background.jpg)}
+{
+border-image: url(:/button_image/all/background(1).png);
+}
 /****************按钮部件*******************/
 QPushButton{
      background-color: rgba(100, 225, 100, 120);/*背景色*/
@@ -76,7 +78,7 @@ QMessageBox {
 QListWidget {
 background-color:transparent; outline: none; border:1px solid gray; color: black; }
 QListWidget::Item { width: 400px; height: 50px; }
-QListWidget::Item:hover { background: #4CAF50; color: white; }
+
 QListWidget::item:selected { background: #e7e7e7; color: #f44336; }
 QListWidget::item:selected:!active { background: lightgreen; }
 

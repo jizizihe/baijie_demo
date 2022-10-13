@@ -154,8 +154,6 @@ void ipset_popup::returnmain()
 
 void ipset_popup::getaddipinforma()
 {
-    //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "FUNC:" << __FUNCTION__;
-
     label_addr->setVisible(true);
     label_netcard->setVisible(true);
     line_addr->setVisible(true);
@@ -188,8 +186,6 @@ void ipset_popup::language_reload()
 {
     label->setText(tr("Please do not have spaces in the name, otherwise the operation will fail!"));
     btn_OK->setText(tr("OK"));
-//    btn_return->setText(tr("return"));
     label_netcard->setText(tr("network card:"));
     label_addr->setText(tr("ip address:"));
-
 }

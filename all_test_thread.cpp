@@ -14,7 +14,6 @@ all_test_thread::~all_test_thread()
     {
         serialTimer->stop();
     }
-    //qDebug() << __LINE__ << "------------ Thread destructor -------------"<<endl;
 }
 
 void all_test_thread::network_test_thread()
@@ -28,24 +27,18 @@ void all_test_thread::network_test_thread()
 
 void all_test_thread::key_test_thread()
 {
-    QString retResult = "---please press the key to test!";
+    QString retResult = tr("---please press the key to test!");
     emit send_test_msg(key_signal,retResult);
 }
 
 void all_test_thread::usb_test_thread(int num)
 {
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
-
     QString retResult = usb_test(num);
     emit send_test_msg(usb_signal,retResult);
 }
 
 void all_test_thread::rtc_test_thread()
 {
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
-
     QString retResult;
     QString time,time1,time2;
     time = rtc_test();
@@ -89,7 +82,6 @@ void all_test_thread::battary_test_thread()
 //    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
 //    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---FUNC---:" << __FUNCTION__;
     QString retResult = battary_test();
-
     emit send_test_msg(battary_signal,retResult);
 }
 
@@ -103,9 +95,6 @@ void all_test_thread::sim_test_thread()
 
 void all_test_thread::audio_test_thread()
 {
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
-
     QString retResult = audio_test();
     emit send_test_msg(audio_signal,retResult);
 }
@@ -164,12 +153,10 @@ void all_test_thread::serial_test_thread_client(serial_config serialTest)
 {
 //    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
     char	*port;
-
     serialConfigPtr = &serialTest;
     int checkId = serialConfigPtr->checked_id[serialConfigPtr->index];
     checkName = serialConfigPtr->checkedBtnList.at(checkId)->text();
 //    char    *checkStr = (char *)malloc(sizeof(checkName));
-
     mode = serialConfigPtr->mode;
 //    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "mode:" << serialConfigPtr->mode;
 //    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "id:" << checkId;
@@ -178,16 +165,13 @@ void all_test_thread::serial_test_thread_client(serial_config serialTest)
     QString port_name = QString("/dev/%1").arg(checkName);
 //    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "port_name" << port_name;
     port = port_name.toLatin1().data();
-
     fd = open (port, O_RDWR | O_NOCTTY | O_SYNC | O_NONBLOCK);
     if(fd < 0)
     {
         return;
     }
-
     set_prop (fd);
     usleep(10);
-
     serialTimer->start(10);
 }
 
@@ -197,7 +181,6 @@ void all_test_thread::serialTimer_func()
     int		rc;
     char	buf[32];
     QString recvStr;
-
     char * checkStr_p;
     char checkStr[16];
     QByteArray tmp = checkName.toLatin1();
@@ -242,7 +225,6 @@ void all_test_thread::serialTimer_func()
                 emit send_test_msg(serial_signal,retResult);
 //                emit serial_test_msg(retResult);
                 serialTimer->stop();
-
                 close(fd);
                 return;
             }
@@ -252,10 +234,8 @@ void all_test_thread::serialTimer_func()
 
 void all_test_thread::serial_test_thread_stop()
 {
-    //qDebug() << "i ==============";
    // qDebug() << "Line:" << __LINE__<< "__FUNCTION__" << __FUNCTION__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-
-//    close(fd);
+   //    close(fd);
     stopFlag = true;
     serialTimer->stop();
 }

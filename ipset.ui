@@ -31,7 +31,7 @@
   <property name="styleSheet">
    <string notr="true">#ipset
 {
-border-image: url(:/button_image/all/background.jpg);
+border-image: url(:/button_image/all/background(1).png);
 }
 /****************按钮部件*******************/
 QPushButton{
@@ -437,7 +437,7 @@ background-color:transparent;
         <item>
          <widget class="QStackedWidget" name="stackedWidget">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="mainPage">
            <layout class="QGridLayout" name="gridLayout_2">
@@ -468,7 +468,8 @@ background-color:transparent;
               </property>
               <property name="styleSheet">
                <string notr="true"> background-color: rgb(189, 220, 231,80);
-
+padding-top:15px; 
+padding-bottom:15px;
 
 QScrollBar::handle:vertical
 {
@@ -477,6 +478,7 @@ QScrollBar::handle:vertical
 	  border-radius:3px;
 	  width: 6px;
    }
+
 </string>
               </property>
               <property name="readOnly">

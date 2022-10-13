@@ -91,7 +91,17 @@ void ipset::on_ipShowBtn_clicked()
 {
     if(open_flag == 0)
     {
-        QMessageBox::information(this,"information",tr("Please open the ethernet!"));
+        //QMessageBox::information(this,"information",tr("Please open the ethernet!"));
+        QMessageBox mesg(QMessageBox::Information,
+                         tr("QMessageBox::information()"),
+                         tr("Please open the ethernet!"),
+                         0,this);
+        mesg.addButton(tr("up"),QMessageBox::YesRole);
+        if(screen_flag == 1)
+            mesg.move(s_height/3,s_width*2/3);
+        else
+            mesg.move(s_width/3,s_height/3);
+        mesg.exec();
         return;
     }
 
@@ -148,7 +158,17 @@ void ipset::on_setStaticIpBtn_clicked()
 {
     if(open_flag == 0)
     {
-        QMessageBox::information(this,"information",tr("Please open the ethernet!"));
+        //QMessageBox::information(this,"information",tr("Please open the ethernet!"));
+        QMessageBox mesg(QMessageBox::Information,
+                         tr("QMessageBox::information()"),
+                         tr("Please open the ethernet!"),
+                         0,this);
+        mesg.addButton(tr("up"),QMessageBox::YesRole);
+        if(screen_flag == 1)
+              mesg.move(s_height/3,s_width*2/3);
+        else
+            mesg.move(s_width/3,s_height/3);
+        mesg.exec();
         return;
     }
 
@@ -167,7 +187,17 @@ void ipset::on_delStaticIpBtn_clicked()
 {
     if(open_flag == 0)
     {
-        QMessageBox::information(this,"information",tr("Please open the ethernet!"));
+        //QMessageBox::information(this,"information",tr("Please open the ethernet!"));
+        QMessageBox mesg(QMessageBox::Information,
+                         tr("QMessageBox::information()"),
+                         tr("Please open the ethernet!"),
+                         0,this);
+        mesg.addButton(tr("up"),QMessageBox::YesRole);
+        if(screen_flag == 1)
+              mesg.move(s_height/3,s_width*2/3);
+        else
+            mesg.move(s_width/3,s_height/3);
+        mesg.exec();
         return;
     }
     ui->widget->setEnabled(false);
@@ -194,21 +224,20 @@ void ipset::on_delStaticIpBtn_clicked()
             strCmd = QString("nmcli con show --active |grep eth0");
             strResult = executeLinuxCmd(strCmd);
             if(!strResult.isEmpty())
-            {qDebug() << 1;
+            {
                 QMessageBox mesg(QMessageBox::Information,
                                  tr("QMessageBox::information()"),
                                  tr("set auto ip succeeded!"),
                                  0,this);
                 mesg.addButton(tr("OK"),QMessageBox::YesRole);
                 if(screen_flag == 1)
-                mesg.move(s_width*2/3,s_height/3);
+                mesg.move(s_height/3,s_width*2/3);
                 else
                 mesg.move(s_width/3,s_height/3);
                 mesg.exec();
                 QString networkInfo = get_network_info();
                 ui->textEdit->setText(networkInfo);
                 ui->stackedWidget->setCurrentIndex(0);
-               // database_w.delete_record_by_name("ip_static",ui->ipAddrLineEdit->text());
                 ui->ipAddrLineEdit->clear();
                 ui->gatewaylineEdit->clear();
                 ui->masklineEdit->clear();
@@ -224,7 +253,7 @@ void ipset::on_delStaticIpBtn_clicked()
                                  0,this);
                 mesg.addButton(tr("OK"),QMessageBox::YesRole);
                 if(screen_flag == 1)
-                mesg.move(s_width*2/3,s_height/3);
+                 mesg.move(s_height/3,s_width*2/3);
                 else
                 mesg.move(s_width/3,s_height/3);
                 mesg.exec();
@@ -238,7 +267,7 @@ void ipset::on_delStaticIpBtn_clicked()
                              0,this);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
             if(screen_flag == 1)
-                mesg.move(s_width*2/3,s_height/3);
+                 mesg.move(s_height/3,s_width*2/3);
             else
                 mesg.move(s_width/3,s_height/3);
             mesg.exec();
@@ -262,14 +291,13 @@ void ipset::on_delStaticIpBtn_clicked()
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
         if(screen_flag == 1)
-        mesg.move(s_width*2/3,s_height/3);
+         mesg.move(s_height/3,s_width*2/3);
         else
         mesg.move(s_width/3,s_height/3);
         mesg.exec();
         QString networkInfo = get_network_info();
         ui->textEdit->setText(networkInfo);
         ui->stackedWidget->setCurrentIndex(0);
-       // database_w.delete_record_by_name("ip_static",ui->ipAddrLineEdit->text());
         ui->ipAddrLineEdit->clear();
         ui->gatewaylineEdit->clear();
         ui->masklineEdit->clear();
@@ -284,7 +312,7 @@ void ipset::on_delStaticIpBtn_clicked()
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
         if(screen_flag == 1)
-        mesg.move(s_width*2/3,s_height/3);
+        mesg.move(s_height/3,s_width*2/3);
         else
         mesg.move(s_width/3,s_height/3);
         mesg.exec();
@@ -303,7 +331,7 @@ void ipset::on_okBtn_clicked()
                          0,this);
         mesg.addButton(tr("up"),QMessageBox::YesRole);
         if(screen_flag == 1)
-            mesg.move(s_width*2/3,s_height/3);
+            mesg.move(s_height/3,s_width*2/3);
         else
             mesg.move(s_width/3,s_height/3);
         mesg.exec();
@@ -318,7 +346,7 @@ void ipset::on_okBtn_clicked()
     QPushButton *yesButton = mesg.addButton(tr("Yes"), QMessageBox::ActionRole);
     QPushButton *noButton = mesg.addButton(tr("No"),QMessageBox::ActionRole);
     if(screen_flag == 1)
-        mesg.move(s_width*2/3,s_height/3);
+      mesg.move(s_height/3,s_width*2/3);
     else
         mesg.move(s_width/3,s_height/3);
     mesg.exec();
@@ -327,18 +355,48 @@ void ipset::on_okBtn_clicked()
     {
         if((ui->ipAddrLineEdit->text().length() <= 9) || (ui->gatewaylineEdit->text().length() <= 9))
         {
-            QMessageBox::information(this,"information",tr("Format error, please re-enter."));
+           // QMessageBox::information(this,"information",tr("Format error, please re-enter."));
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("Format error, please re-enter."),
+                             0,this);
+            mesg.addButton(tr("up"),QMessageBox::YesRole);
+            if(screen_flag == 1)
+                  mesg.move(s_height/3,s_width*2/3);
+            else
+                mesg.move(s_width/3,s_height/3);
+            mesg.exec();
             return;
         }
         int mask = ui->masklineEdit->text().toInt();
         if((mask > 32)||(mask < 0))
         {
-            QMessageBox::information(this,"information",tr("Please enter the correct subnet mask."));
+            //QMessageBox::information(this,"information",tr("Please enter the correct subnet mask."));
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("Please enter the correct subnet mask."),
+                             0,this);
+            mesg.addButton(tr("up"),QMessageBox::YesRole);
+            if(screen_flag == 1)
+                 mesg.move(s_height/3,s_width*2/3);
+            else
+                mesg.move(s_width/3,s_height/3);
+            mesg.exec();
             return;
         }
         if((ui->ipAddrLineEdit->text().length() <= 9) || (ui->gatewaylineEdit->text().length() <= 9))
         {
-            QMessageBox::information(this,"information",tr("Format error, please re-enter"));
+            //QMessageBox::information(this,"information",tr("Format error, please re-enter"));
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("Format error, please re-enter."),
+                             0,this);
+            mesg.addButton(tr("up"),QMessageBox::YesRole);
+            if(screen_flag == 1)
+                 mesg.move(s_height/3,s_width*2/3);
+            else
+                mesg.move(s_width/3,s_height/3);
+            mesg.exec();
             return;
         }
 
@@ -388,7 +446,7 @@ void ipset::on_okBtn_clicked()
                              0,this);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
             if(screen_flag == 1)
-                mesg.move(s_width*2/3,s_height/3);
+                 mesg.move(s_height*2/3,s_width/3);
             else
                 mesg.move(s_width/3,s_height/3);
             mesg.exec();
@@ -498,18 +556,7 @@ void ipset::ip_settext()
                                           "padding: 6px;outline: none; ");
         ui->nameLineEdit->setStyleSheet("color: rgb(0, 0, 0);");
         ui->masklineEdit->setStyleSheet("color: rgb(0, 0, 0);");
-//        QString gateway;
-
-//        for(int i = 9;i < 12;i++)
-//        {
-//            if(strResult.at(i) == '.')
-//            {
-//                gateway = strResult.left(i+1);
-//                gateway.append("1");
-//                break;
-//            }
-//        }
-//        qDebug() << gateway;
+        ui->okBtn->setText(tr("change"));
     }
 }
 
@@ -537,8 +584,7 @@ void ipset::btnChangeFlag(bool flag)
         network_enable(true);
         QString networkInfo = get_network_info();
         ui->textEdit->setText(networkInfo);
-        ui->stackedWidget->setCurrentIndex(0);
-
+        ui->stackedWidget->setCurrentIndex(0);       
     }
     else
     {

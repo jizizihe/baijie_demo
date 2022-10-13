@@ -113,7 +113,7 @@ bool gpio::warning()
                 mesg.move(s_width*2/3,s_height/3);
                 else
                 mesg.move(s_width/3,s_height/3);
-                mesg.exec();
+                mesg.exec();this->activateWindow();this->setFocus();
                 return false;
             }
             portnum_cal(port_num[num],portnum[num]);
@@ -131,7 +131,7 @@ bool gpio::warning()
                     mesg.move(s_width*2/3,s_height/3);
                     else
                     mesg.move(s_width/3,s_height/3);
-                    mesg.exec();
+                    mesg.exec();this->activateWindow();this->setFocus();
                     return false;
                 }
             }
@@ -157,7 +157,7 @@ bool gpio::warning()
                 mesg.move(s_width*2/3,s_height/3);
                 else
                 mesg.move(s_width/3,s_height/3);
-                mesg.exec();
+                mesg.exec();this->activateWindow();this->setFocus();
                 return false;
             }
             portnum_cal(port_num[num],portnum[num]);
@@ -175,7 +175,7 @@ bool gpio::warning()
                     mesg.move(s_width*2/3,s_height/3);
                     else
                     mesg.move(s_width/3,s_height/3);
-                    mesg.exec();
+                    mesg.exec();this->activateWindow();this->setFocus();
                     return false;
                 }
             }
@@ -377,10 +377,11 @@ void gpio::on_pushButton_clicked()
     mesg.addButton(tr("OK"),QMessageBox::YesRole);
     mesg.resize(100,100);
     if(screen_flag == 1)
-    mesg.move(s_width*2/3,s_height/3);
+    mesg.move(s_width*3/4,s_height/4);
     else
     mesg.move(s_width/4,s_height/4);
     mesg.exec();
+    this->activateWindow();this->setFocus();
 }
 
 void gpio::BtnChange_flag1(bool flag)
@@ -569,7 +570,7 @@ void gpio::settext_valuebtn(int flag)
         if(flag == 0)
         {
             nameLabel4->setText(tr("value: low"));
-            nameLabel3->setText("");
+            //nameLabel3->setText("");
             horLayout->addWidget(nameLabel3);
             horLayout->addWidget(nameLabel4);
             horLayout->setStretchFactor(nameLabel4,2);
@@ -580,8 +581,8 @@ void gpio::settext_valuebtn(int flag)
            // horLayout->setContentsMargins(0,5,0,0);
             horLayout->addWidget(nameLabel3);
             horLayout->addWidget(nameLabel4);
-            nameLabel4->setText("");
-            nameLabel3->setText(tr(" value: high"));
+           // nameLabel4->setText("");
+            nameLabel3->setText(tr("  value: high"));
             horLayout->setStretchFactor(nameLabel4,1);
             horLayout->setStretchFactor(nameLabel3,2);
         }
@@ -643,7 +644,7 @@ void gpio::gpio_refresh()
     ui->display->clear();
     for(int i = count;i < num;i++)
     {
-        qDebug() << port_num[i];
+       // qDebug() << port_num[i];
         QString status_str;
         int status = gpio_get_state(port_num[i]);
         if(status == 1)

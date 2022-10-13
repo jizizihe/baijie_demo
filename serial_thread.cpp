@@ -18,11 +18,11 @@ serial_thread::serial_thread(int portId,QString port,long baud,int Databit,QStri
 
 void serial_thread::show_fun_id()
 {
-    qDebug()<<"fun_id is:"<<QThread::currentThreadId();
+    //qDebug()<<"fun_id is:"<<QThread::currentThreadId();
 }
 void serial_thread::show_slots_id()
 {
-    qDebug()<<"slots_id is:"<<QThread::currentThreadId();
+    //qDebug()<<"slots_id is:"<<QThread::currentThreadId();
     show_fun_id();
 }
 

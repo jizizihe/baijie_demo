@@ -41,28 +41,18 @@ signals:
 
 private slots:
     void on_ReturnBtn_clicked();
-
     void on_WifiConnectBtn_clicked();
-
     void on_HotspotConBtn_clicked();
-
     void recv_msg(int, QString );
-
     void scan_hotwlan(QString);
-
-
     void wifi_info_fresh(QString wifi_name);
-
     void ListWidgeItem_clicked();
 
  //   void ListWidgeItem2_clicked();
 
     void on_HotspotBuildBtn_clicked();
-
     void on_HotspotDownBtn_clicked();
-
     void on_ChangePasswdBtn_clicked();
-
     void on_WifiExistRemoveBtn_clicked();
     void WifiStatus_show();
     void wifi_refresh();
@@ -74,20 +64,15 @@ private slots:
 
 private:
     Ui::wifi *ui;
-
     wifi_info WifiInfo;
-
     QLabel *LoadLabel;
     QMovie *pMovie;
-
     QThread * myThread;
     wifi_thread * WifiThread;
     wifi_bt_interface * wifi_bt_t;
-
     WifiConDialog *WifiConnectDialog;
     database wifiDB;
     input_method input_methodw;
-
 };
 
 #endif // WIFI_H

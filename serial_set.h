@@ -17,16 +17,10 @@ class serial_set : public QMainWindow
 public:
     explicit serial_set(QWidget *parent = 0);
     ~serial_set();
-    QStringList getPortNameList();
-     void language_reload();
-     int hide_flag;
 
 private slots:
 
 signals:
-    void port1_set(QString,QString,int,QString);
-    void port1_re();
-
 private:
     Ui::serial_set *ui;
     QStringList m_portNameList;

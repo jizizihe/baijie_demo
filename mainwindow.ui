@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>669</width>
-    <height>410</height>
+    <width>455</width>
+    <height>394</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -34,14 +34,15 @@
    <string notr="true">#MainWindow
 {
 border-image: url(:/button_image/all/3.webp);
+	border-image: url(:/button_image/all/background.jpg);
 }
 /****************按钮部件*******************/
 QPushButton{
-     background-color: rgba(100, 225, 100, 165);/*背景色*/
+   
      border-style: outset; /*边框样式*/
      border-width:  2px;  /*边框宽度为4像素*/
      border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
+     border-color: transparent;/*边框颜色*/
      font: bold 24px;/*字体*/
      color:rgba(0, 0, 0, 100);/*字体颜色*/
      padding: 6px; /*填衬*/
@@ -49,14 +50,10 @@ QPushButton{
 }
 
 QPushButton:hover{ /*鼠标悬停在按钮上时*/
-        background-color:rgba(100,255,100, 100);
-        border-color: rgba(255, 225, 255, 200);
         color:rgba(0, 0, 0, 200);
 }
 
 QPushButton:pressed { /*按钮被按下时*/
-     background-color:rgba(100,255,100, 200);
-     border-color: rgba(255, 225, 255, 30);
      border-style: inset;
      color:rgba(0, 0, 0, 100);
 }
@@ -115,7 +112,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
 </string>
         </property>
         <property name="text">
-         <string>Baijie Technology  Interface Software</string>
+         <string>Baijie Technology  function Display</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -125,7 +122,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      </layout>
     </item>
     <item row="2" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="2,14,1,14,1,14,2">
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="2,14,2,14,2,14,2">
       <property name="spacing">
        <number>0</number>
       </property>
@@ -193,23 +190,63 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
            <property name="verticalSpacing">
             <number>1</number>
            </property>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_1">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>185</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>WiFi</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,5,2">
              <property name="spacing">
               <number>0</number>
              </property>
              <property name="leftMargin">
-              <number>14</number>
+              <number>0</number>
              </property>
              <property name="topMargin">
-              <number>0</number>
+              <number>1</number>
              </property>
              <property name="rightMargin">
-              <number>14</number>
-             </property>
-             <property name="bottomMargin">
               <number>0</number>
              </property>
+             <property name="bottomMargin">
+              <number>1</number>
+             </property>
+             <item>
+              <spacer name="horizontalSpacer_16">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item>
               <widget class="QPushButton" name="wifi">
                <property name="sizePolicy">
@@ -231,51 +268,34 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(65, 167, 244);</string>
+                <string notr="true">
+border-image: url(:/button_image/wifi3.svg);  padding: 6px;</string>
                </property>
                <property name="text">
                 <string/>
                </property>
-               <property name="icon">
-                <iconset resource="translation.qrc">
-                 <normaloff>:/button_image/wifi1.svg</normaloff>:/button_image/wifi1.svg</iconset>
-               </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>120</width>
+                 <height>95</height>
                 </size>
                </property>
               </widget>
              </item>
+             <item>
+              <spacer name="horizontalSpacer_17">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
             </layout>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_1">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>185</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>WLAN</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
            </item>
           </layout>
          </widget>
@@ -330,22 +350,35 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             <number>0</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,3,1">
              <property name="spacing">
               <number>0</number>
              </property>
              <property name="leftMargin">
-              <number>14</number>
+              <number>0</number>
              </property>
              <property name="topMargin">
               <number>0</number>
              </property>
              <property name="rightMargin">
-              <number>14</number>
+              <number>0</number>
              </property>
              <property name="bottomMargin">
               <number>0</number>
              </property>
+             <item>
+              <spacer name="horizontalSpacer_18">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item>
               <widget class="QPushButton" name="bluetooth">
                <property name="sizePolicy">
@@ -367,22 +400,32 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(52, 157, 229);</string>
+                <string notr="true"> background-color:transparent;
+border-image: url(:/button_image/bluetootht.svg);</string>
                </property>
                <property name="text">
                 <string/>
                </property>
-               <property name="icon">
-                <iconset resource="translation.qrc">
-                 <normaloff>:/button_image/bluetooth.svg</normaloff>:/button_image/bluetooth.svg</iconset>
-               </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>110</width>
+                 <height>100</height>
                 </size>
                </property>
               </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_19">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </item>
@@ -469,22 +512,35 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             <number>1</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,2,1">
              <property name="spacing">
               <number>0</number>
              </property>
              <property name="leftMargin">
-              <number>14</number>
+              <number>0</number>
              </property>
              <property name="topMargin">
-              <number>0</number>
+              <number>1</number>
              </property>
              <property name="rightMargin">
-              <number>14</number>
-             </property>
-             <property name="bottomMargin">
               <number>0</number>
              </property>
+             <property name="bottomMargin">
+              <number>1</number>
+             </property>
+             <item>
+              <spacer name="horizontalSpacer_20">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item>
               <widget class="QPushButton" name="ethernet">
                <property name="sizePolicy">
@@ -507,22 +563,32 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color: rgb(138, 226, 52);
-background-color: rgb(68, 202, 189,200);</string>
+background-color: rgb(68, 202, 189,200);  background-color:transparent;
+border-image: url(:/button_image/nett.svg);</string>
                </property>
                <property name="text">
                 <string/>
                </property>
-               <property name="icon">
-                <iconset resource="translation.qrc">
-                 <normaloff>:/button_image/net1.svg</normaloff>:/button_image/net1.svg</iconset>
-               </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>100</width>
+                 <height>100</height>
                 </size>
                </property>
               </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_21">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </item>
@@ -609,22 +675,35 @@ background-color: rgb(68, 202, 189,200);</string>
             <number>1</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,3,1">
              <property name="spacing">
               <number>0</number>
              </property>
              <property name="leftMargin">
-              <number>14</number>
+              <number>0</number>
              </property>
              <property name="topMargin">
               <number>0</number>
              </property>
              <property name="rightMargin">
-              <number>14</number>
+              <number>0</number>
              </property>
              <property name="bottomMargin">
               <number>0</number>
              </property>
+             <item>
+              <spacer name="horizontalSpacer_22">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item>
               <widget class="QPushButton" name="sim_module">
                <property name="sizePolicy">
@@ -654,22 +733,32 @@ background-color: rgb(68, 202, 189,200);</string>
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true"/>
+                <string notr="true">background-color:transparent;
+border-image: url(:/button_image/4g1.svg);</string>
                </property>
                <property name="text">
                 <string/>
                </property>
-               <property name="icon">
-                <iconset resource="translation.qrc">
-                 <normaloff>:/button_image/4g.png</normaloff>:/button_image/4g.png</iconset>
-               </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>130</width>
+                 <height>130</height>
                 </size>
                </property>
               </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_23">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </item>
@@ -725,8 +814,8 @@ background-color: rgb(68, 202, 189,200);</string>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>20</width>
-          <height>75</height>
+          <width>931</width>
+          <height>13</height>
          </size>
         </property>
        </spacer>
@@ -789,22 +878,35 @@ background-color: rgb(68, 202, 189,200);</string>
             <number>1</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,2,1">
              <property name="spacing">
               <number>0</number>
              </property>
              <property name="leftMargin">
-              <number>14</number>
+              <number>0</number>
              </property>
              <property name="topMargin">
-              <number>0</number>
+              <number>2</number>
              </property>
              <property name="rightMargin">
-              <number>14</number>
-             </property>
-             <property name="bottomMargin">
               <number>0</number>
              </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
+             <item>
+              <spacer name="horizontalSpacer_24">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item>
               <widget class="QPushButton" name="vf">
                <property name="sizePolicy">
@@ -826,24 +928,32 @@ background-color: rgb(68, 202, 189,200);</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(164, 181, 188);
-background-color: rgb(175, 173, 168);
-background-color: rgb(109, 161, 197);background-color: rgb(203, 150, 183);</string>
+                <string notr="true">background-color: rgb(203, 150, 183);  background-color:transparent;
+border-image: url(:/button_image/voice_4.svg);</string>
                </property>
                <property name="text">
                 <string/>
                </property>
-               <property name="icon">
-                <iconset resource="translation.qrc">
-                 <normaloff>:/button_image/voice/voice.svg</normaloff>:/button_image/voice/voice.svg</iconset>
-               </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>100</width>
+                 <height>90</height>
                 </size>
                </property>
               </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_25">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </item>
@@ -930,22 +1040,35 @@ background-color: rgb(109, 161, 197);background-color: rgb(203, 150, 183);</stri
             <number>1</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,4,1">
              <property name="spacing">
               <number>0</number>
              </property>
              <property name="leftMargin">
-              <number>14</number>
+              <number>0</number>
              </property>
              <property name="topMargin">
               <number>0</number>
              </property>
              <property name="rightMargin">
-              <number>14</number>
+              <number>0</number>
              </property>
              <property name="bottomMargin">
               <number>0</number>
              </property>
+             <item>
+              <spacer name="horizontalSpacer_26">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item>
               <widget class="QPushButton" name="serialport">
                <property name="sizePolicy">
@@ -967,23 +1090,32 @@ background-color: rgb(109, 161, 197);background-color: rgb(203, 150, 183);</stri
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(233, 185, 110);
-background-color: rgb(77, 166, 209,200);</string>
+                <string notr="true">background-color: rgb(77, 166, 209,200);background-color:transparent;
+border-image: url(:/button_image/serial_2.svg);</string>
                </property>
                <property name="text">
                 <string/>
                </property>
-               <property name="icon">
-                <iconset resource="translation.qrc">
-                 <normaloff>:/button_image/serial1.svg</normaloff>:/button_image/serial1.svg</iconset>
-               </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>130</width>
+                 <height>90</height>
                 </size>
                </property>
               </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_27">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </item>
@@ -1076,22 +1208,35 @@ background-color: rgb(77, 166, 209,200);</string>
             <number>1</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout">
+            <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,2,1">
              <property name="spacing">
               <number>0</number>
              </property>
              <property name="leftMargin">
-              <number>14</number>
+              <number>0</number>
              </property>
              <property name="topMargin">
-              <number>0</number>
+              <number>3</number>
              </property>
              <property name="rightMargin">
-              <number>14</number>
-             </property>
-             <property name="bottomMargin">
               <number>0</number>
              </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
+             <item>
+              <spacer name="horizontalSpacer_28">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item>
               <widget class="QPushButton" name="udev">
                <property name="sizePolicy">
@@ -1113,23 +1258,32 @@ background-color: rgb(77, 166, 209,200);</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">
-background-color: rgb(112, 225, 158);background-color: rgb(247, 199, 112);</string>
+                <string notr="true">background-color: rgb(247, 199, 112);  background-color:transparent;
+border-image: url(:/button_image/udevt.svg);</string>
                </property>
                <property name="text">
                 <string/>
                </property>
-               <property name="icon">
-                <iconset resource="translation.qrc">
-                 <normaloff>:/button_image/storage.svg</normaloff>:/button_image/storage.svg</iconset>
-               </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>100</width>
+                 <height>90</height>
                 </size>
                </property>
               </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_29">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </item>
@@ -1222,22 +1376,35 @@ background-color: rgb(112, 225, 158);background-color: rgb(247, 199, 112);</stri
             <number>1</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,2,1">
              <property name="spacing">
               <number>0</number>
              </property>
              <property name="leftMargin">
-              <number>14</number>
+              <number>0</number>
              </property>
              <property name="topMargin">
-              <number>0</number>
+              <number>2</number>
              </property>
              <property name="rightMargin">
-              <number>14</number>
-             </property>
-             <property name="bottomMargin">
               <number>0</number>
              </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
+             <item>
+              <spacer name="horizontalSpacer_30">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item>
               <widget class="QPushButton" name="touchca">
                <property name="sizePolicy">
@@ -1259,23 +1426,32 @@ background-color: rgb(112, 225, 158);background-color: rgb(247, 199, 112);</stri
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(130, 226, 109);
-background-color: rgb(69, 169, 174,180);</string>
+                <string notr="true">background-color: rgb(69, 169, 174,180);background-color:transparent;
+border-image: url(:/button_image/touch_2.svg);</string>
                </property>
                <property name="text">
                 <string/>
                </property>
-               <property name="icon">
-                <iconset resource="translation.qrc">
-                 <normaloff>:/button_image/touch.png</normaloff>:/button_image/touch.png</iconset>
-               </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>100</width>
+                 <height>90</height>
                 </size>
                </property>
               </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_31">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </item>
@@ -1337,8 +1513,8 @@ background-color: rgb(69, 169, 174,180);</string>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>20</width>
-          <height>72</height>
+          <width>931</width>
+          <height>13</height>
          </size>
         </property>
        </spacer>
@@ -1404,22 +1580,35 @@ background-color: rgb(69, 169, 174,180);</string>
             <number>1</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1,4,1">
              <property name="spacing">
               <number>0</number>
              </property>
              <property name="leftMargin">
-              <number>14</number>
+              <number>0</number>
              </property>
              <property name="topMargin">
               <number>0</number>
              </property>
              <property name="rightMargin">
-              <number>14</number>
+              <number>0</number>
              </property>
              <property name="bottomMargin">
               <number>0</number>
              </property>
+             <item>
+              <spacer name="horizontalSpacer_32">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item>
               <widget class="QPushButton" name="gpio">
                <property name="sizePolicy">
@@ -1441,23 +1630,32 @@ background-color: rgb(69, 169, 174,180);</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(59, 163, 228,200);
-background-color: rgb(84, 210, 156);</string>
+                <string notr="true">background-color: rgb(84, 210, 156);background-color:transparent;
+border-image: url(:/button_image/gpiot.svg);</string>
                </property>
                <property name="text">
                 <string/>
                </property>
-               <property name="icon">
-                <iconset resource="translation.qrc">
-                 <normaloff>:/button_image/gpio.png</normaloff>:/button_image/gpio.png</iconset>
-               </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>120</width>
+                 <height>100</height>
                 </size>
                </property>
               </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_33">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </item>
@@ -1550,22 +1748,35 @@ background-color: rgb(84, 210, 156);</string>
             <number>1</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="1,4,1">
              <property name="spacing">
               <number>0</number>
              </property>
              <property name="leftMargin">
-              <number>14</number>
+              <number>0</number>
              </property>
              <property name="topMargin">
               <number>0</number>
              </property>
              <property name="rightMargin">
-              <number>14</number>
+              <number>0</number>
              </property>
              <property name="bottomMargin">
               <number>0</number>
              </property>
+             <item>
+              <spacer name="horizontalSpacer_34">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item>
               <widget class="QPushButton" name="alltest">
                <property name="sizePolicy">
@@ -1587,23 +1798,32 @@ background-color: rgb(84, 210, 156);</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(178, 176, 176);
-background-color: rgb(164, 182, 182);</string>
+                <string notr="true">background-color: rgb(164, 182, 182);background-color:transparent;
+border-image: url(:/button_image/serial_3.svg);</string>
                </property>
                <property name="text">
                 <string/>
                </property>
-               <property name="icon">
-                <iconset resource="translation.qrc">
-                 <normaloff>:/button_image/interface.png</normaloff>:/button_image/interface.png</iconset>
-               </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>130</width>
+                 <height>110</height>
                 </size>
                </property>
               </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_35">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </item>
@@ -1627,7 +1847,7 @@ background-color: rgb(164, 182, 182);</string>
               </font>
              </property>
              <property name="text">
-              <string>testport</string>
+              <string>TestPort</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1690,22 +1910,35 @@ background-color: rgb(164, 182, 182);</string>
             <number>1</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_11">
+            <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="1,2,1">
              <property name="spacing">
               <number>0</number>
              </property>
              <property name="leftMargin">
-              <number>14</number>
+              <number>0</number>
              </property>
              <property name="topMargin">
-              <number>0</number>
+              <number>4</number>
              </property>
              <property name="rightMargin">
-              <number>14</number>
-             </property>
-             <property name="bottomMargin">
               <number>0</number>
              </property>
+             <property name="bottomMargin">
+              <number>3</number>
+             </property>
+             <item>
+              <spacer name="horizontalSpacer_36">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item>
               <widget class="QPushButton" name="system">
                <property name="sizePolicy">
@@ -1727,22 +1960,32 @@ background-color: rgb(164, 182, 182);</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(186, 189, 182);</string>
+                <string notr="true">background-color: rgb(186, 189, 182);  background-color:transparent;
+border-image: url(:/button_image/sett (1).svg);</string>
                </property>
                <property name="text">
                 <string/>
                </property>
-               <property name="icon">
-                <iconset resource="translation.qrc">
-                 <normaloff>:/button_image/system.png</normaloff>:/button_image/system.png</iconset>
-               </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>100</width>
+                 <height>90</height>
                 </size>
                </property>
               </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_37">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </item>
@@ -1853,15 +2096,13 @@ background-color: rgb(164, 182, 182);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>669</width>
+     <width>455</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="translation.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

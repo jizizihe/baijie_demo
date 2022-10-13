@@ -70,9 +70,11 @@ QString wifi_bt_interface::wifi_scan()
     }
 
 //    QString strCmd = QString("iw dev wlan0 scan|grep SSID|awk '{for(i=2;i<=NF;i++){printf \"%s \", $i}; printf \"\\n\"}' ");
-    QString strCmd = QString("nmcli -t  device wifi list|awk -F : '{print $2\":\"$6}' ");
-    //qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<<strCmd;
+    QString strCmd = QString("nmcli device wifi rescan");
     QString ScanResult = executeLinuxCmd(strCmd);
+    strCmd = QString("nmcli -t  device wifi list|awk -F : '{print $2\":\"$6}' ");
+    //qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<<strCmd;
+    ScanResult = executeLinuxCmd(strCmd);
 //    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "ScanResult:" << ScanResult;
 
     return ScanResult;
@@ -177,21 +179,19 @@ bool wifi_bt_interface::wifi_connect_exist(QString WifiSsid)
     QString strCmd = QString("ifconfig wlan0 up");
     QString strResult = executeLinuxCmd(strCmd);
     WifiSsid = WifiSsid + " ";
-    strCmd = QString("nmcli connection show | grep '%1' |awk 'NR==1'").arg(WifiSsid);
-    strResult = executeLinuxCmd(strCmd);qDebug() << strResult;
-    WifiSsid.remove(WifiSsid.size()-1,1);
-    QString find_str = QString("%1").arg(WifiSsid);qDebug() << find_str;
+    strCmd = QString("nmcli connection show |grep 'wifi'| grep '%1' |awk 'NR==1'").arg(WifiSsid);
+    strResult = executeLinuxCmd(strCmd);
+    WifiSsid.remove(WifiSsid.size()-1,1);strResult.remove(strResult.size()-1,1);
+    QString find_str = QString("%1").arg(WifiSsid);
 
-    //qDebug() << "--line--: " << __LINE__<<"find_str = " << find_str;
     bool checktResult=strResult.contains(find_str,Qt::CaseInsensitive);
-
     if(checktResult == 1)
     {
         strResult = "it had connected!";
 
         return true;
     }
-
+    else
     return false;
 }
 
@@ -219,7 +219,7 @@ QString wifi_bt_interface::wifi_connect(QString WifiSsid,QString PassWd)
 {
     QString strCmd;
     QString strResult;
-    strCmd = QString("nmcli device wifi connect '%1' password '%2' name '%3' ").arg(WifiSsid).arg(PassWd).arg(WifiSsid);qDebug() << strCmd;
+    strCmd = QString("nmcli device wifi connect '%1' password '%2' name '%3' ").arg(WifiSsid).arg(PassWd).arg(WifiSsid);//qDebug() << strCmd;
     strResult = executeLinuxCmd(strCmd);
 
     bool ConnectResult=strResult.contains("successfully activated",Qt::CaseInsensitive);
@@ -858,7 +858,7 @@ QString wifi_bt_interface::bluetooth_scan()
                  << "spawn bluetoothctl              \n"
                  << "send \"scan on\\r\"             \n"
                  << "expect \"Discovery started\"    \n"
-                 << "sleep 8                         \n"
+                 << "sleep 9                         \n"
                  << "send \"scan off\\r\"            \n"
                  << "expect \"Discovery stopped\"    \n"
    //              << "expect $prompt                  \n"
@@ -884,7 +884,6 @@ QString wifi_bt_interface::bluetooth_scan()
          file1.close();
          strCmd = QString("chmod +x /bt_scan2.sh");
          executeLinuxCmd(strCmd);
-
          strCmd = QString("/bt_scan2.sh ");
          strResult = executeLinuxCmd(strCmd);
         // strResult = executeLinuxCmd_bluetooth_scan(strCmd);
@@ -939,9 +938,9 @@ QString wifi_bt_interface::bluetooth_scan()
 
 QString wifi_bt_interface::bluetooth_pair(QString BtAddress)
 {
-    QString strCmd = QString("ls");
-    QString strResult = executeLinuxCmd_bluetooth_connect(strCmd);
-    qDebug() << strResult;
+   // QString strCmd = QString("ls");
+   // QString strResult = executeLinuxCmd_bluetooth_connect(strCmd);
+   // qDebug() << strResult;
     char * data;
     int i = 0;
     QStringList BtPairList;
@@ -980,8 +979,8 @@ QString wifi_bt_interface::bluetooth_pair(QString BtAddress)
     }
     file.close();
 
-     strCmd = QString("chmod +x /bt_pair.sh");
-     strResult = executeLinuxCmd_bluetooth_connect(strCmd);
+    QString strCmd = QString("chmod +x /bt_pair.sh");
+    QString strResult = executeLinuxCmd_bluetooth_connect(strCmd);
 
     BtAddress = BtAddress.replace(QString("\n"), QString(""));
     strCmd = QString("/bt_pair.sh %1").arg(BtAddress);

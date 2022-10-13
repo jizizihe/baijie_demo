@@ -38,7 +38,6 @@ private slots:
     void recv_msg(int, QString );
     void on_SimConnectBtn_clicked();
     void on_SimDisconnectBtn_clicked();
-   // void on_btn_open_clicked();
     void on_statusBtn_clicked();
     void status_4g_refresh();
     void btnChangeFlag(bool);

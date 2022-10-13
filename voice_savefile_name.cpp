@@ -28,17 +28,7 @@ voice_savefile_name::voice_savefile_name(QWidget *parent) :
 
     if(s_width < s_height)
     {
-        screen_flag = 1; this->setStyleSheet("voice_savefile_name{border-image: url(:/button_image/all/background.jpg);}"
-                                            "QMessageBox {background-image: url(:/button_image/all/background.jpg);border:1px solid gray;}"
-                                            "QPushButton{"
-                                            "background-color: rgba(100, 225, 100, 120);"
-                                             "border-style: outset;"
-                                             "border-width:  2px;"
-                                             "border-radius: 10px;"
-                                             "border-color: rgba(255, 225, 255, 30);"
-                                             "color:rgba(0, 0, 0, 100);"
-                                             "padding: 6px; "
-                                             "outline: none; }");
+        screen_flag = 1;
     }
     voice_savefile_font();
     ui->label_2->setText("/data/");

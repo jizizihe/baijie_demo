@@ -36,7 +36,7 @@ private slots:
     void retBt_clicked();
     QString SystimeSet(QString  datetext);
     void SystimeSetBt_clicked();
-    QString RTCSet(QString  datetext);
+    QString RTCSet();
     void RTCSetBt_clicked();
 
     void SystimerUpdate(void);
@@ -62,7 +62,6 @@ private:
 
     QTimer *SysTimer;
     QTimer *RTCTimer;
-    QTimer *Timer;
 };
 
 #endif // TIMESET_H

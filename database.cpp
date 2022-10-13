@@ -30,7 +30,6 @@ bool database::create_connection()
     }
     else
     {
-       // qDebug() << "open succeed!";
         return true;
     }
 }
@@ -50,28 +49,28 @@ bool database::create_table()
     query.prepare(create_table_hostpot);
     if(query.exec())
     {
-        //qDebug() << "create table_hostpot succeed!";
+
     }
 
     QString create_table_bluetooth = "create table bluetooth (name varchar(64) primary key,address varchar(32))";
     query.prepare(create_table_bluetooth);
     if(query.exec())
     {
-        //qDebug() << "create table_bluetooth succeed!";
+
     }
 
     QString create_table_ip_static = "create table serial_port (name varchar(64) primary key)";
     query.prepare(create_table_ip_static);
     if(query.exec())
     {
-      //  qDebug() << "create table_ipstatic succeed!";
+
     }
 
     QString create_table_voice = "create table voice (name varchar(64) primary key,filename varchar(64))";
     query.prepare(create_table_voice);
     if(query.exec())
     {
-      //  qDebug() << "create table_voice succeed1!";
+
     }
     return true;
 }
@@ -115,7 +114,6 @@ bool database::insert_table1(QString table,QString unit1)
 {
     QSqlQuery query;
     QString insert_sql = QString("insert into %1 values ('%2')").arg(table).arg(unit1);
-   // qDebug() << "insert_sql" << insert_sql;
     if(!query.exec(insert_sql))
     {
         qDebug() << "Error: Failed to insert into table"<< query.lastError();
@@ -131,7 +129,6 @@ bool database::insert_table1(QString table,QString unit1)
 bool database::select_table(QString name)
 {
     QSqlQuery query;
-
     //qDebug() <<"--LINE--: " << __LINE__<< name;
     QString select_sql = QString("select * from wifiPasswd where name = '%1'").arg(name);
     if(!query.exec(select_sql))
@@ -184,7 +181,6 @@ bool database::update_wifitable(QString tableName, QString name, QString passwd)
     }
     else
     {
-      //  qDebug() << "update table succeed!";
         return true;
     }
     return false;

@@ -61,7 +61,6 @@ int get_backlight()
         return -1;
     }
     source_value = ioctl(fd,DISP_LCD_GET_BRIGHTNESS,args);
-
     close(fd);
     return source_value;
 }
@@ -132,7 +131,6 @@ void backlight::timerUp()       //check whether events are generated
     QDateTime now = QDateTime::currentDateTime().addSecs(timer_array[index_number]);
     QDateTime shade = QDateTime::currentDateTime().addSecs((unsigned)timer_array[index_number] - 1);
 
-//    qDebug() << "begin_timing" << QDateTime::currentDateTime() << "now_timing" << now;
     while(QDateTime::currentDateTime() < now)
     {
         if(touch_flag)

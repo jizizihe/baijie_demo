@@ -201,7 +201,6 @@ void serialdialog::on_serialCancelBtn_clicked()
 
     getSerialCheckedName();
     emit serial_config_msg(serialConfig);
-
     this->close();
 }
 

@@ -28,7 +28,7 @@
   <property name="styleSheet">
    <string notr="true">#udev
 {
-border-image: url(:/button_image/all/background.jpg);
+border-image: url(:/button_image/all/background(1).png);
 }
 QScrollBar{ width:36px;}
 /****************按钮部件*******************/

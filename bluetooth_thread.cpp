@@ -7,9 +7,7 @@ bluetooth_thread::bluetooth_thread(QObject *parent) : QObject(parent)
 QString bluetooth_thread::bluetooth_scan_thread()
 {
     QString scanResult = wifi_bt_w->bluetooth_scan();
-
     emit send_msg(Bt_scan_signal,scanResult );
-
     return scanResult;
 }
 
@@ -25,7 +23,6 @@ QString bluetooth_thread::bluetooth_connect_thread(QString BtAddress)
     QString connectResult = wifi_bt_w->bluetooth_connect(BtAddress);
     emit send_msg(Bt_connect_signal,connectResult);
     return connectResult;
-
 }
 
 /*

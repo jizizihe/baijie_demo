@@ -34,7 +34,7 @@
   <property name="styleSheet">
    <string notr="true">#serial
 {
-border-image: url(:/button_image/all/background.jpg);
+border-image: url(:/button_image/all/background(1).png);
 }
 /******** combobox 滚动条  *********/
 QComboBox QScrollBar::vertical{ /*主体部分*/
@@ -325,12 +325,12 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             </property>
             <property name="icon">
              <iconset resource="translation.qrc">
-              <normaloff>:/button_image/COM.svg</normaloff>:/button_image/COM.svg</iconset>
+              <normaloff>:/button_image/port.svg</normaloff>:/button_image/port.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
-              <width>30</width>
-              <height>30</height>
+              <width>32</width>
+              <height>32</height>
              </size>
             </property>
            </widget>
@@ -394,12 +394,12 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             </property>
             <property name="icon">
              <iconset resource="translation.qrc">
-              <normaloff>:/button_image/COM.svg</normaloff>:/button_image/COM.svg</iconset>
+              <normaloff>:/button_image/port.svg</normaloff>:/button_image/port.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
-              <width>30</width>
-              <height>30</height>
+              <width>32</width>
+              <height>32</height>
              </size>
             </property>
            </widget>
@@ -462,7 +462,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page">
          <layout class="QVBoxLayout" name="verticalLayout_6" stretch="26,5">

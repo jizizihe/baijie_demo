@@ -31,13 +31,11 @@ char *get_battery_status()
 		printf("open battery status failed !\n");
         return (char *)"false";
 	}
-
     status = (char *)malloc(sizeof(char) * 255);
 
     fscanf(fd, "%s", status);
     //printf("battery status is %s\n", buf);
-	fclose(fd);
-    
+	fclose(fd);   
     return status;
 }
 
@@ -59,7 +57,6 @@ float get_CPU_temp()
     var = (int)(temp*10+0.5);
     temp = var/10.0;
     fclose(fd);
-
     return temp;
 }
 
@@ -101,7 +98,6 @@ char *get_boardname()
     fscanf(fd, "%s", name);
     //printf("battery status is %s\n", buf);
     fclose(fd);
-
     return name;
 }
 

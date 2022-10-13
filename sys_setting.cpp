@@ -1,7 +1,5 @@
 #include "sys_setting.h"
 #include "ui_sys_setting.h"
-
-#include <QDebug>
 #include "mainwindow.h"
 
 static int screen_flag = 0;
@@ -114,11 +112,9 @@ void sys_setting::on_rtc_clicked()
             w->setRotation(90);
 
             time_view = new QGraphicsView(scene);
-
             time_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
             time_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
             time_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
             time_view->resize(Width,Height);
             timeset_w.resize(Height,Width);
             timeset_w.show();

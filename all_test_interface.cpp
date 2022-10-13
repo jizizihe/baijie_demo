@@ -1,6 +1,5 @@
 #include "all_test_interface.h"
 
-//#define DD
 #ifdef DD
 #define qdebug(format, ...)  qDebug("function:%s\tline:%s\t " format, __func__,__LINE__,##__VA_ARGS__);
 #else
@@ -53,7 +52,6 @@ QString usb_test(int num)
 
     strResult = strResult.remove("\n");
     int count = 3 + num;
-
     if(strResult == QString::number(count))
     {
         strResult = "OK";
@@ -85,11 +83,8 @@ QString rtc_test()
 {
     QString strCmd;
     QString strResult;
-
     strCmd = QString("`expr substr `hwclock` 12 8` ");
     strResult = executeLinuxCmd(strCmd);
-    //qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
-
     return strResult;
 }
 
@@ -105,7 +100,6 @@ void camera_test()
     }
     strCmd = QString("rm /data/yuv.jpg");
     strResult = executeLinuxCmd(strCmd);
-
     strCmd = QString("cd /data && csi_test_mplane");
     strResult = executeLinuxCmd(strCmd);
     //qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
@@ -136,7 +130,6 @@ QString sim_test()
     char *state = (char *)"out";
     int port_num = calc_port_num('h',12);
  //   qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "port_num == " << port_num;
-
     bool isExist = getFileName(port_num);
     if(isExist == false)
     {
@@ -147,7 +140,6 @@ QString sim_test()
             {
                 if(gpio_set_value(port_num, 1) == 0)
                 {
-               //     qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "build connect";
                     sleep(5);
                 }
             }
@@ -194,14 +186,10 @@ QString sim_test()
         //qDebug() << "--line--: " << __LINE__<< "strCmd == " << strCmd;
         strResult = executeLinuxCmd(strCmd);
  //       qDebug() << "--line--: " << __LINE__<< strResult;
-
         bool ConnectResult=strResult.contains("successfully added",Qt::CaseInsensitive);
-        //qDebug() << ConnectResult;
-
         if(ConnectResult == true)
         {
             strResult = "Connection successful!";
-//            qDebug() << "--line--: " << __LINE__<< "FUNC:" << __FUNCTION__<< strResult;
             sleep(4);
             strCmd = QString("ifconfig | grep ppp0");
   //          strResult = executeLinuxCmd(strCmd);
@@ -233,18 +221,13 @@ QString sim_test()
 
 QString audio_test()
 {
-  //  qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ ;
-
     QString strCmd = QString("rm /data/audio.wav");
     QString strResult = executeLinuxCmd(strCmd);
-
     strCmd = QString("arecord -d 2 -r 16000 -c 1 -t wav /data/audio.wav");
     strResult = executeLinuxCmd(strCmd);
-
     strCmd = QString("aplay /usr/helperboard/ceshiluyin.wav");
  //   qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ ;
     strResult = executeLinuxCmd(strCmd);
-
     strCmd = QString("aplay /data/audio.wav");
     strResult = executeLinuxCmd(strCmd);
     return NULL;
@@ -254,7 +237,6 @@ QString wifi_test()
 {
     QString strCmd = QString("nmcli device wifi rescan");
     QString strResult = executeLinuxCmd(strCmd);
-
     strCmd = QString("nmcli -t  device wifi list|wc -l");
     strResult = executeLinuxCmd(strCmd);
     //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "ScanResult:" << strResult;
@@ -275,16 +257,12 @@ QString bluetooth_test()
     QString strCmd;
     QString strResult;
   //  qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__;
-
     strCmd = QString("hciconfig |grep hci0 | wc -l");
     strResult = executeLinuxCmd(strCmd);
-//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "ScanResult:" << strResult;
-
     if(strResult == "0\n")
     {
         strCmd = QString("rfkill unblock all");
         strResult = executeLinuxCmd(strCmd);
-
         strCmd = QString("ps -ax |grep 'hciattach -n -s 1500000 /dev/ttyBT0 sprd' |grep -v grep |wc -l");
         strResult = executeLinuxCmd(strCmd);
 
@@ -298,7 +276,6 @@ QString bluetooth_test()
     }
     strCmd = QString("hciconfig hci0 up && hciconfig hci0 piscan");
     strResult = executeLinuxCmd(strCmd);
-
     strCmd = QString("hcitool scan | wc -l");
     strResult = executeLinuxCmd(strCmd);
   //  qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "ScanResult:" << strResult;
@@ -311,7 +288,6 @@ QString bluetooth_test()
     {
         strResult = "OK";
     }
-
     return strResult;
 }
 

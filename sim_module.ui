@@ -15,7 +15,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#sim_module
-{border-image: url(:/button_image/all/background.jpg)}
+{border-image: url(:/button_image/all/background(1).png);}
 /****************按钮部件*******************/
 QPushButton{
      background-color: rgba(100, 225, 100, 120);/*背景色*/
@@ -203,7 +203,7 @@ height:30px;
     <item row="2" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="2,0,7">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0,1">
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,8,1">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -393,7 +393,7 @@ height:30px;
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="page">
          <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,6">
@@ -486,8 +486,8 @@ height:30px;
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>414</width>
-                 <height>261</height>
+                 <width>115</width>
+                 <height>127</height>
                 </rect>
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="4,5">
@@ -716,8 +716,8 @@ height:30px;
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>186</width>
-                 <height>244</height>
+                 <width>404</width>
+                 <height>266</height>
                 </rect>
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,6">

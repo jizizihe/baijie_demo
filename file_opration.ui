@@ -21,7 +21,7 @@
   <property name="styleSheet">
    <string notr="true">#File_opration
 {
-	background-image: url(:/button_image/all/background.jpg);
+	background-color: rgb(224, 238, 245);
    border: 2px solid gray;
 }
 /******** combobox 滚动条  *********/

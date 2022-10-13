@@ -22,7 +22,7 @@
   <property name="styleSheet">
    <string notr="true">#all_test
 {
-border-image: url(:/button_image/all/background.jpg);
+border-image: url(:/button_image/all/background(2).png);
 }
 /****************按钮部件*******************/
 QPushButton{
@@ -558,7 +558,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                 </font>
                </property>
                <property name="text">
-                <string>wifi</string>
+                <string>WiFi</string>
                </property>
               </widget>
              </item>
@@ -648,7 +648,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                 </font>
                </property>
                <property name="text">
-                <string>rtc</string>
+                <string>RTC</string>
                </property>
               </widget>
              </item>
