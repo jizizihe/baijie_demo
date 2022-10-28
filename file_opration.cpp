@@ -4,12 +4,12 @@
 #include <QDebug>
 #include <QScreen>
 
-static QString path_last;
-static QString path_pri;
-static QString file_path;
-static int s_width;
-static int s_height;
-static int screen_flag;
+static QString nextPath;
+static QString lastPath;
+static QString filePath;            //  0: Display file  1: Display folder
+static int screenWidth;
+static int screenHeight;
+static int screenFlag;
 static QScreen *screen;
 
 File_opration::File_opration(QWidget *parent) :
@@ -18,40 +18,40 @@ File_opration::File_opration(QWidget *parent) :
 {
     ui->setupUi(this);
     screen = qApp->primaryScreen();
-    s_width = screen->size().width();			//屏幕宽
-    s_height = screen->size().height();
-    if(s_width < s_height)
+    screenWidth = screen->size().width();
+    screenHeight = screen->size().height();
+    if(screenWidth < screenHeight)
     {
-        screen_flag = 1;
-        this->setMinimumSize(s_height*2/3,s_width*3/4);
-        this->setMaximumSize(s_height*2/3,s_width*3/4);
+        screenFlag = 1;
+        this->setMinimumSize(screenHeight*2/3,screenWidth*3/4);
+        this->setMaximumSize(screenHeight*2/3,screenWidth*3/4);
     }
     else
     {
-        this->setMinimumSize(s_width*2/3,s_height*2/3);
-        this->setMaximumSize(s_width*2/3,s_height*2/3);
+        this->setMinimumSize(screenWidth*2/3,screenHeight*2/3);
+        this->setMaximumSize(screenWidth*2/3,screenHeight*2/3);
     }
-    connect(&pro_path, SIGNAL(readyReadStandardOutput()), this, SLOT(readBashStandardOutputInfo()));
+    connect(&proPath, SIGNAL(readyReadStandardOutput()), this, SLOT(read_bash_standard_output_info()));
     this->setWindowModality(Qt::ApplicationModal);
-    pro_path.start("bash");
+    proPath.start("bash");
 }
 
 File_opration::~File_opration()
 {
     delete ui;
-    pro_path.close();
+    proPath.close();
 }
 
-void File_opration::readBashStandardOutputInfo()
+void File_opration::read_bash_standard_output_info()
 {
-    QString out = pro_path.readAllStandardOutput();
+    QString out = proPath.readAllStandardOutput();
     QStringList list = out.split("\n");
     list.removeAll("");
 
     ui->treeWidget->clear();
-    if(filepath_flag == 1)
+    if(filePathFlag == 1)
     {
-        if(list.count() < 3)
+        if(list.count() < 3)                //no file
         {
 
         }
@@ -76,23 +76,23 @@ void File_opration::readBashStandardOutputInfo()
 
 void File_opration::on_btn_back_clicked()
 {
-    file_path = ui->pathname_2->text();
-    if(QString::compare(file_path,QString("/"),Qt::CaseSensitive))
+    filePath = ui->lbl_pathValue->text();
+    if(QString::compare(filePath,QString("/"),Qt::CaseSensitive))
     {
-      file_path.chop(1);
-      file_path = file_path.mid(0,file_path.lastIndexOf("/")+1);
+        filePath.chop(1);
+        filePath = filePath.mid(0,filePath.lastIndexOf("/")+1);
 
-       QString s = "cd "+ file_path + " \n";
-      pro_path.write(s.toUtf8());
-      if(filepath_flag == 0)
-      {
-       pro_path.write("ls -ap \n");
-      }
-      else
-      {
-          pro_path.write("ls -ap| grep / \n");
-      }
-      ui->pathname_2->setText(file_path);
+        QString s = "cd "+ filePath + " \n";
+        proPath.write(s.toUtf8());
+        if(filePathFlag == 0)
+        {
+            proPath.write("ls -ap \n");
+        }
+        else
+        {
+            proPath.write("ls -ap| grep / \n");
+        }
+        ui->lbl_pathValue->setText(filePath);
     }
     else
     {
@@ -101,115 +101,110 @@ void File_opration::on_btn_back_clicked()
                          tr("The current path is the most forward path!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screen_flag == 1)
-        mesg.move(s_width*2/3,s_height/3);
+        if(screenFlag == 1)
+            mesg.move(screenWidth*2/3,screenHeight/3);
         else
-        mesg.move(s_width/3,s_height/3);
+            mesg.move(screenWidth/3,screenHeight/3);
         mesg.exec();
     }
 }
 
 void File_opration::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 {
-    path_last = QString(item->text(column));
-    path_pri = ui->pathname_2->text();
+    nextPath = QString(item->text(column));
+    lastPath = ui->lbl_pathValue->text();
     QString path;
-    if(filepath_flag == 0)
+    if(filePathFlag == 0)
     {
-        if(path_last.contains("/",Qt::CaseSensitive))
+        if(nextPath.contains("/",Qt::CaseSensitive))
         {
-            path = path_pri + path_last;
+            path = lastPath + nextPath;
             QString s = "cd "+ path + " \n";
-            pro_path.write(s.toUtf8());
-            pro_path.write("ls -ap \n");
-            ui->pathname_2->setText(path);
-        }
-        else
-        {
-
+            proPath.write(s.toUtf8());
+            proPath.write("ls -ap \n");
+            ui->lbl_pathValue->setText(path);
         }
     }
     else
     {
-          path = path_pri + path_last;
-          QString s = "cd "+ path + " \n";
-          pro_path.write(s.toUtf8());
-          pro_path.write("ls -ap| grep / \n");
-          ui->pathname_2->setText(path);
+        path = lastPath + nextPath;
+        QString s = "cd "+ path + " \n";
+        proPath.write(s.toUtf8());
+        proPath.write("ls -ap| grep / \n");
+        ui->lbl_pathValue->setText(path);
     }
 
 }
 
 void File_opration::showEvent(QShowEvent *event)
 {
-    this->move(s_width/2-this->width()/2,s_height/2-this->height()/2);
-   if(filepath_flag == 0)
-   {
-       ui->pathname_2->setText("/");
-       QString s = "cd / \n";
-       pro_path.write(s.toUtf8());
-       pro_path.write("ls -ap \n");
-   }
-   else
-   {
-       ui->pathname_2->setText("/");;
-       QString s = "cd / \n";
-       pro_path.write(s.toUtf8());
-       pro_path.write("ls -ap| grep / \n");
-   }
-   QWidget::showEvent(event);
+    this->move(screenWidth/2-this->width()/2,screenHeight/2-this->height()/2);
+    if(filePathFlag == 0)
+    {
+        ui->lbl_pathValue->setText("/");
+        QString s = "cd / \n";
+        proPath.write(s.toUtf8());
+        proPath.write("ls -ap \n");
+    }
+    else
+    {
+        ui->lbl_pathValue->setText("/");;
+        QString s = "cd / \n";
+        proPath.write(s.toUtf8());
+        proPath.write("ls -ap| grep / \n");
+    }
+    QWidget::showEvent(event);
 
 }
 void File_opration::on_btn_cancel_clicked()
 {
-    emit file_hide();
+    emit file_hide_msg();
 }
 
-void File_opration::on_pushButton_clicked()
+void File_opration::on_btn_choose_clicked()
 {
-    if(filepath_flag == 1)
+    if(filePathFlag == 1)                                     //Send the path signal
     {
-        QString str = ui->pathname_2->text();
-        emit file_hide();
-        emit file_rev2(str);
-
+        QString str = ui->lbl_pathValue->text();
+        emit file_hide_msg();
+        emit file_rev_path_msg(str);
     }
-   else
+    else                                                      //Send the file signal
     {
-        if(path_last.contains("/",Qt::CaseSensitive)||(path_last == "/"))
+        if(nextPath.contains("/",Qt::CaseSensitive)||(nextPath == "/"))
         {
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
                              tr("Please choose file!"),
                              0,this);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screen_flag == 1)
-            mesg.move(s_width*2/3,s_height/3);
+            if(screenFlag == 1)
+                mesg.move(screenWidth*2/3,screenHeight/3);
             else
-            mesg.move(s_width/3,s_height/3);
+                mesg.move(screenWidth/3,screenHeight/3);
             mesg.exec();
         }
         else
         {
-         emit file_hide();
-         emit file_rev1(path_pri,path_last);        
+            emit file_hide_msg();
+            emit file_rev_file_msg(lastPath,nextPath);         //lastPath: path  nextPath: file
         }
     }
 }
 
-void File_opration::language_reload()
+void File_opration::languageReload()
 {
     ui->retranslateUi(this);
 }
 
-void File_opration::file_font()
+void File_opration::fileOprationFont()
 {
     qreal realX = screen->physicalDotsPerInchX();
     qreal realY = screen->physicalDotsPerInchY();
-    qreal realWidth = s_width / realX * 2.54;
-    qreal realHeight = s_height / realY *2.54;
+    qreal realWidth = screenWidth / realX * 2.54;
+    qreal realHeight = screenHeight / realY *2.54;
     QFont font;
-    if(screen_flag)
+    if(screenFlag)
     {
         if(realHeight < 15)
         {
@@ -242,8 +237,8 @@ void File_opration::file_font()
     }
     ui->btn_back->setFont(font);
     ui->btn_cancel->setFont(font);
-    ui->pushButton->setFont(font);
-    ui->label->setFont(font);
-    ui->pathname_2->setFont(font);
+    ui->btn_choose->setFont(font);
+    ui->lbl_path->setFont(font);
+    ui->lbl_pathValue->setFont(font);
     ui->treeWidget->setFont(font);
 }

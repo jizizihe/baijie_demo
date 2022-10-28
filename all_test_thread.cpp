@@ -3,7 +3,6 @@
 all_test_thread::all_test_thread(QObject *parent) : QObject(parent)
 {
     stopFlag = false;
-
     serialTimer = new QTimer(this);
     connect(serialTimer, SIGNAL(timeout()), this, SLOT(serialTimer_func()));
 }
@@ -18,38 +17,32 @@ all_test_thread::~all_test_thread()
 
 void all_test_thread::network_test_thread()
 {
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
-
-    QString retResult = ping_gateway();
-    emit send_test_msg(network_signal,retResult);
+    QString retResult = pingGateway();
+    emit send_test_msg(networkSignal,retResult);
 }
 
 void all_test_thread::key_test_thread()
 {
     QString retResult = tr("---please press the key to test!");
-    emit send_test_msg(key_signal,retResult);
+    emit send_test_msg(keySignal,retResult);
 }
 
 void all_test_thread::usb_test_thread(int num)
 {
-    QString retResult = usb_test(num);
-    emit send_test_msg(usb_signal,retResult);
+    QString retResult = usbTest(num);
+    emit send_test_msg(usbSignal,retResult);
 }
 
 void all_test_thread::rtc_test_thread()
 {
     QString retResult;
-    QString time,time1,time2;
-    time = rtc_test();
-    time1 = time.mid(20,6);
-//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---FUNC---:" << __FUNCTION__ << "time" << time << time1;
+    QString time,timeFirst,timeSecond;
+    time = rtcTest();
+    timeFirst = time.mid(20,6);
+    time = rtcTest();
+    timeSecond = time.mid(20,6);
 
-    time = rtc_test();
-    time2 = time.mid(20,6);
-//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---FUNC---:" << __FUNCTION__ << "time" << time << time2;
-
-    if(time1 == time2)
+    if(timeFirst == timeSecond)
     {
         retResult = "failed";
     }
@@ -57,67 +50,54 @@ void all_test_thread::rtc_test_thread()
     {
         retResult = "OK";
     }
-
-    emit send_test_msg(rtc_signal,retResult);
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
+    emit send_test_msg(rtcSignal,retResult);
 }
 
 void all_test_thread::sdcard_test_thread()
 {
-    QString retResult = get_new_sd();
-    emit send_test_msg(sd_card_signal,retResult);
+    QString retResult = getNewSd();
+    emit send_test_msg(sdCardSignal,retResult);
 }
 
 void all_test_thread::camera_test_thread()
 {
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
-    camera_test();
-    emit send_test_msg(camera_signal,NULL);
+    cameraTest();
+    emit send_test_msg(cameraSignal,NULL);
 }
 
 void all_test_thread::battary_test_thread()
 {
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
-//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "---FUNC---:" << __FUNCTION__;
-    QString retResult = battary_test();
-    emit send_test_msg(battary_signal,retResult);
+    QString retResult = battaryTest();
+    emit send_test_msg(battarySignal,retResult);
 }
 
 void all_test_thread::sim_test_thread()
 {
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
-    QString retResult = sim_test();
-    emit send_test_msg(sim_signal,retResult);
+    QString retResult = simTest();
+    emit send_test_msg(simSignal,retResult);
 }
 
 void all_test_thread::audio_test_thread()
 {
-    QString retResult = audio_test();
-    emit send_test_msg(audio_signal,retResult);
+    QString retResult = audioTest();
+    emit send_test_msg(audioSignal,retResult);
 }
 
 void all_test_thread::wifi_test_thread()
 {
-    QString retResult = wifi_test();
-    emit send_test_msg(wifi_signal,retResult);
+    QString retResult = wifiTest();
+    emit send_test_msg(wifiSignal,retResult);
 }
 
 void all_test_thread::bluetooth_test_thread()
 {
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"time:"<<QTime::currentTime();
-
-    QString retResult = bluetooth_test();
-    emit send_test_msg(bluetooth_signal,retResult);
+    QString retResult = bluetoothTest();
+    emit send_test_msg(bluetoothSignal,retResult);
 }
 
 int set_prop(int fd)
 {
     struct termios newtio;
-
     memset (&newtio, 0, sizeof (newtio));
     /* Set the bitrate */
     cfsetospeed(&newtio, B115200);
@@ -135,7 +115,6 @@ int set_prop(int fd)
     newtio.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
     newtio.c_oflag &= ~OPOST;
     newtio.c_iflag |= IGNPAR;
-    /* Ignore parity errors!!! Windows driver does so why shouldn't I? */
     /* Enable receiber, hang on close, ignore control line */
     newtio.c_cflag |= CREAD | HUPCL | CLOCAL;
 
@@ -151,26 +130,20 @@ int set_prop(int fd)
 
 void all_test_thread::serial_test_thread_client(serial_config serialTest)
 {
-//    qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
     char	*port;
     serialConfigPtr = &serialTest;
     int checkId = serialConfigPtr->checked_id[serialConfigPtr->index];
     checkName = serialConfigPtr->checkedBtnList.at(checkId)->text();
-//    char    *checkStr = (char *)malloc(sizeof(checkName));
+    //    char    *checkStr = (char *)malloc(sizeof(checkName));
     mode = serialConfigPtr->mode;
-//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "mode:" << serialConfigPtr->mode;
-//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "id:" << checkId;
-//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "name:" << checkName;
-
-    QString port_name = QString("/dev/%1").arg(checkName);
-//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "port_name" << port_name;
-    port = port_name.toLatin1().data();
+    QString portName = QString("/dev/%1").arg(checkName);
+    port = portName.toLatin1().data();
     fd = open (port, O_RDWR | O_NOCTTY | O_SYNC | O_NONBLOCK);
     if(fd < 0)
     {
         return;
     }
-    set_prop (fd);
+    set_prop(fd);
     usleep(10);
     serialTimer->start(10);
 }
@@ -181,14 +154,13 @@ void all_test_thread::serialTimer_func()
     int		rc;
     char	buf[32];
     QString recvStr;
-    char * checkStr_p;
+    char * checkNameStr;
     char checkStr[16];
     QByteArray tmp = checkName.toLatin1();
-    checkStr_p = tmp.data();
-    memcpy(checkStr,checkStr_p,16);
+    checkNameStr = tmp.data();
+    memcpy(checkStr,checkNameStr,16);
 
     recvStr = checkStr;
-//    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "recvStr:" << recvStr;
     if(stopFlag == true)
         return;
 
@@ -198,32 +170,26 @@ void all_test_thread::serialTimer_func()
         if(rc>0)
         {
             recvStr = buf;
-        //    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "read" << recvStr ;
-            emit send_test_msg(serial_signal,recvStr);
+            emit send_test_msg(serialSignal,recvStr);
             if(!strcasecmp(checkStr,buf))
             {
                 write(fd,checkStr,sizeof(checkStr));
                 recvStr = checkStr;
-//                    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "checkStr" << recvStr ;
             }
         }
     }
     else if(mode == "client")
     {
-//        qDebug()<< "Line:" << __LINE__<< "FILE:" << __FILE__<<"Thread构造函数ID:"<<QThread::currentThreadId();
         write(fd,checkStr,sizeof(checkName));
         recvStr = checkStr;
-       // qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "write" << recvStr ;
         usleep(100000);
         rc = read(fd, buf,sizeof(buf));
         if(rc>0)
         {
             if(!strcasecmp(checkStr,buf))
             {
-                //qDebug() << "Line:" << __LINE__<< "-------ok:";
                 retResult = QString("---serial test: %1 OK").arg(checkName);
-                emit send_test_msg(serial_signal,retResult);
-//                emit serial_test_msg(retResult);
+                emit send_test_msg(serialSignal,retResult);
                 serialTimer->stop();
                 close(fd);
                 return;
@@ -234,8 +200,7 @@ void all_test_thread::serialTimer_func()
 
 void all_test_thread::serial_test_thread_stop()
 {
-   // qDebug() << "Line:" << __LINE__<< "__FUNCTION__" << __FUNCTION__<<"Thread构造函数ID:"<<QThread::currentThreadId();
-   //    close(fd);
+    //    close(fd);
     stopFlag = true;
     serialTimer->stop();
 }

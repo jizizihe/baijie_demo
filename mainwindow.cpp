@@ -5,34 +5,33 @@
 #include <QDesktopWidget>
 #include <QGraphicsDropShadowEffect>
 
-static int screen_flag = 0;
-static int Width;  //屏幕宽
-static int Height;
-static int voice_flag = 0;
-static int udev_flag = 0;
-static int gpio_flag = 0;
-static int wifi_flag = 0;
-static int eth0_flag = 0;
-static int all_flag = 0;
-static int bluetooth_flag = 0;
-static int serial_flag = 0;
-static int sim_module_flag = 0;
-static int sys_flag = 0;
+static int screenFlag = 0;                    // 0: width > height  1: width < height
+static int screenWidth;
+static int screenHeight;
+static int voiceFirstFlag = 0;                // 0: First time display   1: Not for the first time
+static int udevFirstFlag = 0;
+static int gpioFirstFlag = 0;
+static int wifiFirstFlag = 0;
+static int eth0FirstFlag = 0;
+static int allTestFirstFlag = 0;
+static int bluetoothFirstFlag = 0;
+static int serialFirstFlag = 0;
+static int simFirstFlag = 0;
+static int sysFirstFlag = 0;
 
-QGraphicsView *voice_view;
-QGraphicsView *udev_view;
-QGraphicsView *gpio_view;
-QGraphicsView *wifi_view;
-QGraphicsView *eth0_view;
-QGraphicsView *all_view;
-QGraphicsView *bluetooth_view;
-QGraphicsView *serial_view;
-QGraphicsView *sim_module_view;
-QGraphicsView *system_view;
-QGraphicsView *keyboard_view;
+QGraphicsView *voiceView;
+QGraphicsView *udevView;
+QGraphicsView *gpioView;
+QGraphicsView *wifiView;
+QGraphicsView *eth0View;
+QGraphicsView *allView;
+QGraphicsView *bluetoothView;
+QGraphicsView *serialView;
+QGraphicsView *simModuleView;
+QGraphicsView *systemView;
 
 static QScreen *screen;
-static int show_num;
+static int showFirstFlag;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -40,40 +39,36 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    screen = qApp->primaryScreen();
-    Width = screen->size().width();
-    Height = screen->size().height();
+    screen = qApp->primaryScreen();                      // Width and height of the screen
+    screenWidth = screen->size().width();
+    screenHeight = screen->size().height();
 
-    if(Width < Height)
+    if(screenWidth < screenHeight)
     {
-        screen_flag = 1;
+        screenFlag = 1;
     }
     else
     {
-        QGraphicsDropShadowEffect *shadow_effect = new QGraphicsDropShadowEffect(this);
-        shadow_effect->setOffset(4, 4);
-        shadow_effect->setColor(QColor (136, 138, 133));
-        shadow_effect->setBlurRadius(5);
-        ui->label->setGraphicsEffect(shadow_effect);
+        QGraphicsDropShadowEffect *shadowEffect = new QGraphicsDropShadowEffect(this);
+        shadowEffect->setOffset(4, 4);
+        shadowEffect->setColor(QColor (136, 138, 133));
+        shadowEffect->setBlurRadius(5);
+        ui->lbl_baijieTechnologyFunctionDisplay->setGraphicsEffect(shadowEffect);      //Add shadow to font
     }
-    main_font();
-    connect(&voice_w,SIGNAL(Mysignal()),this,SLOT(voice_back()));
-    connect(&udev_w,SIGNAL(Mysignal()),this,SLOT(udev_back()));
-    connect(&gpio_w,SIGNAL(Mysignal()),this,SLOT(gpio_back()));
-    connect(&touch_w,SIGNAL(Mysignal()),this,SLOT(touch_back()));
-
-    connect(this,SIGNAL(wifi_status_msg()),&wifi_w,SLOT(WifiStatus_show()));
-    connect(&wifi_w,SIGNAL(Mysignal()),this,SLOT(wifi_back()));
-    connect(&eth0_w,SIGNAL(ret_signal()),this,SLOT(eth0_back()));
-    connect(&all_w,SIGNAL(Mysignal()),this,SLOT(all_back()));
-    connect(&bluetooth_w,SIGNAL(Mysignal()),this,SLOT(bluetooth_back()));
-    connect(&serial_w,SIGNAL(Mysignal()),this,SLOT(serial_back()));
-    connect(&system_w,SIGNAL(sigmain()),this,SLOT(sys_back()));
-    connect(&system_w,SIGNAL(main_cn()),this,SLOT(cn_main()));
-    connect(&sim_module_w,SIGNAL(Mysignal()),this,SLOT(sim_module_back()));
-
-//    database_w.create_connection();
-//    database_w.create_table();
+    mainFont();
+    connect(&voiceWg,SIGNAL(voice_back_msg()),this,SLOT(voice_back()));
+    connect(&udevWg,SIGNAL(udev_back_msg()),this,SLOT(udev_back()));
+    connect(&gpioWg,SIGNAL(gpio_back_msg()),this,SLOT(gpio_back()));
+    connect(&touchWg,SIGNAL(touch_back_msg()),this,SLOT(touch_back()));
+    connect(this,SIGNAL(wifi_status_msg()),&wifiWg,SLOT(wifi_status_show()));
+    connect(&wifiWg,SIGNAL(wifi_back_msg()),this,SLOT(wifi_back()));
+    connect(&eth0Wg,SIGNAL(ipset_back_msg()),this,SLOT(eth0_back()));
+    connect(&allWg,SIGNAL(all_test_back_msg()),this,SLOT(all_back()));
+    connect(&bluetoothWg,SIGNAL(bluetooth_back_msg()),this,SLOT(bluetooth_back()));
+    connect(&serialWg,SIGNAL(serial_back_msg()),this,SLOT(serial_back()));
+    connect(&systemWg,SIGNAL(sys_back_msg()),this,SLOT(sys_back()));
+    connect(&systemWg,SIGNAL(main_cn_msg()),this,SLOT(cn_main()));
+    connect(&simModuleWg,SIGNAL(sim_back_msg()),this,SLOT(sim_module_back()));
 
 }
 
@@ -82,106 +77,80 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::config_file()
-{
-//    QString localSettingsPath("/data");
-//    QDir dir(localSettingsPath);
-//    if (!dir.exists()) {
-//        dir.mkpath(localSettingsPath);  // mkdir如果上层路径不存在就会创建失败, 因此用mkpath
-//    }
-
-//    QString localSettingsFile = localSettingsPath + QDir::separator()  + "HelperBoard.ini";
-//    QFile file(localSettingsFile);
-//    if (!file.exists() && !file.open(QIODevice::WriteOnly|QIODevice::Text)) {  // 如果文件的上层路径不存在就会创建失败
-//        qDebug()<<"failed";
-//     }
-//    file.close();
-
-//    setting = new QSettings(localSettingsFile,QSettings::IniFormat);
-//    setting->SystemScope;
-//    setting->setIniCodec("UTF-8");
-}
-
-void MainWindow::on_vf_clicked()
+void MainWindow::on_btn_voice_clicked()
 {
     this->close();
-    voice_show();
+    voiceShow();
 }
 
-void MainWindow::on_udev_clicked()
+void MainWindow::on_btn_udev_clicked()
 {
     this->hide();
-    if(screen_flag == 0)
+    if(screenFlag == 0)
     {
-        udev_w.resize(Width,Height);
-        udev_w.show();
-        udev_w.activateWindow();udev_w.setFocus();
+        udevWg.resize(screenWidth,screenHeight);
+        udevWg.show();
+        udevWg.activateWindow();udevWg.setFocus();
     }
-    else
+    else                                                        //width < height: Rotate 90 degrees
     {
-        if(udev_flag == 0)
+        if(udevFirstFlag == 0)                                  //the interface is displayed for the first time, the interface need to initialize a rotation of 90
         {
             QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&udev_w);
+            QGraphicsProxyWidget *w = scene->addWidget(&udevWg);
             w->setRotation(90);
-            udev_view = new QGraphicsView(scene);
-            udev_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
-            udev_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            udev_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            udevView = new QGraphicsView(scene);
+            udevView->setWindowFlags(Qt::FramelessWindowHint);
+            udevView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            udevView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-            udev_view->resize(Width,Height);
-            udev_w.resize(Height,Width);
-            udev_w.show();
-            udev_view->show();
-            udev_view->activateWindow();udev_view->setFocus();
-            udev_w.activateWindow();udev_w.setFocus();
-            udev_flag++;
+            udevView->resize(screenWidth,screenHeight);
+            udevWg.resize(screenHeight,screenWidth);
+            udevWg.show();
+            udevView->show();
+            udevView->activateWindow();udevView->setFocus();
+            udevWg.activateWindow();udevWg.setFocus();
+            udevFirstFlag++;
         }
         else
         {
-            udev_w.show();
-            udev_view->show();
-            udev_view->activateWindow();udev_view->setFocus();
-            udev_w.activateWindow();udev_w.setFocus();
+            udevWg.show();
+            udevView->show();
+            udevView->activateWindow();udevView->setFocus();
+            udevWg.activateWindow();udevWg.setFocus();
         }
     }
 }
 
-void MainWindow::on_gpio_clicked()
+void MainWindow::on_btn_gpio_clicked()
 {
     this->close();
-    gpio_show();
+    gpioShow();
 }
 
-void MainWindow::on_touchca_clicked()
+void MainWindow::on_btn_touch_clicked()
 {
     this->hide();
-    touch_w.resize(Width,Height);
-    touch_w.show();
-    touch_w.activateWindow();touch_w.setFocus();
+    touchWg.resize(screenWidth,screenHeight);
+    touchWg.show();
+    touchWg.activateWindow();touchWg.setFocus();
 }
 
-void MainWindow::on_wifi_clicked()
-{
-//    if(wifi_showf == 0)
-//    {
-
-//       emit wifi_status_msg();
-//        wifi_showf++;
-//    }
-    this->close();
-    wifi_show();
-}
-void MainWindow::on_ethernet_clicked()
+void MainWindow::on_btn_wifi_clicked()
 {
     this->close();
-    ipset_show();
+    wifiShow();
+}
+void MainWindow::on_btn_ethernet_clicked()
+{
+    this->close();
+    ipsetShow();
 }
 
-void MainWindow::cn_main()
+void MainWindow::cn_main()                          //chinese-english switch
 {
-    static bool languageflag = 0;
-    if(languageflag)
+    static bool languageFlag = 0;
+    if(languageFlag)
     {
         qApp->removeTranslator(translator);
         delete translator;
@@ -192,299 +161,290 @@ void MainWindow::cn_main()
         translator = new QTranslator();
         translator->load(":/chinese");
         qApp->installTranslator(translator);
-        //emit wifidia_translater(1);
     }
-    languageflag = !languageflag;
+    languageFlag = !languageFlag;
     ui->retranslateUi(this);
-    wifi_w.language_reload();
-    eth0_w.language_reload();
-    gpio_w.language_reload();
-    voice_w.language_reload();
-    touch_w.language_reload();
-    udev_w.language_reload();
-    bluetooth_w.language_reload();
-    all_w.language_reload();
-    serial_w.language_reload();
-    sim_module_w.language_reload();
+    wifiWg.languageReload();
+    eth0Wg.languageReload();
+    gpioWg.languageReload();
+    voiceWg.languageReload();
+    udevWg.languageReload();
+    bluetoothWg.languageReload();
+    allWg.languageReload();
+    serialWg.languageReload();
+    simModuleWg.languageReload();
     emit wifi_status_msg();
-    wifi_w.hotspot_sql();
 }
 
-void MainWindow::on_bluetooth_clicked()
+void MainWindow::on_btn_bluetooth_clicked()
 {
     this->close();
-    if(screen_flag == 0)
+    if(screenFlag == 0)
     {
-        bluetooth_w.resize(Width,Height);
-        bluetooth_w.show();
-        bluetooth_w.activateWindow();bluetooth_w.setFocus();
+        bluetoothWg.resize(screenWidth,screenHeight);
+        bluetoothWg.show();
+        bluetoothWg.activateWindow();bluetoothWg.setFocus();
     }
     else
     {
-        if(bluetooth_flag == 0)
+        if(bluetoothFirstFlag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&bluetooth_w);
+            QGraphicsProxyWidget *w = scene->addWidget(&bluetoothWg);
             w->setRotation(90);
-
-            bluetooth_view = new QGraphicsView(scene);
-
-            bluetooth_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
-            bluetooth_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            bluetooth_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-            bluetooth_view->resize(Width,Height);
-            bluetooth_w.resize(Height,Width);
-            bluetooth_w.show();
-            bluetooth_view->show();
-            bluetooth_view->activateWindow();bluetooth_view->setFocus();
-            bluetooth_w.activateWindow();bluetooth_w.setFocus();
-            bluetooth_flag++;
+            bluetoothView = new QGraphicsView(scene);
+            bluetoothView->setWindowFlags(Qt::FramelessWindowHint);
+            bluetoothView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            bluetoothView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            bluetoothView->resize(screenWidth,screenHeight);
+            bluetoothWg.resize(screenHeight,screenWidth);
+            bluetoothWg.show();
+            bluetoothView->show();
+            bluetoothView->activateWindow();bluetoothView->setFocus();
+            bluetoothWg.activateWindow();bluetoothWg.setFocus();
+            bluetoothFirstFlag++;
         }
         else
         {
-            bluetooth_w.show();
-            bluetooth_view->show();
-            bluetooth_view->activateWindow();bluetooth_view->setFocus();
-            bluetooth_w.activateWindow();bluetooth_w.setFocus();
+            bluetoothWg.show();
+            bluetoothView->show();
+            bluetoothView->activateWindow();bluetoothView->setFocus();
+            bluetoothWg.activateWindow();bluetoothWg.setFocus();
         }
     }
 }
 
-void MainWindow::on_alltest_clicked()
+void MainWindow::on_btn_allTest_clicked()
 {
     this->hide();
-    if(screen_flag == 0)
+    if(screenFlag == 0)
     {
-        all_w.resize(Width,Height);
-        all_w.show();
-        all_w.activateWindow();all_w.setFocus();
+        allWg.resize(screenWidth,screenHeight);
+        allWg.show();
+        allWg.activateWindow();allWg.setFocus();
     }
     else
     {
-        if(all_flag == 0)
+        if(allTestFirstFlag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&all_w);
+            QGraphicsProxyWidget *w = scene->addWidget(&allWg);
             w->setRotation(90);
-
-            all_view = new QGraphicsView(scene);
-            all_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
-            all_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            all_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-            all_view->resize(Width,Height);
-            all_w.resize(Height,Width);
-            all_w.show();
-            all_view->show();
-            all_view->activateWindow();all_view->setFocus();
-            all_w.activateWindow();all_w.setFocus();
-            all_flag++;
+            allView = new QGraphicsView(scene);
+            allView->setWindowFlags(Qt::FramelessWindowHint);
+            allView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            allView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            allView->resize(screenWidth,screenHeight);
+            allWg.resize(screenHeight,screenWidth);
+            allWg.show();
+            allView->show();
+            allView->activateWindow();allView->setFocus();
+            allWg.activateWindow();allWg.setFocus();
+            allTestFirstFlag++;
         }
         else
         {
-            all_w.show();
-            all_view->show();
-            all_view->activateWindow();all_view->setFocus();
-            all_w.activateWindow();all_w.setFocus();
+            allWg.show();
+            allView->show();
+            allView->activateWindow();allView->setFocus();
+            allWg.activateWindow();allWg.setFocus();
         }
     }
 }
 
 
-void MainWindow::on_serialport_clicked()
+void MainWindow::on_btn_serialPort_clicked()
 {
     this->close();
-    serial_show();
+    serialShow();
 }
 
-void MainWindow::on_system_clicked()
+void MainWindow::on_btn_system_clicked()
 {
     this->close();
-    system_show();
+    systemShow();
 }
 
-void MainWindow::on_sim_module_clicked()
+void MainWindow::on_btn_simModule_clicked()
 {
     this->close();
-    if(screen_flag == 0)
+    if(screenFlag == 0)
     {
-        sim_module_w.resize(Width,Height);
-        sim_module_w.show();
-        sim_module_w.activateWindow();sim_module_w.setFocus();
+        simModuleWg.resize(screenWidth,screenHeight);
+        simModuleWg.show();
+        simModuleWg.activateWindow();simModuleWg.setFocus();
     }
     else
     {
-        if(sim_module_flag == 0)
+        if(simFirstFlag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&sim_module_w);
+            QGraphicsProxyWidget *w = scene->addWidget(&simModuleWg);
             w->setRotation(90);
 
-            sim_module_view = new QGraphicsView(scene);
-
-            sim_module_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
-            sim_module_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            sim_module_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            sim_module_view->resize(Width,Height);
-            sim_module_w.resize(Height,Width);
-            sim_module_w.show();
-            sim_module_view->show();
-            sim_module_view->activateWindow();sim_module_view->setFocus();
-            sim_module_w.activateWindow();sim_module_w.setFocus();
-            sim_module_flag++;
+            simModuleView = new QGraphicsView(scene);
+            simModuleView->setWindowFlags(Qt::FramelessWindowHint);
+            simModuleView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            simModuleView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            simModuleView->resize(screenWidth,screenHeight);
+            simModuleWg.resize(screenHeight,screenWidth);
+            simModuleWg.show();
+            simModuleView->show();
+            simModuleView->activateWindow();simModuleView->setFocus();
+            simModuleWg.activateWindow();simModuleWg.setFocus();
+            simFirstFlag++;
         }
         else
         {
-            sim_module_w.show();
-            sim_module_view->show();
-            sim_module_view->activateWindow();sim_module_view->setFocus();
-            sim_module_w.activateWindow();sim_module_w.setFocus();
+            simModuleWg.show();
+            simModuleView->show();
+            simModuleView->activateWindow();simModuleView->setFocus();
+            simModuleWg.activateWindow();simModuleWg.setFocus();
         }
     }
 }
 
 void MainWindow::voice_back()
 {
-    if(screen_flag == 1)
+    if(screenFlag == 1)
     {
-       voice_view->hide();
+        voiceView->hide();
     }
-    voice_w.close();
+    voiceWg.close();
     this->show();
 }
 
 void MainWindow::udev_back()
 {
-    if(screen_flag == 1)
+    if(screenFlag == 1)
     {
-       udev_view->hide();
+        udevView->hide();
     }
-    udev_w.hide();
+    udevWg.hide();
     this->show();
     this->activateWindow();this->setFocus();
 }
 
 void MainWindow::gpio_back()
 {
-    if(screen_flag == 1)
+    if(screenFlag == 1)
     {
-        gpio_view->hide();
+        gpioView->hide();
     }
-    gpio_w.hide();
+    gpioWg.hide();
     this->show();
     this->activateWindow();this->setFocus();
 }
 
 void MainWindow::touch_back()
 {
-   touch_w.hide();
-   this->show();
-   this->activateWindow();this->setFocus();
+    touchWg.hide();
+    this->show();
+    this->activateWindow();this->setFocus();
 }
 
 void MainWindow::wifi_back()
 {
-    if(screen_flag == 1)
+    if(screenFlag == 1)
     {
-       wifi_view->hide();
+        wifiView->hide();
     }
-    wifi_w.close();
+    wifiWg.close();
     this->show();
     this->activateWindow();this->setFocus();
 }
 
 void MainWindow::eth0_back()
 {
-    if(screen_flag == 1)
+    if(screenFlag == 1)
     {
-       eth0_view->hide();
+        eth0View->hide();
     }
-    eth0_w.hide();    
+    eth0Wg.hide();
     this->show();
     this->activateWindow();this->setFocus();
 }
 
 void MainWindow::all_back()
 {
-    if(screen_flag == 1)
+    if(screenFlag == 1)
     {
-        all_view->hide();
+        allView->hide();
     }
-    all_w.hide();   
+    allWg.hide();
     this->show();
     this->activateWindow();this->setFocus();
 }
 
 void MainWindow::bluetooth_back()
 {
-    if(screen_flag == 1)
+    if(screenFlag == 1)
     {
-       bluetooth_view->hide();
+        bluetoothView->hide();
     }
-    bluetooth_w.hide();
+    bluetoothWg.hide();
     this->show();
     this->activateWindow();this->setFocus();
 }
 
 void MainWindow::serial_back()
 {
-    if(screen_flag == 1)
+    if(screenFlag == 1)
     {
-      serial_view->hide();
+        serialView->hide();
     }
-    serial_w.hide();
+    serialWg.hide();
     this->show();
     this->activateWindow();this->setFocus();
 }
 
 void MainWindow::sim_module_back()
 {
-    if(screen_flag == 1)
+    if(screenFlag == 1)
     {
-      sim_module_view->hide();
+        simModuleView->hide();
     }
-    sim_module_w.hide();    
+    simModuleWg.hide();
     this->show();
     this->activateWindow();this->setFocus();
 }
 
 void MainWindow::sys_back()
 {
-    if(screen_flag == 1)
+    if(screenFlag == 1)
     {
-      system_view->hide();
+        systemView->hide();
     }
-    system_w.close();
+    systemWg.close();
     this->show();
     this->activateWindow();this->setFocus();
 }
 
-void MainWindow::main_font()
+void MainWindow::mainFont()
 {
     qreal realX = screen->physicalDotsPerInchX();
     qreal realY = screen->physicalDotsPerInchY();
-    qreal realWidth = Width / realX * 2.54;
-    qreal realHeight = Height / realY *2.54;
+    qreal realWidth = screenWidth / realX * 2.54;
+    qreal realHeight = screenHeight / realY *2.54;
     QFont font;
-    if(screen_flag)
+    if(screenFlag)
     {
         if(realHeight < 15)
         {
             font.setPointSize(13);
-            ui->label->setFont(font);
+            ui->lbl_baijieTechnologyFunctionDisplay->setFont(font);
             font.setPointSize(12);
         }
         else if (realHeight < 17)
         {
             font.setPointSize(16);
-            ui->label->setFont(font);
+            ui->lbl_baijieTechnologyFunctionDisplay->setFont(font);
             font.setPointSize(15);
         }
         else
         {
             font.setPointSize(19);
-            ui->label->setFont(font);
+            ui->lbl_baijieTechnologyFunctionDisplay->setFont(font);
             font.setPointSize(18);
         }
     }
@@ -493,292 +453,291 @@ void MainWindow::main_font()
         if(realWidth < 15)
         {
             font.setPointSize(13);
-            ui->label->setFont(font);
+            ui->lbl_baijieTechnologyFunctionDisplay->setFont(font);
             font.setPointSize(12);
         }
         else if (realWidth < 17)
         {
             font.setPointSize(16);
-            ui->label->setFont(font);
+            ui->lbl_baijieTechnologyFunctionDisplay->setFont(font);
             font.setPointSize(15);
         }
         else
         {
             font.setPointSize(19);
-            ui->label->setFont(font);
+            ui->lbl_baijieTechnologyFunctionDisplay->setFont(font);
             font.setPointSize(18);
         }
     }
 
-    ui->label_1->setFont(font);
-    ui->label_2->setFont(font);
-    ui->label_3->setFont(font);
-    ui->label_4->setFont(font);
-    ui->label_5->setFont(font);
-    ui->label_6->setFont(font);
-    ui->label_7->setFont(font);
-    ui->label_8->setFont(font);
-    ui->label_9->setFont(font);
-    ui->label_10->setFont(font);
-    ui->label_11->setFont(font);
-  //  ui->label->setFont(font);
+    ui->lbl_wifi->setFont(font);
+    ui->lbl_bluetooth->setFont(font);
+    ui->lbl_ethernet->setFont(font);
+    ui->lbl_sim->setFont(font);
+    ui->lbl_voice->setFont(font);
+    ui->lbl_serial->setFont(font);
+    ui->lbl_touch->setFont(font);
+    ui->lbl_gpio->setFont(font);
+    ui->lbl_allTest->setFont(font);
+    ui->lbl_system->setFont(font);
+    ui->lbl_udev->setFont(font);
 }
 
-void MainWindow::voice_show()
+void MainWindow::voiceShow()
 {
-    if(screen_flag == 0)
+    if(screenFlag == 0)
     {
-        voice_w.resize(Width,Height);
-        voice_w.show();
-        voice_w.activateWindow();voice_w.setFocus();
+        voiceWg.resize(screenWidth,screenHeight);
+        voiceWg.show();
+        voiceWg.activateWindow();voiceWg.setFocus();
     }
     else
     {
-        if(voice_flag == 0)
+        if(voiceFirstFlag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&voice_w);
+            QGraphicsProxyWidget *w = scene->addWidget(&voiceWg);
             w->setRotation(90);
 
-            voice_view = new QGraphicsView(scene);
+            voiceView = new QGraphicsView(scene);
 
-            voice_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
-            voice_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            voice_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            voiceView->setWindowFlags(Qt::FramelessWindowHint);
+            voiceView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            voiceView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-            voice_view->resize(Width,Height);
-            voice_w.resize(Height,Width);
-            voice_w.show();
-            voice_view->show();
-            voice_view->activateWindow();voice_view->setFocus();
-            voice_w.activateWindow();voice_w.setFocus();
-            voice_flag++;
+            voiceView->resize(screenWidth,screenHeight);
+            voiceWg.resize(screenHeight,screenWidth);
+            voiceWg.show();
+            voiceView->show();
+            voiceView->activateWindow();voiceView->setFocus();
+            voiceWg.activateWindow();voiceWg.setFocus();
+            voiceFirstFlag++;
         }
         else
         {
-            voice_w.show();
-            voice_view->show();
-            voice_view->activateWindow();voice_view->setFocus();
-            voice_w.activateWindow();voice_w.setFocus();
-        }
-    }
-}
-
-void MainWindow::serial_show()
-{
-    if(screen_flag == 0)
-    {
-        serial_w.resize(Width,Height);
-        serial_w.show();
-        serial_w.activateWindow();serial_w.setFocus();
-    }
-    else
-    {
-        if(serial_flag == 0)
-        {
-            QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&serial_w);
-            w->setRotation(90);
-
-            serial_view = new QGraphicsView(scene);
-
-            serial_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
-            serial_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            serial_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-            serial_view->resize(Width,Height);
-            serial_w.resize(Height,Width);
-            serial_w.show();
-            serial_view->show();
-            serial_view->activateWindow();serial_view->setFocus();
-            serial_w.activateWindow();serial_w.setFocus();
-            serial_flag++;
-        }
-        else
-        {
-            serial_w.resize(Height,Width);
-            serial_w.show();
-            serial_view->resize(Width,Height);
-            serial_view->show();
-            serial_view->activateWindow();serial_view->setFocus();
-            serial_w.activateWindow();serial_w.setFocus();
+            voiceWg.show();
+            voiceView->show();
+            voiceView->activateWindow();voiceView->setFocus();
+            voiceWg.activateWindow();voiceWg.setFocus();
         }
     }
 }
 
-void MainWindow::ipset_show()
+void MainWindow::serialShow()
 {
-    if(screen_flag == 0)
+    if(screenFlag == 0)
     {
-        eth0_w.resize(Width,Height);
-        eth0_w.show();
-        eth0_w.activateWindow();eth0_w.setFocus();
+        serialWg.resize(screenWidth,screenHeight);
+        serialWg.show();
+        serialWg.activateWindow();serialWg.setFocus();
     }
     else
     {
-        if(eth0_flag == 0)
+        if(serialFirstFlag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&eth0_w);
+            QGraphicsProxyWidget *w = scene->addWidget(&serialWg);
             w->setRotation(90);
 
-            eth0_view = new QGraphicsView(scene);
+            serialView = new QGraphicsView(scene);
 
-            eth0_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
-            eth0_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            eth0_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            serialView->setWindowFlags(Qt::FramelessWindowHint);
+            serialView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            serialView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-            eth0_view->resize(Width,Height);
-            eth0_w.resize(Height,Width);
-            eth0_w.show();
-            eth0_view->show();
-            eth0_view->activateWindow();eth0_view->setFocus();
-            eth0_w.activateWindow();eth0_w.setFocus();
-            eth0_flag++;
+            serialView->resize(screenWidth,screenHeight);
+            serialWg.resize(screenHeight,screenWidth);
+            serialWg.show();
+            serialView->show();
+            serialView->activateWindow();serialView->setFocus();
+            serialWg.activateWindow();serialWg.setFocus();
+            serialFirstFlag++;
         }
         else
         {
-            eth0_w.resize(Height,Width);
-            eth0_w.show();
-            eth0_view->resize(Width,Height);
-            eth0_view->show();
-            eth0_view->activateWindow();eth0_view->setFocus();
-            eth0_w.activateWindow();eth0_w.setFocus();
+            serialWg.resize(screenHeight,screenWidth);
+            serialWg.show();
+            serialView->resize(screenWidth,screenHeight);
+            serialView->show();
+            serialView->activateWindow();serialView->setFocus();
+            serialWg.activateWindow();serialWg.setFocus();
         }
     }
 }
 
-void MainWindow::gpio_show()
+void MainWindow::ipsetShow()
 {
-    if(screen_flag == 0)
+    if(screenFlag == 0)
     {
-        gpio_w.resize(Width,Height);
-        gpio_w.show();
-        gpio_w.activateWindow();gpio_w.setFocus();
+        eth0Wg.resize(screenWidth,screenHeight);
+        eth0Wg.show();
+        eth0Wg.activateWindow();eth0Wg.setFocus();
     }
     else
     {
-        if(gpio_flag == 0)
+        if(eth0FirstFlag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&gpio_w);
+            QGraphicsProxyWidget *w = scene->addWidget(&eth0Wg);
             w->setRotation(90);
 
-            gpio_view = new QGraphicsView(scene);
+            eth0View = new QGraphicsView(scene);
 
-            gpio_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
-            gpio_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            gpio_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            eth0View->setWindowFlags(Qt::FramelessWindowHint);
+            eth0View->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            eth0View->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-            gpio_view->resize(Width,Height);
-            gpio_w.resize(Height,Width);
-            gpio_w.show();
-            gpio_view->lower();
-            gpio_view->show();
-            gpio_view->activateWindow();gpio_view->setFocus();
-            gpio_w.activateWindow(); gpio_w.setFocus();
-            gpio_flag++;
+            eth0View->resize(screenWidth,screenHeight);
+            eth0Wg.resize(screenHeight,screenWidth);
+            eth0Wg.show();
+            eth0View->show();
+            eth0View->activateWindow();eth0View->setFocus();
+            eth0Wg.activateWindow();eth0Wg.setFocus();
+            eth0FirstFlag++;
         }
         else
         {
-            gpio_w.show();
-            gpio_view->show();
-            gpio_view->activateWindow();gpio_view->setFocus();
-            gpio_w.activateWindow(); gpio_w.setFocus();
+            eth0Wg.resize(screenHeight,screenWidth);
+            eth0Wg.show();
+            eth0View->resize(screenWidth,screenHeight);
+            eth0View->show();
+            eth0View->activateWindow();eth0View->setFocus();
+            eth0Wg.activateWindow();eth0Wg.setFocus();
         }
     }
 }
 
-void MainWindow::system_show()
+void MainWindow::gpioShow()
 {
-    if(screen_flag == 0)
+    if(screenFlag == 0)
     {
-        system_w.resize(Width,Height);
-        system_w.show();
-        system_w.activateWindow();system_w.setFocus();
+        gpioWg.resize(screenWidth,screenHeight);
+        gpioWg.show();
+        gpioWg.activateWindow();gpioWg.setFocus();
     }
     else
     {
-        if(sys_flag == 0)
+        if(gpioFirstFlag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&system_w);
+            QGraphicsProxyWidget *w = scene->addWidget(&gpioWg);
             w->setRotation(90);
 
-            system_view = new QGraphicsView(scene);
-            system_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
-            system_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            system_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            gpioView = new QGraphicsView(scene);
 
-            system_view->resize(Width,Height);
-            system_w.resize(Height,Width);
-            system_w.show();
-            system_view->show();
-            system_view->activateWindow();system_view->setFocus();
-            system_w.activateWindow();system_w.setFocus();
-            sys_flag++;
+            gpioView->setWindowFlags(Qt::FramelessWindowHint);
+            gpioView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            gpioView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+            gpioView->resize(screenWidth,screenHeight);
+            gpioWg.resize(screenHeight,screenWidth);
+            gpioWg.show();
+            gpioView->lower();
+            gpioView->show();
+            gpioView->activateWindow();gpioView->setFocus();
+            gpioWg.activateWindow(); gpioWg.setFocus();
+            gpioFirstFlag++;
         }
         else
         {
-            system_w.show();
-            system_view->show();
-            system_view->activateWindow();system_view->setFocus();
-            system_w.activateWindow();system_w.setFocus();
+            gpioWg.show();
+            gpioView->show();
+            gpioView->activateWindow();gpioView->setFocus();
+            gpioWg.activateWindow(); gpioWg.setFocus();
         }
     }
 }
 
-void MainWindow::wifi_show()
+void MainWindow::systemShow()
 {
-    if(screen_flag == 0)
+    if(screenFlag == 0)
     {
-        wifi_w.resize(Width,Height);
-        wifi_w.show();
-        wifi_w.activateWindow();wifi_w.setFocus();
+        systemWg.resize(screenWidth,screenHeight);
+        systemWg.show();
+        systemWg.activateWindow();systemWg.setFocus();
     }
     else
     {
-        if(wifi_flag == 0)
+        if(sysFirstFlag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&wifi_w);
+            QGraphicsProxyWidget *w = scene->addWidget(&systemWg);
             w->setRotation(90);
 
-            wifi_view = new QGraphicsView(scene);
+            systemView = new QGraphicsView(scene);
+            systemView->setWindowFlags(Qt::FramelessWindowHint);
+            systemView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            systemView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-            wifi_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
-            wifi_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            wifi_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-            wifi_view->resize(Width,Height);
-            wifi_w.resize(Height,Width);
-            wifi_w.show();
-            wifi_view->show();
-            wifi_view->activateWindow();wifi_view->setFocus();
-            wifi_w.activateWindow(); wifi_w.setFocus();
-            wifi_flag++;
+            systemView->resize(screenWidth,screenHeight);
+            systemWg.resize(screenHeight,screenWidth);
+            systemWg.show();
+            systemView->show();
+            systemView->activateWindow();systemView->setFocus();
+            systemWg.activateWindow();systemWg.setFocus();
+            sysFirstFlag++;
         }
         else
         {
-            wifi_w.show();
-            wifi_view->show();
-            wifi_view->activateWindow();wifi_view->setFocus();
-            wifi_w.activateWindow(); wifi_w.setFocus();
+            systemWg.show();
+            systemView->show();
+            systemView->activateWindow();systemView->setFocus();
+            systemWg.activateWindow();systemWg.setFocus();
+        }
+    }
+}
+
+void MainWindow::wifiShow()
+{
+    if(screenFlag == 0)
+    {
+        wifiWg.resize(screenWidth,screenHeight);
+        wifiWg.show();
+        wifiWg.activateWindow();wifiWg.setFocus();
+    }
+    else
+    {
+        if(wifiFirstFlag == 0)
+        {
+            QGraphicsScene *scene = new QGraphicsScene;
+            QGraphicsProxyWidget *w = scene->addWidget(&wifiWg);
+            w->setRotation(90);
+
+            wifiView = new QGraphicsView(scene);
+
+            wifiView->setWindowFlags(Qt::FramelessWindowHint);
+            wifiView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            wifiView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+            wifiView->resize(screenWidth,screenHeight);
+            wifiWg.resize(screenHeight,screenWidth);
+            wifiWg.show();
+            wifiView->show();
+            wifiView->activateWindow();wifiView->setFocus();
+            wifiWg.activateWindow(); wifiWg.setFocus();
+            wifiFirstFlag++;
+        }
+        else
+        {
+            wifiWg.show();
+            wifiView->show();
+            wifiView->activateWindow();wifiView->setFocus();
+            wifiWg.activateWindow(); wifiWg.setFocus();
         }
     }
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    if(show_num == 0)
+    if(showFirstFlag == 0)
     {
-        wifi_show();wifi_back();
-        serial_show();serial_back();
-        ipset_show();eth0_back();
-        gpio_show();gpio_back();
-        voice_show();voice_back();
-        system_show();sys_back();
-        show_num++;
+        wifiShow();wifi_back();
+        serialShow();serial_back();
+        ipsetShow();eth0_back();
+        gpioShow();gpio_back();
+        voiceShow();voice_back();
+        systemShow();sys_back();
+        showFirstFlag++;
     }
     QWidget::closeEvent(event);
 }

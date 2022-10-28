@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>455</width>
-    <height>394</height>
+    <width>636</width>
+    <height>399</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -33,40 +33,37 @@
   <property name="styleSheet">
    <string notr="true">#MainWindow
 {
-border-image: url(:/button_image/all/3.webp);
+   border-image: url(:/button_image/all/3.webp);
 	border-image: url(:/button_image/all/background.jpg);
 }
-/****************按钮部件*******************/
+
+/****************QPushButton*******************/
 QPushButton{
-   
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: transparent;/*边框颜色*/
-     font: bold 24px;/*字体*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-	outline: none; /*去掉按钮的虚线框*/
+     border-style: outset;
+     border-width:  2px;  
+     border-radius: 10px;
+     border-color: transparent;
+     font: bold 24px;
+     color:rgba(0, 0, 0, 100);
+     padding: 6px;
+  	 outline: none;
 }
 
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
+QPushButton:hover{ 
         color:rgba(0, 0, 0, 200);
 }
 
-QPushButton:pressed { /*按钮被按下时*/
+QPushButton:pressed {
      border-style: inset;
      color:rgba(0, 0, 0, 100);
 }
 
-/****************滑块部件*******************/
-
-
-QSlider::handle:horizontal { /*水平滑块的手柄*/
+QSlider::handle:horizontal { 
         image: url(:/image/sliderHandle.png);
  }
 
-QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
-        border-image: url(:/image/slider.png);/*边框图片*/
+QSlider::sub-page:horizontal {
+        border-image: url(:/image/slider.png)
  }
 </string>
   </property>
@@ -93,7 +90,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
        <number>0</number>
       </property>
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="lbl_baijieTechnologyFunctionDisplay">
         <property name="font">
          <font>
           <family>Ubuntu</family>
@@ -140,7 +137,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
        </spacer>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="10,2,4,2,4,2,4,2,10">
+       <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="9,2,4,2,4,2,4,2,9">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -191,7 +188,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             <number>1</number>
            </property>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_1">
+            <widget class="QLabel" name="lbl_wifi">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -248,7 +245,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="wifi">
+              <widget class="QPushButton" name="btn_wifi">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -268,8 +265,8 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">
-border-image: url(:/button_image/wifi3.svg);  padding: 6px;</string>
+                <string notr="true"> border-image: url(:/button_image/wifi.svg); 
+ padding: 6px;</string>
                </property>
                <property name="text">
                 <string/>
@@ -380,7 +377,7 @@ border-image: url(:/button_image/wifi3.svg);  padding: 6px;</string>
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="bluetooth">
+              <widget class="QPushButton" name="btn_bluetooth">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -401,7 +398,7 @@ border-image: url(:/button_image/wifi3.svg);  padding: 6px;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true"> background-color:transparent;
-border-image: url(:/button_image/bluetootht.svg);</string>
+ border-image: url(:/button_image/bluetootht.svg);</string>
                </property>
                <property name="text">
                 <string/>
@@ -430,7 +427,7 @@ border-image: url(:/button_image/bluetootht.svg);</string>
             </layout>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="lbl_bluetooth">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -542,7 +539,7 @@ border-image: url(:/button_image/bluetootht.svg);</string>
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="ethernet">
+              <widget class="QPushButton" name="btn_ethernet">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -562,9 +559,8 @@ border-image: url(:/button_image/bluetootht.svg);</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(138, 226, 52);
-background-color: rgb(68, 202, 189,200);  background-color:transparent;
-border-image: url(:/button_image/nett.svg);</string>
+                <string notr="true">background-color:transparent;
+border-image: url(:/button_image/ethernet.svg);</string>
                </property>
                <property name="text">
                 <string/>
@@ -593,7 +589,7 @@ border-image: url(:/button_image/nett.svg);</string>
             </layout>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_3">
+            <widget class="QLabel" name="lbl_ethernet">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -705,7 +701,7 @@ border-image: url(:/button_image/nett.svg);</string>
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="sim_module">
+              <widget class="QPushButton" name="btn_simModule">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -734,7 +730,7 @@ border-image: url(:/button_image/nett.svg);</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color:transparent;
-border-image: url(:/button_image/4g1.svg);</string>
+border-image: url(:/button_image/4g.svg);</string>
                </property>
                <property name="text">
                 <string/>
@@ -763,7 +759,7 @@ border-image: url(:/button_image/4g1.svg);</string>
             </layout>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_9">
+            <widget class="QLabel" name="lbl_sim">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -821,7 +817,7 @@ border-image: url(:/button_image/4g1.svg);</string>
        </spacer>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="10,2,4,2,4,2,4,2,10">
+       <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="9,2,4,2,4,2,4,2,9">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -878,7 +874,7 @@ border-image: url(:/button_image/4g1.svg);</string>
             <number>1</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,2,1">
+            <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="2,5,2">
              <property name="spacing">
               <number>0</number>
              </property>
@@ -908,7 +904,7 @@ border-image: url(:/button_image/4g1.svg);</string>
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="vf">
+              <widget class="QPushButton" name="btn_voice">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -928,8 +924,8 @@ border-image: url(:/button_image/4g1.svg);</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(203, 150, 183);  background-color:transparent;
-border-image: url(:/button_image/voice_4.svg);</string>
+                <string notr="true">background-color:transparent;
+border-image: url(:/button_image/voice.svg);</string>
                </property>
                <property name="text">
                 <string/>
@@ -958,7 +954,7 @@ border-image: url(:/button_image/voice_4.svg);</string>
             </layout>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_4">
+            <widget class="QLabel" name="lbl_voice">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1070,7 +1066,7 @@ border-image: url(:/button_image/voice_4.svg);</string>
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="serialport">
+              <widget class="QPushButton" name="btn_serialPort">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -1090,8 +1086,8 @@ border-image: url(:/button_image/voice_4.svg);</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(77, 166, 209,200);background-color:transparent;
-border-image: url(:/button_image/serial_2.svg);</string>
+                <string notr="true">background-color:transparent;
+border-image: url(:/button_image/serial.svg);</string>
                </property>
                <property name="text">
                 <string/>
@@ -1120,7 +1116,7 @@ border-image: url(:/button_image/serial_2.svg);</string>
             </layout>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_6">
+            <widget class="QLabel" name="lbl_serial">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1238,7 +1234,7 @@ border-image: url(:/button_image/serial_2.svg);</string>
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="udev">
+              <widget class="QPushButton" name="btn_udev">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -1258,7 +1254,7 @@ border-image: url(:/button_image/serial_2.svg);</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(247, 199, 112);  background-color:transparent;
+                <string notr="true">background-color:transparent;
 border-image: url(:/button_image/udevt.svg);</string>
                </property>
                <property name="text">
@@ -1288,7 +1284,7 @@ border-image: url(:/button_image/udevt.svg);</string>
             </layout>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_7">
+            <widget class="QLabel" name="lbl_udev">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1406,7 +1402,7 @@ border-image: url(:/button_image/udevt.svg);</string>
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="touchca">
+              <widget class="QPushButton" name="btn_touch">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -1426,8 +1422,8 @@ border-image: url(:/button_image/udevt.svg);</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(69, 169, 174,180);background-color:transparent;
-border-image: url(:/button_image/touch_2.svg);</string>
+                <string notr="true">background-color:transparent;
+border-image: url(:/button_image/touch.svg);</string>
                </property>
                <property name="text">
                 <string/>
@@ -1456,7 +1452,7 @@ border-image: url(:/button_image/touch_2.svg);</string>
             </layout>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_8">
+            <widget class="QLabel" name="lbl_touch">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1520,7 +1516,7 @@ border-image: url(:/button_image/touch_2.svg);</string>
        </spacer>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="10,2,4,2,4,2,4,2,10">
+       <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="9,2,4,2,4,2,4,2,9">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -1610,7 +1606,7 @@ border-image: url(:/button_image/touch_2.svg);</string>
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="gpio">
+              <widget class="QPushButton" name="btn_gpio">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -1630,7 +1626,7 @@ border-image: url(:/button_image/touch_2.svg);</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(84, 210, 156);background-color:transparent;
+                <string notr="true">background-color:transparent;
 border-image: url(:/button_image/gpiot.svg);</string>
                </property>
                <property name="text">
@@ -1660,7 +1656,7 @@ border-image: url(:/button_image/gpiot.svg);</string>
             </layout>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="label_5">
+            <widget class="QLabel" name="lbl_gpio">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1778,7 +1774,7 @@ border-image: url(:/button_image/gpiot.svg);</string>
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="alltest">
+              <widget class="QPushButton" name="btn_allTest">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -1798,8 +1794,8 @@ border-image: url(:/button_image/gpiot.svg);</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(164, 182, 182);background-color:transparent;
-border-image: url(:/button_image/serial_3.svg);</string>
+                <string notr="true">background-color:transparent;
+border-image: url(:/button_image/test_port.svg);</string>
                </property>
                <property name="text">
                 <string/>
@@ -1828,7 +1824,7 @@ border-image: url(:/button_image/serial_3.svg);</string>
             </layout>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_10">
+            <widget class="QLabel" name="lbl_allTest">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1940,7 +1936,7 @@ border-image: url(:/button_image/serial_3.svg);</string>
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="system">
+              <widget class="QPushButton" name="btn_system">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -1960,8 +1956,9 @@ border-image: url(:/button_image/serial_3.svg);</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(186, 189, 182);  background-color:transparent;
-border-image: url(:/button_image/sett (1).svg);</string>
+                <string notr="true">background-color:transparent;
+border-image: url(:/button_image/system.svg);
+</string>
                </property>
                <property name="text">
                 <string/>
@@ -1990,7 +1987,7 @@ border-image: url(:/button_image/sett (1).svg);</string>
             </layout>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_11">
+            <widget class="QLabel" name="lbl_system">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -2096,7 +2093,7 @@ border-image: url(:/button_image/sett (1).svg);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>455</width>
+     <width>636</width>
      <height>22</height>
     </rect>
    </property>

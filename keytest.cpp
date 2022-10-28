@@ -6,11 +6,9 @@ keytest::keytest(QWidget *parent) :
     ui(new Ui::keytest)
 {
     ui->setupUi(this);
-//    this->resize(800,600);
 
     retBt = new QPushButton(this);
     retBt->setFixedSize(100,40);
-//    retBt->setText(tr("return"));
     retBt->setIcon(QIcon(":/button_image/return.png"));
     retBt->move(10,10);
 
@@ -53,13 +51,12 @@ void keytest::retBt_clicked()
     keyText->clear();
     this->task->terminate();
     this->task->wait();
-
     emit Mysignal();
 }
 
 bool keytest::event(QEvent *event)
 {
-    if(event->type() == QEvent::KeyPress)  //键盘按下处理,其他事件让事件处理器自己处理,不能返回false
+    if(event->type() == QEvent::KeyPress)
     {
         //qDebug()<<"key pressed!";
         this->keyText->append(tr("key pressed!"));
@@ -87,15 +84,12 @@ void keytest::stopBt_clicked()
 
 void keytest::recvmsg(QString str)
 {
-    //qDebug() << str;
     this->keyText->append(tr("key pressed!"));
 }
 
 void keytest::language_reload()
 {
-//    retBt->setText(tr("return"));
     KeyLabel->setText(tr("key Test"));
     StartBt->setText(tr("start"));
     StopBt->setText(tr("stop"));
-
 }

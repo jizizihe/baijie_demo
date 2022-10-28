@@ -2,13 +2,14 @@
 #include "ui_ipset.h"
 #include <QScreen>
 
-static int s_width;
-static int s_height;
-static int screen_flag;
+static int screenWidth;
+static int screenHeight;
+static int screenFlag;
+static int openFlag = 1;
+static int btnUpFlag;
 static QScreen *screen;
-static int open_flag = 1;
-static QString static_ip;
-static int btn_up_flag;
+static QLabel *swicthLabel;
+static QHBoxLayout *horLayout;
 
 ipset::ipset(QWidget *parent) :
     QMainWindow(parent),
@@ -18,202 +19,136 @@ ipset::ipset(QWidget *parent) :
     ui->textEdit->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
     ui->stackedWidget->setCurrentIndex(0);
     screen = qApp->primaryScreen();
-    s_width = screen->size().width();
-    s_height = screen->size().height();
+    screenWidth = screen->size().width();
+    screenHeight = screen->size().height();
 
-    if(s_width < s_height)
+    if(screenWidth < screenHeight)
     {
-        screen_flag = 1;ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
+        screenFlag = 1;ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
-    ipset_font();
+    ipsetFont();
 
-    QRegExp a("\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
+    QRegExp a("\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");  //ip regular expression
     ui->ipAddrLineEdit->setValidator(new QRegExpValidator(a,this));
     ui->gatewaylineEdit->setValidator(new QRegExpValidator(a,this));
     ui->nameLineEdit->setReadOnly(true);
     ui->masklineEdit->setPlaceholderText("0-32");
 
-    //ui->networkSwitch->setCheckedColor(QColor(100, 225, 100));
-   // connect(ui->networkSwitch,SIGNAL(toggled(bool)),this,SLOT(btnChangeFlag(bool)));
-
-        QString networkInfo = get_network_info();
-        ui->textEdit->setText(networkInfo);
-        ui->stackedWidget->setCurrentIndex(0);
+    QString networkInfo = getNetworkInfo();
+    ui->textEdit->setText(networkInfo);
+    ui->stackedWidget->setCurrentIndex(0);
 
     ui->widget->setEnabled(false);
     ui->widget->setStyleSheet("border-radius: 12px;padding: 6px;"
                               "background-color: rgb(217, 217, 217,30);border:1px solid gray;");
-    ui->okBtn->setStyleSheet("background-color: rgba(211, 215, 207,180);border-style: outset;border-width:  2px;"
-                             "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(186, 189, 182);"
-                             "padding: 6px;outline: none; ");
-    ui->modStaticIpBtn->setStyleSheet("background-color: rgba(211, 215, 207,180);border-style: outset;border-width:  2px;"
-                                      "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(186, 189, 182);"
-                                      "padding: 6px;outline: none; ");
+    ui->btn_ok->setStyleSheet("background-color: rgba(211, 215, 207,180);border-style: outset;border-width:  2px;"
+                              "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(186, 189, 182);"
+                              "padding: 6px;outline: none; ");
+    ui->btn_clear->setStyleSheet("background-color: rgba(211, 215, 207,180);border-style: outset;border-width:  2px;"
+                                 "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(186, 189, 182);"
+                                 "padding: 6px;outline: none; ");
     ui->nameLineEdit->setStyleSheet("color: rgb(186, 189, 182);");
     ui->masklineEdit->setStyleSheet("color: rgb(186, 189, 182);");
-    ip_settext();
     ui->ip_Switch->setCheckedColor(QColor(100, 225, 100, 150));
-    connect(ui->ip_Switch,SIGNAL(toggled(bool)),this,SLOT(btnChangeFlag(bool)));
+    ipSetText();switchSetText();
+    connect(ui->ip_Switch,SIGNAL(toggled(bool)),this,SLOT(switch_change_flag(bool)));
 }
 
 ipset::~ipset()
 {
     delete ui;
+    delete swicthLabel;
+    delete horLayout;
 }
 
-//void ipset::btnChangeFlag(bool flag)
-//{
-//    //qDebug() << "LINE:" << __LINE__<<"switchflag " << switchflag;
-//    flag = ui->networkSwitch->isToggled();
-
-//    if(flag == 1) // open
-//    {
-
-//    }
-//    else //close
-//    {
-
-//    }
-//}
-
-void ipset::language_reload()
+void ipset::languageReload()
 {
     ui->retranslateUi(this);
 }
 
-void ipset::on_retBtn_clicked()
+void ipset::on_btn_ret_clicked()
 {
-    emit ret_signal();
+    emit ipset_back_msg();
     ui->textEdit->setText("");
 }
 
-void ipset::on_ipShowBtn_clicked()
+void ipset::on_btn_ipShow_clicked()
 {
-    if(open_flag == 0)
+    if(openFlag == 0)
     {
-        //QMessageBox::information(this,"information",tr("Please open the ethernet!"));
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),
                          tr("Please open the ethernet!"),
                          0,this);
-        mesg.addButton(tr("up"),QMessageBox::YesRole);
-        if(screen_flag == 1)
-            mesg.move(s_height/3,s_width*2/3);
+        mesg.addButton(tr("ok"),QMessageBox::YesRole);
+        if(screenFlag == 1)
+            mesg.move(screenHeight/3,screenWidth*2/3);
         else
-            mesg.move(s_width/3,s_height/3);
+            mesg.move(screenWidth/3,screenHeight/3);
         mesg.exec();
         return;
     }
 
-    QString networkInfo = get_network_info();
+    QString networkInfo = getNetworkInfo();
     ui->textEdit->setText(networkInfo);
     ui->stackedWidget->setCurrentIndex(0);
 }
 
-//void ipset::on_autoGetIpBtn_clicked()
-//{
-////    qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << ":::::::::::::";
-
-//    bool result;
-//    ui->ipAddrLineEdit->clear();
-//    QCoreApplication::processEvents();
-//    if(get_current_ip("eth0") != "")
-//    {
-//        ui->textEdit->setText(tr("network is aready pull up!"));
-//    }
-//    else
-//    {
-//        result = automatically_get_ip();
-//        if(result == true)
-//        {
-//            QMessageBox mesg(QMessageBox::Information,
-//                             tr("QMessageBox::information()"),
-//                             tr("succeeded!"),
-//                             0,this);
-//            mesg.addButton(tr("OK"),QMessageBox::YesRole);
-//            if(screen_flag == 1)
-//            mesg.move(s_width*2/3,s_height/3);
-//            else
-//            mesg.move(s_width/3,s_height/3);
-//            mesg.exec();
-//        }
-//        else
-//        {
-//            QMessageBox mesg(QMessageBox::Information,
-//                             tr("QMessageBox::information()"),
-//                             tr("failed!"),
-//                             0,this);
-//            mesg.addButton(tr("OK"),QMessageBox::YesRole);
-//            if(screen_flag == 1)
-//            mesg.move(s_width*2/3,s_height/3);
-//            else
-//            mesg.move(s_width/3,s_height/3);
-//            mesg.exec();
-//        }
-//    }
-//    ui->stackedWidget->setCurrentIndex(0);
-//}
-
-void ipset::on_setStaticIpBtn_clicked()
+void ipset::on_btn_setIp_clicked()
 {
-    if(open_flag == 0)
+    if(openFlag == 0)
     {
-        //QMessageBox::information(this,"information",tr("Please open the ethernet!"));
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),
                          tr("Please open the ethernet!"),
                          0,this);
-        mesg.addButton(tr("up"),QMessageBox::YesRole);
-        if(screen_flag == 1)
-              mesg.move(s_height/3,s_width*2/3);
+        mesg.addButton(tr("ok"),QMessageBox::YesRole);
+        if(screenFlag == 1)
+            mesg.move(screenHeight/3,screenWidth*2/3);
         else
-            mesg.move(s_width/3,s_height/3);
+            mesg.move(screenWidth/3,screenHeight/3);
         mesg.exec();
         return;
     }
-
-    //ui->okBtn->setText(tr("up"));
     ui->stackedWidget->setCurrentIndex(1);
 }
 
-void ipset::on_modStaticIpBtn_clicked()
+void ipset::on_btn_clear_clicked()
 {
     ui->ipAddrLineEdit->clear();
     ui->gatewaylineEdit->clear();
     ui->masklineEdit->clear();
 }
 
-void ipset::on_delStaticIpBtn_clicked()
+void ipset::on_btn_setAutoIp_clicked()
 {
-    if(open_flag == 0)
+    if(openFlag == 0)
     {
-        //QMessageBox::information(this,"information",tr("Please open the ethernet!"));
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),
                          tr("Please open the ethernet!"),
                          0,this);
-        mesg.addButton(tr("up"),QMessageBox::YesRole);
-        if(screen_flag == 1)
-              mesg.move(s_height/3,s_width*2/3);
+        mesg.addButton(tr("ok"),QMessageBox::YesRole);
+        if(screenFlag == 1)
+            mesg.move(screenHeight/3,screenWidth*2/3);
         else
-            mesg.move(s_width/3,s_height/3);
+            mesg.move(screenWidth/3,screenHeight/3);
         mesg.exec();
         return;
     }
     ui->widget->setEnabled(false);
     ui->widget->setStyleSheet("border-radius: 12px;padding: 6px;"
                               "background-color: rgb(217, 217, 217,30);border:1px solid gray;");
-    ui->okBtn->setStyleSheet("background-color: rgba(211, 215, 207,180);border-style: outset;border-width:  2px;"
-                             "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(186, 189, 182);"
-                             "padding: 6px;outline: none; ");
-    ui->modStaticIpBtn->setStyleSheet("background-color: rgba(211, 215, 207,180);border-style: outset;border-width:  2px;"
-                                      "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(186, 189, 182);"
-                                      "padding: 6px;outline: none; ");
+    ui->btn_ok->setStyleSheet("background-color: rgba(211, 215, 207,180);border-style: outset;border-width:  2px;"
+                              "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(186, 189, 182);"
+                              "padding: 6px;outline: none; ");
+    ui->btn_clear->setStyleSheet("background-color: rgba(211, 215, 207,180);border-style: outset;border-width:  2px;"
+                                 "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(186, 189, 182);"
+                                 "padding: 6px;outline: none; ");
     ui->nameLineEdit->setStyleSheet("color: rgb(186, 189, 182);");
     ui->masklineEdit->setStyleSheet("color: rgb(186, 189, 182);");
 
-
-    if(false == is_static_ip_exist())
+    if(false == isStaticIpExist())
     {
         QString strCmd = QString("nmcli con show --active |grep eth0");
         QString strResult = executeLinuxCmd(strCmd);
@@ -230,19 +165,19 @@ void ipset::on_delStaticIpBtn_clicked()
                                  tr("set auto ip succeeded!"),
                                  0,this);
                 mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                if(screen_flag == 1)
-                mesg.move(s_height/3,s_width*2/3);
+                if(screenFlag == 1)
+                    mesg.move(screenHeight/3,screenWidth*2/3);
                 else
-                mesg.move(s_width/3,s_height/3);
+                    mesg.move(screenWidth/3,screenHeight/3);
                 mesg.exec();
-                QString networkInfo = get_network_info();
+                QString networkInfo = getNetworkInfo();
                 ui->textEdit->setText(networkInfo);
                 ui->stackedWidget->setCurrentIndex(0);
                 ui->ipAddrLineEdit->clear();
                 ui->gatewaylineEdit->clear();
                 ui->masklineEdit->clear();
-                ui->okBtn->setText(tr("up"));btn_up_flag = 0;
-                network_enable(true);
+                ui->btn_ok->setText(tr("up"));btnUpFlag = 0;
+                networkEnable(true);
                 return;
             }
             else
@@ -252,10 +187,10 @@ void ipset::on_delStaticIpBtn_clicked()
                                  tr("set auto ip failed"),
                                  0,this);
                 mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                if(screen_flag == 1)
-                 mesg.move(s_height/3,s_width*2/3);
+                if(screenFlag == 1)
+                    mesg.move(screenHeight/3,screenWidth*2/3);
                 else
-                mesg.move(s_width/3,s_height/3);
+                    mesg.move(screenWidth/3,screenHeight/3);
                 mesg.exec();
             }
         }
@@ -266,43 +201,42 @@ void ipset::on_delStaticIpBtn_clicked()
                              tr("The current connection is auto IP!"),
                              0,this);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screen_flag == 1)
-                 mesg.move(s_height/3,s_width*2/3);
+            if(screenFlag == 1)
+                mesg.move(screenHeight/3,screenWidth*2/3);
             else
-                mesg.move(s_width/3,s_height/3);
+                mesg.move(screenWidth/3,screenHeight/3);
             mesg.exec();
 
-            QString networkInfo = get_network_info();
+            QString networkInfo = getNetworkInfo();
             ui->textEdit->setText(networkInfo);
             ui->stackedWidget->setCurrentIndex(0);
-            network_enable(true);
+            networkEnable(true);
             return;
         }
         return;
     }
 
-    bool result = delete_static_ip();
+    bool result = deleteStaticIp();          // delete static ip
     if(result == true)
     {
-        //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "result:"<<result;
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),
                          tr("set auto ip succeeded!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screen_flag == 1)
-         mesg.move(s_height/3,s_width*2/3);
+        if(screenFlag == 1)
+            mesg.move(screenHeight/3,screenWidth*2/3);
         else
-        mesg.move(s_width/3,s_height/3);
+            mesg.move(screenWidth/3,screenHeight/3);
         mesg.exec();
-        QString networkInfo = get_network_info();
+        QString networkInfo = getNetworkInfo();
         ui->textEdit->setText(networkInfo);
         ui->stackedWidget->setCurrentIndex(0);
         ui->ipAddrLineEdit->clear();
         ui->gatewaylineEdit->clear();
         ui->masklineEdit->clear();
-        ui->okBtn->setText(tr("up"));btn_up_flag = 0;
-        network_enable(true);
+        ui->btn_ok->setText(tr("up"));btnUpFlag = 0;
+        networkEnable(true);
     }
     else
     {
@@ -311,15 +245,15 @@ void ipset::on_delStaticIpBtn_clicked()
                          tr("set auto ip failed"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screen_flag == 1)
-        mesg.move(s_height/3,s_width*2/3);
+        if(screenFlag == 1)
+            mesg.move(screenHeight/3,screenWidth*2/3);
         else
-        mesg.move(s_width/3,s_height/3);
+            mesg.move(screenWidth/3,screenHeight/3);
         mesg.exec();
     }
 }
 
-void ipset::on_okBtn_clicked()
+void ipset::on_btn_ok_clicked()
 {
     bool result = false;
     QString networkInfo;
@@ -330,12 +264,11 @@ void ipset::on_okBtn_clicked()
                          tr("Please complete the information"),
                          0,this);
         mesg.addButton(tr("up"),QMessageBox::YesRole);
-        if(screen_flag == 1)
-            mesg.move(s_height/3,s_width*2/3);
+        if(screenFlag == 1)
+            mesg.move(screenHeight/3,screenWidth*2/3);
         else
-            mesg.move(s_width/3,s_height/3);
+            mesg.move(screenWidth/3,screenHeight/3);
         mesg.exec();
-
         return;
     }
 
@@ -345,98 +278,67 @@ void ipset::on_okBtn_clicked()
                      0,this);
     QPushButton *yesButton = mesg.addButton(tr("Yes"), QMessageBox::ActionRole);
     QPushButton *noButton = mesg.addButton(tr("No"),QMessageBox::ActionRole);
-    if(screen_flag == 1)
-      mesg.move(s_height/3,s_width*2/3);
+    if(screenFlag == 1)
+        mesg.move(screenHeight/3,screenWidth*2/3);
     else
-        mesg.move(s_width/3,s_height/3);
+        mesg.move(screenWidth/3,screenHeight/3);
     mesg.exec();
 
     if(mesg.clickedButton() == yesButton)
     {
         if((ui->ipAddrLineEdit->text().length() <= 9) || (ui->gatewaylineEdit->text().length() <= 9))
         {
-           // QMessageBox::information(this,"information",tr("Format error, please re-enter."));
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
                              tr("Format error, please re-enter."),
                              0,this);
             mesg.addButton(tr("up"),QMessageBox::YesRole);
-            if(screen_flag == 1)
-                  mesg.move(s_height/3,s_width*2/3);
+            if(screenFlag == 1)
+                mesg.move(screenHeight/3,screenWidth*2/3);
             else
-                mesg.move(s_width/3,s_height/3);
+                mesg.move(screenWidth/3,screenHeight/3);
             mesg.exec();
             return;
         }
         int mask = ui->masklineEdit->text().toInt();
         if((mask > 32)||(mask < 0))
         {
-            //QMessageBox::information(this,"information",tr("Please enter the correct subnet mask."));
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
                              tr("Please enter the correct subnet mask."),
                              0,this);
             mesg.addButton(tr("up"),QMessageBox::YesRole);
-            if(screen_flag == 1)
-                 mesg.move(s_height/3,s_width*2/3);
+            if(screenFlag == 1)
+                mesg.move(screenHeight/3,screenWidth*2/3);
             else
-                mesg.move(s_width/3,s_height/3);
+                mesg.move(screenWidth/3,screenHeight/3);
             mesg.exec();
             return;
         }
         if((ui->ipAddrLineEdit->text().length() <= 9) || (ui->gatewaylineEdit->text().length() <= 9))
         {
-            //QMessageBox::information(this,"information",tr("Format error, please re-enter"));
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
                              tr("Format error, please re-enter."),
                              0,this);
             mesg.addButton(tr("up"),QMessageBox::YesRole);
-            if(screen_flag == 1)
-                 mesg.move(s_height/3,s_width*2/3);
+            if(screenFlag == 1)
+                mesg.move(screenHeight/3,screenWidth*2/3);
             else
-                mesg.move(s_width/3,s_height/3);
+                mesg.move(screenWidth/3,screenHeight/3);
             mesg.exec();
             return;
         }
 
-//        if(btn_up_flag == 0)
-//        {
-//            if(static_ip == ui->ipAddrLineEdit->text())
-//            {
-//                result = modify_static_ip(ui->ipAddrLineEdit->text());
-//            }
-//            else
-//            {
-                result = add_static_ip(ui->nameLineEdit->text(),ui->ipAddrLineEdit->text(),ui->masklineEdit
-                                       ->text(),ui->gatewaylineEdit->text());
-//            }
-//            static_ip = ui->ipAddrLineEdit->text();
-//        }
-//        else if(btn_up_flag == 1)
-//        {
-//            result = modify_static_ip(ui->ipAddrLineEdit->text());
-//        }
-
+        result = addStaticIp(ui->nameLineEdit->text(),ui->ipAddrLineEdit->text(),ui->masklineEdit
+                             ->text(),ui->gatewaylineEdit->text());
         if(result == true)
         {
-            networkInfo = get_network_info();
+            networkInfo = getNetworkInfo();
             ui->textEdit->setText(networkInfo);
             ui->stackedWidget->setCurrentIndex(0);
-           // QStringList list = database_w.table_show("ip_static");
-          //  if(!list.isEmpty())
-          //  {
-          //      QString ipstr = list.at(0);
-          //      database_w.delete_record_by_name("ip_static",ipstr);
-          //  }
-          //  database_w.insert_table1("ip_static",ui->ipAddrLineEdit->text());
-            //              QString str = ui->okBtn->text();
-            //               if(!QString::compare(str,QString("up"),Qt::CaseSensitive))
-            //               {
-            //                   ui->okBtn->setText(tr("change"));
-            //               }
-            if(btn_up_flag == 0)
-            {  btn_up_flag = 1;ui->okBtn->setText(tr("change"));}
+            if(btnUpFlag == 0)
+            {  btnUpFlag = 1;ui->btn_ok->setText(tr("change"));}
         }
         else
         {
@@ -445,10 +347,10 @@ void ipset::on_okBtn_clicked()
                              tr("set static ip failed"),
                              0,this);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screen_flag == 1)
-                 mesg.move(s_height*2/3,s_width/3);
+            if(screenFlag == 1)
+                mesg.move(screenHeight*2/3,screenWidth/3);
             else
-                mesg.move(s_width/3,s_height/3);
+                mesg.move(screenWidth/3,screenHeight/3);
             mesg.exec();
         }
     }
@@ -458,14 +360,14 @@ void ipset::on_okBtn_clicked()
     }
 }
 
-void ipset::ipset_font()
+void ipset::ipsetFont()
 {
     qreal realX = screen->physicalDotsPerInchX();
     qreal realY = screen->physicalDotsPerInchY();
-    qreal realWidth = s_width / realX * 2.54;
-    qreal realHeight = s_height / realY *2.54;
+    qreal realWidth = screenWidth / realX * 2.54;
+    qreal realHeight = screenHeight / realY *2.54;
     QFont font;
-    if(screen_flag)
+    if(screenFlag)
     {
         if(realHeight < 15)
         {
@@ -496,47 +398,27 @@ void ipset::ipset_font()
             font.setPointSize(17);
         }
     }
-    ui->delStaticIpBtn->setFont(font);
-    ui->ipShowBtn->setFont(font);
-    ui->modStaticIpBtn->setFont(font);
-    ui->setStaticIpBtn->setFont(font);
+    ui->btn_setAutoIp->setFont(font);
+    ui->btn_ipShow->setFont(font);
+    ui->btn_clear->setFont(font);
+    ui->btn_setIp->setFont(font);
     ui->nameLineEdit->setFont(font);
     ui->ipAddrLineEdit->setFont(font);
-    ui->label_6->setFont(font);
-    ui->label_7->setFont(font);
+    ui->lbl_gatway->setFont(font);
+    ui->lbl_subnetMask->setFont(font);
     ui->textEdit->setFont(font);
-    ui->okBtn->setFont(font);
-    ui->label->setFont(font);
-    ui->label_2->setFont(font);
-    ui->label_3->setFont(font);
+    ui->btn_ok->setFont(font);
+    ui->lbl_ethernet->setFont(font);
+    ui->lbl_ipAddress->setFont(font);
+    ui->lbl_ipName->setFont(font);
     ui->gatewaylineEdit->setFont(font);
     ui->masklineEdit->setFont(font);
-    ui->pushButton->setFont(font);
+    ui->btn_setStaticIp->setFont(font);
 }
 
-//void ipset::on_btn_open_clicked()
-//{
-//    if(open_flag == 0)
-//    {
-//        open_flag = 1;
-//        ui->btn_open->setText(tr("close"));
-//        network_enable(true);
-//        QString networkInfo = get_network_info();
-//        ui->textEdit->setText(networkInfo);
-//        ui->stackedWidget->setCurrentIndex(0);
-//    }
-//    else
-//    {
-//        open_flag = 0;
-//        ui->btn_open->setText(tr("open"));
-//        network_enable(false);
-//        ui->textEdit->setText("");
-//    }
-//}
-
-void ipset::ip_settext()
+void ipset::ipSetText()
 {
-    if(true == is_static_ip_exist())
+    if(true == isStaticIpExist())
     {
         QString strCmd = QString("ip route show");
         QString strResult = executeLinuxCmd(strCmd);
@@ -548,48 +430,65 @@ void ipset::ip_settext()
         ui->widget->setEnabled(true);
         ui->widget->setStyleSheet("border-radius: 12px;padding: 6px;background-color:rgba(255, 255, 255, 80);"
                                   "border:1px solid gray;");
-        ui->okBtn->setStyleSheet("background-color: rgba(100, 225, 100, 120);border-style: outset;border-width:  2px;"
-                                 "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(0, 0, 0, 100);"
-                                 "padding: 6px;outline: none; ");
-        ui->modStaticIpBtn->setStyleSheet("background-color: rgba(100, 225, 100, 120);border-style: outset;border-width:  2px;"
-                                          "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(0, 0, 0, 100);"
-                                          "padding: 6px;outline: none; ");
+        ui->btn_ok->setStyleSheet("background-color: rgba(100, 225, 100, 120);border-style: outset;border-width:  2px;"
+                                  "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(0, 0, 0, 100);"
+                                  "padding: 6px;outline: none; ");
+        ui->btn_clear->setStyleSheet("background-color: rgba(100, 225, 100, 120);border-style: outset;border-width:  2px;"
+                                     "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(0, 0, 0, 100);"
+                                     "padding: 6px;outline: none; ");
         ui->nameLineEdit->setStyleSheet("color: rgb(0, 0, 0);");
         ui->masklineEdit->setStyleSheet("color: rgb(0, 0, 0);");
-        ui->okBtn->setText(tr("change"));
+        ui->btn_ok->setText(tr("change"));
     }
 }
 
-void ipset::on_pushButton_clicked()
+void ipset::on_btn_setStaticIp_clicked()
 {
     ui->widget->setEnabled(true);
     ui->widget->setStyleSheet("border-radius: 12px;padding: 6px;background-color:rgba(255, 255, 255, 60);"
                               "border:1px solid gray;");
-    ui->okBtn->setStyleSheet("background-color: rgba(100, 225, 100, 120);border-style: outset;border-width:  2px;"
-                             "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(0, 0, 0, 100);"
-                             "padding: 6px;outline: none; ");
-    ui->modStaticIpBtn->setStyleSheet("background-color: rgba(100, 225, 100, 120);border-style: outset;border-width:  2px;"
-                                      "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(0, 0, 0, 100);"
-                                      "padding: 6px;outline: none; ");
+    ui->btn_ok->setStyleSheet("background-color: rgba(100, 225, 100, 120);border-style: outset;border-width:  2px;"
+                              "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(0, 0, 0, 100);"
+                              "padding: 6px;outline: none; ");
+    ui->btn_clear->setStyleSheet("background-color: rgba(100, 225, 100, 120);border-style: outset;border-width:  2px;"
+                                 "border-radius: 10px;border-color: rgba(255, 225, 255, 30);color:rgba(0, 0, 0, 100);"
+                                 "padding: 6px;outline: none; ");
     ui->nameLineEdit->setStyleSheet("color: rgb(0, 0, 0);");
     ui->masklineEdit->setStyleSheet("color: rgb(0, 0, 0);");
 }
 
-void ipset::btnChangeFlag(bool flag)
+void ipset::switch_change_flag(bool flag)
 {
     flag = ui->ip_Switch->isToggled();
     if(flag == 1)
     {
-        open_flag = 1;
-        network_enable(true);
-        QString networkInfo = get_network_info();
+        openFlag = 1;
+        networkEnable(true);
+        QString networkInfo = getNetworkInfo();
         ui->textEdit->setText(networkInfo);
-        ui->stackedWidget->setCurrentIndex(0);       
+        ui->stackedWidget->setCurrentIndex(0);
+        swicthLabel->setText(tr("  off"));
+        swicthLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+        swicthLabel->setStyleSheet("color: rgba(0, 0, 0,180);");
     }
     else
     {
-        open_flag = 0;
-        network_enable(false);
+        openFlag = 0;
+        networkEnable(false);
         ui->textEdit->setText("");
+        swicthLabel->setText(tr("on   "));
+        swicthLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        swicthLabel->setStyleSheet("color: rgba(255,255,255,200)");
     }
+}
+
+void ipset::switchSetText()
+{
+    swicthLabel = new QLabel(ui->ip_Switch);
+    horLayout = new QHBoxLayout();
+    swicthLabel->setText(tr("  off"));
+    horLayout->addWidget(swicthLabel);
+    swicthLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    swicthLabel->setStyleSheet("color: rgba(0, 0, 0,180);");
+    ui->ip_Switch->setLayout(horLayout);
 }

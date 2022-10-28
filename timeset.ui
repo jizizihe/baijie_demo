@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>898</width>
-    <height>424</height>
+    <width>595</width>
+    <height>423</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -25,45 +25,43 @@
   <property name="styleSheet">
    <string notr="true">#timeset
 {
-border-image: url(:/button_image/all/background(1).png);
-}
-/****************按钮部件*******************/
-QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-	outline: none; /*去掉按钮的虚线框*/
+    border-image: url(:/button_image/all/background(1).png);
 }
 
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
+QPushButton{
+     background-color: rgba(100, 225, 100, 120);
+     border-style: outset;
+     border-width:  2px;  
+     border-radius: 10px; 
+     border-color: rgba(255, 225, 255, 30);
+     color:rgba(0, 0, 0, 100);
+     padding: 6px; 
+	 outline: none; 
+}
+
+QPushButton:hover{ 
         background-color:rgba(100,255,100, 100);
         border-color: rgba(255, 225, 255, 200);
         color:rgba(0, 0, 0, 200);
 }
 
-QPushButton:pressed { /*按钮被按下时*/
+QPushButton:pressed { 
      background-color:rgba(100,255,100, 200);
      border-color: rgba(255, 225, 255, 30);
      border-style: inset;
      color:rgba(0, 0, 0, 100);
 }
 
-/****************滑块部件*******************/
-
 QMessageBox {
     background-image: url(:/button_image/all/background.jpg);
 	border:1px solid gray;
 }
-QSlider::handle:horizontal { /*水平滑块的手柄*/
+QSlider::handle:horizontal { 
         image: url(:/image/sliderHandle.png);
  }
 
-QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
-        border-image: url(:/image/slider.png);/*边框图片*/
+QSlider::sub-page:horizontal { 
+        border-image: url(:/image/slider.png);
  }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -101,7 +99,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
        <number>5</number>
       </property>
       <item>
-       <widget class="QPushButton" name="retBt">
+       <widget class="QPushButton" name="btn_ret">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -137,7 +135,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="lbl_timeSet">
         <property name="text">
          <string>Time Set</string>
         </property>
@@ -238,7 +236,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="sync_btn">
+           <widget class="QPushButton" name="btn_sync">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -246,7 +244,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </sizepolicy>
             </property>
             <property name="text">
-             <string>sync network</string>
+             <string>Sync Network</string>
             </property>
             <property name="icon">
              <iconset resource="translation.qrc">
@@ -274,7 +272,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="SystimeSetBt">
+           <widget class="QPushButton" name="btn_sysTimeSet">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -295,32 +293,10 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-	outline: none; /*去掉按钮的虚线框*/
-}
-
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
-        background-color:rgba(100,255,100, 100);
-        border-color: rgba(255, 225, 255, 200);
-        color:rgba(0, 0, 0, 200);
-}
-
-QPushButton:pressed { /*按钮被按下时*/
-     background-color:rgba(100,255,100, 200);
-     border-color: rgba(255, 225, 255, 30);
-     border-style: inset;
-     color:rgba(0, 0, 0, 100);
-}</string>
+             <string notr="true"/>
             </property>
             <property name="text">
-             <string> systimeset</string>
+             <string> Systime Set</string>
             </property>
             <property name="icon">
              <iconset resource="translation.qrc">
@@ -348,7 +324,7 @@ QPushButton:pressed { /*按钮被按下时*/
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="RTCSetBt">
+           <widget class="QPushButton" name="btn_RTCSet">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -362,32 +338,10 @@ QPushButton:pressed { /*按钮被按下时*/
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-	outline: none; /*去掉按钮的虚线框*/
-}
-
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
-        background-color:rgba(100,255,100, 100);
-        border-color: rgba(255, 225, 255, 200);
-        color:rgba(0, 0, 0, 200);
-}
-
-QPushButton:pressed { /*按钮被按下时*/
-     background-color:rgba(100,255,100, 200);
-     border-color: rgba(255, 225, 255, 30);
-     border-style: inset;
-     color:rgba(0, 0, 0, 100);
-}</string>
+             <string notr="true"/>
             </property>
             <property name="text">
-             <string>   RTCset   </string>
+             <string>   RTC Set   </string>
             </property>
             <property name="icon">
              <iconset resource="translation.qrc">
@@ -464,7 +418,7 @@ QPushButton:pressed { /*按钮被按下时*/
           </spacer>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="4,9,4">
+          <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2,2,9,2">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -480,6 +434,13 @@ QPushButton:pressed { /*按钮被按下时*/
               </size>
              </property>
             </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbl_setTime">
+             <property name="text">
+              <string> Settime: </string>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QDateTimeEdit" name="datetime">
@@ -535,7 +496,7 @@ QPushButton:pressed { /*按钮被按下时*/
           </spacer>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,2,3,2">
+          <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,2,9,2">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -553,7 +514,7 @@ QPushButton:pressed { /*按钮被按下时*/
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="SystimeReadLabel">
+            <widget class="QLabel" name="lbl_systime">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -587,7 +548,7 @@ QPushButton:pressed { /*按钮被按下时*/
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="SystimepLabel">
+            <widget class="QLabel" name="lbl_systimeValue">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -646,7 +607,7 @@ QPushButton:pressed { /*按钮被按下时*/
           </spacer>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,2,3,2">
+          <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,2,9,2">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -664,7 +625,7 @@ QPushButton:pressed { /*按钮被按下时*/
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="RtcReadLabel">
+            <widget class="QLabel" name="lbl_RTCtime">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -698,7 +659,7 @@ QPushButton:pressed { /*按钮被按下时*/
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="RTCtimepLabel">
+            <widget class="QLabel" name="lbl_RTCtimeValue">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -768,7 +729,7 @@ QPushButton:pressed { /*按钮被按下时*/
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>898</width>
+     <width>595</width>
      <height>22</height>
     </rect>
    </property>

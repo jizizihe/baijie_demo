@@ -37,26 +37,25 @@
 {
 	border-image: url(:/button_image/all/background(2).png);
 }
-/****************按钮部件*******************/
+/****************QPushButton*******************/
 QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     font: bold 24px;/*字体*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-    outline: none; /*去掉按钮的虚线框*/
+     background-color: rgba(100, 225, 100, 120);
+     border-style: outset; 
+     border-width:  2px;  
+     border-radius: 10px;
+     border-color: rgba(255, 225, 255, 30);
+     color:rgba(0, 0, 0, 100);
+     padding: 6px; 
+    outline: none; 
 }
 
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
+QPushButton:hover{ /*When the mouse hovers over the button*/
         background-color:rgba(100,255,100, 100);
         border-color: rgba(255, 225, 255, 200);
         color:rgba(0, 0, 0, 200);
 }
 
-QPushButton:pressed { /*按钮被按下时*/
+QPushButton:pressed { /*When the button is pressed*/
      background-color:rgba(100,255,100, 200);
      border-color: rgba(255, 225, 255, 30);
      border-style: inset;
@@ -64,8 +63,11 @@ QPushButton:pressed { /*按钮被按下时*/
 }
 
 QSplitter:handle{\nbackground-color:#808080;\n}
+
 QScrollBar{ width:28px;}
+
 Line{background-color: rgb(186, 189, 182);}
+
 QTextEdit
 {
 	background-color:transparent;
@@ -134,7 +136,7 @@ QTextEdit
       <number>5</number>
      </property>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="ret_btn">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -148,42 +150,7 @@ QTextEdit
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">/****************按钮部件*******************/
-QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     font: bold 14px;/*字体*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-    outline: none; /*去掉按钮的虚线框*/
-}
-
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
-        background-color:rgba(100,255,100, 100);
-        border-color: rgba(255, 225, 255, 200);
-        color:rgba(0, 0, 0, 200);
-}
-
-QPushButton:pressed { /*按钮被按下时*/
-     background-color:rgba(100,255,100, 200);
-     border-color: rgba(255, 225, 255, 30);
-     border-style: inset;
-     color:rgba(0, 0, 0, 100);
-}
-
-/****************滑块部件*******************/
-
-
-QSlider::handle:horizontal { /*水平滑块的手柄*/
-        image: url(:/image/sliderHandle.png);
-}
-
-QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
-        border-image: url(:/image/slider.png);/*边框图片*/
-}</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string/>
@@ -215,7 +182,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="label_10">
+      <widget class="QLabel" name="lbl_aboutBoard">
        <property name="text">
         <string>About Board</string>
        </property>
@@ -279,7 +246,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
      <item>
       <widget class="QScrollArea" name="scrollArea">
        <property name="styleSheet">
-        <string notr="true">  background-color:rgba(255, 255, 255, 38);</string>
+        <string notr="true">  background-color:rgba(255, 255, 255, 40);</string>
        </property>
        <property name="widgetResizable">
         <bool>true</bool>
@@ -297,7 +264,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,3">
            <item>
-            <widget class="QLabel" name="label_3">
+            <widget class="QLabel" name="lbl_boardName">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -325,7 +292,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="name_label">
+            <widget class="QLabel" name="lbl_boardNameValue">
              <property name="text">
               <string/>
              </property>
@@ -336,7 +303,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,3">
            <item>
-            <widget class="QLabel" name="batterylevel_label">
+            <widget class="QLabel" name="lbl_batteryLevel">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -364,7 +331,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             </widget>
            </item>
            <item>
-            <widget class="QProgressBar" name="progressBar">
+            <widget class="QProgressBar" name="pb_batteryLevel">
              <property name="value">
               <number>24</number>
              </property>
@@ -375,7 +342,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,3">
            <item>
-            <widget class="QLabel" name="label_5">
+            <widget class="QLabel" name="lbl_batteryStatus">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -397,7 +364,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="batterystatus_label">
+            <widget class="QLabel" name="lbl_batteryStatusVale">
              <property name="text">
               <string/>
              </property>
@@ -408,7 +375,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="2,3">
            <item>
-            <widget class="QLabel" name="label_6">
+            <widget class="QLabel" name="lbl_CPUTemp">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -430,7 +397,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="CPU_temp_label">
+            <widget class="QLabel" name="lbl_CPUTempValue">
              <property name="text">
               <string/>
              </property>
@@ -441,7 +408,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2,3">
            <item>
-            <widget class="QLabel" name="label_7">
+            <widget class="QLabel" name="lbl_Resolution">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -463,7 +430,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="resolution_label">
+            <widget class="QLabel" name="lbl_ResolutionValue">
              <property name="text">
               <string/>
              </property>
@@ -474,7 +441,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="2,3">
            <item>
-            <widget class="QLabel" name="label_9">
+            <widget class="QLabel" name="lbl_OS">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -496,7 +463,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="OS_label">
+            <widget class="QLabel" name="lbl_OSValue">
              <property name="text">
               <string/>
              </property>
@@ -507,7 +474,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="2,3">
            <item>
-            <widget class="QLabel" name="label_8">
+            <widget class="QLabel" name="lbl_kernel">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -529,7 +496,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="kernel_label">
+            <widget class="QLabel" name="lbl_kernelValue">
              <property name="text">
               <string/>
              </property>
@@ -540,7 +507,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="2,3">
            <item>
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="lbl_QTVersion">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -568,7 +535,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="QTversion">
+            <widget class="QLabel" name="lbl_QTVersionValue">
              <property name="text">
               <string/>
              </property>
@@ -598,7 +565,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="website">
+             <widget class="QLabel" name="lbl_companyWebsite">
               <property name="text">
                <string>Company Website:</string>
               </property>
@@ -608,7 +575,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_12">
+             <widget class="QLabel" name="lbl_companyWebsiteValue">
               <property name="text">
                <string>https://szbaijie.com/</string>
               </property>
@@ -620,7 +587,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="2,3">
            <item>
-            <widget class="QLabel" name="label">
+            <widget class="QLabel" name="lbl_BusinessEmail">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -642,9 +609,9 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_4">
+            <widget class="QLabel" name="lbl_BusinessEmailValue">
              <property name="text">
-              <string>vivi.szbaijie.cn</string>
+              <string>vivi@szbaijie.com</string>
              </property>
             </widget>
            </item>

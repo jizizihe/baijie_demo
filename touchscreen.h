@@ -32,16 +32,14 @@ public:
 
     bool openImage(const QString &fileName);
     bool saveImage(const QString &fileName, const char *fileFormat);
-
-    void language_reload();
+    void clearImage();
 
 signals:
-    void Mysignal();
+    void touch_back_msg();
 
 public slots:
-    void screenclear();
-    void btnreturn_clicked();
-    void clearImage();
+    void btn_ret_clicked();
+    void btn_clear_clicked();
 
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -52,13 +50,10 @@ private:
     void resizeImage(QImage *image, const QSize &newSize);
     QList<QColor> myPenColors;
     QImage image;
-
     void clear();
-
-    CTouchButton *btnclear;
-    CTouchButton *btnreturn;
+    CTouchButton *btn_clear;
+    CTouchButton *btn_return;
     Ui::touchscreen *ui;
-
 };
 
 #endif // TOUCHSCREEN_H

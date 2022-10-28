@@ -4,10 +4,10 @@
 #include <QString>
 #include <QScreen>
 
-static int s_width;
-static int s_height;
+static int screenWidth;
+static int screenHeight;
+static int screenFlag;
 static QScreen *screen;
-static int screen_flag;
 
 user_manual::user_manual(QWidget *parent) :
     QWidget(parent),
@@ -21,13 +21,14 @@ user_manual::user_manual(QWidget *parent) :
     ui->textEdit->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
     ui->textEdit->setWordWrapMode(QTextOption::WrapAnywhere);
     screen = qApp->primaryScreen();
-    s_width = screen->size().width();
-    s_height = screen->size().height();
-    if(s_width < s_height)
+    screenWidth = screen->size().width();
+    screenHeight = screen->size().height();
+    if(screenWidth < screenHeight)
     {
+        screenFlag = 1;
         ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
-    user_font();
+    userFont();
 }
 
 user_manual::~user_manual()
@@ -35,16 +36,16 @@ user_manual::~user_manual()
     delete ui;
 }
 
-void user_manual::on_pushButton_clicked()
+void user_manual::on_btn_ret_clicked()
 {
-    emit Mysignal();
+    emit user_manual_back_msg();
     ui->textEdit->clear();
-    ui->pushButton_3->setText(tr("expand all"));
-    catalogueflag = true;
+    ui->btn_ecpandAll->setText(tr("expand all"));
+    btnExpandAllFlag = true;
     ui->treeWidget->collapseAll();
 }
 
-void user_manual::language_reload()
+void user_manual::languageReload()
 {
     ui->retranslateUi(this);
 }
@@ -100,7 +101,7 @@ void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
     }
     else if(str == tr("RTC"))
     {
-        ui->textEdit->setText(tr("    You can use the < sync network > button to set the time to synchronize with the network time, "
+        ui->textEdit->setText(tr("    You can use the < sync network > button to set the system time to synchronize with the network time, "
                                  "and click the button again to unsync.\n    You can use the < systimeset > button to set the system time, "
                                  "or you can use the < RTCset > button to synchronize to the hardware time."));
     }
@@ -111,7 +112,11 @@ void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
     else if(str == tr("sleep time"))
     {
         ui->textEdit->setText(tr("    You can click the < sleep > button and select the sleep time to set."));
-    }   
+    }
+    else if(str == tr("OTG"))
+    {
+        ui->textEdit->setText(tr("    You can click the Set button to switch between the slave and host devices."));
+    }
     else if(str == tr("GPIO"))
     {
         ui->textEdit->setText(tr("    You can configure the input / output of GPIO port and pull it up / down when it is set to output mode.\n"
@@ -178,14 +183,14 @@ void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
     }
 }
 
-void user_manual::user_font()
+void user_manual::userFont()
 {
     qreal realX = screen->physicalDotsPerInchX();
     qreal realY = screen->physicalDotsPerInchY();
-    qreal realWidth = s_width / realX * 2.54;
-    qreal realHeight = s_height / realY *2.54;
+    qreal realWidth = screenWidth / realX * 2.54;
+    qreal realHeight = screenHeight / realY *2.54;
     QFont font;
-    if(screen_flag)
+    if(screenFlag)
     {
         if(realHeight < 15)
         {
@@ -215,23 +220,23 @@ void user_manual::user_font()
             font.setPointSize(17);
         }
     }
-  ui->treeWidget->setFont(font);
-  ui->pushButton_3->setFont(font);
-  ui->textEdit->setFont(font);
-  ui->label->setFont(font);
+    ui->treeWidget->setFont(font);
+    ui->btn_ecpandAll->setFont(font);
+    ui->textEdit->setFont(font);
+    ui->lbl_userManual->setFont(font);
 }
 
-void user_manual::on_pushButton_3_clicked()
+void user_manual::on_btn_ecpandAll_clicked()
 {
-    if(catalogueflag)
+    if(btnExpandAllFlag)
     {
         ui->treeWidget->expandAll();
-        ui->pushButton_3->setText(tr("collapse all"));
+        ui->btn_ecpandAll->setText(tr("collapse all"));
     }
     else
     {
         ui->treeWidget->collapseAll();
-        ui->pushButton_3->setText(tr("expand all"));
+        ui->btn_ecpandAll->setText(tr("expand all"));
     }
-    catalogueflag = !catalogueflag;
+    btnExpandAllFlag = !btnExpandAllFlag;
 }

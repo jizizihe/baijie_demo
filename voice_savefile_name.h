@@ -21,31 +21,27 @@ class voice_savefile_name : public QMainWindow
 public:
     explicit voice_savefile_name(QWidget *parent = 0);
     ~voice_savefile_name();
-    void language_reload();
-    void get_filename(QString);
-    void save_as();
-    void voice_savefile_font();
-    void file_choose_show();
-
+    void languageReload();
+    void getFileName(QString fileName);
+    void saveFile();
+    void saveFileFont();
+    void fileChooseWidgetShow();
 
 private slots:
-    void on_pushButton_2_clicked();
-    void on_pushButton_clicked();
-
-    void on_opefile_btn_clicked();
-    void file_path(QString);
-    void file_hide();
+    void on_btn_cancel_clicked();
+    void on_btn_ok_clicked();
+    void on_btn_chooseFile_clicked();
+    void get_file_path(QString);
+    void choose_file_widget_hide();
 
 signals:
-    void fiel_pn(QString);
-    void save_back();
-   // void save_path(QString,QString);
+    void save_back_msg();
 
 private:
     Ui::voice_savefile_name *ui;
-    QProcess pro_pathh;
-    File_opration File_oprationw;
-    database database_w;
+    QProcess proPath;
+    File_opration File_oprationWg;
+    database databaseWg;
 };
 
 #endif // VOICE_SAVEFILE_NAME_H

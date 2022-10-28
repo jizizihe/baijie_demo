@@ -2,13 +2,13 @@
 #include "ui_timeset.h"
 #include <QScreen>
 
-static int s_width;
-static int s_height;
-static int screen_flag;
-static int show_first;
+static int screenWidth;
+static int screenHeight;
+static int screenFlag;
+static int showFirstFlag;
+static int syncNetworkFlag;      // 0: Async Network   1: Sync Network
 static qreal realX;
 static qreal realY;
-static int sync_flag;
 
 timeset::timeset(QWidget *parent) :
     QMainWindow(parent),
@@ -16,73 +16,67 @@ timeset::timeset(QWidget *parent) :
 {
     ui->setupUi(this);
     QScreen *screen = qApp->primaryScreen();
-    s_width = screen->size().width();
-    s_height = screen->size().height();
+    screenWidth = screen->size().width();
+    screenHeight = screen->size().height();
 
-    if(s_width < s_height)
+    if(screenWidth < screenHeight)
     {
-        screen_flag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
+        screenFlag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
 
     realX = screen->physicalDotsPerInchX();
     realY = screen->physicalDotsPerInchY();
-    timeset_font();
+    timesetFont();
     ui->datetime->setDisplayFormat("yyyy-MM-dd HH:mm:ss");
     ui->datetime->setTime(QTime::currentTime());
     ui->datetime->setDate(QDate::currentDate());
 
     SysTimer = new QTimer(this);
-    connect(SysTimer,SIGNAL(timeout()),this,SLOT(SystimerUpdate()));
+    connect(SysTimer,SIGNAL(timeout()),this,SLOT(sys_timer_update()));
     RTCTimer = new QTimer(this);
-    connect(RTCTimer,SIGNAL(timeout()),this,SLOT(RTCtimerUpdate()));
-    pro_sys.start("bash");
-    pro_rtc.start("bash");
+    connect(RTCTimer,SIGNAL(timeout()),this,SLOT(RTC_timer_update()));
+    proSys.start("bash");
+    proRTC.start("bash");
 
-    RTCtimerUpdate();
-    SystimerUpdate();
-    connect(ui->retBt,SIGNAL(clicked(bool)),this,SLOT(retBt_clicked()));
-    connect(ui->SystimeSetBt,SIGNAL(clicked()),this,SLOT(SystimeSetBt_clicked()));
-    connect(ui->RTCSetBt,SIGNAL(clicked()),this,SLOT(RTCSetBt_clicked()));
-    sync_net();
+    RTC_timer_update();
+    sys_timer_update();
+    connect(ui->btn_ret,SIGNAL(clicked(bool)),this,SLOT(btn_ret_clicked()));
+    connect(ui->btn_sysTimeSet,SIGNAL(clicked()),this,SLOT(btn_sysTimeSet_clicked()));
+    connect(ui->btn_RTCSet,SIGNAL(clicked()),this,SLOT(btn_RTCSet_clicked()));
+    isSyncNetwork();             //Whether the time is synchronized with the network
 }
 
 timeset::~timeset()
 {
     delete ui;
-    pro_sys.close();
-    pro_rtc.close();
+    proSys.close();
+    proRTC.close();
 }
 
-void timeset::timerUpdate()
+void timeset::sys_timer_update(void)
 {
-    RTCtimerUpdate();
-    SystimerUpdate();
+    proSys.write("date +'%Y-%m-%d %H:%M:%S' \n");
+    QString strResult = proSys.readAllStandardOutput();strResult.remove("\n");
+    ui->lbl_systimeValue->setText(strResult);
 }
 
-void timeset::SystimerUpdate(void)
+void timeset::RTC_timer_update(void)
 {
-    pro_sys.write("date +'%Y-%m-%d %H:%M:%S' \n");
-    QString strResult = pro_sys.readAllStandardOutput();strResult.remove("\n");
-    ui->SystimepLabel->setText(strResult);
+    proRTC.write("hwclock -r \n");
+    QString strResult = proRTC.readAllStandardOutput();
+    ui->lbl_RTCtimeValue->setText(strResult.mid(0,19));
 }
 
-void timeset::RTCtimerUpdate(void)
+void timeset::btn_ret_clicked()
 {
-    pro_rtc.write("hwclock -r \n");
-    QString strResult = pro_rtc.readAllStandardOutput();
-    ui->RTCtimepLabel->setText(strResult.mid(0,19));
-}
-
-void timeset::retBt_clicked()
-{
-    emit Mysignal();
+    emit time_set_back_msg();
     SysTimer->stop();
     RTCTimer->stop();
 }
 
-QString timeset::SystimeSet(QString  datetext)
+QString timeset::SystimeSet(QString  dateText)
 {
-    QString strCmd = QString("date -s \"%1\"").arg(datetext);
+    QString strCmd = QString("date -s \"%1\"").arg(dateText);
     QProcess process;
     process.start("bash", QStringList() <<"-c" << strCmd);
     process.waitForFinished();
@@ -96,17 +90,17 @@ QString timeset::SystimeSet(QString  datetext)
     return strResult;
 }
 
-void timeset::SystimeSetBt_clicked()
+void timeset::btn_sysTimeSet_clicked()
 {
-    if(sync_flag == 1)
+    if(syncNetworkFlag == 1)
     {
-        QMessageBox::information(this,"information",tr("The current time is synchronized with the network time,you can click the 'async network' button!"));
+        QMessageBox::information(this,"information",tr("The current time is synchronized with the network time,you can click the 'Async Network' button!"));
         return;
     }
     SysTimer->stop();
     QString  datetext = ui->datetime->text();
-    QString ret = SystimeSet(datetext);
-    if(ret == "0\n")
+    QString strResult = SystimeSet(datetext);
+    if(strResult == "0\n")
     {
         QMessageBox::information(this,"information",tr("Systime set ok!"));
     }
@@ -119,12 +113,11 @@ void timeset::SystimeSetBt_clicked()
 
 QString timeset::RTCSet()
 {
-    QString strCmd = QString("hwclock -w  ");
+    QString strCmd = QString("hwclock -w");
     QProcess process;
     process.start("bash", QStringList() <<"-c" << strCmd);
     process.waitForFinished();
-    process.write("hwclock -w \n");
-    process.waitForFinished();
+
     strCmd = QString("echo $?");
     process.start("bash", QStringList() <<"-c" << strCmd);
     process.waitForFinished();
@@ -133,54 +126,47 @@ QString timeset::RTCSet()
     return strResult;
 }
 
-void timeset::RTCSetBt_clicked()
+void timeset::btn_RTCSet_clicked()
 {
-    if(sync_flag == 1)
-    {
-        QMessageBox::information(this,"information",tr("The current time is synchronized with the network time,you can click the 'async network' button!"));
-        return;
-    }
     RTCTimer->stop();
-    QString ret = RTCSet();
-    if(ret == "0\n")
+    QString strResult = RTCSet();
+    if(strResult == "0\n")
     {
         QMessageBox::information(this,"information",tr("RTC set ok!"));
     }
     else
     {
         QMessageBox::critical(this,"information",tr("RTC set failed!"));
-
     }
     RTCTimer->start(1000);
 }
 
 void timeset::showEvent(QShowEvent *event)
 {
-    ui->datetime->setFocus();
-    if(show_first==0)
+    if(showFirstFlag==0)
     {
-        show_first++;
+        showFirstFlag++;
     }
     else
     {
-        RTCtimerUpdate();
-        SystimerUpdate();
-        RTCTimer->start(1000);
+        sys_timer_update();
+        RTC_timer_update();
         SysTimer->start(1000);
+        RTCTimer->start(1000);
     }
 }
 
-void timeset::language_reload()
+void timeset::languageReload()
 {
     ui->retranslateUi(this);
 }
 
-void timeset::timeset_font()
+void timeset::timesetFont()
 {
-    qreal realWidth = s_width / realX * 2.54;
-    qreal realHeight = s_height / realY *2.54;
+    qreal realWidth = screenWidth / realX * 2.54;
+    qreal realHeight = screenHeight / realY *2.54;
     QFont font;
-    if(screen_flag)
+    if(screenFlag)
     {
         if(realHeight < 15)
         {
@@ -211,17 +197,18 @@ void timeset::timeset_font()
         }
     }
     ui->datetime->setFont(font);
-    ui->RtcReadLabel->setFont(font);
-    ui->RTCSetBt->setFont(font);
-    ui->RTCtimepLabel->setFont(font);
-    ui->SystimepLabel->setFont(font);
-    ui->SystimeReadLabel->setFont(font);
-    ui->SystimeSetBt->setFont(font);
-    ui->label->setFont(font);
-    ui->sync_btn->setFont(font);
+    ui->lbl_RTCtimeValue->setFont(font);
+    ui->btn_RTCSet->setFont(font);
+    ui->lbl_RTCtime->setFont(font);
+    ui->lbl_systimeValue->setFont(font);
+    ui->lbl_systime->setFont(font);
+    ui->btn_sysTimeSet->setFont(font);
+    ui->lbl_timeSet->setFont(font);
+    ui->btn_sync->setFont(font);
+    ui->lbl_setTime->setFont(font);
 }
 
-void timeset::sync_net()
+void timeset::isSyncNetwork()
 {
     QString strCmd = QString("systemctl status systemd-timesyncd.service | grep Active |awk '{print $2}'");
     QProcess process;
@@ -230,29 +217,29 @@ void timeset::sync_net()
     QString strResult = process.readAllStandardOutput();
     if(strResult == "inactive\n")
     {
-        ui->sync_btn->setText(tr("sync network"));
-        sync_flag = 0;
+        ui->btn_sync->setText(tr("Sync Network"));
+        syncNetworkFlag = 0;
     }
     else
     {
-        ui->sync_btn->setText(tr("async network"));
-        sync_flag = 1;
+        ui->btn_sync->setText(tr("Async Network"));
+        syncNetworkFlag = 1;
     }
     process.close();
 }
 
-void timeset::on_sync_btn_clicked()
+void timeset::on_btn_sync_clicked()
 {
-    if(ui->sync_btn->text() == "sync network")
+    if(ui->btn_sync->text() == tr("Sync Network"))
     {
         QString strCmd = QString("systemctl start systemd-timesyncd.service");
         QProcess process;
         process.start("bash", QStringList() <<"-c" << strCmd);
         process.waitForFinished();
         process.close();
-        ui->sync_btn->setText("async network");
-        sync_flag = 1;
-        RTCSet();RTCSet();
+        ui->btn_sync->setText(tr("Async Network"));
+        QMessageBox::information(this,"information",tr("The system time is successfully synchronized with the network time!"));
+        syncNetworkFlag = 1;
     }
     else
     {
@@ -261,7 +248,8 @@ void timeset::on_sync_btn_clicked()
         process.start("bash", QStringList() <<"-c" << strCmd);
         process.waitForFinished();
         process.close();
-        ui->sync_btn->setText("sync network");
-        sync_flag = 0;
+        ui->btn_sync->setText(tr("Sync Network"));
+        QMessageBox::information(this,"information",tr("System time successfully canceled synchronization of network time!"));
+        syncNetworkFlag = 0;
     }
 }

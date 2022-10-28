@@ -2,20 +2,13 @@
     <qresource prefix="/">
         <file>chinese.ts</file>
         <file>chinese.qm</file>
-        <file>button_image/key.png</file>
-        <file>button_image/backlight.png</file>
-        <file>button_image/about.png</file>
         <file>button_image/return.png</file>
-        <file>button_image/user_manual.png</file>
         <file>button_image/cp.png</file>
         <file>button_image/del.png</file>
         <file>button_image/exit.png</file>
         <file>button_image/flush.png</file>
         <file>button_image/open.png</file>
-        <file>button_image/system.png</file>
         <file>button_image/cut.png</file>
-        <file>button_image/log.png</file>
-        <file>button_image/bluetooth/connect.png</file>
         <file>button_image/bluetooth/scan.png</file>
         <file>button_image/ethernet/show.png</file>
         <file>button_image/serial/clean.png</file>
@@ -31,47 +24,48 @@
         <file>button_image/all/3.webp</file>
         <file>button_image/all/background.jpg</file>
         <file>button_image/voice/start.png</file>
-        <file>button_image/4g.png</file>
         <file>button_image/clean.png</file>
         <file>button_image/rotate_clean.png</file>
         <file>button_image/rotate_return.png</file>
-        <file>button_image/voice/sound_cross.svg</file>
-        <file>button_image/voice/sound_open.svg</file>
         <file>button_image/folder.svg</file>
         <file>button_image/paste.svg</file>
         <file>button_image/file.svg</file>
-        <file>button_image/up.svg</file>
-        <file>button_image/sdcard.svg</file>
-        <file>button_image/storage.svg</file>
-        <file>button_image/wifi/Search-Wifi.svg</file>
-        <file>button_image/rename.svg</file>
         <file>button_image/tips.svg</file>
         <file>button_image/disconnect.svg</file>
         <file>button_image/connect.svg</file>
-        <file>button_image/times.svg</file>
-        <file>button_image/cn2.svg</file>
-        <file>button_image/backlight_2.svg</file>
-        <file>button_image/moon1.svg</file>
-        <file>button_image/serial1.svg</file>
-        <file>button_image/voice4.svg</file>
-        <file>button_image/d_ip.svg</file>
-        <file>button_image/s_ip.svg</file>
         <file>button_image/systime.svg</file>
         <file>button_image/rtvtime.svg</file>
         <file>button_image/sync.svg</file>
         <file>button_image/bluetootht.svg</file>
-        <file>button_image/nett.svg</file>
         <file>button_image/udevt.svg</file>
-        <file>button_image/sett (1).svg</file>
-        <file>button_image/4g1.svg</file>
-        <file>button_image/wifi3.svg</file>
         <file>button_image/gpiot.svg</file>
-        <file>button_image/serial_2.svg</file>
-        <file>button_image/touch_2.svg</file>
-        <file>button_image/serial_3.svg</file>
-        <file>button_image/voice_4.svg</file>
         <file>button_image/all/background(1).png</file>
         <file>button_image/all/background(2).png</file>
         <file>button_image/port.svg</file>
+        <file>button_image/voice/sound_d.svg</file>
+        <file>button_image/voice/sound_u.svg</file>
+        <file>button_image/cn.svg</file>
+        <file>button_image/timeset.svg</file>
+        <file>button_image/manual.svg</file>
+        <file>button_image/about.svg</file>
+        <file>button_image/voice.svg</file>
+        <file>button_image/voice/stop.svg</file>
+        <file>button_image/voice/play.svg</file>
+        <file>button_image/voice/rename.svg</file>
+        <file>button_image/voice/del.svg</file>
+        <file>button_image/4g.svg</file>
+        <file>button_image/ethernet.svg</file>
+        <file>button_image/serial.svg</file>
+        <file>button_image/test_port.svg</file>
+        <file>button_image/wifi.svg</file>
+        <file>button_image/touch.svg</file>
+        <file>button_image/set.png</file>
+        <file>button_image/system.svg</file>
+        <file>button_image/otg.svg</file>
+        <file>button_image/Backlight:.svg</file>
+        <file>button_image/ethernet/s_ip.svg</file>
+        <file>button_image/ethernet/d_ip.svg</file>
+        <file>button_image/sdcard.svg</file>
+        <file>button_image/udisk.svg</file>
     </qresource>
 </RCC>

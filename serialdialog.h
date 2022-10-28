@@ -37,34 +37,22 @@ public:
     QButtonGroup* pButtonGroup;
 
     void getSerialCheckedName();
-    void language_reload();
+    void languageReload();
 
 signals:
     void serial_config_msg(serial_config);
     void serial_test_msg();
     void serial_dialog_stop_msg();
 private slots:
-
-    void on_serialCancelBtn_clicked();
-
+    void on_btn_serialCancel_clicked();
     void pButtonGroup_pressed_func(int);
-
-    void on_serialOkBtn_clicked();
-
-    void on_serialCheckAllBtn_clicked();
-
-//    void on_serialTestBtn_clicked();
-
-//    void serial_set_testBt_func();
-
+    void on_btn_serialOk_clicked();
+    void on_btn_serialCheckAll_clicked();
     void on_serialModeBox_currentIndexChanged(const QString &arg1);
 
-//    void serial_result_recv_func(QString);
-
 private:
-
     serial_config serialConfig;
-    database database_w;
+    database databaseWg;
 };
 
 #endif // SERIALDIALOG_H

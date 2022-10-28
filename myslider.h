@@ -14,9 +14,9 @@ public:
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
 
-    bool m_isMoving;
-    int m_value;
-    bool m_mousePress;
+    bool isMoving;
+    int mouseValue;
+    bool mousePress;
 };
 
 #endif // MYSLIDER_H

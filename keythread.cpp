@@ -45,7 +45,6 @@ char * keytest_scan(char* keypath)
         close(fd);
     }
     QString str = QString(path);
-    //qDebug() << path;
     return NULL;
 }
 

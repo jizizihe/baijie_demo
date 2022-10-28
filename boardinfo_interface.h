@@ -17,15 +17,14 @@
 #include <dirent.h>
 #include <errno.h>
 
-int get_battery_level();
-char *get_battery_status();
-float get_CPU_temp();
-int get_resolution(int *x,int *y);
-char *get_boardname();
-char *get_OSname();
-int get_QTversion(char *dirpath,char *filename,char *fs_file);
-char *get_kernel();
-
+int getBatteryLevel();
+char *getBatteryStatus();
+float getCPUTemp();
+int getResolution(int *x,int *y);
+char *getBoardName();
+char *getOSName();
+int getQTVersion(char *dirPath,char *fileName,char *fsFile);
+char *getKernel();
 
 
 #endif

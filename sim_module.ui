@@ -15,55 +15,57 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#sim_module
-{border-image: url(:/button_image/all/background(1).png);}
-/****************按钮部件*******************/
-QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-	outline: none; /*去掉按钮的虚线框*/
+{
+    border-image: url(:/button_image/all/background(1).png);
 }
 
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
+/****************QPushButton*******************/
+QPushButton{
+     background-color: rgba(100, 225, 100, 120);
+     border-style: outset; 
+     border-width:  2px; 
+     border-radius: 10px; 
+     border-color: rgba(255, 225, 255, 30);
+     color:rgba(0, 0, 0, 100);
+     padding: 6px; 
+	 outline: none; 
+}
+
+QPushButton:hover{ 
         background-color:rgba(100,255,100, 100);
         border-color: rgba(255, 225, 255, 200);
         color:rgba(0, 0, 0, 200);
 }
 
-QPushButton:pressed { /*按钮被按下时*/
+QPushButton:pressed {
      background-color:rgba(100,255,100, 200);
      border-color: rgba(255, 225, 255, 30);
      border-style: inset;
      color:rgba(0, 0, 0, 100);
 }
 
-/****************滑块部件*******************/
-
-
-QSlider::handle:horizontal { /*水平滑块的手柄*/
+QSlider::handle:horizontal { 
         image: url(:/image/sliderHandle.png);
  }
 
-QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
-        border-image: url(:/image/slider.png);/*边框图片*/
+QSlider::sub-page:horizontal { 
+        border-image: url(:/image/slider.png);
  }
 
 QMessageBox {
-background-image: url(:/button_image/all/background.jpg);
+   background-image: url(:/button_image/all/background.jpg);
 	border:1px solid gray;
 }
+
 QTextEdit
 {
 	background-color:transparent;
 	border:1px solid gray;
 }
+
 QScrollBar{
-width:30px;
-height:30px;
+   width:30px;
+   height:30px;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -101,7 +103,7 @@ height:30px;
        <number>5</number>
       </property>
       <item>
-       <widget class="QPushButton" name="retBtn">
+       <widget class="QPushButton" name="btn_ret">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -137,7 +139,7 @@ height:30px;
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="lbl_4G">
         <property name="text">
          <string>4G</string>
         </property>
@@ -222,7 +224,7 @@ height:30px;
         </item>
         <item>
          <widget class="QWidget" name="widget" native="true">
-          <layout class="QVBoxLayout" name="verticalLayout" stretch="2,2,2,2,2,2,2">
+          <layout class="QVBoxLayout" name="verticalLayout" stretch="1,2,2,2,2,2,1">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -252,7 +254,7 @@ height:30px;
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="statusBtn">
+            <widget class="QPushButton" name="btn_status">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -288,7 +290,7 @@ height:30px;
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="SimConnectBtn">
+            <widget class="QPushButton" name="btn_connect">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -330,7 +332,7 @@ height:30px;
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="SimDisconnectBtn">
+            <widget class="QPushButton" name="btn_disconnect">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -393,7 +395,7 @@ height:30px;
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page">
          <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,6">
@@ -431,7 +433,7 @@ height:30px;
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="label">
+             <widget class="QLabel" name="lbl_connectStatus">
               <property name="text">
                <string>connect status</string>
               </property>
@@ -486,8 +488,8 @@ height:30px;
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>115</width>
-                 <height>127</height>
+                 <width>414</width>
+                 <height>261</height>
                 </rect>
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="4,5">
@@ -512,7 +514,7 @@ height:30px;
                    <number>10</number>
                   </property>
                   <item>
-                   <widget class="QLabel" name="label_14">
+                   <widget class="QLabel" name="lbl_name">
                     <property name="text">
                      <string>name: </string>
                     </property>
@@ -522,7 +524,7 @@ height:30px;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_15">
+                   <widget class="QLabel" name="lbl_state">
                     <property name="text">
                      <string>state: </string>
                     </property>
@@ -532,7 +534,7 @@ height:30px;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_16">
+                   <widget class="QLabel" name="lbl_vpn">
                     <property name="text">
                      <string>vpn: </string>
                     </property>
@@ -542,7 +544,7 @@ height:30px;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_17">
+                   <widget class="QLabel" name="lbl_autocpnnect">
                     <property name="text">
                      <string>autocpnnect: </string>
                     </property>
@@ -552,7 +554,7 @@ height:30px;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_18">
+                   <widget class="QLabel" name="lbl_address">
                     <property name="text">
                      <string>address: </string>
                     </property>
@@ -569,35 +571,35 @@ height:30px;
                    <number>10</number>
                   </property>
                   <item>
-                   <widget class="QLabel" name="name_label">
+                   <widget class="QLabel" name="lbl_nameValue">
                     <property name="text">
                      <string>no</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="state_label">
+                   <widget class="QLabel" name="lbl_stateValue">
                     <property name="text">
                      <string>no</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="vpn_label">
+                   <widget class="QLabel" name="lbl_vpnValue">
                     <property name="text">
                      <string>no</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="auto_label">
+                   <widget class="QLabel" name="lbl_autocpnnectValue">
                     <property name="text">
                      <string>no</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="address_label">
+                   <widget class="QLabel" name="lbl_addressValue">
                     <property name="text">
                      <string>no</string>
                     </property>
@@ -663,7 +665,7 @@ height:30px;
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="label_3">
+             <widget class="QLabel" name="lbl_4GStatus">
               <property name="text">
                <string>4G status</string>
               </property>
@@ -705,8 +707,7 @@ height:30px;
             <item>
              <widget class="QScrollArea" name="scrollArea">
               <property name="styleSheet">
-               <string notr="true">
- background-color:rgba(255, 255, 255, 38);</string>
+               <string notr="true">background-color:rgba(255, 255, 255, 38);</string>
               </property>
               <property name="widgetResizable">
                <bool>true</bool>
@@ -727,7 +728,7 @@ height:30px;
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_3">
                   <item>
-                   <widget class="QLabel" name="label_4">
+                   <widget class="QLabel" name="lbl_revision">
                     <property name="text">
                      <string>revision: </string>
                     </property>
@@ -737,7 +738,7 @@ height:30px;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_5">
+                   <widget class="QLabel" name="lbl_hardwareSupported">
                     <property name="text">
                      <string>hardware supported: </string>
                     </property>
@@ -747,7 +748,7 @@ height:30px;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_6">
+                   <widget class="QLabel" name="lbl_equipmentId">
                     <property name="text">
                      <string>equipment id: </string>
                     </property>
@@ -757,7 +758,7 @@ height:30px;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_7">
+                   <widget class="QLabel" name="lbl_ports">
                     <property name="text">
                      <string>ports: </string>
                     </property>
@@ -767,7 +768,7 @@ height:30px;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_8">
+                   <widget class="QLabel" name="lbl_status">
                     <property name="text">
                      <string>state: </string>
                     </property>
@@ -777,7 +778,7 @@ height:30px;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_9">
+                   <widget class="QLabel" name="lbl_powerState">
                     <property name="text">
                      <string>power state: </string>
                     </property>
@@ -787,7 +788,7 @@ height:30px;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_10">
+                   <widget class="QLabel" name="lbl_accessTech">
                     <property name="text">
                      <string>access tech: </string>
                     </property>
@@ -797,7 +798,7 @@ height:30px;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_11">
+                   <widget class="QLabel" name="lbl_signalQuality">
                     <property name="text">
                      <string>signal quality: </string>
                     </property>
@@ -807,7 +808,7 @@ height:30px;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_12">
+                   <widget class="QLabel" name="lbl_ipSupported">
                     <property name="text">
                      <string>ip supported: </string>
                     </property>
@@ -817,7 +818,7 @@ height:30px;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_13">
+                   <widget class="QLabel" name="lbl_operatorName">
                     <property name="text">
                      <string>operator name: </string>
                     </property>
@@ -831,70 +832,70 @@ height:30px;
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_4">
                   <item>
-                   <widget class="QLabel" name="revision_label">
+                   <widget class="QLabel" name="lbl_revisionValue">
                     <property name="text">
                      <string>no</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="hardsup_label">
+                   <widget class="QLabel" name="lbl_hardsupValue">
                     <property name="text">
                      <string>no</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="equip_label">
+                   <widget class="QLabel" name="lbl_equipValue">
                     <property name="text">
                      <string>no</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="port_label">
+                   <widget class="QLabel" name="lbl_portsValue">
                     <property name="text">
                      <string>no</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="status_label">
+                   <widget class="QLabel" name="lbl_statusValue">
                     <property name="text">
                      <string>no</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="power_label">
+                   <widget class="QLabel" name="lbl_powerStateValue">
                     <property name="text">
                      <string>no</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="access_label">
+                   <widget class="QLabel" name="lbl_accessTechValue">
                     <property name="text">
                      <string>no</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="signal_label">
+                   <widget class="QLabel" name="lbl_signalQualityValue">
                     <property name="text">
                      <string>no</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="ip_label">
+                   <widget class="QLabel" name="lbl_ipSupportedValue">
                     <property name="text">
                      <string>no</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="operat_label">
+                   <widget class="QLabel" name="lbl_operatorNameValue">
                     <property name="text">
                      <string>no</string>
                     </property>

@@ -2,27 +2,26 @@
 #include "ui_wificondialog.h"
 #include <QScreen>
 
-static int s_width;
-static int s_height;
-static int screen_flag;
+static int screenWidth;
+static int screenHeight;
+static int screenFlag;
+static int connectFlag;
 static QScreen *screen;
 static qreal realX;
 static qreal realY;
-static int btn_connectflag;
 
 WifiConDialog::WifiConDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::WifiConDialog)
 {
     ui->setupUi(this);
-    wifi_bt_t = new wifi_bt_interface(this);
     screen = qApp->primaryScreen();
-    s_width = screen->size().width();
-    s_height = screen->size().height();
+    screenWidth = screen->size().width();
+    screenHeight = screen->size().height();
 
-    if(s_width < s_height)
+    if(screenWidth < screenHeight)
     {
-        screen_flag = 1;
+        screenFlag = 1;
         this->setStyleSheet("WifiConDialog{border-image: url(:/button_image/all/background.jpg);border-style: outset;"
                             "border-radius:4px}"
                             "QDialog {border:1px solid gray;}"
@@ -35,27 +34,26 @@ WifiConDialog::WifiConDialog(QWidget *parent) :
     else
     {
         this->setStyleSheet("#WifiConDialog{background-image: url(:/button_image/all/background.jpg);"
-           "border-style: outset;border-radius:4px}"
-           "QDialog {border:1px solid gray;}"
-           "QPushButton{background-color: rgba(100, 225, 100, 120);border-style: outset;"
-           "border-width:  2px;border-radius: 10px; border-color: rgba(255, 225, 255, 30);"/*边框颜色*/""
-           "color:rgba(0, 0, 0, 100);padding: 6px;outline: none;}"
-           "QPushButton:hover{background-color:rgba(100,255,100, 100); border-color: rgba(255, 225, 255, 200);color:rgba(0, 0, 0, 200);}"
-           " QPushButton:pressed {background-color:rgba(100,255,100, 200);border-color: rgba(255, 225, 255, 30);"
-           "border-style: inset;color:rgba(0, 0, 0, 100);}"
-           "QSlider::handle:horizontal { image: url(:/image/sliderHandle.png);}"
-           "QSlider::sub-page:horizontal { border-image: url(:/image/slider.png); } ");
+                            "border-style: outset;border-radius:4px}"
+                            "QDialog {border:1px solid gray;}"
+                            "QPushButton{background-color: rgba(100, 225, 100, 120);border-style: outset;"
+                            "border-width:  2px;border-radius: 10px; border-color: rgba(255, 225, 255, 30);"
+                            "color:rgba(0, 0, 0, 100);padding: 6px;outline: none;}"
+                            "QPushButton:hover{background-color:rgba(100,255,100, 100); border-color: rgba(255, 225, 255, 200);color:rgba(0, 0, 0, 200);}"
+                            " QPushButton:pressed {background-color:rgba(100,255,100, 200);border-color: rgba(255, 225, 255, 30);"
+                            "border-style: inset;color:rgba(0, 0, 0, 100);}"
+                            "QSlider::handle:horizontal { image: url(:/image/sliderHandle.png);}"
+                            "QSlider::sub-page:horizontal { border-image: url(:/image/slider.png); } ");
     }
     realX = screen->physicalDotsPerInchX();
     realY = screen->physicalDotsPerInchY();
-    wifidial_font();
+    wifidialFont();
     WifiLoadLabel = new QLabel(this);
-   // WifiLoadLabel->move(this->size().width()/2,this->size().height()/2);
     WifiMovie = new QMovie("://button_image/loading.webp");
     WifiLoadLabel->setFixedSize(50, 50);
     WifiLoadLabel->setScaledContents(true);
     WifiLoadLabel->setMovie(WifiMovie);
-    if(screen_flag == 1)
+    if(screenFlag == 1)
     {
         WifiLoadLabel->move(this->size().height()/2,this->size().width()/2);
     }
@@ -63,16 +61,13 @@ WifiConDialog::WifiConDialog(QWidget *parent) :
     {
         WifiLoadLabel->move(this->size().width()/2,this->size().height()/2);
     }
-    //pMovie->start();
 }
 
 WifiConDialog::~WifiConDialog()
 {
     delete ui;
-
     delete WifiLoadLabel;
     delete WifiMovie;
-    delete wifi_bt_t;
 }
 
 void WifiConDialog::wifi_wait_end_func()
@@ -81,45 +76,45 @@ void WifiConDialog::wifi_wait_end_func()
     WifiLoadLabel->close();
 }
 
-void WifiConDialog::on_WifiOkBtn_clicked()
+void WifiConDialog::on_btn_ok_clicked()
 {
-    QString wifi_name =  ui->NamelineEdit->text();
-    QString wifi_passwd =  ui->PasswdlineEdit->text();
+    QString wifiName =  ui->NamelineEdit->text();
+    QString wifiPasswd =  ui->PasswdlineEdit->text();
 
-    int length = wifi_passwd.length();
+    int length = wifiPasswd.length();
     if(length < 8)
     {
         QMessageBox::information(this,"information",tr("The number of password digits must be greater than 8"));
         QMessageBox msge(QMessageBox::Information,
-                            tr("QMessageBox::information()"),
-                            tr("The number of password digits must be greater than 8"),
-                            0,this);
+                         tr("QMessageBox::information()"),
+                         tr("The number of password digits must be greater than 8"),
+                         0,this);
         msge.addButton(tr("OK"),QMessageBox::AcceptRole);
         return ;
     }
     WifiLoadLabel->show();
     WifiMovie->start();
-    if(btn_connectflag == 0)  //wifi connect
+    if(connectFlag == 0)  //wifi connect
     {
-        emit wifi_connect_dialog_signal(wifi_name, wifi_passwd);
+        emit wifi_connect_dialog_msg(wifiName, wifiPasswd);
     }
-    else if(btn_connectflag == 1)  //wifi change password
+    else if(connectFlag == 1)  //wifi change password
     {
-        emit wifi_modify_pass(wifi_name,wifi_passwd);
+        emit wifi_modify_pass_msg(wifiName,wifiPasswd);
     }
 }
 
-void WifiConDialog::wifi_modifypass(bool strResult)
+void WifiConDialog::wifi_modify_pass(bool strResult)
 {
-    QString wifi_name =  ui->NamelineEdit->text();
-    QString wifi_passwd =  ui->PasswdlineEdit->text();
+    QString wifiName =  ui->NamelineEdit->text();
+    QString wifiPasswd =  ui->PasswdlineEdit->text();
     WifiLoadLabel->close();
     WifiMovie->stop();
     if(strResult == true)
     {
         QMessageBox::information(this,"information",tr("change succeeded!"));
-        database_w.update_wifitable("wifiPasswd",wifi_name,wifi_passwd);
-        emit wifi_showrefresh();
+        databaseWg.updateWiFiTable("wifiPasswd",wifiName,wifiPasswd);
+        emit wifi_show_refresh_msg();
         ui->NamelineEdit->clear();
         ui->PasswdlineEdit->clear();
         this->close();
@@ -128,95 +123,69 @@ void WifiConDialog::wifi_modifypass(bool strResult)
     {
         WifiLoadLabel->close();
         WifiMovie->stop();
-        database_w.update_wifitable("wifiPasswd",wifi_name,wifi_passwd);
+        databaseWg.updateWiFiTable("wifiPasswd",wifiName,wifiPasswd);
         QMessageBox::critical(this,"information",tr("connect failed,the password wrong!"));
-        emit wifi_showrefresh();
+        emit wifi_show_refresh_msg();
     }
 }
 
-void WifiConDialog::on_WifiCancelBtn_clicked()
+void WifiConDialog::on_btn_cancel_clicked()
 {
     ui->NamelineEdit->clear();
     ui->PasswdlineEdit->clear();
     this->close();
-    emit wifidial_close();
+    emit wifidial_close_msg();
 }
 
-void WifiConDialog::SetWifiNameText(QString wifinanme)
+void WifiConDialog::setWifiNameText(QString wifiNanme)
 {
-    ui->NamelineEdit->setText(wifinanme);
+    ui->NamelineEdit->setText(wifiNanme);
 }
 
-void WifiConDialog::SetPasswdText(QString wifipasswd)
+void WifiConDialog::setPasswdText(QString wifiPasswd)
 {
-    ui->PasswdlineEdit->setText(wifipasswd);
+    ui->PasswdlineEdit->setText(wifiPasswd);
 }
 
-QString WifiConDialog::GetWifiNameText()
+QString WifiConDialog::getWifiNameText()
 {
     return ui->NamelineEdit->text();
 }
 
-QString WifiConDialog::GetPasswdText()
+QString WifiConDialog::getPasswdText()
 {
     return ui->PasswdlineEdit->text();
 }
 
 QString WifiConDialog::GetWifiOkBtnText()
 {
-    return (ui->WifiOkBtn->text());
+    return (ui->btn_ok->text());
 }
 
-void WifiConDialog::SetWifiOkBtnText(int flag)
+void WifiConDialog::setWifiOkBtnText(int flag)
 {
     if(flag == 0)
     {
-        ui->WifiOkBtn->setText(tr("connect"));
+        ui->btn_ok->setText(tr("connect"));
     }
     else
     {
-        ui->WifiOkBtn->setText(tr("ok"));
+        ui->btn_ok->setText(tr("change"));
     }
-    btn_connectflag = flag;
-   // WifiLoadLabel->show();
-   // WifiMovie->start();
+    connectFlag = flag;
 }
 
-bool WifiConDialog::event(QEvent *event)
-{
-    /*
-    QWidget *currentItem;
-    currentItem = QApplication::focusWidget();
-    qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__ << "currentItem:" <<currentItem;
-
-    if(event->type()==QEvent::MouseButtonPress)
-    {
-        currentItem = QApplication::focusWidget();
-        qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__ << "currentItem:" <<currentItem;
-
-        this->setFocusPolicy(Qt::NoFocus);
-        qDebug() << tr("MyLineEdit event functions");
-
-        currentItem = QApplication::focusWidget();
-        qDebug() << "Line:" << __LINE__<< "FILE" << __FILE__<< "FUNC:" << __FUNCTION__ << "currentItem:" <<currentItem;
-    }
-    */
-    return QWidget::event(event);
-
-}
-
-void WifiConDialog::language_reload()
+void WifiConDialog::languageReload()
 {
     ui->retranslateUi(this);
-
 }
 
-void WifiConDialog::wifidial_font()
+void WifiConDialog::wifidialFont()
 {
-    qreal realWidth = s_width / realX * 2.54;
-    qreal realHeight = s_height / realY *2.54;
+    qreal realWidth = screenWidth / realX * 2.54;
+    qreal realHeight = screenHeight / realY *2.54;
     QFont font;
-    if(screen_flag)
+    if(screenFlag)
     {
         if(realHeight < 15)
         {
@@ -248,11 +217,11 @@ void WifiConDialog::wifidial_font()
         }
     }
 
-    ui->label->setFont(font);
-    ui->label_2->setFont(font);
-    ui->label_3->setFont(font);
+    ui->lbl_wifi->setFont(font);
+    ui->lbl_wifiName->setFont(font);
+    ui->lbl_wifiPasswd->setFont(font);
     ui->NamelineEdit->setFont(font);
     ui->PasswdlineEdit->setFont(font);
-    ui->WifiCancelBtn->setFont(font);
-    ui->WifiOkBtn->setFont(font);
+    ui->btn_cancel->setFont(font);
+    ui->btn_ok->setFont(font);
 }

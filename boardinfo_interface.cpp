@@ -2,49 +2,43 @@
 #include <QProcess>
 #include <QString>
 #include <QDebug>
-int get_battery_level()
+int getBatteryLevel()
 {
-	FILE *fd;
-	int level;
-
-	fd = fopen(BATTERY_PATH"/capacity", "r");
-	if(NULL == fd)
-	{
-		printf("open battery capacity failed !\n");
-		return -1;
-	}
-	fscanf(fd, "%d", &level);
-
-    //printf("battery level is %d\n",level);
-	fclose(fd);
-	return level;
+    FILE *fd;
+    int level;
+    fd = fopen(BATTERY_PATH"/capacity", "r");
+    if(NULL == fd)
+    {
+        printf("open battery capacity failed !\n");
+        return -1;
+    }
+    fscanf(fd, "%d", &level);
+    fclose(fd);
+    return level;
 }
 
-char *get_battery_status()
+char *getBatteryStatus()
 {
-	FILE *fd;
+    FILE *fd;
     char *status;
-
-	fd = fopen(BATTERY_PATH"/status", "r");
-	if(NULL == fd)
-	{
-		printf("open battery status failed !\n");
+    fd = fopen(BATTERY_PATH"/status", "r");
+    if(NULL == fd)
+    {
+        printf("open battery status failed !\n");
         return (char *)"false";
-	}
+    }
     status = (char *)malloc(sizeof(char) * 255);
 
     fscanf(fd, "%s", status);
-    //printf("battery status is %s\n", buf);
-	fclose(fd);   
+    fclose(fd);
     return status;
 }
 
-float get_CPU_temp()
+float getCPUTemp()
 {
     FILE *fd;
     long int num;
     float temp,var;
-
     fd = fopen(CPU_PATH"/temp","r");
     if(NULL == fd)
     {
@@ -60,12 +54,10 @@ float get_CPU_temp()
     return temp;
 }
 
-
-
-int get_resolution(int *x,int *y)
+int getResolution(int *x,int *y)
 {
     int fd;
-    struct fb_var_screeninfo screen_info;
+    struct fb_var_screeninfo screenInfo;
     char *path = (char *)"/dev/fb0";
     fd = open(path,O_RDWR);
     if(0 == fd)
@@ -73,15 +65,14 @@ int get_resolution(int *x,int *y)
         printf("open fb0 failed !\n");
         return -1;
     }
-    ioctl(fd,FBIOGET_VSCREENINFO,&screen_info);
-    *x = screen_info.xres;
-    *y = screen_info.yres;
-    //printf("%d*%d\n",screen_info.xres,screen_info.yres);
+    ioctl(fd,FBIOGET_VSCREENINFO,&screenInfo);
+    *x = screenInfo.xres;
+    *y = screenInfo.yres;
     close(fd);
     return 0;
 }
 
-char *get_boardname()
+char *getBoardName()
 {
     FILE *fd;
     char *name;
@@ -92,16 +83,14 @@ char *get_boardname()
         printf("open battery status failed !\n");
         return (char *)"false";
     }
-
     name = (char *)malloc(sizeof(char) * 255);
 
     fscanf(fd, "%s", name);
-    //printf("battery status is %s\n", buf);
     fclose(fd);
     return name;
 }
 
-char *get_OSname()
+char *getOSName()
 {
     FILE *fd;
     char *OS;
@@ -125,32 +114,29 @@ char *get_OSname()
     return OS;
 }
 
-int get_QTversion(char *dirpath,char *filename,char *fs_file)
+int getQTVersion(char *dirPath, char *fileName, char *fsFile)
 {
     int i = 0,j = 0;
     char fw_file[64][64];
     char finish_file[64] = {0};
 
-    DIR *dir = opendir(dirpath);
+    DIR *dir = opendir(dirPath);
     if(dir == NULL) {
-        qDebug("open %s failed \n",dirpath);
+        qDebug("open %s failed \n",dirPath);
         return 0;
     }
 
     struct dirent *ent;
     while((ent = readdir(dir)) != NULL)
     {
-        if(strncmp(ent->d_name,filename ,9) == 0)
+        if(strncmp(ent->d_name,fileName ,9) == 0)
         {
             sprintf(fw_file[i],"%s",ent->d_name);
-//            qDebug("fw: %s\n",fw_file[i]);
             i++;
         }
     }
 
-//        qDebug("i = %d\n",i);
     closedir(dir);
-
     for(j = 0;j < i;j++)
     {
         if(strcmp(finish_file,fw_file[j]) < 0)
@@ -158,50 +144,42 @@ int get_QTversion(char *dirpath,char *filename,char *fs_file)
             strcpy(finish_file,fw_file[j]);
         }
     }
-//    qDebug("finish_file is %s\n",finish_file);
 
-    sscanf(finish_file,"%*[^.]%*[^1-9]%s",fs_file);
-//    qDebug("fs_file is %s\n",fs_file);
+    sscanf(finish_file,"%*[^.]%*[^1-9]%s",fsFile);
     return i;
-
 }
 
-char *get_kernel()
+char *getKernel()
 {
     char *kernel;
-
     kernel = (char *)malloc(255);
     QProcess *process = new QProcess();
     process->start("uname -m");
     if(!process->waitForFinished())
     {
-//        ui->kernel_label->setText(QString(tr("kernel: Unknown")));
         kernel = (char *)"Unknown";
         return kernel;
     }
-    QString hardware_name = QString::fromLocal8Bit(process->readAllStandardOutput());
-    hardware_name = hardware_name.simplified();
+    QString hardwareName = QString::fromLocal8Bit(process->readAllStandardOutput());
+    hardwareName = hardwareName.simplified();
 
     process->start("uname -s");
     if(!process->waitForFinished())
     {
-//        ui->kernel_label->setText(QString(tr("kernel: Unknown")));
         kernel = (char *)"Unknown";
         return kernel;
     }
-    QString kernel_name = QString::fromLocal8Bit(process->readAllStandardOutput());
-    kernel_name = kernel_name.simplified();
+    QString kernelName = QString::fromLocal8Bit(process->readAllStandardOutput());
+    kernelName = kernelName.simplified();
 
     process->start("uname -r");
     if(!process->waitForFinished())
     {
-//        ui->kernel_label->setText(QString(tr("kernel: Unknown")));
         kernel = (char *)"Unknown";
         return kernel;
     }
-    QString kernel_release = QString::fromLocal8Bit(process->readAllStandardOutput());
-    kernel_release = kernel_release.simplified();
-
-    kernel = (QString("%1 %2 %3").arg(hardware_name).arg(kernel_name).arg(kernel_release)).toLatin1().data();
+    QString kernelRelease = QString::fromLocal8Bit(process->readAllStandardOutput());process->close();
+    kernelRelease = kernelRelease.simplified();
+    kernel = (QString("%1 %2 %3").arg(hardwareName).arg(kernelName).arg(kernelRelease)).toLatin1().data();
     return kernel;
 }

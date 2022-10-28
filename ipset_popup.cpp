@@ -17,24 +17,24 @@ ipset_popup::ipset_popup(QWidget *parent) :
     btn_OK->setGeometry(900,500,100,40);
     btn_OK->setStyleSheet(R"(
                      QPushButton{
-                     background-color: rgba(100, 225, 100, 120);/*背景色*/
-                     border-style: outset; /*边框样式*/
-                     border-width:  2px;  /*边框宽度为4像素*/
-                     border-radius: 10px; /*边框圆角半径*/
-                     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-                     font: bold 20px;/*字体*/
-                     color:rgba(0, 0, 0, 100);/*字体颜色*/
-                     padding: 6px; /*填衬*/
-                    outline: none; /*去掉按钮的虚线框*/
+                     background-color: rgba(100, 225, 100, 120);
+                     border-style: outset;
+                     border-width:  2px;
+                     border-radius: 10px;
+                     border-color: rgba(255, 225, 255, 30);
+                     font: bold 20px;
+                     color:rgba(0, 0, 0, 100);
+                     padding: 6px;
+                    outline: none;
                 }
 
-                QPushButton:hover{ /*鼠标悬停在按钮上时*/
+                QPushButton:hover{
                         background-color:rgba(100,255,100, 100);
                         border-color: rgba(255, 225, 255, 200);
                         color:rgba(0, 0, 0, 200);
                 }
 
-                QPushButton:pressed { /*按钮被按下时*/
+                QPushButton:pressed {
                      background-color:rgba(100,255,100, 200);
                      border-color: rgba(255, 225, 255, 30);
                      border-style: inset;
@@ -46,24 +46,24 @@ ipset_popup::ipset_popup(QWidget *parent) :
 //    btn_return = new QPushButton(tr("return"),this);
     btn_return->setStyleSheet(R"(
                      QPushButton{
-                     background-color: rgba(100, 225, 100, 120);/*背景色*/
-                     border-style: outset; /*边框样式*/
-                     border-width:  2px;  /*边框宽度为4像素*/
-                     border-radius: 10px; /*边框圆角半径*/
-                     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-                     font: bold 14px;/*字体*/
-                     color:rgba(0, 0, 0, 100);/*字体颜色*/
-                     padding: 6px; /*填衬*/
-                    outline: none; /*去掉按钮的虚线框*/
+                     background-color: rgba(100, 225, 100, 120);
+                     border-style: outset;
+                     border-width:  2px;
+                     border-radius: 10px;
+                     border-color: rgba(255, 225, 255, 30);
+                     font: bold 14px;
+                     color:rgba(0, 0, 0, 100);
+                     padding: 6px;
+                    outline: none;
                 }
 
-                QPushButton:hover{ /*鼠标悬停在按钮上时*/
+                QPushButton:hover{
                         background-color:rgba(100,255,100, 100);
                         border-color: rgba(255, 225, 255, 200);
                         color:rgba(0, 0, 0, 200);
                 }
 
-                QPushButton:pressed { /*按钮被按下时*/
+                QPushButton:pressed {
                      background-color:rgba(100,255,100, 200);
                      border-color: rgba(255, 225, 255, 30);
                      border-style: inset;
@@ -158,7 +158,6 @@ void ipset_popup::getaddipinforma()
     label_netcard->setVisible(true);
     line_addr->setVisible(true);
     line_netcard->setVisible(true);
-
     label_netcard->move(270,200);
     line_netcard->move(450,200);
     label_addr->move(270,350);
@@ -171,7 +170,6 @@ void ipset_popup::getmodipinforma()
     label_netcard->setVisible(false);
     line_addr->setVisible(true);
     line_netcard->setVisible(false);
-
     label_addr->move(270,300);
     line_addr->move(450,300);
 }

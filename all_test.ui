@@ -24,40 +24,38 @@
 {
 border-image: url(:/button_image/all/background(2).png);
 }
-/****************按钮部件*******************/
+
+/****************QPushButton*******************/
 QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-    outline: none; /*去掉按钮的虚线框*/
+     background-color: rgba(100, 225, 100, 120);
+     border-style: outset; 
+     border-width:  2px;  
+     border-radius: 10px;
+     border-color: rgba(255, 225, 255, 30);
+     color:rgba(0, 0, 0, 100);
+     padding: 6px; 
+    outline: none; 
 }
 
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
+QPushButton:hover{ 
         background-color:rgba(100,255,100, 100);
         border-color: rgba(255, 225, 255, 200);
         color:rgba(0, 0, 0, 200);
 }
 
-QPushButton:pressed { /*按钮被按下时*/
+QPushButton:pressed { 
      background-color:rgba(100,255,100, 200);
      border-color: rgba(255, 225, 255, 30);
      border-style: inset;
      color:rgba(0, 0, 0, 100);
 }
 
-/****************滑块部件*******************/
-
-
-QSlider::handle:horizontal { /*水平滑块的手柄*/
+QSlider::handle:horizontal { 
         image: url(:/image/sliderHandle.png);
 }
 
-QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
-        border-image: url(:/image/slider.png);/*边框图片*/
+QSlider::sub-page:horizontal { 
+        border-image: url(:/image/slider.png);
 }
 QTextEdit
 {
@@ -104,7 +102,7 @@ QInputDialog{
        <number>5</number>
       </property>
       <item>
-       <widget class="QPushButton" name="retBtn">
+       <widget class="QPushButton" name="btn_ret">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -112,42 +110,7 @@ QInputDialog{
          </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true">/****************按钮部件*******************/
-QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     font: bold 25px;/*字体*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-	outline: none; /*去掉按钮的虚线框*/
-}
-
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
-        background-color:rgba(100,255,100, 100);
-        border-color: rgba(255, 225, 255, 200);
-        color:rgba(0, 0, 0, 200);
-}
-
-QPushButton:pressed { /*按钮被按下时*/
-     background-color:rgba(100,255,100, 200);
-     border-color: rgba(255, 225, 255, 30);
-     border-style: inset;
-     color:rgba(0, 0, 0, 100);
-}
-
-/****************滑块部件*******************/
-
-
-QSlider::handle:horizontal { /*水平滑块的手柄*/
-        image: url(:/image/sliderHandle.png);
- }
-
-QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
-        border-image: url(:/image/slider.png);/*边框图片*/
- }</string>
+         <string notr="true"/>
         </property>
         <property name="text">
          <string/>
@@ -179,7 +142,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="title_AllInterfaceTests">
         <property name="text">
          <string>All Interface Tests</string>
         </property>
@@ -258,7 +221,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
          <number>5</number>
         </property>
         <item>
-         <widget class="QGroupBox" name="groupBox_2">
+         <widget class="QGroupBox" name="groupBox">
           <property name="styleSheet">
            <string notr="true"/>
           </property>
@@ -706,7 +669,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             <number>5</number>
            </property>
            <item>
-            <widget class="QPushButton" name="testCheckAllBtn">
+            <widget class="QPushButton" name="btn_testCheckAll">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -741,7 +704,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="beginBtn">
+            <widget class="QPushButton" name="btn_begin">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -784,8 +747,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
         <item row="0" column="0">
          <widget class="QTextEdit" name="textEdit">
           <property name="styleSheet">
-           <string notr="true">
-  background-color:rgba(255, 255, 255, 80);
+           <string notr="true"> background-color:rgba(255, 255, 255, 80);
 </string>
           </property>
           <property name="readOnly">

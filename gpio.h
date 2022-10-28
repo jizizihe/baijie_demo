@@ -14,7 +14,6 @@
 #include <QValidator>
 #include "gpio_interface.h"
 #include <QScrollBar>
-#include "input_method.h"
 
 namespace Ui {
 class gpio;
@@ -27,46 +26,33 @@ class gpio : public QWidget
 public:
     explicit gpio(QWidget *parent = 0);
     ~gpio();
-    void key_show();
-    void key_hide();
-    void language_reload();
-    void gpio_font();
-    void settext_statusbtn(int);
-    void settext_valuebtn(int);
+    void languageReload();
+    void gpioFont();
+    void setTextStatusSwitch(int);
+    void setTextValueSwitch(int);
     void showEvent(QShowEvent *event);
+    bool isTruePort(QString,int i);           //Check whether the port mode is correct
+    bool isEnglish(QString &qstrSrc);
+    bool isNumber(QString &qstrSrc);
 
 private slots:
     void ret_clicked();
-    void srceenclear();
-    bool isEnglish(QString &qstrSrc);
-    bool isNumber(QString &qstrSrc);
-    bool istrueport(QString,int i);
+    void srceen_clear();    
     bool warning();
-    void on_pushButton_clicked();
-    void BtnChange_flag1(bool flag);
-    void BtnChange_flag2(bool flag);
+    void on_btn_hint_clicked();
+    void status_switch_change_flag(bool flag);
+    void value_switch_change_flag(bool flag);
     void gpio_refresh();
 
 signals:
-    void Mysignal();
+    void gpio_back_msg();
 
 private:
     Ui::gpio *ui;
-    QGroupBox *stateGroup;
-    QGroupBox *valueGroup;
-    QPushButton *ret;
-
-    QTextEdit *display;
-    QRadioButton *rBtnhigh;
-    QRadioButton *rBtnlow ;
-    QRadioButton *rBtnout;
-    QRadioButton *rBtnin ;
-    input_method input_methodw;
-    int port_num[384] = {0};
-    char portnum[384][4];
-    int num = 0,count = 0;
-    struct occupied_gpio_s occupied_gpio;
-
+    int portNumInt[384] = {0};  //For example: 205
+    char portNumStr[384][4];    //For example: g13
+    int num = 0,portCount = 0;
+    struct occupiedGpioStr occupiedGpio;
 };
 
 #endif // GPIO_H

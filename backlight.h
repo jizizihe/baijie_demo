@@ -7,7 +7,7 @@
 #include <QTime>
 #include <QTimer>
 #include <QDateTime>
-
+#include <QProcess>
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -16,16 +16,16 @@
 #include <fcntl.h>
 #include <sys/ioctl.h>
 
-//include/video/sunxi_display2.h)
 #define	DISP_LCD_SET_BRIGHTNESS  0x102
 #define DISP_LCD_GET_BRIGHTNESS  0x103
 #define	DISP_LCD_BACKLIGHT_ENABLE   0x104
 #define	DISP_LCD_BACKLIGHT_DISABLE  0x105
 
 #include "globalapp.h"
+#include "wifi_bt_interface.h"
 
-int set_backlight(int value);
-int get_backlight();
+int setBacklight(int value);
+int getBacklight();
 
 namespace Ui {
 class backlight;
@@ -39,30 +39,21 @@ public:
     explicit backlight(QWidget *parent = 0);
     ~backlight();
     QTimer *timing;
-    void language_reload();
-    void backlight_font();
+    void languageReload();
+    void backlightFont();
 
 private:
     Ui::backlight *ui;
-    QString t_time;
-
 
 signals:
-    void Mysignal();
+    void backlight_back_msg();
 
 private slots:
-    void on_horizontalSlider_valueChanged(int value);
-    void on_comboBox_currentIndexChanged(int index);
-    void on_return_2_clicked();
-    void show_time();
-
-    void light_screen();  //Click on the light screen
-    void timerUp();       //check whether events are generated
-
-
-
-    void on_btn_ligth_clicked();
-    void on_btn_sleep_clicked();
+    void on_horizontalSlider_light_valueChanged(int value);
+    void on_cmb_sleep_time_currentIndexChanged(int index);
+    void on_btn_ret_clicked();
+    void light_screen();
+    void timer_up();       //check whether events are generated
 };
 
 #endif // BACKLIGHT_H

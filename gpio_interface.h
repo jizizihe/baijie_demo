@@ -28,26 +28,24 @@ enum PIN_VALUE{
     HIGH=1
 };
 
-struct occupied_gpio_s
+struct occupiedGpioStr
 {
     int gpio[MAX_BUF];
     char portnum[MAX_BUF][4];
     int len;
 };
 
-
-
-int intTostr(int m, char str[]);
-int calc_port_num(char port, int num);
-void portnum_cal(int num,char gpio_port[]);
-int gpio_export(unsigned int gpio);
-int gpio_unexport(unsigned int gpio);
-int gpio_set_state(unsigned int gpio, char *state);
-int gpio_set_value(unsigned int gpio, int value);
-int gpio_get_state(unsigned int gpio);
-int gpio_get_value(unsigned int gpio);
+int intToStr(int m, char str[]);
+int calcPortNum(char port, int num);
+void calcPortStr(int num,char gpioPort[]);
+int gpioExport(unsigned int gpio);
+int gpioUnexport(unsigned int gpio);
+int gpioSetState(unsigned int gpio, char *state);
+int gpioSetValue(unsigned int gpio, int value);
+int gpioGetState(unsigned int gpio);
+int gpioGetValue(unsigned int gpio);
 bool getFileName(unsigned int gpio);
-struct occupied_gpio_s get_debug_gpio();
-int get_occupied_gpio(int *save_gpio,int nLine);
+struct occupiedGpioStr getDebugGpio();
+int getOccupieGpio(int *saveGpio,int nLine);
 
 #endif

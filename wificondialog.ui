@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>427</width>
-    <height>266</height>
+    <width>479</width>
+    <height>347</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -62,7 +62,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="WifiOkBtn">
+      <widget class="QPushButton" name="btn_ok">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -94,7 +94,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="WifiCancelBtn">
+      <widget class="QPushButton" name="btn_cancel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -122,7 +122,7 @@
     </layout>
    </item>
    <item row="0" column="0" colspan="2">
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="lbl_wifi">
      <property name="font">
       <font>
        <pointsize>12</pointsize>
@@ -166,7 +166,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="lbl_wifiName">
          <property name="text">
           <string>wifiname</string>
          </property>
@@ -186,7 +186,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="lbl_wifiPasswd">
          <property name="text">
           <string>password</string>
          </property>

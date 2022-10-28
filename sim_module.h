@@ -18,38 +18,36 @@ public:
     explicit sim_module(QWidget *parent = 0);
     ~sim_module();
 
-    QString sim_disconnect();
-    QString sim_connect();
-
-    void language_reload();
-    void sim_font();
+    void languageReload();
+    void simFont();
     void showEvent(QShowEvent *event);
+    void switchSetText();
 
 signals:
-    void Mysignal();
+    void sim_back_msg();
     void sim_disconnect_msg();
     void sim_connect_msg();
     void sim_status_msg();
-    void sim_4gstatus();
-    void sim_activation(int);
+    void sim_module_status_msg();
+    void sim_activation_msg(int);
 
 private slots:
-    void on_retBtn_clicked();
+    void on_btn_ret_clicked();
     void recv_msg(int, QString );
-    void on_SimConnectBtn_clicked();
-    void on_SimDisconnectBtn_clicked();
-    void on_statusBtn_clicked();
-    void status_4g_refresh();
-    void btnChangeFlag(bool);
+    void on_btn_connect_clicked();
+    void on_btn_disconnect_clicked();
+    void on_btn_status_clicked();
+    void module_status_refresh();
+    void switch_change_flag(bool);
 
 private:
     Ui::sim_module *ui;
-    QLabel *LoadLabel;
+    QLabel *loadLabel;
     QMovie *pMovie;
     QThread * myThread;
     wifi_thread * SimThread;
     QTimer *timer;
-    wifi_bt_interface * wifi_bt_interface_w;
+    wifi_bt_interface * wifi_bt_interfaceWg;
 };
 
 #endif // SIM_MODULE_H

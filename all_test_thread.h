@@ -4,7 +4,6 @@
 #include <QObject>
 #include "all_test_interface.h"
 #include "serialdialog.h"
-
 #include <QTimer>
 #include <QThread>
 #include <QDateTime>
@@ -22,7 +21,6 @@
 #include <errno.h>
 #include <pthread.h>
 #include<iostream>
-
 
 class all_test_thread : public QObject
 {
@@ -47,17 +45,13 @@ public slots:
     void wifi_test_thread();
     void bluetooth_test_thread();
     void key_test_thread();
-
-
     void serial_test_thread_client(serial_config serialTest);
     void serial_test_thread_stop();
-
     void serialTimer_func();
 
 private:
     bool stopFlag;
     QTimer* serialTimer;
-    int stop_count = 0;
     serial_config * serialConfigPtr;
     QString checkName;
     int		fd;

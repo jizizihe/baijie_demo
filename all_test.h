@@ -15,7 +15,6 @@
 #include <QMovie>
 #include <QScrollBar>
 #include <QInputDialog>
-
 #include <QMetaType>
 
 #include <stdio.h>
@@ -47,35 +46,24 @@ public:
     explicit all_test(QWidget *parent = 0);
     ~all_test();
     bool event(QEvent *event);
-
     void testMsgDisplay(QString type,QString str,int time);
-
-    void language_reload();
-    void image_show();
-    void all_font();
+    void languageReload();
+    void imageShow();
+    void allFont();
 
 private slots:
-
     void serial_config_func(serial_config);
     void serial_test_func();
-
-    void on_testCheckAllBtn_clicked();
-
-    void on_beginBtn_clicked();
-
-    void on_retBtn_clicked();
-
+    void on_btn_testCheckAll_clicked();
+    void on_btn_begin_clicked();
+    void on_btn_ret_clicked();
     void on_usbChk_clicked();
-
     void on_serialChk_clicked();
-
     void recv_test_msg(int, QString );
-
     void serial_stop_deal();
 
-
 signals:
-    void Mysignal();
+    void all_test_back_msg();
     void network_test_msg();
     void usb_test_msg(int);
     void rtc_test_msg();
@@ -88,38 +76,30 @@ signals:
     void wifi_test_msg();
     void bluetooth_test_msg();
     void audio_aplay_msg();
-
     void serial_test_client_msg(serial_config);
     void serial_test_stop_msg();
-//    void serial_set_testBt_msg();
 
 private:
     Ui::all_test *ui;
-
     QLabel *waitLbl;
     QMovie *waitMovie;
-
     serialdialog *serialDialog;
     serial_config serialConfig;
     QButtonGroup * testButtonGroup;
-
     QThread * mainTestThread;
     all_test_thread * allTestThread;
     QThread * btThread;
     all_test_thread * btTestThead;
     all_test_thread * audioThread;
-
-    QThread * thread_id[16];
-    all_test_thread * serial_test_thread[16];
-
+    QThread * threadId[16];
+    all_test_thread * serialTestThread[16];
     QTime startTime;
     QTime stopTime;
     int elapsed;
     int usbAddNum = 0;
     QTimer * serialStopTimer;
     int testItemsCount = 0;
-    QList<QAbstractButton*> CheckedBtnList;
-    database database_w;
+    QList<QAbstractButton*> checkedBtnList;
 };
 
 #endif // ALL_TEST_H

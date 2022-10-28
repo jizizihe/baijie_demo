@@ -2,7 +2,7 @@
 #define GLOBALAPP_H
 #include <QApplication>
 
-extern bool touch_flag;
+extern bool touchFlag;
 
 class globalApp : public QApplication
 {

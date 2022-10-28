@@ -1,7 +1,5 @@
 #ifndef UDEV_INTERFACE_H
 #define UDEV_INTERFACE_H
-
-
 #include <QString>
 #include <QProcess>
 #include <QFile>
@@ -11,35 +9,33 @@
 #include <QFileInfo>
 #include "gpio_interface.h"
 
-enum test_signal_type
+enum testSignalType
 {
-    network_signal = 0,
-    usb_signal = 1,
-    rtc_signal = 2,
-    sd_card_signal = 3,
-    key_signal = 4,
-    serial_signal = 5,
-    camera_signal = 6,
-    battary_signal = 7,
-    sim_signal = 8,
-    audio_signal = 9,
-    wifi_signal = 10,
-    bluetooth_signal = 11
+    networkSignal = 0,
+    usbSignal = 1,
+    rtcSignal = 2,
+    sdCardSignal = 3,
+    keySignal = 4,
+    serialSignal = 5,
+    cameraSignal = 6,
+    battarySignal = 7,
+    simSignal = 8,
+    audioSignal = 9,
+    wifiSignal = 10,
+    bluetoothSignal = 11
 };
 
-QString usb_test(int num);
-QString get_new_sd();
-QString get_gateway();
-QString ping_gateway();
-QString rtc_test();
-void camera_test();
-QString battary_test();
-QString sim_test();
-QString audio_test();
-QString wifi_test();
-QString bluetooth_test();
-
-
+QString usbTest(int num);
+QString getNewSd();
+QString getGateway();
+QString pingGateway();
+QString rtcTest();
+void cameraTest();
+QString battaryTest();
+QString simTest();
+QString audioTest();
+QString wifiTest();
+QString bluetoothTest();
 QString executeLinuxCmd(QString strCmd);
 
 #endif // UDEV_INTERFACE_H

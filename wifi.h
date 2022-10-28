@@ -5,9 +5,7 @@
 #include "wifi_bt_interface.h"
 #include "wifi_thread.h"
 #include "wificondialog.h"
-#include "input_method.h"
 #include "ipset_interface.h"
-
 
 namespace Ui {
 class wifi;
@@ -20,47 +18,40 @@ class wifi : public QMainWindow
 public:
     explicit wifi(QWidget *parent = 0);
     ~wifi();
-    void language_reload();
-    void key_show();
-    void key_hide();
-    void wifi_font();
-    void hotspot_sql();
+    void languageReload();
+    void wifiFont();
     void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);
-    void wifi_signalshow(QString,int,QString);
+    void wifiWidgetShow(QString,int,QString);
+    void switchSetText();
 
 signals:
-    void Mysignal();
-    void ToThread(); // 信号
+    void wifi_back_msg();
+    void ToThread();
     void wifi_scan_msg();
-    void wifi_connect_msg(QString, QString );
     void wifi_activation_msg(QString);
     void hotspot_build_msg(QString,QString,QString);
-    void scan_wlan();
-    void wifi_connect(QString,QString);
+    void scan_wlan_msg();
+    void get_hotspot_sql_msg();             //get the hotspot table information in the database
 
 private slots:
-    void on_ReturnBtn_clicked();
-    void on_WifiConnectBtn_clicked();
-    void on_HotspotConBtn_clicked();
+    void on_btn_ret_clicked();
+    void on_btn_scan_clicked();
+    void on_btn_hotspot_clicked();
     void recv_msg(int, QString );
-    void scan_hotwlan(QString);
-    void wifi_info_fresh(QString wifi_name);
+    void revc_scan_wlan(QString);
+    void wifi_info_fresh(QString wifiName);
     void ListWidgeItem_clicked();
-
- //   void ListWidgeItem2_clicked();
-
-    void on_HotspotBuildBtn_clicked();
-    void on_HotspotDownBtn_clicked();
-    void on_ChangePasswdBtn_clicked();
-    void on_WifiExistRemoveBtn_clicked();
-    void WifiStatus_show();
-    void wifi_refresh();
+    void on_btn_hotspotBuild_clicked();
+    void on_btn_hotspotDown_clicked();
+    void on_btn_wifiChangePasswd_clicked();
+    void on_btn_wifiRemove_clicked();
+    void wifi_status_show();
+    void wifi_scan_refresh();
     void wifidailog_hide();
- //   void on_open_btn_clicked();
-    void changepass_fresh();
     void wifi_status_refresh();
-    void BtnChange_flag(bool);
+    void switch_change_flag(bool);
+    void get_hotspot_sql();
 
 private:
     Ui::wifi *ui;
@@ -71,8 +62,7 @@ private:
     wifi_thread * WifiThread;
     wifi_bt_interface * wifi_bt_t;
     WifiConDialog *WifiConnectDialog;
-    database wifiDB;
-    input_method input_methodw;
+    database databaseWg;
 };
 
 #endif // WIFI_H

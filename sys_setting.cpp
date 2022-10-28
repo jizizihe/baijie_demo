@@ -2,20 +2,19 @@
 #include "ui_sys_setting.h"
 #include "mainwindow.h"
 
-static int screen_flag = 0;
-static int Width;  //屏幕宽
-static int Height;
-
-static QGraphicsView *backlight_view;
-static QGraphicsView *time_view;
-static QGraphicsView *user_view;
-static QGraphicsView *board_view;
+static int screenFlag = 0;
+static int screenWidth;
+static int screenHeight;
+static int backlightFirstFlag = 0;
+static int timeSetFirstFlag = 0;
+static int userFirstFlag = 0;
+static int boardFirstFlag = 0;
+static int showFirstFlag;
+static QGraphicsView *backlightView;
+static QGraphicsView *timeView;
+static QGraphicsView *userView;
+static QGraphicsView *boardView;
 static QScreen *screen;
-static int backlight_flag = 0;
-static int time_flag = 0;
-static int user_flag = 0;
-static int board_flag = 0;
-static int show_num;
 
 sys_setting::sys_setting(QWidget *parent) :
     QWidget(parent),
@@ -24,26 +23,20 @@ sys_setting::sys_setting(QWidget *parent) :
     ui->setupUi(this);
 
     screen = qApp->primaryScreen();
-    Width = screen->size().width();
-    Height = screen->size().height();
+    screenWidth = screen->size().width();
+    screenHeight = screen->size().height();
 
-    if(Width < Height)
+    if(screenWidth < screenHeight)
     {
-        screen_flag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
+        screenFlag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
-    sys_font();
+    sysFont();
+    catOTGStatus();
     this->setAttribute(Qt::WA_StyledBackground,true);
-
-    connect(&backlight_w,SIGNAL(Mysignal()),this,SLOT(backlight_back()));
-    connect(&timeset_w,SIGNAL(Mysignal()),this,SLOT(time_back()));
-    connect(&user_w,SIGNAL(Mysignal()),this,SLOT(user_back()));
-    connect(&board_w,SIGNAL(Mysignal()),this,SLOT(board_back()));
-
-//    slidebtn = new slideButton(this);
-//    slidebtn->setGeometry(720,300,100,100);
-//    slidebtn->initflag = 0;
-//    connect(slidebtn,SIGNAL(buttonChange()),this,SLOT(out()));
-
+    connect(&backlightWg,SIGNAL(backlight_back_msg()),this,SLOT(backlight_back()));
+    connect(&timesetWg,SIGNAL(time_set_back_msg()),this,SLOT(time_back()));
+    connect(&userWg,SIGNAL(user_manual_back_msg()),this,SLOT(user_back()));
+    connect(&boardWg,SIGNAL(about_board_back_msg()),this,SLOT(board_back()));
 }
 
 sys_setting::~sys_setting()
@@ -51,93 +44,90 @@ sys_setting::~sys_setting()
     delete ui;
 }
 
-void sys_setting::on_return_2_clicked()
+void sys_setting::on_btn_ret_clicked()
 {
-    emit sigmain();
+    emit sys_back_msg();
 }
 
-void sys_setting::on_backlight_clicked()
+void sys_setting::on_btn_backlight_clicked()
 {
     this->hide();
-    if(screen_flag == 0)
+    if(screenFlag == 0)
     {
-        backlight_w.resize(Width,Height);
-        backlight_w.show();
+        backlightWg.resize(screenWidth,screenHeight);
+        backlightWg.show();
     }
     else
     {
-        if(backlight_flag == 0)
+        if(backlightFirstFlag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&backlight_w);
+            QGraphicsProxyWidget *w = scene->addWidget(&backlightWg);
             w->setRotation(90);
 
-            backlight_view = new QGraphicsView(scene);
-
-            backlight_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
-            backlight_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            backlight_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-            backlight_view->resize(Width,Height);
-            backlight_w.resize(Height,Width);
-            backlight_w.show();
-            backlight_view->show();
-            backlight_flag++;
+            backlightView = new QGraphicsView(scene);
+            backlightView->setWindowFlags(Qt::FramelessWindowHint);
+            backlightView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            backlightView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            backlightView->resize(screenWidth,screenHeight);
+            backlightWg.resize(screenHeight,screenWidth);
+            backlightWg.show();
+            backlightView->show();
+            backlightFirstFlag++;
         }
         else
         {
-            backlight_w.resize(Height,Width);
-            backlight_w.show();
-            backlight_view->resize(Width,Height);
-            backlight_view->show();
+            backlightWg.resize(screenHeight,screenWidth);
+            backlightWg.show();
+            backlightView->resize(screenWidth,screenHeight);
+            backlightView->show();
         }
     }
 }
 
-void sys_setting::on_rtc_clicked()
+void sys_setting::on_btn_RTC_clicked()
 {
     this->hide();
-    if(screen_flag == 0)
+    if(screenFlag == 0)
     {
-       timeset_w.resize(Width,Height);
-       timeset_w.show();
-       timeset_w.activateWindow();timeset_w.setFocus();
+        timesetWg.resize(screenWidth,screenHeight);
+        timesetWg.show();
+        timesetWg.activateWindow();timesetWg.setFocus();
     }
     else
     {
-        if(time_flag == 0)
+        if(timeSetFirstFlag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&timeset_w);
+            QGraphicsProxyWidget *w = scene->addWidget(&timesetWg);
             w->setRotation(90);
 
-            time_view = new QGraphicsView(scene);
-            time_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
-            time_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            time_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            time_view->resize(Width,Height);
-            timeset_w.resize(Height,Width);
-            timeset_w.show();
-            time_view->show();
-            time_view->activateWindow();time_view->setFocus();
-            timeset_w.activateWindow();timeset_w.setFocus();
-            time_flag++;
+            timeView = new QGraphicsView(scene);
+            timeView->setWindowFlags(Qt::FramelessWindowHint);
+            timeView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            timeView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            timeView->resize(screenWidth,screenHeight);
+            timesetWg.resize(screenHeight,screenWidth);
+            timesetWg.show();
+            timeView->show();
+            timeView->activateWindow();timeView->setFocus();
+            timesetWg.activateWindow();timesetWg.setFocus();
+            timeSetFirstFlag++;
         }
         else
         {
-            timeset_w.resize(Height,Width);
-            timeset_w.show();
-            time_view->resize(Width,Height);
-            time_view->show();
-            time_view->activateWindow();time_view->setFocus();
-            timeset_w.activateWindow();timeset_w.setFocus();
+            timesetWg.resize(screenHeight,screenWidth);
+            timesetWg.show();
+            timeView->resize(screenWidth,screenHeight);
+            timeView->show();
+            timeView->activateWindow();timeView->setFocus();
+            timesetWg.activateWindow();timesetWg.setFocus();
         }
     }
 }
 
-void sys_setting::on_cn_clicked()
+void sys_setting::on_btn_cn_clicked()
 {
-
     static bool flag = 0;
     if(flag)
     {
@@ -150,144 +140,148 @@ void sys_setting::on_cn_clicked()
         transl->load(":/chinese.qm");
     }
     flag = !flag;
-    emit main_cn(); //发送一个信号,翻译主界面的内容
-    emit voice_cn();
-
+    emit main_cn_msg();                      //Send a signal,Translate the contents of the main interface
     ui->retranslateUi(this);
-
-    timeset_w.language_reload();
-    backlight_w.language_reload();
-
-    board_w.language_reload();
-    user_w.language_reload();
-
-}
-
-void sys_setting::on_user_clicked()
-{
-    this->hide();
-    if(screen_flag == 0)
+    timesetWg.languageReload();
+    backlightWg.languageReload();
+    boardWg.languageReload();
+    userWg.languageReload();
+    QString str = ui->lbl_cn->text();
+    if(str == "Chinese/English")
     {
-        user_w.resize(Width,Height);
-        user_w.show();
+        ui->widget_7->layout()->setContentsMargins(28,0,28,0);
+        ui->gridLayout_4->layout()->setContentsMargins(14,2,14,2);
+        ui->gridLayout_5->layout()->setContentsMargins(33,2,33,2);
     }
     else
     {
-        if(user_flag == 0)
+        ui->widget_7->layout()->setContentsMargins(0,0,0,0);
+        ui->gridLayout_4->layout()->setContentsMargins(0,0,0,0);
+        ui->gridLayout_5->layout()->setContentsMargins(0,0,0,0);
+    }
+}
+
+void sys_setting::on_btn_user_clicked()
+{
+    this->hide();
+    if(screenFlag == 0)
+    {
+        userWg.resize(screenWidth,screenHeight);
+        userWg.show();
+    }
+    else
+    {
+        if(userFirstFlag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&user_w);
+            QGraphicsProxyWidget *w = scene->addWidget(&userWg);
             w->setRotation(90);
 
-            user_view = new QGraphicsView(scene);
-
-            user_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
-            user_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            user_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-            user_view->resize(Width,Height);
-            user_w.resize(Height,Width);
-            user_w.show();
-            user_view->show();
-            user_flag++;
+            userView = new QGraphicsView(scene);
+            userView->setWindowFlags(Qt::FramelessWindowHint);
+            userView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            userView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            userView->resize(screenWidth,screenHeight);
+            userWg.resize(screenHeight,screenWidth);
+            userWg.show();
+            userView->show();
+            userFirstFlag++;
         }
         else
         {
-            user_w.resize(Height,Width);
-            user_w.show();
-            user_view->resize(Width,Height);
-            user_view->show();
+            userWg.resize(screenHeight,screenWidth);
+            userWg.show();
+            userView->resize(screenWidth,screenHeight);
+            userView->show();
         }
     }
 }
 
-void sys_setting::on_about_clicked()
+void sys_setting::on_btn_about_clicked()
 {
     this->hide();
-    if(screen_flag == 0)
+    if(screenFlag == 0)
     {
-        board_w.resize(Width,Height);
-        board_w.show();
+        boardWg.resize(screenWidth,screenHeight);
+        boardWg.show();
     }
     else
     {
-        if(board_flag == 0)
+        if(boardFirstFlag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&board_w);
+            QGraphicsProxyWidget *w = scene->addWidget(&boardWg);
             w->setRotation(90);
 
-            board_view = new QGraphicsView(scene);
-
-            board_view->setWindowFlags(Qt::FramelessWindowHint);//无边框
-            board_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            board_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-            board_view->resize(Width,Height);
-            board_w.resize(Height,Width);
-            board_w.show();
-            board_view->show();
-            board_flag++;
+            boardView = new QGraphicsView(scene);
+            boardView->setWindowFlags(Qt::FramelessWindowHint);
+            boardView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            boardView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            boardView->resize(screenWidth,screenHeight);
+            boardWg.resize(screenHeight,screenWidth);
+            boardWg.show();
+            boardView->show();
+            boardFirstFlag++;
         }
         else
         {
-            board_w.resize(Height,Width);
-            board_w.show();
-            board_view->resize(Width,Height);
-            board_view->show();
+            boardWg.resize(screenHeight,screenWidth);
+            boardWg.show();
+            boardView->resize(screenWidth,screenHeight);
+            boardView->show();
         }
     }
 }
 
 void sys_setting::backlight_back()
 {
-    if(screen_flag == 1)
+    if(screenFlag == 1)
     {
-      backlight_view->hide();
+        backlightView->hide();
     }
-   backlight_w.hide();
-   this->show();
+    backlightWg.hide();
+    this->show();
 }
 
 void sys_setting::time_back()
 {
-    if(screen_flag == 1)
+    if(screenFlag == 1)
     {
-      time_view->hide();
+        timeView->hide();
     }
-    timeset_w.hide();    
+    timesetWg.hide();
     this->show();
     this->activateWindow();this->setFocus();
 }
 
 void sys_setting::board_back()
 {
-    if(screen_flag == 1)
+    if(screenFlag == 1)
     {
-       board_view->hide();
+        boardView->hide();
     }
-    board_w.hide();   
+    boardWg.hide();
     this->show();
 }
 
 void sys_setting::user_back()
 {
-    if(screen_flag == 1)
+    if(screenFlag == 1)
     {
-          user_view->hide();
+        userView->hide();
     }
-    user_w.hide();
+    userWg.hide();
     this->show();
 }
 
-void sys_setting::sys_font()
+void sys_setting::sysFont()
 {
     qreal realX = screen->physicalDotsPerInchX();
     qreal realY = screen->physicalDotsPerInchY();
-    qreal realWidth = Width / realX * 2.54;
-    qreal realHeight = Height / realY *2.54;
+    qreal realWidth = screenWidth / realX * 2.54;
+    qreal realHeight = screenHeight / realY *2.54;
     QFont font;
-    if(screen_flag)
+    if(screenFlag)
     {
         if(realHeight < 15)
         {
@@ -317,21 +311,117 @@ void sys_setting::sys_font()
             font.setPointSize(17);
         }
     }
-    ui->label_2->setFont(font);
-    ui->label_29->setFont(font);
-    ui->label_30->setFont(font);
-    ui->label_key_6->setFont(font);
-    ui->label_key_8->setFont(font);
-    ui->label->setFont(font);
+    ui->lbl_cn->setFont(font);
+    ui->lbl_timeSet->setFont(font);
+    ui->lbl_backlight->setFont(font);
+    ui->lbl_aboutBoard->setFont(font);
+    ui->lbl_userManual->setFont(font);
+    ui->lbl_system->setFont(font);
+    ui->lbl_OGT->setFont(font);
 }
 
 void sys_setting::closeEvent(QCloseEvent *event)
 {
-    if(show_num == 0)
+    if(showFirstFlag == 0)
     {
-        on_rtc_clicked();
+        on_btn_RTC_clicked();
         time_back();
-        show_num++;
+        showFirstFlag++;
     }
-   QWidget::closeEvent(event);
+    QWidget::closeEvent(event);
+}
+
+void sys_setting::on_btn_OTGHost_clicked()
+{
+    QString strOTGStatus = ui->lbl_OGT->text();
+    if(strOTGStatus == tr("OTG Slave"))
+    {
+        QString strCmd = "cat /sys/bus/platform/drivers/otg\" \"manager/usbc0/usb_host";
+        QProcess pro;
+        pro.start("bash", QStringList() <<"-c" << strCmd);
+        pro.waitForFinished(-1);
+        QString strResult = pro.readAllStandardOutput();
+        pro.close();
+        if(!strResult.isEmpty())
+        {
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("set successful!"),
+                             0,this);
+            mesg.addButton(tr("OK"),QMessageBox::YesRole);
+            if(screenFlag == 1)
+                mesg.move(screenWidth*2/3,screenHeight/3);
+            else
+                mesg.move(screenWidth/3,screenHeight/3);
+            mesg.exec();
+            ui->lbl_OGT->setText(tr("OTG Host"));
+        }
+        else
+        {
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("set failed!"),
+                             0,this);
+            mesg.addButton(tr("OK"),QMessageBox::YesRole);
+            if(screenFlag == 1)
+                mesg.move(screenWidth*2/3,screenHeight/3);
+            else
+                mesg.move(screenWidth/3,screenHeight/3);
+            mesg.exec();
+        }
+    }
+    else
+    {
+        QString strCmd = "cat /sys/bus/platform/drivers/otg\" \"manager/usbc0/usb_device";
+        QProcess pro;
+        pro.start("bash", QStringList() <<"-c" << strCmd);
+        pro.waitForFinished(-1);
+        QString strResult = pro.readAllStandardOutput();
+        pro.close();
+        if(!strResult.isEmpty())
+        {
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("set successful!"),
+                             0,this);
+            mesg.addButton(tr("OK"),QMessageBox::YesRole);
+            if(screenFlag == 1)
+                mesg.move(screenWidth*2/3,screenHeight/3);
+            else
+                mesg.move(screenWidth/3,screenHeight/3);
+            mesg.exec();
+            ui->lbl_OGT->setText(tr("OTG Slave"));
+        }
+        else
+        {
+            QMessageBox mesg(QMessageBox::Information,
+                             tr("QMessageBox::information()"),
+                             tr("set failed!"),
+                             0,this);
+            mesg.addButton(tr("OK"),QMessageBox::YesRole);
+            if(screenFlag == 1)
+                mesg.move(screenWidth*2/3,screenHeight/3);
+            else
+                mesg.move(screenWidth/3,screenHeight/3);
+            mesg.exec();
+        }
+    }
+}
+
+void sys_setting::catOTGStatus()
+{
+    QString strCmd = "cat /sys/bus/platform/drivers/otg\" \"manager/usbc0/otg_role";
+    QProcess pro;
+    pro.start("bash", QStringList() <<"-c" << strCmd);
+    pro.waitForFinished(-1);
+    QString strResult = pro.readAllStandardOutput();
+    pro.close();
+    if(strResult.contains("device",Qt::CaseInsensitive))
+    {
+        ui->lbl_OGT->setText(tr("OTG Slave"));
+    }
+    else
+    {
+        ui->lbl_OGT->setText(tr("OTG Host"));
+    }
 }

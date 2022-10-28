@@ -1,6 +1,6 @@
 #include "gpio_interface.h"
 
-int intTostr(int m, char str[])
+int intToStr(int m, char str[])
 {
     int i = 0;
     int j = 1;
@@ -33,248 +33,242 @@ int intTostr(int m, char str[])
     return i - 1;
 }
 
-int	calc_port_num(char port, int num)
+int	calcPortNum(char port, int num)
 {
-	int	port_num;
-	
-	if(num > 32)
-	{	
-		return port_num = -1;
-	}
+    int	portNum;
+    if(num > 32)
+    {
+        return portNum = -1;
+    }
 
-	switch(port){
-	case 'a':
-	case 'A':
-		port_num = num;
-		break;
-	case 'b':
-	case 'B':
-		port_num = 32 + num;
-		break;
-	case 'c':
-	case 'C':
-		port_num = 64 + num;
-		break;
-	case 'd':
-	case 'D':
-		port_num = 96 + num;
-		break;
-	case 'e':
-	case 'E':
-		port_num = 128 + num;
-		break;
-	case 'f':
-	case 'F':
-		port_num = 160 + num;
-		break;
-	case 'g':
-	case 'G':
-		port_num = 192 + num;
-		break;
-	case 'h':
-	case 'H':
-		port_num = 224 + num;
-		break;
-	case 'i':
-	case 'I':
-		port_num = 256 + num;
-		break;
-	case 'j':
-	case 'J':
-		port_num = 288 + num;
-		break;
-	case 'k':
-	case 'K':
-		port_num = 320 + num;
-		break;
-	case 'l':
-	case 'L':
-		port_num = 352 + num;
-		break;
-	default:
-		port_num = -1;
-	}
-	return port_num;
+    switch(port){
+    case 'a':
+    case 'A':
+        portNum = num;
+        break;
+    case 'b':
+    case 'B':
+        portNum = 32 + num;
+        break;
+    case 'c':
+    case 'C':
+        portNum = 64 + num;
+        break;
+    case 'd':
+    case 'D':
+        portNum = 96 + num;
+        break;
+    case 'e':
+    case 'E':
+        portNum = 128 + num;
+        break;
+    case 'f':
+    case 'F':
+        portNum = 160 + num;
+        break;
+    case 'g':
+    case 'G':
+        portNum = 192 + num;
+        break;
+    case 'h':
+    case 'H':
+        portNum = 224 + num;
+        break;
+    case 'i':
+    case 'I':
+        portNum = 256 + num;
+        break;
+    case 'j':
+    case 'J':
+        portNum = 288 + num;
+        break;
+    case 'k':
+    case 'K':
+        portNum = 320 + num;
+        break;
+    case 'l':
+    case 'L':
+        portNum = 352 + num;
+        break;
+    default:
+        portNum = -1;
+    }
+    return portNum;
 }
 
-
-void portnum_cal(int num,char gpio_port[])
+void calcPortStr(int num, char gpioPort[])
 {
     if(num <= 32)
     {
-        gpio_port[0] = 'a';
-        intTostr(num,&gpio_port[1]);
+        gpioPort[0] = 'a';
+        intToStr(num,&gpioPort[1]);
     }
     else if(num > 32 && num <= 64)
     {
-        gpio_port[0] = 'b';
-        intTostr((num-32),&gpio_port[1]);
+        gpioPort[0] = 'b';
+        intToStr((num-32),&gpioPort[1]);
     }
     else if(num > 64 && num <= 96)
     {
-        gpio_port[0] = 'c';
-        intTostr((num-64),&gpio_port[1]);
+        gpioPort[0] = 'c';
+        intToStr((num-64),&gpioPort[1]);
     }
     else if(num > 96 && num <= 128)
     {
-        gpio_port[0] = 'd';
-        intTostr((num-96),&gpio_port[1]);
+        gpioPort[0] = 'd';
+        intToStr((num-96),&gpioPort[1]);
     }
     else if(num > 128 && num <= 160)
     {
-        gpio_port[0] = 'e';
-        intTostr((num-128),&gpio_port[1]);
+        gpioPort[0] = 'e';
+        intToStr((num-128),&gpioPort[1]);
     }
     else if(num > 160 && num <= 192)
     {
-        gpio_port[0] = 'f';
-        intTostr((num-160),&gpio_port[1]);
+        gpioPort[0] = 'f';
+        intToStr((num-160),&gpioPort[1]);
     }
     else if(num > 192 && num <= 224)
     {
-        gpio_port[0] = 'g';
-        intTostr((num-192),&gpio_port[1]);
+        gpioPort[0] = 'g';
+        intToStr((num-192),&gpioPort[1]);
     }
     else if(num > 224 && num <= 256)
     {
-        gpio_port[0] = 'h';
-        intTostr((num-224),&gpio_port[1]);
+        gpioPort[0] = 'h';
+        intToStr((num-224),&gpioPort[1]);
     }
     else if(num > 256 && num <= 288)
     {
-        gpio_port[0] = 'i';
-        intTostr((num-256),&gpio_port[1]);
+        gpioPort[0] = 'i';
+        intToStr((num-256),&gpioPort[1]);
     }
     else if(num > 288 && num <= 320)
     {
-        gpio_port[0] = 'j';
-        intTostr((num-288),&gpio_port[1]);
+        gpioPort[0] = 'j';
+        intToStr((num-288),&gpioPort[1]);
     }
     else if(num > 320 && num <= 352)
     {
-        gpio_port[0] = 'k';
-        intTostr((num-320),&gpio_port[1]);
+        gpioPort[0] = 'k';
+        intToStr((num-320),&gpioPort[1]);
     }
     else if(num > 352 && num <= 384)
     {
-        gpio_port[0] = 'l';
-        intTostr((num-352),&gpio_port[1]);
+        gpioPort[0] = 'l';
+        intToStr((num-352),&gpioPort[1]);
     }
 }
 
-int gpio_export(unsigned int gpio)
+int gpioExport(unsigned int gpio)
 {
-	int fd;
-	int len;
-	char buf[MAX_BUF];
+    int fd;
+    int len;
+    char buf[MAX_BUF];
 
-	fd = open(SYSFS_GPIO_DIR"/export", O_WRONLY);
-	if(fd < 0)
-	{
+    fd = open(SYSFS_GPIO_DIR"/export", O_WRONLY);
+    if(fd < 0)
+    {
         printf("gpio%d port export failed!\n",gpio);
+        return fd;
+    }
 
-		return fd;
-	}
-
-	len = snprintf(buf, sizeof(buf), "%d", gpio);
-	write(fd, buf, len);
-	close(fd);
-	return 0;
+    len = snprintf(buf, sizeof(buf), "%d", gpio);
+    write(fd, buf, len);
+    close(fd);
+    return 0;
 }
 
-int gpio_unexport(unsigned int gpio)
+int gpioUnexport(unsigned int gpio)
 {
-	int fd;
-	int len;
-	char buf[MAX_BUF];
-	fd = open(SYSFS_GPIO_DIR"/unexport",O_WRONLY);
-	if(fd < 0)
-	{
-		printf("gpio%d port unexport failed!\n",gpio);
-		return fd;
-	}
+    int fd;
+    int len;
+    char buf[MAX_BUF];
+    fd = open(SYSFS_GPIO_DIR"/unexport",O_WRONLY);
+    if(fd < 0)
+    {
+        printf("gpio%d port unexport failed!\n",gpio);
+        return fd;
+    }
 
-	len = snprintf(buf, sizeof(buf), "%d", gpio);
-	write(fd, buf, len);
-	close(fd);
-	return 0;
+    len = snprintf(buf, sizeof(buf), "%d", gpio);
+    write(fd, buf, len);
+    close(fd);
+    return 0;
 }
 
-int gpio_set_state(unsigned int gpio, char *state)
+int gpioSetState(unsigned int gpio, char *state)
 {
-	int fd;
-	char buf[MAX_BUF];
+    int fd;
+    char buf[MAX_BUF];
 
-	snprintf(buf ,sizeof(buf), SYSFS_GPIO_DIR"/gpio%d/direction", gpio);
+    snprintf(buf ,sizeof(buf), SYSFS_GPIO_DIR"/gpio%d/direction", gpio);
     fd = open(buf, O_WRONLY);
     if(fd < 0)
-	{
-		printf("gpio%d set state failed!\n",gpio);
-	}
-	
-	write(fd, state, strlen(state)+1);
-	close(fd);
-	return 0;
+    {
+        printf("gpio%d set state failed!\n",gpio);
+    }
+
+    write(fd, state, strlen(state)+1);
+    close(fd);
+    return 0;
 }
 
-int gpio_set_value(unsigned int gpio, int value)
+int gpioSetValue(unsigned int gpio, int value)
 {
-	int fd;
-	char buf[MAX_BUF];
+    int fd;
+    char buf[MAX_BUF];
 
     snprintf(buf, sizeof(buf), SYSFS_GPIO_DIR"/gpio%d/value", gpio);
     fd = open(buf, O_WRONLY);
-	if(fd < 0)
-	{
-		printf("gpio%d set value failed!\n", gpio);
-		return fd;
-	}
+    if(fd < 0)
+    {
+        printf("gpio%d set value failed!\n", gpio);
+        return fd;
+    }
 
-	if(value > 0)
-	{
-		write(fd, "1", 2);
-		printf("gpio%d set high succeed!\n", gpio);
-	}
-	else
-	{
-		write(fd, "0", 2);
-		printf("gpio%d set low succeed!\n", gpio);
-	}
-	close(fd);
-
-	return 0;
+    if(value > 0)
+    {
+        write(fd, "1", 2);
+        printf("gpio%d set high succeed!\n", gpio);
+    }
+    else
+    {
+        write(fd, "0", 2);
+        printf("gpio%d set low succeed!\n", gpio);
+    }
+    close(fd);
+    return 0;
 }
 
-int gpio_get_value(unsigned int gpio)
+int gpioGetValue(unsigned int gpio)
 {
     int fd,value;
     char temp;
-	char buf[MAX_BUF];
+    char buf[MAX_BUF];
 
     snprintf(buf, sizeof(buf), SYSFS_GPIO_DIR"/gpio%d/value", gpio);
     fd = open(buf, O_RDONLY);
-	if(fd < 0) 
-	{
-		printf("gpio%d get value failed!\n", gpio);
+    if(fd < 0)
+    {
+        printf("gpio%d get value failed!\n", gpio);
         return -1;
-	}	
+    }
 
     read(fd, &temp, 1);
     if(temp != '0')
-	{
-		value = 1;
-	}	
-	else 
-	{
-		value = 0;
-	}
-	printf("gpio%d get value succeed!\n", gpio);
-	close(fd);
-
+    {
+        value = 1;
+    }
+    else
+    {
+        value = 0;
+    }
+    close(fd);
     return value;
 }
 
-int gpio_get_state(unsigned int gpio)
+int gpioGetState(unsigned int gpio)
 {
     int fd,value;
     char temp;
@@ -287,7 +281,6 @@ int gpio_get_state(unsigned int gpio)
         //printf("gpio%d get direction failed!\n", gpio);
         return -1;
     }
-    printf("%s\n", buf);
     read(fd, &temp, 1);
     if(temp != 'i')
     {
@@ -304,15 +297,11 @@ int gpio_get_state(unsigned int gpio)
 bool getFileName(unsigned int gpio)
 {
     char buf[MAX_BUF];
-
     snprintf(buf, sizeof(buf), SYSFS_GPIO_DIR"/gpio%d/", gpio);
-
     DIR *dir = opendir(buf);
     if(dir == NULL) {
-        //printf("open %s failed \n",buf);
         return false;
     }
-
     return true;
 }
 
@@ -326,36 +315,31 @@ static int SetPositionByLine(FILE *fp, int nLine)
     for (i = 0; i < nLine; i++)
     {
         fgets(buffer, MAX_BUF, fp);
-
     }
     fgetpos(fp, &pos);
-
     return 0;
 }
 
-int get_occupied_gpio(int *save_gpio,int nLine)
+int getOccupieGpio(int *saveGpio, int nLine)
 {
-    FILE * gpio_dev_file;
+    FILE * gpioDevFile;
     char buf[MAX_BUF];
     char  *match;
 
-    if ( (gpio_dev_file=fopen("/sys/kernel/debug/gpio", "r")) == NULL )
+    if ( (gpioDevFile=fopen("/sys/kernel/debug/gpio", "r")) == NULL )
     {
         printf("open file gpio error!\n");
         return -1;
     }
 
-    SetPositionByLine(gpio_dev_file,nLine+1);
-
-    fgets(buf, MAX_BUF, gpio_dev_file);
-
+    SetPositionByLine(gpioDevFile,nLine+1);
+    fgets(buf, MAX_BUF, gpioDevFile);
     match = strstr(buf, "gpio-");
     if ( match == NULL )
     {
-//        printf("no gpio- keyword to find!\n");
         return -1;
     }
-    sscanf(match, "gpio-%d", save_gpio);
+    sscanf(match, "gpio-%d", saveGpio);
     return 0;
 }
 
@@ -367,7 +351,6 @@ static int get_file_linenum(char * filename)
     {
         return -1;
     }
-
     char buf[MAX_BUF] = {0};
     int i =0;
     int num = 0;
@@ -383,7 +366,7 @@ static int get_file_linenum(char * filename)
         }
         memset(buf,0,MAX_BUF);
     }
-//    printf("%d\n",num);
+    //    printf("%d\n",num);
     close(pfile);
     return num;
 }
@@ -391,15 +374,18 @@ static int get_file_linenum(char * filename)
 static int judge(int *a, int i)
 {
     int n;
-
     if (i == n - 1 && *(a + i) == 0)
+    {
         return -1;
+    }
     else if (*(a + i) == 0)
     {
         return judge(a, i + 1);
     }
     else
+    {
         return i;
+    }
 }
 
 static int CompactIntegers(int *a, int len)
@@ -422,34 +408,26 @@ static int CompactIntegers(int *a, int len)
     return newlen;
 }
 
-
-struct occupied_gpio_s get_debug_gpio()
+occupiedGpioStr getDebugGpio()
 {
-    struct occupied_gpio_s occupied_gpio;
+    struct occupiedGpioStr occupiedGpio;
     int i,linenum;
     char *gpiopath = (char *)"/sys/kernel/debug/gpio";
 
-    memset(occupied_gpio.gpio,0,MAX_BUF);
+    memset(occupiedGpio.gpio,0,MAX_BUF);
     linenum = get_file_linenum(gpiopath);
-//    printf("linenum = %d\n",linenum);
 
     for(i = 0;i < linenum;i++)
     {
-        if(get_occupied_gpio(occupied_gpio.gpio+i,i) == -1)
+        if(getOccupieGpio(occupiedGpio.gpio+i,i) == -1)
         {
-//            printf("get_occupied_gpio failed\n");
+            //            printf("get_occupied_gpio failed\n");
         }
     }
-
-    occupied_gpio.len = CompactIntegers(occupied_gpio.gpio,i-1);
-
-//    printf("len = %d\n",occupied_gpio.len);
-//    printf("i = %d\n",i);
-    for(i = 0;i < occupied_gpio.len;i++)
+    occupiedGpio.len = CompactIntegers(occupiedGpio.gpio,i-1);
+    for(i = 0;i < occupiedGpio.len;i++)
     {
-        //printf("%d: gpio-%d\n",i,occupied_gpio.gpio[i]);
-        portnum_cal(occupied_gpio.gpio[i],occupied_gpio.portnum[i]);
+        calcPortStr(occupiedGpio.gpio[i],occupiedGpio.portnum[i]);
     }
-
-    return occupied_gpio;
+    return occupiedGpio;
 }

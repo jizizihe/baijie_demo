@@ -23,43 +23,28 @@ class timeset : public QMainWindow
 public:
     explicit timeset(QWidget *parent = 0);
     ~timeset();
-
-    void language_reload();
-    void timeset_font();
+    void languageReload();
+    void timesetFont();
     void showEvent(QShowEvent *event);
-    void sync_net();
+    void isSyncNetwork();
+    QString SystimeSet(QString  dateText);
+    QString RTCSet();
 
 signals:
-    void Mysignal();
+    void time_set_back_msg();
 
 private slots:
-    void retBt_clicked();
-    QString SystimeSet(QString  datetext);
-    void SystimeSetBt_clicked();
-    QString RTCSet();
-    void RTCSetBt_clicked();
-
-    void SystimerUpdate(void);
-    void RTCtimerUpdate(void);
-    void on_sync_btn_clicked();
-    void timerUpdate();
+    void btn_ret_clicked();
+    void btn_sysTimeSet_clicked();
+    void btn_RTCSet_clicked();
+    void on_btn_sync_clicked();
+    void sys_timer_update(void);
+    void RTC_timer_update(void);
 
 private:
     Ui::timeset *ui;
-
-    QLabel *SystimeReadLabel;
-    QLabel *RTCReadLabel;
-
-    QPushButton *retBt;
-    QLabel * pLabel;
-    QDateTimeEdit *datetime;
-    QPushButton * SystimeSetBt;
-    QPushButton * RTCSetBt;
-    QLabel *SystimepLabel;
-    QLabel *RTCtimepLabel;
-    QProcess pro_sys;
-    QProcess pro_rtc;
-
+    QProcess proSys;
+    QProcess proRTC;
     QTimer *SysTimer;
     QTimer *RTCTimer;
 };

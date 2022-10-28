@@ -2,7 +2,6 @@
 #define BLUETOOTH_THREAD_H
 
 #include "wifi_bt_interface.h"
-
 #include <QObject>
 #include <QThread>
 #include <QDebug>
@@ -15,18 +14,16 @@ class bluetooth_thread : public QObject
 public:
     explicit bluetooth_thread(QObject *parent = nullptr);
 
-
 signals:
-    void send_msg(int ,QString );
+    void send_bluetooth_msg(int ,QString );
 
 public slots:
     QString bluetooth_scan_thread();
-    QString bluetooth_pair_thread(QString BtAddress);
-    QString bluetooth_connect_thread(QString BtAddress);
+    QString bluetooth_pair_thread(QString btAddress);
+    QString bluetooth_connect_thread(QString btAddress);
 
 private:
-
-    wifi_bt_interface * wifi_bt_w;
+    wifi_bt_interface * wifi_bt_interfaceWg;
 
 };
 

@@ -11,7 +11,6 @@
 #include "touchscreen.h"
 #include "wifi.h"
 #include "ipset.h"
-#include "keytest.h"
 #include "all_test.h"
 #include <QTranslator>
 #include "bluetooth.h"
@@ -33,33 +32,26 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    database database_w;
-    voice voice_w;
-    udev udev_w;
-    gpio gpio_w;
-    touchscreen touch_w;
-    wifi wifi_w;
-    ipset eth0_w;
-    keytest keytest_w;
-    all_test all_w;
-    bluetooth bluetooth_w;
-    serial serial_w;
-    sys_setting system_w;
-    QSettings *setting;
-    sim_module sim_module_w;
+    database databaseWg;
+    voice voiceWg;
+    udev udevWg;
+    gpio gpioWg;
+    touchscreen touchWg;
+    wifi wifiWg;
+    ipset eth0Wg;
+    all_test allWg;
+    bluetooth bluetoothWg;
+    serial serialWg;
+    sys_setting systemWg;
+    sim_module simModuleWg;
 
-    void config_file();
-    void view();
-    void keyBoardration();
-    void setFocusObject(QObject *object);
-    void main_font();
-
-    void voice_show();
-    void gpio_show();
-    void wifi_show();
-    void ipset_show();
-    void serial_show();
-    void system_show();
+    void mainFont();
+    void voiceShow();
+    void gpioShow();
+    void wifiShow();
+    void ipsetShow();
+    void serialShow();
+    void systemShow();
     void closeEvent(QCloseEvent *event);
 
 private:
@@ -67,22 +59,18 @@ private:
     QTranslator *translator;
 
 private slots:
-    void on_vf_clicked();
-    void on_udev_clicked();
-    void on_gpio_clicked();
-    void on_touchca_clicked();
-    void on_wifi_clicked();
-    void on_ethernet_clicked();
-//    void on_keytest_clicked();
-
-    void on_alltest_clicked();
-    void on_bluetooth_clicked();
-    void on_serialport_clicked();
-    void on_system_clicked();
-    void on_sim_module_clicked();
-
+    void on_btn_voice_clicked();
+    void on_btn_udev_clicked();
+    void on_btn_gpio_clicked();
+    void on_btn_touch_clicked();
+    void on_btn_wifi_clicked();
+    void on_btn_ethernet_clicked();
+    void on_btn_allTest_clicked();
+    void on_btn_bluetooth_clicked();
+    void on_btn_serialPort_clicked();
+    void on_btn_system_clicked();
+    void on_btn_simModule_clicked();
     void cn_main();
-
     void voice_back();
     void udev_back();
     void gpio_back();
@@ -96,7 +84,6 @@ private slots:
     void sys_back();
 
 signals:
-    void again();
     void wifi_status_msg();
 };
 

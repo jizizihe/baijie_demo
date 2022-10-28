@@ -17,29 +17,23 @@ public:
     explicit ipset(QWidget *parent = 0);
     ~ipset();
 
-    void language_reload();
-    void ipset_font();
-    void ip_settext();
+    void languageReload();
+    void ipsetFont();
+    void ipSetText();
+    void switchSetText();
 
 signals:
-    void ret_signal();
+    void ipset_back_msg();
 
 private slots:
-    void btnChangeFlag(bool flag);
-
-    void on_retBtn_clicked();
-
-    void on_ipShowBtn_clicked();
-
-    void on_setStaticIpBtn_clicked();
-
-    void on_modStaticIpBtn_clicked();
-
-    void on_delStaticIpBtn_clicked();
-
-    void on_okBtn_clicked();
-
-    void on_pushButton_clicked();
+    void switch_change_flag(bool flag);
+    void on_btn_ret_clicked();
+    void on_btn_ipShow_clicked();
+    void on_btn_setIp_clicked();
+    void on_btn_clear_clicked();
+    void on_btn_setAutoIp_clicked();
+    void on_btn_ok_clicked();
+    void on_btn_setStaticIp_clicked();
 
 private:
     Ui::ipset *ui;

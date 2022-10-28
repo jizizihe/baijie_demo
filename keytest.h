@@ -45,7 +45,7 @@ private:
     QLabel * KeyLabel;
     QTextEdit * keyText;
 
-    keythread *task=new keythread(NULL);//声明线程
+    keythread *task=new keythread(NULL);
 
 };
 

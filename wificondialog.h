@@ -19,42 +19,35 @@ public:
     explicit WifiConDialog(QWidget *parent = 0);
     ~WifiConDialog();
 
-    bool event(QEvent *event);
-
-    void language_reload();
-
-    void SetWifiNameText(QString);
-    void SetPasswdText(QString );
-    QString GetWifiNameText();
-    QString GetPasswdText();
-
+    void languageReload();
+    void setWifiNameText(QString);
+    void setPasswdText(QString );
+    QString getWifiNameText();
+    QString getPasswdText();
     QString GetWifiOkBtnText();
-    void SetWifiOkBtnText(int);
-    void wifidial_font();
+    void setWifiOkBtnText(int);
+    void wifidialFont();
 
 signals:
-    void wifi_connect_dialog_signal(QString,QString);
+    void wifi_connect_dialog_msg(QString,QString);
     void wifi_info_fresh_msg(QString);
-    void wifidial_close();
-    void wifi_showrefresh();
-    void wifi_modify_pass(QString,QString);
+    void wifidial_close_msg();
+    void wifi_show_refresh_msg();
+    void wifi_modify_pass_msg(QString,QString);
 
 private slots:
-    void on_WifiOkBtn_clicked();
-    void on_WifiCancelBtn_clicked();
+    void on_btn_ok_clicked();
+    void on_btn_cancel_clicked();
     void wifi_wait_end_func();
 
 public slots:
-    void wifi_modifypass(bool);
+    void wifi_modify_pass(bool);
 
 private:
     Ui::WifiConDialog *ui;
-
-    wifi_bt_interface * wifi_bt_t;
-
     QLabel *WifiLoadLabel;
     QMovie *WifiMovie;
-    database database_w;
+    database databaseWg;
 };
 
 #endif // WIFICONDIALOG_H

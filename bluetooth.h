@@ -33,52 +33,42 @@ class bluetooth : public QMainWindow
 public:
     explicit bluetooth(QWidget *parent = 0);
     ~bluetooth();
-
-    void language_reload();
-    void blue_font();
-   // void bluetooth_sql();
-    void bluetooth_listshow(QString,QString);
-    void bluetooth_status();
-    void bluetooth_scan();
+    void languageReload();
+    void bluetoothFont();
+    void bluetoothListShow(QString,QString);
+    void bluetoothConnectStatus();
+    void switchSetText();
     void showEvent(QShowEvent *event);
-    QStringList BtPairList;
 
 private slots:
     void recv_msg(int,QString);
-    void on_BTScanBtn_clicked();
-   // void on_BTConnectBtn_clicked();
-    void on_retBtn_clicked();
-  //  void on_pushButton_clicked();
+    void on_btn_btScan_clicked();
+    void on_btn_ret_clicked();
     void on_BtNameListWidget_itemClicked(QListWidgetItem *item);
-    //void on_Bt_pairedListwidget_itemClicked(QListWidgetItem *item);
     void connect_refresh();
-   // void on_btn_status_clicked();
     void on_btn_disconnect_clicked();
     void on_btn_remove_clicked();
     void scan_refresh();
-    void BtnChange_flag(bool);
+    void switch_change_flag(bool);
 
 signals:
     void bluetooth_scan_msg();
     void bluetooth_pair_msg(QString);
     void bluetooth_connect_msg(QString);
-    void bluetooth_disscan();
-    void Mysignal();
-    void rm_shell();
-    //void bluetooth_signal(int signal_type,QString BtAddress);//signal_type:1--scan;2--pair;3--connect
+    void bluetooth_back_msg();
+    void rm_shell_msg();
 
 private:
     Ui::bluetooth *ui;
-
-    QStringList BtScanList;
-    QLabel *LoadLabel;
+    QStringList btScanList;
+    QLabel *loadLabel;
     QMovie *pMovie;
-
     QThread * myThread;
-    bluetooth_thread * BluetoothThread;
+    bluetooth_thread * bluetoothThread;
     QThread * blutooth;
-    wifi_bt_interface * wifi_bt_t;
-    database database_w;
+    wifi_bt_interface * wifi_bt_interfaceWg;
+    database databaseWg;
+    QStringList btPairList;
 };
 
 #endif // BLUETOOTH_H

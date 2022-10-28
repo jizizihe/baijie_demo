@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>637</width>
-    <height>419</height>
+    <width>728</width>
+    <height>435</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -34,75 +34,79 @@
   <property name="styleSheet">
    <string notr="true">#wifi
 {
-border-image: url(:/button_image/all/background(1).png);
-}
-/****************按钮部件*******************/
-QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-	outline: none; /*去掉按钮的虚线框*/
+    border-image: url(:/button_image/all/background(1).png);
 }
 
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
+/****************QPushButton*******************/
+QPushButton{
+     background-color: rgba(100, 225, 100, 120);
+     border-style: outset; 
+     border-width:  2px; 
+     border-radius: 10px;
+     border-color: rgba(255, 225, 255, 30);
+     color:rgba(0, 0, 0, 100);/*font color*/
+     padding: 6px; 
+	 outline: none; /*Remove the dotted box of the button*/
+}
+
+QPushButton:hover{ /*When the mouse hovers over the button*/
         background-color:rgba(100,255,100, 100);
         border-color: rgba(255, 225, 255, 200);
         color:rgba(0, 0, 0, 200);
 }
 
-QPushButton:pressed { /*按钮被按下时*/
+QPushButton:pressed { /*When the button is pressed*/
      background-color:rgba(100,255,100, 200);
      border-color: rgba(255, 225, 255, 30);
      border-style: inset;
      color:rgba(0, 0, 0, 100);
 }
 
-/****************滑块部件*******************/
-
-
-QSlider::handle:horizontal { /*水平滑块的手柄*/
+/****************The slider widget*******************/
+QSlider::handle:horizontal { /*The handle of the horizontal slider*/
         image: url(:/image/sliderHandle.png);
  }
 
-QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
-        border-image: url(:/image/slider.png);/*边框图片*/
+QSlider::sub-page:horizontal { 
+        border-image: url(:/image/slider.png);
  }
 
 QMessageBox {
-background-image: url(:/button_image/all/background.jpg);
+   background-image: url(:/button_image/all/background.jpg);
 	border:1px solid gray;
 }
 
 QListWidget {
-background-color:transparent; outline: none; border:1px solid gray; color: black; }
+     background-color:transparent; outline: none; border:1px solid gray; color: black; }
+
 QListWidget::Item { width: 400px; height: 50px; }
+
 QListWidget::Item:hover { background: #4CAF50; color: white; }
+
 QListWidget::item:selected { background: #e7e7e7; color: #f44336; }
+
 QListWidget::item:selected:!active { background: lightgreen; }
 
 QLineEdit
 {
-background-color:transparent;
- border:1px solid gray;color: black;
+   background-color:transparent;
+   border:1px solid gray;color: black;
 }
 
 QScrollBar{
-width:30px;
-height:30px;
+      width:30px;
+      height:30px;
 }
 
 QSplitter:handle{\nbackground-color:#808080;\n}
 
 QComboBox QAbstractItemView {
-    outline: 0px solid gray;   /* 选定项的虚框 */
-background-color:rgba(189, 220, 231, 230);
+    outline: 0px solid gray;   
+    background-color:rgba(189, 220, 231, 230);
 }
+
 QComboBox {
-background-color:rgba(255, 255, 255, 100);
+     background-color:rgba(255, 255, 255, 100);
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -143,7 +147,7 @@ background-color:rgba(255, 255, 255, 100);
        <number>5</number>
       </property>
       <item>
-       <widget class="QPushButton" name="ReturnBtn">
+       <widget class="QPushButton" name="btn_ret">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -191,7 +195,13 @@ background-color:rgba(255, 255, 255, 100);
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label_6">
+       <widget class="QLabel" name="lbl_wifi">
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
         <property name="text">
          <string>WiFi</string>
         </property>
@@ -232,7 +242,13 @@ background-color:rgba(255, 255, 255, 100);
          </spacer>
         </item>
         <item>
-         <widget class="SwitchControl" name="wifi_Switch" native="true"/>
+         <widget class="SwitchControl" name="wifi_Switch" native="true">
+          <property name="font">
+           <font>
+            <pointsize>6</pointsize>
+           </font>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -330,7 +346,7 @@ background-color:rgba(255, 255, 255, 100);
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="WifiConnectBtn">
+            <widget class="QPushButton" name="btn_scan">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -398,7 +414,7 @@ background-color:rgba(255, 255, 255, 100);
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="HotspotConBtn">
+            <widget class="QPushButton" name="btn_hotspot">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -508,7 +524,7 @@ background-color:rgba(255, 255, 255, 100);
          <enum>Qt::WheelFocus</enum>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="wifihomepage">
          <property name="focusPolicy">
@@ -553,7 +569,7 @@ background-color:rgba(255, 255, 255, 100);
          <property name="focusPolicy">
           <enum>Qt::WheelFocus</enum>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_7" stretch="6,1">
+         <layout class="QVBoxLayout" name="verticalLayout_7" stretch="5,1">
           <property name="spacing">
            <number>6</number>
           </property>
@@ -567,7 +583,7 @@ background-color:rgba(255, 255, 255, 100);
            <number>9</number>
           </property>
           <property name="bottomMargin">
-           <number>9</number>
+           <number>12</number>
           </property>
           <item>
            <widget class="QStackedWidget" name="stackedWidget_3">
@@ -638,7 +654,7 @@ background-color:rgba(255, 255, 255, 100);
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QLabel" name="label_10">
+                    <widget class="QLabel" name="lbl_hotwlan">
                      <property name="text">
                       <string>WLAN: </string>
                      </property>
@@ -718,7 +734,7 @@ background-color:rgba(255, 255, 255, 100);
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QLabel" name="HotspotName">
+                    <widget class="QLabel" name="lbl_hotSSID">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                        <horstretch>0</horstretch>
@@ -839,7 +855,7 @@ background-color:rgba(255, 255, 255, 100);
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QLabel" name="HotspotPasswd">
+                    <widget class="QLabel" name="lbl_hotPasswd">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                        <horstretch>0</horstretch>
@@ -997,7 +1013,7 @@ background-color:rgba(255, 255, 255, 100);
                    <item>
                     <layout class="QVBoxLayout" name="verticalLayout_4">
                      <item>
-                      <widget class="QLabel" name="label_8">
+                      <widget class="QLabel" name="lbl_hotspotName">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                          <horstretch>0</horstretch>
@@ -1013,7 +1029,7 @@ background-color:rgba(255, 255, 255, 100);
                       </widget>
                      </item>
                      <item>
-                      <widget class="QLabel" name="label">
+                      <widget class="QLabel" name="lbl_hotspotPasswd">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                          <horstretch>0</horstretch>
@@ -1029,7 +1045,7 @@ background-color:rgba(255, 255, 255, 100);
                       </widget>
                      </item>
                      <item>
-                      <widget class="QLabel" name="label_9">
+                      <widget class="QLabel" name="lbl_hotspotStatus">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                          <horstretch>0</horstretch>
@@ -1045,7 +1061,7 @@ background-color:rgba(255, 255, 255, 100);
                       </widget>
                      </item>
                      <item>
-                      <widget class="QLabel" name="label_11">
+                      <widget class="QLabel" name="lbl_wlan">
                        <property name="text">
                         <string>WLAN:  </string>
                        </property>
@@ -1062,28 +1078,28 @@ background-color:rgba(255, 255, 255, 100);
                       <number>6</number>
                      </property>
                      <item>
-                      <widget class="QLabel" name="label_hostpotname">
+                      <widget class="QLabel" name="lbl_hotspotNameValue">
                        <property name="text">
                         <string/>
                        </property>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QLabel" name="label_hotspass">
+                      <widget class="QLabel" name="lbl_hotspotPasswdValue">
                        <property name="text">
                         <string/>
                        </property>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QLabel" name="label_hoststaus">
+                      <widget class="QLabel" name="lbl_hotspotStatusValue">
                        <property name="text">
                         <string>Not connected</string>
                        </property>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QLabel" name="label_WLAN">
+                      <widget class="QLabel" name="lbl_wlanValue">
                        <property name="text">
                         <string/>
                        </property>
@@ -1145,7 +1161,7 @@ background-color:rgba(255, 255, 255, 100);
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="HotspotBuildBtn">
+              <widget class="QPushButton" name="btn_hotspotBuild">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -1193,7 +1209,7 @@ background-color:rgba(255, 255, 255, 100);
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="HotspotDownBtn">
+              <widget class="QPushButton" name="btn_hotspotDown">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -1255,7 +1271,7 @@ background-color:rgba(255, 255, 255, 100);
           <item row="0" column="0">
            <widget class="QStackedWidget" name="stackedWidget_2">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="page_4">
              <layout class="QGridLayout" name="gridLayout_2">
@@ -1365,7 +1381,7 @@ background-color:rgba(255, 255, 255, 100);
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="label_1">
+                        <widget class="QLabel" name="lbl_wifiName">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -1390,7 +1406,7 @@ background-color:rgba(255, 255, 255, 100);
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLabel" name="WifiInfoNameLab">
+                        <widget class="QLabel" name="lbl_wifiNameValue">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -1410,7 +1426,7 @@ background-color:rgba(255, 255, 255, 100);
                           </size>
                          </property>
                          <property name="text">
-                          <string>name</string>
+                          <string/>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -1451,7 +1467,7 @@ background-color:rgba(255, 255, 255, 100);
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="label_2">
+                        <widget class="QLabel" name="lbl_wifiAaddress">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -1476,7 +1492,7 @@ background-color:rgba(255, 255, 255, 100);
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLabel" name="WifiInfoIpaddressLab">
+                        <widget class="QLabel" name="lbl_wifiAaddressValue">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -1496,7 +1512,7 @@ background-color:rgba(255, 255, 255, 100);
                           </size>
                          </property>
                          <property name="text">
-                          <string>add</string>
+                          <string/>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -1537,7 +1553,7 @@ background-color:rgba(255, 255, 255, 100);
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="label_3">
+                        <widget class="QLabel" name="lbl_wifiPassword">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -1562,7 +1578,7 @@ background-color:rgba(255, 255, 255, 100);
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLabel" name="WifiInfoPasswdLab">
+                        <widget class="QLabel" name="lbl_wifiPasswordValue">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -1582,7 +1598,7 @@ background-color:rgba(255, 255, 255, 100);
                           </size>
                          </property>
                          <property name="text">
-                          <string>pass</string>
+                          <string/>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -1623,9 +1639,9 @@ background-color:rgba(255, 255, 255, 100);
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="label_4">
+                        <widget class="QLabel" name="lbl_wifiSignal">
                          <property name="sizePolicy">
-                          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
                            <verstretch>0</verstretch>
                           </sizepolicy>
@@ -1648,7 +1664,7 @@ background-color:rgba(255, 255, 255, 100);
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLabel" name="WifiInfoSignalLab">
+                        <widget class="QLabel" name="lbl_wifiSignalValue">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -1668,7 +1684,7 @@ background-color:rgba(255, 255, 255, 100);
                           </size>
                          </property>
                          <property name="text">
-                          <string>sss</string>
+                          <string/>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -1709,9 +1725,9 @@ background-color:rgba(255, 255, 255, 100);
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="label_5">
+                        <widget class="QLabel" name="lbl_wifiSecurity">
                          <property name="sizePolicy">
-                          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
                            <verstretch>0</verstretch>
                           </sizepolicy>
@@ -1734,7 +1750,7 @@ background-color:rgba(255, 255, 255, 100);
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLabel" name="WifiInfoSecurityLab">
+                        <widget class="QLabel" name="lbl_wifiSecurityValue">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -1754,7 +1770,7 @@ background-color:rgba(255, 255, 255, 100);
                           </size>
                          </property>
                          <property name="text">
-                          <string>se</string>
+                          <string/>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -1795,9 +1811,9 @@ background-color:rgba(255, 255, 255, 100);
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="label_7">
+                        <widget class="QLabel" name="lbl_wifiConnection">
                          <property name="sizePolicy">
-                          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
                            <verstretch>0</verstretch>
                           </sizepolicy>
@@ -1820,7 +1836,7 @@ background-color:rgba(255, 255, 255, 100);
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLabel" name="WifiInfoActiveLab">
+                        <widget class="QLabel" name="lbl_wifiConnectionValue">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -1840,7 +1856,7 @@ background-color:rgba(255, 255, 255, 100);
                           </size>
                          </property>
                          <property name="text">
-                          <string>winf</string>
+                          <string/>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -1894,7 +1910,7 @@ background-color:rgba(255, 255, 255, 100);
               <number>5</number>
              </property>
              <item>
-              <widget class="QPushButton" name="ChangePasswdBtn">
+              <widget class="QPushButton" name="btn_wifiChangePasswd">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -1940,7 +1956,7 @@ background-color:rgba(255, 255, 255, 100);
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="WifiExistRemoveBtn">
+              <widget class="QPushButton" name="btn_wifiRemove">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -1983,7 +1999,7 @@ background-color:rgba(255, 255, 255, 100);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>637</width>
+     <width>728</width>
      <height>22</height>
     </rect>
    </property>

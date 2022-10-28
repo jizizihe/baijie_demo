@@ -40,7 +40,6 @@ SOURCES += \
         mainwindow.cpp \
     voice.cpp \
     udev.cpp \
-    backlight.cpp \
     gpio.cpp \
     touchscreen.cpp \
     ctouchbutton.cpp \
@@ -48,9 +47,6 @@ SOURCES += \
     globalapp.cpp \
     boardinfo_interface.cpp \
     about_board.cpp \
-    keytest.cpp \
-    keythread.cpp \
-    ipset_popup.cpp \
     ipset_interface.cpp \
     gpio_interface.cpp \
     bluetooth.cpp \
@@ -60,7 +56,6 @@ SOURCES += \
     serial_thread.cpp \
     sys_setting.cpp \
     wifi_thread.cpp \
-    xcombobox.cpp \
     wifi_bt_interface.cpp \
     switchcontrol.cpp \
     wifi.cpp \
@@ -75,17 +70,13 @@ SOURCES += \
     myslider.cpp \
     voice_savefile_name.cpp \
     voice_rename.cpp \
-    myslider_ver.cpp \
-    serial_set.cpp \
-    serial_set_port2.cpp \
-    input_method.cpp \
-    file_opration.cpp
+    file_opration.cpp \
+    backlight.cpp
 
 HEADERS += \
         mainwindow.h \
     voice.h \
     udev.h \
-    backlight.h \
     gpio.h \
     touchscreen.h \
     ctouchbutton.h \
@@ -94,9 +85,6 @@ HEADERS += \
     globalapp.h \
     about_board.h \
     boardinfo_interface.h \
-    keytest.h \
-    keythread.h \
-    ipset_popup.h \
     ipset_interface.h \
     bluetooth.h \
     bluetooth_thread.h \
@@ -105,7 +93,6 @@ HEADERS += \
     serial_thread.h \
     sys_setting.h \
     wifi_thread.h \
-    xcombobox.h \
     wifi_bt_interface.h \
     switchcontrol.h \
     wifi.h \
@@ -116,27 +103,21 @@ HEADERS += \
     all_test_interface.h \
     all_test.h \
     ipset.h \
-    common.h \
     database.h \
     myslider.h \
     voice_savefile_name.h \
     voice_rename.h \
-    myslider_ver.h \
-    serial_set.h \
-    serial_set_port2.h \
-    input_method.h \
-    file_opration.h
+    file_opration.h \
+    backlight.h
 
 FORMS += \
         mainwindow.ui \
     voice.ui \
     udev.ui \
-    backlight.ui \
     gpio.ui \
     touchscreen.ui \
     timeset.ui \
     about_board.ui \
-    keytest.ui \
     bluetooth.ui \
     user_manual.ui \
     serial.ui \
@@ -149,11 +130,8 @@ FORMS += \
     ipset.ui \
     voice_savefile_name.ui \
     voice_rename.ui \
-    serial_set.ui \
-    serial_set_port2.ui \
-    input_method.ui \
-    input_method.ui \
-    file_opration.ui
+    file_opration.ui \
+    backlight.ui
 
 RESOURCES += \
     translation.qrc
@@ -170,4 +148,6 @@ DISTFILES += \
     button_image/蓝牙.svg \
     button_image/d_ip.svg \
     button_image/sync.svg \
-    button_image/all/background(2).png
+    button_image/all/background(2).png \
+    button_image/serial.svg \
+    button_image/system.svg

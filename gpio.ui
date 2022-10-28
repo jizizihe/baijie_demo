@@ -34,8 +34,7 @@
 	border-image: url(:/button_image/all/background(1).png);
 }
 
-
-/****************按钮部件*******************/
+/****************QPushButton*******************/
 QPushButton{
      background-color: rgba(100, 225, 100, 120);
      border-style: outset; 
@@ -65,9 +64,7 @@ QPushButton:pressed {
      color:rgba(0, 0, 0, 100);
 }
 
-/****************滑块部件*******************/
-
-
+/****************QSlider*******************/
 QSlider::handle:horizontal { 
         image: url(:/image/sliderHandle.png);
 }
@@ -75,7 +72,9 @@ QSlider::handle:horizontal {
 QSlider::sub-page:horizontal { 
         border-image: url(:/image/slider.png)
 }
- QScrollBar{ width:28px;}
+
+QScrollBar{ width:28px;}
+
 QTextEdit
 {
 	background-color:transparent;
@@ -116,7 +115,7 @@ QTextEdit
       <number>5</number>
      </property>
      <item>
-      <widget class="QPushButton" name="ret">
+      <widget class="QPushButton" name="btn_ret">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -136,41 +135,38 @@ QTextEdit
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">/****************按钮部件*******************/
-QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     font: bold 14px;/*字体*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-    outline: none; /*去掉按钮的虚线框*/
+        <string notr="true">QPushButton{
+     background-color: rgba(100, 225, 100, 120);
+     border-style: outset; 
+     border-width:  2px;  
+     border-radius: 10px; 
+     border-color: rgba(255, 225, 255, 30);
+     color:rgba(0, 0, 0, 100);
+     padding: 6px; 
+    outline: none; 
 }
 
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
+QPushButton:hover{ 
         background-color:rgba(100,255,100, 100);
         border-color: rgba(255, 225, 255, 200);
         color:rgba(0, 0, 0, 200);
 }
 
-QPushButton:pressed { /*按钮被按下时*/
+QPushButton:pressed { 
      background-color:rgba(100,255,100, 200);
      border-color: rgba(255, 225, 255, 30);
      border-style: inset;
      color:rgba(0, 0, 0, 100);
 }
 
-/****************滑块部件*******************/
 
 
-QSlider::handle:horizontal { /*水平滑块的手柄*/
+QSlider::handle:horizontal { 
         image: url(:/image/sliderHandle.png);
 }
 
-QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
-        border-image: url(:/image/slider.png);/*边框图片*/
+QSlider::sub-page:horizontal {
+        border-image: url(:/image/slider.png);
 }</string>
        </property>
        <property name="text">
@@ -203,7 +199,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="lbl_gpioTitle">
        <property name="text">
         <string>Gpio</string>
        </property>
@@ -306,7 +302,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
           <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="lbl_gpio">
            <property name="text">
             <string>gpio: </string>
            </property>
@@ -316,7 +312,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineedit1_1">
+          <widget class="QLineEdit" name="lineedit">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -336,18 +332,18 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">    border-style: outset; /*边框样式*/
-     border-width:  1px;  /*边框宽度为4像素*/
-     border-radius: 12px; /*边框圆角半径*/
-     border-color: rgba(0, 0, 0,130);/*边框颜色*/
+            <string notr="true">    border-style: outset; 
+     border-width:  1px;  
+     border-radius: 12px;
+     border-color: rgba(0, 0, 0,130);
      background-color:transparent;
-     padding: 6px; /*填衬*/  
-    outline: none; /*去掉按钮的虚线框*/</string>
+     padding: 6px; 
+     outline: none; </string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="btn_hint">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -358,9 +354,9 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
             <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
-            <string notr="true"> border-color: rgba(0, 0, 0,140);/*边框颜色*/
-     border-radius: 23px; /*边框圆角半径*/
-border-width:  1px;  /*边框宽度为4像素*/</string>
+            <string notr="true"> border-color: rgba(0, 0, 0,140);
+ border-radius: 23px; 
+ border-width:  1px;  </string>
            </property>
            <property name="text">
             <string/>
@@ -600,7 +596,7 @@ border-width:  1px;  /*边框宽度为4像素*/</string>
           </spacer>
          </item>
          <item>
-          <widget class="QLabel" name="label_4">
+          <widget class="QLabel" name="lbl_gpioStatus">
            <property name="text">
             <string>gpio status</string>
            </property>
@@ -633,11 +629,11 @@ border-width:  1px;  /*边框宽度为4像素*/</string>
           <enum>Qt::LeftToRight</enum>
          </property>
          <property name="styleSheet">
-          <string notr="true">  border-width:  1px;  /*边框宽度为4像素*/
-  border-radius: 12px; /*边框圆角半径*/
-  padding: 6px; /*填衬*/
+          <string notr="true">  border-width:  1px;  
+  border-radius: 12px; 
+  padding: 6px; 
   background-color:rgba(255, 255, 255, 80);
-  border-color: rgba(0, 0, 0,130);/*边框颜色*/
+  border-color: rgba(0, 0, 0,130);
   QScrollBar{ width:36px;}</string>
          </property>
         </widget>

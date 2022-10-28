@@ -24,7 +24,7 @@
 #include <time.h>
 #include <errno.h>
 #include <pthread.h>
-#include<iostream>
+#include <iostream>
 
 #include <QGraphicsScene>
 #include <QGraphicsView>
@@ -55,58 +55,41 @@ public:
     ~serial();
 
     QStringList getPortNameList();
-    void language_reload();
-    void serial_font();
-    void serialport1_open();
-    void serialport2_open();
+    void languageReload();
+    void serialFont();
+    void openSerialPort1();
+    void openSerialPort2();
 
 signals:
-    void Mysignal();
-    void closePort_sig(int portId);
-    void writePort_sig(int portId,QByteArray buff);
+    void serial_back_msg();
+    void close_port_msg(int portId);
+    void write_port_msg(int portId,QByteArray buff);
 
 private slots:
-    void on_showData(QString buff);//用于显示数据
-
-    void on_showData1(QString buff);//用于显示数据
-    void on_SendBtn_clicked();
-
-    void on_SendBtn_2_clicked();
-
-    void on_retBtn_clicked();
-
-    void on_part1_btn_clicked();
-
-    void on_part2_btn_clicked();
-
+    void show_port1_data(QString buff);  //Serial port1 displays data
+    void show_port2_data(QString buff);  //Serial port2 displays data
+    void on_btn_send1_clicked();
+    void on_btn_send2_clicked();
+    void on_btn_ret_clicked();
+    void on_btn_port1_clicked();
+    void on_btn_port2_clicked();
     void on_btn_set1_clicked();
-
     void on_btn_set1_2_clicked();
-
     void on_btn_ok2_clicked();
-
     void on_btn_cancel2_clicked();
-
     void on_btn_ok1_clicked();
-
     void on_btn_cancel1_clicked();
-
     void on_btn_open1_clicked();
-
     void on_btn_open2_clicked();
-
     void on_btn_clear1_clicked();
-
     void on_btn_clear1_2_clicked();
 
 private:
     Ui::serial *ui;
-
     serial_thread *PortA;
     serial_thread *PortB;
-    QStringList m_portNameList;
-    database database_w;
-
+    QStringList portNameList;
+    database databaseWg;
 };
 
 #endif // SERIAL_H

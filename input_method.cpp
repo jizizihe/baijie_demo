@@ -19,7 +19,6 @@ input_method::input_method(QWidget *parent) :
     ui(new Ui::input_method)
 {
         ui->setupUi(this);
-
         this->setFocusPolicy(Qt::NoFocus);
         screen = qApp->primaryScreen();
         s_width = screen->size().width();

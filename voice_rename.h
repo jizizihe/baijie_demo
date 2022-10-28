@@ -17,17 +17,17 @@ class voice_rename : public QMainWindow
 public:
     explicit voice_rename(QWidget *parent = 0);
     ~voice_rename();
-    void rename_chang(QString,QString);
-    void language_reload();
-    void voice_rename_font();
+    void renameChang(QString,QString);
+    void languageReload();
+    void voiceRenameFont();
 
 private slots:
     void on_btn_ok_clicked();
     void on_btn_cel_clicked();
 
 signals:
-    void rename_finish();
-    void rename_back();
+    void rename_finish_msg(QString);
+    void rename_back_msg();
 
 private:
     Ui::voice_rename *ui;

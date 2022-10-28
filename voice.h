@@ -36,69 +36,53 @@ public:
     explicit voice(QWidget *parent = 0);
     ~voice();
 
-    void language_reload();
+    void languageReload();
     void refresh(QString);
-    QString record_timelength(int length);
-    int time_length(QString length);
-    void set_volume(int value);
-    void settext_size();
-    void voice_font();
+    QString timeToString(int length); // time lenght change to "00:00:00" mode
+    int calculateTimeLength(QString length);
+    void setVolume(int value);
+    void voiceFont();
+    void fileChooseWidgetshow();
+    float getWavTimeLength(QString file);  //Calculate the voice time of a wav file
+    void saveFileWidgetShow();
+    void renameFileWidgetShow();
+    void showEvent(QShowEvent *event);
     void closeEvent(QCloseEvent *event);
 
 private slots:
-
     void file_path(QString);
-    void on_return_2_clicked();
-    void file_choose_show();
-
-    void refile_hide();
-
-    void on_begin_clicked();
-
-    void on_play_clicked();
-
-    void show_time();
-
-   // void on_horizontalSlider_valueChanged(int value);
-
-    void get_nowlength();
-    float wav_time(QString s);
+    void file_choose_widget_hide();
+    void show_recording_time();
+    void get_playing_time_length();
+    void update_file(QString);
     void record_save(QString);
-    void update_file();
-
-    void on_btn_paly_clicked();
-
-    void on_btn_paly_2_clicked();
-
+    void on_btn_ret_clicked();
+    void on_btn_record_clicked();
+    void on_btn_play_clicked();
+    void on_btn_playVoice_clicked();
+    void on_btn_delete_clicked();
     void on_btn_rename_clicked();
-
-    void on_pushButton_clicked();
-
-    void on_btn_rec_clicked();
-
+    void on_btn_volume_clicked();
+    void on_btn_startRecord_clicked();
     void on_Slider_volume_valueChanged(int value);
-
-    void on_choose_btn_clicked();
+    void on_btn_chooseFile_clicked();
 
 public slots:
-    void save_fileshow();
-    void rename_fileshow();
-    void savew_hide();
-    void renamew_hide();
-    void slider_change(int);
+    void save_file_widget_hide();
+    void rename_file_widget_hide();
+    void volume_slider_change(int);
 
 signals:
-    void Mysignal();
-    void sliderchange(int);
+    void voice_back_msg();
+    void volume_slider_value_change_msg(int);
 
 private:
     Ui::voice *ui;
-    QString file_name;
-    voice_savefile_name changname;
-    voice_rename rename_w;
-    QProcess pro_path;
-    File_opration File_oprationw;
-    database database_w;
+    QString fileName;
+    voice_savefile_name saveFileWg;
+    voice_rename renameWg;
+    File_opration File_oprationWg;
+    database databaseWg;
 };
 
 #endif // VOICE_H

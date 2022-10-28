@@ -1,6 +1,6 @@
 #include "ipset_interface.h"
 
-bool automatically_get_ip()
+bool automaticallyGetIp()
 {
     QProcess cmd;
     cmd.start("dhclient eth0");
@@ -14,24 +14,12 @@ bool automatically_get_ip()
     }
 }
 
-bool add_static_ip(QString netname,QString ipaddr,QString mask,QString gate)
+bool addStaticIp(QString netName,QString ipAddr,QString mask,QString gate)
 {
-//    QString gateway;
-
-//    for(int i = 9;i < 12;i++)
-//    {
-//        if(ipaddr.at(i) == '.')
-//        {
-//            gateway = ipaddr.left(i+1);
-//            gateway.append("1");
-//            break;
-//        }
-//    }
     QString strCmd = QString("nmcli con delete static_ip");
     QString strResult = executeLinuxCmd(strCmd);
     strCmd = QString("nmcli con add con-name static_ip ifname %1 autoconnect yes type ethernet ip4 %2/%3 gw4 %4") \
-            .arg(netname).arg(ipaddr).arg(mask).arg(gate);
-    qDebug() << strCmd;
+            .arg(netName).arg(ipAddr).arg(mask).arg(gate);
     strResult = executeLinuxCmd(strCmd);
 
     bool result=strResult.contains("successfully added",Qt::CaseInsensitive);
@@ -55,21 +43,21 @@ bool add_static_ip(QString netname,QString ipaddr,QString mask,QString gate)
     }
 }
 
-bool modify_static_ip(QString ipaddr)
+bool modifyStaticIp(QString ipAddr)
 {
     QString gateway;
     for(int i = 9;i < 12;i++)
     {
-        if(ipaddr.at(i) == '.')
+        if(ipAddr.at(i) == '.')
         {
-            gateway = ipaddr.left(i+1);
+            gateway = ipAddr.left(i+1);
             gateway.append("1");
             break;
         }
     }
-    QString strCmd = QString("nmcli con mod static_ip ipv4.address %2,%3").arg(ipaddr).arg(gateway);
+    QString strCmd = QString("nmcli con mod static_ip ipv4.address %2,%3").arg(ipAddr).arg(gateway);
     QString strResult = executeLinuxCmd(strCmd);
-    qDebug() << strCmd;
+
     strCmd = QString("nmcli connection up static_ip");
     strResult = executeLinuxCmd(strCmd);
     bool result=strResult.contains("successfully activated",Qt::CaseInsensitive);
@@ -83,7 +71,7 @@ bool modify_static_ip(QString ipaddr)
     }
 }
 
-bool delete_static_ip()
+bool deleteStaticIp()
 {
     QString strCmd = QString("nmcli con del static_ip");
     QString strResult = executeLinuxCmd(strCmd);
@@ -99,7 +87,7 @@ bool delete_static_ip()
     }
 }
 
-bool is_static_ip_exist()
+bool isStaticIpExist()
 {
     QString isExistCmd = QString("nmcli con show |grep static");
     QString retResult = executeLinuxCmd(isExistCmd);
@@ -114,12 +102,11 @@ bool is_static_ip_exist()
     }
 }
 
-QString get_network_info()
+QString getNetworkInfo()
 {
     QString tmp;
     QString strCmd = QString("ifconfig eth0");
     QString retResult = executeLinuxCmd(strCmd);
-
     QStringList list;
     list = retResult.split("\n");
     for(int i = 0;i < list.count();i++)
@@ -131,13 +118,13 @@ QString get_network_info()
     return tmp;
 }
 
-QString get_current_ip(QString Name)
+QString getCurrentIp(QString name)
 {
     QList<QNetworkInterface> network=QNetworkInterface::allInterfaces();
     foreach(QNetworkInterface net,network)
     {
         QString netName=net.humanReadableName();
-        if(netName==Name)
+        if(netName==name)
         {
             QList<QNetworkAddressEntry> list=net.addressEntries();
             foreach(QNetworkAddressEntry address,list)
@@ -152,7 +139,7 @@ QString get_current_ip(QString Name)
     return 0;
 }
 
-void network_enable(bool flag)
+void networkEnable(bool flag)
 {
     QString strCmd;
     QString retResult;
@@ -168,4 +155,3 @@ void network_enable(bool flag)
         retResult = executeLinuxCmd(strCmd);
     }
 }
-

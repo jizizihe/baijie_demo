@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>752</width>
-    <height>426</height>
+    <width>677</width>
+    <height>365</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -31,63 +31,61 @@
   <property name="styleSheet">
    <string notr="true">#ipset
 {
-border-image: url(:/button_image/all/background(1).png);
-}
-/****************按钮部件*******************/
-QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-    outline: none; /*去掉按钮的虚线框*/
+    border-image: url(:/button_image/all/background(1).png);
 }
 
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
+/****************QPushButton*******************/
+QPushButton{
+     background-color: rgba(100, 225, 100, 120);
+     border-style: outset; 
+     border-width:  2px;  
+     border-radius: 10px; 
+     border-color: rgba(255, 225, 255, 30);
+     color:rgba(0, 0, 0, 100);
+     padding: 6px; 
+    outline: none; 
+}
+
+QPushButton:hover{ 
         background-color:rgba(100,255,100, 100);
         border-color: rgba(255, 225, 255, 200);
         color:rgba(0, 0, 0, 200);
 }
 
-QPushButton:pressed { /*按钮被按下时*/
+QPushButton:pressed { 
      background-color:rgba(100,255,100, 200);
      border-color: rgba(255, 225, 255, 30);
      border-style: inset;
      color:rgba(0, 0, 0, 100);
 }
 
-/****************滑块部件*******************/
-
-
-QSlider::handle:horizontal { /*水平滑块的手柄*/
+QSlider::handle:horizontal { 
         image: url(:/image/sliderHandle.png);
 }
 
-QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
-        border-image: url(:/image/slider.png);/*边框图片*/
-background-color: rgba(255,255,255,1);
+QSlider::sub-page:horizontal {
+        border-image: url(:/image/slider.png);
+        background-color: rgba(255,255,255,1);
 }
 
 QMessageBox {
-background-image: url(:/button_image/all/background.jpg);
-	border:1px solid gray;
+     background-image: url(:/button_image/all/background.jpg);
+	 border:1px solid gray;
 }
 QScrollBar{
- width:36px;
- background-color: rgba(255,255,255);
+      width:36px;
+      background-color: rgba(255,255,255);
 }
 QTextEdit
 {
-	background-color:transparent;
-	border:1px solid gray;
+	  background-color:transparent;
+	  border:1px solid gray;
 }
 
 QLineEdit
 {
-background-color:transparent;
- border:1px solid gray;color: black;
+        background-color:transparent;
+        border:1px solid gray;color: black;
 }
 
 
@@ -143,7 +141,7 @@ background-color:transparent;
        <number>5</number>
       </property>
       <item>
-       <widget class="QPushButton" name="retBtn">
+       <widget class="QPushButton" name="btn_ret">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -182,7 +180,7 @@ background-color:transparent;
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="lbl_ethernet">
         <property name="text">
          <string>Ethernet</string>
         </property>
@@ -300,7 +298,7 @@ background-color:transparent;
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="ipShowBtn">
+            <widget class="QPushButton" name="btn_ipShow">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -345,7 +343,7 @@ background-color:transparent;
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="setStaticIpBtn">
+            <widget class="QPushButton" name="btn_setIp">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -363,7 +361,7 @@ background-color:transparent;
              </property>
              <property name="icon">
               <iconset resource="translation.qrc">
-               <normaloff>:/button_image/system.png</normaloff>:/button_image/system.png</iconset>
+               <normaloff>:/button_image/set.png</normaloff>:/button_image/set.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -468,15 +466,13 @@ background-color:transparent;
               </property>
               <property name="styleSheet">
                <string notr="true"> background-color: rgb(189, 220, 231,80);
-padding-top:15px; 
-padding-bottom:15px;
 
 QScrollBar::handle:vertical
 {
        background-color: rgba(255,255,255,1);
        min-height: 30px;
-	  border-radius:3px;
-	  width: 6px;
+	   border-radius:3px;
+      width: 6px;
    }
 
 </string>
@@ -529,7 +525,7 @@ QScrollBar::handle:vertical
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QPushButton" name="delStaticIpBtn">
+                 <widget class="QPushButton" name="btn_setAutoIp">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                     <horstretch>0</horstretch>
@@ -547,7 +543,7 @@ QScrollBar::handle:vertical
                   </property>
                   <property name="icon">
                    <iconset resource="translation.qrc">
-                    <normaloff>:/button_image/d_ip.svg</normaloff>:/button_image/d_ip.svg</iconset>
+                    <normaloff>:/button_image/ethernet/s_ip.svg</normaloff>:/button_image/ethernet/s_ip.svg</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -571,7 +567,7 @@ QScrollBar::handle:vertical
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton">
+                 <widget class="QPushButton" name="btn_setStaticIp">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                     <horstretch>0</horstretch>
@@ -583,7 +579,7 @@ QScrollBar::handle:vertical
                   </property>
                   <property name="icon">
                    <iconset resource="translation.qrc">
-                    <normaloff>:/button_image/s_ip.svg</normaloff>:/button_image/s_ip.svg</iconset>
+                    <normaloff>:/button_image/ethernet/s_ip.svg</normaloff>:/button_image/ethernet/s_ip.svg</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -649,7 +645,7 @@ background-color: rgb(217, 217, 217,30);
                       <number>8</number>
                      </property>
                      <item>
-                      <widget class="QLabel" name="label_6">
+                      <widget class="QLabel" name="lbl_ipName">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                          <horstretch>0</horstretch>
@@ -675,7 +671,7 @@ border:1px solid transparent;</string>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QLabel" name="label_7">
+                      <widget class="QLabel" name="lbl_ipAddress">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                          <horstretch>0</horstretch>
@@ -700,7 +696,7 @@ border:1px solid transparent;</string>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QLabel" name="label_3">
+                      <widget class="QLabel" name="lbl_subnetMask">
                        <property name="styleSheet">
                         <string notr="true">background-color:transparent;border:1px solid transparent;</string>
                        </property>
@@ -713,7 +709,7 @@ border:1px solid transparent;</string>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QLabel" name="label_2">
+                      <widget class="QLabel" name="lbl_gatway">
                        <property name="styleSheet">
                         <string notr="true">background-color:transparent;border:1px solid transparent;</string>
                        </property>
@@ -844,7 +840,7 @@ border:1px solid transparent;</string>
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="okBtn">
+                    <widget class="QPushButton" name="btn_ok">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                        <horstretch>0</horstretch>
@@ -853,7 +849,7 @@ border:1px solid transparent;</string>
                      </property>
                      <property name="styleSheet">
                       <string notr="true">QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
+     background-color: rgba(100, 225, 100, 120);
      border-style: outset; 
      border-width:  2px;  
      border-radius: 10px;
@@ -884,7 +880,7 @@ border:1px solid transparent;</string>
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="modStaticIpBtn">
+                    <widget class="QPushButton" name="btn_clear">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                        <horstretch>0</horstretch>
@@ -905,7 +901,7 @@ border:1px solid transparent;</string>
                      </property>
                      <property name="styleSheet">
                       <string notr="true">QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
+     background-color: rgba(100, 225, 100, 120);
      border-style: outset; 
      border-width:  2px;  
      border-radius: 10px;
@@ -975,7 +971,7 @@ border:1px solid transparent;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>752</width>
+     <width>677</width>
      <height>22</height>
     </rect>
    </property>

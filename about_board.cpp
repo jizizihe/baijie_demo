@@ -1,41 +1,38 @@
 #include "about_board.h"
 #include "ui_about_board.h"
-
 #include <QScreen>
 #include "boardinfo_interface.h"
 
 static QScreen *screen;
-static int screen_flag;
-static int Width;
-static int Height;
+static int screenFlag;
+static int screenWidth;
+static int screenHeight;
+static QTimer *timer;
 
 about_board::about_board(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::about_board)
 {
     ui->setupUi(this);
-
     this->setAttribute(Qt::WA_StyledBackground,true);
-    ui->progressBar->setAlignment(Qt::AlignLeft | Qt::AlignCenter);
+    ui->pb_batteryLevel->setAlignment(Qt::AlignLeft | Qt::AlignCenter);
     screen = qApp->primaryScreen();
-    Width = screen->size().width();			//屏幕宽
-    Height = screen->size().height();
-    if(Width < Height)
+    screenWidth = screen->size().width();
+    screenHeight = screen->size().height();
+    if(screenWidth < screenHeight)
     {
-        screen_flag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
+        screenFlag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
-    about_font();
-    boardname_update();
-    kernelname_update();
+    aboutFont();
+    board_name_update();
+    kernel_name_update();
     battery_update();
     CPU_temp_update();
     resolution_update();
-    QTversion_update();
-    OSname_update();
+    QT_version_update();
+    OS_name_update();
 
-    QTimer *timer = new QTimer(this);
-    timer->start(1000);
-
+    timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(battery_update()));
     connect(timer,SIGNAL(timeout()), this, SLOT(CPU_temp_update()));
 }
@@ -45,88 +42,88 @@ about_board::~about_board()
     delete ui;
 }
 
-void about_board::on_pushButton_clicked()
+void about_board::showEvent(QShowEvent *event)
 {
-    emit Mysignal();
+    timer->start(1000);
 }
 
 void about_board::battery_update()
 {
     tr("Unknown");tr("Uncharged");tr("charge");tr("Full");
-    int battery_level = get_battery_level();
-    ui->progressBar->setValue(battery_level);
-    char *battery_status = get_battery_status();
-    ui->batterystatus_label->setText(QString(tr("%1")).arg(battery_status));
+    int batteryLevel = getBatteryLevel();
+    ui->pb_batteryLevel->setValue(batteryLevel);
+    char *batteryStatus = getBatteryStatus();
+    ui->lbl_batteryStatusVale->setText(QString(tr("%1")).arg(batteryStatus));
 }
 
 void about_board::CPU_temp_update()
 {
-    float temp = get_CPU_temp();
-    ui->CPU_temp_label->setText(QString(tr("%1")).arg(temp));
+    float temp = getCPUTemp();
+    ui->lbl_CPUTempValue->setText(QString(tr("%1")).arg(temp));
 }
 
-void about_board::boardname_update()
+void about_board::board_name_update()
 {
-    char *boardname = get_boardname();
-    ui->name_label->setText(QString(tr("%1")).arg(boardname));
+    char *boardName = getBoardName();
+    ui->lbl_boardNameValue->setText(QString(tr("%1")).arg(boardName));
 }
 
-void about_board::kernelname_update()
+void about_board::kernel_name_update()
 {
     char *kernel;
-    kernel = get_kernel();
-    ui->kernel_label->setText(QString(tr("%1")).arg(kernel));
+    kernel = getKernel();
+    ui->lbl_kernelValue->setText(QString(tr("%1")).arg(kernel));
 }
 
-void about_board::OSname_update()
+void about_board::OS_name_update()
 {
-    char *OSname = get_OSname();
-    ui->OS_label->setText(QString(tr("%1")).arg(OSname));
+    char *OSName = getOSName();
+    ui->lbl_OSValue->setText(QString(tr("%1")).arg(OSName));
 }
 
 void about_board::resolution_update()
 {
     int x,y;
-    get_resolution(&x,&y);
-    ui->resolution_label->setText(QString(tr("%1 * %2")).arg(x).arg(y));
+    getResolution(&x,&y);
+    ui->lbl_ResolutionValue->setText(QString(tr("%1 * %2")).arg(x).arg(y));
 }
 
-void about_board::QTversion_update()
+void about_board::QT_version_update()
 {
     char vQT[64];
-    if(get_QTversion("/usr/helperboard/qt/lib/","libQt5Core",vQT) == 0)
+    if(getQTVersion("/usr/helperboard/qt/lib/","libQt5Core",vQT) == 0)
     {
-        if(get_QTversion("/usr/helperboard/qt/lib/","libQt4Core",vQT) == 0)
+        if(getQTVersion("/usr/helperboard/qt/lib/","libQt4Core",vQT) == 0)
         {
-            ui->QTversion->setText(QString(tr("Unknow")));
+            ui->lbl_QTVersionValue->setText(QString(tr("Unknow")));
         }
     }
     else
     {
-        ui->QTversion->setText(QString(tr("%1")).arg(vQT));
+        ui->lbl_QTVersionValue->setText(QString(tr("%1")).arg(vQT));
     }
 }
 
-void about_board::language_reload()
+void about_board::languageReload()
 {
     ui->retranslateUi(this);
-    boardname_update();
-    kernelname_update();
+    board_name_update();
+    kernel_name_update();
     battery_update();
     CPU_temp_update();
     resolution_update();
-    OSname_update();
-    QTversion_update();
+    OS_name_update();
+    QT_version_update();
 }
 
-void about_board::about_font()
+void about_board::aboutFont()
 {
     qreal realX = screen->physicalDotsPerInchX();
     qreal realY = screen->physicalDotsPerInchY();
-    qreal realWidth = Width / realX * 2.54;
-    qreal realHeight = Height / realY *2.54;
+    qreal realWidth = screenWidth / realX * 2.54;
+    qreal realHeight = screenHeight / realY *2.54;
     QFont font;
-    if(screen_flag)
+    if(screenFlag)
     {
         if(realHeight < 15)
         {
@@ -156,24 +153,30 @@ void about_board::about_font()
             font.setPointSize(17);
         }
     }
-    ui->label_3->setFont(font);
-    ui->batterylevel_label->setFont(font);
-    ui->label_5->setFont(font);
-    ui->label_6->setFont(font);
-    ui->label_7->setFont(font);
-    ui->label_9->setFont(font);
-    ui->label_8->setFont(font);
-    ui->label_2->setFont(font);
-    ui->label->setFont(font);
-    ui->name_label->setFont(font);
-    ui->batterystatus_label->setFont(font);
-    ui->CPU_temp_label->setFont(font);
-    ui->resolution_label->setFont(font);
-    ui->OS_label->setFont(font);
-    ui->kernel_label->setFont(font);
-    ui->QTversion->setFont(font);
-    ui->label_4->setFont(font);
-    ui->label_10->setFont(font);
-    ui->website->setFont(font);
-    ui->label_12->setFont(font);
+    ui->lbl_boardName->setFont(font);
+    ui->lbl_batteryLevel->setFont(font);
+    ui->lbl_batteryStatusVale->setFont(font);
+    ui->lbl_CPUTemp->setFont(font);
+    ui->lbl_Resolution->setFont(font);
+    ui->lbl_OS->setFont(font);
+    ui->lbl_BusinessEmail->setFont(font);
+    ui->lbl_kernel->setFont(font);
+    ui->lbl_QTVersionValue->setFont(font);
+    ui->lbl_boardNameValue->setFont(font);
+    ui->lbl_batteryStatusVale->setFont(font);
+    ui->lbl_CPUTempValue->setFont(font);
+    ui->lbl_ResolutionValue->setFont(font);
+    ui->lbl_OSValue->setFont(font);
+    ui->lbl_kernelValue->setFont(font);
+    ui->lbl_QTVersion->setFont(font);
+    ui->lbl_companyWebsiteValue->setFont(font);
+    ui->lbl_aboutBoard->setFont(font);
+    ui->lbl_companyWebsite->setFont(font);
+    ui->lbl_BusinessEmailValue->setFont(font);
+}
+
+void about_board::on_ret_btn_clicked()
+{
+    timer->stop();
+    emit about_board_back_msg();
 }

@@ -19,30 +19,26 @@ class File_opration : public QMainWindow
 public:
     explicit File_opration(QWidget *parent = 0);
     ~File_opration();
-    int filepath_flag;
+    int filePathFlag;                           // 0: choose file  1: choose path
     void showEvent(QShowEvent *event);
-    void language_reload();
-    void file_font();
+    void languageReload();
+    void fileOprationFont();
 
 private slots:
-    void readBashStandardOutputInfo();
-
+    void read_bash_standard_output_info();
     void on_btn_back_clicked();
-
     void on_treeWidget_itemClicked(QTreeWidgetItem *item, int column);
-
     void on_btn_cancel_clicked();
-
-    void on_pushButton_clicked();
+    void on_btn_choose_clicked();
 
 signals:
-    void file_rev1(QString,QString);
-    void file_rev2(QString);
-    void file_hide();
+    void file_rev_file_msg(QString,QString);    // Returns file and path signal
+    void file_rev_path_msg(QString);            // Returns path signal
+    void file_hide_msg();
 
 private:
     Ui::File_opration *ui;
-    QProcess pro_path;
+    QProcess proPath;
 };
 
 #endif // FILE_OPRATION_H

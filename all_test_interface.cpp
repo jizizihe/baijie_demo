@@ -1,14 +1,8 @@
 #include "all_test_interface.h"
 
-#ifdef DD
-#define qdebug(format, ...)  qDebug("function:%s\tline:%s\t " format, __func__,__LINE__,##__VA_ARGS__);
-#else
-#define qdebug(format, ...)
-#endif
+static int cameraFirst;
 
-static int camera_first;
-
-QString get_gateway()
+QString getGateway()
 {
     QProcess *proc = new QProcess();
     proc->start("bash",QStringList() << "-c" << "route -n | awk '{print $2}'");
@@ -16,7 +10,7 @@ QString get_gateway()
 
     QString str = proc->readAllStandardOutput();
     QStringList route = str.split("\n");
-
+    proc->close();
     for(int i = 0; i < route.size(); i++)
     {
         if(route.at(i) == "Gateway" && route.at(i+1) != "0.0.0.0")
@@ -28,27 +22,26 @@ QString get_gateway()
     return NULL;
 }
 
-QString ping_gateway()
+QString pingGateway()
 {
-    QString gateway = get_gateway();
+    QString gateway = getGateway();
     QString dex = "1 received, 0% packet loss";
-    QString ping_str = QString("ping -c 1 %1 | grep '%2'").arg(gateway).arg(dex);
+    QString pingStr = QString("ping -c 1 %1 | grep '%2'").arg(gateway).arg(dex);
 
     QProcess proc;
-    proc.start("bash",QStringList() << "-c" << ping_str);
+    proc.start("bash",QStringList() << "-c" << pingStr);
     proc.waitForFinished();
-
-    if(proc.readAllStandardOutput() != NULL)
+    QString strResult = proc.readAllStandardOutput();
+    proc.close();
+    if( strResult!= NULL)
         return "OK";
-
     return "Failed";
 }
 
-QString usb_test(int num)
+QString usbTest(int num)
 {
     QString strCmd = QString("lsusb| wc -l");
     QString strResult = executeLinuxCmd(strCmd);
-//    qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
 
     strResult = strResult.remove("\n");
     int count = 3 + num;
@@ -63,54 +56,10 @@ QString usb_test(int num)
     return strResult;
 }
 
-QString get_new_sd()
+QString getNewSd()
 {
     QString strCmd = QString("fdisk -l | grep /dev/mmcblk[1-9] | wc -l");
     QString strResult = executeLinuxCmd(strCmd);
-//    qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
-    if(strResult == QString("0\n"))
-    {
-        strResult = "No sd card deteted";
-    }
-    else
-    {
-        strResult = "OK";
-    }
-    return strResult;
-}
-
-QString rtc_test()
-{
-    QString strCmd;
-    QString strResult;
-    strCmd = QString("`expr substr `hwclock` 12 8` ");
-    strResult = executeLinuxCmd(strCmd);
-    return strResult;
-}
-
-void camera_test()
-{
-    QString strCmd;
-    QString strResult;
-    if(camera_first == 0)
-    {
-        strCmd = QString("photo_csi.sh ");
-        strResult = executeLinuxCmd(strCmd);
-        camera_first++;
-    }
-    strCmd = QString("rm /data/yuv.jpg");
-    strResult = executeLinuxCmd(strCmd);
-    strCmd = QString("cd /data && csi_test_mplane");
-    strResult = executeLinuxCmd(strCmd);
-    //qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
-}
-
-QString battary_test()
-{
-    QString strCmd = QString("cat /sys/class/power_supply/axp803-battery/voltage_now");
-    QString strResult = executeLinuxCmd(strCmd);
-//    qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
-
     if(strResult == QString("0\n"))
     {
         strResult = "failed";
@@ -122,23 +71,60 @@ QString battary_test()
     return strResult;
 }
 
-QString sim_test()
+QString rtcTest()
 {
     QString strCmd;
     QString strResult;
+    strCmd = QString("`expr substr `hwclock` 12 8` ");
+    strResult = executeLinuxCmd(strCmd);
+    return strResult;
+}
 
+void cameraTest()
+{
+    QString strCmd;
+    QString strResult;
+    if(cameraFirst == 0)
+    {
+        strCmd = QString("photo_csi.sh ");
+        strResult = executeLinuxCmd(strCmd);
+        cameraFirst++;
+    }
+    strCmd = QString("rm /data/yuv.jpg");
+    strResult = executeLinuxCmd(strCmd);
+    strCmd = QString("cd /data && csi_test_mplane");
+    strResult = executeLinuxCmd(strCmd);
+}
+
+QString battaryTest()
+{
+    QString strCmd = QString("cat /sys/class/power_supply/axp803-battery/voltage_now");
+    QString strResult = executeLinuxCmd(strCmd);
+    if(strResult == QString("0\n"))
+    {
+        strResult = "failed";
+    }
+    else
+    {
+        strResult = "OK";
+    }
+    return strResult;
+}
+
+QString simTest()
+{
+    QString strCmd;
+    QString strResult;
     char *state = (char *)"out";
-    int port_num = calc_port_num('h',12);
- //   qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "port_num == " << port_num;
-    bool isExist = getFileName(port_num);
+    int portNum = calcPortNum('h',12);
+    bool isExist = getFileName(portNum);
     if(isExist == false)
     {
-       // qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "not Exist";
-        if(gpio_export(port_num) == 0)
+        if(gpioExport(portNum) == 0)
         {
-            if(gpio_set_state(port_num, state) == 0)
+            if(gpioSetState(portNum, state) == 0)
             {
-                if(gpio_set_value(port_num, 1) == 0)
+                if(gpioSetValue(portNum, 1) == 0)
                 {
                     sleep(5);
                 }
@@ -146,7 +132,7 @@ QString sim_test()
         }
         else
         {
-            gpio_unexport(port_num);
+            gpioUnexport(portNum);
             return 0;
         }
     }
@@ -156,8 +142,6 @@ QString sim_test()
     {
         strCmd = QString("ifconfig | grep ppp0");
         strResult = executeLinuxCmd(strCmd);
-  //      qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
-
         if(!strResult.isEmpty())
         {
             strResult = "OK";
@@ -183,18 +167,13 @@ QString sim_test()
     else
     {
         strCmd = QString("nmcli connection add con-name ppp0 ifname ttyUSB2 autoconnect yes type gsm apn 3gnet user uninet password uninet");
-        //qDebug() << "--line--: " << __LINE__<< "strCmd == " << strCmd;
         strResult = executeLinuxCmd(strCmd);
- //       qDebug() << "--line--: " << __LINE__<< strResult;
         bool ConnectResult=strResult.contains("successfully added",Qt::CaseInsensitive);
         if(ConnectResult == true)
         {
             strResult = "Connection successful!";
             sleep(4);
             strCmd = QString("ifconfig | grep ppp0");
-  //          strResult = executeLinuxCmd(strCmd);
-  //          qDebug() << "LINE:" << __LINE__ << "__FILE__" << __FILE__ << "strResult"<< strResult;
-
             if(!strResult.isEmpty())
             {
                 strResult = "OK";
@@ -207,11 +186,8 @@ QString sim_test()
         else
         {
             strResult = "Connection failed!";
-     //       qDebug() << "--line--: " << __LINE__<< strResult;
             strCmd = QString("nmcli connection delete ppp0");
-            //qDebug() << "--line--: " << __LINE__<< "func:" << __FUNCTION__<< "strCmd == " << strCmd;
             strResult = executeLinuxCmd(strCmd);
-   //         qDebug() << "--line--: " << __LINE__<< strResult;
             strResult = "failed";
             return strResult;
         }
@@ -219,28 +195,25 @@ QString sim_test()
     return strResult;
 }
 
-QString audio_test()
+QString audioTest()
 {
     QString strCmd = QString("rm /data/audio.wav");
     QString strResult = executeLinuxCmd(strCmd);
     strCmd = QString("arecord -d 2 -r 16000 -c 1 -t wav /data/audio.wav");
     strResult = executeLinuxCmd(strCmd);
     strCmd = QString("aplay /usr/helperboard/ceshiluyin.wav");
- //   qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ ;
     strResult = executeLinuxCmd(strCmd);
     strCmd = QString("aplay /data/audio.wav");
     strResult = executeLinuxCmd(strCmd);
     return NULL;
 }
 
-QString wifi_test()
+QString wifiTest()
 {
     QString strCmd = QString("nmcli device wifi rescan");
     QString strResult = executeLinuxCmd(strCmd);
     strCmd = QString("nmcli -t  device wifi list|wc -l");
     strResult = executeLinuxCmd(strCmd);
-    //qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "ScanResult:" << strResult;
-
     if(strResult == QString("0\n"))
     {
         strResult = "failed";
@@ -252,11 +225,10 @@ QString wifi_test()
     return strResult;
 }
 
-QString bluetooth_test()
+QString bluetoothTest()
 {
     QString strCmd;
     QString strResult;
-  //  qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__;
     strCmd = QString("hciconfig |grep hci0 | wc -l");
     strResult = executeLinuxCmd(strCmd);
     if(strResult == "0\n")
@@ -270,7 +242,6 @@ QString bluetooth_test()
         {
             strCmd = QString("hciattach -n -s 1500000 /dev/ttyBT0 sprd 1>/dev/null 2>/dev/null &");
             strResult = executeLinuxCmd(strCmd);
-            //qDebug() << strResult;
             QThread::sleep(2);
         }
     }
@@ -278,8 +249,6 @@ QString bluetooth_test()
     strResult = executeLinuxCmd(strCmd);
     strCmd = QString("hcitool scan | wc -l");
     strResult = executeLinuxCmd(strCmd);
-  //  qDebug() << "Line:" << __LINE__<< "FILE:" << __FILE__ << "ScanResult:" << strResult;
-
     if(strResult == QString("0\n"))
     {
         strResult = "failed";

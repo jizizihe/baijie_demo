@@ -76,7 +76,6 @@ public:
     XComboBox(QWidget *parent = Q_NULLPTR);
     ~XComboBox();
 
-    // 添加item
     void AddItem(const QString& str, bool bChecked = false, const QVariant &userData = QVariant());
     void AddItems(const QList<ItemInfo>& lstItemInfo);
     void AddItems(const QMap<QString, bool>& mapStrChk);

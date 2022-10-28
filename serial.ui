@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>793</width>
-    <height>454</height>
+    <width>649</width>
+    <height>369</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -34,54 +34,53 @@
   <property name="styleSheet">
    <string notr="true">#serial
 {
-border-image: url(:/button_image/all/background(1).png);
+   border-image: url(:/button_image/all/background(1).png);
 }
-/******** combobox 滚动条  *********/
-QComboBox QScrollBar::vertical{ /*主体部分*/
+
+/******** combobox QScrollBar  *********/
+QComboBox QScrollBar::vertical{
     width:35px;
     border-radius:35px;
 }
+
 QMessageBox {
-background-image: url(:/button_image/all/background.jpg);
+   background-image: url(:/button_image/all/background.jpg);
 	border:1px solid gray;
 }
 
-/****************按钮部件*******************/
+/****************QPushButton*******************/
 QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-    outline: none; /*去掉按钮的虚线框*/
+     background-color: rgba(100, 225, 100, 120);
+     border-style: outset; 
+     border-width:  2px; 
+     border-radius: 10px; 
+     border-color: rgba(255, 225, 255, 30);
+     color:rgba(0, 0, 0, 100);
+     padding: 6px; 
+     outline: none; 
 }
 
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
+QPushButton:hover{ 
         background-color:rgba(100,255,100, 100);
         border-color: rgba(255, 225, 255, 200);
         color:rgba(0, 0, 0, 200);
 }
 
-QPushButton:pressed { /*按钮被按下时*/
+QPushButton:pressed {
      background-color:rgba(100,255,100, 200);
      border-color: rgba(255, 225, 255, 30);
      border-style: inset;
      color:rgba(0, 0, 0, 100);
 }
 
-/****************滑块部件*******************/
+QScrollBar{ width:25px;}
 
- QScrollBar{ width:25px;}
-
-
-QSlider::handle:horizontal { /*水平滑块的手柄*/
+QSlider::handle:horizontal { 
         image: url(:/image/sliderHandle.png);
 }
 
-QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
-        border-image: url(:/image/slider.png);/*边框图片*/
+QSlider::sub-page:horizontal {
+        border-image: url(:/image/slider.png);
 }
 
 QTextEdit
@@ -128,7 +127,7 @@ QTextEdit
        <number>5</number>
       </property>
       <item>
-       <widget class="QPushButton" name="retBtn">
+       <widget class="QPushButton" name="btn_ret">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -142,42 +141,7 @@ QTextEdit
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">/****************按钮部件*******************/
-QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     font: bold 14px;/*字体*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-    outline: none; /*去掉按钮的虚线框*/
-}
-
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
-        background-color:rgba(100,255,100, 100);
-        border-color: rgba(255, 225, 255, 200);
-        color:rgba(0, 0, 0, 200);
-}
-
-QPushButton:pressed { /*按钮被按下时*/
-     background-color:rgba(100,255,100, 200);
-     border-color: rgba(255, 225, 255, 30);
-     border-style: inset;
-     color:rgba(0, 0, 0, 100);
-}
-
-/****************滑块部件*******************/
-
-
-QSlider::handle:horizontal { /*水平滑块的手柄*/
-        image: url(:/image/sliderHandle.png);
-}
-
-QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
-        border-image: url(:/image/slider.png);/*边框图片*/
-}</string>
+         <string notr="true"/>
         </property>
         <property name="text">
          <string/>
@@ -209,7 +173,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="lbl_serialPort">
         <property name="text">
          <string>Serial Port</string>
         </property>
@@ -313,7 +277,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="part1_btn">
+           <widget class="QPushButton" name="btn_port1">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -382,7 +346,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="part2_btn">
+           <widget class="QPushButton" name="btn_port2">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -528,7 +492,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_2">
+                 <widget class="QLabel" name="lbl_port1">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                     <horstretch>0</horstretch>
@@ -591,11 +555,11 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                    <enum>Qt::WheelFocus</enum>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true"> border-width:  1px;  /*边框宽度为4像素*/
- border-color: rgba(0, 0, 0,130);/*边框颜色*/
+                   <string notr="true"> border-width:  1px;  
+ border-color: rgba(0, 0, 0,130);
  background-color: rgb(189, 220, 231,80);
- border-style: outset; /*边框样式*/
- border-radius: 10px; /*边框圆角半径*/
+ border-style: outset; 
+ border-radius: 10px; 
 
 </string>
                   </property>
@@ -641,7 +605,7 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label">
+                 <widget class="QLabel" name="lbl_send1">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                     <horstretch>0</horstretch>
@@ -713,13 +677,13 @@ QSlider::sub-page:horizontal { /*水平滑块手柄以前的部分*/
                    </sizepolicy>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">  border-style: outset; /*边框样式*/
-     border-width:  1px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(0, 0, 0,130);/*边框颜色*/
-background-color:transparent;
-     padding: 6px; /*填衬*/
-	outline: none; /*去掉按钮的虚线框*/</string>
+                   <string notr="true">     border-style: outset; 
+     border-width:  1px; 
+     border-radius: 10px; 
+     border-color: rgba(0, 0, 0,130);
+     background-color:transparent;
+     padding: 6px; 
+	 outline: none; </string>
                   </property>
                  </widget>
                 </item>
@@ -817,7 +781,7 @@ background-color:transparent;
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="PartNamelab_1">
+                        <widget class="QLabel" name="lbl_port1Name">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -871,7 +835,7 @@ background-color:transparent;
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="PartNamelab_2">
+                        <widget class="QLabel" name="lbl_port1BaudRate">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -943,7 +907,7 @@ background-color:transparent;
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="PartNamelab_3">
+                        <widget class="QLabel" name="lbl_port1DataBit">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -1023,7 +987,7 @@ background-color:transparent;
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="PartNamelab_4">
+                        <widget class="QLabel" name="lbl_port1StopBit">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -1087,7 +1051,7 @@ background-color:transparent;
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="PartNamelab_5">
+                        <widget class="QLabel" name="lbl_port1Parity">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -1182,23 +1146,23 @@ background-color:transparent;
                        </property>
                        <property name="styleSheet">
                         <string notr="true">QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-    outline: none; /*去掉按钮的虚线框*/
+     background-color: rgba(100, 225, 100, 120);
+     border-style: outset; 
+     border-width:  2px; 
+     border-radius: 10px; 
+     border-color: rgba(255, 225, 255, 30);
+     color:rgba(0, 0, 0, 100);
+     padding: 6px; 
+    outline: none; 
 }
 
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
+QPushButton:hover{ 
         background-color:rgba(100,255,100, 100);
         border-color: rgba(255, 225, 255, 200);
         color:rgba(0, 0, 0, 200);
 }
 
-QPushButton:pressed { /*按钮被按下时*/
+QPushButton:pressed {
      background-color:rgba(100,255,100, 200);
      border-color: rgba(255, 225, 255, 30);
      border-style: inset;
@@ -1249,23 +1213,23 @@ QPushButton:pressed { /*按钮被按下时*/
                        </property>
                        <property name="styleSheet">
                         <string notr="true">QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-    outline: none; /*去掉按钮的虚线框*/
+     background-color: rgba(100, 225, 100, 120);
+     border-style: outset; 
+     border-width:  2px;  
+     border-radius: 10px;
+     border-color: rgba(255, 225, 255, 30);
+     color:rgba(0, 0, 0, 100);
+     padding: 6px; 
+     outline: none;
 }
 
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
+QPushButton:hover{ 
         background-color:rgba(100,255,100, 100);
         border-color: rgba(255, 225, 255, 200);
         color:rgba(0, 0, 0, 200);
 }
 
-QPushButton:pressed { /*按钮被按下时*/
+QPushButton:pressed { 
      background-color:rgba(100,255,100, 200);
      border-color: rgba(255, 225, 255, 30);
      border-style: inset;
@@ -1397,7 +1361,7 @@ QPushButton:pressed { /*按钮被按下时*/
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="SendBtn">
+             <widget class="QPushButton" name="btn_send1">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
@@ -1503,7 +1467,7 @@ QPushButton:pressed { /*按钮被按下时*/
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_3">
+                 <widget class="QLabel" name="lbl_port2">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                     <horstretch>0</horstretch>
@@ -1566,11 +1530,11 @@ QPushButton:pressed { /*按钮被按下时*/
                    <enum>Qt::WheelFocus</enum>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true"> border-width:  1px;  /*边框宽度为4像素*/
- border-color: rgba(0, 0, 0,130);/*边框颜色*/
+                   <string notr="true"> border-width:  1px;  
+ border-color: rgba(0, 0, 0,130);
  background-color: rgb(189, 220, 231,80);
- border-style: outset; /*边框样式*/
- border-radius: 10px; /*边框圆角半径*/</string>
+ border-style: outset; 
+ border-radius: 10px;</string>
                   </property>
                   <property name="readOnly">
                    <bool>true</bool>
@@ -1617,7 +1581,7 @@ QPushButton:pressed { /*按钮被按下时*/
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_4">
+                 <widget class="QLabel" name="lbl_send2">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                     <horstretch>0</horstretch>
@@ -1689,13 +1653,13 @@ QPushButton:pressed { /*按钮被按下时*/
                    </sizepolicy>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">  border-style: outset; /*边框样式*/
-     border-width:  1px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(0, 0, 0,130);/*边框颜色*/
-background-color:transparent;
-     padding: 6px; /*填衬*/
-	outline: none; /*去掉按钮的虚线框*/</string>
+                   <string notr="true">     border-style: outset;
+     border-width:  1px;  
+     border-radius: 10px; 
+     border-color: rgba(0, 0, 0,130);
+     background-color:transparent;
+     padding: 6px;
+     outline: none;</string>
                   </property>
                  </widget>
                 </item>
@@ -1793,7 +1757,7 @@ background-color:transparent;
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="PartNamelab_6">
+                        <widget class="QLabel" name="lbl_port2Name">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -1847,7 +1811,7 @@ background-color:transparent;
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="PartNamelab_7">
+                        <widget class="QLabel" name="lbl_port2BaudRate">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -1919,7 +1883,7 @@ background-color:transparent;
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="PartNamelab_8">
+                        <widget class="QLabel" name="lbl_port2DataBit">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -1999,7 +1963,7 @@ background-color:transparent;
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="PartNamelab_9">
+                        <widget class="QLabel" name="lbl_port2StopBit">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -2063,7 +2027,7 @@ background-color:transparent;
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="PartNamelab_10">
+                        <widget class="QLabel" name="lbl_port2Parity">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -2158,23 +2122,23 @@ background-color:transparent;
                        </property>
                        <property name="styleSheet">
                         <string notr="true">QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-    outline: none; /*去掉按钮的虚线框*/
+     background-color: rgba(100, 225, 100, 120);
+     border-style: outset; 
+     border-width:  2px; 
+     border-radius: 10px;
+     border-color: rgba(255, 225, 255, 30);
+     color:rgba(0, 0, 0, 100);
+     padding: 6px; 
+     outline: none; 
 }
 
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
+QPushButton:hover{ 
         background-color:rgba(100,255,100, 100);
         border-color: rgba(255, 225, 255, 200);
         color:rgba(0, 0, 0, 200);
 }
 
-QPushButton:pressed { /*按钮被按下时*/
+QPushButton:pressed { 
      background-color:rgba(100,255,100, 200);
      border-color: rgba(255, 225, 255, 30);
      border-style: inset;
@@ -2225,23 +2189,23 @@ QPushButton:pressed { /*按钮被按下时*/
                        </property>
                        <property name="styleSheet">
                         <string notr="true">QPushButton{
-     background-color: rgba(100, 225, 100, 120);/*背景色*/
-     border-style: outset; /*边框样式*/
-     border-width:  2px;  /*边框宽度为4像素*/
-     border-radius: 10px; /*边框圆角半径*/
-     border-color: rgba(255, 225, 255, 30);/*边框颜色*/
-     color:rgba(0, 0, 0, 100);/*字体颜色*/
-     padding: 6px; /*填衬*/
-    outline: none; /*去掉按钮的虚线框*/
+     background-color: rgba(100, 225, 100, 120);
+     border-style: outset; 
+     border-width:  2px;  
+     border-radius: 10px; 
+     border-color: rgba(255, 225, 255, 30);
+     color:rgba(0, 0, 0, 100);
+     padding: 6px; 
+    outline: none; 
 }
 
-QPushButton:hover{ /*鼠标悬停在按钮上时*/
+QPushButton:hover{ 
         background-color:rgba(100,255,100, 100);
         border-color: rgba(255, 225, 255, 200);
         color:rgba(0, 0, 0, 200);
 }
 
-QPushButton:pressed { /*按钮被按下时*/
+QPushButton:pressed {
      background-color:rgba(100,255,100, 200);
      border-color: rgba(255, 225, 255, 30);
      border-style: inset;
@@ -2373,7 +2337,7 @@ QPushButton:pressed { /*按钮被按下时*/
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="SendBtn_2">
+             <widget class="QPushButton" name="btn_send2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
@@ -2426,7 +2390,7 @@ QPushButton:pressed { /*按钮被按下时*/
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>793</width>
+     <width>649</width>
      <height>22</height>
     </rect>
    </property>

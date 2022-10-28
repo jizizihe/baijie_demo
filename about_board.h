@@ -21,25 +21,25 @@ class about_board : public QWidget
 public:
     explicit about_board(QWidget *parent = 0);
     ~about_board();
-
-    void language_reload();
-    void about_font();
+    void languageReload();
+    void aboutFont();
+    void showEvent(QShowEvent *event);
 
 signals:
-    void Mysignal();
+    void about_board_back_msg();
 
 private slots:
-    void on_pushButton_clicked();
     void battery_update();
     void CPU_temp_update();
-    void boardname_update();
-    void kernelname_update();
-    void OSname_update();
+    void board_name_update();
+    void kernel_name_update();
+    void OS_name_update();
     void resolution_update();
-    void QTversion_update();
+    void QT_version_update();
+    void on_ret_btn_clicked();
+
 private:
     Ui::about_board *ui;
-    QLabel *QTversion;
 };
 
 #endif // ABOUT_BOARD_H

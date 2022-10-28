@@ -16,23 +16,20 @@ public:
     explicit user_manual(QWidget *parent = 0);
     ~user_manual();
 
-    void language_reload();
-    void user_font();
+    void languageReload();
+    void userFont();
 
 signals:
-    void Mysignal();
+    void user_manual_back_msg();
 
 private slots:
-    void on_pushButton_clicked();
-
-
+    void on_btn_ret_clicked();
     void on_treeWidget_itemClicked(QTreeWidgetItem *item, int column);
-
-    void on_pushButton_3_clicked();
+    void on_btn_ecpandAll_clicked();
 
 private:
     Ui::user_manual *ui;
-    bool catalogueflag = true;
+    bool btnExpandAllFlag = true;
 };
 
 #endif // USER_MANUAL_H
