@@ -4,7 +4,6 @@
 
 static int g_screenWidth;
 static int g_screenHeight;
-static int g_screenFlag;
 static int g_connectFlag;
 static QScreen *g_screen;
 static qreal g_realX;
@@ -18,11 +17,6 @@ WifiConDialog::WifiConDialog(QWidget *parent) :
     g_screen = qApp->primaryScreen();
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
-
-    if(g_screenWidth < g_screenHeight)
-    {
-        g_screenFlag = 1;
-    }
     g_realX = g_screen->physicalDotsPerInchX();
     g_realY = g_screen->physicalDotsPerInchY();
     setWifiDialogFont();
@@ -32,14 +26,7 @@ WifiConDialog::WifiConDialog(QWidget *parent) :
     g_wifiLoadLabel->setScaledContents(true);
     g_wifiLoadLabel->setMovie(g_wifiMovie);
     ui->btn_cancel->setText(tr("cancel"));
-    if(g_screenFlag == 1)
-    {
-        g_wifiLoadLabel->move(this->size().height()/2,this->size().width()/2);
-    }
-    else
-    {
-        g_wifiLoadLabel->move(this->size().width()/2,this->size().height()/2);
-    }
+    g_wifiLoadLabel->move(this->size().width()/2,this->size().height()/2);
 }
 
 WifiConDialog::~WifiConDialog()
@@ -162,38 +149,19 @@ void WifiConDialog::languageReload()
 void WifiConDialog::setWifiDialogFont()
 {
     qreal realWidth = g_screenWidth / g_realX * 2.54;
-    qreal realHeight = g_screenHeight / g_realY *2.54;
     QFont font;
-    if(g_screenFlag)
-    {
-        if(realHeight < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
 
+    if(realWidth < 15)
+    {
+        font.setPointSize(12);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(14);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(17);
     }
 
     ui->lbl_wifi->setFont(font);

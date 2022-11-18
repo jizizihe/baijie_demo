@@ -21,16 +21,7 @@ all_test::all_test(QWidget *parent) :
     g_waitLbl->setFixedSize(50, 50);
     g_waitLbl->setScaledContents(true);
     g_waitLbl->setMovie(g_waitMovie);
-
-    if(g_screenWidth < g_screenHeight)
-    {
-        ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
-        g_waitLbl->move(g_screenHeight/2,g_screenWidth/2);
-    }
-    else
-    {
-        g_waitLbl->move(g_screenWidth/2,g_screenHeight/2 );
-    }
+    g_waitLbl->move(g_screenWidth/2,g_screenHeight/2 );
 
     setAllTestFont();
     ui->textEdit->verticalScrollBar()->setStyleSheet("QScrollBar{width:30px;}");
@@ -304,15 +295,7 @@ void all_test::on_usbChk_clicked()
 
 void all_test::on_serialChk_clicked()
 {
-    if(g_screenWidth < g_screenHeight)
-    {
-        g_serialDialog->resize(g_screenWidth*2/3,g_screenWidth*2/3);
-        g_serialDialog->move(g_screenWidth-((g_screenWidth-g_serialDialog->height())/2),g_screenHeight/2-g_serialDialog->width()/2);
-    }
-    else
-    {
-        g_serialDialog->resize(g_screenWidth/2,g_screenHeight*3/4);
-    }
+    g_serialDialog->resize(g_screenWidth/2,g_screenHeight*3/4);
     g_serialDialog->exec();
 }
 
@@ -565,39 +548,20 @@ void all_test::setAllTestFont()
 {
     QScreen *screen = QGuiApplication::primaryScreen();
     qreal realX = screen->physicalDotsPerInchX();
-    qreal realY = screen->physicalDotsPerInchY();
     qreal realWidth = g_screenWidth / realX * 2.54;
-    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(g_screenWidth < g_screenHeight)
+
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(12);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(14);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(17);
     }
 
     ui->groupBox->setFont(font);

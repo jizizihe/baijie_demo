@@ -19,16 +19,8 @@ File_opration::File_opration(QWidget *parent) :
     g_screen = qApp->primaryScreen();
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
-    if(g_screenWidth < g_screenHeight)
-    {
-        this->setMinimumSize(g_screenHeight*2/3,g_screenWidth*3/4);
-        this->setMaximumSize(g_screenHeight*2/3,g_screenWidth*3/4);
-    }
-    else
-    {
-        this->setMinimumSize(g_screenWidth*2/3,g_screenHeight*2/3);
-        this->setMaximumSize(g_screenWidth*2/3,g_screenHeight*2/3);
-    }
+    this->setMinimumSize(g_screenWidth*2/3,g_screenHeight*2/3);
+    this->setMaximumSize(g_screenWidth*2/3,g_screenHeight*2/3);
     setFileOprationFont();
     connect(&g_proPath, SIGNAL(readyReadStandardOutput()), this, SLOT(read_bash_standard_output_info()));
     this->setWindowModality(Qt::ApplicationModal);
@@ -100,10 +92,7 @@ void File_opration::on_btn_back_clicked()
                          tr("The current path is the most forward path!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenWidth < g_screenHeight)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }
@@ -176,10 +165,7 @@ void File_opration::on_btn_choose_clicked()
                              tr("Please choose file!"),
                              0,this);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(g_screenWidth < g_screenHeight)
-                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
         }
         else
@@ -198,40 +184,19 @@ void File_opration::languageReload()
 void File_opration::setFileOprationFont()
 {
     qreal realX = g_screen->physicalDotsPerInchX();
-    qreal realY = g_screen->physicalDotsPerInchY();
     qreal realWidth = g_screenWidth / realX * 2.54;
-    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(g_screenWidth < g_screenHeight)
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(10);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(12);
-        }
-        else
-        {
-            font.setPointSize(14);
-        }
-
+        font.setPointSize(10);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(12);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(10);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(12);
-        }
-        else
-        {
-            font.setPointSize(14);
-        }
+        font.setPointSize(14);
     }
     ui->btn_back->setFont(font);
     ui->btn_cancel->setFont(font);

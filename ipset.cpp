@@ -4,7 +4,6 @@
 
 static int g_screenWidth;
 static int g_screenHeight;
-static int g_screenFlag;
 static int g_openFlag = 1;
 static int g_btnUpFlag;
 static QScreen *g_screen;
@@ -21,11 +20,6 @@ ipset::ipset(QWidget *parent) :
     g_screen = qApp->primaryScreen();
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
-
-    if(g_screenWidth < g_screenHeight)
-    {
-        g_screenFlag = 1;ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
-    }
 
     QRegExp a("\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");  //ip regular expression
     ui->ipAddrLineEdit->setValidator(new QRegExpValidator(a,this));
@@ -87,10 +81,7 @@ void ipset::on_btn_ipShow_clicked()
                          tr("Please open the ethernet!"),
                          0,this);
         mesg.addButton(tr("ok"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         return;
     }
@@ -109,10 +100,7 @@ void ipset::on_btn_setIp_clicked()
                          tr("Please open the ethernet!"),
                          0,this);
         mesg.addButton(tr("ok"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         return;
     }
@@ -135,10 +123,7 @@ void ipset::on_btn_setAutoIp_clicked()
                          tr("Please open the ethernet!"),
                          0,this);
         mesg.addButton(tr("ok"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         return;
     }
@@ -171,10 +156,7 @@ void ipset::on_btn_setAutoIp_clicked()
                                  tr("set auto ip succeeded!"),
                                  0,this);
                 mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                if(g_screenFlag == 1)
-                    mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-                else
-                    mesg.move(g_screenWidth/3,g_screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
                 mesg.exec();
                 QString networkInfo = getNetworkInfo();
                 ui->textEdit->setText(networkInfo);
@@ -194,10 +176,7 @@ void ipset::on_btn_setAutoIp_clicked()
                                  tr("set auto ip failed"),
                                  0,this);
                 mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                if(g_screenFlag == 1)
-                    mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-                else
-                    mesg.move(g_screenWidth/3,g_screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
                 mesg.exec();
             }
         }
@@ -208,10 +187,7 @@ void ipset::on_btn_setAutoIp_clicked()
                              tr("The current connection is auto IP!"),
                              0,this);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
 
             QString networkInfo = getNetworkInfo();
@@ -231,10 +207,7 @@ void ipset::on_btn_setAutoIp_clicked()
                          tr("set auto ip succeeded!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         QString networkInfo = getNetworkInfo();
         ui->textEdit->setText(networkInfo);
@@ -253,10 +226,7 @@ void ipset::on_btn_setAutoIp_clicked()
                          tr("set auto ip failed"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }
@@ -272,10 +242,7 @@ void ipset::on_btn_ok_clicked()
                          tr("Please complete the information"),
                          0,this);
         mesg.addButton(tr("up"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         return;
     }
@@ -286,10 +253,7 @@ void ipset::on_btn_ok_clicked()
                      0,this);
     QPushButton *yesButton = mesg.addButton(tr("Yes"), QMessageBox::ActionRole);
     QPushButton *noButton = mesg.addButton(tr("No"),QMessageBox::ActionRole);
-    if(g_screenFlag == 1)
-        mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-    else
-        mesg.move(g_screenWidth/3,g_screenHeight/3);
+    mesg.move(g_screenWidth/3,g_screenHeight/3);
     mesg.exec();
 
     if(mesg.clickedButton() == yesButton)
@@ -301,10 +265,7 @@ void ipset::on_btn_ok_clicked()
                              tr("Format error, please re-enter."),
                              0,this);
             mesg.addButton(tr("up"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             return;
         }
@@ -316,10 +277,7 @@ void ipset::on_btn_ok_clicked()
                              tr("Please enter the correct subnet mask."),
                              0,this);
             mesg.addButton(tr("up"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             return;
         }
@@ -330,10 +288,7 @@ void ipset::on_btn_ok_clicked()
                              tr("Format error, please re-enter."),
                              0,this);
             mesg.addButton(tr("up"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             return;
         }
@@ -358,10 +313,7 @@ void ipset::on_btn_ok_clicked()
                              tr("set static ip failed"),
                              0,this);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenHeight*2/3,g_screenWidth/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
         }
     }
@@ -374,40 +326,19 @@ void ipset::on_btn_ok_clicked()
 void ipset::setIpFont()
 {
     qreal realX = g_screen->physicalDotsPerInchX();
-    qreal realY = g_screen->physicalDotsPerInchY();
     qreal realWidth = g_screenWidth / realX * 2.54;
-    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(g_screenFlag)
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
-
+        font.setPointSize(12);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(14);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(17);
     }
     ui->btn_setAutoIp->setFont(font);
     ui->btn_ipShow->setFont(font);

@@ -1,9 +1,6 @@
 ﻿#include <QApplication>
 #include <QTextCodec>
-#include <QGraphicsScene>
-#include <QGraphicsView>
 #include <QDesktopWidget>
-#include <QGraphicsProxyWidget>
 #include "language_selection.h"
 #include "database.h"
 
@@ -15,11 +12,18 @@ int main(int argc, char *argv[])
 {
     qputenv("QT_IM_MODULE", QByteArray("tgtsml"));
 
-    globalApp a(argc,argv);
-    QScreen *g_screen = qApp->primaryScreen();
-    int Width = g_screen->size().width();
-    int Height = g_screen->size().height();
+    int fd;
+    struct fb_var_screeninfo screen_info;
+    fd = open("/dev/fb0",O_RDWR);
+    ioctl(fd,FBIOGET_VSCREENINFO,&screen_info);
+    close(fd);
+    if(screen_info.xres < screen_info.yres)
+    {
+        setenv("QT_QPA_EGLFS_ROTATION","90",1);
+        setenv("QT_QPA_EVDEV_TOUCHSCREEN_PARAMETERS","/dev/input/event5:rotate=90",1);
+    }
 
+    globalApp a(argc,argv);
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     language_selection languageSelectionWg;
     database databaseWg;
@@ -31,24 +35,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-        if(Width < Height)
-        {
-            QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&languageSelectionWg);
-            w->setRotation(90);                                              //Rotate 90 degrees,keep the landscape
-            QGraphicsView *view = new QGraphicsView(scene);
-            view->setWindowFlags(Qt::FramelessWindowHint);                   //Set frameless
-            view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            view->resize(Width,Height);
-            languageSelectionWg.resize(Height,Width);
-            languageSelectionWg.show();
-            view->show();
-        }
-        else
-        {
-            languageSelectionWg.show();
-        }
+        languageSelectionWg.show();
     }
     return a.exec();
 }

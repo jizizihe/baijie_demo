@@ -6,7 +6,6 @@
 
 static int g_screenWidth;
 static int g_screenHeight;
-static int g_screenFlag;
 static int g_cpCtFlag;     // 0:null  1:copy  2:cut
 static QScreen *g_screen;
 static QString g_cpFile;
@@ -24,11 +23,6 @@ udev::udev(QWidget *parent) :
     g_screen = qApp->primaryScreen();
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
-    if(g_screenWidth < g_screenHeight)
-    {
-        g_screenFlag = 1;
-        ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
-    }
     setUdevFont();
     g_timer = new QTimer(this);
     connect(g_timer,SIGNAL(timeout()),this,SLOT(find_mount_file()));
@@ -56,10 +50,7 @@ void udev::safeUnplug()
                      tr("safe unplug successful!"),
                      0,this);
     mesg.addButton(tr("OK"),QMessageBox::YesRole);
-    if(g_screenFlag == 1)
-        mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-    else
-        mesg.move(g_screenWidth/3,g_screenHeight/3);
+    mesg.move(g_screenWidth/3,g_screenHeight/3);
     mesg.exec();
     g_listFileCheck.clear();
 }
@@ -77,10 +68,7 @@ void udev::on_btn_cp_clicked()
                          tr("Please select the file that you want to copy!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         return;
     }
@@ -118,10 +106,7 @@ void udev::copy()
                      tr("Copy complete!"),
                      0,this);
     mesg.addButton(tr("OK"),QMessageBox::YesRole);
-    if(g_screenFlag == 1)
-        mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-    else
-        mesg.move(g_screenWidth/3,g_screenHeight/3);
+    mesg.move(g_screenWidth/3,g_screenHeight/3);
     mesg.exec();
 }
 
@@ -143,10 +128,7 @@ void udev::cut()
                          tr("Please select the file that you want to cut!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         return;
     }
@@ -164,10 +146,7 @@ void udev::cut()
                      tr("Enter the cut state!"),
                      0,this);
     mesg.addButton(tr("OK"),QMessageBox::YesRole);
-    if(g_screenFlag == 1)
-        mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-    else
-        mesg.move(g_screenWidth/3,g_screenHeight/3);
+    mesg.move(g_screenWidth/3,g_screenHeight/3);
     mesg.exec();
     g_listFileCheck.clear();
 }
@@ -181,10 +160,7 @@ void udev::on_btn_delete_clicked()
                          tr("Please select the file that you want to delete!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         return;
     }
@@ -201,10 +177,7 @@ void udev::remove()
 
     QPushButton *yesButton = mesg.addButton(tr("Yes"), QMessageBox::ActionRole);
     QPushButton *noButton = mesg.addButton(tr("No"),QMessageBox::ActionRole);
-    if(g_screenFlag == 1)
-        mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-    else
-        mesg.move(g_screenWidth/3,g_screenHeight/3);
+    mesg.move(g_screenWidth/3,g_screenHeight/3);
     mesg.exec();
 
     if(mesg.clickedButton() == yesButton) {
@@ -235,10 +208,7 @@ void udev::remove()
                          tr("Delete complete!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         g_listFileCheck.clear();
         fileRefresh(path);
@@ -264,40 +234,22 @@ void udev::languageReload()
 void udev::setUdevFont()
 {
     qreal realX = g_screen->physicalDotsPerInchX();
-    qreal realY = g_screen->physicalDotsPerInchY();
     qreal realWidth = g_screenWidth / realX * 2.54;
-    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(g_screenFlag)
+
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(12);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(14);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(17);
     }
+
     ui->btn_cp->setFont(font);
     ui->btn_cut->setFont(font);
     ui->btn_delete->setFont(font);
@@ -412,10 +364,7 @@ void udev::on_btn_back_clicked()
                          tr("The current path is the most forward path!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }
@@ -437,10 +386,7 @@ void udev::paste()
                          tr("Paste complete!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         g_cpFile.clear();
         fileRefresh(path);
@@ -455,10 +401,7 @@ void udev::paste()
                          tr("Paste complete!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         g_ctFile.clear();
         fileRefresh(path);
@@ -528,10 +471,7 @@ void udev::on_btn_mount_clicked()
                          tr("No device!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         fileRefresh(ui->lbl_pathValue->text());
         return;

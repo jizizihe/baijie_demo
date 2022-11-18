@@ -1,15 +1,11 @@
 ﻿#include "touch_screen.h"
 #include "ui_touchscreen.h"
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QGraphicsProxyWidget>
 #include <QScreen>
 #include <QDebug>
 #include <QScreen>
 
 static int g_screenWidth;
 static int g_screeHeight;
-static int g_screenFlag;
 static int g_btnWidth;
 static int g_btnHeight;
 static const qreal MinimumDiameter = 3.0;
@@ -41,10 +37,6 @@ touchscreen::touchscreen(QWidget *parent) :
     QScreen *screen = qApp->primaryScreen();
     g_screenWidth = screen->size().width();
     g_screeHeight = screen->size().height();
-    if(g_screenWidth < g_screeHeight)
-    {
-        g_screenFlag = 1;
-    }
 
     connect(g_btnClear,SIGNAL(clicked()),this,SLOT(btn_clear_clicked()));
     connect(g_btnReturn,SIGNAL(clicked()),this,SLOT(btn_ret_clicked()));
@@ -81,37 +73,21 @@ void touchscreen::paintEvent(QPaintEvent *event)  //paint Event
 
 void touchscreen::resizeEvent(QResizeEvent *event)  //Load Images
 {
-    if (width() > g_image.width() || height() > g_image.height()) {
+    if (width() > g_image.width() || height() > g_image.height())
+    {
         int newWidth = qMax(width(), g_image.width());
         int newHeight = qMax(height(), g_image.height());
         resizeImage(&g_image, QSize(newWidth, newHeight));
         update();
     }
-
-    if (g_screenFlag == 1)
-    {
-        g_btnWidth = this->width()/7;
-        g_btnHeight = this->height()/10;
-        g_btnReturn->setIcon(QIcon(":/button_image/rotate_return.png"));
-        g_btnReturn->setIconSize(QSize(32,32));
-        g_btnReturn->setGeometry(g_screenWidth-g_btnWidth-10,10,g_btnWidth,g_btnHeight);
-
-        g_btnClear->setIcon(QIcon(":/button_image/rotate_clean.png"));
-        g_btnClear->setIconSize(QSize(32,32));
-        g_btnClear->setGeometry(g_screenWidth-g_btnWidth-10,g_btnHeight+20,g_btnWidth,g_btnHeight);
-    }
-    else
-    {
-        g_btnWidth = this->width()/10;
-        g_btnHeight = this->height()/7;
-        g_btnReturn->setIcon(QIcon(":/button_image/return.png"));
-        g_btnReturn->setIconSize(QSize(32,32));
-        g_btnReturn->setGeometry(10,10,g_btnWidth,g_btnHeight);
-
-        g_btnClear->setIcon(QIcon(":/button_image/clean.png"));
-        g_btnClear->setIconSize(QSize(32,32));
-        g_btnClear->setGeometry(g_btnWidth+20,10,g_btnWidth,g_btnHeight);
-    }
+    g_btnWidth = this->width()/10;
+    g_btnHeight = this->height()/7;
+    g_btnReturn->setIcon(QIcon(":/button_image/return.png"));
+    g_btnReturn->setIconSize(QSize(32,32));
+    g_btnReturn->setGeometry(10,10,g_btnWidth,g_btnHeight);
+    g_btnClear->setIcon(QIcon(":/button_image/clean.png"));
+    g_btnClear->setIconSize(QSize(32,32));
+    g_btnClear->setGeometry(g_btnWidth+20,10,g_btnWidth,g_btnHeight);
 
     QWidget::resizeEvent(event);
 }
@@ -120,7 +96,6 @@ void touchscreen::resizeImage(QImage *g_image, const QSize &newSize)  //g_image 
 {
     if (g_image->size() == newSize)
         return;
-
     QImage newImage(newSize, QImage::Format_RGB32);
     newImage.fill(qRgb(255, 255, 255));
     QPainter painter(&newImage);

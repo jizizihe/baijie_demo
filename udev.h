@@ -15,8 +15,6 @@
 #include <QMessageBox>
 #include <QPalette>
 #include <qfileinfo.h>
-#include <QGraphicsView>
-#include <QGraphicsProxyWidget>
 #include <QScreen>
 #include <QTreeWidgetItem>
 

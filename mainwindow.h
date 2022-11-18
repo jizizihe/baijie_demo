@@ -18,8 +18,6 @@
 #include "sys_setting.h"
 #include "sim.h"
 #include "database.h"
-#include <QGraphicsView>
-#include <QGraphicsProxyWidget>
 
 namespace Ui {
 class MainWindow;

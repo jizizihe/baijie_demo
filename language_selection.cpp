@@ -1,12 +1,10 @@
 #include "language_selection.h"
 #include "ui_language_selection.h"
 #include <QScreen>
-#include <QDebug>
 #include <stdlib.h>
 
 static int g_screenWidth;
 static int g_screenHeight;
-static QGraphicsView *view;
 
 language_selection::language_selection(QWidget *parent) :
     QMainWindow(parent),
@@ -28,51 +26,26 @@ void language_selection::setLanguageFont()
     g_screenWidth = screen->size().width();
     g_screenHeight = screen->size().height();
     qreal realX = screen->physicalDotsPerInchX();
-    qreal realY = screen->physicalDotsPerInchY();
     qreal realWidth = g_screenWidth / realX * 2.54;
-    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(g_screenWidth<g_screenHeight)
+
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(12);
-            ui->lbl_tips->setFont(font);
-            font.setPointSize(13);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(15);
-            ui->lbl_tips->setFont(font);
-            font.setPointSize(16);
-        }
-        else
-        {
-            font.setPointSize(18);
-            ui->lbl_tips->setFont(font);
-            font.setPointSize(19);
-        }
+        font.setPointSize(12);
+        ui->lbl_tips->setFont(font);
+        font.setPointSize(13);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(15);
+        ui->lbl_tips->setFont(font);
+        font.setPointSize(16);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(12);
-            ui->lbl_tips->setFont(font);
-            font.setPointSize(13);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(15);
-            ui->lbl_tips->setFont(font);
-            font.setPointSize(16);
-        }
-        else
-        {
-            font.setPointSize(18);
-            ui->lbl_tips->setFont(font);
-            font.setPointSize(19);
-        }
+        font.setPointSize(18);
+        ui->lbl_tips->setFont(font);
+        font.setPointSize(19);
     }
     ui->rtn_Chinese->setFont(font);
     ui->rtn_English->setFont(font);
@@ -91,25 +64,8 @@ void language_selection::on_btn_ok_clicked()
     }
 
     this->hide();
-    if(g_screenWidth < g_screenHeight)
-    {
-        QGraphicsScene *scene = new QGraphicsScene;
-        QGraphicsProxyWidget *w = scene->addWidget(&g_desktopWg);
-        w->setRotation(90);                                           //Rotate 90 degrees,keep the landscape
-        view = new QGraphicsView(scene);
-        view->setWindowFlags(Qt::FramelessWindowHint);                //Set frameless
-        view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        view->resize(g_screenWidth,g_screenHeight);
-        g_desktopWg.resize(g_screenHeight,g_screenWidth);
-        g_desktopWg.show();
-        view->show();
-    }
-    else
-    {
         g_desktopWg.resize(g_screenWidth,g_screenHeight);
         g_desktopWg.show();
-    }
 }
 
 void language_selection::desktopShow()
@@ -120,26 +76,6 @@ void language_selection::desktopShow()
         ui->rtn_Chinese->setCheckable(true);
     }
     this->hide();
-    if(g_screenWidth < g_screenHeight)
-    {
-        QGraphicsScene *scene = new QGraphicsScene;
-        QGraphicsProxyWidget *w = scene->addWidget(&g_desktopWg);
-        w->setRotation(90);                                           //Rotate 90 degrees,keep the landscape
-        view = new QGraphicsView(scene);
-        view->setWindowFlags(Qt::FramelessWindowHint);                //Set frameless
-        view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        view->resize(g_screenWidth,g_screenHeight);
-        view->setAttribute(Qt::WA_ShowWithoutActivating,true);
-        view->setFocusPolicy(Qt::NoFocus);view->setFrameStyle(QFrame::NoFrame);
-        g_desktopWg.resize(g_screenHeight,g_screenWidth);
-        g_desktopWg.show();
-        view->show();
-    }
-    else
-    {
-
-        g_desktopWg.resize(g_screenWidth,g_screenHeight);
-        g_desktopWg.show();
-    }
+    g_desktopWg.resize(g_screenWidth,g_screenHeight);
+    g_desktopWg.show();
 }

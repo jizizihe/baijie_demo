@@ -193,7 +193,7 @@ QPushButton:pressed {
           </size>
          </property>
          <property name="text">
-          <string>/data</string>
+          <string>/data/</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

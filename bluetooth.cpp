@@ -4,7 +4,6 @@
 #include <QTimer>
 #include <QListWidgetItem>
 
-static int g_screenFlag;     // 0:width > Height  1:width < Height
 static int g_screenWidth;
 static int g_screenHeight;
 static int g_openFlag;
@@ -30,11 +29,7 @@ bluetooth::bluetooth(QWidget *parent) :
     QScreen *screen = qApp->primaryScreen();
     g_screenWidth = screen->size().width();
     g_screenHeight = screen->size().height();
-    if(g_screenWidth < g_screenHeight)
-    {
-        g_screenFlag = 1;
-        ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
-    }
+    ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     g_openFlag = 1;
     g_bluetoothInterface = new bluetooth_interface(this);
     setBluetoothFont();
@@ -43,14 +38,7 @@ bluetooth::bluetooth(QWidget *parent) :
     g_loadLabel->setFixedSize(50, 50);
     g_loadLabel->setScaledContents(true);
     g_loadLabel->setMovie(g_pMovie);
-    if(g_screenFlag == 1)
-    {
-        g_loadLabel->move(g_screenHeight/2,g_screenWidth/2);
-    }
-    else
-    {
-        g_loadLabel->move(g_screenWidth/2,g_screenHeight/2 );
-    }
+    g_loadLabel->move(g_screenWidth/2,g_screenHeight/2 );
 
     g_myThread = new QThread(this);
     g_bluetoothThread = new bluetooth_thread();
@@ -225,10 +213,7 @@ void bluetooth::recv_msg(int signalType,QString str)
                              tr("pair success!"),
                              0,this);
             mesg.addButton(tr("OK"), QMessageBox::ActionRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             int BtNameIndex = ui->BtNameListWidget->currentRow();
             BtNameIndex = BtNameIndex-g_btPairList.size()/2;
@@ -286,10 +271,7 @@ void bluetooth::recv_msg(int signalType,QString str)
                              tr("pair failed!"),
                              0,this);
             mesg.addButton(tr("OK"), QMessageBox::ActionRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             g_timerScan->start(10000);
         }
@@ -311,10 +293,7 @@ void bluetooth::recv_msg(int signalType,QString str)
                              tr("connect success!"),
                              0,this);
             mesg.addButton(tr("OK"), QMessageBox::ActionRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
 
             g_btPairList = g_database.tableShow("bluetooth");     //The paired bluetooth saved to the database
@@ -387,10 +366,7 @@ void bluetooth::recv_msg(int signalType,QString str)
                              tr("connect failed!"),
                              0,this);
             mesg.addButton(tr("OK"), QMessageBox::ActionRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
 
             ui->BtNameListWidget->clear();
@@ -449,10 +425,7 @@ void bluetooth::recv_msg(int signalType,QString str)
                              tr("please disconnect the \"%1\" device first!").arg(g_btConnectName),
                              0,this);
             mesg.addButton(tr("OK"), QMessageBox::ActionRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
         }
         ui->btn_btScan->setEnabled(true);
@@ -519,40 +492,19 @@ void  bluetooth::setBluetoothFont()
 {
     QScreen *screen = qApp->primaryScreen();
     qreal realX = screen->physicalDotsPerInchX();
-    qreal realY = screen->physicalDotsPerInchY();
     qreal realWidth = g_screenWidth / realX * 2.54;
-    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(g_screenFlag)
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
-
+        font.setPointSize(12);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(14);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(17);
     }
 
     ui->btn_btScan->setFont(font);

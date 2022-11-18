@@ -5,8 +5,6 @@
 
 static int g_screenWidth;
 static int g_screenHeight;
-static int g_firstShowFlag;
-static QGraphicsView *g_view;
 
 Desktop::Desktop(QWidget *parent) :
     QMainWindow(parent),
@@ -25,27 +23,9 @@ Desktop::~Desktop()
 
 void Desktop::mousePressEvent(QMouseEvent *event)
 {
-    if(g_screenWidth < g_screenHeight)
-    {
-        this->hide();
-        QGraphicsScene *scene = new QGraphicsScene;
-        QGraphicsProxyWidget *w = scene->addWidget(&g_mainwindowWg);
-        w->setRotation(90);                                           //Rotate 90 degrees,keep the landscape
-        QGraphicsView *view = new QGraphicsView(scene);
-        view->setWindowFlags(Qt::FramelessWindowHint);                //Set frameless
-        view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        view->resize(g_screenWidth,g_screenHeight);
-        g_mainwindowWg.resize(g_screenHeight,g_screenWidth);
-        g_mainwindowWg.show();
-        view->show();
-    }
-    else
-    {
-        this->hide();
-        g_mainwindowWg.resize(g_screenWidth,g_screenHeight);
-        g_mainwindowWg.show();
-    }
+    this->hide();
+    g_mainwindowWg.resize(g_screenWidth,g_screenHeight);
+    g_mainwindowWg.show();
 }
 
 void Desktop::select_language()

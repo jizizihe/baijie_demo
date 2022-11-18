@@ -17,10 +17,7 @@ about_board::about_board(QWidget *parent) :
     QScreen *screen = qApp->primaryScreen();
     g_screenWidth = screen->size().width();
     g_screenHeight = screen->size().height();
-    if(g_screenWidth < g_screenHeight)
-    {
-        ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
-    }
+
     setAboutBoardFont();
     board_name_update();
     kernel_name_update();
@@ -119,64 +116,34 @@ void about_board::setAboutBoardFont()
     QScreen *screen;
     screen = qApp->primaryScreen();
     qreal realX = screen->physicalDotsPerInchX();
-    qreal realY = screen->physicalDotsPerInchY();
     qreal realWidth = g_screenWidth / realX * 2.54;
-    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(g_screenWidth < g_screenHeight)
+
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(10);
-            ui->lbl_telValue->setFont(font);
-            ui->lbl_customization->setFont(font);
-            ui->lbl_BusinessEmailValue->setFont(font);
-            font.setPointSize(12);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(12);
-            ui->lbl_telValue->setFont(font);
-            ui->lbl_customization->setFont(font);
-            ui->lbl_BusinessEmailValue->setFont(font);
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(15);
-            ui->lbl_telValue->setFont(font);
-            ui->lbl_customization->setFont(font);
-            ui->lbl_BusinessEmailValue->setFont(font);
-            font.setPointSize(17);
-        }
+        font.setPointSize(10);
+        ui->lbl_telValue->setFont(font);
+        ui->lbl_customization->setFont(font);
+        ui->lbl_BusinessEmailValue->setFont(font);
+        font.setPointSize(12);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(12);
+        ui->lbl_telValue->setFont(font);
+        ui->lbl_customization->setFont(font);
+        ui->lbl_BusinessEmailValue->setFont(font);
+        font.setPointSize(14);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(10);
-            ui->lbl_telValue->setFont(font);
-            ui->lbl_customization->setFont(font);
-            ui->lbl_BusinessEmailValue->setFont(font);
-            font.setPointSize(12);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(12);
-            ui->lbl_telValue->setFont(font);
-            ui->lbl_customization->setFont(font);
-            ui->lbl_BusinessEmailValue->setFont(font);
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(15);
-            ui->lbl_telValue->setFont(font);
-            ui->lbl_customization->setFont(font);
-            ui->lbl_BusinessEmailValue->setFont(font);
-            font.setPointSize(17);
-        }
+        font.setPointSize(15);
+        ui->lbl_telValue->setFont(font);
+        ui->lbl_customization->setFont(font);
+        ui->lbl_BusinessEmailValue->setFont(font);
+        font.setPointSize(17);
     }
+
     ui->lbl_boardName->setFont(font);
     ui->lbl_batteryLevel->setFont(font);
     ui->lbl_batteryStatusVale->setFont(font);

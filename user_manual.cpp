@@ -6,7 +6,6 @@
 
 static int g_screenWidth;
 static int g_screenHeight;
-static int g_screenFlag;
 static QScreen *g_screen;
 
 user_manual::user_manual(QWidget *parent) :
@@ -23,11 +22,6 @@ user_manual::user_manual(QWidget *parent) :
     g_screen = qApp->primaryScreen();
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
-    if(g_screenWidth < g_screenHeight)
-    {
-        g_screenFlag = 1;
-        ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
-    }
     setUserManualFont();
 }
 
@@ -186,39 +180,19 @@ void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 void user_manual::setUserManualFont()
 {
     qreal realX = g_screen->physicalDotsPerInchX();
-    qreal realY = g_screen->physicalDotsPerInchY();
     qreal realWidth = g_screenWidth / realX * 2.54;
-    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(g_screenFlag)
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(12);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(14);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(17);
     }
     ui->treeWidget->setFont(font);
     ui->btn_ecpandAll->setFont(font);

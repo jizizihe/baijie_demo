@@ -6,7 +6,6 @@
 static int g_lightValue;
 static int g_indexNumber;         //The subscript of an array that stores sleep times
 static int g_screenWidth;
-static int g_screenHeight;
 static unsigned int g_timerArray[7] = {15,30,60,120,300,600,429499999};   //Sleep time
 static QTimer *g_timeUp;
 static QTimer *g_timing;         //sleep
@@ -56,13 +55,6 @@ backlight::backlight(QWidget *parent) :
     ui->horizontalSlider_light->setRange(138,255);
     ui->horizontalSlider_light->setValue(255);
     g_lightValue = 255;
-    QScreen *screen = qApp->primaryScreen();
-    g_screenWidth = screen->size().width();
-    g_screenHeight = screen->size().height();
-    if(g_screenWidth < g_screenHeight)
-    {
-        ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
-    }
     setBacklightFont();
     ui->lbl_lightValue->setText(tr("255"));
     g_timing = new QTimer(this);
@@ -140,40 +132,21 @@ void backlight::languageReload()
 void backlight::setBacklightFont()
 {
     QScreen *screen = qApp->primaryScreen();
+    g_screenWidth = screen->size().width();
     qreal realX = screen->physicalDotsPerInchX();
-    qreal realY = screen->physicalDotsPerInchY();
     qreal realWidth = g_screenWidth / realX * 2.54;
-    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(g_screenWidth < g_screenHeight)
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(12);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(14);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(17);
     }
 
     ui->lbl_lightValue->setFont(font);

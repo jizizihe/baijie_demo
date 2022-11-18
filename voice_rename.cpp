@@ -35,10 +35,7 @@ void voice_rename::on_btn_ok_clicked()
                      tr("Remove successfully!"),
                      0,this);
     mesg.addButton(tr("OK"),QMessageBox::YesRole);
-    if(g_screenWidth < g_screenHeight)
-        mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-    else
-        mesg.move(g_screenWidth/3,g_screenHeight/3);
+    mesg.move(g_screenWidth/3,g_screenHeight/3);
     mesg.exec();
     emit rename_finish_msg(ui->lineEdit->text());
     emit rename_back_msg();
@@ -76,39 +73,19 @@ void voice_rename::languageReload()
 void voice_rename::setVoiceRenameFont()
 {
     qreal realX = g_screen->physicalDotsPerInchX();
-    qreal realY = g_screen->physicalDotsPerInchY();
     qreal realWidth = g_screenWidth / realX * 2.54;
-    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(g_screenWidth < g_screenHeight)
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(12);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(14);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(17);
     }
     ui->btn_cel->setFont(font);
     ui->btn_ok->setFont(font);

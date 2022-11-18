@@ -7,8 +7,6 @@
 #include <QtSerialPort/QSerialPortInfo>
 #include <QMessageBox>
 #include <QDebug>
-#include <QGraphicsView>
-#include <QGraphicsProxyWidget>
 #include <QScreen>
 #include <QApplication>
 
@@ -25,10 +23,6 @@
 #include <errno.h>
 #include <pthread.h>
 #include <iostream>
-
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QGraphicsProxyWidget>
 #include <QScreen>
 #include "database.h"
 

@@ -14,8 +14,6 @@
 #include <QSlider>
 #include <QMouseEvent>
 #include <QTranslator>
-#include <QGraphicsView>
-#include <QGraphicsProxyWidget>
 #include <QScreen>
 #include <QApplication>
 

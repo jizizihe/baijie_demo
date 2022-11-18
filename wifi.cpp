@@ -9,7 +9,6 @@
 
 static int g_screenWidth;
 static int g_screenHeight;
-static int g_screenFlag;
 static int g_hotspotConnectFalg;
 static int g_hotspotUpFlag;
 static int g_openFlag;
@@ -49,22 +48,12 @@ wifi::wifi(QWidget *parent) :
     g_loadLabel->setFixedSize(50, 50);
     g_loadLabel->setScaledContents(true);
     g_loadLabel->setMovie(g_pMovie);
+    g_loadLabel->move(g_screenWidth/2,g_screenHeight/2 );
     g_wifiThread->moveToThread(g_myThread);
     g_myThread->start();
     g_screen = qApp->primaryScreen();
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
-
-    if(g_screenWidth < g_screenHeight)
-    {
-        g_screenFlag = 1;
-        ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
-        g_loadLabel->move(g_screenHeight/2,g_screenWidth/2);
-    }
-    else
-    {
-        g_loadLabel->move(g_screenWidth/2,g_screenHeight/2 );
-    }
 
     setWifiFont();
     setSwitchText();
@@ -254,10 +243,7 @@ void wifi::recv_msg(int signalType, QString strResult)
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-            else
-                mesg.move(width()*2/9+(width()*7/18-mesg.width()/2),height()/6+(height()*5/12-mesg.height()/2));
+            mesg.move(width()*2/9+(width()*7/18-mesg.width()/2),height()/6+(height()*5/12-mesg.height()/2));
             mesg.exec();
         }
         break;
@@ -270,21 +256,9 @@ void wifi::recv_msg(int signalType, QString strResult)
             QList<QLabel*> labelList = pwig->findChildren<QLabel*>();
             QString wifiName = labelList.at(0)->text();
             g_wifiConnectDialogWg->show();
-            if(g_screenFlag == 1)
-            {
-                g_wifiConnectDialogWg->resize(g_screenHeight*2/3,g_screenWidth*3/5);
-                int moveWidth = g_screenWidth*5/6-(g_screenWidth*5/6-g_wifiConnectDialogWg->height())/2;
-                int moveheight = g_screenHeight*2/9+(g_screenHeight*7/9-g_wifiConnectDialogWg->width())/2;
-                g_wifiConnectDialogWg->move(moveWidth,moveheight);
-            }
-            else
-            {
-                g_wifiConnectDialogWg->resize(width()*3/5,height()*3/5);
-                g_wifiConnectDialogWg->move(width()*2/9+(width()*7/18-g_wifiConnectDialogWg->width()/2),height()/6+(height()*5/12-g_wifiConnectDialogWg->height()/2));
-            }
-
+            g_wifiConnectDialogWg->resize(width()*3/5,height()*3/5);
+            g_wifiConnectDialogWg->move(width()*2/9+(width()*7/18-g_wifiConnectDialogWg->width()/2),height()/6+(height()*5/12-g_wifiConnectDialogWg->height()/2));
             g_wifiConnectDialogWg->activateWindow();g_wifiConnectDialogWg->setFocus();
-
             g_wifiConnectDialogWg->setWifiNameText(wifiName);
             QString strPasswd = g_database.selectTableName("wifiPasswd",wifiName);
             g_wifiConnectDialogWg->setPasswdText(strPasswd);
@@ -390,18 +364,8 @@ void wifi::ListWidgeItem_clicked()
             ui->WifiListWidget->setEnabled(false);
             ui->WifiListWidget->setSelectionMode(QAbstractItemView::NoSelection);
             ui->WifiListWidget->setFocusPolicy(Qt::NoFocus);
-            if(g_screenFlag == 1)
-            {
-                g_wifiConnectDialogWg->resize(g_screenHeight*2/3,g_screenWidth*3/5);
-                int moveWidth = g_screenWidth*5/6-(g_screenWidth*5/6-g_wifiConnectDialogWg->height())/2;
-                int moveHeight = g_screenHeight*2/9+(g_screenHeight*7/9-g_wifiConnectDialogWg->width())/2;
-                g_wifiConnectDialogWg->move(moveWidth,moveHeight);
-            }
-            else
-            {
-                g_wifiConnectDialogWg->resize(width()*3/5,height()*3/5);
-                g_wifiConnectDialogWg->move(width()*2/9+(width()*7/18-g_wifiConnectDialogWg->width()/2),height()/6+(height()*5/12-g_wifiConnectDialogWg->height()/2));
-            }
+            g_wifiConnectDialogWg->resize(width()*3/5,height()*3/5);
+            g_wifiConnectDialogWg->move(width()*2/9+(width()*7/18-g_wifiConnectDialogWg->width()/2),height()/6+(height()*5/12-g_wifiConnectDialogWg->height()/2));
             g_wifiConnectDialogWg->show();
             this->setAttribute(Qt::WA_ShowWithoutActivating,true);
             this->setFocusPolicy(Qt::NoFocus);
@@ -415,18 +379,8 @@ void wifi::ListWidgeItem_clicked()
         ui->WifiListWidget->setEnabled(false);
         ui->WifiListWidget->setSelectionMode(QAbstractItemView::NoSelection);
         ui->WifiListWidget->setFocusPolicy(Qt::NoFocus);
-        if(g_screenFlag == 1)
-        {
-            g_wifiConnectDialogWg->resize(g_screenHeight*2/3,g_screenWidth*3/5);
-            int moveWidth = g_screenWidth*5/6-(g_screenWidth*5/6-g_wifiConnectDialogWg->height())/2;
-            int moveHeight = g_screenHeight*2/9+(g_screenHeight*7/9-g_wifiConnectDialogWg->width())/2;
-            g_wifiConnectDialogWg->move(moveWidth,moveHeight);
-        }
-        else
-        {
-            g_wifiConnectDialogWg->resize(width()*3/5,height()*3/5);
-            g_wifiConnectDialogWg->move(width()*2/9+(width()*7/18-g_wifiConnectDialogWg->width()/2),height()/6+(height()*5/12-g_wifiConnectDialogWg->height()/2));
-        }
+        g_wifiConnectDialogWg->resize(width()*3/5,height()*3/5);
+        g_wifiConnectDialogWg->move(width()*2/9+(width()*7/18-g_wifiConnectDialogWg->width()/2),height()/6+(height()*5/12-g_wifiConnectDialogWg->height()/2));
         g_wifiConnectDialogWg->show();
         this->setAttribute(Qt::WA_ShowWithoutActivating,true);
         this->setFocusPolicy(Qt::NoFocus);
@@ -520,22 +474,10 @@ void wifi::on_btn_wifiChangePasswd_clicked()
     {
         return;
     }
-    if(g_screenFlag == 1)
-    {
-        g_wifiConnectDialogWg->resize(g_screenHeight*2/3,g_screenWidth*3/5);
-        g_wifiConnectDialogWg->resize(g_screenHeight*2/3,g_screenWidth*3/5);
-        int moveWidth = g_screenWidth*5/6-(g_screenWidth*5/6-g_wifiConnectDialogWg->height())/2;
-        int moveHeight = g_screenHeight*2/9+(g_screenHeight*7/9-g_wifiConnectDialogWg->width())/2;
-        g_wifiConnectDialogWg->move(moveWidth,moveHeight);
-    }
-    else
-    {
-        g_wifiConnectDialogWg->resize(width()*3/5,height()*3/5);
-        g_wifiConnectDialogWg->move(width()*2/9+(width()*7/18-g_wifiConnectDialogWg->width()/2),height()/6+(height()*5/12-g_wifiConnectDialogWg->height()/2));
-    }
+    g_wifiConnectDialogWg->resize(width()*3/5,height()*3/5);
+    g_wifiConnectDialogWg->move(width()*2/9+(width()*7/18-g_wifiConnectDialogWg->width()/2),height()/6+(height()*5/12-g_wifiConnectDialogWg->height()/2));
     g_wifiConnectDialogWg->show();
     g_wifiConnectDialogWg->activateWindow();g_wifiConnectDialogWg->setFocus();
-
     g_wifiConnectDialogWg->setWifiNameText(wifiName);
     QString strPasswd = g_database.selectTableName("wifiPasswd",wifiName);
     g_wifiConnectDialogWg->setPasswdText(strPasswd);
@@ -591,10 +533,7 @@ void wifi::on_btn_hotspotBuild_clicked()
         mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
         mesg.setFocusPolicy(Qt::NoFocus);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         g_wifiInterface->hotspotDisconnect();
         g_hotspotConnectFalg = 0;
@@ -640,10 +579,7 @@ void wifi::on_btn_hotspotBuild_clicked()
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             g_wifiInterface->hotspotDisconnect();
             g_hotspotConnectFalg = 0;
@@ -676,10 +612,7 @@ void wifi::on_btn_hotspotBuild_clicked()
         mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
         mesg.setFocusPolicy(Qt::NoFocus);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         return;
     }
@@ -693,10 +626,7 @@ void wifi::on_btn_hotspotBuild_clicked()
         mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
         mesg.setFocusPolicy(Qt::NoFocus);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         return ;
     }
@@ -760,39 +690,19 @@ void wifi::languageReload()
 void wifi::setWifiFont()
 {
     qreal realX = g_screen->physicalDotsPerInchX();
-    qreal realY = g_screen->physicalDotsPerInchY();
     qreal realWidth = g_screenWidth / realX * 2.54;
-    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(g_screenFlag)
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(18);
-        }
+        font.setPointSize(12);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(14);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(18);
-        }
+        font.setPointSize(18);
     }
     ui->btn_scan->setFont(font);
     ui->btn_hotspot->setFont(font);

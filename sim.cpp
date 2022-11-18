@@ -6,7 +6,6 @@
 static QScreen *g_screen;
 static int g_screenWidth;
 static int g_screenHeight;
-static int g_screenFlag;
 static int g_openFlag;
 static int g_showFlag;
 static QLabel *g_openLabel;
@@ -20,12 +19,6 @@ sim_module::sim_module(QWidget *parent) :
     g_screen = qApp->primaryScreen();
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
-
-    if(g_screenWidth < g_screenHeight)
-    {
-        g_screenFlag = 1;
-        ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
-    }
     g_openFlag = 1;
     setSimFont();
     g_timer = new QTimer(this);
@@ -34,14 +27,7 @@ sim_module::sim_module(QWidget *parent) :
     g_loadLabel->setFixedSize(50, 50);
     g_loadLabel->setScaledContents(true);
     g_loadLabel->setMovie(g_pMovie);
-    if(g_screenFlag == 1)
-    {
-        g_loadLabel->move(g_screenHeight/2,g_screenWidth/2);
-    }
-    else
-    {
-        g_loadLabel->move(g_screenWidth/2,g_screenHeight/2 );
-    }
+    g_loadLabel->move(g_screenWidth/2,g_screenHeight/2 );
     g_simInterface = new sim_interface(this);
     g_myThread = new QThread(this);
     g_SimThread = new sim_thread();
@@ -113,10 +99,7 @@ void sim_module::recv_msg(int signalType, QString strResult)
                              tr("4G delete succeeded!"),
                              0,this);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             emit sim_module_status_msg();
         }
@@ -127,10 +110,7 @@ void sim_module::recv_msg(int signalType, QString strResult)
                              tr("4G delete failed!"),
                              0,this);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
         }
         break;
@@ -238,10 +218,7 @@ void sim_module::on_btn_disconnect_clicked()
                          tr("No 4G devices!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         g_timer->stop();
         return;
@@ -263,10 +240,7 @@ void sim_module::on_btn_disconnect_clicked()
                              tr("Please connect the 4G!"),
                              0,this);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
         }
     }
@@ -277,10 +251,7 @@ void sim_module::on_btn_disconnect_clicked()
                          tr("Please open the 4G!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }
@@ -297,10 +268,7 @@ void sim_module::on_btn_connect_clicked()
                          tr("No 4G devices!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         g_timer->stop();
         return;
@@ -336,10 +304,7 @@ void sim_module::on_btn_connect_clicked()
                          tr("Please open the 4G!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }
@@ -359,40 +324,22 @@ void sim_module::languageReload()
 void sim_module::setSimFont()
 {
     qreal realX = g_screen->physicalDotsPerInchX();
-    qreal realY = g_screen->physicalDotsPerInchY();
     qreal realWidth = g_screenWidth / realX * 2.54;
-    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(g_screenFlag)
+
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(12);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(14);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(17);
     }
+
     ui->btn_connect->setFont(font);
     ui->btn_disconnect->setFont(font);
     ui->lbl_connectStatus->setFont(font);
@@ -423,10 +370,7 @@ void sim_module::on_btn_status_clicked()
                          tr("No 4G devices!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         g_timer->stop();
         return;
@@ -445,10 +389,7 @@ void sim_module::on_btn_status_clicked()
                          tr("Please open the 4G!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }

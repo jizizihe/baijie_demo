@@ -4,7 +4,6 @@
 
 static int g_screenWidth;
 static int g_screenHeight;
-static int g_screenFlag;
 static QScreen *g_screen;
 
 serialdialog::serialdialog(QWidget *parent) :
@@ -15,48 +14,23 @@ serialdialog::serialdialog(QWidget *parent) :
     g_screen = qApp->primaryScreen();
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
-
-    if(g_screenWidth < g_screenHeight)
-    {
-        g_screenFlag = 1;
-    }
     QFont font;
     qreal realX = g_screen->physicalDotsPerInchX();
-    qreal realY = g_screen->physicalDotsPerInchY();
     qreal realWidth = g_screenWidth / realX * 2.54;
-    qreal realHeight = g_screenHeight / realY *2.54;
 
-    if(g_screenFlag == 1)
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(10);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(12);
-        }
-        else
-        {
-            font.setPointSize(14);
-        }
-
+        font.setPointSize(10);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(12);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(10);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(12);
-        }
-        else
-        {
-            font.setPointSize(14);
-        }
+        font.setPointSize(14);
     }
+
     ui->lbl_serialSet->setFont(font);
     ui->lbl_modeChoose->setFont(font);
     ui->groupBox->setFont(font);
@@ -165,10 +139,7 @@ void serialdialog::on_btn_serialOk_clicked()
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             return;
         }

@@ -14,7 +14,6 @@
 #include <QPushButton>
 #include <QDebug>
 #include "touch_screen_button.h"
-#include <QGraphicsView>
 #include <QWidget>
 
 

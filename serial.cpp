@@ -1,7 +1,6 @@
 #include "serial.h"
 #include "ui_serial.h"
 
-static int g_screenFlag;
 static int g_screenWidth;
 static int g_screenHeight;
 static int g_data1;                 // 1: port1  2:port2
@@ -36,11 +35,6 @@ serial::serial(QWidget *parent) :
 
     ui->SendEdit->installEventFilter(this);
     ui->SendEdit_2->installEventFilter(this);
-
-    if(g_screenWidth < g_screenHeight)
-    {
-        g_screenFlag = 1;ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
-    }
     setSerialFont();
 }
 
@@ -80,10 +74,7 @@ void serial::openSerialPort1()
                     mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
                     mesg.setFocusPolicy(Qt::NoFocus);
                     mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                    if(g_screenFlag == 1)
-                        mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-                    else
-                        mesg.move(g_screenWidth/3,g_screenHeight/3);
+                    mesg.move(g_screenWidth/3,g_screenHeight/3);
                     mesg.exec();
                     return;
                 }
@@ -99,10 +90,7 @@ void serial::openSerialPort1()
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             ui->btn_open1->setText(tr("close"));
             g_openFlagPort1 = 1;
@@ -117,10 +105,7 @@ void serial::openSerialPort1()
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
         }
 
@@ -152,10 +137,7 @@ void serial::openSerialPort2()
                     mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
                     mesg.setFocusPolicy(Qt::NoFocus);
                     mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                    if(g_screenFlag == 1)
-                        mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-                    else
-                        mesg.move(g_screenWidth/3,g_screenHeight/3);
+                    mesg.move(g_screenWidth/3,g_screenHeight/3);
                     mesg.exec();
                     return;
                 }
@@ -172,10 +154,7 @@ void serial::openSerialPort2()
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             ui->btn_open2->setText(tr("close"));
             g_openFlagport2 = 1;
@@ -190,10 +169,7 @@ void serial::openSerialPort2()
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-            else
-                mesg.move(g_screenWidth/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
         }
         //Receives a signal to transfer data from a child thread
@@ -227,10 +203,7 @@ void serial::on_btn_send1_clicked()
         mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
         mesg.setFocusPolicy(Qt::NoFocus);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }
@@ -250,10 +223,7 @@ void serial::on_btn_send2_clicked()
         mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
         mesg.setFocusPolicy(Qt::NoFocus);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }
@@ -283,40 +253,19 @@ void serial::on_btn_port2_clicked()
 void serial::setSerialFont()
 {
     qreal realX = g_screen->physicalDotsPerInchX();
-    qreal realY = g_screen->physicalDotsPerInchY();
     qreal realWidth = g_screenWidth / realX * 2.54;
-    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(g_screenFlag)
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
-
+        font.setPointSize(12);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(14);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(17);
     }
     ui->btn_port1->setFont(font);
     ui->btn_port2->setFont(font);
@@ -392,8 +341,7 @@ void serial::on_btn_open1_clicked()
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             return;
         }
@@ -426,8 +374,7 @@ void serial::on_btn_open2_clicked()
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(g_screenFlag == 1)
-                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             return;
         }

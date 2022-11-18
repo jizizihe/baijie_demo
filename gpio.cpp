@@ -1,8 +1,5 @@
 #include "gpio.h"
 #include "ui_gpio.h"
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QGraphicsProxyWidget>
 #include <QScreen>
 #include <QDesktopWidget>
 #include <QButtonGroup>
@@ -11,7 +8,6 @@
 static QScreen *g_screen;
 static int g_screenWidth;
 static int g_screenHeight;
-static int g_screenFlag;            // 0:width > Height  1:width < Height
 static int g_statusFirstFlag;       // 0:Display status button for the first time
 static int g_valueFirstFlag;        // 0:Display value button for the first time
 static QLabel *g_statusSwitchLabel1;
@@ -38,12 +34,6 @@ gpio::gpio(QWidget *parent) :
     g_screen = qApp->primaryScreen();
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
-
-    if(g_screenWidth < g_screenHeight)
-    {
-        g_screenFlag = 1;
-        ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
-    }
 
     ui->status_Switch->setCheckedColor(QColor(100, 225, 100, 150));
     ui->value_Switch->setCheckedColor(QColor(100, 225, 100, 150));
@@ -111,10 +101,7 @@ bool gpio::input_warning()
                                  tr("Please input true GPIO!"),
                                  0,this);
                 mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                if(g_screenFlag == 1)
-                    mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-                else
-                    mesg.move(g_screenWidth/3,g_screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
                 mesg.exec();this->activateWindow();this->setFocus();
                 return false;
             }
@@ -129,10 +116,7 @@ bool gpio::input_warning()
                                      tr(str.toUtf8()),
                                      0,this);
                     mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                    if(g_screenFlag == 1)
-                        mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-                    else
-                        mesg.move(g_screenWidth/3,g_screenHeight/3);
+                    mesg.move(g_screenWidth/3,g_screenHeight/3);
                     mesg.exec();this->activateWindow();this->setFocus();
                     return false;
                 }
@@ -155,10 +139,7 @@ bool gpio::input_warning()
                                  tr(str.toUtf8()),
                                  0,this);
                 mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                if(g_screenFlag == 1)
-                    mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-                else
-                    mesg.move(g_screenWidth/3,g_screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
                 mesg.exec();this->activateWindow();this->setFocus();
                 return false;
             }
@@ -173,10 +154,7 @@ bool gpio::input_warning()
                                      tr(str.toUtf8()),
                                      0,this);
                     mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                    if(g_screenFlag == 1)
-                        mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-                    else
-                        mesg.move(g_screenWidth/3,g_screenHeight/3);
+                    mesg.move(g_screenWidth/3,g_screenHeight/3);
                     mesg.exec();this->activateWindow();this->setFocus();
                     return false;
                 }
@@ -324,40 +302,19 @@ void gpio::languageReload()
 void gpio::setGpioFont()
 {
     qreal realX = g_screen->physicalDotsPerInchX();
-    qreal realY = g_screen->physicalDotsPerInchY();
     qreal realWidth = g_screenWidth / realX * 2.54;
-    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(g_screenFlag)
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
-
+        font.setPointSize(12);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(14);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(17);
     }
     ui->lbl_gpio->setFont(font);
     ui->lineedit->setFont(font);
@@ -376,11 +333,8 @@ void gpio::on_btn_hint_clicked()
                      tr(str.toUtf8()),
                      0,this);
     mesg.addButton(tr("OK"),QMessageBox::YesRole);
-    mesg.resize(100,100);
-    if(g_screenFlag == 1)
-        mesg.move(g_screenWidth*3/4,g_screenHeight/4);
-    else
-        mesg.move(g_screenWidth/4,g_screenHeight/4);
+    mesg.resize(g_screenWidth/3,g_screenHeight/2);
+    mesg.move(g_screenWidth/3,g_screenHeight/5);
     mesg.exec();
     this->activateWindow();
     this->setFocus();
@@ -572,31 +526,15 @@ void gpio::setTextValueSwitch(int flag)
     {
         if(flag == 0)
         {
-            if(g_screenFlag == 1)
-            {
-                g_valueSwitchLabel1->setText("");
-                g_valueSwitchLabel2->setText(tr("value: low  "));
-            }
-            else
-            {
-                g_valueSwitchLabel2->setText(tr("value: low"));
-                g_valueSwitchLabel1->setText(" ");
-            }
+            g_valueSwitchLabel2->setText(tr("value: low  "));
+            g_valueSwitchLabel1->setText(" ");
             g_valueHorLayout->setStretchFactor(g_valueSwitchLabel2,2);
             g_valueHorLayout->setStretchFactor(g_valueSwitchLabel1,1);
         }
         else
         {
-            if(g_screenFlag == 1)
-            {
-                g_valueSwitchLabel2->setText("");
-                g_valueSwitchLabel1->setText(tr("  value:  high"));
-            }
-            else
-            {
-                g_valueSwitchLabel2->setText(" ");
-                g_valueSwitchLabel1->setText(tr("  value:  high"));
-            }
+            g_valueSwitchLabel2->setText(" ");
+            g_valueSwitchLabel1->setText(tr("  value:  high"));
             g_valueHorLayout->setStretchFactor(g_valueSwitchLabel2,1);
             g_valueHorLayout->setStretchFactor(g_valueSwitchLabel1,2);
         }

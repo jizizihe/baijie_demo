@@ -1,20 +1,9 @@
 #include "sys_setting.h"
 #include "ui_sys_setting.h"
-#include <QGraphicsView>
-#include <QGraphicsProxyWidget>
 
-static int g_screenFlag = 0;
 static int g_screenWidth;
 static int g_screenHeight;
-static int g_sbacklightFirstFlag = 0;
-static int g_timeSetFirstFlag = 0;
-static int g_userFirstFlag = 0;
-static int g_boardFirstFlag = 0;
 static int g_showFirstFlag;
-static QGraphicsView *g_backlightView;
-static QGraphicsView *g_timeView;
-static QGraphicsView *g_userView;
-static QGraphicsView *g_boardView;
 static QScreen *g_screen;
 
 sys_setting::sys_setting(QWidget *parent) :
@@ -26,11 +15,6 @@ sys_setting::sys_setting(QWidget *parent) :
     g_screen = qApp->primaryScreen();
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
-
-    if(g_screenWidth < g_screenHeight)
-    {
-        g_screenFlag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
-    }
     setSystemFont();
     setBtnOtgValue();
     this->setAttribute(Qt::WA_StyledBackground,true);
@@ -53,78 +37,16 @@ void sys_setting::on_btn_ret_clicked()
 void sys_setting::on_btn_backlight_clicked()
 {
     this->hide();
-    if(g_screenFlag == 0)
-    {
-        g_backlightWg.resize(g_screenWidth,g_screenHeight);
-        g_backlightWg.show();
-    }
-    else
-    {
-        if(g_sbacklightFirstFlag == 0)
-        {
-            QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&g_backlightWg);
-            w->setRotation(90);
-
-            g_backlightView = new QGraphicsView(scene);
-            g_backlightView->setWindowFlags(Qt::FramelessWindowHint);
-            g_backlightView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            g_backlightView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            g_backlightView->resize(g_screenWidth,g_screenHeight);
-            g_backlightWg.resize(g_screenHeight,g_screenWidth);
-            g_backlightWg.show();
-            g_backlightView->show();
-            g_sbacklightFirstFlag++;
-        }
-        else
-        {
-            g_backlightWg.resize(g_screenHeight,g_screenWidth);
-            g_backlightWg.show();
-            g_backlightView->resize(g_screenWidth,g_screenHeight);
-            g_backlightView->show();
-        }
-    }
+    g_backlightWg.resize(g_screenWidth,g_screenHeight);
+    g_backlightWg.show();
 }
 
 void sys_setting::on_btn_RTC_clicked()
 {
     this->hide();
-    if(g_screenFlag == 0)
-    {
-        g_timesetWg.resize(g_screenWidth,g_screenHeight);
-        g_timesetWg.show();
-        g_timesetWg.activateWindow();g_timesetWg.setFocus();
-    }
-    else
-    {
-        if(g_timeSetFirstFlag == 0)
-        {
-            QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&g_timesetWg);
-            w->setRotation(90);
-
-            g_timeView = new QGraphicsView(scene);
-            g_timeView->setWindowFlags(Qt::FramelessWindowHint);
-            g_timeView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            g_timeView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            g_timeView->resize(g_screenWidth,g_screenHeight);
-            g_timesetWg.resize(g_screenHeight,g_screenWidth);
-            g_timesetWg.show();
-            g_timeView->show();
-            g_timeView->activateWindow();g_timeView->setFocus();
-            g_timesetWg.activateWindow();g_timesetWg.setFocus();
-            g_timeSetFirstFlag++;
-        }
-        else
-        {
-            g_timesetWg.resize(g_screenHeight,g_screenWidth);
-            g_timesetWg.show();
-            g_timeView->resize(g_screenWidth,g_screenHeight);
-            g_timeView->show();
-            g_timeView->activateWindow();g_timeView->setFocus();
-            g_timesetWg.activateWindow();g_timesetWg.setFocus();
-        }
-    }
+    g_timesetWg.resize(g_screenWidth,g_screenHeight);
+    g_timesetWg.show();
+    g_timesetWg.activateWindow();g_timesetWg.setFocus();
 }
 
 void sys_setting::on_btn_cn_clicked()
@@ -144,91 +66,25 @@ void sys_setting::languageReload()
 void sys_setting::on_btn_user_clicked()
 {
     this->hide();
-    if(g_screenFlag == 0)
-    {
-        g_userWg.resize(g_screenWidth,g_screenHeight);
-        g_userWg.show();
-    }
-    else
-    {
-        if(g_userFirstFlag == 0)
-        {
-            QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&g_userWg);
-            w->setRotation(90);
-
-            g_userView = new QGraphicsView(scene);
-            g_userView->setWindowFlags(Qt::FramelessWindowHint);
-            g_userView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            g_userView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            g_userView->resize(g_screenWidth,g_screenHeight);
-            g_userWg.resize(g_screenHeight,g_screenWidth);
-            g_userWg.show();
-            g_userView->show();
-            g_userFirstFlag++;
-        }
-        else
-        {
-            g_userWg.resize(g_screenHeight,g_screenWidth);
-            g_userWg.show();
-            g_userView->resize(g_screenWidth,g_screenHeight);
-            g_userView->show();
-        }
-    }
+    g_userWg.resize(g_screenWidth,g_screenHeight);
+    g_userWg.show();
 }
 
 void sys_setting::on_btn_about_clicked()
 {
     this->hide();
-    if(g_screenFlag == 0)
-    {
-        g_boardWg.resize(g_screenWidth,g_screenHeight);
-        g_boardWg.show();
-    }
-    else
-    {
-        if(g_boardFirstFlag == 0)
-        {
-            QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&g_boardWg);
-            w->setRotation(90);
-
-            g_boardView = new QGraphicsView(scene);
-            g_boardView->setWindowFlags(Qt::FramelessWindowHint);
-            g_boardView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            g_boardView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            g_boardView->resize(g_screenWidth,g_screenHeight);
-            g_boardWg.resize(g_screenHeight,g_screenWidth);
-            g_boardWg.show();
-            g_boardView->show();
-            g_boardFirstFlag++;
-        }
-        else
-        {
-            g_boardWg.resize(g_screenHeight,g_screenWidth);
-            g_boardWg.show();
-            g_boardView->resize(g_screenWidth,g_screenHeight);
-            g_boardView->show();
-        }
-    }
+    g_boardWg.resize(g_screenWidth,g_screenHeight);
+    g_boardWg.show();
 }
 
 void sys_setting::backlight_back()
 {
-    if(g_screenFlag == 1)
-    {
-        g_backlightView->hide();
-    }
     g_backlightWg.hide();
     this->show();
 }
 
 void sys_setting::time_back()
 {
-    if(g_screenFlag == 1)
-    {
-        g_timeView->hide();
-    }
     g_timesetWg.hide();
     this->show();
     this->activateWindow();this->setFocus();
@@ -236,20 +92,12 @@ void sys_setting::time_back()
 
 void sys_setting::board_back()
 {
-    if(g_screenFlag == 1)
-    {
-        g_boardView->hide();
-    }
     g_boardWg.hide();
     this->show();
 }
 
 void sys_setting::user_back()
 {
-    if(g_screenFlag == 1)
-    {
-        g_userView->hide();
-    }
     g_userWg.hide();
     this->show();
 }
@@ -257,39 +105,19 @@ void sys_setting::user_back()
 void sys_setting::setSystemFont()
 {
     qreal realX = g_screen->physicalDotsPerInchX();
-    qreal realY = g_screen->physicalDotsPerInchY();
     qreal realWidth = g_screenWidth / realX * 2.54;
-    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(g_screenFlag)
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(12);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(14);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(17);
     }
     ui->lbl_cn->setFont(font);
     ui->lbl_timeSet->setFont(font);
@@ -339,10 +167,7 @@ void sys_setting::setOtgHost()
                          tr("set successful!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         ui->lbl_OGT->setText(tr("OTG Host"));
     }
@@ -353,10 +178,7 @@ void sys_setting::setOtgHost()
                          tr("set failed!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }
@@ -376,10 +198,7 @@ void sys_setting::setOtgSlave()
                          tr("set successful!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
         ui->lbl_OGT->setText(tr("OTG Slave"));
     }
@@ -390,10 +209,7 @@ void sys_setting::setOtgSlave()
                          tr("set failed!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(g_screenFlag == 1)
-            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
-        else
-            mesg.move(g_screenWidth/3,g_screenHeight/3);
+        mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }

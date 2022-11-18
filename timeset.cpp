@@ -4,7 +4,6 @@
 
 static int g_screenWidth;
 static int g_screenHeight;
-static int g_screenFlag;
 static int g_showFirstFlag;
 static int g_syncNetworkFlag;      // 0: Async Network   1: Sync Network
 static qreal g_realX;
@@ -18,13 +17,6 @@ timeset::timeset(QWidget *parent) :
     QScreen *g_screen = qApp->primaryScreen();
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
-
-    if(g_screenWidth < g_screenHeight)
-    {
-        g_screenFlag = 1;
-        ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
-    }
-
     g_realX = g_screen->physicalDotsPerInchX();
     g_realY = g_screen->physicalDotsPerInchY();
     setTimeFont();
@@ -165,37 +157,18 @@ void timeset::languageReload()
 void timeset::setTimeFont()
 {
     qreal realWidth = g_screenWidth / g_realX * 2.54;
-    qreal realHeight = g_screenHeight / g_realY *2.54;
     QFont font;
-    if(g_screenFlag)
+    if(realWidth < 15)
     {
-        if(realHeight < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realHeight < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(12);
+    }
+    else if (realWidth < 17)
+    {
+        font.setPointSize(14);
     }
     else
     {
-        if(realWidth < 15)
-        {
-            font.setPointSize(12);
-        }
-        else if (realWidth < 17)
-        {
-            font.setPointSize(14);
-        }
-        else
-        {
-            font.setPointSize(17);
-        }
+        font.setPointSize(17);
     }
     ui->datetime->setFont(font);
     ui->lbl_RTCtimeValue->setFont(font);
