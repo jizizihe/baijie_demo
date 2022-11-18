@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "bluetooth_thread.h"
-#include "wifi_bt_interface.h"
+#include "bluetooth_interface.h"
 #include "database.h"
 
 #include <QMainWindow>
@@ -34,10 +34,10 @@ public:
     explicit bluetooth(QWidget *parent = 0);
     ~bluetooth();
     void languageReload();
-    void bluetoothFont();
+    void setBluetoothFont();
     void bluetoothListShow(QString,QString);
     void bluetoothConnectStatus();
-    void switchSetText();
+    void setSwitchText();
     void showEvent(QShowEvent *event);
 
 private slots:
@@ -45,9 +45,9 @@ private slots:
     void on_btn_btScan_clicked();
     void on_btn_ret_clicked();
     void on_BtNameListWidget_itemClicked(QListWidgetItem *item);
-    void connect_refresh();
     void on_btn_disconnect_clicked();
     void on_btn_remove_clicked();
+    void connect_info_refresh();
     void scan_refresh();
     void switch_change_flag(bool);
 
@@ -60,15 +60,14 @@ signals:
 
 private:
     Ui::bluetooth *ui;
-    QStringList btScanList;
-    QLabel *loadLabel;
-    QMovie *pMovie;
-    QThread * myThread;
-    bluetooth_thread * bluetoothThread;
-    QThread * blutooth;
-    wifi_bt_interface * wifi_bt_interfaceWg;
-    database databaseWg;
-    QStringList btPairList;
+    QStringList g_btScanList;
+    QLabel *g_loadLabel;
+    QMovie *g_pMovie;
+    QThread * g_myThread;
+    bluetooth_thread * g_bluetoothThread;
+    bluetooth_interface * g_bluetoothInterface;
+    database g_database;
+    QStringList g_btPairList;
 };
 
 #endif // BLUETOOTH_H

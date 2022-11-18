@@ -1,16 +1,17 @@
 #include "database.h"
 #include <QFileInfo>
 #include <QSqlRecord>
+#include <QTransform>
 
-static int createFlag;
+static int g_createFlag;
 
 database::database()
 {
-    if(createFlag == 0)       //Create database only once
+    if(g_createFlag == 0)       //Create database only once
     {
         createConnection();
         createTable();
-        createFlag++;
+        g_createFlag++;
     }
 }
 
@@ -63,6 +64,12 @@ bool database::createTable()
 
     QString createTableVoice = "create table voice (name varchar(64) primary key,filename varchar(64))";
     query.prepare(createTableVoice);
+    if(query.exec())
+    {
+    }
+
+    QString createTableLanguage = "create table language (name varchar(64) primary key)";
+    query.prepare(createTableLanguage);
     if(query.exec())
     {
     }
@@ -169,13 +176,29 @@ bool database::updateWiFiTable(QString tableName, QString name, QString passwd)
     return false;
 }
 
+bool database::updateTableOne(QString tableName, QString name)
+{
+    QSqlQuery query;
+    QString updateSql = QString("update %1 set name='%2';").arg(tableName).arg(name);
+    if(!query.exec(updateSql))
+    {
+        qDebug() << "Error: Failed update table by name."<<query.lastError();
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+    return false;
+}
+
 bool database::deleteTableName(QString tableName, QString name)
 {
     QSqlQuery query;
     QString deleteTableName = QString("delete from %1 where name='%2';").arg(tableName).arg(name);
     if(!query.exec(deleteTableName))
     {
-        qDebug() << "Error: Failed delete record by name."<<query.lastError();
+      //  qDebug() << "Error: Failed delete record by name."<<query.lastError();
         return false;
     }
     else

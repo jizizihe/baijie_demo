@@ -1,7 +1,7 @@
-#include "globalapp.h"
+#include "main_touch.h"
 #include <QDebug>
 
-bool touchFlag = false;
+bool g_touchFlag = false;
 
 globalApp::globalApp(int &argc,char **argv):QApplication(argc,argv)
 {
@@ -10,7 +10,7 @@ globalApp::globalApp(int &argc,char **argv):QApplication(argc,argv)
 
 void globalApp::setWindowInstance(QWidget *wnd)
 {
-    widget = wnd;
+    g_widget = wnd;
 }
 
 bool globalApp::notify(QObject *obj, QEvent *e)
@@ -21,7 +21,7 @@ bool globalApp::notify(QObject *obj, QEvent *e)
 
         if(e->type() == QEvent::TouchEnd || e->type() == QEvent::TouchBegin ||  e->type() == QEvent::TouchUpdate)
         {
-            touchFlag = true;
+            g_touchFlag = true;
         }
     }
     return QApplication::notify(obj,e);

@@ -1,33 +1,33 @@
 #include "serial.h"
 #include "ui_serial.h"
 
-static int screenFlag;
-static int screenWidth;
-static int screenHeight;
-static int data1;                 // 1: port1  2:port2
-static int data2;
-static int openFlagPort1;
-static int openFlagport2;
-static QString port1;
-static QString port2;
-static QString baud1;
-static QString baud2;
-static QString stopBit1;
-static QString stopBit2;
-static QScreen *screen;
+static int g_screenFlag;
+static int g_screenWidth;
+static int g_screenHeight;
+static int g_data1;                 // 1: port1  2:port2
+static int g_data2;
+static int g_openFlagPort1;
+static int g_openFlagport2;
+static QString g_port1;
+static QString g_port2;
+static QString g_baud1;
+static QString g_baud2;
+static QString g_stopBit1;
+static QString g_stopBit2;
+static QScreen *g_screen;
 
 serial::serial(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::serial)
 {
     ui->setupUi(this);
-    screen = qApp->primaryScreen();
-    screenWidth = screen->size().width();
-    screenHeight = screen->size().height();
-    portNameList = getPortNameList();
-    portNameList.removeAll("ttyS0");
-    ui->SerialCb_1->addItems(portNameList);
-    ui->SerialCb_2->addItems(portNameList);
+    g_screen = qApp->primaryScreen();
+    g_screenWidth = g_screen->size().width();
+    g_screenHeight = g_screen->size().height();
+    g_portNameList = getPortNameList();
+    g_portNameList.removeAll("ttyS0");
+    ui->SerialCb_1->addItems(g_portNameList);
+    ui->SerialCb_2->addItems(g_portNameList);
     if(ui->SerialCb_2->count()>2)
     {
         ui->SerialCb_1->setCurrentIndex(0);
@@ -37,11 +37,11 @@ serial::serial(QWidget *parent) :
     ui->SendEdit->installEventFilter(this);
     ui->SendEdit_2->installEventFilter(this);
 
-    if(screenWidth < screenHeight)
+    if(g_screenWidth < g_screenHeight)
     {
-        screenFlag = 1;ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
+        g_screenFlag = 1;ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
-    serialFont();
+    setSerialFont();
 }
 
 serial::~serial()
@@ -63,15 +63,15 @@ QStringList serial::getPortNameList()
 void serial::openSerialPort1()
 {
     int OpenFlag = 0;
-    if(openFlagPort1 == 0)
+    if(g_openFlagPort1 == 0)
     {
-        QStringList list = databaseWg.tableShow("serial_port");
+        QStringList list = g_database.tableShow("serial_port");
         if(!list.isEmpty())
         {
             for(int i=0;i<list.size();i++)
             {
                 QString str = list.at(i);
-                if(str == port1)
+                if(str == g_port1)
                 {
                     QMessageBox mesg(QMessageBox::Information,
                                      tr("QMessageBox::information()"),
@@ -80,16 +80,16 @@ void serial::openSerialPort1()
                     mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
                     mesg.setFocusPolicy(Qt::NoFocus);
                     mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                    if(screenFlag == 1)
-                        mesg.move(screenWidth*2/3,screenHeight/3);
+                    if(g_screenFlag == 1)
+                        mesg.move(g_screenWidth*2/3,g_screenHeight/3);
                     else
-                        mesg.move(screenWidth/3,screenHeight/3);
+                        mesg.move(g_screenWidth/3,g_screenHeight/3);
                     mesg.exec();
                     return;
                 }
             }
         }
-        PortA = new serial_thread(COM0,port1, baud1.toInt(),data1,stopBit1,&OpenFlag);
+        g_PortA = new serial_thread(EnumCom0,g_port1, g_baud1.toInt(),g_data1,g_stopBit1,&OpenFlag);
         if(OpenFlag == 1)
         {
             QMessageBox mesg(QMessageBox::Information,
@@ -99,14 +99,14 @@ void serial::openSerialPort1()
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screenFlag == 1)
-                mesg.move(screenWidth*2/3,screenHeight/3);
+            if(g_screenFlag == 1)
+                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
             else
-                mesg.move(screenWidth/3,screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             ui->btn_open1->setText(tr("close"));
-            openFlagPort1 = 1;
-            databaseWg.insertTableOne("serial_port",port1);      //The open serial port is saved to the database
+            g_openFlagPort1 = 1;
+            g_database.insertTableOne("serial_port",g_port1);      //The open serial port is saved to the database
         }
         else
         {
@@ -117,17 +117,17 @@ void serial::openSerialPort1()
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screenFlag == 1)
-                mesg.move(screenWidth*2/3,screenHeight/3);
+            if(g_screenFlag == 1)
+                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
             else
-                mesg.move(screenWidth/3,screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
         }
 
         //Receives a signal to transfer data from a child thread
-        connect(PortA,SIGNAL(receive_data_msg(QString)),this,SLOT(show_port1_data(QString)));
-        connect(this,SIGNAL(write_port_msg(int,QByteArray)),PortA,SLOT(write_data(int,QByteArray)));
-        connect(this,SIGNAL(close_port_msg(int)),PortA,SLOT(close_port(int)));
+        connect(g_PortA,SIGNAL(receive_data_msg(QString)),this,SLOT(show_port1_data(QString)));
+        connect(this,SIGNAL(write_port_msg(int,QByteArray)),g_PortA,SLOT(write_data(int,QByteArray)));
+        connect(this,SIGNAL(close_port_msg(int)),g_PortA,SLOT(close_port(int)));
 
     }
 }
@@ -135,15 +135,15 @@ void serial::openSerialPort1()
 void serial::openSerialPort2()
 {
     int OpenFlag = 0;
-    if(openFlagport2 == 0)
+    if(g_openFlagport2 == 0)
     {
-        QStringList list = databaseWg.tableShow("serial_port");
+        QStringList list = g_database.tableShow("serial_port");
         if(!list.isEmpty())
         {
             for(int i=0;i<list.size();i++)
             {
                 QString str = list.at(i);
-                if(str == port2)
+                if(str == g_port2)
                 {
                     QMessageBox mesg(QMessageBox::Information,
                                      tr("QMessageBox::information()"),
@@ -152,16 +152,16 @@ void serial::openSerialPort2()
                     mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
                     mesg.setFocusPolicy(Qt::NoFocus);
                     mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                    if(screenFlag == 1)
-                        mesg.move(screenWidth*2/3,screenHeight/3);
+                    if(g_screenFlag == 1)
+                        mesg.move(g_screenWidth*2/3,g_screenHeight/3);
                     else
-                        mesg.move(screenWidth/3,screenHeight/3);
+                        mesg.move(g_screenWidth/3,g_screenHeight/3);
                     mesg.exec();
                     return;
                 }
             }
         }
-        PortB = new serial_thread(COM1,port2,baud2.toInt(),data2,stopBit2,&OpenFlag);
+        g_PortB = new serial_thread(EnumCom1,g_port2,g_baud2.toInt(),g_data2,g_stopBit2,&OpenFlag);
 
         if(OpenFlag == 1)
         {
@@ -172,14 +172,14 @@ void serial::openSerialPort2()
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screenFlag == 1)
-                mesg.move(screenWidth*2/3,screenHeight/3);
+            if(g_screenFlag == 1)
+                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
             else
-                mesg.move(screenWidth/3,screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             ui->btn_open2->setText(tr("close"));
-            openFlagport2 = 1;
-            databaseWg.insertTableOne("serial_port",port2);
+            g_openFlagport2 = 1;
+            g_database.insertTableOne("serial_port",g_port2);
         }
         else
         {
@@ -190,16 +190,16 @@ void serial::openSerialPort2()
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screenFlag == 1)
-                mesg.move(screenWidth*2/3,screenHeight/3);
+            if(g_screenFlag == 1)
+                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
             else
-                mesg.move(screenWidth/3,screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
         }
         //Receives a signal to transfer data from a child thread
-        connect(PortB,SIGNAL(receive_data_msg(QString)),this,SLOT(show_port2_data(QString)));
-        connect(this,SIGNAL(write_port_msg(int,QByteArray)),PortB,SLOT(write_data(int,QByteArray)));
-        connect(this,SIGNAL(close_port_msg(int)),PortB,SLOT(close_port(int)));
+        connect(g_PortB,SIGNAL(receive_data_msg(QString)),this,SLOT(show_port2_data(QString)));
+        connect(this,SIGNAL(write_port_msg(int,QByteArray)),g_PortB,SLOT(write_data(int,QByteArray)));
+        connect(this,SIGNAL(close_port_msg(int)),g_PortB,SLOT(close_port(int)));
     }
 }
 
@@ -214,9 +214,9 @@ void serial::show_port2_data(QString buff)  //Display serial port2 data
 
 void serial::on_btn_send1_clicked()
 {
-    if(openFlagPort1 == 1)
+    if(g_openFlagPort1 == 1)
     {
-        emit write_port_msg(COM0,ui->SendEdit->text().toUtf8());
+        emit write_port_msg(EnumCom0,ui->SendEdit->text().toUtf8());
     }
     else
     {
@@ -227,19 +227,19 @@ void serial::on_btn_send1_clicked()
         mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
         mesg.setFocusPolicy(Qt::NoFocus);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screenFlag == 1)
-            mesg.move(screenWidth*2/3,screenHeight/3);
+        if(g_screenFlag == 1)
+            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
         else
-            mesg.move(screenWidth/3,screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }
 
 void serial::on_btn_send2_clicked()
 {
-    if(openFlagport2 == 1)
+    if(g_openFlagport2 == 1)
     {
-        emit write_port_msg(COM1,ui->SendEdit_2->text().toUtf8());
+        emit write_port_msg(EnumCom1,ui->SendEdit_2->text().toUtf8());
     }
     else
     {
@@ -250,10 +250,10 @@ void serial::on_btn_send2_clicked()
         mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
         mesg.setFocusPolicy(Qt::NoFocus);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screenFlag == 1)
-            mesg.move(screenWidth*2/3,screenHeight/3);
+        if(g_screenFlag == 1)
+            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
         else
-            mesg.move(screenWidth/3,screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }
@@ -280,14 +280,14 @@ void serial::on_btn_port2_clicked()
     ui->stackedWidget_3->setCurrentIndex(0);
 }
 
-void serial::serialFont()
+void serial::setSerialFont()
 {
-    qreal realX = screen->physicalDotsPerInchX();
-    qreal realY = screen->physicalDotsPerInchY();
-    qreal realWidth = screenWidth / realX * 2.54;
-    qreal realHeight = screenHeight / realY *2.54;
+    qreal realX = g_screen->physicalDotsPerInchX();
+    qreal realY = g_screen->physicalDotsPerInchY();
+    qreal realWidth = g_screenWidth / realX * 2.54;
+    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(screenFlag)
+    if(g_screenFlag)
     {
         if(realHeight < 15)
         {
@@ -351,10 +351,10 @@ void serial::on_btn_set1_2_clicked()
 
 void serial::on_btn_ok2_clicked()
 {
-    port2 = ui->SerialCb_2->currentText();
-    baud2 = ui->BaudrateCb_2->currentText();
-    data2 = ui->DatabitsCb_2->currentText().toInt();
-    stopBit2 = ui->StopbitCb_2->currentText();
+    g_port2 = ui->SerialCb_2->currentText();
+    g_baud2 = ui->BaudrateCb_2->currentText();
+    g_data2 = ui->DatabitsCb_2->currentText().toInt();
+    g_stopBit2 = ui->StopbitCb_2->currentText();
     openSerialPort2();
     ui->stackedWidget_3->setCurrentIndex(0);
 }
@@ -366,10 +366,10 @@ void serial::on_btn_cancel2_clicked()
 
 void serial::on_btn_ok1_clicked()
 {
-    port1 = ui->SerialCb_1->currentText();
-    baud1 = ui->BaudrateCb_1->currentText();
-    data1 = ui->DatabitsCb_1->currentText().toInt();
-    stopBit1 = ui->StopbitCb_1->currentText();
+    g_port1 = ui->SerialCb_1->currentText();
+    g_baud1 = ui->BaudrateCb_1->currentText();
+    g_data1 = ui->DatabitsCb_1->currentText().toInt();
+    g_stopBit1 = ui->StopbitCb_1->currentText();
     openSerialPort1();
     ui->stackedWidget_2->setCurrentIndex(0);
 }
@@ -381,9 +381,9 @@ void serial::on_btn_cancel1_clicked()
 
 void serial::on_btn_open1_clicked()
 {
-    if(openFlagPort1 == 0)
+    if(g_openFlagPort1 == 0)
     {
-        if(port1.isEmpty())
+        if(g_port1.isEmpty())
         {
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
@@ -392,8 +392,8 @@ void serial::on_btn_open1_clicked()
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screenFlag == 1)
-                mesg.move(screenWidth*2/3,screenHeight/3);
+            if(g_screenFlag == 1)
+                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
             mesg.exec();
             return;
         }
@@ -402,22 +402,22 @@ void serial::on_btn_open1_clicked()
     else
     {
         //Close the thread
-        if(PortA!=nullptr)
+        if(g_PortA!=nullptr)
         {
-            emit close_port_msg(COM0);
+            emit close_port_msg(EnumCom0);
         }
 
         ui->btn_open1->setText(tr("open"));
-        openFlagPort1 = 0;
-        databaseWg.deleteTableName("serial_port",port1);
+        g_openFlagPort1 = 0;
+        g_database.deleteTableName("serial_port",g_port1);
     }
 }
 
 void serial::on_btn_open2_clicked()
 {
-    if(openFlagport2 == 0)
+    if(g_openFlagport2 == 0)
     {
-        if(port2.isEmpty())
+        if(g_port2.isEmpty())
         {
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
@@ -426,8 +426,8 @@ void serial::on_btn_open2_clicked()
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screenFlag == 1)
-                mesg.move(screenWidth*2/3,screenHeight/3);
+            if(g_screenFlag == 1)
+                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
             mesg.exec();
             return;
         }
@@ -436,13 +436,13 @@ void serial::on_btn_open2_clicked()
     else
     {
         //Close the thread
-        if(PortB!=nullptr)
+        if(g_PortB!=nullptr)
         {
-            emit close_port_msg(COM1);
+            emit close_port_msg(EnumCom1);
         }
         ui->btn_open2->setText(tr("open"));
-        openFlagport2 = 0;
-        databaseWg.deleteTableName("serial_port",port2);
+        g_openFlagport2 = 0;
+        g_database.deleteTableName("serial_port",g_port2);
     }
 }
 

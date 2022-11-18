@@ -2,17 +2,16 @@
 #define GLOBALAPP_H
 #include <QApplication>
 
-extern bool touchFlag;
+extern bool g_touchFlag;
 
 class globalApp : public QApplication
 {
 public:
-
     globalApp(int &argc,char **argv);
-//    ~globalApp();
     bool notify(QObject*, QEvent *);
-    void setWindowInstance(QWidget*wnd);
+    void setWindowInstance(QWidget *wnd);
+
 private:
-    QWidget *widget;
+    QWidget *g_widget;
 };
 #endif // GLOBALAPP_H

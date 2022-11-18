@@ -7,7 +7,7 @@
 #include "timeset.h"
 #include "user_manual.h"
 #include "about_board.h"
-#include "ctouchbutton.h"
+#include "touch_screen_button.h"
 
 namespace Ui {
 class sys_setting;
@@ -20,9 +20,12 @@ class sys_setting : public QWidget
 public:
     explicit sys_setting(QWidget *parent = 0);
     ~sys_setting();
-    void sysFont();
     void closeEvent(QCloseEvent *event);
-    void catOTGStatus();
+    void setSystemFont();
+    void setBtnOtgValue();
+    void setOtgHost();
+    void setOtgSlave();
+    void languageReload();
 
 private slots:
     void on_btn_ret_clicked();
@@ -43,12 +46,11 @@ signals:
 
 private:
     Ui::sys_setting *ui;
-    backlight backlightWg;
-    timeset timesetWg;
-    about_board boardWg;
-    user_manual userWg;
-    QTranslator *transl;
-
+    backlight g_backlightWg;
+    timeset g_timesetWg;
+    about_board g_boardWg;
+    user_manual g_userWg;
+    QTranslator *g_transl;
 };
 
 #endif // SYS_SETTING_H

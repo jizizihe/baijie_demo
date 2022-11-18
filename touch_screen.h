@@ -13,7 +13,7 @@
 #include <QPoint>
 #include <QPushButton>
 #include <QDebug>
-#include "ctouchbutton.h"
+#include "touch_screen_button.h"
 #include <QGraphicsView>
 #include <QWidget>
 
@@ -29,9 +29,6 @@ class touchscreen : public QMainWindow
 public:
     explicit touchscreen(QWidget *parent = 0);
     ~touchscreen();
-
-    bool openImage(const QString &fileName);
-    bool saveImage(const QString &fileName, const char *fileFormat);
     void clearImage();
 
 signals:
@@ -48,11 +45,11 @@ protected:
 
 private:
     void resizeImage(QImage *image, const QSize &newSize);
-    QList<QColor> myPenColors;
-    QImage image;
     void clear();
-    CTouchButton *btn_clear;
-    CTouchButton *btn_return;
+    QList<QColor> g_myPenColors;
+    QImage g_image;
+    CTouchButton *g_btnClear;
+    CTouchButton *g_btnReturn;
     Ui::touchscreen *ui;
 };
 

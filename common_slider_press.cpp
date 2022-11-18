@@ -1,24 +1,24 @@
-#include "myslider.h"
+#include "common_slider_press.h"
 #include <QMouseEvent>
 #include <QDebug>
 
-MySlider::MySlider(QWidget *parent):QSlider(parent)        //horizontal direction
+common_slider_press::common_slider_press(QWidget *parent):QSlider(parent)        //horizontal direction
 {
-    mouseValue=0;
-    mousePress = false;
-    isMoving=false;
+    g_mouseValue=0;
+    g_mousePress = false;
+    g_isMoving=false;
 }
 
-MySlider::~MySlider()
+common_slider_press::~common_slider_press()
 {
 
 }
 
-void MySlider::mousePressEvent(QMouseEvent *event)
+void common_slider_press::mousePressEvent(QMouseEvent *event)
 {
     QSlider::mousePressEvent(event);
-    isMoving = false;
-    mousePress = true;
+    g_isMoving = false;
+    g_mousePress = true;
 
     double pos = event->pos().x() / (double)width();
     double value = pos * (maximum() - minimum()) + minimum();
@@ -29,13 +29,13 @@ void MySlider::mousePressEvent(QMouseEvent *event)
     if(value<minimum()){
         value=minimum();
     }
-    mouseValue=value+0.5;
-    setValue(mouseValue);
+    g_mouseValue=value+0.5;
+    setValue(g_mouseValue);
 
     QEvent evEvent(static_cast<QEvent::Type>(QEvent::User + 1));
 }
 
-void MySlider::mouseMoveEvent(QMouseEvent *event)
+void common_slider_press::mouseMoveEvent(QMouseEvent *event)
 {
     QSlider::mouseMoveEvent(event);
     double pos = event->pos().x() / (double)width();
@@ -47,18 +47,18 @@ void MySlider::mouseMoveEvent(QMouseEvent *event)
         value=minimum();
     }
 
-    if(mousePress){
-        mouseValue=value + 0.5;
-        isMoving=true;
+    if(g_mousePress){
+        g_mouseValue=value + 0.5;
+        g_isMoving=true;
     }
     setValue(value + 0.5);
     QEvent evEvent(static_cast<QEvent::Type>(QEvent::User + 1));
 
 }
 
-void MySlider::mouseReleaseEvent(QMouseEvent *event)
+void common_slider_press::mouseReleaseEvent(QMouseEvent *event)
 {
     QSlider::mouseReleaseEvent(event);
-    mousePress = false;
-    isMoving=false;
+    g_mousePress = false;
+    g_isMoving=false;
 }

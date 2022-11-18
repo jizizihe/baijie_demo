@@ -1,7 +1,7 @@
 #ifndef BLUETOOTH_THREAD_H
 #define BLUETOOTH_THREAD_H
 
-#include "wifi_bt_interface.h"
+#include "bluetooth_interface.h"
 #include <QObject>
 #include <QThread>
 #include <QDebug>
@@ -23,7 +23,7 @@ public slots:
     QString bluetooth_connect_thread(QString btAddress);
 
 private:
-    wifi_bt_interface * wifi_bt_interfaceWg;
+    bluetooth_interface * g_bluetoothInterface;
 
 };
 

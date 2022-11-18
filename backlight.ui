@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>738</width>
-    <height>393</height>
+    <width>724</width>
+    <height>426</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -399,7 +399,7 @@ background-color: transparent;</string>
             </widget>
            </item>
            <item>
-            <widget class="MySlider" name="horizontalSlider_light">
+            <widget class="common_slider_press" name="horizontalSlider_light">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -658,7 +658,7 @@ QSlider::handle:horizontal
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>738</width>
+     <width>724</width>
      <height>22</height>
     </rect>
    </property>
@@ -666,9 +666,9 @@ QSlider::handle:horizontal
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MySlider</class>
+   <class>common_slider_press</class>
    <extends>QSlider</extends>
-   <header location="global">myslider.h</header>
+   <header>common_slider_press.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -1,7 +1,8 @@
-#include "boardinfo_interface.h"
+#include "about_board_interface.h"
 #include <QProcess>
 #include <QString>
 #include <QDebug>
+
 int getBatteryLevel()
 {
     FILE *fd;
@@ -93,7 +94,7 @@ char *getBoardName()
 char *getOSName()
 {
     FILE *fd;
-    char *OS;
+    char *os;
     char *path = (char *)"/etc/issue";
     fd = fopen(path,"r");
     if(NULL == fd)
@@ -101,24 +102,24 @@ char *getOSName()
         printf("open %s failed !\n",path);
         return (char *)"false";
     }
-    OS = (char *)malloc(sizeof(char) * 255);
+    os = (char *)malloc(sizeof(char) * 255);
 
-    fscanf(fd, "%[^\n]", OS);
-    QString str = QString::fromUtf8(OS);
+    fscanf(fd, "%[^\n]", os);
+    QString str = QString::fromUtf8(os);
     str.remove("\\n");
     str.remove("\\l");
     QByteArray ba = str.toLatin1();
-    OS=ba.data();
+    os=ba.data();
 
     fclose(fd);
-    return OS;
+    return os;
 }
 
 int getQTVersion(char *dirPath, char *fileName, char *fsFile)
 {
     int i = 0,j = 0;
-    char fw_file[64][64];
-    char finish_file[64] = {0};
+    char fwFile[64][64];
+    char finishFile[64] = {0};
 
     DIR *dir = opendir(dirPath);
     if(dir == NULL) {
@@ -131,7 +132,7 @@ int getQTVersion(char *dirPath, char *fileName, char *fsFile)
     {
         if(strncmp(ent->d_name,fileName ,9) == 0)
         {
-            sprintf(fw_file[i],"%s",ent->d_name);
+            sprintf(fwFile[i],"%s",ent->d_name);
             i++;
         }
     }
@@ -139,13 +140,13 @@ int getQTVersion(char *dirPath, char *fileName, char *fsFile)
     closedir(dir);
     for(j = 0;j < i;j++)
     {
-        if(strcmp(finish_file,fw_file[j]) < 0)
+        if(strcmp(finishFile,fwFile[j]) < 0)
         {
-            strcpy(finish_file,fw_file[j]);
+            strcpy(finishFile,fwFile[j]);
         }
     }
 
-    sscanf(finish_file,"%*[^.]%*[^1-9]%s",fsFile);
+    sscanf(finishFile,"%*[^.]%*[^1-9]%s",fsFile);
     return i;
 }
 

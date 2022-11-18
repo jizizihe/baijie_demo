@@ -18,20 +18,10 @@
 #define SYSFS_GPIO_DIR "/sys/class/gpio"
 #define MAX_BUF 256
 
-enum PIN_DIRECTION{
-    INPUT_PIN=0,
-    OUTPUT_PIN=1
-};
-
-enum PIN_VALUE{
-    LOW=0,
-    HIGH=1
-};
-
-struct occupiedGpioStr
+struct OccupiedGpioStr
 {
     int gpio[MAX_BUF];
-    char portnum[MAX_BUF][4];
+    char portNum[MAX_BUF][4];
     int len;
 };
 
@@ -40,12 +30,12 @@ int calcPortNum(char port, int num);
 void calcPortStr(int num,char gpioPort[]);
 int gpioExport(unsigned int gpio);
 int gpioUnexport(unsigned int gpio);
-int gpioSetState(unsigned int gpio, char *state);
-int gpioSetValue(unsigned int gpio, int value);
-int gpioGetState(unsigned int gpio);
-int gpioGetValue(unsigned int gpio);
+int setGpioState(unsigned int gpio, char *state);
+int setGpioValue(unsigned int gpio, int value);
+int getGpioState(unsigned int gpio);
+int getGpioValue(unsigned int gpio);
 bool getFileName(unsigned int gpio);
-struct occupiedGpioStr getDebugGpio();
+struct OccupiedGpioStr getDebugGpio();
 int getOccupieGpio(int *saveGpio,int nLine);
 
 #endif

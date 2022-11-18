@@ -24,11 +24,13 @@ public:
     explicit timeset(QWidget *parent = 0);
     ~timeset();
     void languageReload();
-    void timesetFont();
+    void setTimeFont();
     void showEvent(QShowEvent *event);
     void isSyncNetwork();
-    QString SystimeSet(QString  dateText);
-    QString RTCSet();
+    void setSyncNetwork();
+    void setAsyncNetwork();
+    QString setSystime(QString  dateText);
+    QString setRTC();
 
 signals:
     void time_set_back_msg();
@@ -39,14 +41,14 @@ private slots:
     void btn_RTCSet_clicked();
     void on_btn_sync_clicked();
     void sys_timer_update(void);
-    void RTC_timer_update(void);
+    void rtc_timer_update(void);
 
 private:
     Ui::timeset *ui;
-    QProcess proSys;
-    QProcess proRTC;
-    QTimer *SysTimer;
-    QTimer *RTCTimer;
+    QProcess g_proSys;
+    QProcess g_proRTC;
+    QTimer *g_sysTimer;
+    QTimer *g_rtcTimer;
 };
 
 #endif // TIMESET_H

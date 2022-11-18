@@ -2,29 +2,29 @@
 
 serial_thread::serial_thread(int portId,QString port,long baud,int Databit,QString Stopbit,int *OpenFlag,QObject *parent) : QObject(parent)
 {
-    myThread = new QThread();
-    myPort = new QSerialPort();
-    myPortId = portId;
+    g_myThread = new QThread();
+    g_myPort = new QSerialPort();
+    g_myPortId = portId;
 
     *OpenFlag = 0;
     initPort(port,baud,Databit,Stopbit,OpenFlag);
 
-    this->moveToThread(myThread);
-    myPort->moveToThread(myThread);
-    myThread->start();
+    this->moveToThread(g_myThread);
+    g_myPort->moveToThread(g_myThread);
+    g_myThread->start();
 }
 
 void serial_thread::initPort(QString port, long baud, int dataBit, QString stopBit, int *openFlag)
 {
-    myPort->setPortName(port);
-    myPort->setBaudRate(baud);
+    g_myPort->setPortName(port);
+    g_myPort->setBaudRate(baud);
     initDataBit(dataBit);
-    myPort->setParity(QSerialPort::NoParity);
+    g_myPort->setParity(QSerialPort::NoParity);
     initStopBit(stopBit);
-    myPort->setFlowControl(QSerialPort::NoFlowControl);
+    g_myPort->setFlowControl(QSerialPort::NoFlowControl);
 
 
-    if(myPort->open(QIODevice::ReadWrite) == false)         // Open read and write mode
+    if(g_myPort->open(QIODevice::ReadWrite) == false)         // Open read and write mode
     {
         *openFlag = 0;
     }
@@ -33,44 +33,44 @@ void serial_thread::initPort(QString port, long baud, int dataBit, QString stopB
         *openFlag = 1;
     }
 
-    connect(myPort,SIGNAL(readyRead()),this,SLOT(read_data()));//If data is present, it is read
+    connect(g_myPort,SIGNAL(readyRead()),this,SLOT(read_data()));//If data is present, it is read
 }
 
 void serial_thread::close_port(int portId)
 {
-    if(portId==myPortId)
+    if(portId==g_myPortId)
     {
-        myPort->close();
-        myPort->deleteLater();
+        g_myPort->close();
+        g_myPort->deleteLater();
 
-        myThread->quit();
-        myThread->wait();
-        myThread->deleteLater();
+        g_myThread->quit();
+        g_myThread->wait();
+        g_myThread->deleteLater();
     }
 }
 
 void serial_thread::read_data()
 {
     QString buf;
-    buf = QString(myPort->readAll());
+    buf = QString(g_myPort->readAll());
     emit receive_data_msg(buf);
 }
 
 void serial_thread::write_data(int portId,QByteArray buff)
 {
-    if(portId==myPortId)
+    if(portId==g_myPortId)
     {
-        myPort->write(buff);
+        g_myPort->write(buff);
     }
 }
 
 void serial_thread::initDataBit(int dataBit)
 {
     switch (dataBit) {
-    case 5:myPort->setDataBits(QSerialPort::Data5);break;
-    case 6:myPort->setDataBits(QSerialPort::Data6);break;
-    case 7:myPort->setDataBits(QSerialPort::Data7);break;
-    case 8:myPort->setDataBits(QSerialPort::Data8);break;
+    case 5:g_myPort->setDataBits(QSerialPort::Data5);break;
+    case 6:g_myPort->setDataBits(QSerialPort::Data6);break;
+    case 7:g_myPort->setDataBits(QSerialPort::Data7);break;
+    case 8:g_myPort->setDataBits(QSerialPort::Data8);break;
     default:break;
     }
 }
@@ -78,9 +78,9 @@ void serial_thread::initDataBit(int dataBit)
 void serial_thread::initStopBit(QString stopBit)
 {
     if(!QString::compare(stopBit,QString("1"),Qt::CaseSensitive)){
-        myPort->setStopBits(QSerialPort::OneStop);
+        g_myPort->setStopBits(QSerialPort::OneStop);
     }
     if(!QString::compare(stopBit,QString("2"),Qt::CaseSensitive)){
-        myPort->setStopBits(QSerialPort::TwoStop);
+        g_myPort->setStopBits(QSerialPort::TwoStop);
     }
 }

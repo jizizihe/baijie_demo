@@ -4,19 +4,19 @@
 #include <QObject>
 #include <QSlider>
 
-class MySlider : public QSlider
+class common_slider_press : public QSlider
 {
 public:
-    MySlider(QWidget *parent = nullptr);
-    ~MySlider();
+    common_slider_press(QWidget *parent = nullptr);
+    ~common_slider_press();
 
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
 
-    bool isMoving;
-    int mouseValue;
-    bool mousePress;
+    bool g_isMoving;
+    int g_mouseValue;
+    bool g_mousePress;
 };
 
 #endif // MYSLIDER_H

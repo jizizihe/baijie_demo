@@ -18,9 +18,9 @@ public:
     ~ipset();
 
     void languageReload();
-    void ipsetFont();
-    void ipSetText();
-    void switchSetText();
+    void setIpFont();
+    void setIpText();
+    void setSwitchText();
 
 signals:
     void ipset_back_msg();

@@ -1,61 +1,64 @@
-#include "sim_module.h"
+#include "sim.h"
 #include "ui_sim_module.h"
 #include <QScreen>
+#include <QMessageBox>
 
-static QScreen *screen;
-static int screenWidth;
-static int screenHeight;
-static int screenFlag;
-static int openFlag;
-static QLabel *openLabel;
-static QHBoxLayout *horLayout;
+static QScreen *g_screen;
+static int g_screenWidth;
+static int g_screenHeight;
+static int g_screenFlag;
+static int g_openFlag;
+static int g_showFlag;
+static QLabel *g_openLabel;
+static QHBoxLayout *g_horLayout;
 
 sim_module::sim_module(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::sim_module)
 {
     ui->setupUi(this);
-    screen = qApp->primaryScreen();
-    screenWidth = screen->size().width();
-    screenHeight = screen->size().height();
+    g_screen = qApp->primaryScreen();
+    g_screenWidth = g_screen->size().width();
+    g_screenHeight = g_screen->size().height();
 
-    if(screenWidth < screenHeight)
+    if(g_screenWidth < g_screenHeight)
     {
-        screenFlag = 1;ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
+        g_screenFlag = 1;
+        ui->line_2->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
-    openFlag = 1;
-    simFont();
-    timer = new QTimer(this);
-    loadLabel = new QLabel(this);
-    pMovie = new QMovie("://button_image/loading.webp");
-    loadLabel->setFixedSize(50, 50);
-    loadLabel->setScaledContents(true);
-    loadLabel->setMovie(pMovie);
-    if(screenFlag == 1)
+    g_openFlag = 1;
+    setSimFont();
+    g_timer = new QTimer(this);
+    g_loadLabel = new QLabel(this);
+    g_pMovie = new QMovie("://button_image/loading.webp");
+    g_loadLabel->setFixedSize(50, 50);
+    g_loadLabel->setScaledContents(true);
+    g_loadLabel->setMovie(g_pMovie);
+    if(g_screenFlag == 1)
     {
-        loadLabel->move(screenHeight/2,screenWidth/2);
+        g_loadLabel->move(g_screenHeight/2,g_screenWidth/2);
     }
     else
     {
-        loadLabel->move(screenWidth/2,screenHeight/2 );
+        g_loadLabel->move(g_screenWidth/2,g_screenHeight/2 );
     }
-    wifi_bt_interfaceWg = new wifi_bt_interface(this);
-    myThread = new QThread(this);
-    SimThread = new wifi_thread();
+    g_simInterface = new sim_interface(this);
+    g_myThread = new QThread(this);
+    g_SimThread = new sim_thread();
     ui->sim_Switch->setCheckedColor(QColor(100, 225, 100, 150));
-    switchSetText();
+    setSwitchText();
 
     connect(ui->sim_Switch,SIGNAL(toggled(bool)),this,SLOT(switch_change_flag(bool)));
-    connect(timer,SIGNAL(timeout()),this,SLOT(module_status_refresh()));
-    connect(this,SIGNAL(sim_disconnect_msg()),SimThread,SLOT(sim_disconnect_thread()));
-    connect(this,SIGNAL(sim_connect_msg()),SimThread,SLOT(sim_connect_thread()));
-    connect(this,SIGNAL(sim_status_msg()),SimThread,SLOT(sim_status_thread()));
-    connect(this,SIGNAL(sim_module_status_msg()),SimThread,SLOT(sim_module_status()));
-    connect(SimThread,SIGNAL(send_sim_msg(int, QString)),this,SLOT(recv_msg(int, QString)));
-    connect(this,SIGNAL(sim_activation_msg(int)),SimThread,SLOT(sim_activation(int)));
+    connect(g_timer,SIGNAL(timeout()),this,SLOT(module_status_refresh()));
+    connect(this,SIGNAL(sim_disconnect_msg()),g_SimThread,SLOT(sim_disconnect_thread()));
+    connect(this,SIGNAL(sim_connect_msg()),g_SimThread,SLOT(sim_connect_thread()));
+    connect(this,SIGNAL(sim_status_msg()),g_SimThread,SLOT(sim_status_thread()));
+    connect(this,SIGNAL(sim_module_status_msg()),g_SimThread,SLOT(sim_module_status()));
+    connect(g_SimThread,SIGNAL(send_sim_msg(int, QString)),this,SLOT(recv_msg(int, QString)));
+    connect(this,SIGNAL(sim_set_enble_msg(int)),g_SimThread,SLOT(sim_set_enbale(int)));
 
-    SimThread->moveToThread(myThread);
-    myThread->start();
+    g_SimThread->moveToThread(g_myThread);
+    g_myThread->start();
     emit sim_module_status_msg();
     emit sim_status_msg();
     ui->stackedWidget->setCurrentIndex(2);
@@ -64,19 +67,21 @@ sim_module::sim_module(QWidget *parent) :
 sim_module::~sim_module()
 {
     delete ui;
-    delete wifi_bt_interfaceWg;
-    delete openLabel;
-    delete horLayout;
+    delete g_simInterface;
+    delete g_openLabel;
+    delete g_horLayout;
 }
 
 void sim_module::showEvent(QShowEvent *event)
 {
-    timer->start(3000);
+    g_showFlag == 1;
+    g_timer->start(3000);
 }
 
 void sim_module::on_btn_ret_clicked()
 {
-    timer->stop();
+    g_timer->stop();
+    g_showFlag = 0;
     emit sim_back_msg();
 }
 
@@ -85,40 +90,22 @@ void sim_module::recv_msg(int signalType, QString strResult)
     QStringList list;
     switch (signalType)
     {
-    case simDisconnectSignal:
-        pMovie->stop();
-        loadLabel->hide();
+    case EnumSimDisconnectSignal:
+        g_pMovie->stop();
+        g_loadLabel->hide();
         if(strResult == QString(1))
         {
-            QMessageBox mesg(QMessageBox::Information,
-                             tr("QMessageBox::information()"),
-                             tr("4G disconnect succeeded!"),
-                             0,this);
-            mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screenFlag == 1)
-                mesg.move(screenHeight/3,screenWidth*2/3);
-            else
-                mesg.move(screenWidth,screenHeight/3);
-            mesg.exec();
+            QMessageBox::information(this,"information",tr("4G disconnect succeeded!"));
             ui->stackedWidget->setCurrentIndex(2);
             emit sim_module_status_msg();
-            timer->start(3000);
+            g_timer->start(3000);
         }
         else
         {
-            QMessageBox mesg(QMessageBox::Information,
-                             tr("QMessageBox::information()"),
-                             tr("4G disconnect failed!"),
-                             0,this);
-            mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screenFlag == 1)
-                mesg.move(screenHeight/3,screenWidth*2/3);
-            else
-                mesg.move(screenWidth/3,screenHeight/3);
-            mesg.exec();
+            QMessageBox::information(this,"information",tr("4G disconnect succeeded!"));
         }
         break;
-    case simDeleteSignal:
+    case EnumSimDeleteSignal:
         if(strResult == QString(1))
         {
             QMessageBox mesg(QMessageBox::Information,
@@ -126,10 +113,10 @@ void sim_module::recv_msg(int signalType, QString strResult)
                              tr("4G delete succeeded!"),
                              0,this);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screenFlag == 1)
-                mesg.move(screenHeight/3,screenWidth*2/3);
+            if(g_screenFlag == 1)
+                mesg.move(g_screenHeight/3,g_screenWidth*2/3);
             else
-                mesg.move(screenWidth/3,screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             emit sim_module_status_msg();
         }
@@ -140,16 +127,16 @@ void sim_module::recv_msg(int signalType, QString strResult)
                              tr("4G delete failed!"),
                              0,this);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screenFlag == 1)
-                mesg.move(screenHeight/3,screenWidth*2/3);
+            if(g_screenFlag == 1)
+                mesg.move(g_screenHeight/3,g_screenWidth*2/3);
             else
-                mesg.move(screenWidth/3,screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
         }
         break;
-    case simConnectSignal:
-        pMovie->stop();
-        loadLabel->hide();
+    case EnumSimConnectSignal:
+        g_pMovie->stop();
+        g_loadLabel->hide();
         if(strResult == QString(1))
         {
             QMessageBox::information(this,"information",tr("4G connect succeeded!"));
@@ -161,11 +148,11 @@ void sim_module::recv_msg(int signalType, QString strResult)
             QMessageBox::critical(this,"information",tr("4G connect failed!"));
         }
         break;
-    case simModuleStatusSignal:
+    case EnumSimModuleStatusSignal:
         if(strResult.isEmpty())
         {
             ui->stackedWidget->setCurrentIndex(3);
-            timer->stop();
+            g_timer->stop();
             return;
         }
         list = strResult.split("\n");
@@ -191,10 +178,10 @@ void sim_module::recv_msg(int signalType, QString strResult)
             else if(i==8)
                 ui->lbl_ipSupportedValue->setText(tmp);
             else if(i==9)
-                ui->lbl_operatorName->setText(tmp);
+                ui->lbl_operatorNameValue->setText(tmp);
         }
         break;
-    case simStatusSignal:
+    case EnumSimStatusSignal:
         if(strResult.isEmpty())
         {
             // QMessageBox::critical(this,"information",tr("4G get status failed!\nPlease connect 4G first!"));
@@ -242,7 +229,7 @@ void sim_module::recv_msg(int signalType, QString strResult)
 void sim_module::on_btn_disconnect_clicked()
 {
     QString strCmd = QString("mmcli --list-modems");
-    QString strResult =  wifi_bt_interfaceWg->executeLinuxCmd(strCmd);
+    QString strResult =  g_simInterface->executeLinuxCmd(strCmd);
     QString str = strResult.section("/",5,5);str = str.section(" ",0,0);
     if(str.isEmpty())
     {
@@ -251,22 +238,22 @@ void sim_module::on_btn_disconnect_clicked()
                          tr("No 4G devices!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screenFlag == 1)
-            mesg.move(screenHeight/3,screenWidth*2/3);
+        if(g_screenFlag == 1)
+            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
         else
-            mesg.move(screenWidth/3,screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
-        timer->stop();
+        g_timer->stop();
         return;
     }
-    QString result = wifi_bt_interfaceWg->executeLinuxCmd("nmcli con show --active |grep ppp0 |wc -l");
-    timer->stop();
-    if(openFlag == 1)
+    QString result = g_simInterface->executeLinuxCmd("nmcli con show --active |grep ppp0 |wc -l");
+    g_timer->stop();
+    if(g_openFlag == 1)
     {
         if(result == "1\n")
         {
-            loadLabel->show();
-            pMovie->start();
+            g_loadLabel->show();
+            g_pMovie->start();
             emit sim_disconnect_msg();
         }
         else
@@ -276,10 +263,10 @@ void sim_module::on_btn_disconnect_clicked()
                              tr("Please connect the 4G!"),
                              0,this);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screenFlag == 1)
-                mesg.move(screenHeight/3,screenWidth*2/3);
+            if(g_screenFlag == 1)
+                mesg.move(g_screenHeight/3,g_screenWidth*2/3);
             else
-                mesg.move(screenWidth/3,screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
         }
     }
@@ -290,10 +277,10 @@ void sim_module::on_btn_disconnect_clicked()
                          tr("Please open the 4G!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screenFlag == 1)
-            mesg.move(screenHeight/3,screenWidth*2/3);
+        if(g_screenFlag == 1)
+            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
         else
-            mesg.move(screenWidth/3,screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }
@@ -301,7 +288,7 @@ void sim_module::on_btn_disconnect_clicked()
 void sim_module::on_btn_connect_clicked()
 {  
     QString strCmd = QString("mmcli --list-modems");
-    QString strResult =  wifi_bt_interfaceWg->executeLinuxCmd(strCmd);
+    QString strResult =  g_simInterface->executeLinuxCmd(strCmd);
     QString str = strResult.section("/",5,5);str = str.section(" ",0,0);
     if(str.isEmpty())
     {
@@ -310,29 +297,29 @@ void sim_module::on_btn_connect_clicked()
                          tr("No 4G devices!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screenFlag == 1)
-            mesg.move(screenHeight/3,screenWidth*2/3);
+        if(g_screenFlag == 1)
+            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
         else
-            mesg.move(screenWidth/3,screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
-        timer->stop();
+        g_timer->stop();
         return;
     }
-    timer->stop();
-    loadLabel->show();
-    pMovie->start();
-    QString result = wifi_bt_interfaceWg->executeLinuxCmd("nmcli con show --active |grep ppp0 |wc -l");
+    g_timer->stop();
+    g_loadLabel->show();
+    g_pMovie->start();
+    QString result = g_simInterface->executeLinuxCmd("nmcli con show --active |grep ppp0 |wc -l");
 
-    if(openFlag == 1)
+    if(g_openFlag == 1)
     {
 
-        loadLabel->show();
+        g_loadLabel->show();
         if(result == "1\n")
         {
             ui->stackedWidget->setCurrentIndex(0);
             emit sim_status_msg();
-            pMovie->stop();
-            loadLabel->hide();
+            g_pMovie->stop();
+            g_loadLabel->hide();
         }
         else
         {
@@ -342,17 +329,17 @@ void sim_module::on_btn_connect_clicked()
     }
     else
     {
-        pMovie->stop();
-        loadLabel->hide();
+        g_pMovie->stop();
+        g_loadLabel->hide();
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),
                          tr("Please open the 4G!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screenFlag == 1)
-            mesg.move(screenHeight/3,screenWidth*2/3);
+        if(g_screenFlag == 1)
+            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
         else
-            mesg.move(screenWidth/3,screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }
@@ -361,16 +348,22 @@ void sim_module::on_btn_connect_clicked()
 void sim_module::languageReload()
 {
     ui->retranslateUi(this);
+    ui->retranslateUi(this);
+    int flag = ui->sim_Switch->isToggled();
+    if(flag == 1)
+    ui->sim_Switch->setToggle(true);
+    else
+    ui->sim_Switch->setToggle(false);
 }
 
-void sim_module::simFont()
+void sim_module::setSimFont()
 {
-    qreal realX = screen->physicalDotsPerInchX();
-    qreal realY = screen->physicalDotsPerInchY();
-    qreal realWidth = screenWidth / realX * 2.54;
-    qreal realHeight = screenHeight / realY *2.54;
+    qreal realX = g_screen->physicalDotsPerInchX();
+    qreal realY = g_screen->physicalDotsPerInchY();
+    qreal realWidth = g_screenWidth / realX * 2.54;
+    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(screenFlag)
+    if(g_screenFlag)
     {
         if(realHeight < 15)
         {
@@ -421,7 +414,7 @@ void sim_module::simFont()
 void sim_module::on_btn_status_clicked()
 {
     QString strCmd = QString("mmcli --list-modems");
-    QString strResult =  wifi_bt_interfaceWg->executeLinuxCmd(strCmd);
+    QString strResult =  g_simInterface->executeLinuxCmd(strCmd);
     QString str = strResult.section("/",5,5);str = str.section(" ",0,0);
     if(str.isEmpty())
     {
@@ -430,32 +423,32 @@ void sim_module::on_btn_status_clicked()
                          tr("No 4G devices!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screenFlag == 1)
-            mesg.move(screenHeight/3,screenWidth*2/3);
+        if(g_screenFlag == 1)
+            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
         else
-            mesg.move(screenWidth/3,screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
-        timer->stop();
+        g_timer->stop();
         return;
     }
-    if(openFlag == 1)
+    if(g_openFlag == 1)
     {
         emit sim_module_status_msg();ui->stackedWidget->setCurrentIndex(2);
-        timer->start(3000);
+        g_timer->start(3000);
     }
     else
     {
-        pMovie->stop();
-        loadLabel->hide();
+        g_pMovie->stop();
+        g_loadLabel->hide();
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),
                          tr("Please open the 4G!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screenFlag == 1)
-            mesg.move(screenHeight/3,screenWidth*2/3);
+        if(g_screenFlag == 1)
+            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
         else
-            mesg.move(screenWidth/3,screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }
@@ -470,45 +463,48 @@ void sim_module::switch_change_flag(bool flag)
     flag = ui->sim_Switch->isToggled();
     if(flag == 1)
     {
-        openLabel->setText(tr("  off"));
-        openLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-        openLabel->setStyleSheet("color: rgba(0, 0, 0,180);");
-        openFlag = 1;
-        emit sim_activation_msg(1);
-        QString strCmd = QString("mmcli --list-modems");
-        QString strResult =  wifi_bt_interfaceWg->executeLinuxCmd(strCmd);
-        QString str = strResult.section("/",5,5);str = str.section(" ",0,0);
-        if(str.isEmpty())
+        g_openLabel->setText(tr("  off"));
+        g_openLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+        g_openLabel->setStyleSheet("color: rgba(0, 0, 0,180);");
+        g_openFlag = 1;
+        if(g_showFlag == 1)
         {
-            timer->stop();
-            return;
+            emit sim_set_enble_msg(1);
+            QString strCmd = QString("mmcli --list-modems");
+            QString strResult =  g_simInterface->executeLinuxCmd(strCmd);
+            QString str = strResult.section("/",5,5);str = str.section(" ",0,0);
+            if(str.isEmpty())
+            {
+                g_timer->stop();
+                return;
+            }
         }
         else
         {
             ui->stackedWidget->setCurrentIndex(2);
             emit sim_module_status_msg();
-            timer->start(3000);
+            g_timer->start(3000);
         }
     }
     else
     {
         ui->stackedWidget->setCurrentIndex(3);
-        timer->stop();
-        openFlag = 0;
-        emit sim_activation_msg(0);
-        openLabel->setText(tr("on   "));
-        openLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-        openLabel->setStyleSheet("color: rgba(255,255,255,200);");
+        g_timer->stop();
+        g_openFlag = 0;
+        emit sim_set_enble_msg(0);
+        g_openLabel->setText(tr("on   "));
+        g_openLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        g_openLabel->setStyleSheet("color: rgba(255,255,255,200);");
     }
 }
 
-void sim_module::switchSetText()
+void sim_module::setSwitchText()
 {
-    openLabel = new QLabel(ui->sim_Switch);
-    horLayout = new QHBoxLayout();
-    openLabel->setText(tr("  off"));
-    openLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    openLabel->setStyleSheet("color: rgba(0, 0, 0,180);");
-    horLayout->addWidget(openLabel);
-    ui->sim_Switch->setLayout(horLayout);
+    g_openLabel = new QLabel(ui->sim_Switch);
+    g_horLayout = new QHBoxLayout();
+    g_openLabel->setText(tr("  off"));
+    g_openLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    g_openLabel->setStyleSheet("color: rgba(0, 0, 0,180);");
+    g_horLayout->addWidget(g_openLabel);
+    ui->sim_Switch->setLayout(g_horLayout);
 }

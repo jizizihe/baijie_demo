@@ -1,6 +1,6 @@
 #include "all_test_interface.h"
 
-static int cameraFirst;
+static int g_cameraFirst;
 
 QString getGateway()
 {
@@ -56,7 +56,7 @@ QString usbTest(int num)
     return strResult;
 }
 
-QString getNewSd()
+QString getSdCard()
 {
     QString strCmd = QString("fdisk -l | grep /dev/mmcblk[1-9] | wc -l");
     QString strResult = executeLinuxCmd(strCmd);
@@ -84,11 +84,11 @@ void cameraTest()
 {
     QString strCmd;
     QString strResult;
-    if(cameraFirst == 0)
+    if(g_cameraFirst == 0)
     {
         strCmd = QString("photo_csi.sh ");
         strResult = executeLinuxCmd(strCmd);
-        cameraFirst++;
+        g_cameraFirst++;
     }
     strCmd = QString("rm /data/yuv.jpg");
     strResult = executeLinuxCmd(strCmd);
@@ -122,9 +122,9 @@ QString simTest()
     {
         if(gpioExport(portNum) == 0)
         {
-            if(gpioSetState(portNum, state) == 0)
+            if(setGpioState(portNum, state) == 0)
             {
-                if(gpioSetValue(portNum, 1) == 0)
+                if(setGpioValue(portNum, 1) == 0)
                 {
                     sleep(5);
                 }
@@ -195,7 +195,7 @@ QString simTest()
     return strResult;
 }
 
-QString audioTest()
+void audioTest()
 {
     QString strCmd = QString("rm /data/audio.wav");
     QString strResult = executeLinuxCmd(strCmd);
@@ -205,7 +205,6 @@ QString audioTest()
     strResult = executeLinuxCmd(strCmd);
     strCmd = QString("aplay /data/audio.wav");
     strResult = executeLinuxCmd(strCmd);
-    return NULL;
 }
 
 QString wifiTest()

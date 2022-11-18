@@ -1,13 +1,11 @@
 #include "about_board.h"
 #include "ui_about_board.h"
 #include <QScreen>
-#include "boardinfo_interface.h"
+#include "about_board_interface.h"
 
-static QScreen *screen;
-static int screenFlag;
-static int screenWidth;
-static int screenHeight;
-static QTimer *timer;
+static int g_screenWidth;
+static int g_screenHeight;
+static QTimer *g_timer;
 
 about_board::about_board(QWidget *parent) :
     QWidget(parent),
@@ -16,25 +14,25 @@ about_board::about_board(QWidget *parent) :
     ui->setupUi(this);
     this->setAttribute(Qt::WA_StyledBackground,true);
     ui->pb_batteryLevel->setAlignment(Qt::AlignLeft | Qt::AlignCenter);
-    screen = qApp->primaryScreen();
-    screenWidth = screen->size().width();
-    screenHeight = screen->size().height();
-    if(screenWidth < screenHeight)
+    QScreen *screen = qApp->primaryScreen();
+    g_screenWidth = screen->size().width();
+    g_screenHeight = screen->size().height();
+    if(g_screenWidth < g_screenHeight)
     {
-        screenFlag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
+        ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
-    aboutFont();
+    setAboutBoardFont();
     board_name_update();
     kernel_name_update();
     battery_update();
-    CPU_temp_update();
+    cpu_temp_update();
     resolution_update();
-    QT_version_update();
-    OS_name_update();
+    qt_version_update();
+    os_name_update();
 
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(battery_update()));
-    connect(timer,SIGNAL(timeout()), this, SLOT(CPU_temp_update()));
+    g_timer = new QTimer(this);
+    connect(g_timer, SIGNAL(timeout()), this, SLOT(battery_update()));
+    connect(g_timer,SIGNAL(timeout()), this, SLOT(cpu_temp_update()));
 }
 
 about_board::~about_board()
@@ -44,7 +42,7 @@ about_board::~about_board()
 
 void about_board::showEvent(QShowEvent *event)
 {
-    timer->start(1000);
+    g_timer->start(1000);
 }
 
 void about_board::battery_update()
@@ -56,7 +54,7 @@ void about_board::battery_update()
     ui->lbl_batteryStatusVale->setText(QString(tr("%1")).arg(batteryStatus));
 }
 
-void about_board::CPU_temp_update()
+void about_board::cpu_temp_update()
 {
     float temp = getCPUTemp();
     ui->lbl_CPUTempValue->setText(QString(tr("%1")).arg(temp));
@@ -75,10 +73,10 @@ void about_board::kernel_name_update()
     ui->lbl_kernelValue->setText(QString(tr("%1")).arg(kernel));
 }
 
-void about_board::OS_name_update()
+void about_board::os_name_update()
 {
-    char *OSName = getOSName();
-    ui->lbl_OSValue->setText(QString(tr("%1")).arg(OSName));
+    char *osName = getOSName();
+    ui->lbl_OSValue->setText(QString(tr("%1")).arg(osName));
 }
 
 void about_board::resolution_update()
@@ -88,7 +86,7 @@ void about_board::resolution_update()
     ui->lbl_ResolutionValue->setText(QString(tr("%1 * %2")).arg(x).arg(y));
 }
 
-void about_board::QT_version_update()
+void about_board::qt_version_update()
 {
     char vQT[64];
     if(getQTVersion("/usr/helperboard/qt/lib/","libQt5Core",vQT) == 0)
@@ -110,31 +108,45 @@ void about_board::languageReload()
     board_name_update();
     kernel_name_update();
     battery_update();
-    CPU_temp_update();
+    cpu_temp_update();
     resolution_update();
-    OS_name_update();
-    QT_version_update();
+    os_name_update();
+    qt_version_update();
 }
 
-void about_board::aboutFont()
+void about_board::setAboutBoardFont()
 {
+    QScreen *screen;
+    screen = qApp->primaryScreen();
     qreal realX = screen->physicalDotsPerInchX();
     qreal realY = screen->physicalDotsPerInchY();
-    qreal realWidth = screenWidth / realX * 2.54;
-    qreal realHeight = screenHeight / realY *2.54;
+    qreal realWidth = g_screenWidth / realX * 2.54;
+    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(screenFlag)
+    if(g_screenWidth < g_screenHeight)
     {
         if(realHeight < 15)
         {
+            font.setPointSize(10);
+            ui->lbl_telValue->setFont(font);
+            ui->lbl_customization->setFont(font);
+            ui->lbl_BusinessEmailValue->setFont(font);
             font.setPointSize(12);
         }
         else if (realHeight < 17)
         {
+            font.setPointSize(12);
+            ui->lbl_telValue->setFont(font);
+            ui->lbl_customization->setFont(font);
+            ui->lbl_BusinessEmailValue->setFont(font);
             font.setPointSize(14);
         }
         else
         {
+            font.setPointSize(15);
+            ui->lbl_telValue->setFont(font);
+            ui->lbl_customization->setFont(font);
+            ui->lbl_BusinessEmailValue->setFont(font);
             font.setPointSize(17);
         }
     }
@@ -142,14 +154,26 @@ void about_board::aboutFont()
     {
         if(realWidth < 15)
         {
+            font.setPointSize(10);
+            ui->lbl_telValue->setFont(font);
+            ui->lbl_customization->setFont(font);
+            ui->lbl_BusinessEmailValue->setFont(font);
             font.setPointSize(12);
         }
         else if (realWidth < 17)
         {
+            font.setPointSize(12);
+            ui->lbl_telValue->setFont(font);
+            ui->lbl_customization->setFont(font);
+            ui->lbl_BusinessEmailValue->setFont(font);
             font.setPointSize(14);
         }
         else
         {
+            font.setPointSize(15);
+            ui->lbl_telValue->setFont(font);
+            ui->lbl_customization->setFont(font);
+            ui->lbl_BusinessEmailValue->setFont(font);
             font.setPointSize(17);
         }
     }
@@ -159,7 +183,6 @@ void about_board::aboutFont()
     ui->lbl_CPUTemp->setFont(font);
     ui->lbl_Resolution->setFont(font);
     ui->lbl_OS->setFont(font);
-    ui->lbl_BusinessEmail->setFont(font);
     ui->lbl_kernel->setFont(font);
     ui->lbl_QTVersionValue->setFont(font);
     ui->lbl_boardNameValue->setFont(font);
@@ -169,14 +192,14 @@ void about_board::aboutFont()
     ui->lbl_OSValue->setFont(font);
     ui->lbl_kernelValue->setFont(font);
     ui->lbl_QTVersion->setFont(font);
-    ui->lbl_companyWebsiteValue->setFont(font);
     ui->lbl_aboutBoard->setFont(font);
     ui->lbl_companyWebsite->setFont(font);
-    ui->lbl_BusinessEmailValue->setFont(font);
+    ui->lbl_batteryStatus->setFont(font);
+    ui->lbl_companyWebsiteValue->setFont(font);
 }
 
-void about_board::on_ret_btn_clicked()
+void about_board::on_btn_ret_clicked()
 {
-    timer->stop();
+    g_timer->stop();
     emit about_board_back_msg();
 }

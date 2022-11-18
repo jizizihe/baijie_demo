@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>527</width>
-    <height>386</height>
+    <width>798</width>
+    <height>398</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -307,7 +307,7 @@ QSlider::sub-page:horizontal {
             <string>gpio: </string>
            </property>
            <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
@@ -445,7 +445,7 @@ QSlider::sub-page:horizontal {
            </spacer>
           </item>
           <item>
-           <widget class="SwitchControl" name="status_Switch" native="true"/>
+           <widget class="common_switch" name="status_Switch" native="true"/>
           </item>
           <item>
            <spacer name="horizontalSpacer_5">
@@ -520,7 +520,7 @@ QSlider::sub-page:horizontal {
            </spacer>
           </item>
           <item>
-           <widget class="SwitchControl" name="value_Switch" native="true"/>
+           <widget class="common_switch" name="value_Switch" native="true"/>
           </item>
           <item>
            <spacer name="horizontalSpacer_9">
@@ -659,9 +659,9 @@ QSlider::sub-page:horizontal {
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SwitchControl</class>
+   <class>common_switch</class>
    <extends>QWidget</extends>
-   <header location="global">switchcontrol.h</header>
+   <header location="global">common_switch.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

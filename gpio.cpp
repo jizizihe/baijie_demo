@@ -8,79 +8,82 @@
 #include <QButtonGroup>
 #include <QTimer>
 
-static QScreen *screen;
-static int screenWidth;
-static int screenHeight;
-static int screenFlag;
-static int statusFirstFlag;
-static int valueFirstFlag;
-static QLabel *statusSwitchLabel1;
-static QLabel *statusSwitchLabel2;
-static QLabel *valueSwitchLabel1;
-static QLabel *valueSwitchLabel2;
-static QHBoxLayout *horLayout;
-static QTimer *timer;
+static QScreen *g_screen;
+static int g_screenWidth;
+static int g_screenHeight;
+static int g_screenFlag;            // 0:width > Height  1:width < Height
+static int g_statusFirstFlag;       // 0:Display status button for the first time
+static int g_valueFirstFlag;        // 0:Display value button for the first time
+static QLabel *g_statusSwitchLabel1;
+static QLabel *g_statusSwitchLabel2;
+static QLabel *g_valueSwitchLabel1;
+static QLabel *g_valueSwitchLabel2;
+static QHBoxLayout *g_valueHorLayout;
+static QHBoxLayout *g_statusHorLayout;
+static QTimer *g_timer;
 
 gpio::gpio(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::gpio)
 {
     ui->setupUi(this);
-
     this->setAttribute(Qt::WA_StyledBackground,true);
 
-    occupiedGpio = getDebugGpio();
+    g_occupiedGpio = getDebugGpio();
     QRegExp regx("[a-zA-Z0-9|,]{1,}$");
     QValidator *validator = new QRegExpValidator(regx, ui->lineedit);
     ui->lineedit->setValidator( validator );
     ui->display->setReadOnly(true);
 
-    screen = qApp->primaryScreen();
-    screenWidth = screen->size().width();
-    screenHeight = screen->size().height();
+    g_screen = qApp->primaryScreen();
+    g_screenWidth = g_screen->size().width();
+    g_screenHeight = g_screen->size().height();
 
-    if(screenWidth < screenHeight)
+    if(g_screenWidth < g_screenHeight)
     {
-        screenFlag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
+        g_screenFlag = 1;
+        ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
 
     ui->status_Switch->setCheckedColor(QColor(100, 225, 100, 150));
     ui->value_Switch->setCheckedColor(QColor(100, 225, 100, 150));
 
-    timer = new QTimer(this);
-    connect(timer,SIGNAL(timeout()),this,SLOT(gpio_refresh()));         //The port information is refreshed every second
+    g_timer = new QTimer(this);
+    connect(g_timer,SIGNAL(timeout()),this,SLOT(gpio_refresh()));         //The port information is refreshed every second
     connect(ui->status_Switch,SIGNAL(toggled(bool)),this,SLOT(status_switch_change_flag(bool)));
     connect(ui->value_Switch,SIGNAL(toggled(bool)),this,SLOT(value_switch_change_flag(bool)));
+    connect(ui->btn_ret,SIGNAL(clicked(bool)),this,SLOT(btn_ret_clicked()));
+    connect(this,SIGNAL(gpio_back_msg()),this,SLOT(srceen_clear()));
+
     setTextStatusSwitch(1);
     setTextValueSwitch(1);
-    gpioFont();
-    connect(ui->btn_ret,SIGNAL(clicked(bool)),this,SLOT(ret_clicked()));
-    connect(this,SIGNAL(gpio_back_msg()),this,SLOT(srceen_clear()));
+    setGpioFont();
 }
 
 gpio::~gpio()
 {
     delete ui;
-    delete statusSwitchLabel1;
-    delete statusSwitchLabel2;
-    delete valueSwitchLabel1;
-    delete valueSwitchLabel2;
-    delete horLayout;
+    delete g_statusSwitchLabel1;
+    delete g_statusSwitchLabel2;
+    delete g_valueSwitchLabel1;
+    delete g_valueSwitchLabel2;
+    delete g_valueHorLayout;
+    delete g_statusHorLayout;
 }
 
-void gpio::ret_clicked()
+void gpio::btn_ret_clicked()
 {
     emit gpio_back_msg();
-    for(int i = 0;i < num;i++)
+    for(int i = 0;i < g_num;i++)
     {
-        if(getFileName(portNumInt[i]))
+        if(getFileName(g_portNumInt[i]))
         {
-            gpioUnexport(portNumInt[i]);
+            gpioUnexport(g_portNumInt[i]);
         }
     }
-    memset(portNumInt,0,sizeof(portNumInt));
-    num = 0;
-    timer->stop();
+    memset(g_portNumInt,0,sizeof(g_portNumInt));
+    g_num = 0;
+    g_timer->stop();
 }
 
 void gpio::srceen_clear()
@@ -89,62 +92,62 @@ void gpio::srceen_clear()
     ui->lineedit->clear();
 }
 
-bool gpio::warning()
+bool gpio::input_warning()
 {
     QString strPort = ui->lineedit->text();
     int i,j = -1;
     QString gpio;
-    portCount = num;
+    g_portCount = g_num;
 
     for(i = 0;i < strPort.size();i++)
     {
         if(strPort.at(i) == ',')
         {
             gpio = strPort.mid(j+1,(i-j-1));
-            if(!isTruePort(gpio,num))
+            if(!isTruePort(gpio,g_num))
             {
                 QMessageBox mesg(QMessageBox::Information,
                                  tr("QMessageBox::information()"),
                                  tr("Please input true GPIO!"),
                                  0,this);
                 mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                if(screenFlag == 1)
-                    mesg.move(screenWidth*2/3,screenHeight/3);
+                if(g_screenFlag == 1)
+                    mesg.move(g_screenWidth*2/3,g_screenHeight/3);
                 else
-                    mesg.move(screenWidth/3,screenHeight/3);
+                    mesg.move(g_screenWidth/3,g_screenHeight/3);
                 mesg.exec();this->activateWindow();this->setFocus();
                 return false;
             }
-            calcPortStr(portNumInt[num],portNumStr[num]);
-            for(int k = 0;k < occupiedGpio.len;k++)
+            calcPortStr(g_portNumInt[g_num],g_portNumStr[g_num]);
+            for(int k = 0;k < g_occupiedGpio.len;k++)
             {
-                if(occupiedGpio.gpio[k] == portNumInt[num])
+                if(g_occupiedGpio.gpio[k] == g_portNumInt[g_num])
                 {
-                    QString str = QString(tr("P%1 is occupied!You can't mobilize it!")).arg(portNumStr[num]);
+                    QString str = QString(tr("P%1 is occupied!You can't mobilize it!")).arg(g_portNumStr[g_num]);
                     QMessageBox mesg(QMessageBox::Information,
                                      tr("QMessageBox::information()"),
                                      tr(str.toUtf8()),
                                      0,this);
                     mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                    if(screenFlag == 1)
-                        mesg.move(screenWidth*2/3,screenHeight/3);
+                    if(g_screenFlag == 1)
+                        mesg.move(g_screenWidth*2/3,g_screenHeight/3);
                     else
-                        mesg.move(screenWidth/3,screenHeight/3);
+                        mesg.move(g_screenWidth/3,g_screenHeight/3);
                     mesg.exec();this->activateWindow();this->setFocus();
                     return false;
                 }
             }
-            if(!getFileName(portNumInt[num]))
+            if(!getFileName(g_portNumInt[g_num]))
             {
-                gpioExport(portNumInt[num]);
+                gpioExport(g_portNumInt[g_num]);
             }
             j = i;
-            num++;
+            g_num++;
         }
         else if(i == strPort.size()-1)
         {
             gpio = strPort.mid(j+1,(i-j));
-            if(!isTruePort(gpio,num))
+            if(!isTruePort(gpio,g_num))
             {
                 QString str = QString(tr("Please input true GPIO!"));
                 QMessageBox mesg(QMessageBox::Information,
@@ -152,38 +155,38 @@ bool gpio::warning()
                                  tr(str.toUtf8()),
                                  0,this);
                 mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                if(screenFlag == 1)
-                    mesg.move(screenWidth*2/3,screenHeight/3);
+                if(g_screenFlag == 1)
+                    mesg.move(g_screenWidth*2/3,g_screenHeight/3);
                 else
-                    mesg.move(screenWidth/3,screenHeight/3);
+                    mesg.move(g_screenWidth/3,g_screenHeight/3);
                 mesg.exec();this->activateWindow();this->setFocus();
                 return false;
             }
-            calcPortStr(portNumInt[num],portNumStr[num]);
-            for(int k = 0;k < occupiedGpio.len;k++)
+            calcPortStr(g_portNumInt[g_num],g_portNumStr[g_num]);
+            for(int k = 0;k < g_occupiedGpio.len;k++)
             {
-                if(occupiedGpio.gpio[k] == portNumInt[num])
+                if(g_occupiedGpio.gpio[k] == g_portNumInt[g_num])
                 {
-                    QString str = QString(tr("P%1 is occupied!You can't mobilize it!")).arg(portNumStr[num]);
+                    QString str = QString(tr("P%1 is occupied!You can't mobilize it!")).arg(g_portNumStr[g_num]);
                     QMessageBox mesg(QMessageBox::Information,
                                      tr("QMessageBox::information()"),
                                      tr(str.toUtf8()),
                                      0,this);
                     mesg.addButton(tr("OK"),QMessageBox::YesRole);
-                    if(screenFlag == 1)
-                        mesg.move(screenWidth*2/3,screenHeight/3);
+                    if(g_screenFlag == 1)
+                        mesg.move(g_screenWidth*2/3,g_screenHeight/3);
                     else
-                        mesg.move(screenWidth/3,screenHeight/3);
+                        mesg.move(g_screenWidth/3,g_screenHeight/3);
                     mesg.exec();this->activateWindow();this->setFocus();
                     return false;
                 }
             }
-            if(!getFileName(portNumInt[num]))
+            if(!getFileName(g_portNumInt[g_num]))
             {
-                gpioExport(portNumInt[num]);
+                gpioExport(g_portNumInt[g_num]);
             }
             j = i;
-            num++;
+            g_num++;
         }
     }
     return true;
@@ -232,11 +235,11 @@ bool gpio::isTruePort(QString str,int i)             //Check whether the port mo
         temp = port.toLatin1();
         gpioPort = *(temp.data());
 
-        QString num = str.mid(2);
-        int gpio_num = num.toInt();
-        portNumInt[i] = calcPortNum(gpioPort, gpio_num);
+        QString g_num = str.mid(2);
+        int gpio_num = g_num.toInt();
+        g_portNumInt[i] = calcPortNum(gpioPort, gpio_num);
 
-        if(portNumInt[i] < 0 && str.size() != 0)
+        if(g_portNumInt[i] < 0 && str.size() != 0)
         {
             return false;
         }
@@ -248,11 +251,11 @@ bool gpio::isTruePort(QString str,int i)             //Check whether the port mo
         {
             return false;
         }
-        QString num = str.mid(1);
-        int gpioNum = num.toInt();
-        portNumInt[i] = calcPortNum(gpioPort, gpioNum);
+        QString g_num = str.mid(1);
+        int gpioNum = g_num.toInt();
+        g_portNumInt[i] = calcPortNum(gpioPort, gpioNum);
 
-        if(portNumInt[i] < 0 && str.size() != 0)
+        if(g_portNumInt[i] < 0 && str.size() != 0)
         {
             return false;
         }
@@ -305,25 +308,27 @@ bool gpio::isNumber(QString &qstrSrc)
 void gpio::languageReload()
 {
     ui->retranslateUi(this);
-    QString str;
-    str = statusSwitchLabel1->text();
-    statusSwitchLabel1->setText(tr(str.toUtf8()));
-    str = statusSwitchLabel2->text();
-    statusSwitchLabel2->setText(tr(str.toUtf8()));
-    str = valueSwitchLabel1->text();
-    valueSwitchLabel1->setText(tr(str.toUtf8()));
-    str = valueSwitchLabel2->text();
-    valueSwitchLabel2->setText(tr(str.toUtf8()));
+    int flag = ui->status_Switch->isToggled();
+    if(flag == 1)
+    ui->status_Switch->setToggle(true);
+    else
+    ui->status_Switch->setToggle(false);
+
+    flag = ui->value_Switch->isToggled();
+    if(flag == 1)
+    ui->value_Switch->setToggle(true);
+    else
+    ui->value_Switch->setToggle(false);
 }
 
-void gpio::gpioFont()
+void gpio::setGpioFont()
 {
-    qreal realX = screen->physicalDotsPerInchX();
-    qreal realY = screen->physicalDotsPerInchY();
-    qreal realWidth = screenWidth / realX * 2.54;
-    qreal realHeight = screenHeight / realY *2.54;
+    qreal realX = g_screen->physicalDotsPerInchX();
+    qreal realY = g_screen->physicalDotsPerInchY();
+    qreal realWidth = g_screenWidth / realX * 2.54;
+    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(screenFlag)
+    if(g_screenFlag)
     {
         if(realHeight < 15)
         {
@@ -372,12 +377,13 @@ void gpio::on_btn_hint_clicked()
                      0,this);
     mesg.addButton(tr("OK"),QMessageBox::YesRole);
     mesg.resize(100,100);
-    if(screenFlag == 1)
-        mesg.move(screenWidth*3/4,screenHeight/4);
+    if(g_screenFlag == 1)
+        mesg.move(g_screenWidth*3/4,g_screenHeight/4);
     else
-        mesg.move(screenWidth/4,screenHeight/4);
+        mesg.move(g_screenWidth/4,g_screenHeight/4);
     mesg.exec();
-    this->activateWindow();this->setFocus();
+    this->activateWindow();
+    this->setFocus();
 }
 
 void gpio::status_switch_change_flag(bool flag)
@@ -387,29 +393,29 @@ void gpio::status_switch_change_flag(bool flag)
     {
         ui->value_Switch->setDisabled(false);
         setTextStatusSwitch(1);
-        if(!warning())
+        if(!input_warning())
         {
             return;
         }
         ui->display->clear();
-        for(int i = portCount;i < num;i++)
+        for(int i = g_portCount;i < g_num;i++)
         {
-            gpioSetState(portNumInt[i], (char *)"out");
-            calcPortStr(portNumInt[i],portNumStr[i]);
+            setGpioState(g_portNumInt[i], (char *)"out");
+            calcPortStr(g_portNumInt[i],g_portNumStr[i]);
             ui->display->setAlignment(Qt::AlignCenter);
             ui->display->append(QString(tr("\n")));
-            ui->display->append(QString(tr("  gpio_port: %1")).arg(portNumStr[i]));
+            ui->display->append(QString(tr("  gpio_port: %1")).arg(g_portNumStr[i]));
 
             ui->display->append(QString(tr("  state: %1")).arg(tr("out")));
             bool valueFlag = ui->value_Switch->isToggled();
             if(valueFlag == 1)
             {
-                gpioSetValue(portNumInt[i], 1);
+                setGpioValue(g_portNumInt[i], 1);
                 ui->display->append(QString(tr("  value: 1")));
             }
             else
             {
-                gpioSetValue(portNumInt[i], 0);
+                setGpioValue(g_portNumInt[i], 0);
                 ui->display->append(QString(tr("  value: 0")));
             }
         }
@@ -418,20 +424,20 @@ void gpio::status_switch_change_flag(bool flag)
     else //in
     {
         setTextStatusSwitch(0);
-        if(!warning())
+        if(!input_warning())
         {
             return;
         }
         ui->display->clear();
-        for(int i = portCount;i < num;i++)
+        for(int i = g_portCount;i < g_num;i++)
         {
-            gpioSetState(portNumInt[i], (char *)"in");
+            setGpioState(g_portNumInt[i], (char *)"in");
             ui->display->setAlignment(Qt::AlignCenter);
             ui->display->setAlignment(Qt::AlignCenter);
             ui->display->append(QString(tr("\n")));
-            ui->display->append(QString(tr("  gpio_port: %1")).arg(portNumStr[i]));
+            ui->display->append(QString(tr("  gpio_port: %1")).arg(g_portNumStr[i]));
             ui->display->append(QString(tr("  state: %1")).arg(tr("in")));
-            ui->display->append(QString(tr("  value: %1")).arg((gpioGetValue(portNumInt[i]))));
+            ui->display->append(QString(tr("  value: %1")).arg((getGpioValue(g_portNumInt[i]))));
         }
         ui->value_Switch->setDisabled(true);
     }
@@ -443,40 +449,40 @@ void gpio::value_switch_change_flag(bool flag)
     if(flag == 1) // high
     {
         setTextValueSwitch(1);
-        if(!warning())
+        if(!input_warning())
         {
             return;
         }
         ui->display->clear();
-        for(int i = portCount;i < num;i++)
+        for(int i = g_portCount;i < g_num;i++)
         {
-            gpioSetState(portNumInt[i], (char *)"out");
-            calcPortStr(portNumInt[i],portNumStr[i]);
+            setGpioState(g_portNumInt[i], (char *)"out");
+            calcPortStr(g_portNumInt[i],g_portNumStr[i]);
             ui->display->setAlignment(Qt::AlignCenter);
             ui->display->append(QString(tr("\n")));
-            ui->display->append(QString(tr("  gpio_port: %1")).arg(portNumStr[i]));
+            ui->display->append(QString(tr("  gpio_port: %1")).arg(g_portNumStr[i]));
             ui->display->append(QString(tr("  state: %1")).arg(tr("out")));
-            gpioSetValue(portNumInt[i], 1);
+            setGpioValue(g_portNumInt[i], 1);
             ui->display->append(QString(tr("  value: 1")));
         }
     }
     else //low
     {
         setTextValueSwitch(0);
-        if(!warning())
+        if(!input_warning())
         {
             return;
         }
         ui->display->clear();
-        for(int i = portCount;i < num;i++)
+        for(int i = g_portCount;i < g_num;i++)
         {
-            gpioSetState(portNumInt[i], (char *)"out");
-            calcPortStr(portNumInt[i],portNumStr[i]);
+            setGpioState(g_portNumInt[i], (char *)"out");
+            calcPortStr(g_portNumInt[i],g_portNumStr[i]);
             ui->display->setAlignment(Qt::AlignCenter);
             ui->display->append(QString(tr("\n")));
-            ui->display->append(QString(tr("  gpio_port: %1")).arg(portNumStr[i]));
+            ui->display->append(QString(tr("  gpio_port: %1")).arg(g_portNumStr[i]));
             ui->display->append(QString(tr("  state: %1")).arg(tr("out")));
-            gpioSetValue(portNumInt[i], 0);
+            setGpioValue(g_portNumInt[i], 0);
             ui->display->append(QString(tr("  value: 0")));
         }
     }
@@ -484,122 +490,122 @@ void gpio::value_switch_change_flag(bool flag)
 
 void gpio::setTextStatusSwitch(int flag)
 {
-    if(statusFirstFlag == 0)
+    if(g_statusFirstFlag == 0)
     {
-        statusSwitchLabel1 = new QLabel(ui->status_Switch);
-        statusSwitchLabel2 = new QLabel(ui->status_Switch);
-        QHBoxLayout *horLayout = new QHBoxLayout();
+        g_statusSwitchLabel1 = new QLabel(ui->status_Switch);
+        g_statusSwitchLabel2 = new QLabel(ui->status_Switch);
+        g_statusHorLayout = new QHBoxLayout();
         if(flag == 0)
         {
-            statusSwitchLabel2->setText(tr("direction: in   "));
-            horLayout->setStretchFactor(statusSwitchLabel1,1);
-            horLayout->setStretchFactor(statusSwitchLabel2,2);
+            g_statusSwitchLabel2->setText(tr("direction: in   "));
+            g_statusHorLayout->setStretchFactor(g_statusSwitchLabel1,1);
+            g_statusHorLayout->setStretchFactor(g_statusSwitchLabel2,2);
         }
         else if(flag == 1)
         {
-            statusSwitchLabel1->setText(tr("   direction: out"));
-            horLayout->setStretchFactor(statusSwitchLabel1,2);
-            horLayout->setStretchFactor(statusSwitchLabel2,1);
+            g_statusSwitchLabel1->setText(tr("   direction: out"));
+            g_statusHorLayout->setStretchFactor(g_statusSwitchLabel1,2);
+            g_statusHorLayout->setStretchFactor(g_statusSwitchLabel2,1);
         }
 
-        statusSwitchLabel1->setAlignment(Qt::AlignVCenter);
-        statusSwitchLabel2->setAlignment(Qt::AlignVCenter);
-        statusSwitchLabel2->setAlignment(Qt::AlignCenter);
-        statusSwitchLabel1->setAlignment(Qt::AlignCenter);
-        horLayout->addWidget(statusSwitchLabel1);
-        horLayout->addWidget(statusSwitchLabel2);
-        ui->status_Switch->setLayout(horLayout);
-        horLayout->setContentsMargins(0,0,0,0);
-        statusFirstFlag++;
+        g_statusSwitchLabel1->setAlignment(Qt::AlignVCenter);
+        g_statusSwitchLabel2->setAlignment(Qt::AlignVCenter);
+        g_statusSwitchLabel2->setAlignment(Qt::AlignCenter);
+        g_statusSwitchLabel1->setAlignment(Qt::AlignCenter);
+        g_statusHorLayout->addWidget(g_statusSwitchLabel1);
+        g_statusHorLayout->addWidget(g_statusSwitchLabel2);
+        ui->status_Switch->setLayout(g_statusHorLayout);
+        g_statusHorLayout->setContentsMargins(0,0,0,0);
+        g_statusFirstFlag++;
     }
     else
     {
         if(flag == 1)
         {
-            statusSwitchLabel1->setText(tr("  direction: out"));
-            statusSwitchLabel2->setText("");
-            horLayout->setStretchFactor(statusSwitchLabel1,2);
-            horLayout->setStretchFactor(statusSwitchLabel2,1);
+            g_statusSwitchLabel1->setText(tr("  direction: out"));
+            g_statusSwitchLabel2->setText("");
+            g_statusHorLayout->setStretchFactor(g_statusSwitchLabel1,2);
+            g_statusHorLayout->setStretchFactor(g_statusSwitchLabel2,1);
         }
         else
         {
-            statusSwitchLabel1->setText("");
-            statusSwitchLabel2->setText(tr("direction: in  "));
-            horLayout->setStretchFactor(statusSwitchLabel1,1);
-            horLayout->setStretchFactor(statusSwitchLabel2,2);
+            g_statusSwitchLabel1->setText("");
+            g_statusSwitchLabel2->setText(tr("direction: in  "));
+            g_statusHorLayout->setStretchFactor(g_statusSwitchLabel1,1);
+            g_statusHorLayout->setStretchFactor(g_statusSwitchLabel2,2);
         }
     }
 }
 
 void gpio::setTextValueSwitch(int flag)
 {
-    if(valueFirstFlag == 0)
+    if(g_valueFirstFlag == 0)
     {
-        valueSwitchLabel1 = new QLabel(ui->value_Switch);
-        valueSwitchLabel2 = new QLabel(ui->value_Switch);
-        horLayout = new QHBoxLayout();
+        g_valueSwitchLabel1 = new QLabel(ui->value_Switch);
+        g_valueSwitchLabel2 = new QLabel(ui->value_Switch);
+        g_valueHorLayout = new QHBoxLayout();
         if(flag == 0)
         {
-            valueSwitchLabel2->setText(tr("value: low"));
-            horLayout->addWidget(valueSwitchLabel1);
-            horLayout->addWidget(valueSwitchLabel2);
-            horLayout->setStretchFactor(valueSwitchLabel2,2);
-            horLayout->setStretchFactor(valueSwitchLabel1,1);
+            g_valueSwitchLabel2->setText(tr("value: low"));
+            g_valueHorLayout->addWidget(g_valueSwitchLabel1);
+            g_valueHorLayout->addWidget(g_valueSwitchLabel2);
+            g_valueHorLayout->setStretchFactor(g_valueSwitchLabel2,2);
+            g_valueHorLayout->setStretchFactor(g_valueSwitchLabel1,1);
         }
         else if(flag == 1)
         {
-            horLayout->addWidget(valueSwitchLabel1);
-            horLayout->addWidget(valueSwitchLabel2);
-            valueSwitchLabel1->setText(tr("  value: high"));
-            horLayout->setStretchFactor(valueSwitchLabel2,1);
-            horLayout->setStretchFactor(valueSwitchLabel1,2);
+            g_valueHorLayout->addWidget(g_valueSwitchLabel1);
+            g_valueHorLayout->addWidget(g_valueSwitchLabel2);
+            g_valueSwitchLabel1->setText(tr("  value: high"));
+            g_valueHorLayout->setStretchFactor(g_valueSwitchLabel2,1);
+            g_valueHorLayout->setStretchFactor(g_valueSwitchLabel1,2);
         }
-        valueSwitchLabel1->setAlignment(Qt::AlignVCenter);
-        valueSwitchLabel2->setAlignment(Qt::AlignVCenter);
-        valueSwitchLabel2->setAlignment(Qt::AlignCenter);
-        valueSwitchLabel1->setAlignment(Qt::AlignCenter);
-        ui->value_Switch->setLayout(horLayout);
-        horLayout->setContentsMargins(0,0,0,0);
-        valueFirstFlag++;
+        g_valueSwitchLabel1->setAlignment(Qt::AlignVCenter);
+        g_valueSwitchLabel2->setAlignment(Qt::AlignVCenter);
+        g_valueSwitchLabel2->setAlignment(Qt::AlignCenter);
+        g_valueSwitchLabel1->setAlignment(Qt::AlignCenter);
+        ui->value_Switch->setLayout(g_valueHorLayout);
+        g_valueHorLayout->setContentsMargins(0,0,0,0);
+        g_valueFirstFlag++;
     }
     else
     {
         if(flag == 0)
         {
-            if(screenFlag == 1)
+            if(g_screenFlag == 1)
             {
-                valueSwitchLabel1->setText("");
-                valueSwitchLabel2->setText(tr("value: low  "));
+                g_valueSwitchLabel1->setText("");
+                g_valueSwitchLabel2->setText(tr("value: low  "));
             }
             else
             {
-                valueSwitchLabel2->setText(tr("value: low"));
-                valueSwitchLabel1->setText(" ");
+                g_valueSwitchLabel2->setText(tr("value: low"));
+                g_valueSwitchLabel1->setText(" ");
             }
-            horLayout->setStretchFactor(valueSwitchLabel2,2);
-            horLayout->setStretchFactor(valueSwitchLabel1,1);
+            g_valueHorLayout->setStretchFactor(g_valueSwitchLabel2,2);
+            g_valueHorLayout->setStretchFactor(g_valueSwitchLabel1,1);
         }
         else
         {
-            if(screenFlag == 1)
+            if(g_screenFlag == 1)
             {
-                valueSwitchLabel2->setText("");
-                valueSwitchLabel1->setText(tr("  value:  high"));
+                g_valueSwitchLabel2->setText("");
+                g_valueSwitchLabel1->setText(tr("  value:  high"));
             }
             else
             {
-                valueSwitchLabel2->setText(" ");
-                valueSwitchLabel1->setText(tr("  value:  high"));
+                g_valueSwitchLabel2->setText(" ");
+                g_valueSwitchLabel1->setText(tr("  value:  high"));
             }
-            horLayout->setStretchFactor(valueSwitchLabel2,1);
-            horLayout->setStretchFactor(valueSwitchLabel1,2);
+            g_valueHorLayout->setStretchFactor(g_valueSwitchLabel2,1);
+            g_valueHorLayout->setStretchFactor(g_valueSwitchLabel1,2);
         }
     }
 }
 
 void gpio::showEvent(QShowEvent *event)
 {
-    timer->start(1000);
+    g_timer->start(1000);
 }
 
 void gpio::gpio_refresh()
@@ -610,10 +616,10 @@ void gpio::gpio_refresh()
         return;
     }
     ui->display->clear();
-    for(int i = portCount;i < num;i++)
+    for(int i = g_portCount;i < g_num;i++)
     {
         QString strStatus;
-        int status = gpioGetState(portNumInt[i]);
+        int status = getGpioState(g_portNumInt[i]);
         if(status == 1)
         {
             strStatus = "out";
@@ -624,8 +630,8 @@ void gpio::gpio_refresh()
         }
         ui->display->setAlignment(Qt::AlignCenter);
         ui->display->append(QString(tr("\n")));
-        ui->display->append(QString(tr("  gpio_port: %1")).arg(portNumStr[i]));
+        ui->display->append(QString(tr("  gpio_port: %1")).arg(g_portNumStr[i]));
         ui->display->append(QString(tr("  state: %1")).arg(tr(strStatus.toUtf8())));
-        ui->display->append(QString(tr("  value: %1")).arg(gpioGetValue(portNumInt[i])));
+        ui->display->append(QString(tr("  value: %1")).arg(getGpioValue(g_portNumInt[i])));
     }
 }

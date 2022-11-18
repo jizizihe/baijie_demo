@@ -26,5 +26,4 @@ char *getOSName();
 int getQTVersion(char *dirPath,char *fileName,char *fsFile);
 char *getKernel();
 
-
 #endif

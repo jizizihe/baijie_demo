@@ -22,14 +22,14 @@ public:
     int filePathFlag;                           // 0: choose file  1: choose path
     void showEvent(QShowEvent *event);
     void languageReload();
-    void fileOprationFont();
+    void setFileOprationFont();
 
 private slots:
     void read_bash_standard_output_info();
-    void on_btn_back_clicked();
-    void on_treeWidget_itemClicked(QTreeWidgetItem *item, int column);
+    void on_btn_back_clicked();  
     void on_btn_cancel_clicked();
     void on_btn_choose_clicked();
+    void on_treeWidget_itemClicked(QTreeWidgetItem *item, int column);
 
 signals:
     void file_rev_file_msg(QString,QString);    // Returns file and path signal
@@ -38,7 +38,7 @@ signals:
 
 private:
     Ui::File_opration *ui;
-    QProcess proPath;
+    QProcess g_proPath;
 };
 
 #endif // FILE_OPRATION_H

@@ -24,8 +24,8 @@ public:
     void languageReload();
     void getFileName(QString fileName);
     void saveFile();
-    void saveFileFont();
-    void fileChooseWidgetShow();
+    void setSaveFileFont();
+    void chooseFileWidgetShow();
 
 private slots:
     void on_btn_cancel_clicked();
@@ -39,9 +39,9 @@ signals:
 
 private:
     Ui::voice_savefile_name *ui;
-    QProcess proPath;
-    File_opration File_oprationWg;
-    database databaseWg;
+    QProcess g_proPath;
+    File_opration g_fileOprationWg;
+    database g_database;
 };
 
 #endif // VOICE_SAVEFILE_NAME_H

@@ -37,20 +37,22 @@ public:
     ~voice();
 
     void languageReload();
-    void refresh(QString);
-    QString timeToString(int length); // time lenght change to "00:00:00" mode
-    int calculateTimeLength(QString length);
+    void refreshFile(QString);
     void setVolume(int value);
-    void voiceFont();
-    void fileChooseWidgetshow();
-    float getWavTimeLength(QString file);  //Calculate the voice time of a wav file
+    void setVoiceFont();
+    void chooseFileWidgetShow();
     void saveFileWidgetShow();
     void renameFileWidgetShow();
+    void record();
+    void play();
     void showEvent(QShowEvent *event);
     void closeEvent(QCloseEvent *event);
+    int calculateTimeLength(QString length);
+    float getWavTimeLength(QString file);  //Calculate the voice time of a wav file
+    QString timeToString(int length); // time lenght change to "00:00:00" mode
 
 private slots:
-    void file_path(QString);
+    void get_file_widget_path(QString);
     void file_choose_widget_hide();
     void show_recording_time();
     void get_playing_time_length();
@@ -78,11 +80,11 @@ signals:
 
 private:
     Ui::voice *ui;
-    QString fileName;
-    voice_savefile_name saveFileWg;
-    voice_rename renameWg;
-    File_opration File_oprationWg;
-    database databaseWg;
+    QString g_fileName;
+    voice_savefile_name g_saveFileWg;
+    voice_rename g_renameWg;
+    File_opration g_fileOprationWg;
+    database g_database;
 };
 
 #endif // VOICE_H

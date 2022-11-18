@@ -212,7 +212,7 @@ QMessageBox {
          </spacer>
         </item>
         <item>
-         <widget class="SwitchControl" name="bluetooth_Switch" native="true"/>
+         <widget class="common_switch" name="bluetooth_Switch" native="true"/>
         </item>
        </layout>
       </item>
@@ -834,9 +834,9 @@ QMessageBox {
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SwitchControl</class>
+   <class>common_switch</class>
    <extends>QWidget</extends>
-   <header location="global">switchcontrol.h</header>
+   <header location="global">common_switch.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

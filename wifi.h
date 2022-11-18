@@ -2,9 +2,9 @@
 #define WIFI_H
 
 #include <QMainWindow>
-#include "wifi_bt_interface.h"
+#include "wifi_interface.h"
 #include "wifi_thread.h"
-#include "wificondialog.h"
+#include "wifi_condialog.h"
 #include "ipset_interface.h"
 
 namespace Ui {
@@ -19,17 +19,16 @@ public:
     explicit wifi(QWidget *parent = 0);
     ~wifi();
     void languageReload();
-    void wifiFont();
+    void setWifiFont();
     void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);
-    void wifiWidgetShow(QString,int,QString);
-    void switchSetText();
+    void wifiListShow(QString,int,QString);
+    void setSwitchText();
 
 signals:
     void wifi_back_msg();
-    void ToThread();
     void wifi_scan_msg();
-    void wifi_activation_msg(QString);
+    void set_wifi_enble(QString);
     void hotspot_build_msg(QString,QString,QString);
     void scan_wlan_msg();
     void get_hotspot_sql_msg();             //get the hotspot table information in the database
@@ -40,7 +39,7 @@ private slots:
     void on_btn_hotspot_clicked();
     void recv_msg(int, QString );
     void revc_scan_wlan(QString);
-    void wifi_info_fresh(QString wifiName);
+    void wifi_info_refresh(QString wifiName);
     void ListWidgeItem_clicked();
     void on_btn_hotspotBuild_clicked();
     void on_btn_hotspotDown_clicked();
@@ -55,14 +54,14 @@ private slots:
 
 private:
     Ui::wifi *ui;
-    wifi_info WifiInfo;
-    QLabel *LoadLabel;
-    QMovie *pMovie;
-    QThread * myThread;
-    wifi_thread * WifiThread;
-    wifi_bt_interface * wifi_bt_t;
-    WifiConDialog *WifiConnectDialog;
-    database databaseWg;
+    wifi_info g_wifiInfo;
+    QLabel *g_loadLabel;
+    QMovie *g_pMovie;
+    QThread * g_myThread;
+    wifi_thread * g_wifiThread;
+    wifi_interface * g_wifiInterface;
+    WifiConDialog *g_wifiConnectDialogWg;
+    database g_database;
 };
 
 #endif // WIFI_H

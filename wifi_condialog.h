@@ -1,7 +1,7 @@
 #ifndef WIFICONDIALOG_H
 #define WIFICONDIALOG_H
 
-#include "wifi_bt_interface.h"
+#include "wifi_interface.h"
 #include <QDialog>
 #include <QMessageBox>
 #include <QDebug>
@@ -24,15 +24,14 @@ public:
     void setPasswdText(QString );
     QString getWifiNameText();
     QString getPasswdText();
-    QString GetWifiOkBtnText();
+    QString getWifiOkBtnText();
     void setWifiOkBtnText(int);
-    void wifidialFont();
+    void setWifiDialogFont();
 
 signals:
     void wifi_connect_dialog_msg(QString,QString);
-    void wifi_info_fresh_msg(QString);
-    void wifidial_close_msg();
-    void wifi_show_refresh_msg();
+    void wifi_dialog_close_msg();
+    void wifi_status_show_msg();
     void wifi_modify_pass_msg(QString,QString);
 
 private slots:
@@ -45,9 +44,9 @@ public slots:
 
 private:
     Ui::WifiConDialog *ui;
-    QLabel *WifiLoadLabel;
-    QMovie *WifiMovie;
-    database databaseWg;
+    QLabel *g_wifiLoadLabel;
+    QMovie *g_wifiMovie;
+    database g_database;
 };
 
 #endif // WIFICONDIALOG_H

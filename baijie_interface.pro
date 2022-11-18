@@ -17,7 +17,7 @@ CONFIG += C++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = HelperAPP
+TARGET = BaijieDemo
 TEMPLATE = app
 
 target.path = /
@@ -41,11 +41,7 @@ SOURCES += \
     voice.cpp \
     udev.cpp \
     gpio.cpp \
-    touchscreen.cpp \
-    ctouchbutton.cpp \
     timeset.cpp \
-    globalapp.cpp \
-    boardinfo_interface.cpp \
     about_board.cpp \
     ipset_interface.cpp \
     gpio_interface.cpp \
@@ -55,36 +51,41 @@ SOURCES += \
     serial.cpp \
     serial_thread.cpp \
     sys_setting.cpp \
-    wifi_thread.cpp \
-    wifi_bt_interface.cpp \
-    switchcontrol.cpp \
     wifi.cpp \
-    wificondialog.cpp \
-    sim_module.cpp \
-    serialdialog.cpp \
     all_test_thread.cpp \
     all_test_interface.cpp \
     all_test.cpp \
     ipset.cpp \
     database.cpp \
-    myslider.cpp \
     voice_savefile_name.cpp \
     voice_rename.cpp \
     file_opration.cpp \
-    backlight.cpp
+    backlight.cpp \
+    wifi_thread.cpp \
+    bluetooth_interface.cpp \
+    sim_interface.cpp \
+    sim_thread.cpp \
+    wifi_interface.cpp \
+    sim.cpp \
+    about_board_interface.cpp \
+    common_slider_press.cpp \
+    common_switch.cpp \
+    touch_screen_button.cpp \
+    touch_screen.cpp \
+    wifi_condialog.cpp \
+    main_touch.cpp \
+    desktop.cpp \
+    language_selection.cpp \
+    serial_dialog.cpp
 
 HEADERS += \
         mainwindow.h \
     voice.h \
     udev.h \
     gpio.h \
-    touchscreen.h \
-    ctouchbutton.h \
     timeset.h \
     gpio_interface.h \
-    globalapp.h \
     about_board.h \
-    boardinfo_interface.h \
     ipset_interface.h \
     bluetooth.h \
     bluetooth_thread.h \
@@ -92,23 +93,32 @@ HEADERS += \
     serial.h \
     serial_thread.h \
     sys_setting.h \
-    wifi_thread.h \
-    wifi_bt_interface.h \
-    switchcontrol.h \
     wifi.h \
-    wificondialog.h \
-    sim_module.h \
-    serialdialog.h \
     all_test_thread.h \
     all_test_interface.h \
     all_test.h \
     ipset.h \
     database.h \
-    myslider.h \
     voice_savefile_name.h \
     voice_rename.h \
     file_opration.h \
-    backlight.h
+    backlight.h \
+    wifi_thread.h \
+    bluetooth_interface.h \
+    sim_interface.h \
+    sim_thread.h \
+    wifi_interface.h \
+    sim.h \
+    about_board_interface.h \
+    common_slider_press.h \
+    common_switch.h \
+    touch_screen_button.h \
+    touch_screen.h \
+    wifi_condialog.h \
+    serial_dialog.h \
+    main_touch.h \
+    desktop.h \
+    language_selection.h
 
 FORMS += \
         mainwindow.ui \
@@ -125,13 +135,15 @@ FORMS += \
     wifi.ui \
     wificondialog.ui \
     sim_module.ui \
-    serialdialog.ui \
     all_test.ui \
     ipset.ui \
     voice_savefile_name.ui \
     voice_rename.ui \
     file_opration.ui \
-    backlight.ui
+    backlight.ui \
+    desktop.ui \
+    language_selection.ui \
+    serial_dialog.ui
 
 RESOURCES += \
     translation.qrc
@@ -150,4 +162,5 @@ DISTFILES += \
     button_image/sync.svg \
     button_image/all/background(2).png \
     button_image/serial.svg \
-    button_image/system.svg
+    button_image/system.svg \
+    button_image/tel.svg

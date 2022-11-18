@@ -34,12 +34,12 @@
 
 #define SerialNumMax 10
 
-enum COMId
+enum EnumComId
 {
-    COM_NULL =-1,
-    COM0 = 0,
-    COM1 = 1,
-    COM2= 2
+    EnumComNull =-1,
+    EnumCom0 = 0,
+    EnumCom1 = 1,
+    EnumCom2= 2
 };
 
 namespace Ui {
@@ -56,7 +56,7 @@ public:
 
     QStringList getPortNameList();
     void languageReload();
-    void serialFont();
+    void setSerialFont();
     void openSerialPort1();
     void openSerialPort2();
 
@@ -86,10 +86,10 @@ private slots:
 
 private:
     Ui::serial *ui;
-    serial_thread *PortA;
-    serial_thread *PortB;
-    QStringList portNameList;
-    database databaseWg;
+    serial_thread *g_PortA;
+    serial_thread *g_PortB;
+    QStringList g_portNameList;
+    database g_database;
 };
 
 #endif // SERIAL_H

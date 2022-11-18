@@ -4,118 +4,116 @@
 #include <QTimer>
 #include <QListWidgetItem>
 
-using namespace std;
-static QScreen *screen;
-static int screenFlag;
-static int screenWidth;
-static int screenHeight;
-static int openFlag;
-static int scanFlag;       // 0:scan 1:stop 2:the first starting up scan
-static int timerScanFlag;
-static int showFlag;
-static int pairingFlag;
-static int connectingFlag;
-static QString btAddress;
-static QString btName;
-static QString btConnectName;   //Store the name of the connected Bluetooth
-static QString connectFlag;
-static QTimer *timerConncet;   //Periodically refresh the connection information
-static QTimer *timerScan;      //Periodically refresh the scan list
-static QLabel *swicthLabel;
-static QHBoxLayout *horLayout;
+static int g_screenFlag;     // 0:width > Height  1:width < Height
+static int g_screenWidth;
+static int g_screenHeight;
+static int g_openFlag;
+static int g_scanFlag;       // 0:scanning         1:stop        2:the first starting up scan
+static int g_timerScanFlag;  // 0:not Timed automatic scan   1:Timed automatic scan
+static int g_showFlag;       // 0:close Bluetooth interface  1:show Bluetooth interface
+static int g_pairingFlag;
+static int g_connectingFlag;
+static QString g_btAddress;
+static QString g_btName;
+static QString g_btConnectName;   //Store the name of the connected Bluetooth
+static QString g_connectFlag;
+static QTimer *g_timerConncet;   //Periodically refresh the connection information
+static QTimer *g_timerScan;      //Periodically refresh the scan list
+static QLabel *g_swicthLabel;
+static QHBoxLayout *g_horLayout;
 
 bluetooth::bluetooth(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::bluetooth)
 {
     ui->setupUi(this);
-    screen = qApp->primaryScreen();
-    screenWidth = screen->size().width();
-    screenHeight = screen->size().height();
-    if(screenWidth < screenHeight)
+    QScreen *screen = qApp->primaryScreen();
+    g_screenWidth = screen->size().width();
+    g_screenHeight = screen->size().height();
+    if(g_screenWidth < g_screenHeight)
     {
-        screenFlag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
+        g_screenFlag = 1;
+        ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
-    openFlag = 1;
-    wifi_bt_interfaceWg = new wifi_bt_interface(this);
-    bluetoothFont();
-    loadLabel = new QLabel(this);
-    pMovie = new QMovie("://button_image/loading.webp");
-    loadLabel->setFixedSize(50, 50);
-    loadLabel->setScaledContents(true);
-    loadLabel->setMovie(pMovie);
-    if(screenFlag == 1)
+    g_openFlag = 1;
+    g_bluetoothInterface = new bluetooth_interface(this);
+    setBluetoothFont();
+    g_loadLabel = new QLabel(this);
+    g_pMovie = new QMovie("://button_image/loading.webp");
+    g_loadLabel->setFixedSize(50, 50);
+    g_loadLabel->setScaledContents(true);
+    g_loadLabel->setMovie(g_pMovie);
+    if(g_screenFlag == 1)
     {
-        loadLabel->move(screenHeight/2,screenWidth/2);
+        g_loadLabel->move(g_screenHeight/2,g_screenWidth/2);
     }
     else
     {
-        loadLabel->move(screenWidth/2,screenHeight/2 );
+        g_loadLabel->move(g_screenWidth/2,g_screenHeight/2 );
     }
 
-    myThread = new QThread(this);
-    bluetoothThread = new bluetooth_thread();
-    timerConncet = new QTimer(this);
-    timerScan = new QTimer(this);
+    g_myThread = new QThread(this);
+    g_bluetoothThread = new bluetooth_thread();
+    g_timerConncet = new QTimer(this);
+    g_timerScan = new QTimer(this);
 
     ui->bluetooth_Switch->setCheckedColor(QColor(100, 225, 100, 150));
-    switchSetText();
+    setSwitchText();
     connect(ui->bluetooth_Switch,SIGNAL(toggled(bool)),this,SLOT(switch_change_flag(bool)));
-    connect(timerScan,SIGNAL(timeout()),this,SLOT(scan_refresh()));
-    connect(timerConncet,SIGNAL(timeout()),this,SLOT(connect_refresh()));
-    connect(this,SIGNAL(bluetooth_scan_msg()),bluetoothThread,SLOT(bluetooth_scan_thread()));
-    connect(this,SIGNAL(bluetooth_pair_msg(QString)),bluetoothThread,SLOT(bluetooth_pair_thread(QString)));
-    connect(this,SIGNAL(bluetooth_connect_msg(QString)),bluetoothThread,SLOT(bluetooth_connect_thread(QString)));
-    connect(this,SIGNAL(rm_shell_msg()),wifi_bt_interfaceWg,SLOT(rm_bluetooth_shell()));
-    connect(bluetoothThread,SIGNAL(send_bluetooth_msg(int, QString)),this,SLOT(recv_msg(int, QString)));
+    connect(g_timerScan,SIGNAL(timeout()),this,SLOT(scan_refresh()));
+    connect(g_timerConncet,SIGNAL(timeout()),this,SLOT(connect_info_refresh()));
+    connect(this,SIGNAL(bluetooth_scan_msg()),g_bluetoothThread,SLOT(bluetooth_scan_thread()));
+    connect(this,SIGNAL(bluetooth_pair_msg(QString)),g_bluetoothThread,SLOT(bluetooth_pair_thread(QString)));
+    connect(this,SIGNAL(bluetooth_connect_msg(QString)),g_bluetoothThread,SLOT(bluetooth_connect_thread(QString)));
+    connect(this,SIGNAL(rm_shell_msg()),g_bluetoothInterface,SLOT(rm_bluetooth_shell()));
+    connect(g_bluetoothThread,SIGNAL(send_bluetooth_msg(int, QString)),this,SLOT(recv_msg(int, QString)));
 
-    bluetoothThread->moveToThread(myThread);
-    myThread->start();
-    loadLabel->show();
-    pMovie->start();
+    g_bluetoothThread->moveToThread(g_myThread);
+    g_myThread->start();
+    g_loadLabel->show();
+    g_pMovie->start();
     ui->stackedWidget->setCurrentIndex(0);
-    ui->BtNameListWidget->setDisabled(true);
     emit bluetooth_scan_msg();                 //startup scan
-    ui->btn_btScan->setText("stop");
-    scanFlag = 2;
+    ui->btn_btScan->setText(tr("stop"));
+    g_scanFlag = 2;
 }
 
 bluetooth::~bluetooth()
 {
     delete ui;
-    delete bluetoothThread;
-    delete myThread;
+    delete g_bluetoothThread;
+    delete g_myThread;
 }
 
 void bluetooth::recv_msg(int signalType,QString str)
 {
-    if(signalType == btScanSignal)
+    if(signalType == EnumBtScanSignal)
     {
-        if(pairingFlag == 1)
+        if(g_pairingFlag == 1)
         {
-            timerScanFlag = 0;
+            g_timerScanFlag = 0;
             return;
         }
-        if(connectingFlag == 1)
+        if(g_connectingFlag == 1)
         {
-            timerScanFlag = 0;
+            g_timerScanFlag = 0;
             return;
         }
         ui->BtNameListWidget->clear();
-        if(openFlag == 0)
+        if(g_openFlag == 0)
             return ;
-        btScanList.clear();
+        g_btScanList.clear();
         ui->BtNameListWidget->clear();
-        btPairList = databaseWg.tableShow("bluetooth");
+        g_btPairList = g_database.tableShow("bluetooth");
         QString name,status;
-        QStringList pariedList = btPairList;
-        connect_refresh();
-        if(!btPairList.isEmpty())
+        QStringList pariedList = g_btPairList;
+        connect_info_refresh();
+        if(!g_btPairList.isEmpty())
         {
             for(int i = 0;i<pariedList.size();i++)
             {
                 name = pariedList.at(i);
-                if(!QString::compare(btConnectName,name,Qt::CaseSensitive))   //Find whether there is a connected device in the paired device list
+                if(!QString::compare(g_btConnectName,name,Qt::CaseSensitive))   //Find whether there is a connected device in the paired device list
                 {
                     status = tr("connected");
                     bluetoothListShow(name,status);
@@ -134,24 +132,24 @@ void bluetooth::recv_msg(int signalType,QString str)
             }
         }
         QStringList scanList = str.split("\n"); int num=0;
-        btScanList = scanList;
-        btScanList.removeAll(QString(""));btScanList.removeAll(QString("\t"));
-        btPairList = databaseWg.tableShow("bluetooth");
+        g_btScanList = scanList;
+        g_btScanList.removeAll(QString(""));g_btScanList.removeAll(QString("\t"));
+        g_btPairList = g_database.tableShow("bluetooth");
 
         for(int i = 0; i < scanList.size(); i++)
         {
             QString strScanDevice = scanList.at(i);
             QString strScanDeviceAddress = strScanDevice.trimmed().section("\t",0,0);
             QString strScanDeviceName = strScanDevice.trimmed().section("\t",1,1);
-            if(btPairList.size()<= 0)
+            if(g_btPairList.size()<= 0)
             {
                 bluetoothListShow(strScanDeviceName,"");
             }
             else
             {
-                for(int j = 0; j < btPairList.size(); j++)
+                for(int j = 0; j < g_btPairList.size(); j++)
                 {
-                    if(strScanDeviceAddress == QString(btPairList.at(j+1)))         //Remove paired devices from the scan list
+                    if(strScanDeviceAddress == QString(g_btPairList.at(j+1)))         //Remove paired devices from the scan list
                     {
                         int num1 = 0;
                         if(num > 0)
@@ -163,149 +161,149 @@ void bluetooth::recv_msg(int signalType,QString str)
                             num1 = i;
                         }
                         num++;
-                        btScanList.removeAt(num1);
+                        g_btScanList.removeAt(num1);
                         break;
                     }
                     else
                     {
                         j++;
-                        if(j+1 == btPairList.size())
+                        if(j+1 == g_btPairList.size())
                             bluetoothListShow(strScanDeviceName,"");
                     }
                 }
             }
         }
 
-        if(timerScanFlag == 1)
+        if(g_timerScanFlag == 1)
         {
-            if(scanFlag == 2)                          // After the startup scan is complete, the first scan after The Bluetooth interface is displayed
+            if(g_scanFlag == 2)                          // After the startup scan is complete, the first scan after The Bluetooth interface is displayed
             {
                 ui->BtNameListWidget->setEnabled(true);
-                pMovie->stop();
-                loadLabel->hide();
-                ui->btn_btScan->setText("scan");
-                scanFlag = 1;
-                if(showFlag == 1)
-                    timerScan->start(10000);
+                g_pMovie->stop();
+                g_loadLabel->hide();
+                ui->btn_btScan->setText(tr("scan"));
+                g_scanFlag = 1;
+                if(g_showFlag == 1)
+                    g_timerScan->start(10000);
             }
             else
             {
-                if(pairingFlag == 1)                      //After The Bluetooth interface is displayed, the system automatically scans every 10 seconds
+                if(g_pairingFlag == 1)                      //After The Bluetooth interface is displayed, the system automatically scans every 10 seconds
                 {
-                    timerScanFlag = 0;
+                    g_timerScanFlag = 0;
                     return;
                 }
-                if(showFlag == 1)
-                    timerScan->start(10000);
+                if(g_showFlag == 1)
+                    g_timerScan->start(10000);
             }
         }
         else
         {
-            if(scanFlag == 0)                         //Click the button to scan, and keep scanning until click the stop button
+            if(g_scanFlag == 0)                         //Click the button to scan, and keep scanning until click the stop button
             {
                 emit bluetooth_scan_msg();
             }
             else                                      //The Bluetooth interface is displayed when the startup scan is not finished
             {
                 ui->BtNameListWidget->setEnabled(true);
-                pMovie->stop();
-                loadLabel->hide();
-                ui->btn_btScan->setText("scan");
-                if(showFlag == 1)
-                    timerScan->start(10000);
+                g_pMovie->stop();
+                g_loadLabel->hide();
+                ui->btn_btScan->setText(tr("scan"));
+                if(g_showFlag == 1)
+                    g_timerScan->start(10000);
             }
         }
     }
-    else if(signalType == btPairSignal)
+    else if(signalType == EnumBtPairSignal)
     {
         ui->BtNameListWidget->setEnabled(true);
         if(str == "successful")
         {
-            pairingFlag = 0;
+            g_pairingFlag = 0;
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
                              tr("pair success!"),
                              0,this);
             mesg.addButton(tr("OK"), QMessageBox::ActionRole);
-            if(screenFlag == 1)
-                mesg.move(screenWidth*2/3,screenHeight/3);
+            if(g_screenFlag == 1)
+                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
             else
-                mesg.move(screenWidth/3,screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             int BtNameIndex = ui->BtNameListWidget->currentRow();
-            BtNameIndex = BtNameIndex-btPairList.size()/2;
-            btScanList.removeAt(BtNameIndex);                          //Remove paired devices from scan list
-            databaseWg.insertTableTwo("bluetooth",btName,btAddress);   //Paired device insert database
+            BtNameIndex = BtNameIndex-g_btPairList.size()/2;
+            g_btScanList.removeAt(BtNameIndex);                          //Remove paired devices from scan list
+            g_database.insertTableTwo("bluetooth",g_btName,g_btAddress);   //Paired device insert database
             ui->BtNameListWidget->clear();
-            btPairList = databaseWg.tableShow("bluetooth");
+            g_btPairList = g_database.tableShow("bluetooth");
             QString name,status;
-            if(!btPairList.isEmpty())
+            if(!g_btPairList.isEmpty())
             {
 
-                for(int i = 0;i<btPairList.size();i++)
+                for(int i = 0;i<g_btPairList.size();i++)
                 {
-                    name = btPairList.at(i);
+                    name = g_btPairList.at(i);
                     status = tr("saved");
                     i++;
                     bluetoothListShow(name,status);
                 }
             }
 
-            for(int i = 0; i < btScanList.size(); i++)
+            for(int i = 0; i < g_btScanList.size(); i++)
             {
-                QString strScanDevice = btScanList.at(i);
+                QString strScanDevice = g_btScanList.at(i);
                 QString strScanDeviceAddress = strScanDevice.trimmed().section("\t",0,0);
                 QString strScanDeviceName = strScanDevice.trimmed().section("\t",1,1);
-                if(btPairList.size()<= 0)
+                if(g_btPairList.size()<= 0)
                 {
                     bluetoothListShow(strScanDeviceName,"");
                 }
                 else
                 {
-                    for(int j = 0; j < btPairList.size(); j++)
+                    for(int j = 0; j < g_btPairList.size(); j++)
                     {
-                        if(strScanDeviceAddress == QString(btPairList.at(j+1)))
+                        if(strScanDeviceAddress == QString(g_btPairList.at(j+1)))
                         {
                             break;
                         }
                         else
                         {
                             j++;
-                            if(j+1 == btPairList.size())
+                            if(j+1 == g_btPairList.size())
                                 bluetoothListShow(strScanDeviceName,"");
                         }
 
                     }
                 }
             }
-            timerScan->start(10000);
+            g_timerScan->start(10000);
         }
         else if(str == "failed")
         {
-            pairingFlag = 0;
+            g_pairingFlag = 0;
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
                              tr("pair failed!"),
                              0,this);
             mesg.addButton(tr("OK"), QMessageBox::ActionRole);
-            if(screenFlag == 1)
-                mesg.move(screenWidth*2/3,screenHeight/3);
+            if(g_screenFlag == 1)
+                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
             else
-                mesg.move(screenWidth/3,screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
-            timerScan->start(10000);
+            g_timerScan->start(10000);
         }
         ui->btn_btScan->setEnabled(true);
         ui->BtNameListWidget->setEnabled(true);
 
-        pMovie->stop();
-        loadLabel->hide();
+        g_pMovie->stop();
+        g_loadLabel->hide();
     }
-    else if(signalType == btConnectSignal)
+    else if(signalType == EnumBtConnectSignal)
     {
         ui->btn_btScan->setEnabled(true);
         ui->BtNameListWidget->setEnabled(true);
-        timerScan->stop();
+        g_timerScan->stop();
         if(str == "successful")
         {
             QMessageBox mesg(QMessageBox::Information,
@@ -313,29 +311,29 @@ void bluetooth::recv_msg(int signalType,QString str)
                              tr("connect success!"),
                              0,this);
             mesg.addButton(tr("OK"), QMessageBox::ActionRole);
-            if(screenFlag == 1)
-                mesg.move(screenWidth*2/3,screenHeight/3);
+            if(g_screenFlag == 1)
+                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
             else
-                mesg.move(screenWidth/3,screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
 
-            btPairList = databaseWg.tableShow("bluetooth");     //The paired bluetooth saved to the database
+            g_btPairList = g_database.tableShow("bluetooth");     //The paired bluetooth saved to the database
             ui->BtNameListWidget->clear();
             ui->lbl_statusValue->setText(tr("connect"));
-            ui->lbl_connectDeviceValue->setText(btName);
-            btConnectName=btName;
+            ui->lbl_connectDeviceValue->setText(g_btName);
+            g_btConnectName=g_btName;
             ui->stackedWidget->setCurrentIndex(1);
             ui->stackedWidget_2->setCurrentIndex(1);
-            timerConncet->start(3000);
+            g_timerConncet->start(3000);
             bluetoothConnectStatus();
             QString name,status;
-            if(!btPairList.isEmpty())
+            if(!g_btPairList.isEmpty())
             {
-                QStringList pairList = btPairList;
+                QStringList pairList = g_btPairList;
                 for(int i = 0;i<pairList.size();i++)
                 {
                     name = pairList.at(i);
-                    if(!QString::compare(btConnectName,name,Qt::CaseSensitive))
+                    if(!QString::compare(g_btConnectName,name,Qt::CaseSensitive))
                     {
                         status = "connected";
                         bluetoothListShow(name,status);
@@ -353,34 +351,34 @@ void bluetooth::recv_msg(int signalType,QString str)
                     bluetoothListShow(name,status);
                 }
             }
-            for(int i = 0; i < btScanList.size(); i++)
+            for(int i = 0; i < g_btScanList.size(); i++)
             {
-                QString strScanDevice = btScanList.at(i);
+                QString strScanDevice = g_btScanList.at(i);
                 QString strScanDeviceAddress = strScanDevice.trimmed().section("\t",0,0);
                 QString strScanDeviceName = strScanDevice.trimmed().section("\t",1,1);
-                if(btPairList.size()<= 0)
+                if(g_btPairList.size()<= 0)
                 {
                     bluetoothListShow(strScanDeviceName,"");
                 }
                 else
                 {
-                    for(int j = 0; j < btPairList.size(); j++)
+                    for(int j = 0; j < g_btPairList.size(); j++)
                     {
-                        if(strScanDeviceAddress == QString(btPairList.at(j+1)))
+                        if(strScanDeviceAddress == QString(g_btPairList.at(j+1)))
                         {
                             break;
                         }
                         else
                         {
                             j++;
-                            if(j+1 == btPairList.size())
+                            if(j+1 == g_btPairList.size())
                                 bluetoothListShow(strScanDeviceName,"");
                         }
 
                     }
                 }
             }
-            connectingFlag = 0;
+            g_connectingFlag = 0;
         }
         else if(str == "failed")
         {
@@ -389,94 +387,95 @@ void bluetooth::recv_msg(int signalType,QString str)
                              tr("connect failed!"),
                              0,this);
             mesg.addButton(tr("OK"), QMessageBox::ActionRole);
-            if(screenFlag == 1)
-                mesg.move(screenWidth*2/3,screenHeight/3);
+            if(g_screenFlag == 1)
+                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
             else
-                mesg.move(screenWidth/3,screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
 
             ui->BtNameListWidget->clear();
-            btPairList = databaseWg.tableShow("bluetooth");
+            g_btPairList = g_database.tableShow("bluetooth");
             QString name,status;
-            if(!btPairList.isEmpty())
+            if(!g_btPairList.isEmpty())
             {
-                for(int i = 0;i<btPairList.size();i++)
+                for(int i = 0;i<g_btPairList.size();i++)
                 {
-                    name = btPairList.at(i);
+                    name = g_btPairList.at(i);
                     status = tr("saved");
                     i++;
                     bluetoothListShow(name,status);
                 }
             }
-            for(int i = 0; i < btScanList.size(); i++)
+            for(int i = 0; i < g_btScanList.size(); i++)
             {
-                QString strScanDevice = btScanList.at(i);
+                QString strScanDevice = g_btScanList.at(i);
                 QString strScanDeviceAdrss = strScanDevice.trimmed().section("\t",0,0);
                 QString strScanDeviceName = strScanDevice.trimmed().section("\t",1,1);
-                if(btPairList.size()<= 0)
+                if(g_btPairList.size()<= 0)
                 {
                     bluetoothListShow(strScanDeviceName,"");
                 }
                 else
                 {
-                    for(int j = 0; j < btPairList.size(); j++)
+                    for(int j = 0; j < g_btPairList.size(); j++)
                     {
-                        if(strScanDeviceAdrss == QString(btPairList.at(j+1)))
+                        if(strScanDeviceAdrss == QString(g_btPairList.at(j+1)))
                         {
                             break;
                         }
                         else
                         {
                             j++;
-                            if(j+1 == btPairList.size())
+                            if(j+1 == g_btPairList.size())
                                 bluetoothListShow(strScanDeviceName,"");
                         }
 
                     }
                 }
             }
-            connectingFlag = 0;
+            g_connectingFlag = 0;
             ui->lbl_statusValue->setText(tr("no connect"));
             ui->lbl_addressValue->setText(tr("no"));
             ui->lbl_typeValue->setText(tr("no"));
-            ui->lbl_connectDeviceValue->setText(btName);
+            ui->lbl_connectDeviceValue->setText(g_btName);
             ui->stackedWidget->setCurrentIndex(1);
-            ui->stackedWidget_2->setCurrentIndex(1);btConnectName = "";
+            ui->stackedWidget_2->setCurrentIndex(1);
+            g_btConnectName = "";
         }
         else if(str == "connected")
         {
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
-                             tr("please disconnect the \"%1\" device first!").arg(btConnectName),
+                             tr("please disconnect the \"%1\" device first!").arg(g_btConnectName),
                              0,this);
             mesg.addButton(tr("OK"), QMessageBox::ActionRole);
-            if(screenFlag == 1)
-                mesg.move(screenWidth*2/3,screenHeight/3);
+            if(g_screenFlag == 1)
+                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
             else
-                mesg.move(screenWidth/3,screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
         }
         ui->btn_btScan->setEnabled(true);
         ui->BtNameListWidget->setEnabled(true);
 
-        pMovie->stop();
-        loadLabel->hide();
+        g_pMovie->stop();
+        g_loadLabel->hide();
     }
 }
 
 void bluetooth::on_btn_ret_clicked()
 {
-    timerScanFlag = 0;
-    showFlag = 0;
+    g_timerScanFlag = 0;
+    g_showFlag = 0;
     emit bluetooth_back_msg();
-    timerConncet->stop();
+    g_timerConncet->stop();
     emit rm_shell_msg();
 }
 
 void bluetooth::on_btn_btScan_clicked()
 {
-    timerConncet->stop();
-    if(openFlag == 0)
+    g_timerConncet->stop();
+    if(g_openFlag == 0)
     {
         QMessageBox::information(this,"information",tr("Please open Bluetooth first!"));
         return;
@@ -485,40 +484,46 @@ void bluetooth::on_btn_btScan_clicked()
     if(ind == 1)
     {
         ui->stackedWidget->setCurrentIndex(0);
-        timerScan->start(10000);
+        g_timerScan->start(10000);
         return;
     }
 
-    if(!loadLabel->isHidden())
+    if(!g_loadLabel->isHidden())
     {
-        loadLabel->hide();
-        pMovie->stop();
+        g_loadLabel->hide();
+        g_pMovie->stop();
         ui->btn_btScan->setText(tr("scan"));
-        scanFlag = 1;
+        g_scanFlag = 1;
         return;
     }
 
-    loadLabel->show();
-    pMovie->start();
+    g_loadLabel->show();
+    g_pMovie->start();
     emit bluetooth_scan_msg();
     ui->btn_btScan->setText(tr("stop"));
-    scanFlag = 0;
-    timerScanFlag = 0;
+    g_scanFlag = 0;
+    g_timerScanFlag = 0;
 }
 
 void bluetooth::languageReload()
 {
     ui->retranslateUi(this);
+    int flag = ui->bluetooth_Switch->isToggled();
+    if(flag == 1)
+    ui->bluetooth_Switch->setToggle(true);
+    else
+    ui->bluetooth_Switch->setToggle(false);
 }
 
-void  bluetooth::bluetoothFont()
+void  bluetooth::setBluetoothFont()
 {
+    QScreen *screen = qApp->primaryScreen();
     qreal realX = screen->physicalDotsPerInchX();
     qreal realY = screen->physicalDotsPerInchY();
-    qreal realWidth = screenWidth / realX * 2.54;
-    qreal realHeight = screenHeight / realY *2.54;
+    qreal realWidth = g_screenWidth / realX * 2.54;
+    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(screenFlag)
+    if(g_screenFlag)
     {
         if(realHeight < 15)
         {
@@ -571,58 +576,63 @@ void bluetooth::switch_change_flag(bool flag)
     flag = ui->bluetooth_Switch->isToggled();
     if(flag == 1)
     {
-        openFlag = 1;
-        ui->BtNameListWidget->setDisabled(true);
-        loadLabel->show();
-        pMovie->start();
-        emit bluetooth_scan_msg();
-        ui->btn_btScan->setText(tr("stop"));
-        timerScan->start(10000);
-        swicthLabel->setText(tr("  off"));
-        swicthLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-        swicthLabel->setStyleSheet("color: rgba(0, 0, 0,180);");
+        g_bluetoothInterface->bluetoothEnableFlag(true);
+        g_openFlag = 1;
+        if(g_showFlag == 1)
+        {
+            g_loadLabel->show();
+            g_pMovie->start();
+            g_timerScan->start(10000);
+            emit bluetooth_scan_msg();
+            ui->btn_btScan->setText(tr("stop"));
+        }
+        g_swicthLabel->setText(tr("  off"));
+        g_swicthLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+        g_swicthLabel->setStyleSheet("color: rgba(0, 0, 0,180);");
     }
     else
     {
-        timerScanFlag = 0;
-        openFlag = 0;
-        loadLabel->hide();
-        pMovie->stop();
+        g_bluetoothInterface->bluetoothEnableFlag(false);
+        g_timerScanFlag = 0;
+        g_openFlag = 0;
+        g_loadLabel->hide();
+        g_pMovie->stop();
         ui->BtNameListWidget->clear();
         ui->stackedWidget->setCurrentIndex(0);
         ui->BtNameListWidget->setEnabled(true);
-        timerConncet->stop();timerScan->stop();
-        if(connectFlag != "1")
+        g_timerConncet->stop();
+        g_timerScan->stop();
+        if(g_connectFlag != "1")
         {
-            wifi_bt_interfaceWg->bluetoothDisconnect(btAddress);
+            g_bluetoothInterface->bluetoothDisconnect(g_btAddress);
             ui->lbl_connectDeviceValue->setText(tr("no"));
             ui->stackedWidget_2->setCurrentIndex(0);
-            btConnectName = "";
+            g_btConnectName = "";
             ui->lbl_statusValue->setText(tr("not connect"));
         }
         ui->btn_btScan->setText(tr("scan"));
-        swicthLabel->setText(tr("on   "));
-        swicthLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-        swicthLabel->setStyleSheet("color: rgba(255, 255, 255,200);");
+        g_swicthLabel->setText(tr("on   "));
+        g_swicthLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        g_swicthLabel->setStyleSheet("color: rgba(255, 255, 255,200);");
     }
 }
 
 void bluetooth::bluetoothListShow(QString name,QString status)      //BtNameListWidget Stores the device name and device status
 {
-    QHBoxLayout *horLayout = new QHBoxLayout();
-    horLayout->setContentsMargins(5,0,0,0);
+    QHBoxLayout *g_horLayout = new QHBoxLayout();
+    g_horLayout->setContentsMargins(5,0,0,0);
     QWidget *widget=new QWidget(this);
     QLabel *nameLabel = new QLabel(widget);
     QLabel *statusLabel = new QLabel(widget);
     QListWidgetItem *item = new QListWidgetItem();
     nameLabel->setText(name);
     statusLabel->setText(tr(status.toUtf8()));
-    horLayout->addWidget(nameLabel);
-    horLayout->addWidget(statusLabel);
-    widget->setLayout(horLayout);
-    horLayout->setStretchFactor(nameLabel,4);
-    horLayout->setStretchFactor(statusLabel,1);
-    horLayout->setSpacing(0);
+    g_horLayout->addWidget(nameLabel);
+    g_horLayout->addWidget(statusLabel);
+    widget->setLayout(g_horLayout);
+    g_horLayout->setStretchFactor(nameLabel,4);
+    g_horLayout->setStretchFactor(statusLabel,1);
+    g_horLayout->setSpacing(0);
     ui->BtNameListWidget->addItem(item);
     ui->BtNameListWidget->setItemWidget(item, widget);
     ui->BtNameListWidget->setCurrentRow(0);
@@ -634,15 +644,16 @@ void bluetooth::bluetoothListShow(QString name,QString status)      //BtNameList
 void bluetooth::showEvent(QShowEvent *event)
 {
     ui->stackedWidget->setCurrentIndex(0);
-    QString name = wifi_bt_interfaceWg->getBluetoothName();
+    QString name = g_bluetoothInterface->getBluetoothName();
     ui->lbl_deviceNameValue->setText(name);
-    showFlag = 1;timerScan->start(10000);
+    g_showFlag = 1;
+    g_timerScan->start(10000);
     QWidget::showEvent(event);
 }
 
 void bluetooth::on_BtNameListWidget_itemClicked(QListWidgetItem *item)
 {
-    if(!loadLabel->isHidden())
+    if(!g_loadLabel->isHidden())
     {
         if(ui->BtNameListWidget->count()==0)
         {
@@ -657,125 +668,129 @@ void bluetooth::on_BtNameListWidget_itemClicked(QListWidgetItem *item)
     QWidget* pwig = ui->BtNameListWidget->itemWidget(item1);
     QList<QLabel*> labelList = pwig->findChildren<QLabel*>();
     QString status = labelList.at(1)->text();
-    QString name = labelList.at(0)->text();btName = name;
+    QString name = labelList.at(0)->text();
+    g_btName = name;
     if(status == tr("connected"))
     {
         bluetoothConnectStatus();
         ui->lbl_statusValue->setText(tr("connect"));
-        ui->lbl_connectDeviceValue->setText(btName);
+        ui->lbl_connectDeviceValue->setText(g_btName);
         ui->stackedWidget->setCurrentIndex(1);
-        ui->stackedWidget_2->setCurrentIndex(1);timerConncet->start(3000);
+        ui->stackedWidget_2->setCurrentIndex(1);
+        g_timerConncet->start(3000);
         return;
     }
 
-    btPairList = databaseWg.tableShow("bluetooth");
+    g_btPairList = g_database.tableShow("bluetooth");
     int BtNameIndex = ui->BtNameListWidget->currentRow();
-    if(!btPairList.isEmpty())
+    if(!g_btPairList.isEmpty())
     {
-        if(btPairList.size()/2>BtNameIndex)    //Determine whether clicked on to saved devices
+        if(g_btPairList.size()/2>BtNameIndex)    //Determine whether clicked on to saved devices
         {
             ui->BtNameListWidget->setEnabled(false);
             ui->btn_btScan->setDisabled(true);
-            loadLabel->show();
-            pMovie->start();
-            //connect_refresh();
-            if(connectFlag != "1")
+            g_loadLabel->show();
+            g_pMovie->start();
+            //connect_info_refresh();
+            if(g_connectFlag != "1")
             {
-                QString address = databaseWg.selectTableName("bluetooth",connectFlag);
-                wifi_bt_interfaceWg->bluetoothDisconnect(address);
+                QString address = g_database.selectTableName("bluetooth",g_connectFlag);
+                g_bluetoothInterface->bluetoothDisconnect(address);
                 ui->lbl_statusValue->setText(tr("not connect"));
                 ui->lbl_connectDeviceValue->setText(tr("no"));
                 ui->stackedWidget->setCurrentIndex(0);
-                btConnectName = "";
+                g_btConnectName = "";
             }
-            myThread->terminate();                        //Pausing the scan process,stop the scan
-            delete bluetoothThread;
-            connectingFlag = 1;btName = name;
-            btAddress = databaseWg.selectTableName("bluetooth",name);
+            g_myThread->terminate();                        //Pausing the scan process,stop the scan
+            delete g_bluetoothThread;
+            g_connectingFlag = 1;
+            g_btName = name;
+            g_btAddress = g_database.selectTableName("bluetooth",name);
 
             QString strCmd = QString("ps -x|grep pulseaudio | grep -v grep |wc -l");
-            QString strResult = wifi_bt_interfaceWg->executeLinuxCmd(strCmd);
+            QString strResult = g_bluetoothInterface->executeLinuxCmd(strCmd);
 
             if(strResult == QString("0\n"))
             {
                 strCmd = QString("pulseaudio --start");
-                strResult = wifi_bt_interfaceWg->executeLinuxCmd(strCmd);
+                strResult = g_bluetoothInterface->executeLinuxCmd(strCmd);
             }
 
-            // myThread = new QThread(this);
-            bluetoothThread = new bluetooth_thread();       //Create a new process and create a connection
-            connect(this,SIGNAL(bluetooth_pair_msg(QString)),bluetoothThread,SLOT(bluetooth_pair_thread(QString)));
-            connect(this,SIGNAL(bluetooth_connect_msg(QString)),bluetoothThread,SLOT(bluetooth_connect_thread(QString)));
-            connect(this,SIGNAL(bluetooth_scan_msg()),bluetoothThread,SLOT(bluetooth_scan_thread()));
-            connect(bluetoothThread,SIGNAL(send_bluetooth_msg(int, QString)),this,SLOT(recv_msg(int, QString)));
-            bluetoothThread->moveToThread(myThread);
-            myThread->start();
-            emit bluetooth_connect_msg(btAddress);
+            // g_myThread = new QThread(this);
+            g_bluetoothThread = new bluetooth_thread();       //Create a new process and create a connection
+            connect(this,SIGNAL(bluetooth_pair_msg(QString)),g_bluetoothThread,SLOT(bluetooth_pair_thread(QString)));
+            connect(this,SIGNAL(bluetooth_connect_msg(QString)),g_bluetoothThread,SLOT(bluetooth_connect_thread(QString)));
+            connect(this,SIGNAL(bluetooth_scan_msg()),g_bluetoothThread,SLOT(bluetooth_scan_thread()));
+            connect(g_bluetoothThread,SIGNAL(send_bluetooth_msg(int, QString)),this,SLOT(recv_msg(int, QString)));
+            g_bluetoothThread->moveToThread(g_myThread);
+            g_myThread->start();
+            emit bluetooth_connect_msg(g_btAddress);
 
             ui->btn_btScan->setDisabled(true);
             return;
         }
     }
-    pairingFlag = 1;
+    g_pairingFlag = 1;
     ui->BtNameListWidget->setEnabled(false);
     ui->btn_btScan->setDisabled(true);
-    BtNameIndex = BtNameIndex-btPairList.size()/2;
-    btAddress = btScanList.at(BtNameIndex);
-    btName = btAddress.trimmed().section("\t",1,1);       //Click on the Bluetooth name and address
-    btAddress = btAddress.trimmed().section("\t",0,0);
-    emit bluetooth_pair_msg(btAddress);
-    loadLabel->show();
-    pMovie->start();
+    BtNameIndex = BtNameIndex-g_btPairList.size()/2;
+    g_btAddress = g_btScanList.at(BtNameIndex);
+    g_btName = g_btAddress.trimmed().section("\t",1,1);       //Click on the Bluetooth name and address
+    g_btAddress = g_btAddress.trimmed().section("\t",0,0);
+    emit bluetooth_pair_msg(g_btAddress);
+    g_loadLabel->show();
+    g_pMovie->start();
 }
 
-void bluetooth::connect_refresh()
+void bluetooth::connect_info_refresh()
 {
-    connectFlag = wifi_bt_interfaceWg->bluetoothConnectFlag();
-    if(connectFlag == "1")
+    g_connectFlag = g_bluetoothInterface->bluetoothConnectFlag();
+    if(g_connectFlag == "1")
     {
-        btConnectName = "";
+        g_btConnectName = "";
         ui->lbl_connectDeviceValue->setText(tr("no"));
         ui->lbl_statusValue->setText(tr("not connect"));
     }
     else
     {
-        btConnectName = connectFlag;
-        ui->lbl_connectDeviceValue->setText(btConnectName);
+        g_btConnectName = g_connectFlag;
+        ui->lbl_connectDeviceValue->setText(g_btConnectName);
         ui->lbl_statusValue->setText(tr("connect"));
     }
 }
 
 void bluetooth::on_btn_disconnect_clicked()
 {
-    if(btConnectName.isEmpty())
+    if(g_btConnectName.isEmpty())
     {
         QMessageBox::information(this,"information",tr("No device is connected!"));
     }
     else
     {
-        wifi_bt_interfaceWg->bluetoothDisconnect(btAddress);
+        g_bluetoothInterface->bluetoothDisconnect(g_btAddress);
         QMessageBox::information(this,"information",tr("Disconnect successful!"));
         ui->lbl_statusValue->setText(tr("not connect"));
         ui->lbl_connectDeviceValue->setText(tr("no"));
-        timerConncet->stop();timerScan->start(10000);
+        g_timerConncet->stop();
+        g_timerScan->start(10000);
         ui->stackedWidget->setCurrentIndex(0);
-        btConnectName = "";
+        g_btConnectName = "";
         QString name,status;
         ui->BtNameListWidget->clear();
-        btPairList = databaseWg.tableShow("bluetooth");
-        if(!btPairList.isEmpty())                          //Refreshing the list status
+        g_btPairList = g_database.tableShow("bluetooth");
+        if(!g_btPairList.isEmpty())                          //Refreshing the list status
         {
-            for(int i = 0;i<btPairList.size();i++)
+            for(int i = 0;i<g_btPairList.size();i++)
             {
-                name = btPairList.at(i);
+                name = g_btPairList.at(i);
                 status = tr("saved");
                 i++;
                 bluetoothListShow(name,status);
             }
         }
-        for(int i = 0; i < btScanList.size(); i++)
+        for(int i = 0; i < g_btScanList.size(); i++)
         {
-            QString strScanDevice = btScanList.at(i);
+            QString strScanDevice = g_btScanList.at(i);
             QString strScanDeviceName = strScanDevice.trimmed().section("\t",1,1);
             bluetoothListShow(strScanDeviceName,"");
         }
@@ -784,62 +799,63 @@ void bluetooth::on_btn_disconnect_clicked()
 
 void bluetooth::on_btn_remove_clicked()
 {
-    QString address = databaseWg.selectTableName("bluetooth",btName);
-    wifi_bt_interfaceWg->bluetoothRemove(address);
+    QString address = g_database.selectTableName("bluetooth",g_btName);
+    g_bluetoothInterface->bluetoothRemove(address);
     QMessageBox::information(this,"information",tr("Remove successful!"));
-    databaseWg.deleteTableName("bluetooth",btName);
+    g_database.deleteTableName("bluetooth",g_btName);
     ui->lbl_statusValue->setText(tr("not connect"));
     ui->lbl_connectDeviceValue->setText(tr("no"));
     ui->BtNameListWidget->clear();
-    btPairList = databaseWg.tableShow("bluetooth");
+    g_btPairList = g_database.tableShow("bluetooth");
     QString name,status;
-    if(!btPairList.isEmpty())
+    if(!g_btPairList.isEmpty())
     {
-        for(int i = 0;i<btPairList.size();i++)
+        for(int i = 0;i<g_btPairList.size();i++)
         {
-            name = btPairList.at(i);
+            name = g_btPairList.at(i);
             status = tr("saved");
             i++;
             bluetoothListShow(name,status);
         }
     }
-    for(int i = 0; i < btScanList.size(); i++)
+    for(int i = 0; i < g_btScanList.size(); i++)
     {
-        QString strScanDevice = btScanList.at(i);
+        QString strScanDevice = g_btScanList.at(i);
         QString strScanDeviceName = strScanDevice.trimmed().section("\t",1,1);
         bluetoothListShow(strScanDeviceName,"");
     }
 
-    timerConncet->stop();timerScan->start(10);
+    g_timerConncet->stop();
+    g_timerScan->start(10);
     ui->stackedWidget->setCurrentIndex(0);
 }
 
 void bluetooth::scan_refresh()
 {
-    if(pairingFlag == 1)
+    if(g_pairingFlag == 1)
     {
-        timerScanFlag = 0;
-        timerScan->stop();
+        g_timerScanFlag = 0;
+        g_timerScan->stop();
         return;
     }
-    if(connectingFlag == 1)
+    if(g_connectingFlag == 1)
     {
-        timerScanFlag = 0;
-        timerScan->stop();
+        g_timerScanFlag = 0;
+        g_timerScan->stop();
         return;
     }
     if(ui->stackedWidget->currentIndex() == 0)
     {
-        timerScanFlag = 1;
+        g_timerScanFlag = 1;
         emit bluetooth_scan_msg();
-        timerScan->stop();
+        g_timerScan->stop();
     }
 }
 
 void bluetooth::bluetoothConnectStatus()
 {
     QString tmp;
-    QString strResult = wifi_bt_interfaceWg->executeLinuxCmdBluetoothConnect("hciconfig");
+    QString strResult = g_bluetoothInterface->executeLinuxCmdBluetoothConnect("hciconfig");
     QStringList list = strResult.split("\n");
     list.removeAll("");
     for(int i=0; i<list.size();i++)
@@ -862,13 +878,13 @@ void bluetooth::bluetoothConnectStatus()
     }
 }
 
-void bluetooth::switchSetText()
+void bluetooth::setSwitchText()
 {
-    swicthLabel = new QLabel(ui->bluetooth_Switch);
-    horLayout = new QHBoxLayout();
-    swicthLabel->setText(tr("  off"));
-    horLayout->addWidget(swicthLabel);
-    swicthLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    swicthLabel->setStyleSheet("color: rgba(0, 0, 0,180);");
-    ui->bluetooth_Switch->setLayout(horLayout);
+    g_swicthLabel = new QLabel(ui->bluetooth_Switch);
+    g_horLayout = new QHBoxLayout();
+    g_swicthLabel->setText(tr("  off"));
+    g_horLayout->addWidget(g_swicthLabel);
+    g_swicthLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    g_swicthLabel->setStyleSheet("color: rgba(0, 0, 0,180);");
+    ui->bluetooth_Switch->setLayout(g_horLayout);
 }

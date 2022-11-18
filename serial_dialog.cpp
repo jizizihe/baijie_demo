@@ -1,32 +1,32 @@
-#include "serialdialog.h"
+#include "serial_dialog.h"
 #include "ui_serialdialog.h"
 #include <QScreen>
 
-static int screenWidth;
-static int screenHeight;
-static int screenFlag;
-static QScreen *screen;
+static int g_screenWidth;
+static int g_screenHeight;
+static int g_screenFlag;
+static QScreen *g_screen;
 
 serialdialog::serialdialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::serialdialog)
 {
     ui->setupUi(this);
-    screen = qApp->primaryScreen();
-    screenWidth = screen->size().width();
-    screenHeight = screen->size().height();
+    g_screen = qApp->primaryScreen();
+    g_screenWidth = g_screen->size().width();
+    g_screenHeight = g_screen->size().height();
 
-    if(screenWidth < screenHeight)
+    if(g_screenWidth < g_screenHeight)
     {
-        screenFlag = 1;
+        g_screenFlag = 1;
     }
     QFont font;
-    qreal realX = screen->physicalDotsPerInchX();
-    qreal realY = screen->physicalDotsPerInchY();
-    qreal realWidth = screenWidth / realX * 2.54;
-    qreal realHeight = screenHeight / realY *2.54;
+    qreal realX = g_screen->physicalDotsPerInchX();
+    qreal realY = g_screen->physicalDotsPerInchY();
+    qreal realWidth = g_screenWidth / realX * 2.54;
+    qreal realHeight = g_screenHeight / realY *2.54;
 
-    if(screenFlag == 1)
+    if(g_screenFlag == 1)
     {
         if(realHeight < 15)
         {
@@ -65,8 +65,8 @@ serialdialog::serialdialog(QWidget *parent) :
     ui->btn_serialCheckAll->setFont(font);
     ui->btn_serialOk->setFont(font);
 
-    pButtonGroup = new QButtonGroup(this);
-    pButtonGroup->setExclusive(false);               //Set to non-exclusive mode
+    g_pButtonGroup = new QButtonGroup(this);
+    g_pButtonGroup->setExclusive(false);               //Set to non-exclusive mode
 
     QStringList serialPortName;
     QString tmp;
@@ -89,11 +89,11 @@ serialdialog::serialdialog(QWidget *parent) :
         checkbox->setText(QString(tmp));
         checkbox->setFont(font);
         vLayout1->addWidget(checkbox,i/2,i%2);
-        pButtonGroup->addButton(checkbox,i);
+        g_pButtonGroup->addButton(checkbox,i);
     }
 
     ui->groupBox->setLayout(vLayout1);
-    connect(pButtonGroup,SIGNAL(buttonClicked(int)),this,SLOT(pButtonGroup_pressed_func(int)));
+    connect(g_pButtonGroup,SIGNAL(buttonClicked(int)),this,SLOT(btn_group_pressed_func(int)));
 }
 
 serialdialog::~serialdialog()
@@ -103,43 +103,43 @@ serialdialog::~serialdialog()
 
 void serialdialog::getSerialCheckedName()
 {
-    serialConfig.count = 0;
-    serialConfig.checkedName = QString("");
-    memset(serialConfig.checked_id,-1,sizeof(serialConfig.checked_id));
+    g_serialConfig.count = 0;
+    g_serialConfig.checkedName = QString("");
+    memset(g_serialConfig.checkedId,-1,sizeof(g_serialConfig.checkedId));
 
-    serialConfig.checkedBtnList = pButtonGroup->buttons();
-    serialConfig.mode = ui->serialModeBox->currentText();
+    g_serialConfig.checkedBtnList = g_pButtonGroup->buttons();
+    g_serialConfig.mode = ui->serialModeBox->currentText();
 
-    for(int i =0 ;i<serialConfig.checkedBtnList.length();i++)
+    for(int i =0 ;i<g_serialConfig.checkedBtnList.length();i++)
     {
-        QAbstractButton *che = serialConfig.checkedBtnList.at(i);
+        QAbstractButton *che = g_serialConfig.checkedBtnList.at(i);
         if(che->isChecked())
         {
-            serialConfig.checked_id[serialConfig.count] = pButtonGroup->id(che);
-            serialConfig.count++;
-            serialConfig.checkedName += che->text() + ",";
+            g_serialConfig.checkedId[g_serialConfig.count] = g_pButtonGroup->id(che);
+            g_serialConfig.count++;
+            g_serialConfig.checkedName += che->text() + ",";
         }
     }
 }
 
-void serialdialog::pButtonGroup_pressed_func(int)
+void serialdialog::btn_group_pressed_func(int)
 {
     getSerialCheckedName();
-    emit serial_config_msg(serialConfig);
+    emit serial_config_msg(g_serialConfig);
 }
 
 void serialdialog::on_serialModeBox_currentIndexChanged(const QString &arg1)
 {
-    serialConfig.mode = ui->serialModeBox->currentText();
-    emit serial_config_msg(serialConfig);
+    g_serialConfig.mode = ui->serialModeBox->currentText();
+    emit serial_config_msg(g_serialConfig);
 }
 
 void serialdialog::on_btn_serialOk_clicked()
 {
     getSerialCheckedName();
-    QString str = QString(serialConfig.checkedName);
+    QString str = QString(g_serialConfig.checkedName);
     QStringList list_test = str.split(",");list_test.removeAll("");
-    QStringList list = databaseWg.tableShow("serial_port");str.clear();
+    QStringList list = g_database.tableShow("serial_port");str.clear();
     if(!list.isEmpty())
     {
         for(int i=0;i<list.size();i++)
@@ -165,22 +165,22 @@ void serialdialog::on_btn_serialOk_clicked()
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screenFlag == 1)
-                mesg.move(screenWidth*2/3,screenHeight/3);
+            if(g_screenFlag == 1)
+                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
             else
-                mesg.move(screenWidth/3,screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
             return;
         }
     }
-    emit serial_config_msg(serialConfig);
+    emit serial_config_msg(g_serialConfig);
     this->close();
 }
 
 void serialdialog::on_btn_serialCancel_clicked()
 {
     QAbstractButton *checkBtn;
-    QList<QAbstractButton*> CheckedBtnList = pButtonGroup->buttons();
+    QList<QAbstractButton*> CheckedBtnList = g_pButtonGroup->buttons();
 
     for(int i = 0 ;i<CheckedBtnList.length();i++)
     {
@@ -189,14 +189,14 @@ void serialdialog::on_btn_serialCancel_clicked()
     }
 
     getSerialCheckedName();
-    emit serial_config_msg(serialConfig);
+    emit serial_config_msg(g_serialConfig);
     this->close();
 }
 
 void serialdialog::on_btn_serialCheckAll_clicked()
 {
     QAbstractButton *checkBtn;
-    QList<QAbstractButton*> CheckedBtnList = pButtonGroup->buttons();
+    QList<QAbstractButton*> CheckedBtnList = g_pButtonGroup->buttons();
 
     if(ui->btn_serialCheckAll->text() == "check all")
     {
@@ -217,7 +217,7 @@ void serialdialog::on_btn_serialCheckAll_clicked()
         ui->btn_serialCheckAll->setText("check all");
     }
     getSerialCheckedName();
-    emit serial_config_msg(serialConfig);
+    emit serial_config_msg(g_serialConfig);
 }
 
 void serialdialog::languageReload()
@@ -235,7 +235,7 @@ void serialdialog::on_serialTestBtn_clicked()
         ui->btn_serialOk->setDisabled(true);
 
         getSerialCheckedName();
-        emit serial_config_msg(serialConfig);
+        emit serial_config_msg(g_serialConfig);
         emit serial_test_msg();
     }
     else if(ui->serialTestBtn->text() == "stop")

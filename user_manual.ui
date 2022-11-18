@@ -243,7 +243,7 @@ QComboBox QScrollBar::vertical{
           </property>
           <item>
            <property name="text">
-            <string>connect WiFi</string>
+            <string>Connect WiFi</string>
            </property>
            <property name="font">
             <font>
@@ -253,7 +253,7 @@ QComboBox QScrollBar::vertical{
           </item>
           <item>
            <property name="text">
-            <string>connect hotspot</string>
+            <string>Connect Hotspot</string>
            </property>
            <property name="font">
             <font>
@@ -283,7 +283,7 @@ QComboBox QScrollBar::vertical{
           </property>
           <item>
            <property name="text">
-            <string>ip information</string>
+            <string>Ip Information</string>
            </property>
            <property name="font">
             <font>
@@ -293,7 +293,7 @@ QComboBox QScrollBar::vertical{
           </item>
           <item>
            <property name="text">
-            <string>ip set</string>
+            <string>Ip Set</string>
            </property>
            <property name="font">
             <font>
@@ -333,7 +333,7 @@ QComboBox QScrollBar::vertical{
           </property>
           <item>
            <property name="text">
-            <string>backlight</string>
+            <string>Backlight</string>
            </property>
            <property name="font">
             <font>
@@ -343,7 +343,7 @@ QComboBox QScrollBar::vertical{
           </item>
           <item>
            <property name="text">
-            <string>sleep time</string>
+            <string>Sleep Time</string>
            </property>
            <property name="font">
             <font>
@@ -383,7 +383,7 @@ QComboBox QScrollBar::vertical{
           </property>
           <item>
            <property name="text">
-            <string>record</string>
+            <string>Record</string>
            </property>
            <property name="font">
             <font>
@@ -393,7 +393,7 @@ QComboBox QScrollBar::vertical{
           </item>
           <item>
            <property name="text">
-            <string>play</string>
+            <string>Play</string>
            </property>
            <property name="font">
             <font>
@@ -423,7 +423,7 @@ QComboBox QScrollBar::vertical{
           </property>
           <item>
            <property name="text">
-            <string>copy</string>
+            <string>Copy</string>
            </property>
            <property name="font">
             <font>
@@ -433,7 +433,7 @@ QComboBox QScrollBar::vertical{
           </item>
           <item>
            <property name="text">
-            <string>cut</string>
+            <string>Cut</string>
            </property>
            <property name="font">
             <font>
@@ -443,7 +443,7 @@ QComboBox QScrollBar::vertical{
           </item>
           <item>
            <property name="text">
-            <string>delete</string>
+            <string>Delete</string>
            </property>
            <property name="font">
             <font>
@@ -453,7 +453,7 @@ QComboBox QScrollBar::vertical{
           </item>
           <item>
            <property name="text">
-            <string>safe exit</string>
+            <string>Safe Exit</string>
            </property>
            <property name="font">
             <font>

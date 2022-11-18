@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>712</width>
-    <height>417</height>
+    <width>642</width>
+    <height>418</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -506,7 +506,7 @@ QComboBox {
          <enum>Qt::LeftToRight</enum>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="page"/>
         <widget class="QWidget" name="page_2">
@@ -873,7 +873,7 @@ border-image: url(:/button_image/voice/sound_u.svg);
                  </widget>
                 </item>
                 <item>
-                 <widget class="MySlider" name="Slider_volume">
+                 <widget class="common_slider_press" name="Slider_volume">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                     <horstretch>0</horstretch>
@@ -1550,7 +1550,7 @@ QSlider::handle:horizontal {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>712</width>
+     <width>642</width>
      <height>22</height>
     </rect>
    </property>
@@ -1558,9 +1558,9 @@ QSlider::handle:horizontal {
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MySlider</class>
+   <class>common_slider_press</class>
    <extends>QSlider</extends>
-   <header location="global">myslider.h</header>
+   <header>common_slider_press.h</header>
   </customwidget>
  </customwidgets>
  <resources>

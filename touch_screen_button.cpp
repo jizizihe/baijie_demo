@@ -1,4 +1,4 @@
-#include "ctouchbutton.h"
+#include "touch_screen_button.h"
 #include <QDebug>
 
 CTouchButton::CTouchButton(QWidget *parent)
@@ -12,7 +12,7 @@ bool CTouchButton::event(QEvent *e)
     switch (e->type()) {
     case QEvent::TouchBegin:
     {
-        touchEnd = false;
+        g_touchEnd = false;
         QMouseEvent mouseEvent(QEvent::MouseButtonPress,QPointF(0,0),Qt::LeftButton,Qt::LeftButton,Qt::NoModifier);
         QCoreApplication::sendEvent(this,&mouseEvent);
         e->accept();
@@ -22,7 +22,7 @@ bool CTouchButton::event(QEvent *e)
     {
         QMouseEvent mouseEvent(QEvent::MouseButtonRelease,QPointF(0,0),Qt::LeftButton,Qt::LeftButton,Qt::NoModifier);
         QCoreApplication::sendEvent(this,&mouseEvent);
-        touchEnd = true;
+        g_touchEnd = true;
         e->accept();
         return true;
     } break;
@@ -30,7 +30,7 @@ bool CTouchButton::event(QEvent *e)
         //        qDebug() << "mouse press";
     case QEvent::MouseButtonRelease:
     {
-        if(touchEnd){
+        if(g_touchEnd){
             e->accept();
             return true;
         }

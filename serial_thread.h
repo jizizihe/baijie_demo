@@ -29,9 +29,9 @@ private slots:
     void read_data(); //Reading serial port data
 
 private:
-    QThread *myThread;
-    int myPortId;
-    QSerialPort *myPort;
+    QThread *g_myThread;
+    int g_myPortId;
+    QSerialPort *g_myPort;
 };
 
 #endif // SERIAL_THREAD_H

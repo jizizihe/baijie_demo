@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>728</width>
-    <height>435</height>
+    <width>822</width>
+    <height>546</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -242,7 +242,7 @@ QComboBox {
          </spacer>
         </item>
         <item>
-         <widget class="SwitchControl" name="wifi_Switch" native="true">
+         <widget class="common_switch" name="wifi_Switch" native="true">
           <property name="font">
            <font>
             <pointsize>6</pointsize>
@@ -524,7 +524,7 @@ QComboBox {
          <enum>Qt::WheelFocus</enum>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="wifihomepage">
          <property name="focusPolicy">
@@ -1999,7 +1999,7 @@ QComboBox {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>728</width>
+     <width>822</width>
      <height>22</height>
     </rect>
    </property>
@@ -2007,9 +2007,9 @@ QComboBox {
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SwitchControl</class>
+   <class>common_switch</class>
    <extends>QWidget</extends>
-   <header location="global">switchcontrol.h</header>
+   <header location="global">common_switch.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

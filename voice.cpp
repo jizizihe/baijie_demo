@@ -5,70 +5,65 @@
 #include <QDebug>
 #include <iostream>
 #include <fstream>
-using namespace std;
 
-static QGraphicsView *renameView;
-static QGraphicsView *saveFileView;
-static QGraphicsView *chooseFileView;
-static int screenFlag;
-static int screenWidth;
-static int screenHeight;
-static int renameFirstFlag = 0;
-static int saveFileFirstFlag = 0;
-static int fileFirstFlag;              //the File_oprationw to display for the first time
-static bool recordFlag = false;
-static int viewShow;                   // 1:chooseFileView show  2: saveFileView show  3: renameView show
-static int playCurrentTime;
-static int vioceTimeLength;            //the time length of the file
-static int recordTimeLength;           //Current recording time length
-static int playFlag = 0;
-static int volumeOpenFlag;
-static int showFirstFlag;
-static QScreen *screen;
-static QString saveFilePath;
-static QString saveFileNmae;
-static QString recordStartTime;
-static QTimer *playTimer;
-static QTimer *recordTimer;
+static QGraphicsView *g_renameView;
+static QGraphicsView *g_saveFileView;
+static QGraphicsView *g_chooseFileView;
+static int g_screenFlag;
+static int g_screenWidth;
+static int g_screenHeight;
+static int g_renameFirstFlag = 0;
+static int g_saveFileFirstFlag = 0;
+static int g_fileFirstFlag;              //the File_oprationw to display for the first time
+static bool g_recordFlag = false;
+static int g_viewShow;                   // 1:chooseFileView show  2: saveFileView show  3: renameView show
+static int g_playCurrentTime;
+static int g_vioceTimeLength;            //the time length of the file
+static int g_recordTimeLength;           //Current recording time length
+static int g_playFlag = 0;
+static int g_volumeOpenFlag;
+static int g_showFirstFlag;
+static QScreen *g_screen;
+static QString g_saveFilePath;
+static QString g_saveFileNmae;
+static QString g_recordStartTime;
+static QTimer *g_playTimer;
+static QTimer *g_recordTimer;
 
 voice::voice(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::voice)
 {
     ui->setupUi(this);
-    screen = qApp->primaryScreen();
-    screenWidth = screen->size().width();
-    screenHeight = screen->size().height();
+    g_screen = qApp->primaryScreen();
+    g_screenWidth = g_screen->size().width();
+    g_screenHeight = g_screen->size().height();
 
-    if(screenWidth < screenHeight)
+    if(g_screenWidth < g_screenHeight)
     {
-        screenFlag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
+        g_screenFlag = 1;
+        ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
-    voiceFont();
-    volumeOpenFlag = 1;
+    setVoiceFont();
+    g_volumeOpenFlag = 1;
 
     ui->stackedWidget->setCurrentIndex(0);
     ui->Slider_volume->setRange(0,30);               //Range of volume
     ui->Slider_volume->setValue(6);
-    ui->lbl_timeStart->setText("00:00:00");
-    ui->lbl_timeEnd->setText("00:00:00");
-
-    recordTimer = new QTimer(this);
-    playTimer = new QTimer(this);
-    connect(recordTimer,SIGNAL(timeout()),this,SLOT(show_recording_time()));
-    connect(playTimer,SIGNAL(timeout()),this,SLOT(get_playing_time_length()));
-    connect(&renameWg,SIGNAL(rename_finish_msg(QString)),this,SLOT(update_file(QString)));
-    connect(&renameWg,SIGNAL(rename_back_msg()),this,SLOT(rename_file_widget_hide()));
-    connect(&saveFileWg,SIGNAL(save_back_msg()),this,SLOT(save_file_widget_hide()));
-    connect(&File_oprationWg,SIGNAL(file_rev_path_msg(QString)),this,SLOT(file_path(QString)));
-    connect(&File_oprationWg,SIGNAL(file_hide_msg()),this,SLOT(file_choose_widget_hide()));
-    connect(this,SIGNAL(volume_slider_value_change_msg(int)),this,SLOT(volume_slider_change(int)));
-
-    ui->btn_startRecord->setText(tr("start"));
-    ui->btn_record->setText("record");
-    ui->btn_play->setText("paly");
     ui->combox->view()->parentWidget()->setWindowFlags(Qt::Popup | Qt::FramelessWindowHint);
     ui->combox->view()->parentWidget()->setAttribute(Qt::WA_TranslucentBackground);
+
+    g_recordTimer = new QTimer(this);
+    g_playTimer = new QTimer(this);
+
+    connect(g_recordTimer,SIGNAL(timeout()),this,SLOT(show_recording_time()));
+    connect(g_playTimer,SIGNAL(timeout()),this,SLOT(get_playing_time_length()));
+    connect(&g_renameWg,SIGNAL(rename_finish_msg(QString)),this,SLOT(update_file(QString)));
+    connect(&g_renameWg,SIGNAL(rename_back_msg()),this,SLOT(rename_file_widget_hide()));
+    connect(&g_saveFileWg,SIGNAL(save_back_msg()),this,SLOT(save_file_widget_hide()));
+    connect(&g_fileOprationWg,SIGNAL(file_rev_path_msg(QString)),this,SLOT(get_file_widget_path(QString)));
+    connect(&g_fileOprationWg,SIGNAL(file_hide_msg()),this,SLOT(file_choose_widget_hide()));
+    connect(this,SIGNAL(volume_slider_value_change_msg(int)),this,SLOT(volume_slider_change(int)));
 }
 
 voice::~voice()
@@ -76,7 +71,7 @@ voice::~voice()
     delete ui;
 }
 
-void voice::refresh(QString dirPath)
+void voice::refreshFile(QString dirPath)
 { 
     QDir dir(dirPath);
     QStringList filters;
@@ -93,17 +88,17 @@ void voice::refresh(QString dirPath)
     files.removeAll("\n");
     ui->combox->clear();
     ui->combox->addItems(files);
-    if(!saveFileNmae.isEmpty())
+    if(!g_saveFileNmae.isEmpty())
     {
         for(int i = 0; i < ui->combox->count(); i++)
         {
             ui->combox->setCurrentIndex(i);
-            if(ui->combox->currentText() == saveFileNmae)
+            if(ui->combox->currentText() == g_saveFileNmae)
             {
                 break;
             }
         }
-        saveFileNmae = "";
+        g_saveFileNmae = "";
     }
 }
 
@@ -118,10 +113,10 @@ void voice::setVolume(int value)
 
 void voice::show_recording_time()
 {
-    if(recordFlag)
+    if(g_recordFlag)
     {
-        recordTimeLength++;
-        QString length = timeToString(recordTimeLength);
+        g_recordTimeLength++;
+        QString length = timeToString(g_recordTimeLength);
         ui->lbl_RecordTimeLength->setText(length);
     }
 }
@@ -133,27 +128,27 @@ void voice::on_btn_ret_clicked()
     proc.waitForFinished(-1);
     emit voice_back_msg();
     proc.close();
-    if(screenFlag == 1)
+    if(g_screenFlag == 1)
     {
-        if(viewShow == 1)
+        if(g_viewShow == 1)
         {
-            File_oprationWg.hide();
-            chooseFileView->hide();
+            g_fileOprationWg.hide();
+            g_chooseFileView->hide();
         }
-        if(viewShow == 2)
+        if(g_viewShow == 2)
         {
-            saveFileWg.hide();
-            saveFileView->hide();
+            g_saveFileWg.hide();
+            g_saveFileView->hide();
         }
-        if(viewShow == 3)
+        if(g_viewShow == 3)
         {
-            renameView->hide();
-            renameWg.hide();
+            g_renameView->hide();
+            g_renameWg.hide();
         }
     }
     else
     {
-        File_oprationWg.hide();renameWg.hide();saveFileWg.hide();
+        g_fileOprationWg.hide();g_renameWg.hide();g_saveFileWg.hide();
     }
 }
 
@@ -218,47 +213,47 @@ void voice::on_btn_play_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
     ui->btn_play->setText(tr("play"));
-    QStringList list = databaseWg.tableShow("voice");
+    QStringList list = g_database.tableShow("voice");
     if(!list.isEmpty())
     {
-        saveFilePath = list.at(0);
-        saveFileNmae = list.at(1);
+        g_saveFilePath = list.at(0);
+        g_saveFileNmae = list.at(1);
     }
-    if(saveFilePath.isEmpty())
+    if(g_saveFilePath.isEmpty())
     {
         ui->lbl_pathValue->setText("/data/");
     }
     else
     {
-        ui->lbl_pathValue->setText(saveFilePath);
+        ui->lbl_pathValue->setText(g_saveFilePath);
     }
     QString path = ui->lbl_pathValue->text();
-    refresh(path);
-    saveFilePath = "";
+    refreshFile(path);
+    g_saveFilePath = "";
 }
 
 void voice::languageReload()
 {
     ui->retranslateUi(this);
-    renameWg.languageReload();
-    saveFileWg.languageReload();
-    File_oprationWg.languageReload();
+    g_renameWg.languageReload();
+    g_saveFileWg.languageReload();
+    g_fileOprationWg.languageReload();
 }
 
 void voice::get_playing_time_length()
 {
-    if(playFlag == 1)
+    if(g_playFlag == 1)
     {
-        playCurrentTime+=1;
-        ui->Slider_voicelength->setValue(playCurrentTime);
-        QString currentTime = timeToString(playCurrentTime);
+        g_playCurrentTime+=1;
+        ui->Slider_voicelength->setValue(g_playCurrentTime);
+        QString currentTime = timeToString(g_playCurrentTime);
         ui->lbl_timeStart->setText(currentTime);
 
-        if(playCurrentTime >= vioceTimeLength)
+        if(g_playCurrentTime >= g_vioceTimeLength)
         {
-            playTimer->stop();
+            g_playTimer->stop();
             ui->btn_playVoice->setStyleSheet("background-color:transparent;border-image: url(:/button_image/voice/play.svg);");
-            playFlag = 0;
+            g_playFlag = 0;
             ui->lbl_timeEnd->setText("00:00:00");
             ui->lbl_timeStart->setText("00:00:00");
         }
@@ -266,6 +261,11 @@ void voice::get_playing_time_length()
 }
 
 void voice::on_btn_playVoice_clicked()
+{
+    play();
+}
+
+void voice::play()
 {
     if(ui->combox->currentText() == NULL)
     {
@@ -276,45 +276,44 @@ void voice::on_btn_playVoice_clicked()
     proc->start("killall aplay");
     proc->waitForFinished(-1);
 
-    if((vioceTimeLength > playCurrentTime)&&(playCurrentTime != 0))
+    if((g_vioceTimeLength > g_playCurrentTime)&&(g_playCurrentTime != 0))
     {
         ui->btn_playVoice->setStyleSheet("background-color:transparent;border-image: url(:/button_image/voice/play.svg);");
-        playCurrentTime=0;
-        playFlag = 0;
-        ui->Slider_voicelength->setValue(playCurrentTime);
+        g_playCurrentTime=0;
+        g_playFlag = 0;
+        ui->Slider_voicelength->setValue(g_playCurrentTime);
         ui->lbl_timeEnd->setText("00:00:00");
         ui->lbl_timeStart->setText("00:00:00");
     }
     else
     {
-        playFlag = 1;
+        g_playFlag = 1;
         ui->btn_playVoice->setStyleSheet("background-color:transparent;border-image: url(:/button_image/voice/stop.svg);");
 
         QString path = QString("%1").arg(ui->lbl_pathValue->text());
         QString name = ui->combox->currentText();
         QString str = QString("aplay %1%2").arg(path).arg(name);
         proc->start(str);
-        playTimer->start(1000);
-        playCurrentTime = 0;
+        g_playTimer->start(1000);
+        g_playCurrentTime = 0;
         QString pathName = QString("%1%2").arg(path).arg(name);
 
         float len = getWavTimeLength(pathName);               //Calculate the wav file time length, returned value: minute.seconds
         QString timeLen = QString("%1").arg(len);
-        vioceTimeLength = calculateTimeLength(timeLen);       //Calculate the recording time length
-        ui->Slider_voicelength->setRange(0, vioceTimeLength);
+        g_vioceTimeLength = calculateTimeLength(timeLen);       //Calculate the recording time length
+        ui->Slider_voicelength->setRange(0, g_vioceTimeLength);
     }
 }
-
 
 float voice::getWavTimeLength(QString file)
 {
     double len;
-    char * fileName = file.toLatin1().data();
-    cout << fileName << endl;
-    if (fileName != NULL)
+    char * g_fileName = file.toLatin1().data();
+
+    if (g_fileName != NULL)
     {
         FILE* fp;
-        fp = fopen(fileName, "rb");
+        fp = fopen(g_fileName, "rb");
         if (fp != NULL)
         {
             int i;
@@ -341,7 +340,7 @@ float voice::getWavTimeLength(QString file)
             std::cout << "open error!!" << std::endl;
         }
     }
-    std::cout << "filename error!!" << std::endl;
+    std::cout << "g_fileName error!!" << std::endl;
     return 0;
 }
 
@@ -386,7 +385,7 @@ int voice::calculateTimeLength(QString length)   //Calculate the recording time 
 
 void voice::record_save(QString filen)   //record save file
 {
-    saveFileWg.getFileName(filen);
+    g_saveFileWg.getFileName(filen);
     saveFileWidgetShow();
 }
 
@@ -403,10 +402,10 @@ void voice::on_btn_delete_clicked()  //delete
 
         QPushButton *yesButton = mesg.addButton(tr("Yes"), QMessageBox::ActionRole);
         QPushButton *noButton = mesg.addButton(tr("No"),QMessageBox::ActionRole);
-        if(screenFlag == 1)
-            mesg.move(screenWidth*2/3,screenHeight/3);
+        if(g_screenFlag == 1)
+            mesg.move(g_screenWidth*2/3,g_screenHeight/3);
         else
-            mesg.move(screenWidth/3,screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
 
         if (mesg.clickedButton() == yesButton) {
@@ -420,12 +419,12 @@ void voice::on_btn_delete_clicked()  //delete
                              tr("delete successfully!"),
                              0,this);
             mesg.addButton(tr("OK"),QMessageBox::YesRole);
-            if(screenFlag == 1)
-                mesg.move(screenWidth*2/3,screenHeight/3);
+            if(g_screenFlag == 1)
+                mesg.move(g_screenWidth*2/3,g_screenHeight/3);
             else
-                mesg.move(screenWidth/3,screenHeight/3);
+                mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
-            refresh(path);
+            refreshFile(path);
             pro->close();
         }
         else if (mesg.clickedButton() == noButton)
@@ -440,10 +439,10 @@ void voice::on_btn_delete_clicked()  //delete
                          tr("No file to delete!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screenFlag == 1)
-            mesg.move(screenHeight/3,screenWidth*2/3);
+        if(g_screenFlag == 1)
+            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
         else
-            mesg.move(screenWidth/3,screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }
@@ -455,7 +454,7 @@ void voice::on_btn_rename_clicked()  //rename
         renameFileWidgetShow();
         QString name = ui->combox->currentText();
         QString path = QString("%1").arg(ui->lbl_pathValue->text());
-        renameWg.renameChang(name,path);
+        g_renameWg.getBeforeFile(name,path);
     }
     else
     {
@@ -464,67 +463,71 @@ void voice::on_btn_rename_clicked()  //rename
                          tr("No file to rename!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
-        if(screenFlag == 1)
-            mesg.move(screenHeight/3,screenWidth*2/3);
+        if(g_screenFlag == 1)
+            mesg.move(g_screenHeight/3,g_screenWidth*2/3);
         else
-            mesg.move(screenWidth/3,screenHeight/3);
+            mesg.move(g_screenWidth/3,g_screenHeight/3);
         mesg.exec();
     }
 }
 void voice::update_file(QString file)     //updata combox file
 {
     QString path = QString("%1").arg(ui->lbl_pathValue->text());
-    refresh(path);
+    refreshFile(path);
     ui->combox->setCurrentText(file);
 }
 
 void voice::on_btn_volume_clicked()
 {
-    if(volumeOpenFlag == 1)
+    if(g_volumeOpenFlag == 1)
     {
         setVolume(0);
-        volumeOpenFlag = 0;
+        g_volumeOpenFlag = 0;
         ui->btn_volume->setStyleSheet("background-color:transparent;border-image: url(:/button_image/voice/sound_d.svg);");
     }
     else
     {
         int value = ui->Slider_volume->value();
         setVolume(value);
-        volumeOpenFlag = 1;
+        g_volumeOpenFlag = 1;
         ui->btn_volume->setStyleSheet("background-color:transparent;border-image: url(:/button_image/voice/sound_u.svg);");
     }
 }
 
 void voice::on_btn_startRecord_clicked()
-{ 
+{
+    record();
+}
+
+void voice::record()
+{
     QProcess *proc = new QProcess;
     proc->start("killall aplay");
     proc->waitForFinished(-1);
 
-    if(!recordFlag)
+    if(!g_recordFlag)
     {
-        recordStartTime = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss");
+        g_recordStartTime = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss");
         QString path = "/data";
-        QString strRecordName = QString("%1/%2_record.wav").arg(path).arg(recordStartTime);
+        QString strRecordName = QString("%1/%2_record.wav").arg(path).arg(g_recordStartTime);
         QString str = QString("arecord -r 16000 -c 1 -t wav %1").arg(strRecordName);
         proc->start(str);
         ui->btn_startRecord->setText(tr("stop"));
         ui->btn_startRecord->setIcon(QIcon(":/button_image/voice/stop.png"));
-        recordFlag = true;
+        g_recordFlag = true;
     }
     else
     {
         ui->btn_startRecord->setText(tr("start"));
         ui->lbl_RecordTimeLength->setText("00:00:00");
-        recordTimeLength = 0;
+        g_recordTimeLength = 0;
         ui->btn_startRecord->setIcon(QIcon(":/button_image/voice/start.png"));
-        fileName = QString("%1_record.wav").arg(recordStartTime);
-        recordFlag = false;
+        g_fileName = QString("%1_record.wav").arg(g_recordStartTime);
+        g_recordFlag = false;
         proc->start("killall arecord");
-        record_save(fileName);
+        record_save(g_fileName);
     }
 }
-
 
 void voice::on_Slider_volume_valueChanged(int value)
 {
@@ -533,146 +536,145 @@ void voice::on_Slider_volume_valueChanged(int value)
 
 void voice::saveFileWidgetShow()
 {
-    if(screenFlag == 0)
+    if(g_screenFlag == 0)
     {
         int funcWidth = ui->function->width();
         int stackWidth = ui->stackedWidget->width();
-        int moveWidth = funcWidth+(stackWidth/2-screenWidth*31/50/2);
+        int moveWidth = funcWidth+(stackWidth/2-g_screenWidth*31/50/2);
         QPoint p = ui->btn_startRecord->mapToGlobal(QPoint(0, 0));
         int btnStartRecordY = p.y()+ui->btn_startRecord->height();
-        int moveHeight = screenHeight-(screenHeight - btnStartRecordY)-screenHeight*2/3;
-        saveFileWg.resize(screenWidth*31/50,screenHeight*2/3);
-        moveWidth = screenWidth*2/9+((screenWidth-screenWidth*2/9)/2-saveFileWg.width()/2);
-        moveHeight = screenHeight/6+((screenHeight-screenHeight/6)/2-saveFileWg.height()/2);
-        saveFileWg.move(moveWidth,moveHeight);
-        saveFileWg.show();
-        saveFileWg.activateWindow();saveFileWg.setFocus();
+        int moveHeight = g_screenHeight-(g_screenHeight - btnStartRecordY)-g_screenHeight*2/3;
+        g_saveFileWg.resize(g_screenWidth*33/50,g_screenHeight*2/3);
+        moveWidth = g_screenWidth*2/9+((g_screenWidth-g_screenWidth*2/9)/2-g_saveFileWg.width()/2);
+        moveHeight = g_screenHeight/6+((g_screenHeight-g_screenHeight/6)/2-g_saveFileWg.height()/2);
+        g_saveFileWg.move(moveWidth,moveHeight);
+        g_saveFileWg.show();
+        g_saveFileWg.activateWindow();g_saveFileWg.setFocus();
     }
     else
     {
-        viewShow = 2;
-        if(saveFileFirstFlag == 0)
+        g_viewShow = 2;
+        if(g_saveFileFirstFlag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&saveFileWg);
+            QGraphicsProxyWidget *w = scene->addWidget(&g_saveFileWg);
             w->setRotation(90);
 
-            saveFileView = new QGraphicsView(scene);
-            saveFileView->setWindowFlags(Qt::FramelessWindowHint);
-            saveFileView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            saveFileView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            saveFileWg.resize(screenHeight*2/3,screenWidth*2/3);
-            saveFileView->resize(screenWidth*2/3,screenHeight*2/3);
-            saveFileWg.show();
-            saveFileView->show();
-            saveFileView->activateWindow();saveFileView->setFocus();
-            saveFileWg.activateWindow();saveFileWg.setFocus();
-            int moveWidth=(screenWidth-screenWidth/6)/2-saveFileWg.height()/2;
-            int moveHeight=screenHeight*2/9+(screenHeight*7/9/2-saveFileWg.width()/2);
-            saveFileView->move(moveWidth,moveHeight);
-            saveFileFirstFlag++;
+            g_saveFileView = new QGraphicsView(scene);
+            g_saveFileView->setWindowFlags(Qt::FramelessWindowHint);
+            g_saveFileView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            g_saveFileView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            g_saveFileWg.resize(g_screenHeight*2/3,g_screenWidth*2/3);
+            g_saveFileView->resize(g_screenWidth*2/3,g_screenHeight*2/3);
+            g_saveFileWg.show();
+            g_saveFileView->show();
+            g_saveFileView->activateWindow();g_saveFileView->setFocus();
+            g_saveFileWg.activateWindow();g_saveFileWg.setFocus();
+            int moveWidth=(g_screenWidth-g_screenWidth/6)/2-g_saveFileWg.height()/2;
+            int moveHeight=g_screenHeight*2/9+(g_screenHeight*7/9/2-g_saveFileWg.width()/2);
+            g_saveFileView->move(moveWidth,moveHeight);
+            g_saveFileFirstFlag++;
         }
         else
         {
-            saveFileWg.show();
-            saveFileView->show();
-            saveFileView->activateWindow();saveFileView->setFocus();
-            saveFileWg.activateWindow();saveFileWg.setFocus();
-            int moveWidth = (screenWidth-screenWidth/6)/2-saveFileWg.height()/2;
-            int moveHeight = screenHeight*2/9+(screenHeight*7/9/2-saveFileWg.width()/2);
-            saveFileView->move(moveWidth,moveHeight);
+            g_saveFileWg.show();
+            g_saveFileView->show();
+            g_saveFileView->activateWindow();g_saveFileView->setFocus();
+            g_saveFileWg.activateWindow();g_saveFileWg.setFocus();
+            int moveWidth = (g_screenWidth-g_screenWidth/6)/2-g_saveFileWg.height()/2;
+            int moveHeight = g_screenHeight*2/9+(g_screenHeight*7/9/2-g_saveFileWg.width()/2);
+            g_saveFileView->move(moveWidth,moveHeight);
         }
     }
 }
 void voice::renameFileWidgetShow()
 {
-    if(screenFlag == 0)
+    if(g_screenFlag == 0)
     {
         int funcWidth = ui->function->width();
         int stackWidth = ui->stackedWidget->width();
-        int moveWidth = funcWidth+(stackWidth/2-screenWidth*31/50/2);
-        QPoint p = ui->stackedWidget->mapToGlobal(QPoint(0, 0));
-        int moveHeight = p.y();
-        renameWg.move(moveWidth,moveHeight);
-        renameWg.show();
-        renameWg.activateWindow();renameWg.setFocus();
-        renameWg.resize(screenWidth*3/5,ui->stackedWidget->height()*3/4);
+        int moveWidth = funcWidth+(stackWidth/2-g_screenWidth*31/50/2);
+        int moveHeight = g_screenHeight/6+(g_screenHeight*5/12-g_fileOprationWg.height()/2);
+        g_renameWg.move(moveWidth,moveHeight);
+        g_renameWg.show();
+        g_renameWg.activateWindow();g_renameWg.setFocus();
+        g_renameWg.resize(g_screenWidth*3/5,ui->stackedWidget->height()*3/4);
     }
     else
     {
-        if(renameFirstFlag == 0)
+        if(g_renameFirstFlag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&renameWg);
+            QGraphicsProxyWidget *w = scene->addWidget(&g_renameWg);
             w->setRotation(90);
 
-            renameView = new QGraphicsView(scene);
-            renameView->setWindowFlags(Qt::FramelessWindowHint);
-            renameView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            renameView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            renameWg.resize(screenHeight*2/3,screenWidth*2/3);
-            renameView->resize(screenWidth*2/3,screenHeight*2/3);
-            renameWg.show();
-            renameView->show();
-            int moveWidth =(screenWidth-screenWidth/6)/2-renameWg.height()/2;
-            int moveHeight=screenHeight-screenHeight*7/9+(screenHeight*7/9/2-renameWg.width()/2);
-            renameView->move(moveWidth,moveHeight);
-            renameView->activateWindow();renameView->setFocus();
-            renameWg.activateWindow();renameWg.setFocus();
-            renameFirstFlag++;
+            g_renameView = new QGraphicsView(scene);
+            g_renameView->setWindowFlags(Qt::FramelessWindowHint);
+            g_renameView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            g_renameView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            g_renameWg.resize(g_screenHeight*2/3,g_screenWidth*2/3);
+            g_renameView->resize(g_screenWidth*2/3,g_screenHeight*2/3);
+            g_renameWg.show();
+            g_renameView->show();
+            int moveWidth =(g_screenWidth-g_screenWidth/6)/2-g_renameWg.height()/2;
+            int moveHeight=g_screenHeight-g_screenHeight*7/9+(g_screenHeight*7/9/2-g_renameWg.width()/2);
+            g_renameView->move(moveWidth,moveHeight);
+            g_renameView->activateWindow();g_renameView->setFocus();
+            g_renameWg.activateWindow();g_renameWg.setFocus();
+            g_renameFirstFlag++;
         }
         else
         {
-            viewShow = 3;
-            renameWg.show();
-            renameView->show();
-            renameView->activateWindow();renameView->setFocus();
-            renameWg.activateWindow();renameWg.setFocus();
-            int moveWidth=(screenWidth-screenWidth/6)/2-renameWg.height()/2;
-            int moveHeight=screenHeight*2/9+(screenHeight*7/9/2-renameWg.width()/2);
-            renameView->move(moveWidth,moveHeight);
+            g_viewShow = 3;
+            g_renameWg.show();
+            g_renameView->show();
+            g_renameView->activateWindow();g_renameView->setFocus();
+            g_renameWg.activateWindow();g_renameWg.setFocus();
+            int moveWidth=(g_screenWidth-g_screenWidth/6)/2-g_renameWg.height()/2;
+            int moveHeight=g_screenHeight*2/9+(g_screenHeight*7/9/2-g_renameWg.width()/2);
+            g_renameView->move(moveWidth,moveHeight);
         }
     }
 }
 
 void voice::save_file_widget_hide()
 {
-    viewShow = 0;
-    if(screenFlag == 1)
+    g_viewShow = 0;
+    if(g_screenFlag == 1)
     {
-        saveFileWg.hide();
-        saveFileView->hide();
+        g_saveFileWg.hide();
+        g_saveFileView->hide();
         this->hide();
         this->show();
     }
     else
-        saveFileWg.hide();
+        g_saveFileWg.hide();
     this->activateWindow();this->setFocus();
 }
 
 void voice::rename_file_widget_hide()
 {
-    viewShow = 0;
-    if(screenFlag == 1)
+    g_viewShow = 0;
+    if(g_screenFlag == 1)
     {
-        renameWg.hide();
-        renameView->hide();
+        g_renameWg.hide();
+        g_renameView->hide();
         this->hide();
         this->show();
     }
     else
-        renameWg.hide();
+        g_renameWg.hide();
     this->activateWindow();this->setFocus();
 }
 
-void voice::voiceFont()
+void voice::setVoiceFont()
 {
-    qreal realX = screen->physicalDotsPerInchX();
-    qreal realY = screen->physicalDotsPerInchY();
-    qreal realWidth = screenWidth / realX * 2.54;
-    qreal realHeight = screenHeight / realY *2.54;
+    qreal realX = g_screen->physicalDotsPerInchX();
+    qreal realY = g_screen->physicalDotsPerInchY();
+    qreal realWidth = g_screenWidth / realX * 2.54;
+    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(screenFlag)
+    if(g_screenFlag)
     {
         if(realHeight < 15)
         {
@@ -724,97 +726,97 @@ void voice::voiceFont()
 
 void voice::closeEvent(QCloseEvent *event)
 {
-    if(showFirstFlag == 0)
+    if(g_showFirstFlag == 0)
     {
         saveFileWidgetShow();
         save_file_widget_hide();
         renameFileWidgetShow();
         rename_file_widget_hide();
-        showFirstFlag++;
+        g_showFirstFlag++;
     }
-    recordTimer->stop();
+    g_recordTimer->stop();
     QWidget::closeEvent(event);
 }
 
 void voice::showEvent(QShowEvent *event)
 {
-    recordTimer->start(1000);
+    g_recordTimer->start(1000);
 }
 
 void voice::on_btn_chooseFile_clicked()
 {
-    File_oprationWg.filePathFlag = 1;
-    fileChooseWidgetshow();
+    g_fileOprationWg.filePathFlag = 1;
+    chooseFileWidgetShow();
 }
 
-void voice::file_path(QString fpath)
+void voice::get_file_widget_path(QString fpath)
 {
     ui->lbl_pathValue->setText(fpath);
-    refresh(fpath);
+    refreshFile(fpath);
 }
 
-void voice::fileChooseWidgetshow()
+void voice::chooseFileWidgetShow()
 {
-    if(screenFlag == 1)
+    if(g_screenFlag == 1)
     {
-        viewShow=1;
-        if(fileFirstFlag == 0)
+        g_viewShow=1;
+        if(g_fileFirstFlag == 0)
         {
             QGraphicsScene *scene = new QGraphicsScene;
-            QGraphicsProxyWidget *w = scene->addWidget(&File_oprationWg);
+            QGraphicsProxyWidget *w = scene->addWidget(&g_fileOprationWg);
             w->setRotation(90);
 
-            chooseFileView = new QGraphicsView(scene);
-            chooseFileView->setWindowFlags(Qt::FramelessWindowHint);
-            chooseFileView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            chooseFileView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            chooseFileView->resize(File_oprationWg.height(),File_oprationWg.width());
-            File_oprationWg.show();
-            chooseFileView->show();
-            int moveWidth = screenWidth*5/6-File_oprationWg.height();
-            int moveHeight = screenHeight*2/9+(screenHeight*7/9/2-File_oprationWg.width()/2);
-            chooseFileView->move(moveWidth,moveHeight);
-            fileFirstFlag++;
+            g_chooseFileView = new QGraphicsView(scene);
+            g_chooseFileView->setWindowFlags(Qt::FramelessWindowHint);
+            g_chooseFileView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            g_chooseFileView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            g_chooseFileView->resize(g_fileOprationWg.height(),g_fileOprationWg.width());
+            g_fileOprationWg.show();
+            g_chooseFileView->show();
+            int moveWidth = g_screenWidth*5/6-g_fileOprationWg.height();
+            int moveHeight = g_screenHeight*2/9+(g_screenHeight*7/9/2-g_fileOprationWg.width()/2);
+            g_chooseFileView->move(moveWidth,moveHeight);
+            g_fileFirstFlag++;
         }
         else
         {
-            File_oprationWg.show();
-            chooseFileView->show();
-            int moveWidth = screenWidth*5/6-File_oprationWg.height();
-            int moveHeight = screenHeight*2/9+(screenHeight*7/9/2-File_oprationWg.width()/2);
-            chooseFileView->move(moveWidth,moveHeight);
+            g_fileOprationWg.show();
+            g_chooseFileView->show();
+            int moveWidth = g_screenWidth*5/6-g_fileOprationWg.height();
+            int moveHeight = g_screenHeight*2/9+(g_screenHeight*7/9/2-g_fileOprationWg.width()/2);
+            g_chooseFileView->move(moveWidth,moveHeight);
         }
     }
     else
     {
-        int moveWidth = screenWidth*2/9+((screenWidth-screenWidth*2/9)/2-File_oprationWg.width()/2);
-        QPoint p = ui->stackedWidget->mapToGlobal(QPoint(0, 0));
-        int movHeight = p.y();
-        File_oprationWg.show();File_oprationWg.move(moveWidth,movHeight);
+        int moveWidth = g_screenWidth*2/9+((g_screenWidth-g_screenWidth*2/9)/2-g_fileOprationWg.width()/2);
+        int moveHeight = g_screenHeight/6+(g_screenHeight*5/12-g_fileOprationWg.height()/2);
+        g_fileOprationWg.show();
+        g_fileOprationWg.move(moveWidth,moveHeight);
     }
 }
 
 void voice::file_choose_widget_hide()
 {
-    viewShow = 0;
-    if(screenFlag == 1)
+    g_viewShow = 0;
+    if(g_screenFlag == 1)
     {
-        File_oprationWg.hide();
-        chooseFileView->hide();
+        g_fileOprationWg.hide();
+        g_chooseFileView->hide();
         this->hide();this->show();
         this->activateWindow();this->setFocus();
     }
     else
     {
-        File_oprationWg.hide();
+        g_fileOprationWg.hide();
     }
 }
 
 void voice::volume_slider_change(int value)
 {
-    if(volumeOpenFlag == 0)
+    if(g_volumeOpenFlag == 0)
     {
-        volumeOpenFlag = 1;
+        g_volumeOpenFlag = 1;
         ui->btn_volume->setStyleSheet("background-color:transparent;border-image: url(:/button_image/voice/sound_u.svg);");
     }
     setVolume(value);

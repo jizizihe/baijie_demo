@@ -22,7 +22,7 @@ public:
     explicit about_board(QWidget *parent = 0);
     ~about_board();
     void languageReload();
-    void aboutFont();
+    void setAboutBoardFont();
     void showEvent(QShowEvent *event);
 
 signals:
@@ -30,13 +30,13 @@ signals:
 
 private slots:
     void battery_update();
-    void CPU_temp_update();
+    void cpu_temp_update();
     void board_name_update();
     void kernel_name_update();
-    void OS_name_update();
+    void os_name_update();
     void resolution_update();
-    void QT_version_update();
-    void on_ret_btn_clicked();
+    void qt_version_update();
+    void on_btn_ret_clicked();
 
 private:
     Ui::about_board *ui;

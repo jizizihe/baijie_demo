@@ -4,11 +4,11 @@
 #include <QMainWindow>
 #include <QSettings>
 
-#include "globalapp.h"
+#include "main_touch.h"
 #include "voice.h"
 #include "udev.h"
 #include "gpio.h"
-#include "touchscreen.h"
+#include "touch_screen.h"
 #include "wifi.h"
 #include "ipset.h"
 #include "all_test.h"
@@ -16,7 +16,7 @@
 #include "bluetooth.h"
 #include "serial.h"
 #include "sys_setting.h"
-#include "sim_module.h"
+#include "sim.h"
 #include "database.h"
 #include <QGraphicsView>
 #include <QGraphicsProxyWidget>
@@ -32,20 +32,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    database databaseWg;
-    voice voiceWg;
-    udev udevWg;
-    gpio gpioWg;
-    touchscreen touchWg;
-    wifi wifiWg;
-    ipset eth0Wg;
-    all_test allWg;
-    bluetooth bluetoothWg;
-    serial serialWg;
-    sys_setting systemWg;
-    sim_module simModuleWg;
-
-    void mainFont();
+    void setMainWindowFont();
     void voiceShow();
     void gpioShow();
     void wifiShow();
@@ -53,10 +40,23 @@ public:
     void serialShow();
     void systemShow();
     void closeEvent(QCloseEvent *event);
+    void showEvent(QShowEvent *event);
 
 private:
     Ui::MainWindow *ui;
-    QTranslator *translator;
+    QTranslator *g_translator;
+    database g_database;
+    voice g_voiceWg;
+    udev g_udevWg;
+    gpio g_gpioWg;
+    touchscreen g_touchWg;
+    wifi g_wifiWg;
+    ipset g_eth0Wg;
+    all_test g_allWg;
+    bluetooth g_bluetoothWg;
+    serial g_serialWg;
+    sys_setting g_systemWg;
+    sim_module g_simModuleWg;
 
 private slots:
     void on_btn_voice_clicked();
@@ -85,6 +85,7 @@ private slots:
 
 signals:
     void wifi_status_msg();
+    void cn_msg();
 };
 
 #endif // MAINWINDOW_H

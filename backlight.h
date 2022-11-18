@@ -21,8 +21,8 @@
 #define	DISP_LCD_BACKLIGHT_ENABLE   0x104
 #define	DISP_LCD_BACKLIGHT_DISABLE  0x105
 
-#include "globalapp.h"
-#include "wifi_bt_interface.h"
+#include "main_touch.h"
+#include "wifi_interface.h"
 
 int setBacklight(int value);
 int getBacklight();
@@ -38,9 +38,8 @@ class backlight : public QMainWindow
 public:
     explicit backlight(QWidget *parent = 0);
     ~backlight();
-    QTimer *timing;
     void languageReload();
-    void backlightFont();
+    void setBacklightFont();
 
 private:
     Ui::backlight *ui;
@@ -53,7 +52,7 @@ private slots:
     void on_cmb_sleep_time_currentIndexChanged(int index);
     void on_btn_ret_clicked();
     void light_screen();
-    void timer_up();       //check whether events are generated
+    void dark_screen();       //check whether events are generated
 };
 
 #endif // BACKLIGHT_H

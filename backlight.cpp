@@ -1,24 +1,15 @@
 #include "backlight.h"
 #include "ui_backlight.h"
 #include <QScreen>
+#include <QDebug>
 
-#define qd
-#ifdef qd
-#define qdebug(format, ...)  qDebug("File:%s, Function:%s, Line:%d  " format, __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
-#else
-#define qdebug(format, ...)
-#endif
-
-static int lightValue;
-static int indexNumber;
-static int screenFlag;
-static int screenWidth;
-static int screenHeight;
-static unsigned int timerArray[7] = {15,30,60,120,300,600,429499999};   //Sleep time
-static QScreen *screen;
-static QString strUsbStatus;
-static QString strBtnSetUsb;
-QTimer *timeUp;
+static int g_lightValue;
+static int g_indexNumber;         //The subscript of an array that stores sleep times
+static int g_screenWidth;
+static int g_screenHeight;
+static unsigned int g_timerArray[7] = {15,30,60,120,300,600,429499999};   //Sleep time
+static QTimer *g_timeUp;
+static QTimer *g_timing;         //sleep
 
 int setBacklight(int value)
 {
@@ -28,7 +19,7 @@ int setBacklight(int value)
     fd = open("/dev/disp", O_RDWR, 0);
     if(fd < 0)
     {
-        qdebug("open /dev/disp failed.\n");
+        qDebug() << "open /dev/disp failed.\n";
         return -1;
     }
 
@@ -49,7 +40,7 @@ int getBacklight()
     fd = open("/dev/disp", O_RDWR, 0);
     if(fd < 0)
     {
-        qdebug("open /dev/disp failed.\n");
+        qDebug() << "open /dev/disp failed.\n";
         return -1;
     }
     sourceValue = ioctl(fd,DISP_LCD_GET_BRIGHTNESS,args);
@@ -64,23 +55,23 @@ backlight::backlight(QWidget *parent) :
     ui->setupUi(this);
     ui->horizontalSlider_light->setRange(138,255);
     ui->horizontalSlider_light->setValue(255);
-    lightValue = 255;
-    screen = qApp->primaryScreen();
-    screenWidth = screen->size().width();
-    screenHeight = screen->size().height();
-    if(screenWidth < screenHeight)
+    g_lightValue = 255;
+    QScreen *screen = qApp->primaryScreen();
+    g_screenWidth = screen->size().width();
+    g_screenHeight = screen->size().height();
+    if(g_screenWidth < g_screenHeight)
     {
-        screenFlag = 1;ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
+        ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
-    backlightFont();
+    setBacklightFont();
     ui->lbl_lightValue->setText(tr("255"));
-    timing = new QTimer(this);
-    timing->start();
-    connect(timing,SIGNAL(timeout()),this,SLOT(light_screen()));
-    timeUp = new QTimer(this);
-    timeUp->start();
-    connect(timeUp,SIGNAL(timeout()),this,SLOT(timer_up()));
-    indexNumber = 6;
+    g_timing = new QTimer(this);
+    g_timing->start();
+    connect(g_timing,SIGNAL(timeout()),this,SLOT(light_screen()));
+    g_timeUp = new QTimer(this);
+    g_timeUp->start();
+    connect(g_timeUp,SIGNAL(timeout()),this,SLOT(dark_screen()));
+    g_indexNumber = 6;
     ui->cmb_sleep_time->setCurrentIndex(6);
 }
 
@@ -92,27 +83,26 @@ backlight::~backlight()
 void backlight::light_screen()
 {
     int nowValueLight = getBacklight();
-    if(nowValueLight == 0 && touchFlag)   //touchFlag external variable in globalapp.h
+    if(nowValueLight == 0 && g_touchFlag)   //touchFlag external variable in globalapp.h
     {
-        timeUp->start();
-        setBacklight(lightValue);
-
+        g_timeUp->start();
+        setBacklight(g_lightValue);
     }
     usleep(5000);
 }
 
-void backlight::timer_up()       //check whether events are generated
+void backlight::dark_screen()       //check whether events are generated
 {
-    QDateTime now = QDateTime::currentDateTime().addSecs(timerArray[indexNumber]);
-    QDateTime shade = QDateTime::currentDateTime().addSecs((unsigned)timerArray[indexNumber] - 1);
+    QDateTime now = QDateTime::currentDateTime().addSecs(g_timerArray[g_indexNumber]);
+    QDateTime shade = QDateTime::currentDateTime().addSecs((unsigned)g_timerArray[g_indexNumber] - 1);
 
     while(QDateTime::currentDateTime() < now)
     {
-        if(touchFlag)
+        if(g_touchFlag)
         {
-            now = QDateTime::currentDateTime().addSecs((unsigned)timerArray[indexNumber]);
-            shade = QDateTime::currentDateTime().addSecs((unsigned)timerArray[indexNumber] - 1);
-            touchFlag = false;
+            now = QDateTime::currentDateTime().addSecs((unsigned)g_timerArray[g_indexNumber]);
+            shade = QDateTime::currentDateTime().addSecs((unsigned)g_timerArray[g_indexNumber] - 1);
+            g_touchFlag = false;
         }
 
         if(QDateTime::currentDateTime() > shade)
@@ -121,20 +111,20 @@ void backlight::timer_up()       //check whether events are generated
 
         QCoreApplication::processEvents(QEventLoop::AllEvents,100);
     }
-    timeUp->stop();
+    g_timeUp->stop();
     setBacklight(0);
 }
 
 void backlight::on_horizontalSlider_light_valueChanged(int value)
 {
-    lightValue = setBacklight(value);
+    g_lightValue = setBacklight(value);
     QString strValue = QString("%1").arg(value);
     ui->lbl_lightValue->setText(tr(QString("%1").arg(strValue).toUtf8()));
 }
 
 void backlight::on_cmb_sleep_time_currentIndexChanged(int index)
 {
-    indexNumber = index;
+    g_indexNumber = index;
 }
 
 void backlight::on_btn_ret_clicked()
@@ -147,14 +137,15 @@ void backlight::languageReload()
     ui->retranslateUi(this);
 }
 
-void backlight::backlightFont()
+void backlight::setBacklightFont()
 {
+    QScreen *screen = qApp->primaryScreen();
     qreal realX = screen->physicalDotsPerInchX();
     qreal realY = screen->physicalDotsPerInchY();
-    qreal realWidth = screenWidth / realX * 2.54;
-    qreal realHeight = screenHeight / realY *2.54;
+    qreal realWidth = g_screenWidth / realX * 2.54;
+    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(screenFlag)
+    if(g_screenWidth < g_screenHeight)
     {
         if(realHeight < 15)
         {

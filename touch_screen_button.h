@@ -18,7 +18,7 @@ protected:
     bool event(QEvent *e);
 
 private:
-    bool touchEnd = false;
+    bool g_touchEnd = false;
 };
 
 #endif // CTOUCHBUTTON_H

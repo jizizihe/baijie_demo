@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include "all_test_thread.h"
 #include "gpio_interface.h"
-#include "serialdialog.h"
+#include "serial_dialog.h"
 #include "ui_serialdialog.h"
 #include "database.h"
 #include <QtSerialPort/QSerialPort>
@@ -32,8 +32,6 @@
 #include<iostream>
 #include <QScreen>
 
-static QString serial_ret;
-
 namespace Ui {
 class all_test;
 }
@@ -49,7 +47,7 @@ public:
     void testMsgDisplay(QString type,QString str,int time);
     void languageReload();
     void imageShow();
-    void allFont();
+    void setAllTestFont();
 
 private slots:
     void serial_config_func(serial_config);
@@ -76,30 +74,29 @@ signals:
     void wifi_test_msg();
     void bluetooth_test_msg();
     void audio_aplay_msg();
-    void serial_test_client_msg(serial_config);
+    void serial_test_start_msg(serial_config);
     void serial_test_stop_msg();
 
 private:
     Ui::all_test *ui;
-    QLabel *waitLbl;
-    QMovie *waitMovie;
-    serialdialog *serialDialog;
-    serial_config serialConfig;
-    QButtonGroup * testButtonGroup;
-    QThread * mainTestThread;
-    all_test_thread * allTestThread;
-    QThread * btThread;
-    all_test_thread * btTestThead;
-    all_test_thread * audioThread;
-    QThread * threadId[16];
-    all_test_thread * serialTestThread[16];
-    QTime startTime;
-    QTime stopTime;
-    int elapsed;
-    int usbAddNum = 0;
-    QTimer * serialStopTimer;
-    int testItemsCount = 0;
-    QList<QAbstractButton*> checkedBtnList;
+    QLabel *g_waitLbl;
+    QMovie *g_waitMovie;
+    serialdialog *g_serialDialog;
+    serial_config g_serialConfig;
+    QButtonGroup * g_testButtonGroup;
+    QThread * g_mainTestThread;
+    all_test_thread * g_allTestThread;
+    QThread * g_bluetoothThread;
+    all_test_thread * g_btTestThead;
+    QThread * g_threadId[16];
+    all_test_thread * g_serialTestThread[16];
+    QTime g_startTime;
+    QTime g_stopTime;
+    int g_elapsed;
+    int g_usbAddNum = 0;
+    QTimer * g_serialStopTimer;
+    int g_testItemsCount = 0;
+    QList<QAbstractButton*> g_checkedBtnList;
 };
 
 #endif // ALL_TEST_H

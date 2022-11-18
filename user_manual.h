@@ -17,7 +17,7 @@ public:
     ~user_manual();
 
     void languageReload();
-    void userFont();
+    void setUserManualFont();
 
 signals:
     void user_manual_back_msg();
@@ -29,7 +29,7 @@ private slots:
 
 private:
     Ui::user_manual *ui;
-    bool btnExpandAllFlag = true;
+    bool g_btnExpandAllFlag = true;
 };
 
 #endif // USER_MANUAL_H

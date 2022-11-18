@@ -197,7 +197,7 @@ int gpioUnexport(unsigned int gpio)
     return 0;
 }
 
-int gpioSetState(unsigned int gpio, char *state)
+int setGpioState(unsigned int gpio, char *state)
 {
     int fd;
     char buf[MAX_BUF];
@@ -214,7 +214,7 @@ int gpioSetState(unsigned int gpio, char *state)
     return 0;
 }
 
-int gpioSetValue(unsigned int gpio, int value)
+int setGpioValue(unsigned int gpio, int value)
 {
     int fd;
     char buf[MAX_BUF];
@@ -241,7 +241,7 @@ int gpioSetValue(unsigned int gpio, int value)
     return 0;
 }
 
-int gpioGetValue(unsigned int gpio)
+int getGpioValue(unsigned int gpio)
 {
     int fd,value;
     char temp;
@@ -268,7 +268,7 @@ int gpioGetValue(unsigned int gpio)
     return value;
 }
 
-int gpioGetState(unsigned int gpio)
+int getGpioState(unsigned int gpio)
 {
     int fd,value;
     char temp;
@@ -408,9 +408,9 @@ static int CompactIntegers(int *a, int len)
     return newlen;
 }
 
-occupiedGpioStr getDebugGpio()
+OccupiedGpioStr getDebugGpio()
 {
-    struct occupiedGpioStr occupiedGpio;
+    struct OccupiedGpioStr occupiedGpio;
     int i,linenum;
     char *gpiopath = (char *)"/sys/kernel/debug/gpio";
 
@@ -427,7 +427,7 @@ occupiedGpioStr getDebugGpio()
     occupiedGpio.len = CompactIntegers(occupiedGpio.gpio,i-1);
     for(i = 0;i < occupiedGpio.len;i++)
     {
-        calcPortStr(occupiedGpio.gpio[i],occupiedGpio.portnum[i]);
+        calcPortStr(occupiedGpio.gpio[i],occupiedGpio.portNum[i]);
     }
     return occupiedGpio;
 }

@@ -16,13 +16,13 @@ public:
     bool insertTableTwo(QString table,QString unit1,QString unit2);
     bool insertTableThree(QString table,QString unit1,QString unit2,QString unit3);
     bool selectTable(QString name);
-    QString selectTableName(QString tableName, QString name);
     bool updateWiFiTable(QString tableName, QString name, QString passwd);
+    bool updateTableOne(QString tableName, QString name);
     bool deleteTableName(QString tableName, QString name);
     bool deleteTable(QString tableName);
     QStringList tableShow(QString tableName);
+    QString selectTableName(QString tableName, QString name);
     void tableDebug(QString tableName);
-
 };
 
 #endif // DATABASE_H

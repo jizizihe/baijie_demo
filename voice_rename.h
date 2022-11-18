@@ -17,9 +17,10 @@ class voice_rename : public QMainWindow
 public:
     explicit voice_rename(QWidget *parent = 0);
     ~voice_rename();
-    void renameChang(QString,QString);
+    void getBeforeFile(QString,QString);
+    void rename(QString newName,QString beforeName);
     void languageReload();
-    void voiceRenameFont();
+    void setVoiceRenameFont();
 
 private slots:
     void on_btn_ok_clicked();

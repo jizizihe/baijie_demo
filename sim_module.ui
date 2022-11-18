@@ -180,7 +180,7 @@ QScrollBar{
          </spacer>
         </item>
         <item>
-         <widget class="SwitchControl" name="sim_Switch" native="true"/>
+         <widget class="common_switch" name="sim_Switch" native="true"/>
         </item>
        </layout>
       </item>
@@ -435,7 +435,7 @@ QScrollBar{
             <item>
              <widget class="QLabel" name="lbl_connectStatus">
               <property name="text">
-               <string>connect status</string>
+               <string>connect info</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -667,7 +667,7 @@ QScrollBar{
             <item>
              <widget class="QLabel" name="lbl_4GStatus">
               <property name="text">
-               <string>4G status</string>
+               <string>status info</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -944,9 +944,9 @@ QScrollBar{
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SwitchControl</class>
+   <class>common_switch</class>
    <extends>QWidget</extends>
-   <header location="global">switchcontrol.h</header>
+   <header location="global">common_switch.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>649</width>
-    <height>369</height>
+    <width>685</width>
+    <height>408</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -426,7 +426,7 @@ QTextEdit
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="page">
          <layout class="QVBoxLayout" name="verticalLayout_6" stretch="26,5">
@@ -1423,7 +1423,7 @@ QPushButton:pressed {
           <item>
            <widget class="QStackedWidget" name="stackedWidget_3">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="page_5">
              <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,4,1,1">
@@ -2390,7 +2390,7 @@ QPushButton:pressed {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>649</width>
+     <width>685</width>
      <height>22</height>
     </rect>
    </property>

@@ -31,10 +31,15 @@ class udev : public QMainWindow
 public:
     explicit udev(QWidget *parent = 0);
     ~udev();
-    void languageReload();
-    void udevFont();
     void showEvent(QShowEvent *event);
-    void fileReflesh(QString p);
+    void languageReload();
+    void setUdevFont();
+    void fileRefresh(QString path);
+    void copy();
+    void paste();
+    void cut();
+    void remove();
+    void safeUnplug();
 
 private slots:
     void on_btn_ret_clicked();
@@ -54,11 +59,11 @@ signals:
     void udev_back_msg();
 private:
     Ui::udev *ui;
-    QString filePath;
-    QProcess *proc;
-    QString globall[27];
-    QStringList mountDevice;
-    QProcess proPath;
+    QString g_filePath;
+    QProcess *g_proc;
+    QString g_globall[27];
+    QStringList g_mountDevice;
+    QProcess g_proPath;
 };
 
 #endif // UDEV_H

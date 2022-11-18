@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>595</width>
-    <height>423</height>
+    <width>628</width>
+    <height>425</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -729,7 +729,7 @@ QSlider::sub-page:horizontal {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>595</width>
+     <width>628</width>
      <height>22</height>
     </rect>
    </property>

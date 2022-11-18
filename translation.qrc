@@ -67,5 +67,11 @@
         <file>button_image/ethernet/d_ip.svg</file>
         <file>button_image/sdcard.svg</file>
         <file>button_image/udisk.svg</file>
+        <file>button_image/whats.png</file>
+        <file>button_image/logo.png</file>
+        <file>button_image/next.svg</file>
+        <file>button_image/weixin.jpg</file>
+        <file>button_image/email.svg</file>
+        <file>button_image/tel.svg</file>
     </qresource>
 </RCC>

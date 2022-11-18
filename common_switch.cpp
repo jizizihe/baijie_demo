@@ -1,27 +1,26 @@
-#include "switchcontrol.h"
+#include "common_switch.h"
 #include <QPainter>
 #include <QMouseEvent>
 #include <QDebug>
 #include <QLabel>
 #include <QHBoxLayout>
 
-SwitchControl::SwitchControl(QWidget *parent)
+common_switch::common_switch(QWidget *parent)
     : QWidget(parent),
-      Checked(true),
-      backgroundColor(98, 200, 182,180),
-      checkedColor(0, 160, 230),
-      disabledColor(98, 200, 182,100),
-      myThumbColor(98, 200, 182,255),
-      radius(20.0),
-      Height(46),
-      margin(4)
+      g_checked(true),
+      g_backgroundColor(98, 200, 182,180),
+      g_checkedColor(0, 160, 230),
+      g_disabledColor(98, 200, 182,100),
+      g_myThumbColor(98, 200, 182,255),
+      g_radius(20.0),
+      g_height(46),
+      g_margin(4)
 {
     setCursor(Qt::PointingHandCursor);
-    Checked = true;
-    connect(&timer, SIGNAL(timeout()), this, SLOT(onTimeout()));
+    g_checked = true;
 }
 
-void SwitchControl::paintEvent(QPaintEvent *event)
+void common_switch::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
     QPainter painter(this);
@@ -33,33 +32,33 @@ void SwitchControl::paintEvent(QPaintEvent *event)
     QColor thumbColor;
     qreal dOpacity;
     if (isEnabled()) {
-        if (Checked) {
-            background = checkedColor;
-            thumbColor = checkedColor;
+        if (g_checked) {
+            background = g_checkedColor;
+            thumbColor = g_checkedColor;
             dOpacity = 0.600;
         }
         else {
-            background = backgroundColor;
-            thumbColor = myThumbColor;
+            background = g_backgroundColor;
+            thumbColor = g_myThumbColor;
             dOpacity = 0.800;
         }
     } else {
-        background = backgroundColor;
+        background = g_backgroundColor;
         //dOpacity = 0.260;
         dOpacity = 0.500;
-        thumbColor = disabledColor;
+        thumbColor = g_disabledColor;
     }
     painter.setBrush(background);
     painter.setOpacity(dOpacity);
-    path.addRoundedRect(QRectF(margin, margin, width() - 2 * margin, height() - 2 * margin), radius, radius);
+    path.addRoundedRect(QRectF(g_margin, g_margin, width() - 2 * g_margin, height() - 2 * g_margin), g_radius, g_radius);
     painter.drawPath(path.simplified());
 
     painter.setBrush(thumbColor);
     painter.setOpacity(1.0);
-    painter.drawEllipse(QRectF(X - (Height/2), Y - (Height/2), height(), height()));
+    painter.drawEllipse(QRectF(g_x - (g_height/2), g_y - (g_height/2), height(), height()));
 }
 
-void SwitchControl::mousePressEvent(QMouseEvent *event)
+void common_switch::mousePressEvent(QMouseEvent *event)
 {
     if (isEnabled()) {
         if (event->buttons() & Qt::LeftButton) {
@@ -70,78 +69,70 @@ void SwitchControl::mousePressEvent(QMouseEvent *event)
     }
 }
 
-void SwitchControl::mouseReleaseEvent(QMouseEvent *event)
+void common_switch::mouseReleaseEvent(QMouseEvent *event)
 {
     if (isEnabled()) {
         if ((event->type() == QMouseEvent::MouseButtonRelease) && (event->button() == Qt::LeftButton)) {
             event->accept();
-            Checked = !Checked;
-            emit toggled(Checked);
-            //timer.start();
-            onTimeout();
+            g_checked = !g_checked;
+            emit toggled(g_checked);
+            changeToggled();
         } else {
             event->ignore();
         }
     }
 }
 
-void SwitchControl::resizeEvent(QResizeEvent *event)
+void common_switch::resizeEvent(QResizeEvent *event)
 {
-    X = width() - Height;
-    Y = Height / 2;
+    g_x = width() - g_height;
+    g_y = g_height / 2;
     QWidget::resizeEvent(event);
 }
 
-QSize SwitchControl::sizeHint() const
+QSize common_switch::sizeHint() const
 {
     return minimumSizeHint();
 }
 
-QSize SwitchControl::minimumSizeHint() const
+QSize common_switch::minimumSizeHint() const
 {
-    return QSize(2 * (Height + margin), Height + 2 * margin);
+    return QSize(2 * (g_height + g_margin), g_height + 2 * g_margin);
 }
 
-void SwitchControl::onTimeout()
+void common_switch::changeToggled()
 {
-    if (Checked) {
-        // X += 1;
-        // if (X >= width() - Height)
-        //     timer.stop();
-        X = width() - Height;
+    if (g_checked) {
+        g_x = width() - g_height;
     } else {
-        //X -= 1;
-        // if (X <= Height / 2)
-        //    timer.stop();
-        X = Height / 2;
+        g_x = g_height / 2;
     }
     update();
 }
 
-bool SwitchControl::isToggled() const
+bool common_switch::isToggled() const
 {
-    return Checked;
+    return g_checked;
 }
 
-void SwitchControl::setToggle(bool checked)
+void common_switch::setToggle(bool g_Checked)
 {
-    emit toggled(Checked);
-    Checked = checked;
-    onTimeout();
-    // timer.start(1);
+    emit toggled(g_Checked);
+    g_Checked = g_Checked;
+    changeToggled();
 }
 
-void SwitchControl::setBackgroundColor(QColor color)
+void common_switch::setBackgroundColor(QColor color)
 {
-    backgroundColor = color;
+    g_backgroundColor = color;
 }
 
-void SwitchControl::setCheckedColor(QColor color)
+void common_switch::setCheckedColor(QColor color)
 {
-    checkedColor = color;
+    g_checkedColor = color;
 }
 
-void SwitchControl::setDisbaledColor(QColor color)
+void common_switch::setDisbaledColor(QColor color)
 {
-    disabledColor = color;
+    g_disabledColor = color;
 }

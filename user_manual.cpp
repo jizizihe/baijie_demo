@@ -4,10 +4,10 @@
 #include <QString>
 #include <QScreen>
 
-static int screenWidth;
-static int screenHeight;
-static int screenFlag;
-static QScreen *screen;
+static int g_screenWidth;
+static int g_screenHeight;
+static int g_screenFlag;
+static QScreen *g_screen;
 
 user_manual::user_manual(QWidget *parent) :
     QWidget(parent),
@@ -20,15 +20,15 @@ user_manual::user_manual(QWidget *parent) :
     ui->treeWidget->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
     ui->textEdit->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
     ui->textEdit->setWordWrapMode(QTextOption::WrapAnywhere);
-    screen = qApp->primaryScreen();
-    screenWidth = screen->size().width();
-    screenHeight = screen->size().height();
-    if(screenWidth < screenHeight)
+    g_screen = qApp->primaryScreen();
+    g_screenWidth = g_screen->size().width();
+    g_screenHeight = g_screen->size().height();
+    if(g_screenWidth < g_screenHeight)
     {
-        screenFlag = 1;
+        g_screenFlag = 1;
         ui->line->setStyleSheet("background-color: rgb(186, 189, 182);");
     }
-    userFont();
+    setUserManualFont();
 }
 
 user_manual::~user_manual()
@@ -41,7 +41,7 @@ void user_manual::on_btn_ret_clicked()
     emit user_manual_back_msg();
     ui->textEdit->clear();
     ui->btn_ecpandAll->setText(tr("expand all"));
-    btnExpandAllFlag = true;
+    g_btnExpandAllFlag = true;
     ui->treeWidget->collapseAll();
 }
 
@@ -58,7 +58,7 @@ void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
     {
         ui->textEdit->setText(tr("    You can use the the switch button in the upper right control the wifi on and off."));
     }
-    else if(str == tr("connect WiFi"))
+    else if(str == tr("Connect WiFi"))
     {
         ui->textEdit->setText(tr("    You can click the < scan > button to dispaly a list of  connected, saved, and scanned WiFi devices, "
                                  "and the list is refreshed every 10 seconds.\n    Click the WiFi you want to connect, and a connection "
@@ -67,7 +67,7 @@ void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
                                  "the WiFi status interface.\n    You can click the < change passwd > button to change password and click the < remove > "
                                  "button to delect WiFi after jump to  the WiFi status interface."));
     }
-    else if(str == tr("connect hotspot"))
+    else if(str == tr("Connect Hotspot"))
     {
         ui->textEdit->setText(tr("    When you click the < hotspot > button, you can choose to establish a hotspot connection or disconnect. "
                                  "After connecting the hotspot, click < change > button to modify the hotspot."));
@@ -83,11 +83,11 @@ void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
     {
         ui->textEdit->setText(tr("    You can use the the switch button in the upper right control the Ethernet on and off."));
     }
-    else if(str == tr("ip information"))
+    else if(str == tr("Ip Information"))
     {
         ui->textEdit->setText(tr("    You can use < IP info > to view the IP addresses of all network configurations, which is equivalent to 'ifconfig'."));
     }
-    else if(str == tr("ip set"))
+    else if(str == tr("Ip Set"))
     {
         ui->textEdit->setText(tr("    You can set a static IP by clicking the < set static IP > button and entering the ip you want to set."
                                  "You can modify a static IP by clicking the < change > button and entering the ip you want to modify after you set static IP.\n"
@@ -105,11 +105,11 @@ void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
                                  "and click the button again to unsync.\n    You can use the < systimeset > button to set the system time, "
                                  "or you can use the < RTCset > button to synchronize to the hardware time."));
     }
-    else if(str == tr("backlight"))
+    else if(str == tr("Backlight"))
     {
-        ui->textEdit->setText(tr("    You can adjust the backlight of the screen through the slider."));
+        ui->textEdit->setText(tr("    You can adjust the backlight of the g_screen through the slider."));
     }
-    else if(str == tr("sleep time"))
+    else if(str == tr("Sleep Time"))
     {
         ui->textEdit->setText(tr("    You can click the < sleep > button and select the sleep time to set."));
     }
@@ -128,38 +128,38 @@ void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
         ui->textEdit->setText(tr("    First, make sure that the hardware connection corresponds, then Click the < set  > button to configure the serial port properties, click the serial port button switch.\n"
                                  "    Enter the content you want to send in the input box, click the < send > button to send, and the receiver will receive the information."));
     }
-    else if(str == tr("record"))
+    else if(str == tr("Record"))
     {
         ui->textEdit->setText(tr("    You can click the < start > button to record. The next time you press this button, end the recording and save "
                                  "it in '/ data' or the file directory you choose,and you can select the default name for saving recordings or change "
                                  "the name in the input box.\n    Note: the newly created folder should not contain spaces, otherwise the new recording "
                                  "file cannot be saved."));
     }
-    else if(str == tr("play"))
+    else if(str == tr("Play"))
     {
-        ui->textEdit->setText(tr("    You can click the < play > button to switch to the playback screen, select the path where the recording you want "
+        ui->textEdit->setText(tr("    You can click the < play > button to switch to the playback g_screen, select the path where the recording you want "
                                  "to play is located, click the < Play > button to play, slide the volume bar to adjust the volume.\n    click the < rename > "
                                  "button to rename the recording file, and click the < delete > button to delete the recording file."));
     }
     else if(str == tr("Touch Display"))
     {
-        ui->textEdit->setText(tr("    This function will recognize the touch screen and display the movement track on the screen."));
+        ui->textEdit->setText(tr("    This function will recognize the touch g_screen and display the movement track on the g_screen."));
     }
-    else if(str == tr("copy"))
+    else if(str == tr("Copy"))
     {
         ui->textEdit->setText(tr("    Select the file that you want to copy in the directory, you can select multiple files. Click the < copy > button "
                                  "to copy, and then select the directory you want to paste and click the < paste > button to paste."));
     }
-    else if(str == tr("cut"))
+    else if(str == tr("Cut"))
     {
         ui->textEdit->setText(tr("    Select the file that you want to cut in the directory, you can select multiple files. Click the < cut > button to cut, "
                                  "and then select the directory you want to paste and click the < paste > button to cut."));
     }
-    else if(str == tr("delete"))
+    else if(str == tr("Delete"))
     {
         ui->textEdit->setText(tr("    Select the file that you want to delete in the directory, you can select multiple files. Click the < delete > button to delete."));
     }
-    else if(str == tr("safe exit"))
+    else if(str == tr("Safe Exit"))
     {
         ui->textEdit->setText(tr("    You can click the < Udisk/sdcard > to jump to the appropriate directory, select the file that you want to safe unplug. "
                                  "Click the < safe unplug > button to safe unplug."));
@@ -183,14 +183,14 @@ void user_manual::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
     }
 }
 
-void user_manual::userFont()
+void user_manual::setUserManualFont()
 {
-    qreal realX = screen->physicalDotsPerInchX();
-    qreal realY = screen->physicalDotsPerInchY();
-    qreal realWidth = screenWidth / realX * 2.54;
-    qreal realHeight = screenHeight / realY *2.54;
+    qreal realX = g_screen->physicalDotsPerInchX();
+    qreal realY = g_screen->physicalDotsPerInchY();
+    qreal realWidth = g_screenWidth / realX * 2.54;
+    qreal realHeight = g_screenHeight / realY *2.54;
     QFont font;
-    if(screenFlag)
+    if(g_screenFlag)
     {
         if(realHeight < 15)
         {
@@ -228,7 +228,7 @@ void user_manual::userFont()
 
 void user_manual::on_btn_ecpandAll_clicked()
 {
-    if(btnExpandAllFlag)
+    if(g_btnExpandAllFlag)
     {
         ui->treeWidget->expandAll();
         ui->btn_ecpandAll->setText(tr("collapse all"));
@@ -238,5 +238,5 @@ void user_manual::on_btn_ecpandAll_clicked()
         ui->treeWidget->collapseAll();
         ui->btn_ecpandAll->setText(tr("expand all"));
     }
-    btnExpandAllFlag = !btnExpandAllFlag;
+    g_btnExpandAllFlag = !g_btnExpandAllFlag;
 }
