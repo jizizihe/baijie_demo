@@ -14,10 +14,10 @@ bool addStaticIp(QString netName,QString ipAddr,QString mask,QString gate);
 bool modifyStaticIp(QString ipAddr);
 bool deleteStaticIp();
 bool automaticallyGetIp();
+bool isStaticIpExist();
 QString getNetworkInfo();
 QString getCurrentIp(QString name);
-bool isStaticIpExist();
-void networkEnable(bool flag);
 QString executeLinuxCmd(QString strCmd);
+void networkEnable(bool flag);
 
 #endif // IPSET_INTERFACE_H

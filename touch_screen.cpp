@@ -58,20 +58,20 @@ void touchscreen::btn_clear_clicked()
     clearImage();
 }
 
-void touchscreen::clearImage()  //clear g_screen
+void touchscreen::clearImage()   // Clear g_screen
 {
     g_image.fill(qRgb(255, 255, 255));
     update();
 }
 
-void touchscreen::paintEvent(QPaintEvent *event)  //paint Event
+void touchscreen::paintEvent(QPaintEvent *event)  // Paint Event
 {
     QPainter painter(this);
     const QRect rect = event->rect();
     painter.drawImage(rect.topLeft(), g_image, rect);
 }
 
-void touchscreen::resizeEvent(QResizeEvent *event)  //Load Images
+void touchscreen::resizeEvent(QResizeEvent *event)  // Load images
 {
     if (width() > g_image.width() || height() > g_image.height())
     {
@@ -92,7 +92,7 @@ void touchscreen::resizeEvent(QResizeEvent *event)  //Load Images
     QWidget::resizeEvent(event);
 }
 
-void touchscreen::resizeImage(QImage *g_image, const QSize &newSize)  //g_image replace
+void touchscreen::resizeImage(QImage *g_image, const QSize &newSize)  // Image replace
 {
     if (g_image->size() == newSize)
         return;
@@ -105,7 +105,6 @@ void touchscreen::resizeImage(QImage *g_image, const QSize &newSize)  //g_image 
 
 bool touchscreen::event(QEvent *event)
 {
-    //QTouchEvent *touch = static_cast<QTouchEvent *>(event);
     switch (event->type()) {
     case QEvent::TouchBegin:
     case QEvent::TouchUpdate:
@@ -115,15 +114,14 @@ bool touchscreen::event(QEvent *event)
         foreach (const QTouchEvent::TouchPoint &touchPoint, touchPoints) {
             switch (touchPoint.state()) {
             case Qt::TouchPointStationary:
-            case Qt::TouchPointReleased:
-                // don't do anything if this touch point hasn't moved or has been released
+            case Qt::TouchPointReleased: // Don't do anything if this touch point hasn't moved or has been released
+
                 continue;
             default:
             {
                 QRectF rect = touchPoint.rect();
                 if (rect.isEmpty()) {
                     qreal diameter = MaximumDiameter;
-                    //if (touch->device()->capabilities() & QTouchDevice::Pressure)
                     diameter = MinimumDiameter + (MaximumDiameter - MinimumDiameter) * touchPoint.pressure();
                     rect.setSize(QSizeF(diameter, diameter));
                 }

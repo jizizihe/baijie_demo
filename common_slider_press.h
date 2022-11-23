@@ -19,4 +19,4 @@ public:
     bool g_mousePress;
 };
 
-#endif // MYSLIDER_H
+#endif // COMMON_SLIDER_H

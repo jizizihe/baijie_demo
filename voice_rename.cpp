@@ -43,7 +43,6 @@ void voice_rename::on_btn_ok_clicked()
 
 void voice_rename::rename(QString newName,QString beforeName)
 {
-
     if(newName.compare(beforeName) != 0)
     {
         QString str = QString("mv %1 %2").arg(beforeName).arg(newName);
@@ -54,11 +53,11 @@ void voice_rename::rename(QString newName,QString beforeName)
     }  
 }
 
-void voice_rename::getBeforeFile(QString filename,QString filepath)
+void voice_rename::getBeforeFile(QString fileName, QString filePath)
 {
-    g_filePath = filepath;
-    ui->lineEdit->setText(filename);
-    g_beforeName = QString("%1%2").arg(g_filePath).arg(filename);
+    g_filePath = filePath;
+    ui->lineEdit->setText(fileName);
+    g_beforeName = QString("%1%2").arg(g_filePath).arg(fileName);
 }
 
 void voice_rename::on_btn_cel_clicked()
@@ -79,7 +78,7 @@ void voice_rename::setVoiceRenameFont()
     {
         font.setPointSize(12);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(14);
     }

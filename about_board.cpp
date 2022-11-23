@@ -40,6 +40,7 @@ about_board::~about_board()
 void about_board::showEvent(QShowEvent *event)
 {
     g_timer->start(1000);
+    QWidget::showEvent(event);
 }
 
 void about_board::battery_update()
@@ -85,17 +86,17 @@ void about_board::resolution_update()
 
 void about_board::qt_version_update()
 {
-    char vQT[64];
-    if(getQTVersion("/usr/helperboard/qt/lib/","libQt5Core",vQT) == 0)
+    char qtVersion[64];
+    if(getQTVersion("/usr/helperboard/qt/lib/","libQt5Core",qtVersion) == 0)
     {
-        if(getQTVersion("/usr/helperboard/qt/lib/","libQt4Core",vQT) == 0)
+        if(getQTVersion("/usr/helperboard/qt/lib/","libQt4Core",qtVersion) == 0)
         {
             ui->lbl_QTVersionValue->setText(QString(tr("Unknow")));
         }
     }
     else
     {
-        ui->lbl_QTVersionValue->setText(QString(tr("%1")).arg(vQT));
+        ui->lbl_QTVersionValue->setText(QString(tr("%1")).arg(qtVersion));
     }
 }
 
@@ -116,7 +117,7 @@ void about_board::setAboutBoardFont()
     QScreen *screen;
     screen = qApp->primaryScreen();
     qreal realX = screen->physicalDotsPerInchX();
-    qreal realWidth = g_screenWidth / realX * 2.54;
+    qreal realWidth = g_screenWidth / realX * 2.54;    // Physical width of the screen
     QFont font;
 
     if(realWidth < 15)
@@ -127,7 +128,7 @@ void about_board::setAboutBoardFont()
         ui->lbl_BusinessEmailValue->setFont(font);
         font.setPointSize(12);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(12);
         ui->lbl_telValue->setFont(font);

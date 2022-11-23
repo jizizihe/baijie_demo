@@ -6,7 +6,7 @@
 
 static int g_screenWidth;
 static int g_screenHeight;
-static int g_cpCtFlag;     // 0:null  1:copy  2:cut
+static int g_cpCtFlag;     // 0:Null  1:Copy  2:Cut
 static QScreen *g_screen;
 static QString g_cpFile;
 static QString g_ctFile;
@@ -19,16 +19,15 @@ udev::udev(QWidget *parent) :
 {
     ui->setupUi(this);
     g_proc = new QProcess();
-
+    g_proPath.start("bash");
     g_screen = qApp->primaryScreen();
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
-    setUdevFont();
     g_timer = new QTimer(this);
-    connect(g_timer,SIGNAL(timeout()),this,SLOT(find_mount_file()));
-    connect(&g_proPath, SIGNAL(readyReadStandardOutput()), this, SLOT(readBashStandardOutputInfo()));
-    g_proPath.start("bash");
+    setUdevFont();
     find_mount_file();
+    connect(g_timer,SIGNAL(timeout()),this,SLOT(find_mount_file()));
+    connect(&g_proPath, SIGNAL(readyReadStandardOutput()), this, SLOT(readBashStandardOutputInfo()));  
 }
 
 udev::~udev()
@@ -47,7 +46,7 @@ void udev::safeUnplug()
     g_proPath.write("sync\n");
     QMessageBox mesg(QMessageBox::Information,
                      tr("QMessageBox::information()"),
-                     tr("safe unplug successful!"),
+                     tr("Safe unplug successful!"),
                      0,this);
     mesg.addButton(tr("OK"),QMessageBox::YesRole);
     mesg.move(g_screenWidth/3,g_screenHeight/3);
@@ -132,7 +131,8 @@ void udev::cut()
         mesg.exec();
         return;
     }
-    g_cpCtFlag = 2; g_ctFile.clear();
+    g_cpCtFlag = 2;
+    g_ctFile.clear();
     QString path = ui->lbl_pathValue->text();
     for(int i = 0; i< g_listFileCheck.size();++i)
     {
@@ -164,7 +164,7 @@ void udev::on_btn_delete_clicked()
         mesg.exec();
         return;
     }
-     remove();
+    remove();
 }
 
 void udev::remove()
@@ -241,7 +241,7 @@ void udev::setUdevFont()
     {
         font.setPointSize(12);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(14);
     }
@@ -271,37 +271,37 @@ void udev::readBashStandardOutputInfo()
     ui->treeWidget->clear();
     for(int i = 2;i<list.size();i++)
     {
-        QTreeWidgetItem *g = new QTreeWidgetItem(ui->treeWidget);
-        g->setText(0,list[i]);
-        g->setCheckState(0,Qt::Unchecked);
+        QTreeWidgetItem *treeItem = new QTreeWidgetItem(ui->treeWidget);
+        treeItem->setText(0,list[i]);
+        treeItem->setCheckState(0,Qt::Unchecked);
         str = list[i];
         if(ui->lbl_pathValue->text() == "/media/udisk/")
         {
             str = str.remove(0,str.length()-1);
             if(str == "/")
-                g->setIcon(0,QIcon(":/button_image/udisk.svg"));
+                treeItem->setIcon(0,QIcon(":/button_image/udisk.svg"));
         }
         else if(ui->lbl_pathValue->text() == "/media/sdcard/")
         {
             str = str.remove(0,str.length()-1);
             if(str == "/")
-                g->setIcon(0,QIcon(":/button_image/sdcard.svg"));
+                treeItem->setIcon(0,QIcon(":/button_image/sdcard.svg"));
         }
         else if((ui->lbl_pathValue->text() == "/media/")&&(str == "udisk/"))
         {
-            g->setIcon(0,QIcon(":/button_image/udisk.svg"));
+            treeItem->setIcon(0,QIcon(":/button_image/udisk.svg"));
         }
         else if((ui->lbl_pathValue->text() == "/media/")&&(str == "sdcard/"))
         {
-            g->setIcon(0,QIcon(":/button_image/sdcard.svg"));
+            treeItem->setIcon(0,QIcon(":/button_image/sdcard.svg"));
         }
         else
         {
             str = str.remove(0,str.length()-1);
             if(str == "/")
-                g->setIcon(0,QIcon(":/button_image/folder.svg"));
+                treeItem->setIcon(0,QIcon(":/button_image/folder.svg"));
             else
-                g->setIcon(0,QIcon(":/button_image/file.svg"));
+                treeItem->setIcon(0,QIcon(":/button_image/file.svg"));
         }
     }
 }
@@ -418,8 +418,8 @@ void udev::on_treeWidget_itemPressed(QTreeWidgetItem *item, int column)
     {
         QString pathCurrent = ui->lbl_pathValue->text();
         QString path= pathCurrent + pathNew;
-        QString s = "cd "+ path + " \n";
-        g_proPath.write(s.toUtf8());
+        str = "cd "+ path + " \n";
+        g_proPath.write(str.toUtf8());
         g_proPath.write("ls -ap \n");
         ui->lbl_pathValue->setText(path);
         g_listFileCheck.clear();
@@ -456,7 +456,7 @@ void udev::on_btn_mount_clicked()
 
     g_mountDevice.clear();
     int globallIndex = 0;
-    for(int x = 0; x < data.size();x++)   //Find the mounted devices
+    for(int x = 0; x < data.size();x++)   // Find the mounted devices
     {
         if(reg.exactMatch(data.at(x)) || data.at(x) == "/dev/mmcblk1p1")
         {
@@ -508,15 +508,15 @@ void udev::on_btn_mount_clicked()
 void udev::find_mount_file()
 {
     QRegExp reg("/dev/sd[a-z]1");
-    QString str_text = QString("df -h | awk '{print $1}'");
-    g_proc->start("bash",QStringList() << "-c" << str_text);
+    QString str = QString("df -h | awk '{print $1}'");
+    g_proc->start("bash",QStringList() << "-c" << str);
     g_proc->waitForFinished(-1);
-    QString ss = g_proc->readAllStandardOutput().data();
-    QStringList data = ss.split("\n");
+    str = g_proc->readAllStandardOutput().data();
+    QStringList data = str.split("\n");
 
     g_mountDevice.clear();
     int globallIndex = 0;
-    for(int x = 0; x < data.size();x++)   //Find the mounted devices
+    for(int x = 0; x < data.size();x++)   // Find the mounted devices
     {
         if(reg.exactMatch(data.at(x)) || data.at(x) == "/dev/mmcblk1p1")
         {

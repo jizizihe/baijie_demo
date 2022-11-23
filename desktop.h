@@ -19,7 +19,6 @@ public:
     ~Desktop();
     void mousePressEvent(QMouseEvent *event);
     void showEvent(QShowEvent *event);
-    QString executeLinuxCmd(QString strCmd);
     void select_language();
 
 signals:

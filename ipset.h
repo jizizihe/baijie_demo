@@ -3,7 +3,22 @@
 
 #include <QMainWindow>
 #include "ipset_interface.h"
-#include "common.h"
+#include <QObject>
+#include <QThread>
+#include <QDebug>
+#include <QProcess>
+#include <QLabel>
+#include <QFile>
+#include <QDir>
+#include <QMovie>
+#include <QScreen>
+#include <QScrollBar>
+#include <QListWidget>
+#include <QInputDialog>
+#include <QDialog>
+#include <QMessageBox>
+#include <QFileInfo>
+
 
 namespace Ui {
 class ipset;

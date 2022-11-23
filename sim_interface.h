@@ -36,8 +36,8 @@ public:
     QString executeLinuxCmd(QString strCmd);
     QString simDisconnect();
     QString simConnect();
-    QString getSimStatus();   //connection network status
-    QString getSimModuleStatus();   //sim module status
+    QString getSimStatus();         // Connection network status
+    QString getSimModuleStatus();   // Sim module status
     void setSimEnable(int flag);
 };
 

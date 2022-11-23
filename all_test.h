@@ -5,7 +5,7 @@
 #include "all_test_thread.h"
 #include "gpio_interface.h"
 #include "serial_dialog.h"
-#include "ui_serialdialog.h"
+#include "ui_serial_dialog.h"
 #include "database.h"
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
@@ -29,11 +29,11 @@
 #include <time.h>
 #include <errno.h>
 #include <pthread.h>
-#include<iostream>
+#include <iostream>
 #include <QScreen>
 
 namespace Ui {
-class all_test;
+  class all_test;
 }
 
 class all_test : public QMainWindow
@@ -79,24 +79,24 @@ signals:
 
 private:
     Ui::all_test *ui;
-    QLabel *g_waitLbl;
-    QMovie *g_waitMovie;
     serialdialog *g_serialDialog;
     serial_config g_serialConfig;
+    QLabel *g_waitLbl;
+    QMovie *g_waitMovie;
     QButtonGroup * g_testButtonGroup;
     QThread * g_mainTestThread;
-    all_test_thread * g_allTestThread;
-    QThread * g_bluetoothThread;
-    all_test_thread * g_btTestThead;
     QThread * g_threadId[16];
-    all_test_thread * g_serialTestThread[16];
+    QThread * g_bluetoothThread;
+    QList<QAbstractButton*> g_checkedBtnList;
     QTime g_startTime;
     QTime g_stopTime;
+    QTimer * g_stopSerialTimer;
+    all_test_thread * g_allTestThread;    
+    all_test_thread * g_btTestThead;    
+    all_test_thread * g_serialTestThread[16];
     int g_elapsed;
     int g_usbAddNum = 0;
-    QTimer * g_serialStopTimer;
     int g_testItemsCount = 0;
-    QList<QAbstractButton*> g_checkedBtnList;
 };
 
 #endif // ALL_TEST_H

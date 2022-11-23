@@ -1,6 +1,5 @@
 #include "wifi_interface.h"
 
-
 wifi_interface::wifi_interface(QObject *parent) : QObject(parent)
 {
 
@@ -13,11 +12,11 @@ wifi_interface::~wifi_interface()
 
 QString wifi_interface::executeLinuxCmd(QString strCmd)
 {
-    QProcess p;
-    p.start("bash", QStringList() <<"-c" << strCmd);
-    p.waitForFinished(-1);
-    QString strResult = p.readAllStandardOutput();
-    p.close();
+    QProcess pro;
+    pro.start("bash", QStringList() <<"-c" << strCmd);
+    pro.waitForFinished(-1);
+    QString strResult = pro.readAllStandardOutput();
+    pro.close();
     return strResult;
 }
 
@@ -66,10 +65,10 @@ QString wifi_interface::wifiScan()
     }
 
     QString strCmd = QString("nmcli device wifi rescan");
-    QString ScanResult = executeLinuxCmd(strCmd);
+    QString scanResult = executeLinuxCmd(strCmd);
     strCmd = QString("nmcli -t  device wifi list|awk -F : '{print $2\":\"$6}' ");
-    ScanResult = executeLinuxCmd(strCmd);
-    return ScanResult;
+    scanResult = executeLinuxCmd(strCmd);
+    return scanResult;
 }
 
 wifi_info wifi_interface::getWifiStatus(QString wifiName)
@@ -90,11 +89,11 @@ wifi_info wifi_interface::getWifiStatus(QString wifiName)
 
     strCmd = QString("nmcli --terse --fields active,ssid,signal,security  device wifi list");
     strResult = executeLinuxCmd(strCmd);
-    QStringList scanlist = strResult.split("\n");
+    QStringList scanList = strResult.split("\n");
 
-    for(int i = 0; i < scanlist.size(); i++)
+    for(int i = 0; i < scanList.size(); i++)
     {
-        tmp = scanlist.at(i);
+        tmp = scanList.at(i);
         findString = tmp.section(':', 1, 1);
         if(findString == wifiName)
         {
@@ -107,7 +106,7 @@ wifi_info wifi_interface::getWifiStatus(QString wifiName)
         return g_WifiStatus;
     }
 
-    tmp = scanlist.at(index);
+    tmp = scanList.at(index);
     g_WifiStatus.active = tmp.section(':', 0, 0);
     g_WifiStatus.name = wifiName;
     g_WifiStatus.passwd = g_database.selectTableName(QString("wifiPasswd"),wifiName);
@@ -135,7 +134,7 @@ QString wifi_interface::getWifiSignalQuality()
 
     if(signalQualityResult == QString("BARS\n"))
     {
-        signalQualityResult = QString("please try again!");
+        signalQualityResult = QString("Please try again!");
     }
 
     return strResult.append(signalQualityResult);
@@ -168,7 +167,7 @@ bool wifi_interface::wifiConnectExistFlag(QString WifiSsid)
     bool checktResult=strResult.contains(findStr,Qt::CaseInsensitive);
     if(checktResult == 1)
     {
-        strResult = "it had connected!";
+        strResult = "It had connected!";
 
         return true;
     }
@@ -183,22 +182,22 @@ QString wifi_interface::wifiActivation(QString WifiSsid)
     return strResult;
 }
 
-QString wifi_interface::wifiRemove(QString WifiSsid)
+QString wifi_interface::wifiRemove(QString wifiSsid)
 {
-    QString strCmd = QString("nmcli connection delete '%1' ").arg(WifiSsid);
+    QString strCmd = QString("nmcli connection delete '%1' ").arg(wifiSsid);
     QString strResult = executeLinuxCmd(strCmd);
     return strResult;
 }
 
-QString wifi_interface::wifiConnect(QString WifiSsid,QString PassWd)
+QString wifi_interface::wifiConnect(QString wifiSsid, QString passWd)
 {
     QString strCmd;
     QString strResult;
-    strCmd = QString("nmcli device wifi connect '%1' password '%2' name '%3' ").arg(WifiSsid).arg(PassWd).arg(WifiSsid);
+    strCmd = QString("nmcli device wifi connect '%1' password '%2' name '%3' ").arg(wifiSsid).arg(passWd).arg(wifiSsid);
     strResult = executeLinuxCmd(strCmd);
-    bool ConnectResult=strResult.contains("successfully activated",Qt::CaseInsensitive);
+    bool connectResult=strResult.contains("successfully activated",Qt::CaseInsensitive);
 
-    if(ConnectResult == 1)
+    if(connectResult == 1)
     {
         strResult = "Connection successful!";
         return QString(1);
@@ -206,32 +205,32 @@ QString wifi_interface::wifiConnect(QString WifiSsid,QString PassWd)
     else
     {
         strResult = "Connection failed!";
-        strCmd = QString("nmcli connection delete \"%1\" ").arg(WifiSsid);
+        strCmd = QString("nmcli connection delete \"%1\" ").arg(wifiSsid);
         strResult = executeLinuxCmd(strCmd);
-        bool ConnectResult=strResult.contains("successfully deleted",Qt::CaseInsensitive);
-        if(ConnectResult == 1)
+        bool deleteResult=strResult.contains("successfully deleted",Qt::CaseInsensitive);
+        if(deleteResult == 1)
         {
-            strResult = "delete successful!";
+            strResult = "Delete successful!";
         }
         else
         {
-            strResult = "delete failed!";
+            strResult = "Delete failed!";
         }
         return 0;
     }
     return 0;
 }
 
-bool wifi_interface::wifiModifyPasswd(QString WifiSsid,QString PassWd)
+bool wifi_interface::wifiModifyPasswd(QString wifiSsid, QString passWd)
 {
-    if(WifiSsid.isEmpty() || PassWd.isEmpty())
+    if(wifiSsid.isEmpty() || passWd.isEmpty())
     {
         return false;
     }
 
-    QString strCmd = QString("nmcli connection modify '%1' wifi-sec.psk '%2' ").arg(WifiSsid).arg(PassWd);
+    QString strCmd = QString("nmcli connection modify '%1' wifi-sec.psk '%2' ").arg(wifiSsid).arg(passWd);
     QString strResult = executeLinuxCmd(strCmd);
-    strCmd = QString("nmcli connection up '%1'").arg(WifiSsid);qDebug() <<strCmd;
+    strCmd = QString("nmcli connection up '%1'").arg(wifiSsid);
     strResult = executeLinuxCmd(strCmd);
     if(strResult.contains("successfully",Qt::CaseSensitive))
     {
@@ -240,7 +239,7 @@ bool wifi_interface::wifiModifyPasswd(QString WifiSsid,QString PassWd)
     return false;
 }
 
-QString wifi_interface::hotspotConnect(QString HtWlan,QString HtName,QString HtPasswd)
+QString wifi_interface::hotspotConnect(QString htWlan, QString htName, QString htPasswd)
 {
     QString strCmd;
     QString strResult;
@@ -257,7 +256,7 @@ QString wifi_interface::hotspotConnect(QString HtWlan,QString HtName,QString HtP
 
     if(!num.isEmpty())
     {
-        strCmd = QString("nmcli connection modify hotspot ssid '%1' wifi-sec.psk '%2' ").arg(HtName).arg(HtPasswd);
+        strCmd = QString("nmcli connection modify hotspot ssid '%1' wifi-sec.psk '%2' ").arg(htName).arg(htPasswd);
         strResult = executeLinuxCmd(strCmd);
 
         strCmd = QString("nmcli connection up hotspot");
@@ -265,20 +264,20 @@ QString wifi_interface::hotspotConnect(QString HtWlan,QString HtName,QString HtP
     }
     else
     {
-        strCmd = QString("nmcli device wifi hotspot con-name hotspot ifname '%1' ssid '%2' password '%3' ").arg(HtWlan).arg(HtName).arg(HtPasswd);
+        strCmd = QString("nmcli device wifi hotspot con-name hotspot ifname '%1' ssid '%2' password '%3' ").arg(htWlan).arg(htName).arg(htPasswd);
         strResult = executeLinuxCmd(strCmd);
     }
 
-    bool ConnectResult=strResult.contains("successfully activated",Qt::CaseInsensitive);
-    if(ConnectResult == true)
+    bool activatResult=strResult.contains("successfully activated",Qt::CaseInsensitive);
+    if(activatResult == true)
     {
-        strResult = "build successful!";
+        strResult = "Build successful!";
         strResult = QString(1);
-        HtName = QString("hotspot%1").arg(HtName);
+        htName = QString("hotspot%1").arg(htName);
     }
     else
     {
-        strResult = "build failed!";
+        strResult = "Build failed!";
         strResult = QString("");
     }
 
@@ -293,15 +292,15 @@ bool wifi_interface::hotspotDisconnect()
     strCmd = QString("nmcli con down hotspot");
     strResult = executeLinuxCmd(strCmd);
 
-    bool ConnectResult=strResult.contains("successfully deactivated",Qt::CaseInsensitive);
-    if(ConnectResult == 1)
+    bool disconnectResult=strResult.contains("successfully deactivated",Qt::CaseInsensitive);
+    if(disconnectResult == 1)
     {
-        strResult = tr("successfully deactivated!");
+        strResult = tr("Successfully deactivated!");
         return true;
     }
     else
     {
-        strResult = tr("deactivated failed!");
+        strResult = tr("Deactivated failed!");
         return false;
     }
 }
@@ -327,7 +326,7 @@ bool wifi_interface::hotspotConnectFlag()
         if(str.contains("wlan",Qt::CaseInsensitive))
         {
             num = i+1;
-            QString strCmd = QString(" nmcli con show | awk 'NR==%1'| awk '{print $1}' \n").arg(num);
+            QString strCmd = QString("nmcli con show | awk 'NR==%1'| awk '{print $1}' \n").arg(num);
             QString strResult = executeLinuxCmd(strCmd);
             if(strResult == "hotspot\n")
                 return true;

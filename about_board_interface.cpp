@@ -179,7 +179,8 @@ char *getKernel()
         kernel = (char *)"Unknown";
         return kernel;
     }
-    QString kernelRelease = QString::fromLocal8Bit(process->readAllStandardOutput());process->close();
+    QString kernelRelease = QString::fromLocal8Bit(process->readAllStandardOutput());
+    process->close();
     kernelRelease = kernelRelease.simplified();
     kernel = (QString("%1 %2 %3").arg(hardwareName).arg(kernelName).arg(kernelRelease)).toLatin1().data();
     return kernel;

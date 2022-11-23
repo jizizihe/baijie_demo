@@ -19,7 +19,7 @@ class File_opration : public QMainWindow
 public:
     explicit File_opration(QWidget *parent = 0);
     ~File_opration();
-    int filePathFlag;                           // 0: choose file  1: choose path
+    int filePathFlag;                           // 0: Choose file  1: Choose path
     void showEvent(QShowEvent *event);
     void languageReload();
     void setFileOprationFont();

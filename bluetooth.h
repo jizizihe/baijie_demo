@@ -15,12 +15,12 @@
 #include <QComboBox>
 #include <QThread>
 #include <QFile>
-#include<iostream>
+#include <iostream>
 #include <QListWidget>
 #include <QScrollBar>
 #include <QMessageBox>
 #include <QMovie>
-#include<QScreen>
+#include <QScreen>
 
 namespace Ui {
 class bluetooth;
@@ -62,7 +62,7 @@ private:
     Ui::bluetooth *ui;
     QStringList g_btScanList;
     QLabel *g_loadLabel;
-    QMovie *g_pMovie;
+    QMovie *g_loadMovie;
     QThread * g_myThread;
     bluetooth_thread * g_bluetoothThread;
     bluetooth_interface * g_bluetoothInterface;

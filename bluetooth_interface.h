@@ -32,7 +32,6 @@ public:
 
     QString executeLinuxCmd(QString strCmd);
     QString executeLinuxCmdBluetoothOpen(QString strCmd);
-    QString executeLinuxCmdBluetoothConnect(QString strCmd);
     QString bluetoothScan();
     QString bluetoothPair(QString btAddress);
     QString bluetoothConnect(QString btAddress);
@@ -44,7 +43,7 @@ public:
     void bluetoothShellDelete();
     void bluetoothDisconnect(QString btAddress);
     void bluetoothRemove(QString btAddress);
-    void bluetoothScan2();  //Process data before scanning
+    void bluetoothScan2();  // Process data before scanning
 
 public slots:
     void rm_bluetooth_shell();

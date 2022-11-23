@@ -15,12 +15,12 @@ voice_savefile_name::voice_savefile_name(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->lineEdit->installEventFilter(this);
+    ui->lbl_pathValue->setText("/data/");
     g_screen = qApp->primaryScreen();
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
 
-    setSaveFileFont();
-    ui->lbl_pathValue->setText("/data/");
+    setSaveFileFont();    
     g_proPath.start("bash");
     g_proPath.write("mkdir /data");
     connect(&g_fileOprationWg,SIGNAL(file_rev_path_msg(QString)),this,SLOT(get_file_path(QString)));
@@ -75,7 +75,7 @@ void voice_savefile_name::saveFile()
         QString name = list.at(0);
         g_database.deleteTableName("voice",name);
     }
-    g_database.insertTableTwo("voice",g_path,name);           //Save the path of the latest recording file to the database
+    g_database.insertTableTwo("voice",g_path,name);         // Save the path of the latest recording file to the database
 }
 
 void voice_savefile_name::on_btn_ok_clicked()
@@ -104,7 +104,7 @@ void voice_savefile_name::setSaveFileFont()
     {
         font.setPointSize(12);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(14);
     }

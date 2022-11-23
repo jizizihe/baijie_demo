@@ -4,8 +4,8 @@
 
 static int g_screenWidth;
 static int g_screenHeight;
-static int g_openFlag = 1;
-static int g_btnUpFlag;
+static int g_openFlag = 1;           // 0:Ethernet  off  1:Ethernet  on
+static int g_staticIpUpFlag;         // 0:No static network is created  1:Creating a Static Network
 static QScreen *g_screen;
 static QLabel *g_swicthLabel;
 static QHBoxLayout *g_horLayout;
@@ -21,7 +21,7 @@ ipset::ipset(QWidget *parent) :
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
 
-    QRegExp a("\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");  //ip regular expression
+    QRegExp a("\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");  //IP regular expression
     ui->ipAddrLineEdit->setValidator(new QRegExpValidator(a,this));
     ui->gatewaylineEdit->setValidator(new QRegExpValidator(a,this));
     ui->nameLineEdit->setReadOnly(true);
@@ -153,7 +153,7 @@ void ipset::on_btn_setAutoIp_clicked()
             {
                 QMessageBox mesg(QMessageBox::Information,
                                  tr("QMessageBox::information()"),
-                                 tr("set auto ip succeeded!"),
+                                 tr("Set auto ip succeeded!"),
                                  0,this);
                 mesg.addButton(tr("OK"),QMessageBox::YesRole);
                 mesg.move(g_screenWidth/3,g_screenHeight/3);
@@ -165,7 +165,7 @@ void ipset::on_btn_setAutoIp_clicked()
                 ui->gatewaylineEdit->clear();
                 ui->masklineEdit->clear();
                 ui->btn_ok->setText(tr("up"));
-                g_btnUpFlag = 0;
+                g_staticIpUpFlag = 0;
                 networkEnable(true);
                 return;
             }
@@ -199,12 +199,12 @@ void ipset::on_btn_setAutoIp_clicked()
         return;
     }
 
-    bool result = deleteStaticIp();          // delete static ip
+    bool result = deleteStaticIp();          // Delete static ip
     if(result == true)
     {
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),
-                         tr("set auto ip succeeded!"),
+                         tr("Set auto ip succeeded!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
         mesg.move(g_screenWidth/3,g_screenHeight/3);
@@ -216,7 +216,7 @@ void ipset::on_btn_setAutoIp_clicked()
         ui->gatewaylineEdit->clear();
         ui->masklineEdit->clear();
         ui->btn_ok->setText(tr("up"));
-        g_btnUpFlag = 0;
+        g_staticIpUpFlag = 0;
         networkEnable(true);
     }
     else
@@ -300,9 +300,9 @@ void ipset::on_btn_ok_clicked()
             networkInfo = getNetworkInfo();
             ui->textEdit->setText(networkInfo);
             ui->stackedWidget->setCurrentIndex(0);
-            if(g_btnUpFlag == 0)
+            if(g_staticIpUpFlag == 0)
             {
-                g_btnUpFlag = 1;
+                g_staticIpUpFlag = 1;
                 ui->btn_ok->setText(tr("change"));
             }
         }
@@ -332,7 +332,7 @@ void ipset::setIpFont()
     {
         font.setPointSize(12);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(14);
     }

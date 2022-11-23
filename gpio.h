@@ -31,7 +31,7 @@ public:
     void setTextStatusSwitch(int);
     void setTextValueSwitch(int);
     void showEvent(QShowEvent *event);
-    bool isTruePort(QString,int i);           //Check whether the port mode is correct
+    bool isTruePort(QString,int i);           // Check whether the port mode is correct
     bool isEnglish(QString &qstrSrc);
     bool isNumber(QString &qstrSrc);
 
@@ -42,16 +42,16 @@ private slots:
     void status_switch_change_flag(bool flag);
     void value_switch_change_flag(bool flag);
     void gpio_refresh();
-    bool input_warning();            //Determine whether the input complies with the rules
+    bool input_warning();            // Determine whether the input complies with the rules
 
 signals:
     void gpio_back_msg();
 
 private:
     Ui::gpio *ui;
-    int g_portNumInt[384] = {0};    //For example: 205
-    char g_portNumStr[384][4];      //For example: g13
-    int g_num = 0,g_portCount = 0;
+    int g_portNumInt[384] = {0};      // For example: 205
+    char g_portNumStr[384][4];        // For example: g13
+    int g_portNum = 0,g_portCount = 0;
     struct OccupiedGpioStr g_occupiedGpio;
 };
 

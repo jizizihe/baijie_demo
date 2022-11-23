@@ -12,7 +12,6 @@ all_test::all_test(QWidget *parent) :
 {
     ui->setupUi(this);
     qRegisterMetaType<serial_config>("serial_config");
-    g_serialConfig.count = 0;
     QScreen *screen = QGuiApplication:: primaryScreen();
     g_screenWidth = screen->size().width();
     g_screenHeight = screen->size().height();
@@ -22,16 +21,17 @@ all_test::all_test(QWidget *parent) :
     g_waitLbl->setScaledContents(true);
     g_waitLbl->setMovie(g_waitMovie);
     g_waitLbl->move(g_screenWidth/2,g_screenHeight/2 );
-
-    setAllTestFont();
-    ui->textEdit->verticalScrollBar()->setStyleSheet("QScrollBar{width:30px;}");
-    g_serialStopTimer = new QTimer(this);
-    connect(g_serialStopTimer,SIGNAL(timeout()),this,SLOT(serial_stop_deal()));
+    g_stopSerialTimer = new QTimer(this);
     g_serialDialog = new serialdialog(this);
+    g_serialConfig.count = 0;
+    ui->textEdit->verticalScrollBar()->setStyleSheet("QScrollBar{width:30px;}");
+    setAllTestFont();
+
+    connect(g_stopSerialTimer,SIGNAL(timeout()),this,SLOT(serial_stop_deal()));
     connect(g_serialDialog,SIGNAL(serial_config_msg(serial_config)),this,SLOT(serial_config_func(serial_config)));
 
     g_testButtonGroup = new QButtonGroup(this);
-    g_testButtonGroup->setExclusive(false);               //Set to non-exclusive mode
+    g_testButtonGroup->setExclusive(false);               // Set to non-exclusive mode
     g_testButtonGroup->addButton(ui->networkChk,0);
     g_testButtonGroup->addButton(ui->usbChk,1);
     g_testButtonGroup->addButton(ui->rtcChk,2);
@@ -74,7 +74,7 @@ void all_test::on_btn_begin_clicked()
 {
     int i = 0;
     QAbstractButton *checkBtn;
-    g_testItemsCount = 0;                        //Counting the number of checked button
+    g_testItemsCount = 0;                        // Counting the number of checked button
     if(tr("begin") == ui->btn_begin->text())
     {
         for(i =0 ;i < g_checkedBtnList.length();i++)
@@ -94,7 +94,7 @@ void all_test::on_btn_begin_clicked()
         {
             g_testItemsCount = g_testItemsCount - 1 + g_serialConfig.count;
         }
-        else if(ui->keyChk->isChecked() == true)        //Key tests are not counted in the number of events tested in addition
+        else if(ui->keyChk->isChecked() == true)        // Key tests are not counted in the number of events tested in addition
             g_testItemsCount = g_testItemsCount - 1;
 
         if(g_testItemsCount != 0)
@@ -117,10 +117,9 @@ void all_test::on_btn_begin_clicked()
                 checkBtn->setEnabled(false);
             }
         }
-        ui->btn_begin->setText(tr("stop"));
         QThread::usleep(10);
+        ui->btn_begin->setText(tr("stop"));
         ui->textEdit->setText(tr("---test start:"));
-
         g_startTime = QTime::currentTime();
 
         if((g_testItemsCount != 0) || (g_testItemsCount == 0 && ui->keyChk->isChecked() == true))
@@ -163,10 +162,10 @@ void all_test::on_btn_begin_clicked()
         if(ui->audioChk->isChecked() == true)
         {
             emit audio_test_msg();
-            QProcess p;
-            p.start("bash", QStringList() <<"-c" << "aplay /usr/helperboard/test.wav");
-            p.waitForFinished(-1);
-            p.close();
+            QProcess pro;
+            pro.start("bash", QStringList() <<"-c" << "aplay /usr/helperboard/test.wav");
+            pro.waitForFinished(-1);
+            pro.close();
         }
         if(true == ui->networkChk->isChecked()) emit network_test_msg();
         if(true == ui->usbChk->isChecked())     emit usb_test_msg(g_usbAddNum);
@@ -184,7 +183,7 @@ void all_test::on_btn_begin_clicked()
         ui->btn_begin->setEnabled(false);
         if(true == g_mainTestThread->isRunning())
         {
-            g_mainTestThread->terminate();                //terminate thread
+            g_mainTestThread->terminate();                // Terminate thread
             delete g_allTestThread;
         }
         if(ui->bluetoothChk->isChecked() == true)
@@ -197,30 +196,29 @@ void all_test::on_btn_begin_clicked()
         }
         for(i = 0;i < g_serialConfig.count;i++)
         {
-
             if(true == g_threadId[i]->isRunning())
             {
-                if(g_serialStopTimer->isActive() == true)
+                if(g_stopSerialTimer->isActive() == true)
                 {
-                    g_serialStopTimer->stop();
+                    g_stopSerialTimer->stop();
                 }
                 g_threadId[i]->terminate();
             }
         }
         ui->btn_begin->setText(tr("begin"));
         ui->btn_testCheckAll->setEnabled(true);
+        ui->btn_begin->setEnabled(true);
         g_waitMovie->stop();
         g_waitLbl->close();
         for(i =0 ;i < g_checkedBtnList.length();i++)
         {
             checkBtn = g_checkedBtnList.at(i);
             checkBtn->setEnabled(true);
-        }
-        ui->btn_begin->setEnabled(true);
+        }      
     }
 }
 
-bool all_test::event(QEvent *event)           // key test
+bool all_test::event(QEvent *event)           // Key test
 {
     if(event->type() == QEvent::KeyPress)
     {
@@ -275,11 +273,11 @@ void all_test::on_usbChk_clicked()
     {
         items << QString::number(i);
     }
-    QString dlgTitle=tr("Item selection dialog box");
-    QString txtLabel=tr("Select the number to add");
-    int     curIndex=g_usbAddNum;
-    bool    editable=false;
-    bool    ok=false;
+    QString dlgTitle = tr("Item selection dialog box");
+    QString txtLabel = tr("Select the number to add");
+    int     curIndex = g_usbAddNum;
+    bool    editable = false;
+    bool    ok = false;
     QString num = QString::number(g_usbAddNum);
 
     if(true == ui->usbChk->isChecked())
@@ -480,11 +478,11 @@ void all_test::serial_test_func()
 
     if(g_serialConfig.mode == tr("client"))
     {
-        g_serialStopTimer->start(1500);
+        g_stopSerialTimer->start(1500);
     }
     else if(g_serialConfig.mode == tr("server"))
     {
-        ui->textEdit->append(QString(tr("---serial test: waiting to read data as server")));
+        ui->textEdit->append(QString(tr("---serial test: Waiting to read data as server")));
     }
 }
 
@@ -492,10 +490,10 @@ void all_test::serial_stop_deal()
 {
     QAbstractButton *checkBtn;
 
-    if(g_serialStopTimer->isActive() == true)
+    if(g_stopSerialTimer->isActive() == true)
     {
         ui->textEdit->append(QString(tr("---serial test: OK!")));
-        g_serialStopTimer->stop();
+        g_stopSerialTimer->stop();
     }
 
     for(int i = 0; i < g_serialConfig.count; i++)
@@ -529,7 +527,6 @@ void all_test::serial_stop_deal()
             g_threadId[i]->quit();
             g_threadId[i]->wait();
         }
-        //            delete serial_test_thread[i];
     }
 }
 void all_test::imageShow()
@@ -555,7 +552,7 @@ void all_test::setAllTestFont()
     {
         font.setPointSize(12);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(14);
     }

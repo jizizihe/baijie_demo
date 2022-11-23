@@ -46,8 +46,7 @@ serial::~serial()
 QStringList serial::getPortNameList()
 {
     QStringList serialPortName;
-    //Find available serial ports
-    foreach(const QSerialPortInfo &Info,QSerialPortInfo::availablePorts())//Read serial port information
+    foreach(const QSerialPortInfo &Info,QSerialPortInfo::availablePorts()) // Find available serial ports
     {
         serialPortName << Info.portName();
     }
@@ -56,7 +55,7 @@ QStringList serial::getPortNameList()
 
 void serial::openSerialPort1()
 {
-    int OpenFlag = 0;
+    int openFlag = 0;
     if(g_openFlagPort1 == 0)
     {
         QStringList list = g_database.tableShow("serial_port");
@@ -80,12 +79,12 @@ void serial::openSerialPort1()
                 }
             }
         }
-        g_PortA = new serial_thread(EnumCom0,g_port1, g_baud1.toInt(),g_data1,g_stopBit1,&OpenFlag);
-        if(OpenFlag == 1)
+        g_PortA = new serial_thread(EnumCom0,g_port1, g_baud1.toInt(),g_data1,g_stopBit1,&openFlag);
+        if(openFlag == 1)
         {
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
-                             tr("open success!"),
+                             tr("Open success!"),
                              0,this);
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
@@ -94,13 +93,13 @@ void serial::openSerialPort1()
             mesg.exec();
             ui->btn_open1->setText(tr("close"));
             g_openFlagPort1 = 1;
-            g_database.insertTableOne("serial_port",g_port1);      //The open serial port is saved to the database
+            g_database.insertTableOne("serial_port",g_port1);      // The open serial port is saved to the database
         }
         else
         {
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
-                             tr("open failed!"),
+                             tr("Open failed!"),
                              0,this);
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
@@ -109,17 +108,16 @@ void serial::openSerialPort1()
             mesg.exec();
         }
 
-        //Receives a signal to transfer data from a child thread
+        // Receives a signal to transfer data from a child thread
         connect(g_PortA,SIGNAL(receive_data_msg(QString)),this,SLOT(show_port1_data(QString)));
         connect(this,SIGNAL(write_port_msg(int,QByteArray)),g_PortA,SLOT(write_data(int,QByteArray)));
         connect(this,SIGNAL(close_port_msg(int)),g_PortA,SLOT(close_port(int)));
-
     }
 }
 
 void serial::openSerialPort2()
 {
-    int OpenFlag = 0;
+    int openFlag = 0;
     if(g_openFlagport2 == 0)
     {
         QStringList list = g_database.tableShow("serial_port");
@@ -143,13 +141,13 @@ void serial::openSerialPort2()
                 }
             }
         }
-        g_PortB = new serial_thread(EnumCom1,g_port2,g_baud2.toInt(),g_data2,g_stopBit2,&OpenFlag);
+        g_PortB = new serial_thread(EnumCom1,g_port2,g_baud2.toInt(),g_data2,g_stopBit2,&openFlag);
 
-        if(OpenFlag == 1)
+        if(openFlag == 1)
         {
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
-                             tr("open success!"),
+                             tr("Open success!"),
                              0,this);
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
@@ -164,7 +162,7 @@ void serial::openSerialPort2()
         {
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
-                             tr("open failed!"),
+                             tr("Open failed!"),
                              0,this);
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
@@ -172,18 +170,18 @@ void serial::openSerialPort2()
             mesg.move(g_screenWidth/3,g_screenHeight/3);
             mesg.exec();
         }
-        //Receives a signal to transfer data from a child thread
+        // Receives a signal to transfer data from a child thread
         connect(g_PortB,SIGNAL(receive_data_msg(QString)),this,SLOT(show_port2_data(QString)));
         connect(this,SIGNAL(write_port_msg(int,QByteArray)),g_PortB,SLOT(write_data(int,QByteArray)));
         connect(this,SIGNAL(close_port_msg(int)),g_PortB,SLOT(close_port(int)));
     }
 }
 
-void serial::show_port1_data(QString buff)  //Display serial port1 data
+void serial::show_port1_data(QString buff)   // Display serial port1 data
 {
     ui->recvEdit->appendPlainText(buff);
 }
-void serial::show_port2_data(QString buff)  //Display serial port2 data
+void serial::show_port2_data(QString buff)   // Display serial port2 data
 {
     ui->recvEdit_2->appendPlainText(buff);
 }
@@ -259,7 +257,7 @@ void serial::setSerialFont()
     {
         font.setPointSize(12);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(14);
     }
@@ -336,7 +334,7 @@ void serial::on_btn_open1_clicked()
         {
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
-                             tr("please set the port!"),
+                             tr("Please set the port!"),
                              0,this);
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
@@ -349,10 +347,9 @@ void serial::on_btn_open1_clicked()
     }
     else
     {
-        //Close the thread
         if(g_PortA!=nullptr)
         {
-            emit close_port_msg(EnumCom0);
+            emit close_port_msg(EnumCom0);  // Close the thread
         }
 
         ui->btn_open1->setText(tr("open"));
@@ -369,7 +366,7 @@ void serial::on_btn_open2_clicked()
         {
             QMessageBox mesg(QMessageBox::Information,
                              tr("QMessageBox::information()"),
-                             tr("please set the port!"),
+                             tr("Please set the port!"),
                              0,this);
             mesg.setAttribute(Qt::WA_ShowWithoutActivating,true);
             mesg.setFocusPolicy(Qt::NoFocus);
@@ -382,10 +379,9 @@ void serial::on_btn_open2_clicked()
     }
     else
     {
-        //Close the thread
         if(g_PortB!=nullptr)
         {
-            emit close_port_msg(EnumCom1);
+            emit close_port_msg(EnumCom1);  // Close the thread
         }
         ui->btn_open2->setText(tr("open"));
         g_openFlagport2 = 0;

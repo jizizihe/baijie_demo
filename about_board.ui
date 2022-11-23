@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>536</width>
-    <height>417</height>
+    <width>696</width>
+    <height>503</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -258,8 +258,8 @@ QTextEdit
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>412</width>
-            <height>269</height>
+            <width>536</width>
+            <height>325</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout">

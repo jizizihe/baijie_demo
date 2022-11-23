@@ -52,7 +52,7 @@ private slots:
     void on_cmb_sleep_time_currentIndexChanged(int index);
     void on_btn_ret_clicked();
     void light_screen();
-    void dark_screen();       //check whether events are generated
+    void dark_screen();       // Check whether events are generated
 };
 
 #endif // BACKLIGHT_H

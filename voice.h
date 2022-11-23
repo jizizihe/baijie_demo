@@ -46,8 +46,8 @@ public:
     void showEvent(QShowEvent *event);
     void closeEvent(QCloseEvent *event);
     int calculateTimeLength(QString length);
-    float getWavTimeLength(QString file);  //Calculate the voice time of a wav file
-    QString timeToString(int length); // time lenght change to "00:00:00" mode
+    float getWavTimeLength(QString file);    // Calculate the voice time of a wav file
+    QString timeToString(int length);        // Time lenght change to "00:00:00" mode
 
 private slots:
     void get_file_widget_path(QString);
@@ -55,7 +55,7 @@ private slots:
     void show_recording_time();
     void get_playing_time_length();
     void update_file(QString);
-    void record_save(QString);
+    void record_save(QString fileName);
     void on_btn_ret_clicked();
     void on_btn_record_clicked();
     void on_btn_play_clicked();

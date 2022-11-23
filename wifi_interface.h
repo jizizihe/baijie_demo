@@ -52,14 +52,14 @@ public:
     QString getWifiSecurity(QString infoName);
     QString wifiDisconnect();
     QString wifiActivation(QString );
-    QString wifiRemove(QString WifiSsid);
-    QString wifiConnect(QString WifiSsid,QString PassWd);  
+    QString wifiRemove(QString wifiSsid);
+    QString wifiConnect(QString wifiSsid,QString passWd);
     QString getWlan();
     wifi_info getWifiStatus(QString wifiName);
-    bool wifiModifyPasswd(QString WifiSsid,QString PassWd);
+    bool wifiModifyPasswd(QString wifiSsid,QString passWd);
     bool wifiConnectExistFlag(QString );
     bool wifiOpenFlag();
-    QString hotspotConnect(QString HtWlan,QString HtName,QString HtPasswd);
+    QString hotspotConnect(QString htWlan,QString htName,QString htPasswd);
     bool hotspotDisconnect();
     bool hotspotConnectFlag();
 

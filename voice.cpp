@@ -8,13 +8,12 @@
 
 static int g_screenWidth;
 static int g_screenHeight;
-static bool g_recordFlag = false;
 static int g_playCurrentTime;
-static int g_vioceTimeLength;            //the time length of the file
-static int g_recordTimeLength;           //Current recording time length
+static int g_vioceTimeLength;            // The time length of the file
+static int g_recordTimeLength;           // Current recording time length
 static int g_playFlag = 0;
 static int g_volumeOpenFlag;
-static int g_showFirstFlag;
+static bool g_recordFlag = false;
 static QScreen *g_screen;
 static QString g_saveFilePath;
 static QString g_saveFileNmae;
@@ -30,11 +29,11 @@ voice::voice(QWidget *parent) :
     g_screen = qApp->primaryScreen();
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
-    setVoiceFont();
     g_volumeOpenFlag = 1;
+    setVoiceFont();
 
     ui->stackedWidget->setCurrentIndex(0);
-    ui->Slider_volume->setRange(0,30);               //Range of volume
+    ui->Slider_volume->setRange(0,30);               // Range of volume
     ui->Slider_volume->setValue(6);
     ui->combox->view()->parentWidget()->setWindowFlags(Qt::Popup | Qt::FramelessWindowHint);
     ui->combox->view()->parentWidget()->setAttribute(Qt::WA_TranslucentBackground);
@@ -91,10 +90,11 @@ void voice::refreshFile(QString dirPath)
 void voice::setVolume(int value)
 {
     QProcess *proc = new QProcess();
-    int sound = 31 - value;
-    proc->start(QString("amixer cset numid=6 %1").arg(sound));
+    int soundValue = 31 - value;
+    proc->start(QString("amixer cset numid=6 %1").arg(soundValue));
     proc->waitForStarted(-1);
     proc->waitForFinished(-1);
+    proc->close();
 }
 
 void voice::show_recording_time()
@@ -124,7 +124,7 @@ void voice::on_btn_record_clicked()
     ui->btn_record->setText(tr("record"));
 }
 
-QString voice::timeToString(int length)              //time length -> 00:00:00
+QString voice::timeToString(int length)              // Time length -> 00:00:00
 {
     int s,m,h;
     QString strS,strM,strH;
@@ -254,7 +254,6 @@ void voice::play()
     {
         g_playFlag = 1;
         ui->btn_playVoice->setStyleSheet("background-color:transparent;border-image: url(:/button_image/voice/stop.svg);");
-
         QString path = QString("%1").arg(ui->lbl_pathValue->text());
         QString name = ui->combox->currentText();
         QString str = QString("aplay %1%2").arg(path).arg(name);
@@ -262,16 +261,16 @@ void voice::play()
         g_playTimer->start(1000);
         g_playCurrentTime = 0;
         QString pathName = QString("%1%2").arg(path).arg(name);
-        float len = getWavTimeLength(pathName);                //Calculate the wav file time length, returned value: minute.seconds
-        QString timeLen = QString("%1").arg(len);
-        g_vioceTimeLength = calculateTimeLength(timeLen);       //Calculate the recording time length
+        float length = getWavTimeLength(pathName);                // Calculate the wav file time length, returned value: minute.seconds
+        QString timeLen = QString("%1").arg(length);
+        g_vioceTimeLength = calculateTimeLength(timeLen);       // Calculate the recording time length
         ui->Slider_voicelength->setRange(0, g_vioceTimeLength);
     }
 }
 
 float voice::getWavTimeLength(QString file)
 {
-    double len;
+    double length;
     char * g_fileName = file.toLatin1().data();
 
     if (g_fileName != NULL)
@@ -290,8 +289,8 @@ float voice::getWavTimeLength(QString file)
             fclose(fp);
             fp = NULL;
 
-            len = (double)j/(double)i;
-            int aa = len * 10;
+            length = (double)j/(double)i;
+            int aa = length * 10;
             if((aa % 10) > 4) aa = (aa / 10) + 1;
             else aa /= 10;
             int integer = aa / 60;
@@ -301,14 +300,14 @@ float voice::getWavTimeLength(QString file)
         }
         else
         {
-            std::cout << "open error!!" << std::endl;
+            std::cout << "open file error!!" << std::endl;
         }
     }
-    std::cout << "g_fileName error!!" << std::endl;
+    std::cout << "file name error!!" << std::endl;
     return 0;
 }
 
-int voice::calculateTimeLength(QString length)   //Calculate the recording time length
+int voice::calculateTimeLength(QString length)   // Calculate the recording time length
 {
     int firstMinute = length.section('.',0,0).toInt();
     int sec = length.section('.',1,1).toInt();
@@ -347,13 +346,13 @@ int voice::calculateTimeLength(QString length)   //Calculate the recording time 
     return len;
 }
 
-void voice::record_save(QString filen)   //record save file
+void voice::record_save(QString fileName)   // Record save file
 {
-    g_saveFileWg.getFileName(filen);
+    g_saveFileWg.getFileName(fileName);
     saveFileWidgetShow();
 }
 
-void voice::on_btn_delete_clicked()  //delete
+void voice::on_btn_delete_clicked()  // Delete
 {
     if(!ui->combox->currentText().isEmpty())
     {
@@ -402,7 +401,7 @@ void voice::on_btn_delete_clicked()  //delete
     }
 }
 
-void voice::on_btn_rename_clicked()  //rename
+void voice::on_btn_rename_clicked()  //Rename
 {   
     if(!ui->combox->currentText().isEmpty())
     {
@@ -422,7 +421,7 @@ void voice::on_btn_rename_clicked()  //rename
         mesg.exec();
     }
 }
-void voice::update_file(QString file)     //updata combox file
+void voice::update_file(QString file)     // Updata combox file
 {
     QString path = QString("%1").arg(ui->lbl_pathValue->text());
     refreshFile(path);
@@ -491,15 +490,15 @@ void voice::saveFileWidgetShow()
     int funcWidth = ui->function->width();
     int stackWidth = ui->stackedWidget->width();
     int moveWidth = funcWidth+(stackWidth/2-g_screenWidth*31/50/2);
-    QPoint p = ui->btn_startRecord->mapToGlobal(QPoint(0, 0));
-    int btnStartRecordY = p.y()+ui->btn_startRecord->height();
+    QPoint point = ui->btn_startRecord->mapToGlobal(QPoint(0, 0));
+    int btnStartRecordY = point.y()+ui->btn_startRecord->height();
     int moveHeight = g_screenHeight-(g_screenHeight - btnStartRecordY)-g_screenHeight*2/3;
     g_saveFileWg.resize(g_screenWidth*33/50,g_screenHeight*2/3);
     moveWidth = g_screenWidth*2/9+((g_screenWidth-g_screenWidth*2/9)/2-g_saveFileWg.width()/2);
     moveHeight = g_screenHeight/6+((g_screenHeight-g_screenHeight/6)/2-g_saveFileWg.height()/2);
     g_saveFileWg.move(moveWidth,moveHeight);
     g_saveFileWg.show();
-    g_saveFileWg.activateWindow();g_saveFileWg.setFocus();
+    g_saveFileWg.activateWindow();
 }
 void voice::renameFileWidgetShow()
 {
@@ -509,20 +508,20 @@ void voice::renameFileWidgetShow()
     int moveHeight = g_screenHeight/6+(g_screenHeight*5/12-g_fileOprationWg.height()/2);
     g_renameWg.move(moveWidth,moveHeight);
     g_renameWg.show();
-    g_renameWg.activateWindow();g_renameWg.setFocus();
+    g_renameWg.activateWindow();
     g_renameWg.resize(g_screenWidth*3/5,ui->stackedWidget->height()*3/4);
 }
 
 void voice::save_file_widget_hide()
 {
    g_saveFileWg.hide();
-   this->activateWindow();this->setFocus();
+   this->activateWindow();
 }
 
 void voice::rename_file_widget_hide()
 {
     g_renameWg.hide();
-    this->activateWindow();this->setFocus();
+    this->activateWindow();
 }
 
 void voice::setVoiceFont()
@@ -535,7 +534,7 @@ void voice::setVoiceFont()
     {
         font.setPointSize(12);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(14);
     }
@@ -563,14 +562,6 @@ void voice::setVoiceFont()
 
 void voice::closeEvent(QCloseEvent *event)
 {
-    if(g_showFirstFlag == 0)
-    {
-        saveFileWidgetShow();
-        save_file_widget_hide();
-        renameFileWidgetShow();
-        rename_file_widget_hide();
-        g_showFirstFlag++;
-    }
     g_recordTimer->stop();
     QWidget::closeEvent(event);
 }
@@ -578,6 +569,7 @@ void voice::closeEvent(QCloseEvent *event)
 void voice::showEvent(QShowEvent *event)
 {
     g_recordTimer->start(1000);
+    QWidget::showEvent(event);
 }
 
 void voice::on_btn_chooseFile_clicked()
@@ -602,7 +594,7 @@ void voice::chooseFileWidgetShow()
 
 void voice::file_choose_widget_hide()
 {
-   g_fileOprationWg.hide();
+    g_fileOprationWg.hide();
 }
 
 void voice::volume_slider_change(int value)

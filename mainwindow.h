@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QSettings>
-
+#include <QTranslator>
 #include "main_touch.h"
 #include "voice.h"
 #include "udev.h"
@@ -12,7 +12,6 @@
 #include "wifi.h"
 #include "ipset.h"
 #include "all_test.h"
-#include <QTranslator>
 #include "bluetooth.h"
 #include "serial.h"
 #include "sys_setting.h"
@@ -31,13 +30,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void setMainWindowFont();
-    void voiceShow();
-    void gpioShow();
-    void wifiShow();
-    void ipsetShow();
-    void serialShow();
-    void systemShow();
-    void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);
 
 private:

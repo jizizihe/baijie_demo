@@ -60,8 +60,8 @@ signals:
     void write_port_msg(int portId,QByteArray buff);
 
 private slots:
-    void show_port1_data(QString buff);  //Serial port1 displays data
-    void show_port2_data(QString buff);  //Serial port2 displays data
+    void show_port1_data(QString buff);    // Serial port1 displays data
+    void show_port2_data(QString buff);    // Serial port2 displays data
     void on_btn_send1_clicked();
     void on_btn_send2_clicked();
     void on_btn_ret_clicked();

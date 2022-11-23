@@ -11,11 +11,11 @@ sim_interface::~sim_interface()
 
 QString sim_interface::executeLinuxCmd(QString strCmd)
 {
-    QProcess p;
-    p.start("bash", QStringList() <<"-c" << strCmd);
-    p.waitForFinished(-1);
-    QString strResult = p.readAllStandardOutput();
-    p.close();
+    QProcess pro;
+    pro.start("bash", QStringList() <<"-c" << strCmd);
+    pro.waitForFinished(-1);
+    QString strResult = pro.readAllStandardOutput();
+    pro.close();
     return strResult;
 }
 
@@ -27,12 +27,12 @@ QString sim_interface::simDisconnect()
 
     if(DisconnectResult == true)
     {
-        strResult = "disconnect successful!";
+        strResult = "Disconnect successful!";
         return QString(1);
     }
     else
     {
-        strResult = "disconnect failed!";
+        strResult = "Disconnect failed!";
         return 0;
     }
     return 0;
@@ -65,16 +65,16 @@ QString sim_interface::simConnect()
     }
 
     char *state = (char *)"out";
-    int port_num = calcPortNum('h',12);
+    int portNum = calcPortNum('h',12);
 
-    bool isExist = getFileName(port_num);
+    bool isExist = getFileName(portNum);
     if(isExist == false)
     {
-        if(gpioExport(port_num) == 0)
+        if(gpioExport(portNum) == 0)
         {
-            if(setGpioState(port_num, state) == 0)
+            if(setGpioState(portNum, state) == 0)
             {
-                if(setGpioValue(port_num, 1) == 0)
+                if(setGpioValue(portNum, 1) == 0)
                 {
                     sleep(5);
                 }
@@ -82,7 +82,7 @@ QString sim_interface::simConnect()
         }
         else
         {
-            gpioUnexport(port_num);
+            gpioUnexport(portNum);
             return 0;
         }
     }
@@ -96,9 +96,9 @@ QString sim_interface::simConnect()
 
     strCmd = QString("nmcli connection add con-name ppp0 ifname ttyUSB2 autoconnect yes type gsm apn 3gnet user uninet password uninet");
     strResult = executeLinuxCmd(strCmd);
-    bool ConnectResult=strResult.contains("successfully added",Qt::CaseInsensitive);
+    bool connectResult = strResult.contains("successfully added",Qt::CaseInsensitive);
 
-    if(ConnectResult == 1)
+    if(connectResult == 1)
     {
         sleep(1);
         strResult = executeLinuxCmd("ifconfig |grep ppp0 |wc -l");
@@ -117,14 +117,14 @@ QString sim_interface::simConnect()
         strCmd = QString("nmcli connection delete ppp0");
         strResult = executeLinuxCmd(strCmd);
 
-        bool ConnectResult=strResult.contains("successfully deleted",Qt::CaseInsensitive);
-        if(ConnectResult == 1)
+        bool deleteResult=strResult.contains("successfully deleted",Qt::CaseInsensitive);
+        if(deleteResult == 1)
         {
-            strResult = "delete successful!";
+            strResult = "Delete successful!";
         }
         else
         {
-            strResult = "delete failed!";
+            strResult = "Delete failed!";
         }
 
         return 0;
@@ -165,7 +165,7 @@ QString sim_interface::getSimModuleStatus()
     QString strResult;
     QString statusResult;
 
-    strCmd = QString("mmcli --list-modems");    //Check whether there are modules
+    strCmd = QString("mmcli --list-modems");    // Check whether there are modules
     strResult = executeLinuxCmd(strCmd);
     QString str = strResult.section("/",5,5);str = str.section(" ",0,0);
     if(str.isEmpty())

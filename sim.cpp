@@ -23,10 +23,10 @@ sim_module::sim_module(QWidget *parent) :
     setSimFont();
     g_timer = new QTimer(this);
     g_loadLabel = new QLabel(this);
-    g_pMovie = new QMovie("://button_image/loading.webp");
+    g_loadMovie = new QMovie("://button_image/loading.webp");
     g_loadLabel->setFixedSize(50, 50);
     g_loadLabel->setScaledContents(true);
-    g_loadLabel->setMovie(g_pMovie);
+    g_loadLabel->setMovie(g_loadMovie);
     g_loadLabel->move(g_screenWidth/2,g_screenHeight/2 );
     g_simInterface = new sim_interface(this);
     g_myThread = new QThread(this);
@@ -60,8 +60,9 @@ sim_module::~sim_module()
 
 void sim_module::showEvent(QShowEvent *event)
 {
-    g_showFlag == 1;
+    g_showFlag = 1;
     g_timer->start(3000);
+    QWidget::showEvent(event);
 }
 
 void sim_module::on_btn_ret_clicked()
@@ -77,7 +78,7 @@ void sim_module::recv_msg(int signalType, QString strResult)
     switch (signalType)
     {
     case EnumSimDisconnectSignal:
-        g_pMovie->stop();
+        g_loadMovie->stop();
         g_loadLabel->hide();
         if(strResult == QString(1))
         {
@@ -115,7 +116,7 @@ void sim_module::recv_msg(int signalType, QString strResult)
         }
         break;
     case EnumSimConnectSignal:
-        g_pMovie->stop();
+        g_loadMovie->stop();
         g_loadLabel->hide();
         if(strResult == QString(1))
         {
@@ -162,43 +163,38 @@ void sim_module::recv_msg(int signalType, QString strResult)
         }
         break;
     case EnumSimStatusSignal:
-        if(strResult.isEmpty())
-        {
-            // QMessageBox::critical(this,"information",tr("4G get status failed!\nPlease connect 4G first!"));
-        }
-        else
+        if(!strResult.isEmpty())
         {
             list = strResult.split("\n");
             for(int i=0;i<list.size();i++)
             {
-                QString tmp = list.at(i);
+                QString str = list.at(i);
                 if(i==0)
                 {
-                    tmp = tmp.section(":",1,1);
-                    ui->lbl_nameValue->setText(tmp);
+                    str = str.section(":",1,1);
+                    ui->lbl_nameValue->setText(str);
                 }
                 else if(i==1)
                 {
-                    tmp = tmp.section(":",1,1);
-                    ui->lbl_stateValue->setText(tmp);
+                    str = str.section(":",1,1);
+                    ui->lbl_stateValue->setText(str);
                 }
                 else if(i==2)
                 {
-                    tmp = tmp.section(":",1,1);
-                    ui->lbl_vpnValue->setText(tmp);
+                    str = str.section(":",1,1);
+                    ui->lbl_vpnValue->setText(str);
                 }
                 else if(i==3)
                 {
-                    tmp = tmp.section(":",1,1);
-                    ui->lbl_autocpnnectValue->setText(tmp);
+                    str = str.section(":",1,1);
+                    ui->lbl_autocpnnectValue->setText(str);
                 }
                 else if(i==4)
                 {
-                    tmp = tmp.section(":",1,1);
-                    ui->lbl_addressValue->setText(tmp);
+                    str = str.section(":",1,1);
+                    ui->lbl_addressValue->setText(str);
                 }
             }
-
         }
         break;
     default:
@@ -210,7 +206,8 @@ void sim_module::on_btn_disconnect_clicked()
 {
     QString strCmd = QString("mmcli --list-modems");
     QString strResult =  g_simInterface->executeLinuxCmd(strCmd);
-    QString str = strResult.section("/",5,5);str = str.section(" ",0,0);
+    QString str = strResult.section("/",5,5);
+    str = str.section(" ",0,0);
     if(str.isEmpty())
     {
         QMessageBox mesg(QMessageBox::Information,
@@ -230,7 +227,7 @@ void sim_module::on_btn_disconnect_clicked()
         if(result == "1\n")
         {
             g_loadLabel->show();
-            g_pMovie->start();
+            g_loadMovie->start();
             emit sim_disconnect_msg();
         }
         else
@@ -260,7 +257,8 @@ void sim_module::on_btn_connect_clicked()
 {  
     QString strCmd = QString("mmcli --list-modems");
     QString strResult =  g_simInterface->executeLinuxCmd(strCmd);
-    QString str = strResult.section("/",5,5);str = str.section(" ",0,0);
+    QString str = strResult.section("/",5,5);
+    str = str.section(" ",0,0);
     if(str.isEmpty())
     {
         QMessageBox mesg(QMessageBox::Information,
@@ -275,18 +273,17 @@ void sim_module::on_btn_connect_clicked()
     }
     g_timer->stop();
     g_loadLabel->show();
-    g_pMovie->start();
+    g_loadMovie->start();
     QString result = g_simInterface->executeLinuxCmd("nmcli con show --active |grep ppp0 |wc -l");
 
     if(g_openFlag == 1)
     {
-
         g_loadLabel->show();
         if(result == "1\n")
         {
             ui->stackedWidget->setCurrentIndex(0);
             emit sim_status_msg();
-            g_pMovie->stop();
+            g_loadMovie->stop();
             g_loadLabel->hide();
         }
         else
@@ -297,7 +294,7 @@ void sim_module::on_btn_connect_clicked()
     }
     else
     {
-        g_pMovie->stop();
+        g_loadMovie->stop();
         g_loadLabel->hide();
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),
@@ -312,7 +309,6 @@ void sim_module::on_btn_connect_clicked()
 
 void sim_module::languageReload()
 {
-    ui->retranslateUi(this);
     ui->retranslateUi(this);
     int flag = ui->sim_Switch->isToggled();
     if(flag == 1)
@@ -331,7 +327,7 @@ void sim_module::setSimFont()
     {
         font.setPointSize(12);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(14);
     }
@@ -382,7 +378,7 @@ void sim_module::on_btn_status_clicked()
     }
     else
     {
-        g_pMovie->stop();
+        g_loadMovie->stop();
         g_loadLabel->hide();
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),

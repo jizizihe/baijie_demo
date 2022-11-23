@@ -43,7 +43,7 @@ void Desktop::select_language()
     ui->btn_img->setIconSize(QSize(150,150));
     emit language_translate();
     QFont font;
-    font.setLetterSpacing(QFont::PercentageSpacing,110);         //word space
+    font.setLetterSpacing(QFont::PercentageSpacing,110);         // Word space
     font.setPointSize(21);
     font.setBold(true);
     font.setItalic(true);
@@ -60,15 +60,5 @@ void Desktop::showEvent(QShowEvent *event)
             select_language();
         }
     }
-}
-
-QString Desktop::executeLinuxCmd(QString strCmd)
-{
-    QProcess pro;
-    pro.start("bash", QStringList() <<"-c" << strCmd);
-    pro.waitForFinished(-1);
-    QString strResult = pro.readAllStandardOutput();qDebug() << strResult;
-    strResult = pro.readAllStandardError();qDebug() << strResult;
-    pro.close();
-    return strResult;
+    QWidget::showEvent(event);
 }

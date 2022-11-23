@@ -2,7 +2,7 @@
 #include <QMouseEvent>
 #include <QDebug>
 
-common_slider_press::common_slider_press(QWidget *parent):QSlider(parent)        //horizontal direction
+common_slider_press::common_slider_press(QWidget *parent):QSlider(parent)        // Horizontal direction
 {
     g_mouseValue=0;
     g_mousePress = false;
@@ -53,7 +53,6 @@ void common_slider_press::mouseMoveEvent(QMouseEvent *event)
     }
     setValue(value + 0.5);
     QEvent evEvent(static_cast<QEvent::Type>(QEvent::User + 1));
-
 }
 
 void common_slider_press::mouseReleaseEvent(QMouseEvent *event)

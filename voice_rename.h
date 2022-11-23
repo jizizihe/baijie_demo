@@ -17,7 +17,7 @@ class voice_rename : public QMainWindow
 public:
     explicit voice_rename(QWidget *parent = 0);
     ~voice_rename();
-    void getBeforeFile(QString,QString);
+    void getBeforeFile(QString fileName, QString filePath);
     void rename(QString newName,QString beforeName);
     void languageReload();
     void setVoiceRenameFont();

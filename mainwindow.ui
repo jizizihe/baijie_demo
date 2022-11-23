@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>986</width>
-    <height>414</height>
+    <width>837</width>
+    <height>447</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -85,7 +85,7 @@ QSlider::sub-page:horizontal {
      <number>0</number>
     </property>
     <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="11">
+     <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="0">
       <property name="spacing">
        <number>0</number>
       </property>
@@ -120,16 +120,13 @@ QSlider::sub-page:horizontal {
     </item>
     <item row="1" column="0">
      <widget class="Line" name="line">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(186, 189, 182,180);</string>
-      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
     <item row="2" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="2,13,2,13,2,13,2">
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="1,6,1,6,1,6,1">
       <property name="spacing">
        <number>0</number>
       </property>
@@ -140,14 +137,14 @@ QSlider::sub-page:horizontal {
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>939</width>
-          <height>10</height>
+          <width>760</width>
+          <height>24</height>
          </size>
         </property>
        </spacer>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="9,2,4,2,4,2,4,2,9">
+       <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="2,4,1,4,1,4,1,4,2">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -158,8 +155,8 @@ QSlider::sub-page:horizontal {
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
-            <height>20</height>
+            <width>30</width>
+            <height>86</height>
            </size>
           </property>
          </spacer>
@@ -225,7 +222,7 @@ QSlider::sub-page:horizontal {
             </widget>
            </item>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,5,1">
+            <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,5,2">
              <property name="spacing">
               <number>0</number>
              </property>
@@ -233,13 +230,13 @@ QSlider::sub-page:horizontal {
               <number>0</number>
              </property>
              <property name="topMargin">
-              <number>1</number>
+              <number>0</number>
              </property>
              <property name="rightMargin">
               <number>0</number>
              </property>
              <property name="bottomMargin">
-              <number>1</number>
+              <number>0</number>
              </property>
              <item>
               <spacer name="horizontalSpacer_16">
@@ -314,8 +311,8 @@ QSlider::sub-page:horizontal {
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>24</width>
-            <height>60</height>
+            <width>13</width>
+            <height>89</height>
            </size>
           </property>
          </spacer>
@@ -351,13 +348,13 @@ QSlider::sub-page:horizontal {
             <number>0</number>
            </property>
            <property name="bottomMargin">
-            <number>1</number>
+            <number>0</number>
            </property>
            <property name="spacing">
             <number>0</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,5,1">
+            <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,3,1">
              <property name="spacing">
               <number>0</number>
              </property>
@@ -380,8 +377,8 @@ QSlider::sub-page:horizontal {
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>40</width>
-                 <height>20</height>
+                 <width>13</width>
+                 <height>68</height>
                 </size>
                </property>
               </spacer>
@@ -428,8 +425,8 @@ QSlider::sub-page:horizontal {
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>40</width>
-                 <height>20</height>
+                 <width>13</width>
+                 <height>68</height>
                 </size>
                </property>
               </spacer>
@@ -446,7 +443,7 @@ QSlider::sub-page:horizontal {
              </property>
              <property name="minimumSize">
               <size>
-               <width>0</width>
+               <width>166</width>
                <height>0</height>
               </size>
              </property>
@@ -473,8 +470,8 @@ QSlider::sub-page:horizontal {
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>23</width>
-            <height>60</height>
+            <width>13</width>
+            <height>92</height>
            </size>
           </property>
          </spacer>
@@ -512,14 +509,11 @@ QSlider::sub-page:horizontal {
            <property name="bottomMargin">
             <number>0</number>
            </property>
-           <property name="horizontalSpacing">
+           <property name="spacing">
             <number>0</number>
            </property>
-           <property name="verticalSpacing">
-            <number>1</number>
-           </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,5,1">
+            <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,5,2">
              <property name="spacing">
               <number>0</number>
              </property>
@@ -527,13 +521,13 @@ QSlider::sub-page:horizontal {
               <number>0</number>
              </property>
              <property name="topMargin">
-              <number>1</number>
+              <number>0</number>
              </property>
              <property name="rightMargin">
               <number>0</number>
              </property>
              <property name="bottomMargin">
-              <number>1</number>
+              <number>0</number>
              </property>
              <item>
               <spacer name="horizontalSpacer_20">
@@ -635,8 +629,8 @@ border-image: url(:/button_image/ethernet.svg);</string>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>24</width>
-            <height>60</height>
+            <width>13</width>
+            <height>89</height>
            </size>
           </property>
          </spacer>
@@ -680,35 +674,8 @@ border-image: url(:/button_image/ethernet.svg);</string>
            <property name="verticalSpacing">
             <number>1</number>
            </property>
-           <item row="1" column="0">
-            <widget class="QLabel" name="lbl_sim">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>4G</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,5,1">
+            <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,3,1">
              <property name="spacing">
               <number>0</number>
              </property>
@@ -795,6 +762,33 @@ border-image: url(:/button_image/4g.svg);</string>
              </item>
             </layout>
            </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="lbl_sim">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>4G</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
@@ -805,8 +799,8 @@ border-image: url(:/button_image/4g.svg);</string>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
-            <height>20</height>
+            <width>30</width>
+            <height>48</height>
            </size>
           </property>
          </spacer>
@@ -820,14 +814,14 @@ border-image: url(:/button_image/4g.svg);</string>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>931</width>
+          <width>760</width>
           <height>13</height>
          </size>
         </property>
        </spacer>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="9,2,4,2,4,2,4,2,9">
+       <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="2,4,1,4,1,4,1,4,2">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -838,8 +832,8 @@ border-image: url(:/button_image/4g.svg);</string>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
-            <height>20</height>
+            <width>35</width>
+            <height>94</height>
            </size>
           </property>
          </spacer>
@@ -884,7 +878,7 @@ border-image: url(:/button_image/4g.svg);</string>
             <number>1</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,5,1">
+            <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="2,5,2">
              <property name="spacing">
               <number>0</number>
              </property>
@@ -1000,8 +994,8 @@ border-image: url(:/button_image/voice.svg);</string>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>24</width>
-            <height>63</height>
+            <width>13</width>
+            <height>94</height>
            </size>
           </property>
          </spacer>
@@ -1046,7 +1040,7 @@ border-image: url(:/button_image/voice.svg);</string>
             <number>1</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,5,1">
+            <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,3,1">
              <property name="spacing">
               <number>0</number>
              </property>
@@ -1168,8 +1162,8 @@ border-image: url(:/button_image/serial.svg);</string>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>23</width>
-            <height>63</height>
+            <width>13</width>
+            <height>94</height>
            </size>
           </property>
          </spacer>
@@ -1214,7 +1208,7 @@ border-image: url(:/button_image/serial.svg);</string>
             <number>1</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,5,1">
+            <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,5,2">
              <property name="spacing">
               <number>0</number>
              </property>
@@ -1336,8 +1330,8 @@ border-image: url(:/button_image/udevt.svg);</string>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>24</width>
-            <height>63</height>
+            <width>13</width>
+            <height>94</height>
            </size>
           </property>
          </spacer>
@@ -1382,7 +1376,7 @@ border-image: url(:/button_image/udevt.svg);</string>
             <number>1</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,5,1">
+            <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="2,5,2">
              <property name="spacing">
               <number>0</number>
              </property>
@@ -1504,8 +1498,8 @@ border-image: url(:/button_image/touch.svg);</string>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
-            <height>20</height>
+            <width>34</width>
+            <height>94</height>
            </size>
           </property>
          </spacer>
@@ -1519,14 +1513,14 @@ border-image: url(:/button_image/touch.svg);</string>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>931</width>
+          <width>760</width>
           <height>13</height>
          </size>
         </property>
        </spacer>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="9,2,4,2,4,2,4,2,9">
+       <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="2,4,1,4,1,4,1,4,2">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -1540,8 +1534,8 @@ border-image: url(:/button_image/touch.svg);</string>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
-            <height>20</height>
+            <width>34</width>
+            <height>93</height>
            </size>
           </property>
          </spacer>
@@ -1585,8 +1579,41 @@ border-image: url(:/button_image/touch.svg);</string>
            <property name="verticalSpacing">
             <number>1</number>
            </property>
+           <item row="2" column="0">
+            <widget class="QLabel" name="lbl_gpio">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Gpio</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1,5,1">
+            <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1,3,1">
              <property name="spacing">
               <number>0</number>
              </property>
@@ -1665,39 +1692,6 @@ border-image: url(:/button_image/gpiot.svg);</string>
              </item>
             </layout>
            </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="lbl_gpio">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Gpio</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
           </layout>
          </widget>
         </item>
@@ -1708,8 +1702,8 @@ border-image: url(:/button_image/gpiot.svg);</string>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>25</width>
-            <height>65</height>
+            <width>13</width>
+            <height>93</height>
            </size>
           </property>
          </spacer>
@@ -1754,7 +1748,7 @@ border-image: url(:/button_image/gpiot.svg);</string>
             <number>1</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="1,5,1">
+            <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="1,3,1">
              <property name="spacing">
               <number>0</number>
              </property>
@@ -1870,8 +1864,8 @@ border-image: url(:/button_image/test_port.svg);</string>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>24</width>
-            <height>65</height>
+            <width>13</width>
+            <height>93</height>
            </size>
           </property>
          </spacer>
@@ -1916,7 +1910,7 @@ border-image: url(:/button_image/test_port.svg);</string>
             <number>1</number>
            </property>
            <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="1,5,1">
+            <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="2,5,2">
              <property name="spacing">
               <number>0</number>
              </property>
@@ -2033,8 +2027,8 @@ border-image: url(:/button_image/system.svg);
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>25</width>
-            <height>65</height>
+            <width>13</width>
+            <height>93</height>
            </size>
           </property>
          </spacer>
@@ -2082,8 +2076,8 @@ border-image: url(:/button_image/system.svg);
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
-            <height>20</height>
+            <width>34</width>
+            <height>93</height>
            </size>
           </property>
          </spacer>
@@ -2097,7 +2091,7 @@ border-image: url(:/button_image/system.svg);
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>939</width>
+          <width>760</width>
           <height>13</height>
          </size>
         </property>
@@ -2112,7 +2106,7 @@ border-image: url(:/button_image/system.svg);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>986</width>
+     <width>837</width>
      <height>22</height>
     </rect>
    </property>

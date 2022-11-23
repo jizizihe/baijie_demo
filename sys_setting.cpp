@@ -3,7 +3,6 @@
 
 static int g_screenWidth;
 static int g_screenHeight;
-static int g_showFirstFlag;
 static QScreen *g_screen;
 
 sys_setting::sys_setting(QWidget *parent) :
@@ -46,12 +45,12 @@ void sys_setting::on_btn_RTC_clicked()
     this->hide();
     g_timesetWg.resize(g_screenWidth,g_screenHeight);
     g_timesetWg.show();
-    g_timesetWg.activateWindow();g_timesetWg.setFocus();
+    g_timesetWg.activateWindow();
 }
 
 void sys_setting::on_btn_cn_clicked()
 {
-    emit main_cn_msg();                      //Send signals, translate all the interfaces of the system
+    emit main_cn_msg();                      // Send signals, translate all the interfaces of the system
 }
 
 void sys_setting::languageReload()
@@ -87,7 +86,7 @@ void sys_setting::time_back()
 {
     g_timesetWg.hide();
     this->show();
-    this->activateWindow();this->setFocus();
+    this->activateWindow();
 }
 
 void sys_setting::board_back()
@@ -111,7 +110,7 @@ void sys_setting::setSystemFont()
     {
         font.setPointSize(12);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(14);
     }
@@ -126,17 +125,6 @@ void sys_setting::setSystemFont()
     ui->lbl_userManual->setFont(font);
     ui->lbl_system->setFont(font);
     ui->lbl_OGT->setFont(font);
-}
-
-void sys_setting::closeEvent(QCloseEvent *event)
-{
-    if(g_showFirstFlag == 0)
-    {
-        on_btn_RTC_clicked();
-        time_back();
-        g_showFirstFlag++;
-    }
-    QWidget::closeEvent(event);
 }
 
 void sys_setting::on_btn_OTGHost_clicked()
@@ -164,7 +152,7 @@ void sys_setting::setOtgHost()
     {
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),
-                         tr("set successful!"),
+                         tr("Set successful!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
         mesg.move(g_screenWidth/3,g_screenHeight/3);
@@ -175,7 +163,7 @@ void sys_setting::setOtgHost()
     {
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),
-                         tr("set failed!"),
+                         tr("Set failed!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
         mesg.move(g_screenWidth/3,g_screenHeight/3);
@@ -195,7 +183,7 @@ void sys_setting::setOtgSlave()
     {
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),
-                         tr("set successful!"),
+                         tr("Set successful!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
         mesg.move(g_screenWidth/3,g_screenHeight/3);
@@ -206,7 +194,7 @@ void sys_setting::setOtgSlave()
     {
         QMessageBox mesg(QMessageBox::Information,
                          tr("QMessageBox::information()"),
-                         tr("set failed!"),
+                         tr("Set failed!"),
                          0,this);
         mesg.addButton(tr("OK"),QMessageBox::YesRole);
         mesg.move(g_screenWidth/3,g_screenHeight/3);
@@ -231,3 +219,4 @@ void sys_setting::setBtnOtgValue()
         ui->lbl_OGT->setText(tr("OTG Host"));
     }
 }
+

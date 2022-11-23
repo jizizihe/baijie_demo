@@ -10,16 +10,16 @@ class common_switch : public QWidget
 
 public:
     explicit common_switch(QWidget *parent = 0);
-    bool isToggled() const;   // Return switch status - On: true Off: false
-    void setToggle(bool checked); // Setting the switch status
+    bool isToggled() const;        // Return switch status - On: true Off: false
+    void setToggle(bool checked);  // Setting the switch status
     void setBackgroundColor(QColor color);
     void setCheckedColor(QColor color);
     void setDisbaledColor(QColor color);
 
 protected:   
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE; // Draw the switch
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;        // Draw the switch
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;// Mouse release event - Toggle switch status and transmit toggled() signal
+    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE; // Mouse release event - Toggle switch status and transmit toggled() signal
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
     QSize sizeHint() const Q_DECL_OVERRIDE;
@@ -44,4 +44,4 @@ private:
     qint16 g_margin;
 };
 
-#endif // SWITCH_CONTROL
+#endif // COMMON_SWITCH_H

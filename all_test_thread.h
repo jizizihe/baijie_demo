@@ -50,12 +50,12 @@ public slots:
     void serialTimer_func();
 
 private:
-    bool g_stopFlag;
+    bool    g_serialStopFlag;
+    int		g_serialFileFd;
     QTimer* g_serialTimer;
     serial_config * g_serialConfigPtr;
-    QString g_checkName;
-    int		g_fd;
-    QString g_mode;
+    QString g_serialCheckName;
+    QString g_serialMode;
 };
 
 #endif // ALL_TEST_THREAD_H

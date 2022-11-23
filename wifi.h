@@ -22,7 +22,7 @@ public:
     void setWifiFont();
     void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);
-    void wifiListShow(QString,int,QString);
+    void wifiListShow(QString, int, QString);
     void setSwitchText();
 
 signals:
@@ -31,7 +31,7 @@ signals:
     void set_wifi_enble(QString);
     void hotspot_build_msg(QString,QString,QString);
     void scan_wlan_msg();
-    void get_hotspot_sql_msg();             //get the hotspot table information in the database
+    void get_hotspot_sql_msg();             // Get the hotspot table information in the database
 
 private slots:
     void on_btn_ret_clicked();
@@ -56,7 +56,7 @@ private:
     Ui::wifi *ui;
     wifi_info g_wifiInfo;
     QLabel *g_loadLabel;
-    QMovie *g_pMovie;
+    QMovie *g_loadMovie;
     QThread * g_myThread;
     wifi_thread * g_wifiThread;
     wifi_interface * g_wifiInterface;

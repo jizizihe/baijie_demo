@@ -1,5 +1,5 @@
-#ifndef UDEV_INTERFACE_H
-#define UDEV_INTERFACE_H
+#ifndef ALL_INTERFACE_H
+#define ALL_INTERFACE_H
 #include <QString>
 #include <QProcess>
 #include <QFile>
@@ -38,4 +38,4 @@ QString executeLinuxCmd(QString strCmd);
 void cameraTest();
 void audioTest();
 
-#endif // UDEV_INTERFACE_H
+#endif // ALL_INTERFACE_H

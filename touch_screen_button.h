@@ -15,7 +15,7 @@ public:
     explicit CTouchButton(QWidget *parent = 0);
 
 protected:
-    bool event(QEvent *e);
+    bool event(QEvent *event);
 
 private:
     bool g_touchEnd = false;

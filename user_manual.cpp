@@ -14,7 +14,6 @@ user_manual::user_manual(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setAttribute(Qt::WA_StyledBackground,true);
-
     ui->textEdit->setReadOnly(true);
     ui->treeWidget->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
     ui->textEdit->verticalScrollBar()->setStyleSheet("QScrollBar{width:25px;}");
@@ -186,7 +185,7 @@ void user_manual::setUserManualFont()
     {
         font.setPointSize(12);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(14);
     }

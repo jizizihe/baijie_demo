@@ -86,12 +86,9 @@ void cameraTest()
     QString strResult;
     if(g_cameraFirst == 0)
     {
-        strCmd = QString("photo_csi.sh ");
-        strResult = executeLinuxCmd(strCmd);
+        strResult = executeLinuxCmd("mkdir -p /mnt/sdcard");
         g_cameraFirst++;
     }
-    strCmd = QString("rm /data/yuv.jpg");
-    strResult = executeLinuxCmd(strCmd);
     strCmd = QString("cd /data && csi_test_mplane");
     strResult = executeLinuxCmd(strCmd);
 }
@@ -168,8 +165,8 @@ QString simTest()
     {
         strCmd = QString("nmcli connection add con-name ppp0 ifname ttyUSB2 autoconnect yes type gsm apn 3gnet user uninet password uninet");
         strResult = executeLinuxCmd(strCmd);
-        bool ConnectResult=strResult.contains("successfully added",Qt::CaseInsensitive);
-        if(ConnectResult == true)
+        bool connectResult=strResult.contains("successfully added",Qt::CaseInsensitive);
+        if(connectResult == true)
         {
             strResult = "Connection successful!";
             sleep(4);
@@ -200,8 +197,6 @@ void audioTest()
     QString strCmd = QString("rm /data/audio.wav");
     QString strResult = executeLinuxCmd(strCmd);
     strCmd = QString("arecord -d 2 -r 16000 -c 1 -t wav /data/audio.wav");
-    strResult = executeLinuxCmd(strCmd);
-    strCmd = QString("aplay /usr/helperboard/ceshiluyin.wav");
     strResult = executeLinuxCmd(strCmd);
     strCmd = QString("aplay /data/audio.wav");
     strResult = executeLinuxCmd(strCmd);
@@ -261,10 +256,10 @@ QString bluetoothTest()
 
 QString executeLinuxCmd(QString strCmd)
 {
-    QProcess p;
-    p.start("bash", QStringList() <<"-c" << strCmd);
-    p.waitForFinished(-1);
-    QString strResult = p.readAllStandardOutput();
-    p.close();
+    QProcess pro;
+    pro.start("bash", QStringList() <<"-c" << strCmd);
+    pro.waitForFinished(-1);
+    QString strResult = pro.readAllStandardOutput();
+    pro.close();
     return strResult;
 }

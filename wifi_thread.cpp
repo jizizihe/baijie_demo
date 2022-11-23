@@ -15,9 +15,9 @@ void wifi_thread::wifi_activation_thread(QString wifiName)
 {
     QString strResult;
     strResult = g_wifiInterface->wifiActivation(wifiName);
-    bool ConnectResult=strResult.contains("Connection successfully activated",Qt::CaseInsensitive);
+    bool connectResult=strResult.contains("Connection successfully activated",Qt::CaseInsensitive);
 
-    if(ConnectResult == 1)
+    if(connectResult == 1)
     {
         strResult = QString(1);
     }
@@ -43,9 +43,9 @@ void wifi_thread::wifi_connect_thread(QString wifiName,QString wifiPasswd)
     if(flag == true)
     {
         strResult = g_wifiInterface->wifiActivation(wifiName);
-        bool ConnectResult=strResult.contains("Connection successfully activated",Qt::CaseInsensitive);
+        bool activateResult=strResult.contains("Connection successfully activated",Qt::CaseInsensitive);
 
-        if(ConnectResult == 1)
+        if(activateResult == 1)
         {
             strResult = QString(1);
         }

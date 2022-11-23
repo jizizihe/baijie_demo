@@ -2,13 +2,11 @@
 #include "ui_mainwindow.h"
 #include <sys/stat.h>
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QGraphicsDropShadowEffect>
 
 static int g_screenWidth;
 static int g_screenHeight;
-static int g_firstShowFlag = 0;
-static int g_showFirstFlag;   //0:The MainWindow is displayed for the first time
+static int g_firstShowFlag;   // 0:The MainWindow is displayed for the first time
 static QScreen *g_screen;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -25,10 +23,10 @@ MainWindow::MainWindow(QWidget *parent) :
     shadowEffect->setOffset(4, 4);
     shadowEffect->setColor(QColor (136, 138, 133));
     shadowEffect->setBlurRadius(5);
-    ui->lbl_baijieTechnologyFunctionDisplay->setGraphicsEffect(shadowEffect);      //Add shadow to font
+    ui->lbl_baijieTechnologyFunctionDisplay->setGraphicsEffect(shadowEffect);      // Add shadow to font
 
     QFont font;
-    font.setLetterSpacing(QFont::PercentageSpacing,110);         //word space
+    font.setLetterSpacing(QFont::PercentageSpacing,110);         // Word space
     font.setPointSize(15);
     ui->lbl_baijieTechnologyFunctionDisplay->setFont(font);
     setMainWindowFont();
@@ -47,7 +45,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&g_systemWg,SIGNAL(main_cn_msg()),this,SLOT(cn_main()));
     connect(&g_simModuleWg,SIGNAL(sim_back_msg()),this,SLOT(sim_module_back()));
     connect(this,SIGNAL(cn_msg()),this,SLOT(cn_main()));
-
 }
 
 MainWindow::~MainWindow()
@@ -57,8 +54,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btn_voice_clicked()
 {
-    this->close();
-    voiceShow();
+    this->hide();
+    g_voiceWg.resize(g_screenWidth,g_screenHeight);
+    g_voiceWg.show();
+    g_voiceWg.activateWindow();
 }
 
 void MainWindow::on_btn_udev_clicked()
@@ -66,13 +65,15 @@ void MainWindow::on_btn_udev_clicked()
     this->hide();
     g_udevWg.resize(g_screenWidth,g_screenHeight);
     g_udevWg.show();
-    g_udevWg.activateWindow();g_udevWg.setFocus();
+    g_udevWg.activateWindow();
 }
 
 void MainWindow::on_btn_gpio_clicked()
 {
-    this->close();
-    gpioShow();
+    this->hide();
+    g_gpioWg.resize(g_screenWidth,g_screenHeight);
+    g_gpioWg.show();
+    g_gpioWg.activateWindow();
 }
 
 void MainWindow::on_btn_touch_clicked()
@@ -80,21 +81,24 @@ void MainWindow::on_btn_touch_clicked()
     this->hide();
     g_touchWg.resize(g_screenWidth,g_screenHeight);
     g_touchWg.show();
-    g_touchWg.activateWindow();g_touchWg.setFocus();
+    g_touchWg.activateWindow();
 }
 
 void MainWindow::on_btn_wifi_clicked()
 {
-    this->close();
-    wifiShow();
+    this->hide();
+    g_wifiWg.resize(g_screenWidth,g_screenHeight);
+    g_wifiWg.show();
 }
 void MainWindow::on_btn_ethernet_clicked()
 {
-    this->close();
-    ipsetShow();
+    this->hide();
+    g_eth0Wg.resize(g_screenWidth,g_screenHeight);
+    g_eth0Wg.show();
+    g_eth0Wg.activateWindow();
 }
 
-void MainWindow::cn_main()                          //chinese-english switch
+void MainWindow::cn_main()                          // Chinese-english switch
 {
     static bool languageFlag = 0;
     if(languageFlag)
@@ -131,7 +135,7 @@ void MainWindow::on_btn_bluetooth_clicked()
     this->close();
     g_bluetoothWg.resize(g_screenWidth,g_screenHeight);
     g_bluetoothWg.show();
-    g_bluetoothWg.activateWindow();g_bluetoothWg.setFocus();
+    g_bluetoothWg.activateWindow();
 }
 
 void MainWindow::on_btn_allTest_clicked()
@@ -139,20 +143,25 @@ void MainWindow::on_btn_allTest_clicked()
     this->hide();
     g_allWg.resize(g_screenWidth,g_screenHeight);
     g_allWg.show();
-    g_allWg.activateWindow();g_allWg.setFocus();
+    g_allWg.activateWindow();
 }
-
 
 void MainWindow::on_btn_serialPort_clicked()
 {
-    this->close();
-    serialShow();
+    this->hide();
+    g_serialWg.resize(g_screenWidth,g_screenHeight);
+    g_serialWg.show();
+    g_serialWg.activateWindow();
 }
 
 void MainWindow::on_btn_system_clicked()
 {
-    this->close();
-    systemShow();
+    this->hide();
+    g_systemWg.resize(g_screenWidth,g_screenHeight);
+    g_systemWg.show();
+    g_systemWg.hide();
+    g_systemWg.show();
+    g_systemWg.activateWindow();
 }
 
 void MainWindow::on_btn_simModule_clicked()
@@ -160,7 +169,7 @@ void MainWindow::on_btn_simModule_clicked()
     this->close();
     g_simModuleWg.resize(g_screenWidth,g_screenHeight);
     g_simModuleWg.show();
-    g_simModuleWg.activateWindow();g_simModuleWg.setFocus();
+    g_simModuleWg.activateWindow();
 }
 
 void MainWindow::voice_back()
@@ -173,70 +182,70 @@ void MainWindow::udev_back()
 {
     g_udevWg.hide();
     this->show();
-    this->activateWindow();this->setFocus();
+    this->activateWindow();
 }
 
 void MainWindow::gpio_back()
 {
     g_gpioWg.hide();
     this->show();
-    this->activateWindow();this->setFocus();
+    this->activateWindow();
 }
 
 void MainWindow::touch_back()
 {
     g_touchWg.hide();
     this->show();
-    this->activateWindow();this->setFocus();
+    this->activateWindow();
 }
 
 void MainWindow::wifi_back()
 {
     g_wifiWg.close();
     this->show();
-    this->activateWindow();this->setFocus();
+    this->activateWindow();
 }
 
 void MainWindow::eth0_back()
 {
     g_eth0Wg.hide();
     this->show();
-    this->activateWindow();this->setFocus();
+    this->activateWindow();
 }
 
 void MainWindow::all_back()
 {
     g_allWg.hide();
     this->show();
-    this->activateWindow();this->setFocus();
+    this->activateWindow();
 }
 
 void MainWindow::bluetooth_back()
 {
     g_bluetoothWg.hide();
     this->show();
-    this->activateWindow();this->setFocus();
+    this->activateWindow();
 }
 
 void MainWindow::serial_back()
 {
     g_serialWg.hide();
     this->show();
-    this->activateWindow();this->setFocus();
+    this->activateWindow();
 }
 
 void MainWindow::sim_module_back()
 {
     g_simModuleWg.hide();
     this->show();
-    this->activateWindow();this->setFocus();
+    this->activateWindow();
 }
 
 void MainWindow::sys_back()
 {
     g_systemWg.close();
     this->show();
-    this->activateWindow();this->setFocus();
+    this->activateWindow();
 }
 
 void MainWindow::setMainWindowFont()
@@ -251,7 +260,7 @@ void MainWindow::setMainWindowFont()
         ui->lbl_baijieTechnologyFunctionDisplay->setFont(font);
         font.setPointSize(12);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(16);
         ui->lbl_baijieTechnologyFunctionDisplay->setFont(font);
@@ -277,63 +286,6 @@ void MainWindow::setMainWindowFont()
     ui->lbl_udev->setFont(font);
 }
 
-void MainWindow::voiceShow()
-{
-    g_voiceWg.resize(g_screenWidth,g_screenHeight);
-    g_voiceWg.show();
-    g_voiceWg.activateWindow();g_voiceWg.setFocus();
-}
-
-void MainWindow::serialShow()
-{
-    g_serialWg.resize(g_screenWidth,g_screenHeight);
-    g_serialWg.show();
-    g_serialWg.activateWindow();g_serialWg.setFocus();
-}
-
-void MainWindow::ipsetShow()
-{
-    g_eth0Wg.resize(g_screenWidth,g_screenHeight);
-    g_eth0Wg.show();
-    g_eth0Wg.activateWindow();g_eth0Wg.setFocus();
-}
-
-void MainWindow::gpioShow()
-{
-    g_gpioWg.resize(g_screenWidth,g_screenHeight);
-    g_gpioWg.show();
-    g_gpioWg.activateWindow();g_gpioWg.setFocus();
-}
-
-void MainWindow::systemShow()
-{
-    g_systemWg.resize(g_screenWidth,g_screenHeight);
-    g_systemWg.show();
-    g_systemWg.activateWindow();g_systemWg.setFocus();
-}
-
-void MainWindow::wifiShow()
-{
-    g_wifiWg.resize(g_screenWidth,g_screenHeight);
-    g_wifiWg.show();
-    g_wifiWg.activateWindow();g_wifiWg.setFocus();
-}
-
-void MainWindow::closeEvent(QCloseEvent *event)
-{
-    if(g_showFirstFlag == 0)
-    {
-        wifiShow();wifi_back();
-        serialShow();serial_back();
-        ipsetShow();eth0_back();
-        gpioShow();gpio_back();
-        voiceShow();voice_back();
-        systemShow();sys_back();
-        g_showFirstFlag++;
-    }
-    QWidget::closeEvent(event);
-}
-
 void MainWindow::showEvent(QShowEvent *event)
 {
     if(g_firstShowFlag == 0)
@@ -348,4 +300,5 @@ void MainWindow::showEvent(QShowEvent *event)
         }
         g_firstShowFlag++;
     }
+    QWidget::showEvent(event);
 }

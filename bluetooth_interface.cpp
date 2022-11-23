@@ -1,5 +1,5 @@
 #include "bluetooth_interface.h"
-static int btHciattachFlag;     //0:the Bluetooth dose not uses hciattach  1:the Bluetooth uses hciattach
+static int btHciattachFlag;     // 0:The bluetooth dose not uses hciattach  1:The bluetooth uses hciattach
 static int bluetoothScanFlag;
 
 bluetooth_interface::bluetooth_interface(QObject *parent) : QObject(parent)
@@ -29,11 +29,11 @@ QString bluetooth_interface::bluetoothScan()
     QString str;
     char * data;
     int i = 0;
-    if(bluetoothScanFlag == 0)       //  function: Initializing Bluetooth
+    if(bluetoothScanFlag == 0)       //  Function: Initializing Bluetooth
     {
         QString out = executeLinuxCmd("cat /usr/bin/bluetooth_set.sh");
         QStringList list = out.split("\n");
-        QStringList BtScanList;
+        QStringList btScanList;
 
         list.removeAll("");
         for(int i = 0;i<list.size();i++)
@@ -44,7 +44,7 @@ QString bluetooth_interface::bluetoothScan()
 
             if(str.contains("hciattach",Qt::CaseSensitive))
                 btHciattachFlag = 1;
-            BtScanList << str + "\n";
+            btScanList << str + "\n";
         }
 
         QFile file("/bt_scan.sh");
@@ -54,9 +54,9 @@ QString bluetooth_interface::bluetoothScan()
         }
         if(file.open( QIODevice::WriteOnly))
         {
-            for(i = 0; i< BtScanList.size();++i)
+            for(i = 0; i< btScanList.size();++i)
             {
-                QString tmp = BtScanList.at(i);
+                QString tmp = btScanList.at(i);
                 data = tmp.toLatin1().data();
                 file.write(data);
             }
@@ -80,13 +80,13 @@ QString bluetooth_interface::bluetoothScan()
         strCmd = QString("rm /bt_scan.sh");
         strResult = executeLinuxCmd(strCmd);
     }
-    if(bluetoothScanFlag == 1)   //Devices do not need to be deleted the first scan
+    if(bluetoothScanFlag == 1)   // Devices do not need to be deleted the first scan
     {
         bluetoothScanFlag++;
     }
     else
     {
-        bluetoothScan2();    //function: Delete the scan devices but not the paired devices
+        bluetoothScan2();    // Function: Delete the scan devices but not the paired devices
     }
     QStringList list1;
     list1  << "#!/usr/bin/expect -f \n"
@@ -99,6 +99,7 @@ QString bluetooth_interface::bluetoothScan()
            << "send \"devices\\r\"            \n"
            << "expect $prompt                  \n"
            << "expect \"eof\"                  \n";
+
     QFile file1("/bt_scan2.sh");
     if (file1.exists())
     {
@@ -117,10 +118,10 @@ QString bluetooth_interface::bluetoothScan()
     file1.close();
     strCmd = QString("chmod +x /bt_scan2.sh");
     executeLinuxCmd(strCmd);
-    strCmd = QString("/bt_scan2.sh ");             //function: Scan devices
+    strCmd = QString("/bt_scan2.sh ");             // Function: Scan devices
     strResult = executeLinuxCmd(strCmd);
     QString strFlag = "devices";
-    int strFlagLocate = strResult.indexOf(strFlag);               //Locate the location of the "device" in strResult
+    int strFlagLocate = strResult.indexOf(strFlag);               // Locate the location of the "device" in strResult
     strResult = strResult.remove(0,strFlagLocate);
     QStringList list2 = strResult.split("\n");
 
@@ -142,23 +143,26 @@ QString bluetooth_interface::bluetoothScan()
     }
     QStringList list3;
     QString address;
-    QString strname;
+    QString name;
     QString tmp2;
-    list2.removeAt(0);list2.removeAt(0);
+    list2.removeAt(0);
+    list2.removeAt(0);
     for(int i=0;i<list2.size();i++)
     {
         strFlag = list2.at(i);
-        strFlagLocate =strFlag.indexOf("Device"); strFlag = strFlag.remove(0,strFlagLocate);
+        strFlagLocate =strFlag.indexOf("Device");
+        strFlag = strFlag.remove(0,strFlagLocate);
         address = strFlag.section(' ', 1, 1);
         strFlagLocate = strFlag.indexOf(address);
-        strname = strFlag;
-        strname = strname.remove(0,strFlagLocate);strname = strname.remove(0,address.size()+1);
-        strname = strname.remove(strname.size()-1,1);
+        name = strFlag;
+        name = name.remove(0,strFlagLocate);
+        name = name.remove(0,address.size()+1);
+        name = name.remove(name.size()-1,1);
         strFlag = address.section(':',2,2);
-        tmp2 = strname.section('-',2,2);
+        tmp2 = name.section('-',2,2);
         if(!QString::compare(tmp2,strFlag,Qt::CaseSensitive))
             continue;
-        list3 << "\t"+address+"\t"+strname;
+        list3 << "\t"+address+"\t"+name;
     }
     list3.removeAll("");
     strResult = list3.join("\n");
@@ -170,8 +174,8 @@ QString bluetooth_interface::bluetoothPair(QString btAddress)
 {
     char * data;
     int i = 0;
-    QStringList BtPairList;
-    BtPairList << "#!/usr/bin/expect -f \n"
+    QStringList btPairList;
+    btPairList << "#!/usr/bin/expect -f \n"
                << "set address [lindex $argv 0]    \n"
                << "set prompt \"#\"                \n"
                << "log_user 1                      \n"
@@ -195,9 +199,9 @@ QString bluetooth_interface::bluetoothPair(QString btAddress)
 
     if(file.open( QIODevice::WriteOnly  ))
     {
-        for(i = 0; i< BtPairList.size();++i)
+        for(i = 0; i< btPairList.size();++i)
         {
-            QString tmp = BtPairList.at(i);
+            QString tmp = btPairList.at(i);
             data = tmp.toLatin1().data();
             file.write(data);
         }
@@ -211,9 +215,9 @@ QString bluetooth_interface::bluetoothPair(QString btAddress)
     strCmd = QString("/bt_pair.sh %1").arg(btAddress);
     strResult = executeLinuxCmd(strCmd);
 
-    bool PairResult=strResult.contains("Pairing successful",Qt::CaseInsensitive);
+    bool pairResult=strResult.contains("Pairing successful",Qt::CaseInsensitive);
 
-    if(PairResult == 1)  //1 == true
+    if(pairResult == 1)
     {
         strResult = "successful";
     }
@@ -257,11 +261,11 @@ QString bluetooth_interface::bluetoothConnect(QString btAddress)
     file.close();
 
     QString strCmd = QString("chmod +x /bt_connect.sh");
-    QString strResult = executeLinuxCmdBluetoothConnect(strCmd);
+    QString strResult = executeLinuxCmd(strCmd);
     btAddress = btAddress.replace(QString("\n"), QString(""));
     strCmd = QString("/bt_connect.sh %1").arg(btAddress);
-    strResult = executeLinuxCmdBluetoothConnect(strCmd);
-    QString flag = bluetoothConnectFlag();   //Check for Bluetooth connection
+    strResult = executeLinuxCmd(strCmd);
+    QString flag = bluetoothConnectFlag();   // Check for bluetooth connection
 
     if(flag == "1")
     {
@@ -282,7 +286,7 @@ void bluetooth_interface::bluetoothShellDelete()
 
 void bluetooth_interface::bluetoothScan2()
 {
-    if(bluetoothScanFlag == 2)      //Writing script for the first time
+    if(bluetoothScanFlag == 2)      // Writing script for the first time
     {
         QStringList list;
         list << "#!/usr/bin/expect -f \n"
@@ -321,9 +325,11 @@ void bluetooth_interface::bluetoothScan2()
     strFlag = "Agent registered";
     strFalgLocate = str.indexOf(strFlag);
     str = str.remove(strFalgLocate,str.size()-1);
-    QStringList listResult = str.split("\r");                      //Store Bluetooth scans existing devices data
-    listResult.removeAt(0);listResult.removeAt(listResult.size()-1);listResult.removeAll(QString(""));
-    QStringList listResultDevice;                                  //Store the devices in listResult
+    QStringList listResult = str.split("\r");                      // Store bluetooth scans existing devices data
+    listResult.removeAt(0);
+    listResult.removeAt(listResult.size()-1);
+    listResult.removeAll(QString(""));
+    QStringList listResultDevice;                                  // Store the devices in listResult
     for(int i = 0;i<listResult.size();i++)
     {
         QString strName = listResult.at(i);
@@ -341,10 +347,12 @@ void bluetooth_interface::bluetoothScan2()
     strFlag = "quit";
     strFalgLocate = strResult.indexOf(strFlag);
     strResult = strResult.remove(strFalgLocate,strResult.size()-0);
-    QStringList listResultPair = strResult.split("\r");  //Storage Bluetooth paired existing devices data
-    listResultPair.removeAt(0);listResultPair.removeAt(0);
-    listResultPair.removeAt(listResultPair.size()-1);listResultPair.removeAll(QString(""));
-    QStringList listResultPairDevice;             //Store the devices in listResultPair
+    QStringList listResultPair = strResult.split("\r");  // Storage bluetooth paired existing devices data
+    listResultPair.removeAt(0);
+    listResultPair.removeAt(0);
+    listResultPair.removeAt(listResultPair.size()-1);
+    listResultPair.removeAll(QString(""));
+    QStringList listResultPairDevice;             // Store the devices in listResultPair
     for(int i = 0;i<listResultPair.size();i++)
     {
         QString strName = listResultPair.at(i);
@@ -363,7 +371,7 @@ void bluetooth_interface::bluetoothScan2()
         for(int j = 0;j<listResultPairDevice.size();j++)
         {
             QString strPairDevice = listResultPairDevice.at(j);
-            if(!QString::compare(strScanDevice,strPairDevice,Qt::CaseSensitive))      //Delete the scan devices but not the paired devices
+            if(!QString::compare(strScanDevice,strPairDevice,Qt::CaseSensitive))      // Delete the scan devices but not the paired devices
             {
                 break;
             }
@@ -466,9 +474,11 @@ QString bluetooth_interface::bluetoothConnectFlag()
         QString strFlag = "Agent registered";
         int strFlagLocate = strResult.indexOf(strFlag);
         strResult = strResult.remove(0,strFlagLocate);
-        QStringList s = strResult.split("\n");
-        str = s.at(3); str = str.section(":",1,1);
-        str.remove("\r");str.remove(0,1);
+        QStringList connectList = strResult.split("\n");
+        str = connectList.at(3);
+        str = str.section(":",1,1);
+        str.remove("\r");
+        str.remove(0,1);
         return str;
     }
 }
@@ -545,23 +555,13 @@ void bluetooth_interface::bluetoothEnableFlag(bool flag)
     }
 }
 
-QString bluetooth_interface::executeLinuxCmdBluetoothConnect(QString strCmd)
-{
-    QProcess p;
-    p.start("bash", QStringList() <<"-c" << strCmd);
-    p.waitForFinished(-1);
-    QString strResult = p.readAllStandardOutput();
-    p.close();
-    return strResult;
-}
-
 QString bluetooth_interface::executeLinuxCmdBluetoothOpen(QString strCmd)
 {
-    QProcess p;
-    p.start("bash", QStringList() <<"-c" << strCmd);
+    QProcess pro;
+    pro.start("bash", QStringList() <<"-c" << strCmd);
     QThread::sleep(1);
-    p.waitForFinished(-1);
-    QString strResult = p.readAllStandardOutput();
-    p.close();
+    pro.waitForFinished(-1);
+    QString strResult = pro.readAllStandardOutput();
+    pro.close();
     return strResult;
 }

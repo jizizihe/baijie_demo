@@ -4,16 +4,16 @@
 #include <QDebug>
 
 static int g_lightValue;
-static int g_indexNumber;         //The subscript of an array that stores sleep times
+static int g_indexNumber;         // The subscript of an array that stores sleep times
 static int g_screenWidth;
-static unsigned int g_timerArray[7] = {15,30,60,120,300,600,429499999};   //Sleep time
-static QTimer *g_timeUp;
-static QTimer *g_timing;         //sleep
+static unsigned int g_timerArray[7] = {15,30,60,120,300,600,429499999};   // Sleep time
+static QTimer *g_timeSleep;
+static QTimer *g_timeLight;         // Sleep
 
 int setBacklight(int value)
 {
     int fd;
-    int sourceValue;
+    int lightValue;
     unsigned long args[2] = {0} ;
     fd = open("/dev/disp", O_RDWR, 0);
     if(fd < 0)
@@ -24,17 +24,17 @@ int setBacklight(int value)
 
     args[0] = 0;
     args[1] = value;
-    sourceValue = ioctl(fd,DISP_LCD_GET_BRIGHTNESS,args);
+    lightValue = ioctl(fd,DISP_LCD_GET_BRIGHTNESS,args);
 
     ioctl(fd,DISP_LCD_SET_BRIGHTNESS,args);
     close(fd);
-    return sourceValue;
+    return lightValue;
 }
 
 int getBacklight()
 {
     int fd;
-    int sourceValue;
+    int lightValue;
     unsigned long args[2] = {0} ;
     fd = open("/dev/disp", O_RDWR, 0);
     if(fd < 0)
@@ -42,9 +42,9 @@ int getBacklight()
         qDebug() << "open /dev/disp failed.\n";
         return -1;
     }
-    sourceValue = ioctl(fd,DISP_LCD_GET_BRIGHTNESS,args);
+    lightValue = ioctl(fd,DISP_LCD_GET_BRIGHTNESS,args);
     close(fd);
-    return sourceValue;
+    return lightValue;
 }
 
 backlight::backlight(QWidget *parent) :
@@ -54,17 +54,17 @@ backlight::backlight(QWidget *parent) :
     ui->setupUi(this);
     ui->horizontalSlider_light->setRange(138,255);
     ui->horizontalSlider_light->setValue(255);
-    g_lightValue = 255;
-    setBacklightFont();
-    ui->lbl_lightValue->setText(tr("255"));
-    g_timing = new QTimer(this);
-    g_timing->start();
-    connect(g_timing,SIGNAL(timeout()),this,SLOT(light_screen()));
-    g_timeUp = new QTimer(this);
-    g_timeUp->start();
-    connect(g_timeUp,SIGNAL(timeout()),this,SLOT(dark_screen()));
-    g_indexNumber = 6;
     ui->cmb_sleep_time->setCurrentIndex(6);
+    ui->lbl_lightValue->setText(tr("255"));
+    g_lightValue = 255;
+    g_indexNumber = 6;
+    g_timeLight = new QTimer(this);
+    g_timeLight->start();
+    g_timeSleep = new QTimer(this);
+    g_timeSleep->start();
+    setBacklightFont();
+    connect(g_timeLight,SIGNAL(timeout()),this,SLOT(light_screen()));
+    connect(g_timeSleep,SIGNAL(timeout()),this,SLOT(dark_screen()));
 }
 
 backlight::~backlight()
@@ -75,43 +75,35 @@ backlight::~backlight()
 void backlight::light_screen()
 {
     int nowValueLight = getBacklight();
-    if(nowValueLight == 0 && g_touchFlag)   //touchFlag external variable in globalapp.h
+    if(nowValueLight == 0 && g_touchFlag)   // TouchFlag external variable in globalapp.h
     {
-        g_timeUp->start();
+        g_timeSleep->start();
         setBacklight(g_lightValue);
     }
     usleep(5000);
 }
 
-void backlight::dark_screen()       //check whether events are generated
+void backlight::dark_screen()       // Check whether events are generated
 {
-    QDateTime now = QDateTime::currentDateTime().addSecs(g_timerArray[g_indexNumber]);
-    QDateTime shade = QDateTime::currentDateTime().addSecs((unsigned)g_timerArray[g_indexNumber] - 1);
+    QDateTime sleepTime = QDateTime::currentDateTime().addSecs(g_timerArray[g_indexNumber]);
 
-    while(QDateTime::currentDateTime() < now)
+    while(QDateTime::currentDateTime() < sleepTime)
     {
         if(g_touchFlag)
         {
-            now = QDateTime::currentDateTime().addSecs((unsigned)g_timerArray[g_indexNumber]);
-            shade = QDateTime::currentDateTime().addSecs((unsigned)g_timerArray[g_indexNumber] - 1);
+            sleepTime = QDateTime::currentDateTime().addSecs((unsigned)g_timerArray[g_indexNumber]);
             g_touchFlag = false;
         }
-
-        if(QDateTime::currentDateTime() > shade)
-        {
-        }
-
         QCoreApplication::processEvents(QEventLoop::AllEvents,100);
     }
-    g_timeUp->stop();
+    g_timeSleep->stop();
     setBacklight(0);
 }
 
 void backlight::on_horizontalSlider_light_valueChanged(int value)
 {
     g_lightValue = setBacklight(value);
-    QString strValue = QString("%1").arg(value);
-    ui->lbl_lightValue->setText(tr(QString("%1").arg(strValue).toUtf8()));
+    ui->lbl_lightValue->setText(tr(QString("%1").arg(g_lightValue).toUtf8()));
 }
 
 void backlight::on_cmb_sleep_time_currentIndexChanged(int index)
@@ -140,7 +132,7 @@ void backlight::setBacklightFont()
     {
         font.setPointSize(12);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(14);
     }

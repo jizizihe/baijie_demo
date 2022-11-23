@@ -2,9 +2,9 @@
 
 bool automaticallyGetIp()
 {
-    QProcess cmd;
-    cmd.start("dhclient eth0");
-    if(!cmd.waitForFinished())
+    QProcess pro;
+    pro.start("dhclient eth0");
+    if(!pro.waitForFinished())
     {
         return false;
     }
@@ -90,9 +90,9 @@ bool deleteStaticIp()
 bool isStaticIpExist()
 {
     QString isExistCmd = QString("nmcli con show |grep static");
-    QString retResult = executeLinuxCmd(isExistCmd);
+    QString Result = executeLinuxCmd(isExistCmd);
 
-    if(true == retResult.isEmpty())
+    if(true == Result.isEmpty())
     {
         return false;
     }

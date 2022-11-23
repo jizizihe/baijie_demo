@@ -7,7 +7,6 @@ static int g_screenHeight;
 static int g_connectFlag;
 static QScreen *g_screen;
 static qreal g_realX;
-static qreal g_realY;
 
 WifiConDialog::WifiConDialog(QWidget *parent) :
     QDialog(parent),
@@ -18,7 +17,6 @@ WifiConDialog::WifiConDialog(QWidget *parent) :
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
     g_realX = g_screen->physicalDotsPerInchX();
-    g_realY = g_screen->physicalDotsPerInchY();
     setWifiDialogFont();
     g_wifiLoadLabel = new QLabel(this);
     g_wifiMovie = new QMovie("://button_image/loading.webp");
@@ -60,11 +58,11 @@ void WifiConDialog::on_btn_ok_clicked()
     }
     g_wifiLoadLabel->show();
     g_wifiMovie->start();
-    if(g_connectFlag == 0)  //wifi connect
+    if(g_connectFlag == 0)        // Wifi connect
     {
         emit wifi_connect_dialog_msg(wifiName, wifiPasswd);
     }
-    else if(g_connectFlag == 1)  //wifi change password
+    else if(g_connectFlag == 1)  // Wifi change password
     {
         emit wifi_modify_pass_msg(wifiName,wifiPasswd);
     }
@@ -78,7 +76,7 @@ void WifiConDialog::wifi_modify_pass(bool strResult)
     g_wifiMovie->stop();
     if(strResult == true)
     {
-        QMessageBox::information(this,"information",tr("change succeeded!"));
+        QMessageBox::information(this,"information",tr("Change succeeded!"));
         g_database.updateWiFiTable("wifiPasswd",wifiName,wifiPasswd);
         emit wifi_status_show_msg();
         ui->NamelineEdit->clear();
@@ -90,7 +88,7 @@ void WifiConDialog::wifi_modify_pass(bool strResult)
         g_wifiLoadLabel->close();
         g_wifiMovie->stop();
         g_database.updateWiFiTable("wifiPasswd",wifiName,wifiPasswd);
-        QMessageBox::critical(this,"information",tr("connect failed,the password wrong!"));
+        QMessageBox::critical(this,"information",tr("Connect failed,the password wrong!"));
         emit wifi_status_show_msg();
     }
 }
@@ -161,7 +159,7 @@ void WifiConDialog::setWifiDialogFont()
     }
     else
     {
-        font.setPointSize(17);
+        font.setPointSize(18);
     }
 
     ui->lbl_wifi->setFont(font);

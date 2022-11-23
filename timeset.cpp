@@ -7,7 +7,6 @@ static int g_screenHeight;
 static int g_showFirstFlag;
 static int g_syncNetworkFlag;      // 0: Async Network   1: Sync Network
 static qreal g_realX;
-static qreal g_realY;
 
 timeset::timeset(QWidget *parent) :
     QMainWindow(parent),
@@ -18,25 +17,24 @@ timeset::timeset(QWidget *parent) :
     g_screenWidth = g_screen->size().width();
     g_screenHeight = g_screen->size().height();
     g_realX = g_screen->physicalDotsPerInchX();
-    g_realY = g_screen->physicalDotsPerInchY();
     setTimeFont();
     ui->datetime->setDisplayFormat("yyyy-MM-dd HH:mm:ss");
     ui->datetime->setTime(QTime::currentTime());
     ui->datetime->setDate(QDate::currentDate());
 
     g_sysTimer = new QTimer(this);
-    connect(g_sysTimer,SIGNAL(timeout()),this,SLOT(sys_timer_update()));
     g_rtcTimer = new QTimer(this);
-    connect(g_rtcTimer,SIGNAL(timeout()),this,SLOT(rtc_timer_update()));
     g_proSys.start("bash");
     g_proRTC.start("bash");
 
     rtc_timer_update();
     sys_timer_update();
+    connect(g_sysTimer,SIGNAL(timeout()),this,SLOT(sys_timer_update()));
+    connect(g_rtcTimer,SIGNAL(timeout()),this,SLOT(rtc_timer_update()));
     connect(ui->btn_ret,SIGNAL(clicked(bool)),this,SLOT(btn_ret_clicked()));
     connect(ui->btn_sysTimeSet,SIGNAL(clicked()),this,SLOT(btn_sysTimeSet_clicked()));
     connect(ui->btn_RTCSet,SIGNAL(clicked()),this,SLOT(btn_RTCSet_clicked()));
-    isSyncNetwork();             //Whether the time is synchronized with the network
+    isSyncNetwork();             // Whether the time is synchronized with the network
 }
 
 timeset::~timeset()
@@ -91,8 +89,8 @@ void timeset::btn_sysTimeSet_clicked()
         return;
     }
     g_sysTimer->stop();
-    QString  datetext = ui->datetime->text();
-    QString strResult = setSystime(datetext);
+    QString  dateText = ui->datetime->text();
+    QString strResult = setSystime(dateText);
     if(strResult == "0\n")
     {
         QMessageBox::information(this,"information",tr("Systime set ok!"));
@@ -147,6 +145,7 @@ void timeset::showEvent(QShowEvent *event)
         g_sysTimer->start(1000);
         g_rtcTimer->start(1000);
     }
+    QWidget::showEvent(event);
 }
 
 void timeset::languageReload()
@@ -162,7 +161,7 @@ void timeset::setTimeFont()
     {
         font.setPointSize(12);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(14);
     }

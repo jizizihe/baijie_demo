@@ -1,15 +1,14 @@
 #include "gpio.h"
 #include "ui_gpio.h"
 #include <QScreen>
-#include <QDesktopWidget>
 #include <QButtonGroup>
 #include <QTimer>
 
 static QScreen *g_screen;
 static int g_screenWidth;
 static int g_screenHeight;
-static int g_statusFirstFlag;       // 0:Display status button for the first time
-static int g_valueFirstFlag;        // 0:Display value button for the first time
+static int g_statusFirstFlag;        // 0:Display status button for the first time
+static int g_valueFirstFlag;         // 0:Display value button for the first time
 static QLabel *g_statusSwitchLabel1;
 static QLabel *g_statusSwitchLabel2;
 static QLabel *g_valueSwitchLabel1;
@@ -39,7 +38,7 @@ gpio::gpio(QWidget *parent) :
     ui->value_Switch->setCheckedColor(QColor(100, 225, 100, 150));
 
     g_timer = new QTimer(this);
-    connect(g_timer,SIGNAL(timeout()),this,SLOT(gpio_refresh()));         //The port information is refreshed every second
+    connect(g_timer,SIGNAL(timeout()),this,SLOT(gpio_refresh()));         // The port information is refreshed every second
     connect(ui->status_Switch,SIGNAL(toggled(bool)),this,SLOT(status_switch_change_flag(bool)));
     connect(ui->value_Switch,SIGNAL(toggled(bool)),this,SLOT(value_switch_change_flag(bool)));
     connect(ui->btn_ret,SIGNAL(clicked(bool)),this,SLOT(btn_ret_clicked()));
@@ -64,7 +63,7 @@ gpio::~gpio()
 void gpio::btn_ret_clicked()
 {
     emit gpio_back_msg();
-    for(int i = 0;i < g_num;i++)
+    for(int i = 0;i < g_portNum;i++)
     {
         if(getFileName(g_portNumInt[i]))
         {
@@ -72,7 +71,7 @@ void gpio::btn_ret_clicked()
         }
     }
     memset(g_portNumInt,0,sizeof(g_portNumInt));
-    g_num = 0;
+    g_portNum = 0;
     g_timer->stop();
 }
 
@@ -87,14 +86,14 @@ bool gpio::input_warning()
     QString strPort = ui->lineedit->text();
     int i,j = -1;
     QString gpio;
-    g_portCount = g_num;
+    g_portCount = g_portNum;
 
     for(i = 0;i < strPort.size();i++)
     {
         if(strPort.at(i) == ',')
         {
             gpio = strPort.mid(j+1,(i-j-1));
-            if(!isTruePort(gpio,g_num))
+            if(!isTruePort(gpio,g_portNum))
             {
                 QMessageBox mesg(QMessageBox::Information,
                                  tr("QMessageBox::information()"),
@@ -105,12 +104,12 @@ bool gpio::input_warning()
                 mesg.exec();this->activateWindow();this->setFocus();
                 return false;
             }
-            calcPortStr(g_portNumInt[g_num],g_portNumStr[g_num]);
-            for(int k = 0;k < g_occupiedGpio.len;k++)
+            calcPortStr(g_portNumInt[g_portNum],g_portNumStr[g_portNum]);
+            for(int k = 0;k < g_occupiedGpio.bufLength;k++)
             {
-                if(g_occupiedGpio.gpio[k] == g_portNumInt[g_num])
+                if(g_occupiedGpio.gpio[k] == g_portNumInt[g_portNum])
                 {
-                    QString str = QString(tr("P%1 is occupied!You can't mobilize it!")).arg(g_portNumStr[g_num]);
+                    QString str = QString(tr("P%1 is occupied!You can't mobilize it!")).arg(g_portNumStr[g_portNum]);
                     QMessageBox mesg(QMessageBox::Information,
                                      tr("QMessageBox::information()"),
                                      tr(str.toUtf8()),
@@ -121,17 +120,17 @@ bool gpio::input_warning()
                     return false;
                 }
             }
-            if(!getFileName(g_portNumInt[g_num]))
+            if(!getFileName(g_portNumInt[g_portNum]))
             {
-                gpioExport(g_portNumInt[g_num]);
+                gpioExport(g_portNumInt[g_portNum]);
             }
             j = i;
-            g_num++;
+            g_portNum++;
         }
         else if(i == strPort.size()-1)
         {
             gpio = strPort.mid(j+1,(i-j));
-            if(!isTruePort(gpio,g_num))
+            if(!isTruePort(gpio,g_portNum))
             {
                 QString str = QString(tr("Please input true GPIO!"));
                 QMessageBox mesg(QMessageBox::Information,
@@ -143,12 +142,12 @@ bool gpio::input_warning()
                 mesg.exec();this->activateWindow();this->setFocus();
                 return false;
             }
-            calcPortStr(g_portNumInt[g_num],g_portNumStr[g_num]);
-            for(int k = 0;k < g_occupiedGpio.len;k++)
+            calcPortStr(g_portNumInt[g_portNum],g_portNumStr[g_portNum]);
+            for(int k = 0;k < g_occupiedGpio.bufLength;k++)
             {
-                if(g_occupiedGpio.gpio[k] == g_portNumInt[g_num])
+                if(g_occupiedGpio.gpio[k] == g_portNumInt[g_portNum])
                 {
-                    QString str = QString(tr("P%1 is occupied!You can't mobilize it!")).arg(g_portNumStr[g_num]);
+                    QString str = QString(tr("P%1 is occupied!You can't mobilize it!")).arg(g_portNumStr[g_portNum]);
                     QMessageBox mesg(QMessageBox::Information,
                                      tr("QMessageBox::information()"),
                                      tr(str.toUtf8()),
@@ -159,18 +158,18 @@ bool gpio::input_warning()
                     return false;
                 }
             }
-            if(!getFileName(g_portNumInt[g_num]))
+            if(!getFileName(g_portNumInt[g_portNum]))
             {
-                gpioExport(g_portNumInt[g_num]);
+                gpioExport(g_portNumInt[g_portNum]);
             }
             j = i;
-            g_num++;
+            g_portNum++;
         }
     }
     return true;
 }
 
-bool gpio::isTruePort(QString str,int i)             //Check whether the port mode is correct
+bool gpio::isTruePort(QString str,int i)             // Check whether the port mode is correct
 {
     QString lastCharacter = str.right(1);
     QString thirdCharacter = str.mid(2,1);
@@ -213,8 +212,8 @@ bool gpio::isTruePort(QString str,int i)             //Check whether the port mo
         temp = port.toLatin1();
         gpioPort = *(temp.data());
 
-        QString g_num = str.mid(2);
-        int gpio_num = g_num.toInt();
+        QString g_portNum = str.mid(2);
+        int gpio_num = g_portNum.toInt();
         g_portNumInt[i] = calcPortNum(gpioPort, gpio_num);
 
         if(g_portNumInt[i] < 0 && str.size() != 0)
@@ -229,8 +228,8 @@ bool gpio::isTruePort(QString str,int i)             //Check whether the port mo
         {
             return false;
         }
-        QString g_num = str.mid(1);
-        int gpioNum = g_num.toInt();
+        QString g_portNum = str.mid(1);
+        int gpioNum = g_portNum.toInt();
         g_portNumInt[i] = calcPortNum(gpioPort, gpioNum);
 
         if(g_portNumInt[i] < 0 && str.size() != 0)
@@ -244,11 +243,11 @@ bool gpio::isTruePort(QString str,int i)             //Check whether the port mo
 bool gpio::isEnglish(QString &qstrSrc)
 {
     QByteArray ba = qstrSrc.toLatin1();
-    const char *s = ba.data();
+    const char *str = ba.data();
     bool bret = true;
-    while(*s)
+    while(*str)
     {
-        if((*s>='A' && *s<='Z') || (*s>='a' && *s<='z'))
+        if((*str>='A' && *str<='Z') || (*str>='a' && *str<='z'))
         {
 
         }
@@ -257,7 +256,7 @@ bool gpio::isEnglish(QString &qstrSrc)
             bret = false;
             break;
         }
-        s++;
+        str++;
     }
     return bret;
 }
@@ -265,11 +264,11 @@ bool gpio::isEnglish(QString &qstrSrc)
 bool gpio::isNumber(QString &qstrSrc)
 {
     QByteArray ba = qstrSrc.toLatin1();
-    const char *s = ba.data();
+    const char *str = ba.data();
     bool bret = true;
-    while(*s)
+    while(*str)
     {
-        if(*s>='0' && *s<='9')
+        if(*str>='0' && *str<='9')
         {
 
         }
@@ -278,7 +277,7 @@ bool gpio::isNumber(QString &qstrSrc)
             bret = false;
             break;
         }
-        s++;
+        str++;
     }
     return bret;
 }
@@ -308,7 +307,7 @@ void gpio::setGpioFont()
     {
         font.setPointSize(12);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(14);
     }
@@ -334,16 +333,14 @@ void gpio::on_btn_hint_clicked()
                      0,this);
     mesg.addButton(tr("OK"),QMessageBox::YesRole);
     mesg.resize(g_screenWidth/3,g_screenHeight/2);
-    mesg.move(g_screenWidth/3,g_screenHeight/5);
+    mesg.move(g_screenWidth/3,g_screenHeight/2-g_screenHeight/4);
     mesg.exec();
-    this->activateWindow();
-    this->setFocus();
 }
 
 void gpio::status_switch_change_flag(bool flag)
 {
     flag = ui->status_Switch->isToggled();
-    if(flag == 1) // out
+    if(flag == 1) // Out
     {
         ui->value_Switch->setDisabled(false);
         setTextStatusSwitch(1);
@@ -352,7 +349,7 @@ void gpio::status_switch_change_flag(bool flag)
             return;
         }
         ui->display->clear();
-        for(int i = g_portCount;i < g_num;i++)
+        for(int i = g_portCount;i < g_portNum;i++)
         {
             setGpioState(g_portNumInt[i], (char *)"out");
             calcPortStr(g_portNumInt[i],g_portNumStr[i]);
@@ -375,7 +372,7 @@ void gpio::status_switch_change_flag(bool flag)
         }
 
     }
-    else //in
+    else // In
     {
         setTextStatusSwitch(0);
         if(!input_warning())
@@ -383,7 +380,7 @@ void gpio::status_switch_change_flag(bool flag)
             return;
         }
         ui->display->clear();
-        for(int i = g_portCount;i < g_num;i++)
+        for(int i = g_portCount;i < g_portNum;i++)
         {
             setGpioState(g_portNumInt[i], (char *)"in");
             ui->display->setAlignment(Qt::AlignCenter);
@@ -400,7 +397,7 @@ void gpio::status_switch_change_flag(bool flag)
 void gpio::value_switch_change_flag(bool flag)
 {
     flag = ui->value_Switch->isToggled();
-    if(flag == 1) // high
+    if(flag == 1) // High
     {
         setTextValueSwitch(1);
         if(!input_warning())
@@ -408,7 +405,7 @@ void gpio::value_switch_change_flag(bool flag)
             return;
         }
         ui->display->clear();
-        for(int i = g_portCount;i < g_num;i++)
+        for(int i = g_portCount;i < g_portNum;i++)
         {
             setGpioState(g_portNumInt[i], (char *)"out");
             calcPortStr(g_portNumInt[i],g_portNumStr[i]);
@@ -420,7 +417,7 @@ void gpio::value_switch_change_flag(bool flag)
             ui->display->append(QString(tr("  value: 1")));
         }
     }
-    else //low
+    else // Low
     {
         setTextValueSwitch(0);
         if(!input_warning())
@@ -428,7 +425,7 @@ void gpio::value_switch_change_flag(bool flag)
             return;
         }
         ui->display->clear();
-        for(int i = g_portCount;i < g_num;i++)
+        for(int i = g_portCount;i < g_portNum;i++)
         {
             setGpioState(g_portNumInt[i], (char *)"out");
             calcPortStr(g_portNumInt[i],g_portNumStr[i]);
@@ -544,6 +541,7 @@ void gpio::setTextValueSwitch(int flag)
 void gpio::showEvent(QShowEvent *event)
 {
     g_timer->start(1000);
+    QWidget::showEvent(event);
 }
 
 void gpio::gpio_refresh()
@@ -554,7 +552,7 @@ void gpio::gpio_refresh()
         return;
     }
     ui->display->clear();
-    for(int i = g_portCount;i < g_num;i++)
+    for(int i = g_portCount;i < g_portNum;i++)
     {
         QString strStatus;
         int status = getGpioState(g_portNumInt[i]);

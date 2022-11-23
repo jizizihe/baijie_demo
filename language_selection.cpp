@@ -35,7 +35,7 @@ void language_selection::setLanguageFont()
         ui->lbl_tips->setFont(font);
         font.setPointSize(13);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(15);
         ui->lbl_tips->setFont(font);
@@ -64,8 +64,8 @@ void language_selection::on_btn_ok_clicked()
     }
 
     this->hide();
-        g_desktopWg.resize(g_screenWidth,g_screenHeight);
-        g_desktopWg.show();
+    g_desktopWg.resize(g_screenWidth,g_screenHeight);
+    g_desktopWg.show();
 }
 
 void language_selection::desktopShow()

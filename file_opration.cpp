@@ -6,7 +6,7 @@
 
 static QString g_nextPath;
 static QString g_lastPath;
-static QString g_filePath;            //  0: Display file  1: Display folder
+static QString g_filePath;            // 0: Display file  1: Display folder
 static int g_screenWidth;
 static int g_screenHeight;
 static QScreen *g_screen;
@@ -21,10 +21,10 @@ File_opration::File_opration(QWidget *parent) :
     g_screenHeight = g_screen->size().height();
     this->setMinimumSize(g_screenWidth*2/3,g_screenHeight*2/3);
     this->setMaximumSize(g_screenWidth*2/3,g_screenHeight*2/3);
-    setFileOprationFont();
-    connect(&g_proPath, SIGNAL(readyReadStandardOutput()), this, SLOT(read_bash_standard_output_info()));
     this->setWindowModality(Qt::ApplicationModal);
     g_proPath.start("bash");
+    setFileOprationFont();
+    connect(&g_proPath, SIGNAL(readyReadStandardOutput()), this, SLOT(read_bash_standard_output_info()));    
 }
 
 File_opration::~File_opration()
@@ -42,16 +42,12 @@ void File_opration::read_bash_standard_output_info()
     ui->treeWidget->clear();
     if(filePathFlag == 1)
     {
-        if(list.count() < 3)                //no file
-        {
-
-        }
-        else
+        if(list.count() >= 3)                // Existing file
         {
             for(int i = 2;i<list.size();i++)
             {
-                QTreeWidgetItem *g = new QTreeWidgetItem(ui->treeWidget);
-                g->setText(0,list[i]);
+                QTreeWidgetItem *treeItem = new QTreeWidgetItem(ui->treeWidget);
+                treeItem->setText(0,list[i]);
             }
         }
     }
@@ -59,8 +55,8 @@ void File_opration::read_bash_standard_output_info()
     {
         for(int i = 2;i<list.size();i++)
         {
-            QTreeWidgetItem *g = new QTreeWidgetItem(ui->treeWidget);
-            g->setText(0,list[i]);
+            QTreeWidgetItem *treeItem = new QTreeWidgetItem(ui->treeWidget);
+            treeItem->setText(0,list[i]);
         }
     }
 }
@@ -73,8 +69,8 @@ void File_opration::on_btn_back_clicked()
         g_filePath.chop(1);
         g_filePath = g_filePath.mid(0,g_filePath.lastIndexOf("/")+1);
 
-        QString s = "cd "+ g_filePath + " \n";
-        g_proPath.write(s.toUtf8());
+        QString str = "cd "+ g_filePath + " \n";
+        g_proPath.write(str.toUtf8());
         if(filePathFlag == 0)
         {
             g_proPath.write("ls -ap \n");
@@ -116,12 +112,11 @@ void File_opration::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
     else
     {
         path = g_lastPath + g_nextPath;
-        QString s = "cd "+ path + " \n";
-        g_proPath.write(s.toUtf8());
+        QString str = "cd "+ path + " \n";
+        g_proPath.write(str.toUtf8());
         g_proPath.write("ls -ap| grep / \n");
         ui->lbl_pathValue->setText(path);
     }
-
 }
 
 void File_opration::showEvent(QShowEvent *event)
@@ -129,15 +124,15 @@ void File_opration::showEvent(QShowEvent *event)
     if(filePathFlag == 0)
     {
         ui->lbl_pathValue->setText("/");
-        QString s = "cd / \n";
-        g_proPath.write(s.toUtf8());
+        QString str = "cd / \n";
+        g_proPath.write(str.toUtf8());
         g_proPath.write("ls -ap \n");
     }
     else
     {
         ui->lbl_pathValue->setText("/");;
-        QString s = "cd / \n";
-        g_proPath.write(s.toUtf8());
+        QString str = "cd / \n";
+        g_proPath.write(str.toUtf8());
         g_proPath.write("ls -ap| grep / \n");
     }
     QWidget::showEvent(event);
@@ -150,13 +145,13 @@ void File_opration::on_btn_cancel_clicked()
 
 void File_opration::on_btn_choose_clicked()
 {
-    if(filePathFlag == 1)                                     //Send the path signal
+    if(filePathFlag == 1)                                     // Send the path signal
     {
         QString str = ui->lbl_pathValue->text();
         emit file_hide_msg();
         emit file_rev_path_msg(str);
     }
-    else                                                      //Send the file signal
+    else                                                      // Send the file signal
     {
         if(g_nextPath.contains("/",Qt::CaseSensitive)||(g_nextPath == "/"))
         {
@@ -171,7 +166,7 @@ void File_opration::on_btn_choose_clicked()
         else
         {
             emit file_hide_msg();
-            emit file_rev_file_msg(g_lastPath,g_nextPath);         //g_lastPath: path  g_nextPath: file
+            emit file_rev_file_msg(g_lastPath,g_nextPath);         // g_lastPath: path  g_nextPath: file
         }
     }
 }
@@ -190,7 +185,7 @@ void File_opration::setFileOprationFont()
     {
         font.setPointSize(10);
     }
-    else if (realWidth < 17)
+    else if (realWidth < 18)
     {
         font.setPointSize(12);
     }

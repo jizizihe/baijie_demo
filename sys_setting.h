@@ -20,7 +20,6 @@ class sys_setting : public QWidget
 public:
     explicit sys_setting(QWidget *parent = 0);
     ~sys_setting();
-    void closeEvent(QCloseEvent *event);
     void setSystemFont();
     void setBtnOtgValue();
     void setOtgHost();

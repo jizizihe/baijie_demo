@@ -7,7 +7,7 @@ static int g_createFlag;
 
 database::database()
 {
-    if(g_createFlag == 0)       //Create database only once
+    if(g_createFlag == 0)       // Create database only once
     {
         createConnection();
         createTable();
@@ -132,10 +132,9 @@ bool database::selectTable(QString name)
     }
     else
     {
-        qDebug() << "select from table succeed!";
         while(query.next())
         {
-            //qDebug() << "--LINE--: " << __LINE__<< query.value(0).toString()<<query.value(1).toString();
+
         }
         return true;
     }
@@ -198,7 +197,7 @@ bool database::deleteTableName(QString tableName, QString name)
     QString deleteTableName = QString("delete from %1 where name='%2';").arg(tableName).arg(name);
     if(!query.exec(deleteTableName))
     {
-      //  qDebug() << "Error: Failed delete record by name."<<query.lastError();
+        qDebug() << "Error: Failed delete record by name."<<query.lastError();
         return false;
     }
     else
@@ -224,17 +223,17 @@ bool database::deleteTable(QString tableName)
     return false;
 }
 
-QStringList database::tableShow(QString tableName)      //Return database table data to QStringList
+QStringList database::tableShow(QString tableName)      // Return database table data to QStringList
 {
     QSqlQuery query;
-    QString strr =QString("select * from %1").arg(tableName);
-    query.exec(strr);
+    QString strSelect =QString("select * from %1").arg(tableName);
+    query.exec(strSelect);
     QStringList list;
-    QSqlRecord rec = query.record();
+    QSqlRecord recrecord = query.record();
     QString str;
     while (query.next())
     {
-        for(int index = 0;index < rec.count();index++)
+        for(int index = 0;index < recrecord.count();index++)
         {
             str = str + query.value(index).toString() + ",";
         }
@@ -244,7 +243,7 @@ QStringList database::tableShow(QString tableName)      //Return database table 
     return list;
 }
 
-void database::tableDebug(QString tableName)      //qDebug the database table data
+void database::tableDebug(QString tableName)      // Output the database table data
 {
     QSqlQuery query;
     QString str = QString("select * from %1").arg(tableName);

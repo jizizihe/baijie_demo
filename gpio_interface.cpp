@@ -278,7 +278,6 @@ int getGpioState(unsigned int gpio)
     fd = open(buf, O_RDONLY);
     if(fd < 0)
     {
-        //printf("gpio%d get direction failed!\n", gpio);
         return -1;
     }
     read(fd, &temp, 1);
@@ -343,11 +342,10 @@ int getOccupieGpio(int *saveGpio, int nLine)
     return 0;
 }
 
-
 static int get_file_linenum(char * filename)
 {
-    int pfile = open(filename, O_CREAT | O_RDONLY, 0666);
-    if (-1 == pfile)
+    int pordFile = open(filename, O_CREAT | O_RDONLY, 0666);
+    if (-1 == pordFile)
     {
         return -1;
     }
@@ -355,7 +353,7 @@ static int get_file_linenum(char * filename)
     int i =0;
     int num = 0;
     int iRet = -1;
-    while((iRet = read(pfile, buf, MAX_BUF)) > 0)
+    while((iRet = read(pordFile, buf, MAX_BUF)) > 0)
     {
         for(i=0;i<MAX_BUF;i++)
         {
@@ -366,8 +364,7 @@ static int get_file_linenum(char * filename)
         }
         memset(buf,0,MAX_BUF);
     }
-    //    printf("%d\n",num);
-    close(pfile);
+    close(pordFile);
     return num;
 }
 
@@ -390,42 +387,42 @@ static int judge(int *a, int i)
 
 static int CompactIntegers(int *a, int len)
 {
-    int tempin, temp, newlen = 0;
+    int tempIn, temp, newLength = 0;
     for (int i = 0; i < len; i++)
     {
         if (a[i] == 0)
         {
-            tempin = judge(a, i);
-            newlen=i;
-            if (tempin == -1)
+            tempIn = judge(a, i);
+            newLength = i;
+            if (tempIn == -1)
                 break;
             temp = a[i];
-            a[i] = a[tempin];
-            a[tempin] = temp;
+            a[i] = a[tempIn];
+            a[tempIn] = temp;
 
         }
     }
-    return newlen;
+    return newLength  ;
 }
 
 OccupiedGpioStr getDebugGpio()
 {
     struct OccupiedGpioStr occupiedGpio;
-    int i,linenum;
-    char *gpiopath = (char *)"/sys/kernel/debug/gpio";
+    int i,lineNum;
+    char *gpioPath = (char *)"/sys/kernel/debug/gpio";
 
     memset(occupiedGpio.gpio,0,MAX_BUF);
-    linenum = get_file_linenum(gpiopath);
+    lineNum = get_file_linenum(gpioPath);
 
-    for(i = 0;i < linenum;i++)
+    for(i = 0;i < lineNum;i++)
     {
         if(getOccupieGpio(occupiedGpio.gpio+i,i) == -1)
         {
-            //            printf("get_occupied_gpio failed\n");
+              printf("get_occupied_gpio failed\n");
         }
     }
-    occupiedGpio.len = CompactIntegers(occupiedGpio.gpio,i-1);
-    for(i = 0;i < occupiedGpio.len;i++)
+    occupiedGpio.bufLength = CompactIntegers(occupiedGpio.gpio,i-1);
+    for(i = 0;i < occupiedGpio.bufLength;i++)
     {
         calcPortStr(occupiedGpio.gpio[i],occupiedGpio.portNum[i]);
     }

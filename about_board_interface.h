@@ -4,7 +4,6 @@
 #define BATTERY_PATH "/sys/class/power_supply/axp803-battery"
 #define CPU_PATH "/sys/class/thermal/thermal_zone0"
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>

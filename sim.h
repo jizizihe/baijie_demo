@@ -43,7 +43,7 @@ private slots:
 private:
     Ui::sim_module *ui;
     QLabel *g_loadLabel;
-    QMovie *g_pMovie;
+    QMovie *g_loadMovie;
     QThread * g_myThread;
     sim_thread * g_SimThread;
     QTimer *g_timer;
